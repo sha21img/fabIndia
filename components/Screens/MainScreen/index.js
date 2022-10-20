@@ -52,7 +52,7 @@ export default function MainScreen() {
             <Entypo
               name="home"
               size={25}
-              color={focused ? colors.primarycolor : colors.inactiveicon}
+              color={focused ? colors.primarycolor : colors.secondarycolor}
             />
             // </TouchableOpacity>
           ),
@@ -68,7 +68,7 @@ export default function MainScreen() {
           tabBarIcon: ({focused}) => (
             <SimpleLineIcons
               name="menu"
-              color={focused ? colors.primarycolor : colors.inactiveicon}
+              color={focused ? colors.primarycolor : colors.secondarycolor}
               size={25}
             />
           ),
@@ -84,7 +84,7 @@ export default function MainScreen() {
           tabBarIcon: ({focused}) => (
             <Ionicons
               name="ios-search-outline"
-              color={focused ? colors.primarycolor : colors.inactiveicon}
+              color={focused ? colors.primarycolor : colors.secondarycolor}
               size={25}
             />
           ),
@@ -100,7 +100,7 @@ export default function MainScreen() {
           tabBarIcon: ({focused}) => (
             <MaterialCommunityIcons
               name="account-outline"
-              color={focused ? colors.primarycolor : colors.inactiveicon}
+              color={focused ? colors.primarycolor : colors.secondarycolor}
               size={25}
             />
           ),

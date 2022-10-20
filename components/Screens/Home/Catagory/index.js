@@ -1,19 +1,20 @@
 import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
 import {Styles} from './styles';
+import {colors} from '../../../../assets/Colors';
 
 const data = [
-  {title: 'Women', color: 'brown'},
-  {title: 'Men', color: 'brown'},
-  {title: 'Kids', color: 'brown'},
-  {title: 'Home Linen', color: 'brown'},
-  {title: 'Furniture', color: 'brown'},
-  {title: 'Home Decor', color: 'brown'},
-  {title: 'Beauty', color: 'brown'},
-  {title: 'Food', color: 'brown'},
-  {title: 'INTERIOR DESIGN Studio', color: 'yellow'},
-  {title: 'Add a Monogram', color: 'yellow'},
-  {title: 'Customize', color: 'yellow'},
+  {title: 'Women', color: colors.primarycolor},
+  {title: 'Men', color: colors.primarycolor},
+  {title: 'Kids', color: colors.primarycolor},
+  {title: 'Home Linen', color: colors.primarycolor},
+  {title: 'Furniture', color: colors.primarycolor},
+  {title: 'Home Decor', color: colors.primarycolor},
+  {title: 'Beauty', color: colors.primarycolor},
+  {title: 'Food', color: colors.primarycolor},
+  {title: 'INTERIOR DESIGN Studio', color: '#D7AF49'},
+  {title: 'Add a Monogram', color: '#D7AF49'},
+  {title: 'Customize', color: '#D7AF49'},
 ];
 
 export default function Catagory() {
