@@ -2,6 +2,7 @@ import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
 import Header from './Header';
 import Catagory from './Catagory';
+import NewHighlights from '../../Common/NewHighlights';
 // import SkeletonContent from 'react-native-skeleton-content';
 
 export default function Dashbord() {
@@ -17,9 +18,10 @@ export default function Dashbord() {
         <Text>Your content</Text>
         <Text>Other content</Text>
       </SkeletonContent> */}
-    <ScrollView>
-        <Header />
+      <ScrollView>
+        {/* <Header /> */}
         <Catagory />
+        <NewHighlights />
       </ScrollView>
     </>
   );

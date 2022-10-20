@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 export const Styles = StyleSheet.create({
   container: {
-    backgroundColor: 'green',
+    backgroundColor: 'transparent',
     padding: 15,
   },
   catagory: {
