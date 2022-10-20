@@ -5,17 +5,11 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {colors} from './assets/Colors';
+import {colors} from '../../../assets/Colors';
 import Carousel from 'react-native-reanimated-carousel';
+import Home from '../Home';
 
 const Tab = createBottomTabNavigator();
-const Home = () => {
-  return (
-    <Text style={{fontFamily: 'Assistant-SemiBold', color: 'black'}}>
-      HHHHHHHHHHHHHHHHHHomomome
-    </Text>
-  );
-};
 const Menu = () => {
   return <Text>km.jhjghfg</Text>;
 };
