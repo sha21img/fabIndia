@@ -1,4 +1,5 @@
-export const colors = {
+export const Colors = {
   primarycolor: '#903233',
-  secondarycolor: '#979797',
+  inactiveicon: '#979797',
+  textcolor: '#4A4A4A',
 };
