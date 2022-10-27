@@ -9,14 +9,13 @@ import {Colors} from '../../../assets/Colors';
 import Carousel from 'react-native-reanimated-carousel';
 import Home from '../Home';
 import Menu from '../Menu';
+import MyAccount from '../MyAccount';
 const Tab = createBottomTabNavigator();
 
 const Search = () => {
   return <Text>jiukyjh</Text>;
 };
-const Account = () => {
-  return <Text>jiukyjh</Text>;
-};
+
 
 export default function MainScreen() {
   return (
@@ -91,11 +90,10 @@ export default function MainScreen() {
       />
       <Tab.Screen
         name="Account"
-        component={Account}
+        component={MyAccount}
         options={{
           tabBarLabel: 'Account',
           tabBarActiveTintColor: Colors.primarycolor,
-
           tabBarIcon: ({focused}) => (
             <MaterialCommunityIcons
               name="account-outline"
@@ -103,6 +101,7 @@ export default function MainScreen() {
               size={25}
             />
           ),
+          headerShown:false
         }}
       />
     </Tab.Navigator>
