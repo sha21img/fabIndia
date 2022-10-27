@@ -1,19 +1,7 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  LayoutAnimation,
-  Animated,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
-import React, {useState} from 'react';
-import Fonts from '../../../assets/fonts';
-import {Colors} from '../../../assets/Colors';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {View, Text, ScrollView, FlatList} from 'react-native';
+import React from 'react';
 import {Styles} from './styles';
-import Accordian from './Accordian';
+import Accordian from '../../Common/Accordian';
 const data = [
   {
     id: 0,
