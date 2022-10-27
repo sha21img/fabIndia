@@ -9,11 +9,9 @@ import {Colors} from '../../../assets/Colors';
 import Carousel from 'react-native-reanimated-carousel';
 import Home from '../Home';
 import Menu from '../Menu';
+import Search from '../Search';
 const Tab = createBottomTabNavigator();
 
-const Search = () => {
-  return <Text>jiukyjh</Text>;
-};
 const Account = () => {
   return <Text>jiukyjh</Text>;
 };
@@ -33,7 +31,7 @@ export default function MainScreen() {
           paddingBottom: 10,
         },
 
-        // headerShow: true,
+        headerShown: false,
         // header: p => <Header />,
         // tabBarLabel: () => {
         //   return null;

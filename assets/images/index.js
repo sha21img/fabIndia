@@ -1,3 +1,4 @@
 export const image = {
-    womenCard: require('./womenCard.png'),
+  womenCard: require('./womenCard.png'),
+  card: require('./card.png'),
 };
