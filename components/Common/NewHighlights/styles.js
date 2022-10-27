@@ -28,7 +28,6 @@ export const Styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 24,
   },
-  ScrollView: {},
   imageBox: {
     padding: 5,
   },
