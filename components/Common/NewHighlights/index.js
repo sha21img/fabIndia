@@ -3,12 +3,12 @@ import React from 'react';
 import {Styles} from './styles';
 import {image} from '../../../assets/images';
 
-export default function NewHighlights() {
-  const imageCard = [0, 0, 0, 0].map(() => {
+export default function NewHighlights({title = '', data = []}) {
+  const imageCard = data.map(item => {
     return (
       <>
-        <View style={Styles.imageBox}>
-          <Image style={Styles.image} source={image.womenCard} />
+        <View key={Math.random()} style={Styles.imageBox}>
+          <Image style={item.image} source={image.womenCard} />
           <Text
             style={{
               color: '#4A4A4A',
@@ -16,7 +16,7 @@ export default function NewHighlights() {
               fontSize: 16,
               paddingVertical: 5,
             }}>
-            Saris
+            {item.title}
           </Text>
         </View>
       </>
@@ -26,7 +26,7 @@ export default function NewHighlights() {
     <View style={Styles.container}>
       <View style={Styles.textBox}>
         <Text style={Styles.newText}>New in</Text>
-        <Text style={Styles.title}>WOMEN</Text>
+        <Text style={Styles.title}>{title}</Text>
       </View>
       <View style={Styles.imageContainer}>
         <ScrollView
