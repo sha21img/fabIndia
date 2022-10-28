@@ -10,6 +10,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import Home from '../Home';
 import Menu from '../Menu';
 import Search from '../Search';
+import HomeStack from '../HomeStack';
 
 import MyAccount from '../MyAccount';
 const Tab = createBottomTabNavigator();
@@ -17,7 +18,7 @@ const Tab = createBottomTabNavigator();
 export default function MainScreen() {
   return (
     <Tab.Navigator
-      initialRouteName="Menu"
+      initialRouteName="HomeStack"
       screenOptions={{
         tabBarStyle: {
           height: 70,
@@ -30,14 +31,16 @@ export default function MainScreen() {
         },
 
         headerShown: false,
+        tabBarHideOnKeyboard: true,
+
         // header: p => <Header />,
         // tabBarLabel: () => {
         //   return null;
         // },
       }}>
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="HomeStack"
+        component={HomeStack}
         options={{
           tabBarLabel: 'Home',
           tabBarActiveTintColor: Colors.primarycolor,
