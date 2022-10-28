@@ -1,28 +1,32 @@
-import {View, Text, Dimensions, ImageBackground} from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  ImageBackground,
+  TouchableOpacity,
+  Button,
+} from 'react-native';
 import React from 'react';
 import {image} from '../../../../assets/images';
+import {Styles} from './styles';
 const width = Dimensions.get('window').width;
 
 export default function Interior() {
   return (
     <ImageBackground
       resizeMode="cover"
-      style={{
-        width: '100%',
-        height: width / 1.3,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
+      style={Styles.imagebg}
       source={image.interiorBackground}>
-      <View style={{backgroundColor: '#288196', padding: 15, width: '60%'}}>
-        <Text style={{fontSize: 18, fontWeight: '400'}}>
-          Build your sanctuary
-        </Text>
+      <View style={Styles.thoughtBox}>
+        <Text style={Styles.thoughtText}>Build your sanctuary</Text>
       </View>
-      <View style={{backgroundColor: '#68523E', padding: 15, width: '60%'}}>
-        <Text style={{fontSize: 18, fontWeight: '400'}}>INTERIOR DESIGN</Text>
-        <Text style={{fontSize: 18, fontWeight: '400'}}>Solutions</Text>
+      <View style={Styles.headingBox}>
+        <Text style={Styles.headingText}>INTERIOR DESIGN</Text>
+        <Text style={Styles.headingText}>Solutions</Text>
       </View>
+      <TouchableOpacity style={Styles.buttonBox}>
+        <Text style={Styles.buttonText}>Get in touch with us</Text>
+      </TouchableOpacity>
     </ImageBackground>
   );
 }

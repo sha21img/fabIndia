@@ -1,22 +1,20 @@
-export const dataTab = [
-  'Home',
-  'Settings',
-  'asdfadsfasdasdasdasd',
-  //   'Hme',
-  //   'Settigs',
-  //   'Setigs',
-  //   'Seigs',
-  //   'Setgs',
-  //   'Sttigs',
+export const WomenTabdata = [
+  'Saris',
+  'Tunics',
+  'Kurtas',
+  'Dresses',
+  'TopsShirts',
+  'Pants',
 ];
 
-export const dataTab1 = [
-  'Settings',
-  'Home',
-  //   'Hme',
-  //   'Settigs',
-  //   'Setigs',
-  //   'Seigs',
-  //   'Setgs',
-  //   'Sttigs',
+export const MenTabdata = [
+  'Shirts',
+  'Kurtas',
+  'FaceMasks',
+  'NehruJacketsBlazers',
+  'Pants',
 ];
+
+export const OfferTabData = ['Women', 'Men', 'Kids', 'HomeLinen', 'HomeDecor'];
+
+export const HomeTabdata = ['HomeLinen', 'Furniture', 'HomeDecor'];

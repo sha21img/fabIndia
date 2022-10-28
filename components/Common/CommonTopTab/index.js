@@ -10,7 +10,6 @@ export default function CommonTopTab({data = []}) {
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
-      
         screenOptions={{
           tabBarActiveTintColor: Colors.primarycolor,
           tabBarInactiveTintColor: Colors.textcolor,
@@ -27,6 +26,7 @@ export default function CommonTopTab({data = []}) {
           tabBarStyle: {
             height: 40,
             backgroundColor: Colors.backgroundColor,
+            shadowColor: 'white',
           },
         }}>
         {data?.map(item => {
