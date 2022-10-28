@@ -6,7 +6,7 @@ export default function Chip({title = '', handleClick = null, active = null}) {
   return (
     <>
       <TouchableOpacity
-        onPress={() => handleClick()}
+        onPress={() => handleClick(title)}
         style={title == active ? Styles.chipBoxActive : Styles.chipBoxInactive}>
         <Text
           style={

@@ -26,4 +26,5 @@ export const image = {
   DelAccount: require('./DelAccount.png'),
   rightArrow: require('./rightArrow.png'),
   cart: require('./cart.png'),
+  singleproduct: require('./singleproduct.png'),
 };
