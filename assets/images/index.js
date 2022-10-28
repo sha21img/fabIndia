@@ -22,4 +22,5 @@ export const image = {
   UnSubscribe: require('./UnSubscribe.png'),
   DelAccount: require('./DelAccount.png'),
   rightArrow: require('./rightArrow.png'),
+  cart: require('./cart.png'),
 };
