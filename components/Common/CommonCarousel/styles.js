@@ -8,7 +8,7 @@ export const Styles = StyleSheet.create({
     height: width / 1.07,
     resizeMode: 'cover',
     alignSelf: 'center',
-    marginVertical: 20,
+    marginVertical: 10,
     padding: 20,
   },
   exploreNowBox: {

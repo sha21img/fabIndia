@@ -25,7 +25,6 @@ export default function Card({customViewStyle = {}, item}) {
             paddingBottom: 20,
           }}>
           <Text
-            // numberOfLines={numberOfLines}
             style={{
               fontSize: 16,
               fontWeight: '400',
@@ -42,17 +41,6 @@ export default function Card({customViewStyle = {}, item}) {
               alignItems: 'center',
               paddingVertical: 10,
             }}>
-            {/* {lefttxt ? (
-              <Text
-                style={{
-                  paddingRight: 10,
-                  fontWeight: '400',
-                  fontSize: 14,
-                  color: '#4A4A4A',
-                }}>
-                {lefttxt}
-              </Text>
-            ) : null} */}
             <Text
               style={{
                 paddingRight: 10,
