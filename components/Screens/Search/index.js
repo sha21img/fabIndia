@@ -17,27 +17,19 @@ import Card from '../../Common/Card';
 import TrendingNow from './TrendingNow';
 import SearchResult from './SearchResult';
 import {Styles} from './styles';
+import Tags from './Tags';
+import SingleProduct from './SingleProduct';
 const data = [
   {name: 'Cotton sari'},
   {name: 'Bedsheets'},
   {name: 'Oxidised jewellery'},
   {name: 'Dining table'},
 ];
-const data1 = [
-  {name: 'Men’s Kurta'},
-  {name: 'Shirts'},
-  {name: 'Kidswear'},
-  {name: 'Bed Linen'},
-  {name: 'Cushion covers'},
-  {name: 'Pillow'},
-  {name: 'Chairs'},
-  {name: 'Study table'},
-  {name: 'Curtains'},
-];
-const data2 = [0, 1, 2];
+
 export default function Search() {
   return (
     <>
+      {/* <SingleProduct /> */}
       <View style={Styles.headercontainer}>
         <View style={Styles.leftarrowbox}>
           <SimpleLineIcons
@@ -67,7 +59,7 @@ export default function Search() {
         {data.map((item, index) => {
           return (
             <View
-              key={index}
+              key={Math.random() * 1000}
               style={[
                 Styles.searchlistbox,
                 {
@@ -81,15 +73,7 @@ export default function Search() {
         })}
         <Text style={Styles.discovertxt}>Discover more</Text>
         <View style={Styles.chipcontainer}>
-          {data1.map((item, index) => {
-            return (
-              <>
-                <View key={index} style={Styles.chipbox}>
-                  <Text style={Styles.chiptxt}>{item.name}</Text>
-                </View>
-              </>
-            );
-          })}
+          <Tags />
         </View>
         <TrendingNow />
       </ScrollView>

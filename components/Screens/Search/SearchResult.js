@@ -21,7 +21,11 @@ export default function SearchResult() {
       </View>
       <ScrollView contentContainerStyle={Styles.cardcontainer}>
         {[0, 1, 3, 4, 5, 6].map(item => (
-          <Card1 item={item} customViewStyle={{width: '48%', marginTop: 10}} />
+          <Card1
+            item={item}
+            customViewStyle={{width: '48%', marginTop: 10}}
+            key={Math.random(100)}
+          />
         ))}
       </ScrollView>
     </>
