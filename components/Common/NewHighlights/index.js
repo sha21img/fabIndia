@@ -8,7 +8,7 @@ export default function NewHighlights({title = '', data = []}) {
     return (
       <>
         <View key={Math.random()} style={Styles.imageBox}>
-          <Image style={item.image} source={image.womenCard} />
+          <Image style={Styles.image} source={item.image} />
           <Text
             style={{
               color: '#4A4A4A',
