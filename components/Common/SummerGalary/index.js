@@ -12,6 +12,7 @@ export default function SummerGalary({
   subtitles = '',
   customViewStyle = {},
   backgroundColor = '',
+  shadowColor = '',
 }) {
   const cards = data.map((item, index) => {
     return (
@@ -38,17 +39,10 @@ export default function SummerGalary({
         {height: 758, backgroundColor: Colors.backgroundColor},
         customViewStyle,
       ]}>
-      <View
-        style={[
-          Styles.Container,
-          {backgroundColor: backgroundColor},
-        ]}>
+      <View style={[Styles.Container, {backgroundColor: backgroundColor}]}>
         {title}
 
-        <Text
-          style={Styles.ContainerHeader}>
-          {subtitles}
-        </Text>
+        <Text style={Styles.ContainerHeader}>{subtitles}</Text>
 
         <View style={{position: 'absolute', top: 100}}>
           <ScrollView

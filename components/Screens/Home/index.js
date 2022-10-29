@@ -127,7 +127,7 @@ export default function Dashbord() {
     Tunics: HomeScreen,
     Kurtas: HomeScreen,
     Dresses: HomeScreen,
-    TopsShirts: HomeScreen,
+    'Tops Shirts': HomeScreen,
     Pants: HomeScreen,
   };
   const dataMap = WomenTabdata.map(item => ({
@@ -176,7 +176,7 @@ export default function Dashbord() {
     <>
       <ScrollView
         contentContainerStyle={{
-          backgroundColor: '#E5E5E5',
+          backgroundColor: Colors.backgroundColor,
           flexGrow: 1,
         }}>
         {/* <Header /> */}
