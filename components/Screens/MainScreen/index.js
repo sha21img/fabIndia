@@ -10,8 +10,9 @@ import Carousel from 'react-native-reanimated-carousel';
 import Home from '../Home';
 import Menu from '../Menu';
 import Search from '../Search';
-
 import MyAccount from '../MyAccount';
+import WomenCategory from '../Home/WomenCategory';
+
 const Tab = createBottomTabNavigator();
 
 export default function MainScreen() {
@@ -37,7 +38,7 @@ export default function MainScreen() {
       }}>
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={WomenCategory}
         options={{
           tabBarLabel: 'Home',
           tabBarActiveTintColor: Colors.primarycolor,

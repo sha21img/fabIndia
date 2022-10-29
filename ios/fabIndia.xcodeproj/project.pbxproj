@@ -14,15 +14,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-fabIndia-fabIndiaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-fabIndia-fabIndiaTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		6B333FC42F0745F48BB4BAEE /* Assistant-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1CDA9127E524E4F8142F756 /* Assistant-Bold.ttf */; };
-		21F224549E61486BAFABAC6D /* Assistant-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 218B90BBC80E48539021B082 /* Assistant-ExtraBold.ttf */; };
-		B542BE00BA8847B19CC9EF8D /* Assistant-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95F03AFAE46D41549D55B2D9 /* Assistant-ExtraLight.ttf */; };
-		CA4CE553BFA840E892BA9181 /* Assistant-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8A92AF07FDB4FF082074F99 /* Assistant-Light.ttf */; };
-		DBD566C2C0D64EBBAEF39434 /* Assistant-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AE5F3C8207A4DEA85A62DEF /* Assistant-Medium.ttf */; };
-		BB33760D3F2645CBA22CDC1A /* Assistant-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 818192B8B7994C58BE81E6D8 /* Assistant-Regular.ttf */; };
-		9450BBADFBCB4B098AD7B7D6 /* Assistant-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E8A661272354AAA81A45876 /* Assistant-SemiBold.ttf */; };
-		DD508120FF204B969640BBBD /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD104DC633DE446F81C24C47 /* Nunito-Bold.ttf */; };
-		081FCC17C0484E26B3AB9717 /* index.js in Resources */ = {isa = PBXBuildFile; fileRef = 25B30C728ACF4D9CA72A529E /* index.js */; };
+		294851374E85477AB34CF96F /* index.js in Resources */ = {isa = PBXBuildFile; fileRef = 4665957C967944098A8BC3B6 /* index.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,15 +45,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = fabIndia/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-fabIndia-fabIndiaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fabIndia-fabIndiaTests.release.xcconfig"; path = "Target Support Files/Pods-fabIndia-fabIndiaTests/Pods-fabIndia-fabIndiaTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F1CDA9127E524E4F8142F756 /* Assistant-Bold.ttf */ = {isa = PBXFileReference; name = "Assistant-Bold.ttf"; path = "../assets/fonts/Assistant-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		218B90BBC80E48539021B082 /* Assistant-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Assistant-ExtraBold.ttf"; path = "../assets/fonts/Assistant-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		95F03AFAE46D41549D55B2D9 /* Assistant-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Assistant-ExtraLight.ttf"; path = "../assets/fonts/Assistant-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B8A92AF07FDB4FF082074F99 /* Assistant-Light.ttf */ = {isa = PBXFileReference; name = "Assistant-Light.ttf"; path = "../assets/fonts/Assistant-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3AE5F3C8207A4DEA85A62DEF /* Assistant-Medium.ttf */ = {isa = PBXFileReference; name = "Assistant-Medium.ttf"; path = "../assets/fonts/Assistant-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		818192B8B7994C58BE81E6D8 /* Assistant-Regular.ttf */ = {isa = PBXFileReference; name = "Assistant-Regular.ttf"; path = "../assets/fonts/Assistant-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6E8A661272354AAA81A45876 /* Assistant-SemiBold.ttf */ = {isa = PBXFileReference; name = "Assistant-SemiBold.ttf"; path = "../assets/fonts/Assistant-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CD104DC633DE446F81C24C47 /* Nunito-Bold.ttf */ = {isa = PBXFileReference; name = "Nunito-Bold.ttf"; path = "../assets/fonts/Nunito-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		25B30C728ACF4D9CA72A529E /* index.js */ = {isa = PBXFileReference; name = "index.js"; path = "../assets/fonts/index.js"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4665957C967944098A8BC3B6 /* index.js */ = {isa = PBXFileReference; name = "index.js"; path = "../assets/fonts/index.js"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,15 +154,7 @@
 		D589F293453A48EBB297AEE7 /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
-				F1CDA9127E524E4F8142F756 /* Assistant-Bold.ttf */,
-				218B90BBC80E48539021B082 /* Assistant-ExtraBold.ttf */,
-				95F03AFAE46D41549D55B2D9 /* Assistant-ExtraLight.ttf */,
-				B8A92AF07FDB4FF082074F99 /* Assistant-Light.ttf */,
-				3AE5F3C8207A4DEA85A62DEF /* Assistant-Medium.ttf */,
-				818192B8B7994C58BE81E6D8 /* Assistant-Regular.ttf */,
-				6E8A661272354AAA81A45876 /* Assistant-SemiBold.ttf */,
-				CD104DC633DE446F81C24C47 /* Nunito-Bold.ttf */,
-				25B30C728ACF4D9CA72A529E /* index.js */,
+				4665957C967944098A8BC3B6 /* index.js */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -280,15 +256,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				6B333FC42F0745F48BB4BAEE /* Assistant-Bold.ttf in Resources */,
-				21F224549E61486BAFABAC6D /* Assistant-ExtraBold.ttf in Resources */,
-				B542BE00BA8847B19CC9EF8D /* Assistant-ExtraLight.ttf in Resources */,
-				CA4CE553BFA840E892BA9181 /* Assistant-Light.ttf in Resources */,
-				DBD566C2C0D64EBBAEF39434 /* Assistant-Medium.ttf in Resources */,
-				BB33760D3F2645CBA22CDC1A /* Assistant-Regular.ttf in Resources */,
-				9450BBADFBCB4B098AD7B7D6 /* Assistant-SemiBold.ttf in Resources */,
-				DD508120FF204B969640BBBD /* Nunito-Bold.ttf in Resources */,
-				081FCC17C0484E26B3AB9717 /* index.js in Resources */,
+				294851374E85477AB34CF96F /* index.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
