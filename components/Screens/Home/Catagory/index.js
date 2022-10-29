@@ -1,8 +1,7 @@
 import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
 import {Styles} from './styles';
-import {colors} from '../../../../assets/Colors';
-import { Colors } from '../../../../assets/Colors';
+import {Colors} from '../../../../assets/Colors';
 
 const data = [
   {title: 'Women', color: Colors.primarycolor},
@@ -27,11 +26,18 @@ export default function Catagory() {
     );
   });
   return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={Styles.container}>
-      {catagory}
-    </ScrollView>
+    <View
+      style={{
+        position: 'absolute',
+        top: -60,
+        zIndex: 10,
+      }}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={Styles.container}>
+        {catagory}
+      </ScrollView>
+    </View>
   );
 }
