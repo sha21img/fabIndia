@@ -3,9 +3,9 @@ import React from 'react';
 import Fonts from '../../../assets/fonts';
 import {image} from '../../../assets/images';
 
-export default function Card({customViewStyle = {}, item}) {
+export default function Card1({customViewStyle = {}, item}) {
   const defaultViewCustomStyles = {
-    width: 242,
+    width: '48%',
     elevation: 1,
     backgroundColor: '#FFFFFF',
   };
@@ -15,7 +15,7 @@ export default function Card({customViewStyle = {}, item}) {
       <View style={[defaultViewCustomStyles, customViewStyle]}>
         <Image
           source={image.card}
-          style={{height: 308, width: 242}}
+          style={{height: 212, width: '100%'}}
           resizeMode="cover"
         />
         <View
@@ -25,6 +25,7 @@ export default function Card({customViewStyle = {}, item}) {
             paddingBottom: 20,
           }}>
           <Text
+            numberOfLines={1}
             style={{
               fontSize: 16,
               fontWeight: '400',
@@ -41,32 +42,52 @@ export default function Card({customViewStyle = {}, item}) {
               alignItems: 'center',
               paddingVertical: 10,
             }}>
+            {/* {lefttxt ? (
+              <Text
+                style={{
+                  paddingRight: 10,
+                  fontWeight: '400',
+                  fontSize: 14,
+                  color: '#4A4A4A',
+                }}>
+                {lefttxt}
+              </Text>
+            ) : null} */}
             <Text
               style={{
-                paddingRight: 10,
+                paddingRight: 5,
                 fontWeight: '400',
-                fontSize: 16,
+                fontSize: 14,
                 color: '#4A4A4A',
-                fontFamily: Fonts.RupeeForadian,
+              }}>
+              M.R.P.
+            </Text>
+            <Text
+              style={{
+                paddingRight: 5,
+                fontWeight: '400',
+                fontSize: 13,
+                color: '#4A4A4A',
               }}>
               ₹ 800
             </Text>
             <Text
               style={{
-                paddingRight: 10,
+                paddingRight: 5,
                 textDecorationLine: 'line-through',
                 color: '#979797',
-                fontSize: 14,
+                fontSize: 12,
+                fontWeight: '700',
               }}>
               ₹ 1,000
             </Text>
             <Text
               style={{
-                paddingRight: 10,
+                paddingRight: 5,
                 fontFamily: Fonts.AssistantRegular,
                 color: '#96AD66',
                 fontWeight: '700',
-                fontSize: 16,
+                fontSize: 12,
               }}>
               20% off
             </Text>
