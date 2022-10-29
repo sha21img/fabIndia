@@ -1,14 +1,15 @@
 import react from 'react';
 import {Image, ImageBackground, ScrollView, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Colors } from '../../../assets/Colors';
+import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
 
 export default function SummerGalary({
-  custumStyles = {},
   data = [],
-  title = '',
+  title = null,
   subtitles = '',
+  customViewStyle = {},
+  backgroundColor = '',
 }) {
   const cards = data.map((item, index) => {
     return (
@@ -18,7 +19,6 @@ export default function SummerGalary({
         style={{
           height: 297,
           width: 258,
-
           zIndex: 100,
           marginLeft: 15,
           elevation: 4,
@@ -51,38 +51,33 @@ export default function SummerGalary({
     );
   });
   return (
-    <View style={{height: 758, backgroundColor:Colors.backgroundColor}}>
+    <View
+      style={[
+        {height: 758, backgroundColor: Colors.backgroundColor},
+        customViewStyle,
+      ]}>
       <View
         style={[
           {
-            backgroundColor: '#EFE5E0',
+            backgroundColor: backgroundColor,
             paddingTop: 48,
             height: 648,
             position: 'relative',
           },
-          custumStyles,
         ]}>
+        {title}
+
         <Text
           style={{
-            fontFamily: 'PlayfairDisplay-Italic',
+            fontSize: 18,
             color: '#4A4A4A',
-            fontSize: 30,
+            lineHeight: 23,
             marginHorizontal: 20,
           }}>
-          {title}
+          {subtitles}
         </Text>
-        <View>
-          <Text
-            style={{
-              fontSize: 18,
-              color: '#4A4A4A',
-              lineHeight: 23,
-              marginHorizontal: 20,
-            }}>
-            {subtitles}
-          </Text>
-        </View>
-        <View style={{position: 'absolute', top:100}}>
+
+        <View style={{position: 'absolute', top: 100}}>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
