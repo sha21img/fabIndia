@@ -425,7 +425,6 @@ export default function Dashbord() {
           source={image.Banner2}>
           <Catagory />
         </ImageBackground>
-
         <NewHighlights
           heading="New in"
           title="Women"
