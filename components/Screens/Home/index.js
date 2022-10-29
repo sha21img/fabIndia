@@ -346,12 +346,12 @@ export default function Dashbord() {
   const [active, setActive] = React.useState('Bestsellers');
   // Tab 1
   const screenObj = {
-    Saris: HomeScreen,
-    Tunics: HomeScreen,
-    Kurtas: HomeScreen,
-    Dresses: HomeScreen,
-    'Tops Shirts': HomeScreen,
-    Pants: HomeScreen,
+    Saris: CardCompo,
+    Tunics: CardCompo,
+    Kurtas: CardCompo,
+    Dresses: CardCompo,
+    'Tops Shirts': CardCompo,
+    Pants: CardCompo,
   };
   const dataMap = WomenTabdata.map(item => ({
     name: item,
