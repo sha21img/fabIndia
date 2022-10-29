@@ -31,3 +31,9 @@ export const MenTabdata = [
 export const OfferTabData = ['Women', 'Men', 'Kids', 'HomeLinen', 'HomeDecor'];
 
 export const HomeTabdata = ['HomeLinen', 'Furniture', 'HomeDecor'];
+export const LifeTabdata = [
+  'WeekendGetaway',
+  'Brunchdate',
+  'WorkfromHome',
+  'Pants',
+];
