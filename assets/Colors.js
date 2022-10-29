@@ -3,5 +3,5 @@ export const Colors = {
   inactiveicon: '#979797',
   textcolor: '#4A4A4A',
   inAactivecolor: '#F3ECE8',
-  backgroundColor:'#E5E5E5'
+  backgroundColor: '#ffffff',
 };
