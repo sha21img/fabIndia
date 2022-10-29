@@ -4,21 +4,15 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  Image,
 } from 'react-native';
 import React from 'react';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {Colors} from '../../../assets/Colors';
-import Fonts from '../../../assets/fonts';
-import {image} from '../../../assets/images';
-import Card from '../../Common/Card';
 import TrendingNow from './TrendingNow';
-import SearchResult from './SearchResult';
 import {Styles} from './styles';
 import Tags from './Tags';
-import SingleProduct from './SingleProduct';
 const data = [
   {name: 'Cotton sari'},
   {name: 'Bedsheets'},
@@ -29,7 +23,6 @@ const data = [
 export default function Search() {
   return (
     <>
-      {/* <SingleProduct /> */}
       <View style={Styles.headercontainer}>
         <View style={Styles.leftarrowbox}>
           <SimpleLineIcons
