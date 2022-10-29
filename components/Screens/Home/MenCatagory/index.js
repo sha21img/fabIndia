@@ -1,4 +1,11 @@
-import {View, Text, Image, ImageBackground, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  ImageBackground,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import {image} from '../../../../assets/images';
 import Fonts from '../../../../assets/fonts';
@@ -147,6 +154,7 @@ const MenCatagory = () => {
         {imageData.map((item, i) => {
           return (
             <ImageBackground
+              key={Math.random() * 6776}
               resizeMode="cover"
               style={Styles.backgroundimg}
               source={item.image}>
@@ -248,45 +256,69 @@ const MenCatagory = () => {
       <View style={Styles.commontab}>
         <CommonTopTab data={dataMap1} />
       </View>
-      <ImageBackground
-        source={image.customkurtas}
-        style={Styles.backgroundimage}>
-        <View style={Styles.customkurtabox}>
-          <Text style={Styles.customtxt}>CUSTOM</Text>
-          <Text style={Styles.kurtatxt}>KURTAS</Text>
-        </View>
-        <View
-          style={{
-            position: 'absolute',
-            bottom: 50,
-            backgroundColor: 'rgba(45, 53, 71, 0.8)',
-            paddingHorizontal: 30,
-            paddingVertical: 10,
-            width: '100%',
-          }}>
-          <Text
+      <View style={{marginVertical: 40}}>
+        <ImageBackground
+          source={image.customkurtas}
+          style={Styles.backgroundimage}>
+          <View style={Styles.customkurtabox}>
+            <Text style={Styles.customtxt}>CUSTOM</Text>
+            <Text style={Styles.kurtatxt}>KURTAS</Text>
+          </View>
+          <View
             style={{
-              color: '#FFFFFF',
-              fontWeight: '400',
-              fontSize: 16,
-              lineHeight: 21,
+              position: 'absolute',
+              bottom: 70,
+              backgroundColor: 'rgba(45, 53, 71, 0.8)',
+              paddingHorizontal: 30,
+              paddingVertical: 10,
+              width: '100%',
             }}>
-            Select your own material, length, collar, sleeves, pockets and
-            cuffs.
-          </Text>
-          <Text
+            <Text
+              style={{
+                color: '#FFFFFF',
+                fontWeight: '400',
+                fontSize: 16,
+                fontFamily: Fonts.AssistantRegular,
+                lineHeight: 21,
+              }}>
+              Select your own material, length, collar, sleeves, pockets and
+              cuffs.
+            </Text>
+            <Text
+              style={{
+                color: '#FFFFFF',
+                fontWeight: '400',
+                fontSize: 16,
+                lineHeight: 21,
+              }}>
+              Kurtas... any way you like them!
+            </Text>
+          </View>
+          <TouchableOpacity
             style={{
-              color: '#FFFFFF',
-              fontWeight: '400',
-              fontSize: 16,
-              lineHeight: 21,
+              position: 'absolute',
+              bottom: 20,
+              backgroundColor: '#FFFFFF',
+              paddingHorizontal: 10,
+              paddingVertical: 5,
+              marginHorizontal: 20,
+              borderRadius: 40,
+              alignSelf: 'flex-start',
             }}>
-            Kurtas... any way you like them!
-          </Text>
-        </View>
-      </ImageBackground>
+            <Text
+              style={{
+                color: Colors.primarycolor,
+                fontWeight: '400',
+                fontSize: 16,
+                lineHeight: 21,
+                fontFamily: Fonts.AssistantRegular,
+              }}>
+              Customize your own
+            </Text>
+          </TouchableOpacity>
+        </ImageBackground>
+      </View>
 
-      {/*  */}
       {/* <View style={{height: 500}}>
         <ScrollView
           horizontal

@@ -6,20 +6,18 @@ import {image} from '../../../assets/images';
 export default function NewHighlights({heading = '', title = '', data = []}) {
   const imageCard = data.map(item => {
     return (
-      <>
-        <View key={Math.random()} style={Styles.imageBox}>
-          <Image style={Styles.image} source={item.image} />
-          <Text
-            style={{
-              color: '#4A4A4A',
-              fontWeight: '400',
-              fontSize: 16,
-              paddingVertical: 5,
-            }}>
-            {item.title}
-          </Text>
-        </View>
-      </>
+      <View key={Math.random() * 987} style={Styles.imageBox}>
+        <Image style={Styles.image} source={item.image} />
+        <Text
+          style={{
+            color: '#4A4A4A',
+            fontWeight: '400',
+            fontSize: 16,
+            paddingVertical: 5,
+          }}>
+          {item.title}
+        </Text>
+      </View>
     );
   });
   const hasSpaces = str => {
