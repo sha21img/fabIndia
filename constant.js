@@ -3,8 +3,21 @@ export const WomenTabdata = [
   'Tunics',
   'Kurtas',
   'Dresses',
-  'TopsShirts',
+  'Tops Shirts',
   'Pants',
+];
+export const MenCatagoryTableData = [
+  'Ethnic Wear',
+  'Western Wear',
+  'Accessories',
+  'Footwear',
+  'Pants',
+];
+export const MenCatagoryData = [
+  'Kurtas',
+  'Shirts',
+  'Nehru Jackets & Blazers',
+  'Pyjamas',
 ];
 
 export const MenTabdata = [

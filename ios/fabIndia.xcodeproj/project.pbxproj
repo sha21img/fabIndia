@@ -14,6 +14,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-fabIndia-fabIndiaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-fabIndia-fabIndiaTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		294851374E85477AB34CF96F /* index.js in Resources */ = {isa = PBXBuildFile; fileRef = 4665957C967944098A8BC3B6 /* index.js */; };
 		A7E59C8D853B48A5819FD64D /* index.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C71E74CA7B34E21B5C935AA /* index.js */; };
 /* End PBXBuildFile section */
 
@@ -45,7 +46,11 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = fabIndia/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-fabIndia-fabIndiaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fabIndia-fabIndiaTests.release.xcconfig"; path = "Target Support Files/Pods-fabIndia-fabIndiaTests/Pods-fabIndia-fabIndiaTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+<<<<<<< HEAD
+		4665957C967944098A8BC3B6 /* index.js */ = {isa = PBXFileReference; name = "index.js"; path = "../assets/fonts/index.js"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+=======
 		4C71E74CA7B34E21B5C935AA /* index.js */ = {isa = PBXFileReference; name = "index.js"; path = "../assets/fonts/index.js"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+>>>>>>> 9acb6721faf6d2e5a18981850f0f08bcde48805a
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +159,11 @@
 		D589F293453A48EBB297AEE7 /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
+<<<<<<< HEAD
+				4665957C967944098A8BC3B6 /* index.js */,
+=======
 				4C71E74CA7B34E21B5C935AA /* index.js */,
+>>>>>>> 9acb6721faf6d2e5a18981850f0f08bcde48805a
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -256,7 +265,11 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+<<<<<<< HEAD
+				294851374E85477AB34CF96F /* index.js in Resources */,
+=======
 				A7E59C8D853B48A5819FD64D /* index.js in Resources */,
+>>>>>>> 9acb6721faf6d2e5a18981850f0f08bcde48805a
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

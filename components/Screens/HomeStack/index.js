@@ -8,8 +8,16 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {image} from '../../../assets/images';
+import MenCatagory from '../Home/MenCatagory';
+import WomenCategory from '../Home/WomenCategory';
 
 const Stack = createNativeStackNavigator();
+const leftIcon = (
+  <SimpleLineIcons name="arrow-left" color={Colors.primarycolor} size={20} />
+);
+const rightIcon = (
+  <AntDesign name="shoppingcart" color={Colors.primarycolor} size={20} />
+);
 
 export default function HomeStack() {
   return (
@@ -20,26 +28,48 @@ export default function HomeStack() {
         options={{headerShown: false}}
       />
       <Stack.Screen
+        name="WomenCategory"
+        component={WomenCategory}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Women"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
         name="SearchResult"
         component={SearchResult}
         options={{
           header: props => (
             <Header
-              leftIcon={
-                <SimpleLineIcons
-                  name="arrow-left"
-                  color={Colors.primarycolor}
-                  size={20}
-                />
-              }
+              leftIcon={leftIcon}
               title="Search results for ‘Cotton...’"
-              rightIcon={
-                <AntDesign
-                  name="shoppingcart"
-                  color={Colors.primarycolor}
-                  size={20}
-                />
-              }
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="MenCatagory"
+        component={MenCatagory}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Men"
+              rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
                 marginBottom: 4,
