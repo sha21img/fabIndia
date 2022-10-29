@@ -410,7 +410,7 @@ export default function Dashbord() {
     <>
       <ScrollView
         contentContainerStyle={{
-          backgroundColor: '#E5E5E5',
+          backgroundColor: Colors.backgroundColor,
           flexGrow: 1,
         }}>
         <ImageBackground

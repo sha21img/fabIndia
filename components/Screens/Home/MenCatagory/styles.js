@@ -55,5 +55,6 @@ export const Styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '400',
     fontFamily: Fonts.BarlowRegular,
+    letterSpacing: 7,
   },
 });

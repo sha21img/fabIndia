@@ -32,6 +32,7 @@ export default function CommonTopTab({data = []}) {
         {data?.map(item => {
           return (
             <Tab.Screen
+              key={Math.random() * 3456}
               name={item.name}
               options={{
                 tabBarItemStyle: {
