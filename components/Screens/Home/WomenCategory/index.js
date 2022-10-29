@@ -2,6 +2,7 @@ import React from 'react';
 import {View, ScrollView, Text, Dimensions} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import {image} from '../../../../assets/images';
+import CollectionCard from '../../../Common/CollectionCard';
 import LifeStyle from '../../../Common/LifeStyle';
 import OfferCard from '../../../Common/OfferCard';
 import StoriesCard from '../../../Common/StoriesCard';
@@ -59,6 +60,14 @@ const WomenCategory = () => {
     },
   ];
 
+  const collectionData = [
+    {
+      image:image.collectionPic,
+      heading:'',
+      text:'' 
+    }
+  ]
+
   return (
     <ScrollView>
       {/* ===============Offer carousole======== */}
@@ -81,6 +90,7 @@ const WomenCategory = () => {
           }}>
           {OfferData.map((item, index) => (
             <Text
+            key={Math.random() * 988999}
               style={
                 imgActive1 == index
                   ? {
@@ -111,6 +121,8 @@ const WomenCategory = () => {
         title="Lifestyle 360"
         subtitles="Combos that’ll keep you feeling fab!"
       />
+      {/* ================Collection ======== */}
+      <CollectionCard item={collectionData} />
     </ScrollView>
   );
 };
