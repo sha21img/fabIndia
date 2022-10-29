@@ -15,6 +15,7 @@ import { MenCatagoryTableData, MenCatagoryData } from '../../../../constant';
 import Card from '../../../Common/Card';
 import Chip from '../../../Common/Chip';
 import CollectionCard from '../../../Common/CollectionCard';
+import CommonCarousel from '../../../Common/CommonCarousel';
 import CommonTopTab from '../../../Common/CommonTopTab';
 import LifeStyle from '../../../Common/LifeStyle';
 import NewHighlights from '../../../Common/NewHighlights';
@@ -91,6 +92,47 @@ const WomenCategory = () => {
     {image: image.womenCard1, title: 'Tunics'},
     {image: image.womenCard1, title: 'Tops'},
   ];
+
+  const WomenCarouselData = [
+    {
+      heading: () => WomenCarouselText(),
+      banner: image.WomenCarousel,
+      buttonText: 'Explore collection',
+    },
+    {
+      heading: () => WomenCarouselText(),
+      banner: image.WomenCarousel,
+      buttonText: 'Explore collection',
+    },
+  ];
+
+  const WomenCarouselText = () => {
+    return (
+      <>
+        <View>
+          <Text
+            style={{
+              fontFamily:Fonts.PlayfairDisplayItalic,
+              fontWeight: '400',
+              fontSize: 26,
+              color: 'white',
+            }}>
+            Beauty Essentials
+          </Text>
+          <Text
+            style={{
+              fontFamily:Fonts.AssistantRegular,
+              fontWeight: '400',
+              fontSize: 16,
+              color: 'white',
+              marginTop:5
+            }}>
+            Skincare that’s all natural
+          </Text>
+        </View>
+      </>
+    );
+  };
 
   const handleClick = data => {
     setActive(data);
@@ -441,6 +483,8 @@ const WomenCategory = () => {
       <View style={Styles.commontab}>
         <CommonTopTab data={dataMap1} />
       </View>
+      {/*=========== Beauty Essential ============*/}
+      <CommonCarousel data={WomenCarouselData} />
       {/* ================Summer Galery======== */}
       <SummerGalary
         data={SummerGalaryData}
@@ -464,6 +508,8 @@ const WomenCategory = () => {
       <View style={Styles.commontab}>
         <CommonTopTab data={dataMap1} />
       </View>
+      {/*=========== Beauty Essential ============*/}
+      <CommonCarousel data={WomenCarouselData} />
       {/* ================Collection ======== */}
       <View style={{paddingVertical: 30}}>
         <Text style={Styles.CollectionHead}>Collections</Text>
