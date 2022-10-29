@@ -1,4 +1,4 @@
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, ImageBackground} from 'react-native';
 import React from 'react';
 import Header from './Header';
 import Catagory from './Catagory';
@@ -13,6 +13,7 @@ import {
   MenTabdata,
   OfferTabData,
   HomeTabdata,
+  LifeTabdata,
 } from '../../../constant';
 import {Colors} from '../../../assets/Colors';
 import Interior from './Interior';
@@ -20,6 +21,11 @@ import Legacy from './Legacy';
 import Card from '../../Common/Card';
 import OfferForYou from './OfferForYou';
 import StateCategory from './StateCategory';
+import OfferLongCard from '../../Common/OfferLongCard';
+import LookingFor from './LookingFor';
+import Art_Artist from './Art_Artist';
+import PointDetailCard from '../../Common/PointDetailCard';
+import SimpleCard from '../../Common/SimpleCard';
 
 const WomenHighlightData = [
   {image: image.womenCard, title: 'Saris'},
@@ -36,43 +42,216 @@ const HomeHighlightData = [
   {image: image.homeCard1, title: 'Furniture'},
   {image: image.homeCard1, title: 'Home Decor'},
 ];
-
 const WomenCarouselData = [
   {
-    heading: 'SUMMER',
-    text: 'Dresses',
-    image: image.WomenCarousel,
+    heading: () => WomenCarouselText(),
+    banner: image.WomenCarousel,
+    buttonText: 'Explore now',
   },
   {
-    heading: 'WINTER',
-    text: 'Dresses',
-    image: image.WomenCarousel,
+    heading: () => WomenCarouselText(),
+    banner: image.WomenCarousel,
+    buttonText: 'Explore now',
   },
 ];
+const WomenCarouselText = () => {
+  return (
+    <>
+      <View style={{flexDirection: 'row'}}>
+        <Text
+          style={{
+            fontWeight: '800',
+            fontSize: 24,
+            color: 'white',
+          }}>
+          SUMMER
+        </Text>
+        <Text
+          style={{
+            fontWeight: '400',
+            fontSize: 26,
+            color: 'white',
+            marginLeft: 10,
+          }}>
+          Dresses
+        </Text>
+      </View>
+    </>
+  );
+};
 const MenCarouselData = [
   {
-    heading: 'SUMMER',
-    text: 'Dresses',
-    image: image.manCarousel,
+    heading: () => MenCarouselText(),
+    banner: image.manCarousel,
+    buttonText: 'Explore now',
   },
   {
-    heading: 'WINTER',
-    text: 'Dresses',
-    image: image.manCarousel,
+    heading: () => MenCarouselText(),
+    banner: image.manCarousel,
+    buttonText: 'Explore now',
   },
 ];
+const MenCarouselText = () => {
+  return (
+    <>
+      <View style={{flexDirection: 'row'}}>
+        <Text
+          style={{
+            fontWeight: '800',
+            fontSize: 24,
+            color: 'white',
+          }}>
+          SUMMER
+        </Text>
+        <Text
+          style={{
+            fontWeight: '400',
+            fontSize: 26,
+            color: 'white',
+            marginLeft: 10,
+          }}>
+          Dresses
+        </Text>
+      </View>
+    </>
+  );
+};
 const HomeCarouselData = [
   {
-    heading: 'STAYCATION',
-    text: '',
-    image: image.HomeCarousel,
+    heading: () => HomeCarouselText(),
+    banner: image.HomeCarousel,
+    buttonText: 'Explore now',
   },
   {
-    heading: 'WINTER',
-    text: '',
-    image: image.HomeCarousel,
+    heading: () => HomeCarouselText(),
+    banner: image.HomeCarousel,
+    buttonText: 'Explore now',
   },
 ];
+const HomeCarouselText = () => {
+  return (
+    <>
+      <Text
+        style={{
+          fontWeight: '800',
+          fontSize: 24,
+          color: 'white',
+        }}>
+        STAYCATION
+      </Text>
+    </>
+  );
+};
+const LifeCarouselData = [
+  {
+    heading: () => LifeCarouselText(),
+    banner: image.LifeCarousel,
+    buttonText: 'Explore now',
+  },
+  {
+    heading: () => LifeCarouselText(),
+    banner: image.LifeCarousel,
+    buttonText: 'Explore now',
+  },
+];
+const LifeCarouselText = () => {
+  return (
+    <>
+      <Text
+        style={{
+          fontWeight: '800',
+          fontSize: 24,
+          color: 'white',
+        }}>
+        Lifestyle 360
+      </Text>
+      <Text
+        style={{
+          paddingVertical: 10,
+          fontWeight: '400',
+          fontSize: 16,
+          color: 'white',
+          lineHeight: 20,
+        }}>
+        The best of apparel, home and more - together!
+      </Text>
+    </>
+  );
+};
+const KidsCarouselData = [
+  {
+    heading: () => KidsCarouselText(),
+    banner: image.KidsCarousel,
+    buttonText: 'Explore now',
+  },
+  {
+    heading: () => KidsCarouselText(),
+    banner: image.KidsCarousel,
+    buttonText: 'Explore now',
+  },
+];
+const KidsCarouselText = () => {
+  return (
+    <>
+      <View style={{flexDirection: 'row'}}>
+        <Text
+          style={{
+            fontWeight: '800',
+            fontSize: 24,
+            color: 'white',
+          }}>
+          Icon
+        </Text>
+        <Text
+          style={{
+            fontWeight: '400',
+            fontSize: 24,
+            color: 'white',
+            marginLeft: 10,
+          }}>
+          Kids
+        </Text>
+      </View>
+    </>
+  );
+};
+const BeautyCarouselData = [
+  {
+    heading: () => BeautyCarouselText(),
+    banner: image.BeautyCarousel,
+    buttonText: 'Explore now',
+  },
+  {
+    heading: () => BeautyCarouselText(),
+    banner: image.BeautyCarousel,
+    buttonText: 'Explore now',
+  },
+];
+const BeautyCarouselText = () => {
+  return (
+    <>
+      <View style={{flexDirection: 'row'}}>
+        <Text
+          style={{
+            fontWeight: '800',
+            fontSize: 24,
+            color: 'white',
+          }}>
+          BEAUTY
+        </Text>
+        <Text
+          style={{
+            fontWeight: '400',
+            fontSize: 24,
+            color: 'white',
+            marginLeft: 10,
+          }}>
+          Secrets
+        </Text>
+      </View>
+    </>
+  );
+};
 const bannerHeading1 = () => {
   return (
     <View style={{flexDirection: 'row'}}>
@@ -103,7 +282,7 @@ const bannerHeading2 = () => {
     </View>
   );
 };
-const HomeScreen = item => {
+const CardCompo = item => {
   return (
     <>
       <ScrollView
@@ -118,17 +297,61 @@ const HomeScreen = item => {
     </>
   );
 };
+const OfferLongCardList = item => {
+  return (
+    <>
+      <ScrollView
+        horizontal
+        contentContainerStyle={{
+          paddingVertical: 10,
+          backgroundColor: Colors.backgroundColor,
+        }}>
+        <OfferLongCard />
+      </ScrollView>
+    </>
+  );
+};
+const PointDetailCardList = item => {
+  return (
+    <>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingVertical: 10,
+          backgroundColor: Colors.backgroundColor,
+        }}>
+        <PointDetailCard />
+      </ScrollView>
+    </>
+  );
+};
+const SimpleCardList = item => {
+  return (
+    <>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingVertical: 10,
+          backgroundColor: Colors.backgroundColor,
+        }}>
+        <SimpleCard />
+        <SimpleCard />
+      </ScrollView>
+    </>
+  );
+};
 export default function Dashbord() {
   const [active, setActive] = React.useState('Bestsellers');
-
   // Tab 1
   const screenObj = {
-    Saris: HomeScreen,
-    Tunics: HomeScreen,
-    Kurtas: HomeScreen,
-    Dresses: HomeScreen,
-    TopsShirts: HomeScreen,
-    Pants: HomeScreen,
+    Saris: CardCompo,
+    Tunics: CardCompo,
+    Kurtas: CardCompo,
+    Dresses: CardCompo,
+    TopsShirts: CardCompo,
+    Pants: CardCompo,
   };
   const dataMap = WomenTabdata.map(item => ({
     name: item,
@@ -136,11 +359,11 @@ export default function Dashbord() {
   }));
   // Tab 2
   const screenObj1 = {
-    Shirts: HomeScreen,
-    Kurtas: HomeScreen,
-    FaceMasks: HomeScreen,
-    NehruJacketsBlazers: HomeScreen,
-    Pants: HomeScreen,
+    Shirts: CardCompo,
+    Kurtas: CardCompo,
+    FaceMasks: CardCompo,
+    NehruJacketsBlazers: CardCompo,
+    Pants: CardCompo,
   };
   const dataMap1 = MenTabdata.map(item => ({
     name: item,
@@ -148,11 +371,11 @@ export default function Dashbord() {
   }));
   // Tab 3
   const screenObj2 = {
-    Women: HomeScreen,
-    Men: HomeScreen,
-    Kids: HomeScreen,
-    HomeLinen: HomeScreen,
-    HomeDecor: HomeScreen,
+    Women: OfferLongCardList,
+    Men: OfferLongCardList,
+    Kids: OfferLongCardList,
+    HomeLinen: OfferLongCardList,
+    HomeDecor: OfferLongCardList,
   };
   const dataMap2 = OfferTabData.map(item => ({
     name: item,
@@ -160,13 +383,24 @@ export default function Dashbord() {
   }));
   // Tab 4
   const screenObj3 = {
-    HomeLinen: HomeScreen,
-    Furniture: HomeScreen,
-    HomeDecor: HomeScreen,
+    HomeLinen: SimpleCardList,
+    Furniture: SimpleCardList,
+    HomeDecor: SimpleCardList,
   };
   const dataMap3 = HomeTabdata.map(item => ({
     name: item,
     screen: screenObj3[item],
+  }));
+  // Tab 5
+  const screenObj4 = {
+    WeekendGetaway: PointDetailCardList,
+    Brunchdate: PointDetailCardList,
+    WorkfromHome: PointDetailCardList,
+    Pants: PointDetailCardList,
+  };
+  const dataMap4 = LifeTabdata.map(item => ({
+    name: item,
+    screen: screenObj4[item],
   }));
 
   const handleClick = data => {
@@ -179,9 +413,24 @@ export default function Dashbord() {
           backgroundColor: '#E5E5E5',
           flexGrow: 1,
         }}>
-        {/* <Header /> */}
-        <Catagory />
-        <NewHighlights title="Women" data={WomenHighlightData} />
+        <ImageBackground
+          resizeMode="cover"
+          style={{width: '100%', height: 384}}
+          source={image.Banner}>
+          <Header />
+        </ImageBackground>
+        <ImageBackground
+          resizeMode="cover"
+          style={{width: '100%', height: 110}}
+          source={image.Banner2}>
+          <Catagory />
+        </ImageBackground>
+
+        <NewHighlights
+          heading="New in"
+          title="Women"
+          data={WomenHighlightData}
+        />
         <CommonCarousel data={WomenCarouselData} />
         <View
           style={{
@@ -216,7 +465,7 @@ export default function Dashbord() {
           buttonText="Add a monogram"
           bgImage={image.banner1}
         />
-        <NewHighlights title="Men" data={MenHighlightData} />
+        <NewHighlights heading="New in" title="Men" data={MenHighlightData} />
         <CommonCarousel data={MenCarouselData} />
         <View
           style={{
@@ -248,12 +497,12 @@ export default function Dashbord() {
           }}>
           Offers for you
         </Text>
-        <View style={{marginLeft: 15, height: 470}}>
+        <View style={{marginLeft: 15, height: 240}}>
           <CommonTopTab data={dataMap2} />
         </View>
         <Interior />
         <StateCategory />
-        <NewHighlights title="HOME" data={HomeHighlightData} />
+        <NewHighlights heading="New in" title="HOME" data={HomeHighlightData} />
         <CommonCarousel data={HomeCarouselData} />
         <View
           style={{
@@ -273,9 +522,35 @@ export default function Dashbord() {
             active={active}
           />
         </View>
-        <View style={{marginLeft: 15, height: 470}}>
+        <View style={{marginLeft: 15, height: 440}}>
           <CommonTopTab data={dataMap3} />
         </View>
+        <LookingFor active={active} />
+        <CommonCarousel data={LifeCarouselData} />
+        <View
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            paddingHorizontal: 15,
+            marginTop: 10,
+          }}>
+          <Chip
+            title="Bestsellers"
+            handleClick={() => handleClick('Bestsellers')}
+            active={active}
+          />
+          <Chip
+            title="Recommended for you"
+            handleClick={() => handleClick('Recommended for you')}
+            active={active}
+          />
+        </View>
+        <View style={{marginLeft: 15, height: 500}}>
+          <CommonTopTab data={dataMap4} />
+        </View>
+        <CommonCarousel data={KidsCarouselData} />
+        <CommonCarousel data={BeautyCarouselData} />
+        <Art_Artist />
         <Legacy />
       </ScrollView>
     </>
