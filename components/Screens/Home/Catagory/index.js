@@ -4,14 +4,14 @@ import {Styles} from './styles';
 import {Colors} from '../../../../assets/Colors';
 
 const data = [
-  {title: 'Women', color: Colors.primarycolor},
-  {title: 'Men', color: Colors.primarycolor},
-  {title: 'Kids', color: Colors.primarycolor},
-  {title: 'Home Linen', color: Colors.primarycolor},
-  {title: 'Furniture', color: Colors.primarycolor},
-  {title: 'Home Decor', color: Colors.primarycolor},
-  {title: 'Beauty', color: Colors.primarycolor},
-  {title: 'Food', color: Colors.primarycolor},
+  {title: 'Women', color: 'rgba(144,50,51,0.8)'},
+  {title: 'Men', color: 'rgba(144,50,51,0.8)'},
+  {title: 'Kids', color: 'rgba(144,50,51,0.8)'},
+  {title: 'Home Linen', color: 'rgba(144,50,51,0.8)'},
+  {title: 'Furniture', color: 'rgba(144,50,51,0.8)'},
+  {title: 'Home Decor', color: 'rgba(144,50,51,0.8)'},
+  {title: 'Beauty', color: 'rgba(144,50,51,0.8)'},
+  {title: 'Food', color: 'rgba(144,50,51,0.8)'},
   {title: 'INTERIOR DESIGN Studio', color: '#D7AF49'},
   {title: 'Add a Monogram', color: '#D7AF49'},
   {title: 'Customize', color: '#D7AF49'},

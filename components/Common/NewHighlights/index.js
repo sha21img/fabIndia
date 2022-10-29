@@ -3,7 +3,7 @@ import React from 'react';
 import {Styles} from './styles';
 import {image} from '../../../assets/images';
 
-export default function NewHighlights({heading = '', title = '', data = []}) {
+export default function NewHighlights({title = '', data = []}) {
   const imageCard = data.map(item => {
     return (
       <>
@@ -22,21 +22,10 @@ export default function NewHighlights({heading = '', title = '', data = []}) {
       </>
     );
   });
-  const hasSpaces = str => {
-    if (str.indexOf(' ') !== -1) {
-      return true;
-    } else {
-      return false;
-    }
-  };
   return (
     <View style={Styles.container}>
-      <View
-        style={[
-          Styles.textBox,
-          hasSpaces(title) ? {width: '35%'} : {width: null},
-        ]}>
-        <Text style={Styles.newText}>{heading}</Text>
+      <View style={Styles.textBox}>
+        <Text style={Styles.newText}>New in</Text>
         <Text style={Styles.title}>{title}</Text>
       </View>
       <View style={Styles.imageContainer}>

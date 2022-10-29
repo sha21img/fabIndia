@@ -3,6 +3,7 @@ import React from 'react';
 import {Colors} from '../../../../assets/Colors';
 import {image} from '../../../../assets/images';
 import {Styles} from './styles';
+import VideoP from './VideoP';
 
 const artImageData = [
   {banner: image.ArtistImg1},
@@ -22,6 +23,7 @@ export default function Art_Artist() {
           they have to tell.
         </Text>
       </View>
+      <VideoP />
       <View style={Styles.imageBox}>
         {artImageData.map((item, i) => {
           return <Image key={i} style={Styles.image} source={item.banner} />;

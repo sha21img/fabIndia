@@ -350,7 +350,7 @@ export default function Dashbord() {
     Tunics: CardCompo,
     Kurtas: CardCompo,
     Dresses: CardCompo,
-    TopsShirts: CardCompo,
+    'Tops Shirts': CardCompo,
     Pants: CardCompo,
   };
   const dataMap = WomenTabdata.map(item => ({
@@ -410,7 +410,7 @@ export default function Dashbord() {
     <>
       <ScrollView
         contentContainerStyle={{
-          backgroundColor: '#E5E5E5',
+          backgroundColor: Colors.backgroundColor,
           flexGrow: 1,
         }}>
         <ImageBackground
@@ -425,7 +425,6 @@ export default function Dashbord() {
           source={image.Banner2}>
           <Catagory />
         </ImageBackground>
-
         <NewHighlights
           heading="New in"
           title="Women"
