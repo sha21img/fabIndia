@@ -4,6 +4,7 @@ const Fonts = {
   AssistantRegular: 'Assistant-Regular',
   RupeeForadian: 'Rupee_Foradian',
   PlayfairDisplayRegular: 'PlayfairDisplay-Regular',
+  BarlowRegular: 'Barlow-Regular',
 };
 
 export default Fonts;
