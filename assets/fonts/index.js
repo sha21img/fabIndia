@@ -5,6 +5,8 @@ const Fonts = {
   RupeeForadian: 'Rupee_Foradian',
   PlayfairDisplayRegular: 'PlayfairDisplay-Regular',
   BarlowRegular: 'Barlow-Regular',
+  PlayfairDisplayExtraBold: 'PlayfairDisplay-ExtraBold',
+  LaBelleAuroreRegular: 'LaBelleAurore-Regular',
 };
 
 export default Fonts;
