@@ -31,4 +31,5 @@ export const image = {
   womenPhoto4: require('./WomenPhoto4.png'),
   cart: require('./cart.png'),
   singleproduct: require('./singleproduct.png'),
+  offerPic: require('./OfferPic.jpg')
 };
