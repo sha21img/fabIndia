@@ -40,5 +40,6 @@ export const image = {
   whitelogo: require('./whitelogo.png'),
   offerPic: require('./OfferPic.jpg'),
   collectionPic: require('./collection.png'),
-  collectionPic2: require('./Collection2.png')
+  customkurtas: require('./customkurtas.png'),
+  collectionPic2: require('./Collection2.png'),
 };

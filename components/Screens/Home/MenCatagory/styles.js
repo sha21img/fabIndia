@@ -9,7 +9,7 @@ export const Styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  backgroundimage: {
+  backgroundimg: {
     height: 214,
     width: dimension.width / 3,
   },
@@ -25,5 +25,35 @@ export const Styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     paddingLeft: 15,
+  },
+  chipbox: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: 15,
+    marginTop: 10,
+  },
+  commontab: {marginLeft: 15, height: 470},
+  backgroundimage: {height: 670, width: 'auto'},
+  customkurtabox: {
+    position: 'relative',
+    top: 100,
+    backgroundColor: 'rgba(16, 31, 60, 1)',
+    alignSelf: 'flex-start',
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+  },
+  customtxt: {
+    textAlign: 'center',
+    fontSize: 32,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    fontFamily: Fonts.BarlowRegular,
+  },
+  kurtatxt: {
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontSize: 24,
+    fontWeight: '400',
+    fontFamily: Fonts.BarlowRegular,
   },
 });
