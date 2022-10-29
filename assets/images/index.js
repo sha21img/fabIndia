@@ -38,4 +38,5 @@ export const image = {
   out: require('./out.png'),
   bedtime: require('./bedtime.png'),
   whitelogo: require('./whitelogo.png'),
+  offerPic: require('./OfferPic.jpg'),
 };
