@@ -1,5 +1,4 @@
 export const image = {
-  womenCard: require('./womenCard.png'),
   card: require('./card.png'),
   womenCard: require('./womenCard.png'),
   womenCard1: require('./womenCard1.png'),
@@ -25,6 +24,11 @@ export const image = {
   UnSubscribe: require('./UnSubscribe.png'),
   DelAccount: require('./DelAccount.png'),
   rightArrow: require('./rightArrow.png'),
+  womenStoryCardPic : require('./WomanStoriesPic.png'),
+  womenPhoto1: require('./WomenPhoto1.png'),
+  womenPhoto2: require('./WomenPhoto2.png'),
+  womenPhoto3: require('./WomenPhoto3.png'),
+  womenPhoto4: require('./WomenPhoto4.png'),
   cart: require('./cart.png'),
   singleproduct: require('./singleproduct.png'),
 };
