@@ -42,7 +42,7 @@ export default function MainScreen() {
       }}>
       <Tab.Screen
         name="HomeStack"
-        component={WomenCategory}
+        component={HomeStack}
         options={{
           tabBarLabel: 'Home',
           tabBarActiveTintColor: Colors.primarycolor,
