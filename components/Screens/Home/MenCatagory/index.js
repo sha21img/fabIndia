@@ -9,6 +9,7 @@ import CommonTopTab from '../../../Common/CommonTopTab';
 import {WomenTabdata} from '../../../../constant';
 import Card from '../../../Common/Card';
 import {Colors} from '../../../../assets/Colors';
+import SummerGalary from '../../../Common/SummerGalary';
 const imageData = [
   {
     image: image.rise,
@@ -73,7 +74,27 @@ const MenCatagory = () => {
     name: item,
     screen: screenObj[item],
   }));
-
+  const SummerGalaryData = [
+    {image: image.womenPhoto1, name: 'Saris'},
+    {image: image.womenPhoto2, name: 'Dresses'},
+    {image: image.womenPhoto3, name: 'Tunics'},
+    {image: image.womenPhoto4, name: 'Saris'},
+    {image: image.womenPhoto1, name: 'Saris'},
+    {image: image.womenPhoto2, name: 'Saris'},
+  ];
+  const getTitle = () => {
+    return (
+      <Text
+        style={{
+          fontFamily: 'PlayfairDisplay-Italic',
+          color: '#4A4A4A',
+          fontSize: 30,
+          marginHorizontal: 20,
+        }}>
+        Apparel
+      </Text>
+    );
+  };
   return (
     <ScrollView
       contentContainerStyle={{backgroundColor: Colors.backgroundColor}}>
@@ -165,6 +186,14 @@ const MenCatagory = () => {
       <View style={{marginLeft: 15, height: 470}}>
         <CommonTopTab data={dataMap} />
       </View>
+
+      <SummerGalary
+        data={SummerGalaryData}
+        title={getTitle()}
+        subtitles="For those sultry summer days"
+        backgroundColor="#F6EFE6"
+        customViewStyle={{marginVertical: 40}}
+      />
     </ScrollView>
   );
 };
