@@ -127,7 +127,7 @@ export default function Dashbord() {
     Tunics: HomeScreen,
     Kurtas: HomeScreen,
     Dresses: HomeScreen,
-    TopsShirts: HomeScreen,
+    'Tops Shirts': HomeScreen,
     Pants: HomeScreen,
   };
   const dataMap = WomenTabdata.map(item => ({
