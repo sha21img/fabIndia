@@ -17,6 +17,11 @@ export default function CommonTopTab({data = []}) {
             height: 2,
           },
           tabBarScrollEnabled: true,
+          tabBarLabelStyle: {
+            fontSize: 18,
+            fontFamily: Fonts.Assistant700,
+            textTransform: 'none',
+          },
           tabBarStyle: {
             height: 40,
             backgroundColor: Colors.backgroundColor,

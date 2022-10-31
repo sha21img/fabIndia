@@ -44,7 +44,6 @@ export const Styles = StyleSheet.create({
   customtxt: {
     textAlign: 'center',
     fontSize: 32,
-    fontWeight: '700',
     color: '#FFFFFF',
     fontFamily: Fonts.BarlowRegular,
   },

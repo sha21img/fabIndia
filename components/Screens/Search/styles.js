@@ -80,7 +80,7 @@ export const Styles = StyleSheet.create({
     marginRight: 10,
     marginBottom: 10,
   },
-  chiptxt: {fontSize: 18, fontweight: '300', color: '#4A4A4A'},
+  chiptxt: {fontSize: 18, fontFamily: Fonts.Assistant400, color: '#4A4A4A'},
   trendingnowtxt: {
     paddingVertical: 20,
     fontFamily: Fonts.Assistant400,
