@@ -14,8 +14,7 @@ export const Styles = StyleSheet.create({
   },
   singleproducttitle: {
     fontSize: 16,
-    fontWeight: '400',
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant400,
     color: Colors.inactiveicon,
     paddingRight: 5,
   },
@@ -27,7 +26,6 @@ export const Styles = StyleSheet.create({
 
   singleproductamount: {
     fontSize: 16,
-    fontWeight: '400',
     fontFamily: Fonts.RupeeForadian,
     color: Colors.inactiveicon,
     paddingRight: 5,
@@ -35,7 +33,6 @@ export const Styles = StyleSheet.create({
 
   singleproductoff: {
     fontSize: 12,
-    fontWeight: '400',
     fontFamily: Fonts.RupeeForadian,
     color: Colors.inactiveicon,
     paddingRight: 5,
@@ -43,8 +40,7 @@ export const Styles = StyleSheet.create({
   },
   singleproductdiscount: {
     fontSize: 16,
-    fontWeight: '700',
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant700,
     color: Colors.inactiveicon,
     paddingRight: 3,
   },
@@ -60,14 +56,12 @@ export const Styles = StyleSheet.create({
   },
   notifytxt: {
     fontSize: 18,
-    fontWeight: '400',
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant400,
     color: '#FFFFFF',
   },
   outofstocktxt: {
     color: '#DA5959',
     fontSize: 14,
-    fontWeight: '700',
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant700,
   },
 });

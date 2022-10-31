@@ -4,9 +4,10 @@ import {
   ScrollView,
   ImageBackground,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import React from 'react';
-import Header from './Header';
+import HomeHeader from './HomeHeader';
 import Catagory from './Catagory';
 import NewHighlights from '../../Common/NewHighlights';
 import CommonCarousel from '../../Common/CommonCarousel/index';
@@ -25,7 +26,6 @@ import {Colors} from '../../../assets/Colors';
 import Interior from './Interior';
 import Legacy from './Legacy';
 import Card from '../../Common/Card';
-import OfferForYou from './OfferForYou';
 import StateCategory from './StateCategory';
 import OfferLongCard from '../../Common/OfferLongCard';
 import LookingFor from './LookingFor';
@@ -67,20 +67,18 @@ const WomenCarouselText = () => {
       <View style={{flexDirection: 'row'}}>
         <Text
           style={{
-            fontWeight: '800',
             fontSize: 24,
             color: 'white',
-            fontFamily: Fonts.PlayfairDisplayRegular,
+            fontFamily: Fonts.PlayfairDisplay800,
           }}>
           SUMMER
         </Text>
         <Text
           style={{
-            fontWeight: '400',
             fontSize: 26,
             color: 'white',
             marginLeft: 10,
-            fontFamily: Fonts.PlayfairDisplayItalic,
+            fontFamily: Fonts.PlayfairDisplay400Italic,
           }}>
           Dresses
         </Text>
@@ -106,15 +104,15 @@ const MenCarouselText = () => {
       <View style={{flexDirection: 'row'}}>
         <Text
           style={{
-            fontWeight: '800',
             fontSize: 24,
             color: 'white',
+            fontFamily: Fonts.PlayfairDisplay800,
           }}>
           SUMMER
         </Text>
         <Text
           style={{
-            fontWeight: '400',
+            fontFamily: Fonts.PlayfairDisplay400Italic,
             fontSize: 26,
             color: 'white',
             marginLeft: 10,
@@ -142,7 +140,7 @@ const HomeCarouselText = () => {
     <>
       <Text
         style={{
-          fontWeight: '800',
+          fontFamily: Fonts.PlayfairDisplay800,
           fontSize: 24,
           color: 'white',
         }}>
@@ -168,7 +166,7 @@ const LifeCarouselText = () => {
     <>
       <Text
         style={{
-          fontWeight: '800',
+          fontFamily: Fonts.PlayfairDisplay800,
           fontSize: 24,
           color: 'white',
         }}>
@@ -177,7 +175,7 @@ const LifeCarouselText = () => {
       <Text
         style={{
           paddingVertical: 10,
-          fontWeight: '400',
+          fontFamily: Fonts.Assistant400,
           fontSize: 16,
           color: 'white',
           lineHeight: 20,
@@ -205,15 +203,19 @@ const KidsCarouselText = () => {
       <View style={{flexDirection: 'row'}}>
         <Text
           style={{
-            fontWeight: '800',
+            fontFamily: Fonts.PlayfairDisplay800,
             fontSize: 24,
             color: 'white',
           }}>
-          Icon
+          <Image
+            source={image.whitelogo}
+            style={{height: 23, width: 65}}
+            resizeMode="contain"
+          />
         </Text>
         <Text
           style={{
-            fontWeight: '400',
+            // fontFamily: 'IndieFlower-Regular',
             fontSize: 24,
             color: 'white',
             marginLeft: 10,
@@ -242,7 +244,7 @@ const BeautyCarouselText = () => {
       <View style={{flexDirection: 'row'}}>
         <Text
           style={{
-            fontWeight: '800',
+            fontFamily: Fonts.PlayfairDisplay800,
             fontSize: 24,
             color: 'white',
           }}>
@@ -250,7 +252,7 @@ const BeautyCarouselText = () => {
         </Text>
         <Text
           style={{
-            fontWeight: '400',
+            fontFamily: Fonts.PlayfairDisplay400Italic,
             fontSize: 24,
             color: 'white',
             marginLeft: 10,
@@ -268,9 +270,8 @@ const bannerHeading1 = () => {
         <Text
           style={{
             fontSize: 26,
-            // fontWeight: '700',
             color: 'white',
-            fontFamily: Fonts.PlayfairDisplayBold,
+            fontFamily: Fonts.PlayfairDisplay700,
           }}>
           CUSTOMIZE
         </Text>
@@ -279,7 +280,7 @@ const bannerHeading1 = () => {
             fontSize: 26,
             paddingLeft: 4,
             color: 'white',
-            fontFamily: Fonts.PlayfairDisplayRegular,
+            fontFamily: Fonts.PlayfairDisplay400,
           }}>
           YOUR OWN
         </Text>
@@ -288,7 +289,7 @@ const bannerHeading1 = () => {
         style={{
           paddingVertical: 15,
           fontSize: 16,
-          fontWeight: '400',
+          fontFamily: Fonts.Assistant400,
           color: 'white',
           lineHeight: 22,
         }}>
@@ -301,14 +302,19 @@ const bannerHeading2 = () => {
   return (
     <>
       <View style={{flexDirection: 'row'}}>
-        <Text style={{fontSize: 26, fontWeight: '300', color: 'white'}}>
+        <Text
+          style={{
+            fontSize: 26,
+            color: 'white',
+            fontFamily: Fonts.Assistant300,
+          }}>
           ADD A
         </Text>
         <Text
           style={{
             fontSize: 26,
-            fontWeight: '900',
-            paddingLeft: 4,
+            paddingLeft: 5,
+            fontFamily: Fonts.Assistant700,
             color: 'white',
           }}>
           MONOGRAM
@@ -318,7 +324,7 @@ const bannerHeading2 = () => {
         style={{
           paddingVertical: 15,
           fontSize: 16,
-          fontWeight: '400',
+          fontFamily: Fonts.Assistant400,
           color: 'white',
           lineHeight: 22,
         }}>
@@ -332,11 +338,16 @@ const CardCompo = item => {
     <>
       <ScrollView
         horizontal
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
           paddingVertical: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
-        <Card customViewStyle={{marginRight: 10}} />
+        <Card
+          offer="20"
+          originalprice="1,000"
+          customViewStyle={{marginRight: 10}}
+        />
         <Card customViewStyle={{marginRight: 10}} />
       </ScrollView>
     </>
@@ -347,6 +358,7 @@ const OfferLongCardList = item => {
     <>
       <ScrollView
         horizontal
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
           paddingVertical: 10,
           backgroundColor: Colors.backgroundColor,
@@ -366,6 +378,7 @@ const PointDetailCardList = item => {
           paddingVertical: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
+        <PointDetailCard />
         <PointDetailCard />
       </ScrollView>
     </>
@@ -462,7 +475,7 @@ export default function Dashbord() {
           resizeMode="cover"
           style={{width: '100%', height: 384}}
           source={image.Banner}>
-          <Header />
+          <HomeHeader />
           <TouchableOpacity
             style={{
               backgroundColor: 'rgba(0,0,0,0.6)',
@@ -473,7 +486,12 @@ export default function Dashbord() {
               marginVertical: 5,
               marginHorizontal: 20,
             }}>
-            <Text style={{fontSize: 16, fontWeight: '300', color: 'white'}}>
+            <Text
+              style={{
+                fontSize: 16,
+                color: 'white',
+                fontFamily: Fonts.Assistant400,
+              }}>
               Tap to customize & buy!
             </Text>
           </TouchableOpacity>
@@ -491,8 +509,7 @@ export default function Dashbord() {
             <Text
               style={{
                 fontSize: 12,
-                fontWeight: '600',
-                fontFamily: Fonts.AssistantRegular,
+                fontFamily: Fonts.Assistant600,
                 color: 'white',
               }}>
               #myfablife
@@ -567,7 +584,7 @@ export default function Dashbord() {
         </View>
         <Text
           style={{
-            fontWeight: '600',
+            fontFamily: Fonts.PlayfairDisplay600Italic,
             fontSize: 20,
             paddingHorizontal: 15,
             paddingTop: 20,

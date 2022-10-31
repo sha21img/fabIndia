@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Dimensions} from 'react-native';
+import Fonts from '../../../assets/fonts';
 const width = Dimensions.get('window').width;
 
 export const Styles = StyleSheet.create({
@@ -20,7 +21,7 @@ export const Styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    fontWeight: '400',
+    fontFamily: Fonts.Assistant400,
     color: '#903233',
   },
 });

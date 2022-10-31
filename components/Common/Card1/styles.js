@@ -13,10 +13,9 @@ export const Styles = StyleSheet.create({
   },
   headingtxt: {
     fontSize: 16,
-    fontWeight: '400',
     color: '#4A4A4A',
     lineHeight: 21,
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant400,
   },
   pricebox: {
     flexDirection: 'row',
@@ -26,28 +25,27 @@ export const Styles = StyleSheet.create({
   },
   mrptxt: {
     paddingRight: 5,
-    fontWeight: '400',
     fontSize: 14,
+    fontFamily: Fonts.Assistant400,
     color: '#4A4A4A',
   },
   amounttxt: {
     paddingRight: 5,
-    fontWeight: '400',
     fontSize: 13,
     color: '#4A4A4A',
+    fontFamily: Fonts.RupeeForadian,
   },
   priceofftxt: {
     paddingRight: 5,
     textDecorationLine: 'line-through',
     color: '#979797',
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: Fonts.RupeeForadian,
   },
   offertxt: {
     paddingRight: 5,
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant700,
     color: '#96AD66',
-    fontWeight: '700',
     fontSize: 12,
   },
 });

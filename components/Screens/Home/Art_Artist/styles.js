@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../../../assets/Colors';
+import Fonts from '../../../../assets/fonts';
 export const Styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.backgroundColor,
@@ -18,9 +19,13 @@ export const Styles = StyleSheet.create({
   headingBox: {
     padding: 20,
   },
-  heading: {fontWeight: '400', fontSize: 24, color: '#903233'},
+  heading: {
+    fontFamily: Fonts.PlayfairDisplay400,
+    fontSize: 24,
+    color: '#903233',
+  },
   description: {
-    fontWeight: '400',
+    fontFamily: Fonts.Assistant400,
     fontSize: 16,
     lineHeight: 21,
     paddingVertical: 10,

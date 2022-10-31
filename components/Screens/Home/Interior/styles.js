@@ -1,4 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
+import Fonts from '../../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
 const width = Dimensions.get('window').width;
 export const Styles = StyleSheet.create({
@@ -18,7 +19,7 @@ export const Styles = StyleSheet.create({
   },
   thoughtText: {
     fontSize: 18,
-    fontWeight: '400',
+    fontFamily: Fonts.Assistant400,
     color: 'white',
   },
   headingBox: {
@@ -31,12 +32,12 @@ export const Styles = StyleSheet.create({
   },
   headingText: {
     fontSize: 20,
-    fontWeight: '600',
+    fontFamily: Fonts.PlayfairDisplay600,
     color: 'white',
   },
   headingText1: {
     fontSize: 26,
-    fontWeight: '400',
+    // fontWeight: '400',
     color: 'white',
   },
   buttonBox: {
@@ -47,7 +48,7 @@ export const Styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    fontWeight: '400',
+    fontFamily: Fonts.Assistant400,
     color: '#903233',
   },
 });

@@ -1,10 +1,11 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../../assets/Colors';
+import Fonts from '../../../assets/fonts';
 export const Styles = StyleSheet.create({
   container: {backgroundColor: '#ffffff'},
   headbox: {paddingHorizontal: 15, marginTop: 20},
   headtxt: {
-    fontFamily: 'PlayfairDisplay-Italic',
+    fontFamily: Fonts.PlayfairDisplay500Italic,
     color: '#4A4A4A',
     fontSize: 18,
     fontWeight: '500',
@@ -24,7 +25,7 @@ export const Styles = StyleSheet.create({
     borderColor: Colors.primarycolor,
   },
   logintxt: {
-    fontWeight: '400',
+    fontFamily: Fonts.Assistant400,
     fontSize: 16,
     color: Colors.primarycolor,
   },
@@ -36,8 +37,8 @@ export const Styles = StyleSheet.create({
     borderColor: Colors.primarycolor,
   },
   registertxt: {
-    fontWeight: '400',
     fontSize: 16,
+    fontFamily: Fonts.Assistant400,
     color: Colors.primarycolor,
   },
   accordiancont: {
@@ -53,7 +54,7 @@ export const Styles = StyleSheet.create({
   },
   servicetxt: {
     color: Colors.textcolor,
-    fontWeight: '400',
+    fontFamily: Fonts.Assistant400,
     fontSize: 16,
   },
 });

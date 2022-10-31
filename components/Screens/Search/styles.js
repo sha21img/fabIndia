@@ -41,16 +41,14 @@ export const Styles = StyleSheet.create({
     paddingVertical: 10,
   },
   recentsearchtxt: {
-    fontWeight: '400',
     fontSize: 16,
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant400,
     color: '#4A4A4A',
   },
   cleartxt: {
     color: Colors.primarycolor,
-    fontWeight: '600',
     fontSize: 14,
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant600,
   },
   searchlistbox: {
     flexDirection: 'row',
@@ -60,16 +58,14 @@ export const Styles = StyleSheet.create({
     borderBottomColor: '#EDEDED',
   },
   searchlisttxt: {
-    fontWeight: '400',
     fontSize: 14,
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant400,
     color: '#979797',
   },
   discovertxt: {
     paddingVertical: 15,
     fontSize: 16,
-    fontWeight: '400',
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant400,
     color: '#4A4A4A',
   },
   chipcontainer: {
@@ -87,7 +83,7 @@ export const Styles = StyleSheet.create({
   chiptxt: {fontSize: 18, fontweight: '300', color: '#4A4A4A'},
   trendingnowtxt: {
     paddingVertical: 20,
-    fontWeight: '400',
+    fontFamily: Fonts.Assistant400,
     fontSize: 16,
     color: '#4A4A4A',
   },
@@ -100,8 +96,7 @@ export const Styles = StyleSheet.create({
     width: '100%',
   },
   productcounttxt: {
-    fontFamily: Fonts.AssistantRegular,
-    fontWeight: '600',
+    fontFamily: Fonts.Assistant600,
     fontSize: 12,
   },
   rightheaderbox: {
@@ -110,8 +105,7 @@ export const Styles = StyleSheet.create({
     width: '30%',
   },
   rightheadertxt: {
-    fontFamily: Fonts.AssistantRegular,
-    fontWeight: '400',
+    fontFamily: Fonts.Assistant400,
     fontSize: 16,
     color: Colors.primarycolor,
   },
@@ -126,15 +120,13 @@ export const Styles = StyleSheet.create({
   },
   noresultfounttxt1: {
     fontSize: 16,
-    fontWeight: '700',
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant700,
     paddingVertical: 20,
     color: '#4A4A4A',
   },
   noresultfounttxt2: {
     fontSize: 14,
-    fontWeight: '400',
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant400,
     lineHeight: 19,
     color: '#4A4A4A',
   },

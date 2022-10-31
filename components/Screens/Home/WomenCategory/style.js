@@ -6,8 +6,7 @@ const dimension = Dimensions.get('window');
 export const Styles = StyleSheet.create({
   CollectionHead: {
     marginLeft: 15,
-    fontFamily: Fonts.PlayfairDisplayItalic,
-    fontWeight: '600',
+    fontFamily: Fonts.PlayfairDisplay600Italic,
     fontSize: 20,
     color: Colors.textcolor,
     marginBottom: 10,
@@ -17,7 +16,7 @@ export const Styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom:10
+    marginBottom: 10,
   },
   backgroundimg: {
     height: 214,
@@ -26,8 +25,7 @@ export const Styles = StyleSheet.create({
   imagetxt: {
     color: '#FFFFFF',
     fontSize: 14,
-    fontWeight: '400',
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant400,
   },
   txtbox: {
     backgroundColor: 'rgba(151, 124, 104, 0.7)',
@@ -42,7 +40,7 @@ export const Styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginTop: 10,
   },
-  commontab: {marginLeft: 15, height: 470, marginBottom:40},
+  commontab: {marginLeft: 15, height: 470, marginBottom: 40},
   backgroundimage: {height: 670, width: 'auto'},
   customkurtabox: {
     position: 'relative',

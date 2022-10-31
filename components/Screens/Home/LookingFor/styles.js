@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import Fonts from '../../../../assets/fonts';
 export const Styles = StyleSheet.create({
   container: {
     padding: 15,
@@ -9,7 +10,7 @@ export const Styles = StyleSheet.create({
     marginTop: 10,
   },
   heading: {
-    fontWeight: '400',
+    fontFamily: Fonts.PlayfairDisplay400,
     fontSize: 24,
   },
 });

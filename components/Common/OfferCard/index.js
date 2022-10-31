@@ -43,14 +43,7 @@ const OfferCard = ({
         <Text style={Styles.CardDescription}>{description}</Text>
         <View style={Styles.ShopNowContainer}>
           <View style={Styles.ShopNowContainerText}>
-            <Text
-              style={{
-                color: '#903233',
-                fontFamily: Fonts.AssistantRegular,
-                fontWeight: '400',
-              }}>
-              Shop Now
-            </Text>
+            <Text style={Styles.btntext}>Shop Now</Text>
           </View>
         </View>
       </View>

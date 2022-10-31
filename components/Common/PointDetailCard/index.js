@@ -30,7 +30,7 @@ export default function PointDetailCard({customViewStyle = {}, item}) {
           <View style={Styles.financeBox}>
             <Text style={Styles.financeMoney}>₹ 800</Text>
             <Text style={Styles.financeOff}>₹ 1,000</Text>
-            <Text style={Styles.financeOffer}>20% off</Text>
+            <Text style={Styles.financeOffer}>You save ₹200</Text>
           </View>
         </View>
       </View>

@@ -11,10 +11,9 @@ export const Styles = StyleSheet.create({
   },
   heading: {
     fontSize: 16,
-    fontWeight: '400',
     color: '#4A4A4A',
     lineHeight: 21,
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant400,
   },
   financeBox: {
     flexDirection: 'row',
@@ -24,7 +23,6 @@ export const Styles = StyleSheet.create({
   },
   financeMoney: {
     paddingRight: 10,
-    fontWeight: '400',
     fontSize: 16,
     color: '#4A4A4A',
     fontFamily: Fonts.RupeeForadian,
@@ -34,12 +32,12 @@ export const Styles = StyleSheet.create({
     textDecorationLine: 'line-through',
     color: '#979797',
     fontSize: 14,
+    fontFamily: Fonts.RupeeForadian,
   },
   financeOffer: {
     paddingRight: 10,
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant700,
     color: '#96AD66',
-    fontWeight: '700',
     fontSize: 16,
   },
 });

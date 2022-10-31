@@ -112,8 +112,7 @@ const WomenCategory = () => {
         <View>
           <Text
             style={{
-              fontFamily: Fonts.PlayfairDisplayItalic,
-              fontWeight: '400',
+              fontFamily: Fonts.PlayfairDisplay400Italic,
               fontSize: 26,
               color: 'white',
             }}>
@@ -121,8 +120,7 @@ const WomenCategory = () => {
           </Text>
           <Text
             style={{
-              fontFamily: Fonts.AssistantRegular,
-              fontWeight: '400',
+              fontFamily: Fonts.Assistant400,
               fontSize: 16,
               color: 'white',
               marginTop: 5,
@@ -218,11 +216,10 @@ const WomenCategory = () => {
     return (
       <Text
         style={{
-          fontFamily: Fonts.PlayfairDisplayItalic,
+          fontFamily: Fonts.PlayfairDisplay600Italic,
           color: '#4A4A4A',
           fontSize: 30,
           marginHorizontal: 20,
-          fontWeight: '600',
         }}>
         Summer prints
       </Text>
@@ -233,11 +230,10 @@ const WomenCategory = () => {
     return (
       <Text
         style={{
-          fontFamily: Fonts.PlayfairDisplayItalic,
+          fontFamily: Fonts.PlayfairDisplay600Italic,
           color: '#4A4A4A',
           fontSize: 30,
           marginHorizontal: 20,
-          fontWeight: '600',
         }}>
         Fussion Wear
       </Text>
@@ -273,7 +269,6 @@ const WomenCategory = () => {
       <Text
         style={{
           fontFamily: Fonts.BarlowRegular,
-          fontStyle: 'normal',
           color: '#ffffff',
           fontSize: 30,
           marginHorizontal: 20,
@@ -281,7 +276,6 @@ const WomenCategory = () => {
         <Text
           style={{
             fontFamily: Fonts.LaBelleAuroreRegular,
-            fontStyle: 'normal',
             color: '#ffffff',
             fontSize: 60,
             lineHeight: 90,
@@ -298,7 +292,7 @@ const WomenCategory = () => {
       <>
         <Text
           style={{
-            fontFamily: Fonts.PlayfairDisplayItalic,
+            fontFamily: Fonts.PlayfairDisplay600,
             color: '#4A4A4A',
             fontSize: 30,
             marginHorizontal: 20,
@@ -312,6 +306,7 @@ const WomenCategory = () => {
               fontSize: 18,
               color: '#4A4A4A',
               lineHeight: 23,
+              fontFamily: Fonts.Assistant400,
               marginHorizontal: 20,
             }}>
             Combos that’ll keep you feeling fab!
@@ -358,8 +353,7 @@ const WomenCategory = () => {
           <Text
             style={{
               fontSize: 14,
-              fontWeight: '300',
-              fontFamily: Fonts.AssistantRegular,
+              fontFamily: Fonts.Assistant300,
               color: '#FFFFFF',
               lineHeight: 18,
               textAlign: 'center',
@@ -382,10 +376,9 @@ const WomenCategory = () => {
                 color: '#FFFFFF',
                 marginLeft: 3,
                 fontSize: 18,
-                fontWeight: '400',
-                fontFamily: Fonts.PlayfairDisplayRegular,
+                fontFamily: Fonts.PlayfairDisplay400,
               }}>
-              man
+              women
             </Text>
           </View>
         </View>
