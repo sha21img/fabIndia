@@ -27,41 +27,38 @@ import CommonCarousel from '../../../Common/CommonCarousel';
 
 const getOfferTitleHeading = () => {
   return (
-    <Text
-      style={{
-        fontSize: 24,
-        fontFamily: Fonts.PlayfairDisplay800,
-        color: '#ffffff',
-      }}>
-      SUMMER
-    </Text>
+    <View style={{flexDirection: 'row'}}>
+      <Text
+        style={{
+          fontSize: 24,
+          fontFamily: Fonts.PlayfairDisplayExtraBold,
+          color: '#ffffff',
+        }}>
+        SUMMER
+      </Text>
+      <Text
+        style={{
+          fontSize: 26,
+          fontFamily: Fonts.PlayfairDisplayItalic,
+          color: '#ffffff',
+          marginLeft: 5,
+        }}>
+        PRINTS
+      </Text>
+    </View>
   );
 };
-const getOfferSubHeading = () => {
-  return (
-    <Text
-      style={{
-        fontSize: 26,
-        fontFamily: Fonts.PlayfairDisplay400Italic,
-        color: '#ffffff',
-        marginLeft: 5,
-      }}>
-      PRINTS
-    </Text>
-  );
-};
+
 const OfferData = [
   {
     offerValue: '70',
     heading: () => getOfferTitleHeading(),
-    subHeading: () => getOfferSubHeading(),
     description:
       'Be summer-ready with our collection of muted solids, pastel prints and relaxed silhouettes! ',
   },
   {
     offerValue: '70',
     heading: () => getOfferTitleHeading(),
-    subHeading: () => getOfferSubHeading(),
     description:
       'Be summer-ready with our collection of muted solids, pastel prints and relaxed silhouettes! ',
   },

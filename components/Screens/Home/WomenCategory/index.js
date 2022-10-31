@@ -121,7 +121,6 @@ const WomenCategory = () => {
           <Text
             style={{
               fontFamily: Fonts.Assistant400,
-              fontWeight: '400',
               fontSize: 16,
               color: 'white',
               marginTop: 5,
@@ -187,14 +186,12 @@ const WomenCategory = () => {
     {
       offerValue: '70',
       heading: () => getOfferTitleHeading(),
-      subHeading: () => getOfferSubHeading(),
       description:
         'Be summer-ready with our collection of muted solids, pastel prints and relaxed silhouettes! ',
     },
     {
       offerValue: '70',
       heading: () => getOfferTitleHeading(),
-      subHeading: () => getOfferSubHeading(),
       description:
         'Be summer-ready with our collection of muted solids, pastel prints and relaxed silhouettes! ',
     },
@@ -243,30 +240,27 @@ const WomenCategory = () => {
     );
   };
 
-  const getOfferSubHeading = () => {
-    return (
-      <Text
-        style={{
-          fontSize: 26,
-          fontFamily: Fonts.PlayfairDisplay400Italic,
-          color: '#ffffff',
-          marginLeft: 5,
-        }}>
-        RINGS
-      </Text>
-    );
-  };
-
   const getOfferTitleHeading = () => {
     return (
-      <Text
-        style={{
-          fontSize: 24,
-          fontFamily: Fonts.PlayfairDisplay800,
-          color: '#ffffff',
-        }}>
-        HANDCRAFTED
-      </Text>
+      <View style={{flexDirection: 'row'}}>
+        <Text
+          style={{
+            fontSize: 24,
+            fontFamily: Fonts.PlayfairDisplayExtraBold,
+            color: '#ffffff',
+          }}>
+          HANDCRAFTED
+        </Text>
+        <Text
+          style={{
+            fontSize: 26,
+            fontFamily: Fonts.PlayfairDisplayItalic,
+            color: '#ffffff',
+            marginLeft: 5,
+          }}>
+          RINGS
+        </Text>
+      </View>
     );
   };
 
@@ -287,7 +281,7 @@ const WomenCategory = () => {
             lineHeight: 90,
           }}>
           Style
-        </Text>{' '}
+        </Text>
         STORIES
       </Text>
     );

@@ -11,7 +11,7 @@ const OfferCard = ({
   data,
   UptoText = '',
 }) => {
-  const {offerValue, heading, subHeading, description} = data;
+  const {offerValue, heading, description} = data;
   const width = Dimensions.get('window').width;
   return (
     <View>
@@ -32,7 +32,6 @@ const OfferCard = ({
           </View>
           <View style={{flexDirection: 'row', marginLeft: 20}}>
             {heading()}
-            {subHeading()}
           </View>
         </LinearGradient>
       </ImageBackground>
