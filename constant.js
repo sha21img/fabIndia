@@ -13,11 +13,39 @@ export const MenCatagoryTableData = [
   'Footwear',
   'Pants',
 ];
+export const WoMenCatagoryTableData = [
+  'Apparel',
+  'Jewellery',
+  'Beauty',
+  'Footwear',
+  'Accessories',
+  'Pants'
+];
+export const WoMenCatagoryBeachData = [
+  'Weekend Getaway',
+  'Lounging Around',
+  'Brunch',
+];
 export const MenCatagoryData = [
   'Kurtas',
   'Shirts',
   'Nehru Jackets & Blazers',
   'Pyjamas',
+];
+export const WoMenCatagoryData = [
+  'Saris',
+  'Dresses',
+  'Tunics',
+  'Skirts',
+  'Kurtas',
+  'Pants'
+];
+export const WoMenCatagoryData2 = [
+  'Chanderi',
+  'Chikankari',
+  'Ikat',
+  'Shibori',
+  'Madhubani',
 ];
 export const MenCatagoryTab2 = [
   'Cotton',
