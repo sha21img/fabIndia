@@ -9,6 +9,7 @@ export default function LifeStyle({
   custumStyles = {},
   data = [],
   title = null,
+  customViewStyle = {},
 }) {
   const cards = data.map((item, index) => {
     return (
@@ -30,7 +31,7 @@ export default function LifeStyle({
     );
   });
   return (
-    <View style={Styles.container}>
+    <View style={[Styles.container, customViewStyle]}>
       <View style={[Styles.containerBox, custumStyles]}>
         {title()}
         <View style={Styles.cardContainer}>

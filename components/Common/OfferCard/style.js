@@ -39,7 +39,7 @@ export const Styles = StyleSheet.create({
   },
   ShopNowContainer: {
     alignItems: 'flex-start',
-    bottom: '10%',
+    bottom: '25%',
     position: 'absolute',
     marginHorizontal: 20,
   },
