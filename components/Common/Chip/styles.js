@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {Dimensions} from 'react-native';
 import {Colors} from '../../../assets/Colors';
+import Fonts from '../../../assets/fonts';
 const width = Dimensions.get('window').width;
 
 export const Styles = StyleSheet.create({
@@ -17,12 +18,14 @@ export const Styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 18,
     color: '#FFFFFF',
+    fontFamily: Fonts.AssistantRegular,
   },
   chipBoxInactive: {
     backgroundColor: Colors.inAactivecolor,
     alignSelf: 'flex-start',
     borderRadius: 40,
     marginVertical: 7,
+    fontFamily: Fonts.AssistantRegular,
     marginRight: 15,
   },
   chipTextInactive: {

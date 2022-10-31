@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Dimensions} from 'react-native';
+import Fonts from '../../../assets/fonts';
 const width = Dimensions.get('window').width;
 
 export const Styles = StyleSheet.create({
@@ -20,5 +21,6 @@ export const Styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     color: 'white',
+    fontFamily: Fonts.AssistantRegular,
   },
 });

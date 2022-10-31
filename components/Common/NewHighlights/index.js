@@ -2,6 +2,7 @@ import {View, Text, ScrollView, Image, Dimensions} from 'react-native';
 import React from 'react';
 import {Styles} from './styles';
 import {image} from '../../../assets/images';
+import Fonts from '../../../assets/fonts';
 
 export default function NewHighlights({heading = '', title = '', data = []}) {
   const width = Dimensions.get('window').width;
@@ -9,15 +10,7 @@ export default function NewHighlights({heading = '', title = '', data = []}) {
     return (
       <View key={Math.random() * 987} style={Styles.imageBox}>
         <Image style={Styles.image} source={item.image} />
-        <Text
-          style={{
-            color: '#4A4A4A',
-            fontWeight: '400',
-            fontSize: 16,
-            paddingVertical: 5,
-          }}>
-          {item.title}
-        </Text>
+        <Text style={Styles.imageText}>{item.title}</Text>
       </View>
     );
   });

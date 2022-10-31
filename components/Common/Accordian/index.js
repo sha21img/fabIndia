@@ -75,7 +75,7 @@ const Accordian = ({title, category}) => {
         {showContent &&
           category.map((item, index) => {
             return (
-              <View style={Styles.activebox} key={index}>
+              <View style={Styles.activebox} key={Math.random() * 1099900}>
                 <Text style={Styles.activetxt}>{item}</Text>
               </View>
             );
