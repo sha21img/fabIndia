@@ -28,6 +28,7 @@ import OfferCard from '../../../Common/OfferCard';
 import StoriesCard from '../../../Common/StoriesCard';
 import SummerGalary from '../../../Common/SummerGalary';
 import {Styles} from './style';
+const width = Dimensions.get('window').width;
 
 const WomenCategory = () => {
   const [imgActive1, setImgActive1] = React.useState(0);
@@ -273,7 +274,7 @@ const WomenCategory = () => {
         <Text
           style={{
             fontSize: 24,
-            fontFamily: Fonts.PlayfairDisplayExtraBold,
+            fontFamily: Fonts.PlayfairDisplay800,
             color: '#ffffff',
           }}>
           HANDCRAFTED
@@ -281,7 +282,7 @@ const WomenCategory = () => {
         <Text
           style={{
             fontSize: 26,
-            fontFamily: Fonts.PlayfairDisplayItalic,
+            fontFamily: Fonts.PlayfairDisplay400Italic,
             color: '#ffffff',
             marginLeft: 5,
           }}>
@@ -293,24 +294,30 @@ const WomenCategory = () => {
 
   const GetStoriesTitle = () => {
     return (
-      <Text
+      <View
         style={{
-          fontFamily: Fonts.BarlowRegular,
-          color: '#ffffff',
-          fontSize: 30,
-          marginHorizontal: 20,
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingHorizontal: 20,
         }}>
         <Text
           style={{
-            fontFamily: Fonts.LaBelleAuroreRegular,
+            fontFamily: Fonts.LaBelleAurore400,
             color: '#ffffff',
             fontSize: 60,
-            lineHeight: 90,
+            marginRight: 10,
           }}>
           Style
         </Text>
-        STORIES
-      </Text>
+        <Text
+          style={{
+            fontFamily: Fonts.Barlow400,
+            color: '#ffffff',
+            fontSize: 30,
+          }}>
+          STORIES
+        </Text>
+      </View>
     );
   };
 
@@ -454,7 +461,7 @@ const WomenCategory = () => {
         <CommonTopTab data={dataMap1} />
       </View>
       {/* ===============Offer carousole======== */}
-      <View style={{height: 500}}>
+      <View>
         <ScrollView
           horizontal
           onScroll={({nativeEvent}) => onchangeCarousole(nativeEvent)}
@@ -466,8 +473,6 @@ const WomenCategory = () => {
         </ScrollView>
         <View
           style={{
-            position: 'absolute',
-            bottom: 20,
             flexDirection: 'row',
             alignSelf: 'center',
           }}>
@@ -478,7 +483,7 @@ const WomenCategory = () => {
                 imgActive1 == index
                   ? {
                       margin: 3,
-                      color: 'red',
+                      color: Colors.primarycolor,
                     }
                   : {
                       margin: 3,
@@ -512,7 +517,8 @@ const WomenCategory = () => {
         <CommonTopTab data={dataMap3} />
       </View>
       {/*=========== Beauty Essential ============*/}
-      <CommonCarousel data={WomenCarouselData} />
+      <CommonCarousel data={WomenCarouselData} width={width} height={410} />
+
       {/* ================Summer Galery======== */}
       <SummerGalary
         data={SummerGalaryData}
@@ -537,13 +543,13 @@ const WomenCategory = () => {
         <CommonTopTab data={dataMap} />
       </View>
       {/*=========== Beauty Essential ============*/}
-      <CommonCarousel data={WomenCarouselData} />
+      <CommonCarousel data={WomenCarouselData} width={width} height={410} />
       {/* ================Collection ======== */}
       <View style={{paddingVertical: 30}}>
         <Text style={Styles.CollectionHead}>Collections</Text>
         <ScrollView horizontal>
           {collectionData.map(item => (
-            <CollectionCard key={Math.random()*122992} item={item} />
+            <CollectionCard key={Math.random() * 122992} item={item} />
           ))}
         </ScrollView>
       </View>

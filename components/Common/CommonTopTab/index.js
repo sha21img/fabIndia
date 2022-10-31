@@ -12,24 +12,17 @@ export default function CommonTopTab({data = []}) {
     <NavigationContainer independent={true}>
       <Tab.Navigator
         screenOptions={{
-          tabBarActiveTintColor: Colors.primarycolor,
-          tabBarInactiveTintColor: Colors.textcolor,
           tabBarIndicatorStyle: {
             backgroundColor: Colors.primarycolor,
             height: 2,
           },
           tabBarScrollEnabled: true,
-          tabBarLabelStyle: {
-            fontSize: 18,
-            fontWeight: '700',
-            fontFamily: Fonts.AssistantRegular,
-            textTransform: 'none',
-          },
           tabBarStyle: {
             height: 40,
             backgroundColor: Colors.backgroundColor,
             shadowColor: 'white',
           },
+          tabBarLabelStyle: {width: 400},
         }}>
         {data?.map(item => {
           return (
@@ -40,6 +33,18 @@ export default function CommonTopTab({data = []}) {
                 tabBarItemStyle: {
                   width: 'auto',
                 },
+                tabBarLabel: ({focused}) => (
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontFamily: focused
+                        ? Fonts.Assistant700
+                        : Fonts.Assistant300,
+                      color: focused ? Colors.primarycolor : Colors.textcolor,
+                    }}>
+                    {item.name}
+                  </Text>
+                ),
               }}
               component={item.screen}
             />

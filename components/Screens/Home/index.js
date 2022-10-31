@@ -5,6 +5,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Image,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
 import HomeHeader from './HomeHeader';
@@ -33,6 +34,7 @@ import Art_Artist from './Art_Artist';
 import PointDetailCard from '../../Common/PointDetailCard';
 import SimpleCard from '../../Common/SimpleCard';
 import Fonts from '../../../assets/fonts';
+const width = Dimensions.get('window').width;
 
 const WomenHighlightData = [
   {image: image.womenCard, title: 'Saris'},
@@ -527,7 +529,11 @@ export default function Dashbord() {
           title="Women"
           data={WomenHighlightData}
         />
-        <CommonCarousel data={WomenCarouselData} />
+        <CommonCarousel
+          data={WomenCarouselData}
+          width={width / 1.07}
+          height={330}
+        />
         <View
           style={{
             flexDirection: 'row',
@@ -560,7 +566,11 @@ export default function Dashbord() {
           bgImage={image.banner1}
         />
         <NewHighlights heading="New in" title="Men" data={MenHighlightData} />
-        <CommonCarousel data={MenCarouselData} />
+        <CommonCarousel
+          data={MenCarouselData}
+          width={width / 1.07}
+          height={330}
+        />
         <View
           style={{
             flexDirection: 'row',
@@ -597,7 +607,11 @@ export default function Dashbord() {
         <Interior />
         <StateCategory />
         <NewHighlights heading="New in" title="HOME" data={HomeHighlightData} />
-        <CommonCarousel data={HomeCarouselData} />
+        <CommonCarousel
+          data={HomeCarouselData}
+          width={width / 1.07}
+          height={330}
+        />
         <View
           style={{
             flexDirection: 'row',
@@ -620,7 +634,11 @@ export default function Dashbord() {
           <CommonTopTab data={dataMap3} />
         </View>
         <LookingFor active={active} />
-        <CommonCarousel data={LifeCarouselData} />
+        <CommonCarousel
+          data={LifeCarouselData}
+          width={width / 1.07}
+          height={330}
+        />
         <View
           style={{
             flexDirection: 'row',
@@ -642,8 +660,16 @@ export default function Dashbord() {
         <View style={{marginLeft: 15, height: 500}}>
           <CommonTopTab data={dataMap4} />
         </View>
-        <CommonCarousel data={KidsCarouselData} />
-        <CommonCarousel data={BeautyCarouselData} />
+        <CommonCarousel
+          data={KidsCarouselData}
+          width={width / 1.07}
+          height={330}
+        />
+        <CommonCarousel
+          data={BeautyCarouselData}
+          width={width / 1.07}
+          height={330}
+        />
         <Art_Artist />
         <Legacy />
       </ScrollView>
