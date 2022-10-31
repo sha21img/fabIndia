@@ -4,6 +4,7 @@ import React from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {Colors} from '../../../assets/Colors';
+import Fonts from '../../../assets/fonts';
 
 const Tab = createMaterialTopTabNavigator();
 export default function CommonTopTab({data = []}) {
@@ -21,6 +22,7 @@ export default function CommonTopTab({data = []}) {
           tabBarLabelStyle: {
             fontSize: 18,
             fontWeight: '700',
+            fontFamily: Fonts.AssistantRegular,
             textTransform: 'none',
           },
           tabBarStyle: {

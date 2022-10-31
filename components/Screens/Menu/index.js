@@ -195,7 +195,7 @@ export default function Menu() {
         />
         {data1.map((item, i) => {
           return (
-            <View key={i} style={Styles.servicebox}>
+            <View key={Math.random() * 1021} style={Styles.servicebox}>
               <Text style={Styles.servicetxt}>{item}</Text>
             </View>
           );

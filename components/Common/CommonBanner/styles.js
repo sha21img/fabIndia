@@ -9,20 +9,13 @@ export const Styles = StyleSheet.create({
   container: {
     padding: 16,
   },
-  heading: {
-    paddingVertical: 15,
-    fontSize: 16,
-    fontWeight: '400',
-    color: 'white',
-    lineHeight: 22,
-  },
   button: {
     backgroundColor: 'white',
     paddingVertical: 10,
     paddingHorizontal: 15,
     alignSelf: 'flex-start',
     borderRadius: 40,
-    marginTop: 15,
+    marginTop: 10,
     marginBottom: 5,
   },
   buttonText: {

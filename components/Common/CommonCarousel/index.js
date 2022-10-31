@@ -24,6 +24,7 @@ export default function CommonCarousel({data = []}) {
           <>
             <ImageBackground
               resizeMode="cover"
+              key={Math.random() * 1099900}
               style={{
                 width: width / 1.07,
                 height: width / 1.07,
