@@ -16,7 +16,7 @@ const leftIcon = (
   <SimpleLineIcons name="arrow-left" color={Colors.primarycolor} size={20} />
 );
 const rightIcon = (
-  <AntDesign name="shoppingcart" color={Colors.primarycolor} size={20} />
+  <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
 );
 
 export default function HomeStack() {

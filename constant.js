@@ -19,6 +19,13 @@ export const MenCatagoryData = [
   'Nehru Jackets & Blazers',
   'Pyjamas',
 ];
+export const MenCatagoryTab2 = [
+  'Cotton',
+  'Linen',
+  'Silk',
+  'Cotton Silk',
+  'Cotton Linen',
+];
 
 export const MenTabdata = [
   'Shirts',

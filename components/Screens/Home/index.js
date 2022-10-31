@@ -1,4 +1,10 @@
-import {View, Text, ScrollView, ImageBackground} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import Header from './Header';
 import Catagory from './Catagory';
@@ -26,6 +32,7 @@ import LookingFor from './LookingFor';
 import Art_Artist from './Art_Artist';
 import PointDetailCard from '../../Common/PointDetailCard';
 import SimpleCard from '../../Common/SimpleCard';
+import Fonts from '../../../assets/fonts';
 
 const WomenHighlightData = [
   {image: image.womenCard, title: 'Saris'},
@@ -63,6 +70,7 @@ const WomenCarouselText = () => {
             fontWeight: '800',
             fontSize: 24,
             color: 'white',
+            fontFamily: Fonts.PlayfairDisplayRegular,
           }}>
           SUMMER
         </Text>
@@ -72,6 +80,7 @@ const WomenCarouselText = () => {
             fontSize: 26,
             color: 'white',
             marginLeft: 10,
+            fontFamily: Fonts.PlayfairDisplayItalic,
           }}>
           Dresses
         </Text>
@@ -254,32 +263,68 @@ const BeautyCarouselText = () => {
 };
 const bannerHeading1 = () => {
   return (
-    <View style={{flexDirection: 'row'}}>
-      <Text style={{fontSize: 26, fontWeight: '700', color: 'white'}}>
-        CUSTOMIZE
+    <>
+      <View style={{flexDirection: 'row'}}>
+        <Text
+          style={{
+            fontSize: 26,
+            // fontWeight: '700',
+            color: 'white',
+            fontFamily: Fonts.PlayfairDisplayBold,
+          }}>
+          CUSTOMIZE
+        </Text>
+        <Text
+          style={{
+            fontSize: 26,
+            paddingLeft: 4,
+            color: 'white',
+            fontFamily: Fonts.PlayfairDisplayRegular,
+          }}>
+          YOUR OWN
+        </Text>
+      </View>
+      <Text
+        style={{
+          paddingVertical: 15,
+          fontSize: 16,
+          fontWeight: '400',
+          color: 'white',
+          lineHeight: 22,
+        }}>
+        Bring home Fabindia products that are designed by you, for you!
       </Text>
-      <Text style={{fontSize: 26, paddingLeft: 4, color: 'white'}}>
-        YOUR OWN
-      </Text>
-    </View>
+    </>
   );
 };
 const bannerHeading2 = () => {
   return (
-    <View style={{flexDirection: 'row'}}>
-      <Text style={{fontSize: 26, fontWeight: '300', color: 'white'}}>
-        ADD A
-      </Text>
+    <>
+      <View style={{flexDirection: 'row'}}>
+        <Text style={{fontSize: 26, fontWeight: '300', color: 'white'}}>
+          ADD A
+        </Text>
+        <Text
+          style={{
+            fontSize: 26,
+            fontWeight: '900',
+            paddingLeft: 4,
+            color: 'white',
+          }}>
+          MONOGRAM
+        </Text>
+      </View>
       <Text
         style={{
-          fontSize: 26,
-          fontWeight: '900',
-          paddingLeft: 4,
+          paddingVertical: 15,
+          fontSize: 16,
+          fontWeight: '400',
           color: 'white',
+          lineHeight: 22,
         }}>
-        MONOGRAM
+        Add a personal touch to your home linen with our new monogram service!
       </Text>
-    </View>
+    </>
   );
 };
 const CardCompo = item => {
@@ -418,6 +463,41 @@ export default function Dashbord() {
           style={{width: '100%', height: 384}}
           source={image.Banner}>
           <Header />
+          <TouchableOpacity
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.6)',
+              paddingVertical: 7,
+              paddingHorizontal: 15,
+              alignSelf: 'flex-start',
+              borderRadius: 40,
+              marginVertical: 5,
+              marginHorizontal: 20,
+            }}>
+            <Text style={{fontSize: 16, fontWeight: '300', color: 'white'}}>
+              Tap to customize & buy!
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.6)',
+              paddingVertical: 7,
+              paddingHorizontal: 15,
+              alignSelf: 'flex-start',
+              borderRadius: 40,
+              position: 'absolute',
+              bottom: 70,
+              left: 20,
+            }}>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: '600',
+                fontFamily: Fonts.AssistantRegular,
+                color: 'white',
+              }}>
+              #myfablife
+            </Text>
+          </TouchableOpacity>
         </ImageBackground>
         <ImageBackground
           resizeMode="cover"
@@ -454,13 +534,11 @@ export default function Dashbord() {
         </View>
         <CommonBanner
           heading={bannerHeading1}
-          desciption="Bring home Fabindia products that are designed by you, for you!"
           buttonText="Customize now"
           bgImage={image.banner1}
         />
         <CommonBanner
           heading={bannerHeading2}
-          desciption="Add a personal touch to your home linen with our new monogram service!"
           buttonText="Add a monogram"
           bgImage={image.banner1}
         />

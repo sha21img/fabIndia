@@ -26,7 +26,7 @@ export default function Art_Artist() {
       <VideoP />
       <View style={Styles.imageBox}>
         {artImageData.map((item, i) => {
-          return <Image key={i} style={Styles.image} source={item.banner} />;
+          return <Image key={Math.random() * 10} style={Styles.image} source={item.banner} />;
         })}
       </View>
     </View>
