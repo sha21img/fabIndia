@@ -31,30 +31,9 @@ export default function Card() {
             start={{x: 0, y: 1}}
             end={{x: 0, y: 0}}>
             <View style={Styles.discountTextContainer}>
-              <Text
-                style={{
-                  color: '#fff',
-                  fontSize: 16,
-                  fontWeight: '300',
-                }}>
-                Upto
-              </Text>
-              <Text
-                style={{
-                  color: '#fff',
-                  fontSize: 20,
-                  fontWeight: '700',
-                }}>
-                70%
-              </Text>
-              <Text
-                style={{
-                  color: '#fff',
-                  fontSize: 16,
-                  fontWeight: '300',
-                }}>
-                Off
-              </Text>
+              <Text style={Styles.uptoText}>UPTO</Text>
+              <Text style={Styles.offerText}>70%</Text>
+              <Text style={Styles.uptoText}>OFF</Text>
             </View>
             <Text style={Styles.bottomText}>{img.location}</Text>
           </LinearGradient>

@@ -58,7 +58,9 @@ const Accordian = ({title, category}) => {
               style={[
                 Styles.titletxt,
                 {
-                  fontWeight: showContent ? '700' : '400',
+                  fontFamily: showContent
+                    ? Fonts.Assistant700
+                    : Fonts.Assistant400,
                 },
               ]}>
               {title}

@@ -22,7 +22,7 @@ export default function Interior() {
       </View>
       <View style={Styles.headingBox}>
         <Text style={Styles.headingText}>INTERIOR DESIGN</Text>
-        <Text style={Styles.headingText}>Solutions</Text>
+        <Text style={Styles.headingText1}>Solutions</Text>
       </View>
       <TouchableOpacity style={Styles.buttonBox}>
         <Text style={Styles.buttonText}>Get in touch with us</Text>

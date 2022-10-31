@@ -19,8 +19,7 @@ export const Styles = StyleSheet.create({
     marginLeft: 10,
     marginVertical: 5,
     fontSize: 16,
-    fontFamily: Fonts.AssistantRegular,
-    fontWeight: '400',
+    fontFamily: Fonts.Assistant400,
     lineHeight: 21,
     position: 'absolute',
     bottom: 12,
@@ -32,17 +31,16 @@ export const Styles = StyleSheet.create({
     height: 648,
     position: 'relative',
   },
-  ContainerHeader:{
+  ContainerHeader: {
     fontSize: 18,
-    fontFamily: Fonts.AssistantRegular,
-    fontWeight: '400',
+    fontFamily: Fonts.Assistant400,
     color: '#4A4A4A',
     lineHeight: 23,
     marginHorizontal: 20,
   },
-  CardCarousole:{
+  CardCarousole: {
     height: 660,
     flexDirection: 'column',
     flexWrap: 'wrap',
-  }
+  },
 });

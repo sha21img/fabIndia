@@ -16,8 +16,7 @@ export const Styles = StyleSheet.create({
   imagetxt: {
     color: '#FFFFFF',
     fontSize: 14,
-    fontWeight: '400',
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant400,
   },
   txtbox: {
     backgroundColor: 'rgba(151, 124, 104, 0.7)',
@@ -53,7 +52,6 @@ export const Styles = StyleSheet.create({
     textAlign: 'center',
     color: '#FFFFFF',
     fontSize: 24,
-    fontWeight: '400',
     fontFamily: Fonts.BarlowRegular,
     letterSpacing: 7,
   },

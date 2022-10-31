@@ -31,7 +31,10 @@ export default function Legacy() {
   ];
   return (
     <View style={Styles.container}>
-      <Text style={Styles.header}>Our legacy</Text>
+      <View style={Styles.headingBox}>
+        <Text style={Styles.header}>Our</Text>
+        <Text style={Styles.header1}>legacy</Text>
+      </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {data.map(img => (
           <Image

@@ -30,7 +30,7 @@ const getOfferTitleHeading = () => {
     <Text
       style={{
         fontSize: 24,
-        fontFamily: Fonts.PlayfairDisplayExtraBold,
+        fontFamily: Fonts.PlayfairDisplay800,
         color: '#ffffff',
       }}>
       SUMMER
@@ -42,7 +42,7 @@ const getOfferSubHeading = () => {
     <Text
       style={{
         fontSize: 26,
-        fontFamily: Fonts.PlayfairDisplayItalic,
+        fontFamily: Fonts.PlayfairDisplay400Italic,
         color: '#ffffff',
         marginLeft: 5,
       }}>
@@ -97,44 +97,6 @@ const WomenHighlightData = [
   {image: image.womenCard1, title: 'Tunics'},
   {image: image.womenCard1, title: 'Tops'},
 ];
-// const WomenCarouselData = [
-//   {
-//     heading: () => WomenCarouselText(),
-//     banner: image.WomenCarousel,
-//     buttonText: 'Explore now',
-//   },
-//   {
-//     heading: () => WomenCarouselText(),
-//     banner: image.WomenCarousel,
-//     buttonText: 'Explore now',
-//   },
-// ];
-const WomenCarouselText = () => {
-  return (
-    <>
-      <View style={{flexDirection: 'row'}}>
-        <Text
-          style={{
-            fontWeight: '800',
-            fontSize: 24,
-            color: 'white',
-          }}>
-          SUMMER
-        </Text>
-        <Text
-          style={{
-            fontWeight: '400',
-            fontSize: 26,
-            color: 'white',
-            marginLeft: 10,
-          }}>
-          Dresses
-        </Text>
-      </View>
-    </>
-  );
-};
-
 const MenCatagory = () => {
   const [active, setActive] = React.useState('Bestsellers');
   const [imgActive1, setImgActive1] = React.useState(0);
@@ -203,11 +165,10 @@ const MenCatagory = () => {
     return (
       <Text
         style={{
-          fontFamily: Fonts.PlayfairDisplayRegular,
+          fontFamily: Fonts.PlayfairDisplay600,
           color: '#4A4A4A',
           fontSize: 30,
           marginHorizontal: 20,
-          fontWeight: '600',
         }}>
         Apparel
       </Text>
@@ -259,8 +220,7 @@ const MenCatagory = () => {
           <Text
             style={{
               fontSize: 14,
-              fontWeight: '300',
-              fontFamily: Fonts.AssistantRegular,
+              fontFamily: Fonts.Assistant300,
               color: '#FFFFFF',
               lineHeight: 18,
               textAlign: 'center',
@@ -283,8 +243,7 @@ const MenCatagory = () => {
                 color: '#FFFFFF',
                 marginLeft: 3,
                 fontSize: 18,
-                fontWeight: '400',
-                fontFamily: Fonts.PlayfairDisplayRegular,
+                fontFamily: Fonts.PlayfairDisplay400,
               }}>
               man
             </Text>
@@ -352,9 +311,8 @@ const MenCatagory = () => {
             <Text
               style={{
                 color: '#FFFFFF',
-                fontWeight: '400',
                 fontSize: 16,
-                fontFamily: Fonts.AssistantRegular,
+                fontFamily: Fonts.Assistant400,
                 lineHeight: 21,
               }}>
               Select your own material, length, collar, sleeves, pockets and
@@ -363,7 +321,7 @@ const MenCatagory = () => {
             <Text
               style={{
                 color: '#FFFFFF',
-                fontWeight: '400',
+                fontFamily: Fonts.Assistant400,
                 fontSize: 16,
                 lineHeight: 21,
               }}>
@@ -384,10 +342,9 @@ const MenCatagory = () => {
             <Text
               style={{
                 color: Colors.primarycolor,
-                fontWeight: '400',
                 fontSize: 16,
                 lineHeight: 21,
-                fontFamily: Fonts.AssistantRegular,
+                fontFamily: Fonts.Assistant400,
               }}>
               Customize your own
             </Text>

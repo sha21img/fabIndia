@@ -20,19 +20,18 @@ export const Styles = StyleSheet.create({
   OfferValueText: {
     color: '#ffffff',
     fontSize: 20,
-    fontFamily: Fonts.PlayfairDisplayItalic,
+    fontFamily: Fonts.PlayfairDisplay400Italic,
     lineHeight: 20,
   },
   UptoText: {
     color: '#ffffff',
     fontSize: 20,
-    fontFamily: Fonts.PlayfairDisplayRegular,
+    fontFamily: Fonts.PlayfairDisplay400,
   },
   OfferValue: {
     color: '#ffffff',
     fontSize: 30,
-    fontWeight: '700',
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant700,
   },
   ShopTablet: {
     height: 123,
@@ -53,7 +52,10 @@ export const Styles = StyleSheet.create({
   CardDescription: {
     fontSize: 16,
     color: '#ffffff',
-    fontFamily: Fonts.AssistantRegular,
-    fontWeight: '400',
+    fontFamily: Fonts.Assistant400,
+  },
+  btntext: {
+    color: '#903233',
+    fontFamily: Fonts.Assistant400,
   },
 });

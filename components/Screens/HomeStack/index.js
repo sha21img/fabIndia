@@ -3,7 +3,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../Home';
 import SearchResult from '../Search/SearchResult';
-import Header from '../../Common/Header/header';
+import Header from '../../Common/Header';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -21,7 +21,7 @@ const rightIcon = (
 
 export default function HomeStack() {
   return (
-    <Stack.Navigator initialRouteName="MenCatagory">
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
         component={Home}

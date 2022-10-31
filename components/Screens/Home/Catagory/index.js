@@ -26,12 +26,7 @@ export default function Catagory() {
     );
   });
   return (
-    <View
-      style={{
-        position: 'absolute',
-        top: -60,
-        zIndex: 10,
-      }}>
+    <View style={Styles.mainContainer}>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

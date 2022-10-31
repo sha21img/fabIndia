@@ -11,7 +11,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import {Colors} from '../../../../assets/Colors';
 import Fonts from '../../../../assets/fonts';
 import {image} from '../../../../assets/images';
-import { MenCatagoryTableData, MenCatagoryData } from '../../../../constant';
+import {MenCatagoryTableData, MenCatagoryData} from '../../../../constant';
 import Card from '../../../Common/Card';
 import Chip from '../../../Common/Chip';
 import CollectionCard from '../../../Common/CollectionCard';
@@ -112,8 +112,7 @@ const WomenCategory = () => {
         <View>
           <Text
             style={{
-              fontFamily:Fonts.PlayfairDisplayItalic,
-              fontWeight: '400',
+              fontFamily: Fonts.PlayfairDisplay400Italic,
               fontSize: 26,
               color: 'white',
             }}>
@@ -121,11 +120,11 @@ const WomenCategory = () => {
           </Text>
           <Text
             style={{
-              fontFamily:Fonts.AssistantRegular,
+              fontFamily: Fonts.Assistant400,
               fontWeight: '400',
               fontSize: 16,
               color: 'white',
-              marginTop:5
+              marginTop: 5,
             }}>
             Skincare that’s all natural
           </Text>
@@ -147,8 +146,16 @@ const WomenCategory = () => {
             paddingVertical: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
-          <Card customViewStyle={{marginRight: 10}} offer='20' originalprice='1000'  />
-          <Card customViewStyle={{marginRight: 10}} offer='20' originalprice='1000' />
+          <Card
+            customViewStyle={{marginRight: 10}}
+            offer="20"
+            originalprice="1000"
+          />
+          <Card
+            customViewStyle={{marginRight: 10}}
+            offer="20"
+            originalprice="1000"
+          />
         </ScrollView>
       </>
     );
@@ -212,11 +219,10 @@ const WomenCategory = () => {
     return (
       <Text
         style={{
-          fontFamily: Fonts.PlayfairDisplayItalic,
+          fontFamily: Fonts.PlayfairDisplay600Italic,
           color: '#4A4A4A',
           fontSize: 30,
           marginHorizontal: 20,
-          fontWeight: '600',
         }}>
         Summer prints
       </Text>
@@ -227,11 +233,10 @@ const WomenCategory = () => {
     return (
       <Text
         style={{
-          fontFamily: Fonts.PlayfairDisplayItalic,
+          fontFamily: Fonts.PlayfairDisplay600Italic,
           color: '#4A4A4A',
           fontSize: 30,
           marginHorizontal: 20,
-          fontWeight: '600',
         }}>
         Fussion Wear
       </Text>
@@ -243,7 +248,7 @@ const WomenCategory = () => {
       <Text
         style={{
           fontSize: 26,
-          fontFamily: Fonts.PlayfairDisplayItalic,
+          fontFamily: Fonts.PlayfairDisplay400Italic,
           color: '#ffffff',
           marginLeft: 5,
         }}>
@@ -257,7 +262,7 @@ const WomenCategory = () => {
       <Text
         style={{
           fontSize: 24,
-          fontFamily: Fonts.PlayfairDisplayExtraBold,
+          fontFamily: Fonts.PlayfairDisplay800,
           color: '#ffffff',
         }}>
         HANDCRAFTED
@@ -270,7 +275,6 @@ const WomenCategory = () => {
       <Text
         style={{
           fontFamily: Fonts.BarlowRegular,
-          fontStyle: 'normal',
           color: '#ffffff',
           fontSize: 30,
           marginHorizontal: 20,
@@ -278,7 +282,6 @@ const WomenCategory = () => {
         <Text
           style={{
             fontFamily: Fonts.LaBelleAuroreRegular,
-            fontStyle: 'normal',
             color: '#ffffff',
             fontSize: 60,
             lineHeight: 90,
@@ -295,7 +298,7 @@ const WomenCategory = () => {
       <>
         <Text
           style={{
-            fontFamily: Fonts.PlayfairDisplayItalic,
+            fontFamily: Fonts.PlayfairDisplay600,
             color: '#4A4A4A',
             fontSize: 30,
             marginHorizontal: 20,
@@ -309,6 +312,7 @@ const WomenCategory = () => {
               fontSize: 18,
               color: '#4A4A4A',
               lineHeight: 23,
+              fontFamily: Fonts.Assistant400,
               marginHorizontal: 20,
             }}>
             Combos that’ll keep you feeling fab!
@@ -355,8 +359,7 @@ const WomenCategory = () => {
           <Text
             style={{
               fontSize: 14,
-              fontWeight: '300',
-              fontFamily: Fonts.AssistantRegular,
+              fontFamily: Fonts.Assistant300,
               color: '#FFFFFF',
               lineHeight: 18,
               textAlign: 'center',
@@ -379,10 +382,9 @@ const WomenCategory = () => {
                 color: '#FFFFFF',
                 marginLeft: 3,
                 fontSize: 18,
-                fontWeight: '400',
-                fontFamily: Fonts.PlayfairDisplayRegular,
+                fontFamily: Fonts.PlayfairDisplay400,
               }}>
-              man
+              women
             </Text>
           </View>
         </View>
