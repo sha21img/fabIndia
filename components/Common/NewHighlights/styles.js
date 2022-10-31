@@ -22,15 +22,13 @@ export const Styles = StyleSheet.create({
   },
   newText: {
     fontSize: 14,
-    fontWeight: '300',
     color: '#4A4A4A',
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant300,
   },
   title: {
     color: '#4A4A4A',
-    fontWeight: '700',
     fontSize: 24,
-    fontFamily:Fonts.PlayfairDisplayRegular
+    fontFamily: Fonts.PlayfairDisplay700,
   },
   imageBox: {
     padding: 5,
@@ -40,11 +38,10 @@ export const Styles = StyleSheet.create({
     height: 180,
     resizeMode: 'cover',
   },
-  imageText:{
+  imageText: {
     color: '#4A4A4A',
-    fontWeight: '400',
     fontSize: 16,
     paddingVertical: 5,
-    fontFamily:Fonts.AssistantRegular
-  }
+    fontFamily: Fonts.Assistant400,
+  },
 });

@@ -4,7 +4,8 @@ import {image} from '../../../assets/images';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './style';
 import {Colors} from '../../../assets/Colors';
-import Header from '../../Common/Header/header';
+import Header from '../../Common/Header';
+import Fonts from '../../../assets/fonts';
 export default MyAccount = () => {
   const pages = [
     {
@@ -61,7 +62,7 @@ export default MyAccount = () => {
   return (
     <>
       <Header
-      customStyle={{elevation:3, backgroundColor:"#ffffff"}}
+        customStyle={{elevation: 3, backgroundColor: '#ffffff'}}
         title="My Account"
         leftIcon={
           <MaterialCommunityIcons name="chevron-left" style={{fontSize: 25}} />
@@ -71,7 +72,7 @@ export default MyAccount = () => {
         }
       />
       {/* <View style={{elevation:10, width:'100%', height:3}}></View> */}
-      <ScrollView style={{backgroundColor: '#ffffff', marginTop:5}}>
+      <ScrollView style={{backgroundColor: '#ffffff', marginTop: 5}}>
         <View style={styles.profileContainer}>
           <View style={{alignItems: 'flex-end'}}>
             <MaterialCommunityIcons name="border-color" size={15} />
@@ -98,7 +99,7 @@ export default MyAccount = () => {
               <Text
                 style={{
                   fontSize: 16,
-                  fontWeight: '600',
+                  fontFamily: Fonts.Assistant600,
                   lineHeight: 20,
                   color: Colors.textcolor,
                 }}>
@@ -107,7 +108,7 @@ export default MyAccount = () => {
               <Text
                 style={{
                   fontSize: 14,
-                  fontWeight: '400',
+                  fontFamily: Fonts.Assistant400,
                   lineHeight: 18,
                   color: Colors.inactiveicon,
                 }}>
@@ -116,7 +117,7 @@ export default MyAccount = () => {
               <Text
                 style={{
                   fontSize: 14,
-                  fontWeight: '400',
+                  fontFamily: Fonts.Assistant400,
                   lineHeight: 18,
                   color: Colors.inactiveicon,
                 }}>
@@ -125,7 +126,7 @@ export default MyAccount = () => {
               <Text
                 style={{
                   fontSize: 14,
-                  fontWeight: '400',
+                  fontFamily: Fonts.Assistant400,
                   lineHeight: 14,
                   color: Colors.primarycolor,
                   marginTop: 12,
@@ -152,6 +153,7 @@ export default MyAccount = () => {
                 <Text
                   style={{
                     marginLeft: 23,
+                    fontFamily: Fonts.Assistant400,
                     fontSize: 14,
                     color: Colors.textcolor,
                   }}>

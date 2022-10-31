@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import Fonts from '../../../assets/fonts';
 export const Styles = StyleSheet.create({
   img: {
     height: 170,
@@ -20,10 +21,21 @@ export const Styles = StyleSheet.create({
     backgroundColor: 'rgba(144,50,51,0.8)',
     margin: 10,
   },
+  uptoText: {
+    color: '#fff',
+    fontSize: 16,
+    fontFamily: Fonts.Assistant300,
+  },
+  offerText: { 
+    color: '#fff',
+    fontSize: 20,
+    fontFamily: Fonts.Assistant700,
+  },
   bottomText: {
     fontSize: 16,
-    fontWeight: '500',
+    fontFamily: Fonts.PlayfairDisplay500Italic,
     color: '#fff',
+    lineHeight: 16,
     margin: 10,
   },
 });

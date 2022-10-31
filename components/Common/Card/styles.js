@@ -12,10 +12,9 @@ export const Styles = StyleSheet.create({
   },
   headingtxt: {
     fontSize: 16,
-    fontWeight: '400',
     color: '#4A4A4A',
     lineHeight: 21,
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant400,
   },
   amountbox: {
     flexDirection: 'row',
@@ -25,22 +24,22 @@ export const Styles = StyleSheet.create({
   },
   amounttxt: {
     paddingRight: 10,
-    fontWeight: '400',
     fontSize: 16,
     color: '#4A4A4A',
+    fontWeight: '400',
     fontFamily: Fonts.RupeeForadian,
   },
   amountoff: {
     paddingRight: 10,
     textDecorationLine: 'line-through',
     color: '#979797',
-    fontSize: 14,
+    fontFamily: Fonts.RupeeForadian,
+    fontSize: 12,
   },
   offertxt: {
     paddingRight: 10,
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant700,
     color: '#96AD66',
-    fontWeight: '700',
     fontSize: 16,
   },
 });

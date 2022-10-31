@@ -15,24 +15,22 @@ export const Styles = StyleSheet.create({
   chipTextActive: {
     paddingVertical: 7,
     paddingHorizontal: 10,
-    fontWeight: '400',
     fontSize: 18,
     color: '#FFFFFF',
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant400,
   },
   chipBoxInactive: {
     backgroundColor: Colors.inAactivecolor,
     alignSelf: 'flex-start',
     borderRadius: 40,
     marginVertical: 7,
-    fontFamily: Fonts.AssistantRegular,
     marginRight: 15,
   },
   chipTextInactive: {
     paddingVertical: 7,
     paddingHorizontal: 10,
-    fontWeight: '400',
     fontSize: 18,
+    fontFamily: Fonts.Assistant400,
     color: Colors.textcolor,
   },
 });

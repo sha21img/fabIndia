@@ -15,11 +15,6 @@ export default function Chip({title = '', handleClick = null, active = null}) {
           {title}
         </Text>
       </TouchableOpacity>
-      {/* <TouchableOpacity
-        onPress={() => handleClick()}
-        style={Styles.chipBoxInactive}>
-        <Text style={Styles.chipTextInactive}>{title}</Text>
-      </TouchableOpacity> */}
     </>
   );
 }

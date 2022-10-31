@@ -2,6 +2,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
+import {Styles} from './styles';
 // import color from '../../assets/color';
 
 export default function Header({
@@ -25,32 +26,15 @@ export default function Header({
         onPress={() => {
           navigation.goBack();
         }}>
-        <Text
-          style={{
-            color: Colors.primarycolor,
-          }}>
-          {leftIcon}
-        </Text>
+        <Text style={Styles.icon}>{leftIcon}</Text>
       </TouchableOpacity>
-      {title && (
-        <Text
-          style={{
-            color: Colors.primarycolor,
-            fontSize: 18,
-            fontFamily: Fonts.PlayfairDisplayRegular,
-            fontWeight: '500',
-          }}>
-          {title}
-        </Text>
-      )}
+      {title && <Text style={Styles.title}>{title}</Text>}
 
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('Wallet');
         }}>
-        <Text style={{color: Colors.primarycolor, fontSize: 14}}>
-          {rightIcon}
-        </Text>
+        <Text style={Styles.icon}>{rightIcon}</Text>
       </TouchableOpacity>
     </View>
   );

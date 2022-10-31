@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import Fonts from '../../../assets/fonts';
 
 export const Styles = StyleSheet.create({
   DescriptionText: {
@@ -6,6 +7,7 @@ export const Styles = StyleSheet.create({
     color: '#ffffff',
     lineHeight: 23,
     marginHorizontal: 20,
+    fontFamily: Fonts.Assistant400,
   },
   CarddescriptionText: {
     marginLeft: 10,
@@ -13,5 +15,6 @@ export const Styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 21,
     color: '#ffffff',
+    fontFamily: Fonts.Assistant400,
   },
 });

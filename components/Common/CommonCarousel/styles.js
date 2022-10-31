@@ -19,8 +19,7 @@ export const Styles = StyleSheet.create({
   },
   ButtonText: {
     fontSize: 16,
-    fontWeight: '400',
     color: 'white',
-    fontFamily: Fonts.AssistantRegular,
+    fontFamily: Fonts.Assistant400,
   },
 });

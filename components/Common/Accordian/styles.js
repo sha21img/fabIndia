@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../../assets/Colors';
+import Fonts from '../../../assets/fonts';
 export const Styles = StyleSheet.create({
   accordbox: {
     overflow: 'hidden',
@@ -25,7 +26,7 @@ export const Styles = StyleSheet.create({
   },
   activetxt: {
     fontSize: 14,
-    fontWeight: '400',
+    fontFamily: Fonts.Assistant400,
     color: Colors.textcolor,
   },
 });

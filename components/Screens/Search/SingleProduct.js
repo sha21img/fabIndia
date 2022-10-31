@@ -3,6 +3,7 @@ import React from 'react';
 
 import SingleProductCard from '../../Common/SingleProductCard';
 import {Styles} from './styles';
+import Fonts from '../../../assets/fonts';
 
 const SingleProduct = () => {
   return (
@@ -13,7 +14,9 @@ const SingleProduct = () => {
           backgroundColor: '#F6F6F6',
           paddingHorizontal: 15,
         }}>
-        <Text>1 product</Text>
+        <Text style={{fontSize: 12, fontFamily: Fonts.Assistant600}}>
+          1 product
+        </Text>
       </View>
       <ScrollView
         contentContainerStyle={[Styles.scrollcontainer, {paddingBottom: 10}]}>
