@@ -16,12 +16,12 @@ const leftIcon = (
   <SimpleLineIcons name="arrow-left" color={Colors.primarycolor} size={20} />
 );
 const rightIcon = (
-  <AntDesign name="shoppingcart" color={Colors.primarycolor} size={20} />
+  <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
 );
 
 export default function HomeStack() {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="MenCatagory">
       <Stack.Screen
         name="Home"
         component={Home}
