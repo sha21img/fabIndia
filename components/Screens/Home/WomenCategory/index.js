@@ -11,7 +11,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import {Colors} from '../../../../assets/Colors';
 import Fonts from '../../../../assets/fonts';
 import {image} from '../../../../assets/images';
-import { MenCatagoryTableData, MenCatagoryData } from '../../../../constant';
+import {MenCatagoryTableData, MenCatagoryData} from '../../../../constant';
 import Card from '../../../Common/Card';
 import Chip from '../../../Common/Chip';
 import CollectionCard from '../../../Common/CollectionCard';
@@ -112,7 +112,7 @@ const WomenCategory = () => {
         <View>
           <Text
             style={{
-              fontFamily:Fonts.PlayfairDisplayItalic,
+              fontFamily: Fonts.PlayfairDisplayItalic,
               fontWeight: '400',
               fontSize: 26,
               color: 'white',
@@ -121,11 +121,11 @@ const WomenCategory = () => {
           </Text>
           <Text
             style={{
-              fontFamily:Fonts.AssistantRegular,
+              fontFamily: Fonts.AssistantRegular,
               fontWeight: '400',
               fontSize: 16,
               color: 'white',
-              marginTop:5
+              marginTop: 5,
             }}>
             Skincare that’s all natural
           </Text>
@@ -147,8 +147,16 @@ const WomenCategory = () => {
             paddingVertical: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
-          <Card customViewStyle={{marginRight: 10}} offer='20' originalprice='1000'  />
-          <Card customViewStyle={{marginRight: 10}} offer='20' originalprice='1000' />
+          <Card
+            customViewStyle={{marginRight: 10}}
+            offer="20"
+            originalprice="1000"
+          />
+          <Card
+            customViewStyle={{marginRight: 10}}
+            offer="20"
+            originalprice="1000"
+          />
         </ScrollView>
       </>
     );
@@ -180,14 +188,12 @@ const WomenCategory = () => {
     {
       offerValue: '70',
       heading: () => getOfferTitleHeading(),
-      subHeading: () => getOfferSubHeading(),
       description:
         'Be summer-ready with our collection of muted solids, pastel prints and relaxed silhouettes! ',
     },
     {
       offerValue: '70',
       heading: () => getOfferTitleHeading(),
-      subHeading: () => getOfferSubHeading(),
       description:
         'Be summer-ready with our collection of muted solids, pastel prints and relaxed silhouettes! ',
     },
@@ -238,30 +244,27 @@ const WomenCategory = () => {
     );
   };
 
-  const getOfferSubHeading = () => {
-    return (
-      <Text
-        style={{
-          fontSize: 26,
-          fontFamily: Fonts.PlayfairDisplayItalic,
-          color: '#ffffff',
-          marginLeft: 5,
-        }}>
-        RINGS
-      </Text>
-    );
-  };
-
   const getOfferTitleHeading = () => {
     return (
-      <Text
-        style={{
-          fontSize: 24,
-          fontFamily: Fonts.PlayfairDisplayExtraBold,
-          color: '#ffffff',
-        }}>
-        HANDCRAFTED
-      </Text>
+      <View style={{flexDirection: 'row'}}>
+        <Text
+          style={{
+            fontSize: 24,
+            fontFamily: Fonts.PlayfairDisplayExtraBold,
+            color: '#ffffff',
+          }}>
+          HANDCRAFTED
+        </Text>
+        <Text
+          style={{
+            fontSize: 26,
+            fontFamily: Fonts.PlayfairDisplayItalic,
+            color: '#ffffff',
+            marginLeft: 5,
+          }}>
+          RINGS
+        </Text>
+      </View>
     );
   };
 
@@ -284,7 +287,7 @@ const WomenCategory = () => {
             lineHeight: 90,
           }}>
           Style
-        </Text>{' '}
+        </Text>
         STORIES
       </Text>
     );

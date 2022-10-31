@@ -11,7 +11,7 @@ const OfferCard = ({
   data,
   UptoText = '',
 }) => {
-  const {offerValue, heading, subHeading, description} = data;
+  const {offerValue, heading, description} = data;
   const width = Dimensions.get('window').width;
   return (
     <View>
@@ -32,18 +32,25 @@ const OfferCard = ({
           </View>
           <View style={{flexDirection: 'row', marginLeft: 20}}>
             {heading()}
-            {subHeading()}
           </View>
         </LinearGradient>
       </ImageBackground>
       <View
-        style={[Styles.ShopTablet,{backgroundColor: backgroundColor, width:width}]}>
+        style={[
+          Styles.ShopTablet,
+          {backgroundColor: backgroundColor, width: width},
+        ]}>
         <Text style={Styles.CardDescription}>{description}</Text>
-        <View
-          style={Styles.ShopNowContainer}>
-          <View
-            style={Styles.ShopNowContainerText}>
-            <Text style={{color: '#903233', fontFamily:Fonts.AssistantRegular,fontWeight:"400"}}>Shop Now</Text>
+        <View style={Styles.ShopNowContainer}>
+          <View style={Styles.ShopNowContainerText}>
+            <Text
+              style={{
+                color: '#903233',
+                fontFamily: Fonts.AssistantRegular,
+                fontWeight: '400',
+              }}>
+              Shop Now
+            </Text>
           </View>
         </View>
       </View>
