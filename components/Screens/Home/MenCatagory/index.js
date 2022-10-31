@@ -15,6 +15,7 @@ import Chip from '../../../Common/Chip';
 import CommonTopTab from '../../../Common/CommonTopTab';
 import {
   MenCatagoryData,
+  MenCatagoryTab2,
   MenCatagoryTableData,
   WomenTabdata,
 } from '../../../../constant';
@@ -22,18 +23,45 @@ import Card from '../../../Common/Card';
 import {Colors} from '../../../../assets/Colors';
 import SummerGalary from '../../../Common/SummerGalary';
 import OfferCard from '../../../Common/OfferCard';
+import CommonCarousel from '../../../Common/CommonCarousel';
+
+const getOfferTitleHeading = () => {
+  return (
+    <Text
+      style={{
+        fontSize: 24,
+        fontFamily: Fonts.PlayfairDisplayExtraBold,
+        color: '#ffffff',
+      }}>
+      SUMMER
+    </Text>
+  );
+};
+const getOfferSubHeading = () => {
+  return (
+    <Text
+      style={{
+        fontSize: 26,
+        fontFamily: Fonts.PlayfairDisplayItalic,
+        color: '#ffffff',
+        marginLeft: 5,
+      }}>
+      PRINTS
+    </Text>
+  );
+};
 const OfferData = [
   {
     offerValue: '70',
-    heading: 'HANDCRAFTED',
-    subHeading: 'RINGS',
+    heading: () => getOfferTitleHeading(),
+    subHeading: () => getOfferSubHeading(),
     description:
       'Be summer-ready with our collection of muted solids, pastel prints and relaxed silhouettes! ',
   },
   {
     offerValue: '70',
-    heading: 'HANDCRAFTED',
-    subHeading: 'RINGS',
+    heading: () => getOfferTitleHeading(),
+    subHeading: () => getOfferSubHeading(),
     description:
       'Be summer-ready with our collection of muted solids, pastel prints and relaxed silhouettes! ',
   },
@@ -69,6 +97,43 @@ const WomenHighlightData = [
   {image: image.womenCard1, title: 'Tunics'},
   {image: image.womenCard1, title: 'Tops'},
 ];
+// const WomenCarouselData = [
+//   {
+//     heading: () => WomenCarouselText(),
+//     banner: image.WomenCarousel,
+//     buttonText: 'Explore now',
+//   },
+//   {
+//     heading: () => WomenCarouselText(),
+//     banner: image.WomenCarousel,
+//     buttonText: 'Explore now',
+//   },
+// ];
+const WomenCarouselText = () => {
+  return (
+    <>
+      <View style={{flexDirection: 'row'}}>
+        <Text
+          style={{
+            fontWeight: '800',
+            fontSize: 24,
+            color: 'white',
+          }}>
+          SUMMER
+        </Text>
+        <Text
+          style={{
+            fontWeight: '400',
+            fontSize: 26,
+            color: 'white',
+            marginLeft: 10,
+          }}>
+          Dresses
+        </Text>
+      </View>
+    </>
+  );
+};
 
 const MenCatagory = () => {
   const [active, setActive] = React.useState('Bestsellers');
@@ -113,6 +178,17 @@ const MenCatagory = () => {
   const dataMap1 = MenCatagoryData.map(item => ({
     name: item,
     screen: screenObj2[item],
+  }));
+  const screenObj3 = {
+    Cotton: HomeScreen,
+    Linen: HomeScreen,
+    Silk: HomeScreen,
+    'Cotton Silk': HomeScreen,
+    'Cotton Linen': HomeScreen,
+  };
+  const dataMap2 = MenCatagoryTab2.map(item => ({
+    name: item,
+    screen: screenObj3[item],
   }));
 
   const SummerGalaryData = [
@@ -318,8 +394,29 @@ const MenCatagory = () => {
           </TouchableOpacity>
         </ImageBackground>
       </View>
+      <View style={Styles.chipbox}>
+        <Chip
+          title="Fabric"
+          handleClick={() => handleClick('Fabric')}
+          active={active}
+        />
+        <Chip
+          title="Style"
+          handleClick={() => handleClick('Style')}
+          active={active}
+        />
+        <Chip
+          title="Ocassion"
+          handleClick={() => handleClick('Ocassion')}
+          active={active}
+        />
+      </View>
+      <View style={Styles.commontab}>
+        <CommonTopTab data={dataMap2} />
+      </View>
+      {/* <CommonCarousel data={WomenCarouselData} /> */}
 
-      {/* <View style={{height: 500}}>
+      <View style={{height: 500}}>
         <ScrollView
           horizontal
           onScroll={({nativeEvent}) => onchangeCarousole(nativeEvent)}
@@ -358,7 +455,7 @@ const MenCatagory = () => {
             </Text>
           ))}
         </View>
-      </View> */}
+      </View>
     </ScrollView>
   );
 };
