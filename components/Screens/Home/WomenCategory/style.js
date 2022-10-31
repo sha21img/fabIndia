@@ -53,7 +53,6 @@ export const Styles = StyleSheet.create({
   customtxt: {
     textAlign: 'center',
     fontSize: 32,
-    fontWeight: '700',
     color: '#FFFFFF',
     fontFamily: Fonts.BarlowRegular,
   },
@@ -61,7 +60,6 @@ export const Styles = StyleSheet.create({
     textAlign: 'center',
     color: '#FFFFFF',
     fontSize: 24,
-    fontWeight: '400',
     fontFamily: Fonts.BarlowRegular,
   },
 });

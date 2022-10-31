@@ -368,8 +368,6 @@ const MenCatagory = () => {
       <View style={Styles.commontab}>
         <CommonTopTab data={dataMap2} />
       </View>
-      {/* <CommonCarousel data={WomenCarouselData} /> */}
-
       <View style={{height: 500}}>
         <ScrollView
           horizontal

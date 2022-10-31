@@ -8,7 +8,6 @@ export const Styles = StyleSheet.create({
     fontFamily: Fonts.PlayfairDisplay500Italic,
     color: '#4A4A4A',
     fontSize: 18,
-    fontWeight: '500',
   },
   box: {
     paddingVertical: 20,

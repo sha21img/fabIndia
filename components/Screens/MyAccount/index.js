@@ -72,7 +72,7 @@ export default MyAccount = () => {
         }
       />
       {/* <View style={{elevation:10, width:'100%', height:3}}></View> */}
-      <ScrollView style={{backgroundColor: '#ffffff', marginTop: 5}}>
+      {/* <ScrollView style={{backgroundColor: '#ffffff', marginTop: 5}}>
         <View style={styles.profileContainer}>
           <View style={{alignItems: 'flex-end'}}>
             <MaterialCommunityIcons name="border-color" size={15} />
@@ -164,7 +164,7 @@ export default MyAccount = () => {
             </View>
           );
         })}
-      </ScrollView>
+      </ScrollView> */}
     </>
   );
 };

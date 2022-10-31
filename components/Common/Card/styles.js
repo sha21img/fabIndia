@@ -26,7 +26,6 @@ export const Styles = StyleSheet.create({
     paddingRight: 10,
     fontSize: 16,
     color: '#4A4A4A',
-    fontWeight: '400',
     fontFamily: Fonts.RupeeForadian,
   },
   amountoff: {

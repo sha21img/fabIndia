@@ -21,8 +21,7 @@ export default function CommonTopTab({data = []}) {
           tabBarScrollEnabled: true,
           tabBarLabelStyle: {
             fontSize: 18,
-            fontWeight: '700',
-            fontFamily: Fonts.AssistantRegular,
+            fontFamily: Fonts.Assistant700,
             textTransform: 'none',
           },
           tabBarStyle: {
