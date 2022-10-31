@@ -11,7 +11,12 @@ import Carousel from 'react-native-reanimated-carousel';
 import {Colors} from '../../../../assets/Colors';
 import Fonts from '../../../../assets/fonts';
 import {image} from '../../../../assets/images';
-import {MenCatagoryTableData, MenCatagoryData} from '../../../../constant';
+import {
+  WoMenCatagoryTableData,
+  WoMenCatagoryData,
+  WoMenCatagoryData2,
+  WoMenCatagoryBeachData,
+} from '../../../../constant';
 import Card from '../../../Common/Card';
 import Chip from '../../../Common/Chip';
 import CollectionCard from '../../../Common/CollectionCard';
@@ -23,10 +28,11 @@ import OfferCard from '../../../Common/OfferCard';
 import StoriesCard from '../../../Common/StoriesCard';
 import SummerGalary from '../../../Common/SummerGalary';
 import {Styles} from './style';
+const width = Dimensions.get('window').width;
 
 const WomenCategory = () => {
   const [imgActive1, setImgActive1] = React.useState(0);
-  const [active, setActive] = React.useState('Bestsellers');
+  const [active, setActive] = React.useState('');
   const StoriesCardData = [
     {
       Image: image.womenStoryCardPic,
@@ -161,27 +167,49 @@ const WomenCategory = () => {
   };
 
   const screenObj1 = {
-    'Ethnic Wear': HomeScreen,
-    'Western Wear': HomeScreen,
-    Accessories: HomeScreen,
+    Apparel: HomeScreen,
+    Jewellery: HomeScreen,
+    Beauty: HomeScreen,
     Footwear: HomeScreen,
+    Accessories: HomeScreen,
     Pants: HomeScreen,
   };
   const screenObj2 = {
+    Saris: HomeScreen,
+    Dresses: HomeScreen,
+    Tunics: HomeScreen,
+    Skirts: HomeScreen,
     Kurtas: HomeScreen,
-    Shirts: HomeScreen,
-    'Nehru Jackets & Blazers': HomeScreen,
-    Pyjamas: HomeScreen,
+    Pants: HomeScreen,
   };
-  const dataMap = MenCatagoryTableData.map(item => ({
+  const screenObj3 = {
+    Chanderi: HomeScreen,
+    Chikankari: HomeScreen,
+    Ikat: HomeScreen,
+    Shibori: HomeScreen,
+    Madhubani: HomeScreen,
+  };
+  const screenObj4 = {
+    'Weekend Getaway': HomeScreen,
+    'Lounging Around': HomeScreen,
+    Brunch: HomeScreen,
+  };
+  const dataMap = WoMenCatagoryTableData.map(item => ({
     name: item,
     screen: screenObj1[item],
   }));
-  const dataMap1 = MenCatagoryData.map(item => ({
+  const dataMap1 = WoMenCatagoryData.map(item => ({
     name: item,
     screen: screenObj2[item],
   }));
-
+  const dataMap3 = WoMenCatagoryData2.map(item => ({
+    name: item,
+    screen: screenObj3[item],
+  }));
+  const dataMap4 = WoMenCatagoryBeachData.map(item => ({
+    name: item,
+    screen: screenObj4[item],
+  }));
   const OfferData = [
     {
       offerValue: '70',
@@ -246,7 +274,7 @@ const WomenCategory = () => {
         <Text
           style={{
             fontSize: 24,
-            fontFamily: Fonts.PlayfairDisplayExtraBold,
+            fontFamily: Fonts.PlayfairDisplay800,
             color: '#ffffff',
           }}>
           HANDCRAFTED
@@ -254,7 +282,7 @@ const WomenCategory = () => {
         <Text
           style={{
             fontSize: 26,
-            fontFamily: Fonts.PlayfairDisplayItalic,
+            fontFamily: Fonts.PlayfairDisplay400Italic,
             color: '#ffffff',
             marginLeft: 5,
           }}>
@@ -266,24 +294,30 @@ const WomenCategory = () => {
 
   const GetStoriesTitle = () => {
     return (
-      <Text
+      <View
         style={{
-          fontFamily: Fonts.BarlowRegular,
-          color: '#ffffff',
-          fontSize: 30,
-          marginHorizontal: 20,
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingHorizontal: 20,
         }}>
         <Text
           style={{
-            fontFamily: Fonts.LaBelleAuroreRegular,
+            fontFamily: Fonts.LaBelleAurore400,
             color: '#ffffff',
             fontSize: 60,
-            lineHeight: 90,
+            marginRight: 10,
           }}>
           Style
         </Text>
-        STORIES
-      </Text>
+        <Text
+          style={{
+            fontFamily: Fonts.Barlow400,
+            color: '#ffffff',
+            fontSize: 30,
+          }}>
+          STORIES
+        </Text>
+      </View>
     );
   };
 
@@ -392,7 +426,7 @@ const WomenCategory = () => {
         <Chip
           title="Bestsellers"
           handleClick={() => handleClick('Bestsellers')}
-          active={active}
+          active={!!active ? active : 'Bestsellers'}
         />
         <Chip
           title="Recommended for you"
@@ -415,7 +449,7 @@ const WomenCategory = () => {
         <Chip
           title="Bestsellers"
           handleClick={() => handleClick('Bestsellers')}
-          active={active}
+          active={!!active ? active : 'Bestsellers'}
         />
         <Chip
           title="Recommended for you"
@@ -427,7 +461,7 @@ const WomenCategory = () => {
         <CommonTopTab data={dataMap1} />
       </View>
       {/* ===============Offer carousole======== */}
-      <View style={{height: 500}}>
+      <View>
         <ScrollView
           horizontal
           onScroll={({nativeEvent}) => onchangeCarousole(nativeEvent)}
@@ -439,8 +473,6 @@ const WomenCategory = () => {
         </ScrollView>
         <View
           style={{
-            position: 'absolute',
-            bottom: 20,
             flexDirection: 'row',
             alignSelf: 'center',
           }}>
@@ -451,7 +483,7 @@ const WomenCategory = () => {
                 imgActive1 == index
                   ? {
                       margin: 3,
-                      color: 'red',
+                      color: Colors.primarycolor,
                     }
                   : {
                       margin: 3,
@@ -466,21 +498,27 @@ const WomenCategory = () => {
       {/* ==============Seller Chips=========== */}
       <View style={Styles.chipbox}>
         <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
+          title="Craft"
+          handleClick={() => handleClick('Craft')}
+          active={!!active ? active : 'Craft'}
+        />
+        <Chip
+          title="Fabric"
+          handleClick={() => handleClick('Fabric')}
           active={active}
         />
         <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
+          title="Occassion"
+          handleClick={() => handleClick('Occassion')}
           active={active}
         />
       </View>
       <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap1} />
+        <CommonTopTab data={dataMap3} />
       </View>
       {/*=========== Beauty Essential ============*/}
-      <CommonCarousel data={WomenCarouselData} />
+      <CommonCarousel data={WomenCarouselData} width={width} height={410} />
+
       {/* ================Summer Galery======== */}
       <SummerGalary
         data={SummerGalaryData}
@@ -493,7 +531,7 @@ const WomenCategory = () => {
         <Chip
           title="Bestsellers"
           handleClick={() => handleClick('Bestsellers')}
-          active={active}
+          active={!!active ? active : 'Bestsellers'}
         />
         <Chip
           title="Recommended for you"
@@ -502,21 +540,25 @@ const WomenCategory = () => {
         />
       </View>
       <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap1} />
+        <CommonTopTab data={dataMap} />
       </View>
       {/*=========== Beauty Essential ============*/}
-      <CommonCarousel data={WomenCarouselData} />
+      <CommonCarousel data={WomenCarouselData} width={width} height={410} />
       {/* ================Collection ======== */}
       <View style={{paddingVertical: 30}}>
         <Text style={Styles.CollectionHead}>Collections</Text>
         <ScrollView horizontal>
           {collectionData.map(item => (
-            <CollectionCard item={item} />
+            <CollectionCard key={Math.random() * 122992} item={item} />
           ))}
         </ScrollView>
       </View>
       {/* ================LifeStyle 360======== */}
       <LifeStyle data={LifeStyleData} title={GetLifeStyleTitle} />
+      {/* ================Beach day============ */}
+      <View style={Styles.commontab}>
+        <CommonTopTab data={dataMap4} />
+      </View>
       {/* ================Story Card======== */}
       <StoriesCard data={StoriesCardData} title={GetStoriesTitle} />
     </ScrollView>

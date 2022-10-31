@@ -31,7 +31,7 @@ export const Styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginTop: 10,
   },
-  commontab: {marginLeft: 15, height: 470},
+  commontab: {paddingLeft: 15, height: 470},
   backgroundimage: {height: 670, width: 'auto'},
   customkurtabox: {
     position: 'relative',

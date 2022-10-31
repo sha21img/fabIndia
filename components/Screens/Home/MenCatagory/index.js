@@ -24,6 +24,8 @@ import {Colors} from '../../../../assets/Colors';
 import SummerGalary from '../../../Common/SummerGalary';
 import OfferCard from '../../../Common/OfferCard';
 import CommonCarousel from '../../../Common/CommonCarousel';
+import Collections from './Collections';
+import LifeStyleCard from './LifeStyleCard';
 
 const getOfferTitleHeading = () => {
   return (
@@ -31,7 +33,7 @@ const getOfferTitleHeading = () => {
       <Text
         style={{
           fontSize: 24,
-          fontFamily: Fonts.PlayfairDisplayExtraBold,
+          fontFamily: Fonts.PlayfairDisplay800,
           color: '#ffffff',
         }}>
         SUMMER
@@ -39,7 +41,7 @@ const getOfferTitleHeading = () => {
       <Text
         style={{
           fontSize: 26,
-          fontFamily: Fonts.PlayfairDisplayItalic,
+          fontFamily: Fonts.PlayfairDisplay400Italic,
           color: '#ffffff',
           marginLeft: 5,
         }}>
@@ -110,8 +112,16 @@ const MenCatagory = () => {
             paddingVertical: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
-          <Card customViewStyle={{marginRight: 10}} />
-          <Card customViewStyle={{marginRight: 10}} />
+          <Card
+            customViewStyle={{marginRight: 10}}
+            originalprice="1,000"
+            offer="20"
+          />
+          <Card
+            customViewStyle={{marginRight: 10}}
+            originalprice="1,000"
+            offer="20"
+          />
         </ScrollView>
       </>
     );
@@ -368,7 +378,9 @@ const MenCatagory = () => {
       <View style={Styles.commontab}>
         <CommonTopTab data={dataMap2} />
       </View>
-      <View style={{height: 500}}>
+      {/* <CommonCarousel data={WomenCarouselData} /> */}
+
+      <View>
         <ScrollView
           horizontal
           onScroll={({nativeEvent}) => onchangeCarousole(nativeEvent)}
@@ -384,19 +396,19 @@ const MenCatagory = () => {
         </ScrollView>
         <View
           style={{
-            position: 'absolute',
-            bottom: 20,
+            // position: 'absolute',
+            // bottom: 0,
             flexDirection: 'row',
             alignSelf: 'center',
           }}>
           {OfferData.map((item, index) => (
             <Text
-              key={Math.random() * 988999}
+              key={Math.random() * 9999}
               style={
                 imgActive1 == index
                   ? {
                       margin: 3,
-                      color: 'red',
+                      color: Colors.primarycolor,
                     }
                   : {
                       margin: 3,
@@ -407,6 +419,11 @@ const MenCatagory = () => {
             </Text>
           ))}
         </View>
+      </View>
+      <Collections />
+      <LifeStyleCard />
+      <View style={Styles.commontab}>
+        <CommonTopTab data={dataMap2} />
       </View>
     </ScrollView>
   );

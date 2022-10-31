@@ -9,7 +9,7 @@ export const Styles = StyleSheet.create({
     height: 312,
     resizeMode: 'cover',
     paddingVertical: 15,
-    marginLeft: 15,
+    marginRight: 15,
   },
   exploreNowBox: {
     backgroundColor: '#ffffff',
