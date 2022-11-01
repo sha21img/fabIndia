@@ -352,7 +352,10 @@ const WomenCategory = () => {
 
   return (
     <ScrollView
-      contentContainerStyle={{backgroundColor: Colors.backgroundColor}}>
+      contentContainerStyle={{
+        backgroundColor: Colors.backgroundColor,
+        paddingBottom: 20,
+      }}>
       {/* =============Banner================= */}
       <View style={Styles.imagecontainer}>
         {imageData.map((item, i) => {

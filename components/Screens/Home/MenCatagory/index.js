@@ -16,6 +16,7 @@ import CommonTopTab from '../../../Common/CommonTopTab';
 import {
   MenCatagoryData,
   MenCatagoryTab2,
+  MenCatagoryTab3,
   MenCatagoryTableData,
   WomenTabdata,
 } from '../../../../constant';
@@ -26,6 +27,9 @@ import OfferCard from '../../../Common/OfferCard';
 import CommonCarousel from '../../../Common/CommonCarousel';
 import Collections from './Collections';
 import LifeStyleCard from './LifeStyleCard';
+import TopGallery from './TopGallery';
+import PointDetailCard from '../../../Common/PointDetailCard';
+import StoriesCard from '../../../Common/StoriesCard';
 
 const getOfferTitleHeading = () => {
   return (
@@ -65,32 +69,7 @@ const OfferData = [
       'Be summer-ready with our collection of muted solids, pastel prints and relaxed silhouettes! ',
   },
 ];
-const imageData = [
-  {
-    image: image.rise,
-    title: 'Rise & shine!',
-  },
-  {
-    image: image.fitness,
-    title: 'Fitness routine',
-  },
-  {
-    image: image.meal,
-    title: 'Meal prep',
-  },
-  {
-    image: image.lounging,
-    title: 'Lounging',
-  },
-  {
-    image: image.out,
-    title: 'Out and about',
-  },
-  {
-    image: image.bedtime,
-    title: 'Bedtime stories',
-  },
-];
+
 const WomenHighlightData = [
   {image: image.womenCard, title: 'Saris'},
   {image: image.womenCard1, title: 'Tunics'},
@@ -105,27 +84,82 @@ const MenCatagory = () => {
   };
   const HomeScreen = item => {
     return (
-      <>
-        <ScrollView
-          horizontal
-          contentContainerStyle={{
-            paddingVertical: 10,
-            backgroundColor: Colors.backgroundColor,
-          }}>
-          <Card
-            customViewStyle={{marginRight: 10}}
-            originalprice="1,000"
-            offer="20"
-          />
-          <Card
-            customViewStyle={{marginRight: 10}}
-            originalprice="1,000"
-            offer="20"
-          />
-        </ScrollView>
-      </>
+      <ScrollView
+        horizontal
+        contentContainerStyle={{
+          paddingVertical: 10,
+          backgroundColor: Colors.backgroundColor,
+        }}>
+        <Card
+          customViewStyle={{marginRight: 10}}
+          originalprice="1,000"
+          offer="20"
+        />
+        <Card
+          customViewStyle={{marginRight: 10}}
+          originalprice="1,000"
+          offer="20"
+        />
+      </ScrollView>
     );
   };
+  const HomeScreen1 = item => {
+    return (
+      <ScrollView
+        horizontal
+        contentContainerStyle={{
+          paddingVertical: 10,
+          backgroundColor: Colors.backgroundColor,
+        }}>
+        <PointDetailCard />
+        <PointDetailCard />
+        {/* <Card
+          customViewStyle={{marginRight: 10}}
+          originalprice="1,000"
+          offer="20"
+        />
+        <Card
+          customViewStyle={{marginRight: 10}}
+          originalprice="1,000"
+          offer="20"
+        /> */}
+      </ScrollView>
+    );
+  };
+  const GetStoriesTitle = () => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingHorizontal: 20,
+        }}>
+        <Text
+          style={{
+            fontFamily: Fonts.LaBelleAurore400,
+            color: '#ffffff',
+            fontSize: 60,
+            marginRight: 10,
+          }}>
+          Style
+        </Text>
+        <Text
+          style={{
+            fontFamily: Fonts.Barlow400,
+            color: '#ffffff',
+            fontSize: 30,
+          }}>
+          STORIES
+        </Text>
+      </View>
+    );
+  };
+  const StoriesCardData = [
+    {
+      Image: image.womenStoryCardPic,
+      description: 'Tanya pairs out Dabu printed kurta with a chanderi dupatta',
+    },
+  ];
 
   const screenObj1 = {
     'Ethnic Wear': HomeScreen,
@@ -155,9 +189,18 @@ const MenCatagory = () => {
     'Cotton Silk': HomeScreen,
     'Cotton Linen': HomeScreen,
   };
+  const screenObj4 = {
+    'Lounging Around': HomeScreen1,
+    'Work from Home': HomeScreen1,
+    'In the Kitchen': HomeScreen1,
+  };
   const dataMap2 = MenCatagoryTab2.map(item => ({
     name: item,
     screen: screenObj3[item],
+  }));
+  const dataMap3 = MenCatagoryTab3.map(item => ({
+    name: item,
+    screen: screenObj4[item],
   }));
 
   const SummerGalaryData = [
@@ -193,70 +236,12 @@ const MenCatagory = () => {
   };
   return (
     <ScrollView
-      contentContainerStyle={{backgroundColor: Colors.backgroundColor}}>
-      <View style={Styles.imagecontainer}>
-        {imageData.map((item, i) => {
-          return (
-            <ImageBackground
-              key={Math.random() * 6776}
-              resizeMode="cover"
-              style={Styles.backgroundimg}
-              source={item.image}>
-              <View
-                style={[
-                  Styles.txtbox,
-                  {top: i < 3 ? 15 : null, bottom: i >= 3 ? 15 : null},
-                ]}>
-                <Text style={Styles.imagetxt}>{item.title}</Text>
-              </View>
-            </ImageBackground>
-          );
-        })}
-        <View
-          style={{
-            width: 160,
-            height: 160,
-            backgroundColor: 'rgba(144, 50, 51, 0.8)',
-            position: 'absolute',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: 'auto',
-            borderRadius: 100,
-            top: 142,
-          }}>
-          <Text
-            style={{
-              fontSize: 14,
-              fontFamily: Fonts.Assistant300,
-              color: '#FFFFFF',
-              lineHeight: 18,
-              textAlign: 'center',
-            }}>
-            A day in the life of a
-          </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              paddingVertical: 6,
-              alignItems: 'flex-end',
-            }}>
-            <Image
-              source={image.whitelogo}
-              style={{height: 20, width: 67}}
-              resizeMode="contain"
-            />
-            <Text
-              style={{
-                color: '#FFFFFF',
-                marginLeft: 3,
-                fontSize: 18,
-                fontFamily: Fonts.PlayfairDisplay400,
-              }}>
-              man
-            </Text>
-          </View>
-        </View>
-      </View>
+      contentContainerStyle={{
+        backgroundColor: Colors.backgroundColor,
+        paddingBottom: 20,
+      }}>
+      <TopGallery />
+
       <NewHighlights title="Ethnic Wear" data={WomenHighlightData} />
       <NewHighlights title="Western Wear" data={WomenHighlightData} />
       <NewHighlights title="Accessories" data={WomenHighlightData} />
@@ -378,7 +363,6 @@ const MenCatagory = () => {
       <View style={Styles.commontab}>
         <CommonTopTab data={dataMap2} />
       </View>
-      {/* <CommonCarousel data={WomenCarouselData} /> */}
 
       <View>
         <ScrollView
@@ -409,10 +393,12 @@ const MenCatagory = () => {
                   ? {
                       margin: 3,
                       color: Colors.primarycolor,
+                      fontSize: 16,
                     }
                   : {
                       margin: 3,
                       color: '#ABABAB',
+                      fontSize: 16,
                     }
               }>
               ●
@@ -423,8 +409,9 @@ const MenCatagory = () => {
       <Collections />
       <LifeStyleCard />
       <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap2} />
+        <CommonTopTab data={dataMap3} />
       </View>
+      <StoriesCard data={StoriesCardData} title={GetStoriesTitle} />
     </ScrollView>
   );
 };

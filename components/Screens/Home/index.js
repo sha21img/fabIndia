@@ -472,6 +472,7 @@ export default function Dashbord() {
         contentContainerStyle={{
           backgroundColor: Colors.backgroundColor,
           flexGrow: 1,
+          paddingBottom: 20,
         }}>
         <ImageBackground
           resizeMode="cover"
@@ -560,11 +561,13 @@ export default function Dashbord() {
           heading={bannerHeading1}
           buttonText="Customize now"
           bgImage={image.banner1}
+          customViewStyle={{marginTop: 30, marginBottom: 15}}
         />
         <CommonBanner
           heading={bannerHeading2}
           buttonText="Add a monogram"
           bgImage={image.banner1}
+          customViewStyle={{marginTop: 15, marginBottom: 30}}
         />
         <NewHighlights
           heading="New in"
@@ -598,16 +601,17 @@ export default function Dashbord() {
         <View style={{marginLeft: 15, height: 470}}>
           <CommonTopTab data={dataMap1} />
         </View>
-        <Text
-          style={{
-            fontFamily: Fonts.PlayfairDisplay600Italic,
-            fontSize: 20,
-            paddingHorizontal: 15,
-            paddingTop: 20,
-          }}>
-          Offers for you
-        </Text>
-        <View style={{marginLeft: 15, height: 240}}>
+
+        <View style={{marginLeft: 15, height: 310}}>
+          <Text
+            style={{
+              fontFamily: Fonts.PlayfairDisplay600Italic,
+              fontSize: 20,
+              paddingTop: 20,
+              color: Colors.textcolor,
+            }}>
+            Offers for you
+          </Text>
           <CommonTopTab data={dataMap2} />
         </View>
         <Interior />
@@ -668,7 +672,7 @@ export default function Dashbord() {
             active={active}
           />
         </View>
-        <View style={{marginLeft: 15, height: 500}}>
+        <View style={{marginLeft: 15, height: 520}}>
           <CommonTopTab data={dataMap4} />
         </View>
         <CommonCarousel

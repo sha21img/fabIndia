@@ -9,11 +9,12 @@ export default function CommonBanner({
   desciption = '',
   buttonText = '',
   bgImage = '',
+  customViewStyle = {},
 }) {
   return (
     <ImageBackground
       resizeMode="cover"
-      style={Styles.imageBackground}
+      style={[Styles.imageBackground, customViewStyle]}
       source={bgImage}>
       <LinearGradient
         colors={['rgba(0,0,0,0.75)', 'transparent']}

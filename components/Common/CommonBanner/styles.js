@@ -5,7 +5,7 @@ const width = Dimensions.get('window').width;
 
 export const Styles = StyleSheet.create({
   imageBackground: {
-    marginVertical: 15,
+    // marginVertical: 15,
   },
   container: {
     padding: 16,

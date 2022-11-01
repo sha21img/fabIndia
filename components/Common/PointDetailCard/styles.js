@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 export const Styles = StyleSheet.create({
   image: {
@@ -12,9 +13,9 @@ export const Styles = StyleSheet.create({
   },
   heading: {
     fontSize: 16,
-    color: '#4A4A4A',
+    color: Colors.primarycolor,
     lineHeight: 21,
-    fontFamily: Fonts.Assistant700,
+    fontFamily: Fonts.PlayfairDisplay700Italic,
   },
   headingTextBox: {
     paddingVertical: 10,

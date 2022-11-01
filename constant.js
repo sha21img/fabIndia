@@ -19,7 +19,7 @@ export const WoMenCatagoryTableData = [
   'Beauty',
   'Footwear',
   'Accessories',
-  'Pants'
+  'Pants',
 ];
 export const WoMenCatagoryBeachData = [
   'Weekend Getaway',
@@ -38,7 +38,7 @@ export const WoMenCatagoryData = [
   'Tunics',
   'Skirts',
   'Kurtas',
-  'Pants'
+  'Pants',
 ];
 export const WoMenCatagoryData2 = [
   'Chanderi',
@@ -71,4 +71,9 @@ export const LifeTabdata = [
   'Brunchdate',
   'WorkfromHome',
   'Pants',
+];
+export const MenCatagoryTab3 = [
+  'Lounging Around',
+  'Work from Home',
+  'In the Kitchen',
 ];
