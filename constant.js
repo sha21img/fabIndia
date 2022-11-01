@@ -92,3 +92,9 @@ export const hasSpaces = str => {
     return false;
   }
 };
+
+export const HomeCatagoryTab4 = [
+  'Meals at Home',
+  'Room Makeover',
+  'Staycation',
+];

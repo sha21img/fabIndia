@@ -32,6 +32,7 @@ export const image = {
   DelAccount: require('./DelAccount.png'),
   rightArrow: require('./rightArrow.png'),
   womenStoryCardPic: require('./WomanStoriesPic.png'),
+  homeStoryCardPic: require('./HomeStoriesPic.png'),
   womenPhoto1: require('./WomenPhoto1.png'),
   womenPhoto2: require('./WomenPhoto2.png'),
   womenPhoto3: require('./WomenPhoto3.png'),
@@ -51,5 +52,7 @@ export const image = {
   offerPic: require('./OfferPic.jpg'),
   collectionPic: require('./collection.png'),
   customkurtas: require('./customkurtas.png'),
+  lifeStyleBackground: require('./lifeStyleBackground.png'),
   collectionPic2: require('./Collection2.png'),
+  lifeStyleImage: require('./lifeStyleImage.png'),
 };

@@ -105,7 +105,7 @@ export default function HomeStack() {
           header: props => (
             <Header
               leftIcon={leftIcon}
-              title="Kids"
+              title="Home Linen"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
