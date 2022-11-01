@@ -13,6 +13,14 @@ export const MenCatagoryTableData = [
   'Footwear',
   'Pants',
 ];
+export const KidsTableData = ['Infants', 'Girls', 'Boys'];
+export const KidsTableData1 = [
+  'Girls Kurtas',
+  'Boys Kurtas',
+  'Infants Kurtas',
+  'Girls',
+];
+export const KidsTableData2 = ['Bestsellers', 'Furniture', 'Games & Toys'];
 export const WoMenCatagoryTableData = [
   'Apparel',
   'Jewellery',

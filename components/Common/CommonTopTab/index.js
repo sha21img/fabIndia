@@ -50,7 +50,7 @@ export default function CommonTopTab({data = []}) {
                       color: focused ? Colors.primarycolor : Colors.textcolor,
                       padding: 0,
                     }}>
-                    {item.name + '  '}
+                    {item.name + '       '}
                   </Text>
                 ),
               }}

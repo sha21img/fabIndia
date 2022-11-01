@@ -56,19 +56,30 @@ const getOfferTitleHeading = () => {
     </View>
   );
 };
+const getDescription = () => {
+  return (
+    <Text
+      style={{
+        fontSize: 16,
+        fontFamily: Fonts.Assistant400,
+        color: '#ffffff',
+      }}>
+      Be summer-ready with our collection of muted solids, pastel prints and
+      relaxed silhouettes!
+    </Text>
+  );
+};
 
 const OfferData = [
   {
     offerValue: '70',
     heading: () => getOfferTitleHeading(),
-    description:
-      'Be summer-ready with our collection of muted solids, pastel prints and relaxed silhouettes! ',
+    description: () => getDescription(),
   },
   {
     offerValue: '70',
     heading: () => getOfferTitleHeading(),
-    description:
-      'Be summer-ready with our collection of muted solids, pastel prints and relaxed silhouettes! ',
+    description: () => getDescription(),
   },
 ];
 
@@ -139,7 +150,7 @@ const MenCatagory = () => {
         }}>
         <Text
           style={{
-            fontFamily: Fonts.LaBelleAurore400,
+            fontFamily: Fonts.RunWildDemo,
             color: '#ffffff',
             fontSize: 60,
             marginRight: 10,
