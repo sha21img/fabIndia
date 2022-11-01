@@ -38,18 +38,18 @@ export default function CommonTopTab({data = []}) {
                 tabBarItemStyle: {
                   width: 'auto',
                 },
-                // tabBarLabel: ({focused}) => (
-                //   <Text
-                //     style={{
-                //       fontSize: 18,
-                //       fontFamily: focused
-                //         ? Fonts.Assistant700
-                //         : Fonts.Assistant300,
-                //       color: focused ? Colors.primarycolor : Colors.textcolor,
-                //     }}>
-                //     {item.name}
-                //   </Text>
-                // ),
+                tabBarLabel: ({focused}) => (
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontFamily: focused
+                        ? Fonts.Assistant700
+                        : Fonts.Assistant300,
+                      color: focused ? Colors.primarycolor : Colors.textcolor,
+                    }}>
+                    {item.name}
+                  </Text>
+                ),
               }}
               component={item.screen}
             />

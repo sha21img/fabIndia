@@ -78,6 +78,23 @@ export default function HomeStack() {
           ),
         }}
       />
+      {/* <Stack.Screen
+        name="HomeCatagory"
+        component={HomeCatagory}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="HomeCatagory"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      /> */}
     </Stack.Navigator>
   );
 }

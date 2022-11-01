@@ -31,7 +31,7 @@ export default function NewHighlights({
       <View
         style={[
           Styles.textBox,
-          hasSpaces(title) ? {width: width / 3} : {width: null},
+          hasSpaces(title) ? {width: width / 3.4} : {width: null},
         ]}>
         <Text style={Styles.newText}>{heading}</Text>
         <Text style={Styles.title}>{title}</Text>
