@@ -4,7 +4,7 @@ import CollectionCard from '../../../../../Common/CollectionCard';
 import {image} from '../../../../../../assets/images';
 import {Colors} from '../../../../../../assets/Colors';
 import Fonts from '../../../../../../assets/fonts';
-import {Styles} from '../styles';
+import {Styles} from './style';
 const collectionData = [
   {
     image: image.collectionPic,

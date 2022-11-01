@@ -1,6 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import Fonts from '../../../../../assets/fonts';
-import {Colors} from '../../../../../assets/Colors';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Fonts from '../../../../../../assets/fonts';
 const dimension = Dimensions.get('window');
 export const Styles = StyleSheet.create({
   collectiontxt: {

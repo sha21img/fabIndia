@@ -27,11 +27,13 @@ export const Styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 20,
     fontFamily: Fonts.PlayfairDisplay400,
+    lineHeight: 26,
   },
   OfferValue: {
     color: '#ffffff',
     fontSize: 30,
     fontFamily: Fonts.Assistant700,
+    lineHeight: 30,
   },
   ShopTablet: {
     height: 123,
@@ -46,7 +48,7 @@ export const Styles = StyleSheet.create({
   ShopNowContainerText: {
     backgroundColor: '#ffffff',
     paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingVertical: 6,
     borderRadius: 50,
   },
   CardDescription: {

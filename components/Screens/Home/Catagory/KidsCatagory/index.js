@@ -5,7 +5,23 @@ import TopGallary from './TopGallary';
 import NewHighlights from '../../../../Common/NewHighlights';
 import {image} from '../../../../../assets/images';
 import Fonts from '../../../../../assets/fonts';
-import {hasSpaces} from '../../../../../constant';
+import {
+  hasSpaces,
+  KidsTableData,
+  KidsTableData1,
+  KidsTableData2,
+  MenCatagoryTab3,
+  MenCatagoryTableData,
+} from '../../../../../constant';
+import Chip from '../../../../Common/Chip';
+import CommonTopTab from '../../../../Common/CommonTopTab';
+import Card from '../../../../Common/Card';
+import OfferCard from '../../../../Common/OfferCard';
+import Collections from '../MenCatagory/Collections';
+import LifeStyleCard from '../MenCatagory/LifeStyleCard';
+import PointDetailCard from '../../../../Common/PointDetailCard';
+import StoriesCard from '../../../../Common/StoriesCard';
+import CommonCarousel from '../../../../Common/CommonCarousel';
 const width = Dimensions.get('window').width;
 
 const WomenHighlightData = [
@@ -13,8 +29,50 @@ const WomenHighlightData = [
   {image: image.womenCard1, title: 'Tunics'},
   {image: image.womenCard1, title: 'Tops'},
 ];
+const getOfferTitleHeading = () => {
+  return (
+    <View style={{flexDirection: 'row'}}>
+      <Text
+        style={{
+          fontSize: 26,
+          fontFamily: Fonts.IndieFlower,
+          color: '#ffffff',
+        }}>
+        BIG DISCOUNTS
+      </Text>
+    </View>
+  );
+};
+const getDescription = () => {
+  return (
+    <Text
+      style={{
+        fontSize: 26,
+        fontFamily: Fonts.IndieFlower,
+        color: '#ffffff',
+      }}>
+      for our little ones
+    </Text>
+  );
+};
+const OfferData = [
+  {
+    offerValue: '70',
+    heading: () => getOfferTitleHeading(),
+    description: () => getDescription(),
+  },
+  {
+    offerValue: '70',
+    heading: () => getOfferTitleHeading(),
+    description: () => getDescription(),
+  },
+];
 const KidsCatagory = () => {
-  const getTitle = () => {
+  const [imgActive1, setImgActive1] = React.useState(0);
+
+  const [active, setActive] = React.useState('Bestsellers');
+
+  const getTitle = (heading, title) => {
     return (
       <View
         style={[
@@ -26,18 +84,179 @@ const KidsCatagory = () => {
             fontSize: 14,
             color: '#4A4A4A',
             fontFamily: Fonts.Assistant300,
-          }}></Text>
+          }}>
+          {heading}
+        </Text>
         <Text
           style={{
             color: '#4A4A4A',
             fontSize: 30,
-            fontFamily: 'Indie Flower',
+            fontFamily: Fonts.IndieFlower,
           }}>
-          Infants
+          {title}
         </Text>
       </View>
     );
   };
+  const handleClick = data => {
+    setActive(data);
+  };
+  const StoriesCardData = [
+    {
+      Image: image.womenStoryCardPic,
+      description: 'Tanya pairs out Dabu printed kurta with a chanderi dupatta',
+    },
+  ];
+  const GetStoriesTitle = () => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingHorizontal: 20,
+        }}>
+        <Text
+          style={{
+            fontFamily: Fonts.RunWildDemo,
+            color: '#ffffff',
+            fontSize: 60,
+            marginRight: 10,
+          }}>
+          Style
+        </Text>
+        <Text
+          style={{
+            fontFamily: Fonts.Barlow400,
+            color: '#ffffff',
+            fontSize: 30,
+          }}>
+          STORIES
+        </Text>
+      </View>
+    );
+  };
+
+  const HomeScreen = item => {
+    return (
+      <ScrollView
+        horizontal
+        contentContainerStyle={{
+          paddingVertical: 10,
+          backgroundColor: Colors.backgroundColor,
+        }}>
+        <Card
+          customViewStyle={{marginRight: 10}}
+          originalprice="1,000"
+          offer="20"
+        />
+        <Card
+          customViewStyle={{marginRight: 10}}
+          originalprice="1,000"
+          offer="20"
+        />
+      </ScrollView>
+    );
+  };
+  const WomenCarouselText = () => {
+    return (
+      <>
+        <View style={{flexDirection: 'row'}}>
+          <Text
+            style={{
+              fontSize: 24,
+              color: 'white',
+              fontFamily: Fonts.PlayfairDisplay800,
+            }}>
+            SUMMER
+          </Text>
+          <Text
+            style={{
+              fontSize: 26,
+              color: 'white',
+              marginLeft: 10,
+              fontFamily: Fonts.PlayfairDisplay400Italic,
+            }}>
+            Dresses
+          </Text>
+        </View>
+      </>
+    );
+  };
+  const data = [
+    {
+      heading: () => WomenCarouselText(),
+      banner: image.WomenCarousel,
+      buttonText: 'Explore now',
+    },
+    {
+      heading: () => WomenCarouselText(),
+      banner: image.WomenCarousel,
+      buttonText: 'Explore now',
+    },
+  ];
+  const HomeScreen2 = item => {
+    return <CommonCarousel width={width} height={width} data={data} />;
+  };
+  const screenObj1 = {
+    Infants: HomeScreen,
+    Girls: HomeScreen,
+    Boys: HomeScreen,
+  };
+  const screenObj2 = {
+    'Girls Kurtas': HomeScreen,
+    'Boys Kurtas': HomeScreen,
+    'Infants Kurtas': HomeScreen,
+    Girls: HomeScreen,
+  };
+  const screenObj3 = {
+    Bestsellers: HomeScreen2,
+    Furniture: HomeScreen2,
+    'Games & Toys': HomeScreen2,
+  };
+  const dataMap = KidsTableData.map(item => ({
+    name: item,
+    screen: screenObj1[item],
+  }));
+  const dataMap1 = KidsTableData1.map(item => ({
+    name: item,
+    screen: screenObj2[item],
+  }));
+  const dataMap2 = KidsTableData2.map(item => ({
+    name: item,
+    screen: screenObj3[item],
+  }));
+  const onchangeCarousole = nativeEvent => {
+    if (nativeEvent) {
+      const slide = Math.ceil(
+        nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
+      );
+      if (slide != imgActive1) {
+        setImgActive1(slide);
+      }
+    }
+  };
+  const HomeScreen1 = item => {
+    return (
+      <ScrollView
+        horizontal
+        contentContainerStyle={{
+          paddingVertical: 10,
+          backgroundColor: Colors.backgroundColor,
+        }}>
+        <PointDetailCard />
+        <PointDetailCard />
+      </ScrollView>
+    );
+  };
+  const screenObj4 = {
+    'Lounging Around': HomeScreen1,
+    'Work from Home': HomeScreen1,
+    'In the Kitchen': HomeScreen1,
+  };
+  const dataMap3 = MenCatagoryTab3.map(item => ({
+    name: item,
+    screen: screenObj4[item],
+  }));
   return (
     <ScrollView
       contentContainerStyle={{
@@ -47,10 +266,114 @@ const KidsCatagory = () => {
       }}>
       <TopGallary />
       <NewHighlights
-        title={getTitle()}
+        title={getTitle('', 'Infants')}
         data={WomenHighlightData}
         customStyle={{marginTop: 15}}
       />
+      <NewHighlights
+        title={getTitle('', 'Girls')}
+        data={WomenHighlightData}
+        customStyle={{marginTop: 15}}
+      />
+      <NewHighlights
+        title={getTitle('', 'Boys')}
+        data={WomenHighlightData}
+        customStyle={{marginTop: 15}}
+      />
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          paddingHorizontal: 15,
+          marginTop: 20,
+        }}>
+        <Chip
+          title="Bestsellers"
+          handleClick={() => handleClick('Bestsellers')}
+          active={active}
+        />
+        <Chip
+          title="Recommended for you"
+          handleClick={() => handleClick('Recommended for you')}
+          active={active}
+        />
+      </View>
+      <View style={{paddingLeft: 15, height: 490}}>
+        <CommonTopTab data={dataMap} />
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          paddingHorizontal: 15,
+          marginTop: 15,
+        }}>
+        <Chip
+          title="Bestsellers"
+          handleClick={() => handleClick('Bestsellers')}
+          active={active}
+        />
+        <Chip
+          title="Recommended for you"
+          handleClick={() => handleClick('Recommended for you')}
+          active={active}
+        />
+      </View>
+      <View style={{paddingLeft: 15, height: 490}}>
+        <CommonTopTab data={dataMap2} />
+      </View>
+
+      <View>
+        <ScrollView
+          horizontal
+          onScroll={({nativeEvent}) => onchangeCarousole(nativeEvent)}
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled>
+          {OfferData.map(item => (
+            <OfferCard
+              key={Math.random() * 9999}
+              data={item}
+              backgroundColor="#93BAC7"
+              UptoText="UPTO"
+            />
+          ))}
+        </ScrollView>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'center',
+          }}>
+          {OfferData.map((item, index) => (
+            <Text
+              key={Math.random() * 9999}
+              style={
+                imgActive1 == index
+                  ? {
+                      margin: 3,
+                      color: Colors.primarycolor,
+                      fontSize: 16,
+                    }
+                  : {
+                      margin: 3,
+                      color: '#ABABAB',
+                      fontSize: 16,
+                    }
+              }>
+              ●
+            </Text>
+          ))}
+        </View>
+      </View>
+      {/* <Collections />
+      <LifeStyleCard />
+      <View style={{paddingLeft: 15, height: 530}}>
+        <CommonTopTab data={dataMap3} />
+      </View>
+      <StoriesCard
+        data={StoriesCardData}
+        title={GetStoriesTitle}
+        custumStyles={{marginTop: 40}}
+      /> */}
     </ScrollView>
   );
 };
