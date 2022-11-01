@@ -6,12 +6,7 @@ export const Styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
   },
-  textBox: {
-    position: 'absolute',
-    top: '37%',
-    left: '4%',
-    zIndex: 10,
-  },
+
   imageContainer: {
     backgroundColor: '#F6EFE6',
     paddingLeft: '15%',
@@ -19,16 +14,7 @@ export const Styles = StyleSheet.create({
     paddingBottom: 5,
     marginLeft: '17%',
   },
-  newText: {
-    fontSize: 14,
-    color: '#4A4A4A',
-    fontFamily: Fonts.Assistant300,
-  },
-  title: {
-    color: '#4A4A4A',
-    fontSize: 24,
-    fontFamily: Fonts.PlayfairDisplay700,
-  },
+
   imageBox: {
     padding: 5,
   },

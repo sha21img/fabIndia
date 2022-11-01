@@ -6,7 +6,7 @@ import Fonts from '../../../assets/fonts';
 
 export default function NewHighlights({
   heading = '',
-  title = '',
+  title = null,
   data = [],
   customStyle = '',
 }) {
@@ -19,23 +19,10 @@ export default function NewHighlights({
       </View>
     );
   });
-  const hasSpaces = str => {
-    if (str.indexOf(' ') !== -1) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+
   return (
     <View style={[Styles.container, customStyle]}>
-      <View
-        style={[
-          Styles.textBox,
-          hasSpaces(title) ? {width: width / 3.4} : {width: null},
-        ]}>
-        <Text style={Styles.newText}>{heading}</Text>
-        <Text style={Styles.title}>{title}</Text>
-      </View>
+      {title}
       <View style={Styles.imageContainer}>
         <ScrollView
           horizontal
