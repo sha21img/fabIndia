@@ -3,35 +3,13 @@ import Fonts from '../../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
 const dimension = Dimensions.get('window');
 export const Styles = StyleSheet.create({
-  imagecontainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  backgroundimg: {
-    height: 214,
-    width: dimension.width / 3,
-  },
-  imagetxt: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontFamily: Fonts.Assistant400,
-  },
-  txtbox: {
-    backgroundColor: 'rgba(151, 124, 104, 0.7)',
-    paddingVertical: 3,
-    position: 'absolute',
-    width: '100%',
-    paddingLeft: 15,
-  },
   chipbox: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingHorizontal: 15,
     marginTop: 10,
   },
-  commontab: {paddingLeft: 15, height: 470},
+  commontab: {paddingLeft: 15, height: 520},
   backgroundimage: {height: 670, width: 'auto'},
   customkurtabox: {
     position: 'relative',

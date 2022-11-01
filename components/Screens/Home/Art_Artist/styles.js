@@ -5,7 +5,7 @@ export const Styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.backgroundColor,
     overflow: 'hidden',
-    marginVertical: 20,
+    marginVertical: 30,
   },
   backgroundBox: {
     width: '72%',
@@ -21,6 +21,11 @@ export const Styles = StyleSheet.create({
   },
   heading: {
     fontFamily: Fonts.PlayfairDisplay400,
+    fontSize: 24,
+    color: '#903233',
+  },
+  heading1: {
+    fontFamily: Fonts.PlayfairDisplay700,
     fontSize: 24,
     color: '#903233',
   },

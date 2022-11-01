@@ -17,7 +17,10 @@ export default function Art_Artist() {
     <View style={Styles.container}>
       <View style={Styles.backgroundBox} />
       <View style={Styles.headingBox}>
-        <Text style={Styles.heading}>The art & the artists</Text>
+        <Text style={Styles.heading}>
+          The <Text style={Styles.heading1}>art & the artists</Text>
+        </Text>
+
         <Text style={Styles.description}>
           The artisans behind your favourite Fabindia pieces, and the stories
           they have to tell.
@@ -26,7 +29,13 @@ export default function Art_Artist() {
       <VideoP />
       <View style={Styles.imageBox}>
         {artImageData.map((item, i) => {
-          return <Image key={Math.random() * 10} style={Styles.image} source={item.banner} />;
+          return (
+            <Image
+              key={Math.random() * 10}
+              style={Styles.image}
+              source={item.banner}
+            />
+          );
         })}
       </View>
     </View>

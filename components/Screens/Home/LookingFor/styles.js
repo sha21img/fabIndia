@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Colors} from '../../../../assets/Colors';
 import Fonts from '../../../../assets/fonts';
 export const Styles = StyleSheet.create({
   container: {
@@ -12,5 +13,6 @@ export const Styles = StyleSheet.create({
   heading: {
     fontFamily: Fonts.PlayfairDisplay400,
     fontSize: 24,
+    color: Colors.textcolor,
   },
 });

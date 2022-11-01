@@ -11,7 +11,7 @@ export const Styles = StyleSheet.create({
   },
   CarddescriptionText: {
     marginLeft: 10,
-    marginVertical: 5,
+    marginBottom: 7,
     fontSize: 16,
     lineHeight: 21,
     color: '#ffffff',
