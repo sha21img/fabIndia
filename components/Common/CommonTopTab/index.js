@@ -49,9 +49,8 @@ export default function CommonTopTab({data = []}) {
                         : Fonts.Assistant300,
                       color: focused ? Colors.primarycolor : Colors.textcolor,
                       padding: 0,
-                      marginRight: 10,
                     }}>
-                    {item.name + '    '}
+                    {item.name + '  '}
                   </Text>
                 ),
               }}
