@@ -529,6 +529,7 @@ export default function Dashbord() {
           heading="New in"
           title="Women"
           data={WomenHighlightData}
+          customStyle={{position: 'relative', top: -30}}
         />
         <CommonCarousel
           data={WomenCarouselData}
@@ -568,7 +569,12 @@ export default function Dashbord() {
           bgImage={image.banner1}
           customViewStyle={{marginTop: 15, marginBottom: 30}}
         />
-        <NewHighlights heading="New in" title="Men" data={MenHighlightData} />
+        <NewHighlights
+          heading="New in"
+          title="Men"
+          customStyle={{marginVertical: 10}}
+          data={MenHighlightData}
+        />
         <CommonCarousel
           data={MenCarouselData}
           width={width / 1.07}
@@ -610,7 +616,12 @@ export default function Dashbord() {
         </View>
         <Interior />
         <StateCategory />
-        <NewHighlights heading="New in" title="HOME" data={HomeHighlightData} />
+        <NewHighlights
+          heading="New in"
+          title="HOME"
+          customStyle={{marginVertical: 10}}
+          data={HomeHighlightData}
+        />
         <CommonCarousel
           data={HomeCarouselData}
           width={width / 1.07}

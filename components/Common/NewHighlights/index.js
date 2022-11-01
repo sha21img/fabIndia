@@ -4,7 +4,12 @@ import {Styles} from './styles';
 import {image} from '../../../assets/images';
 import Fonts from '../../../assets/fonts';
 
-export default function NewHighlights({heading = '', title = '', data = []}) {
+export default function NewHighlights({
+  heading = '',
+  title = '',
+  data = [],
+  customStyle = '',
+}) {
   const width = Dimensions.get('window').width;
   const imageCard = data.map(item => {
     return (
@@ -22,7 +27,7 @@ export default function NewHighlights({heading = '', title = '', data = []}) {
     }
   };
   return (
-    <View style={Styles.container}>
+    <View style={[Styles.container, customStyle]}>
       <View
         style={[
           Styles.textBox,
