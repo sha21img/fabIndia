@@ -1,5 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import Fonts from '../../../../../assets/fonts';
+import Fonts from '../../../../../../assets/fonts';
 const dimension = Dimensions.get('window');
 export const Styles = StyleSheet.create({
   imagecontainer: {

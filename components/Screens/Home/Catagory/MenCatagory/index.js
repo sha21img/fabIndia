@@ -5,32 +5,34 @@ import {
   ImageBackground,
   ScrollView,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
-import {image} from '../../../../assets/images';
-import Fonts from '../../../../assets/fonts';
+import {image} from '../../../../../assets/images';
 import {Styles} from './styles';
-import NewHighlights from '../../../Common/NewHighlights';
-import Chip from '../../../Common/Chip';
-import CommonTopTab from '../../../Common/CommonTopTab';
+import NewHighlights from '../../../../Common/NewHighlights';
+import Chip from '../../../../Common/Chip';
+import CommonTopTab from '../../../../Common/CommonTopTab';
 import {
+  hasSpaces,
   MenCatagoryData,
   MenCatagoryTab2,
   MenCatagoryTab3,
   MenCatagoryTableData,
   WomenTabdata,
-} from '../../../../constant';
-import Card from '../../../Common/Card';
-import {Colors} from '../../../../assets/Colors';
-import SummerGalary from '../../../Common/SummerGalary';
-import OfferCard from '../../../Common/OfferCard';
-import CommonCarousel from '../../../Common/CommonCarousel';
+} from '../../../../../constant';
+import Card from '../../../../Common/Card';
+import {Colors} from '../../../../../assets/Colors';
+import SummerGalary from '../../../../Common/SummerGalary';
+import OfferCard from '../../../../Common/OfferCard';
+import CommonCarousel from '../../../../Common/CommonCarousel';
 import Collections from './Collections';
 import LifeStyleCard from './LifeStyleCard';
 import TopGallery from './TopGallery';
-import PointDetailCard from '../../../Common/PointDetailCard';
-import StoriesCard from '../../../Common/StoriesCard';
-
+import PointDetailCard from '../../../../Common/PointDetailCard';
+import StoriesCard from '../../../../Common/StoriesCard';
+import Fonts from '../../../../../assets/fonts';
+const width = Dimensions.get('window').width;
 const getOfferTitleHeading = () => {
   return (
     <View style={{flexDirection: 'row'}}>
@@ -82,6 +84,7 @@ const MenCatagory = () => {
   const handleClick = data => {
     setActive(data);
   };
+
   const HomeScreen = item => {
     return (
       <ScrollView
@@ -224,6 +227,32 @@ const MenCatagory = () => {
       </Text>
     );
   };
+  const getTit = (title, heading) => {
+    return (
+      <View
+        style={[
+          {position: 'absolute', top: '37%', left: '4%', zIndex: 10},
+          hasSpaces(heading) ? {width: width / 3} : {width: null},
+        ]}>
+        <Text
+          style={{
+            fontSize: 14,
+            color: '#4A4A4A',
+            fontFamily: Fonts.Assistant300,
+          }}>
+          {title}
+        </Text>
+        <Text
+          style={{
+            color: '#4A4A4A',
+            fontSize: 24,
+            fontFamily: Fonts.PlayfairDisplay600,
+          }}>
+          {heading}
+        </Text>
+      </View>
+    );
+  };
   const onchangeCarousole = nativeEvent => {
     if (nativeEvent) {
       const slide = Math.ceil(
@@ -242,9 +271,21 @@ const MenCatagory = () => {
       }}>
       <TopGallery />
 
-      <NewHighlights title="Ethnic Wear" data={WomenHighlightData} />
-      <NewHighlights title="Western Wear" data={WomenHighlightData} />
-      <NewHighlights title="Accessories" data={WomenHighlightData} />
+      <NewHighlights
+        title={getTit('', 'Ethnic Wear')}
+        data={WomenHighlightData}
+        customStyle={{marginTop: 15}}
+      />
+      <NewHighlights
+        title={getTit('', 'Western Wear')}
+        data={WomenHighlightData}
+        customStyle={{marginTop: 15}}
+      />
+      <NewHighlights
+        title={getTit('', 'Accessories')}
+        data={WomenHighlightData}
+        customStyle={{marginTop: 15}}
+      />
       <View style={Styles.chipbox}>
         <Chip
           title="Bestsellers"
@@ -291,55 +332,17 @@ const MenCatagory = () => {
             <Text style={Styles.customtxt}>CUSTOM</Text>
             <Text style={Styles.kurtatxt}>KURTAS</Text>
           </View>
-          <View
-            style={{
-              position: 'absolute',
-              bottom: 70,
-              backgroundColor: 'rgba(45, 53, 71, 0.8)',
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-              width: '100%',
-            }}>
-            <Text
-              style={{
-                color: '#FFFFFF',
-                fontSize: 16,
-                fontFamily: Fonts.Assistant400,
-                lineHeight: 21,
-              }}>
+          <View style={Styles.descriptionbox}>
+            <Text style={Styles.descriptiontxt}>
               Select your own material, length, collar, sleeves, pockets and
               cuffs.
             </Text>
-            <Text
-              style={{
-                color: '#FFFFFF',
-                fontFamily: Fonts.Assistant400,
-                fontSize: 16,
-                lineHeight: 21,
-              }}>
+            <Text style={Styles.descriptiontxt}>
               Kurtas... any way you like them!
             </Text>
           </View>
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              bottom: 20,
-              backgroundColor: '#FFFFFF',
-              paddingHorizontal: 10,
-              paddingVertical: 5,
-              marginHorizontal: 20,
-              borderRadius: 40,
-              alignSelf: 'flex-start',
-            }}>
-            <Text
-              style={{
-                color: Colors.primarycolor,
-                fontSize: 16,
-                lineHeight: 21,
-                fontFamily: Fonts.Assistant400,
-              }}>
-              Customize your own
-            </Text>
+          <TouchableOpacity style={Styles.btnbox}>
+            <Text style={Styles.btntxt}>Customize your own</Text>
           </TouchableOpacity>
         </ImageBackground>
       </View>
@@ -378,28 +381,12 @@ const MenCatagory = () => {
             />
           ))}
         </ScrollView>
-        <View
-          style={{
-            // position: 'absolute',
-            // bottom: 0,
-            flexDirection: 'row',
-            alignSelf: 'center',
-          }}>
+        <View style={Styles.offerDatabox}>
           {OfferData.map((item, index) => (
             <Text
               key={Math.random() * 9999}
               style={
-                imgActive1 == index
-                  ? {
-                      margin: 3,
-                      color: Colors.primarycolor,
-                      fontSize: 16,
-                    }
-                  : {
-                      margin: 3,
-                      color: '#ABABAB',
-                      fontSize: 16,
-                    }
+                imgActive1 == index ? Styles.dotactive : Styles.dotinactive
               }>
               ●
             </Text>
@@ -411,7 +398,11 @@ const MenCatagory = () => {
       <View style={Styles.commontab}>
         <CommonTopTab data={dataMap3} />
       </View>
-      <StoriesCard data={StoriesCardData} title={GetStoriesTitle} />
+      <StoriesCard
+        data={StoriesCardData}
+        title={GetStoriesTitle}
+        custumStyles={{marginTop: 40}}
+      />
     </ScrollView>
   );
 };

@@ -1,8 +1,8 @@
 import {View, Text, ImageBackground, Image} from 'react-native';
 import React from 'react';
-import {image} from '../../../../../assets/images';
 import {Styles} from './styles';
-import Fonts from '../../../../../assets/fonts';
+import Fonts from '../../../../../../assets/fonts';
+import {image} from '../../../../../../assets/images';
 const imageData = [
   {
     image: image.rise,
@@ -29,7 +29,7 @@ const imageData = [
     title: 'Bedtime stories',
   },
 ];
-const TopGallery = () => {
+const TopGallary = () => {
   return (
     <View style={Styles.imagecontainer}>
       {imageData.map((item, i) => {
@@ -97,4 +97,4 @@ const TopGallery = () => {
   );
 };
 
-export default TopGallery;
+export default TopGallary;

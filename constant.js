@@ -77,3 +77,10 @@ export const MenCatagoryTab3 = [
   'Work from Home',
   'In the Kitchen',
 ];
+export const hasSpaces = str => {
+  if (str.indexOf(' ') !== -1) {
+    return true;
+  } else {
+    return false;
+  }
+};

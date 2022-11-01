@@ -1,9 +1,10 @@
 import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
-import CollectionCard from '../../../../Common/CollectionCard';
-import {image} from '../../../../../assets/images';
-import {Colors} from '../../../../../assets/Colors';
-import Fonts from '../../../../../assets/fonts';
+import CollectionCard from '../../../../../Common/CollectionCard';
+import {image} from '../../../../../../assets/images';
+import {Colors} from '../../../../../../assets/Colors';
+import Fonts from '../../../../../../assets/fonts';
+import {Styles} from '../styles';
 const collectionData = [
   {
     image: image.collectionPic,
@@ -21,17 +22,8 @@ const collectionData = [
 const Collections = () => {
   return (
     <View style={{paddingVertical: 30}}>
-      <Text
-        style={{
-          paddingHorizontal: 15,
-          fontFamily: Fonts.PlayfairDisplay600Italic,
-          fontSize: 20,
-          color: Colors.textcolor,
-          paddingBottom: 10,
-        }}>
-        Collections
-      </Text>
-      <ScrollView horizontal contentContainerStyle={{paddingHorizontal: 15}}>
+      <Text style={Styles.collectiontxt}>Collections</Text>
+      <ScrollView horizontal contentContainerStyle={Styles.container}>
         {collectionData.map(item => (
           <CollectionCard item={item} />
         ))}

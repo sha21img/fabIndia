@@ -8,8 +8,9 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {image} from '../../../assets/images';
-import MenCatagory from '../Home/MenCatagory';
-import WomenCategory from '../Home/WomenCategory';
+import WomenCategory from '../Home/Catagory/WomenCategory';
+import MenCatagory from '../Home/Catagory/MenCatagory';
+import KidsCatagory from '../Home/Catagory/KidsCatagory';
 
 const Stack = createNativeStackNavigator();
 const leftIcon = (
@@ -21,7 +22,7 @@ const rightIcon = (
 
 export default function HomeStack() {
   return (
-    <Stack.Navigator initialRouteName="MenCatagory">
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -38,12 +39,13 @@ export default function HomeStack() {
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
-                marginBottom: 4,
+                // marginBottom: 4,
               }}
             />
           ),
         }}
       />
+
       <Stack.Screen
         name="SearchResult"
         component={SearchResult}
@@ -72,12 +74,29 @@ export default function HomeStack() {
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
-                marginBottom: 4,
+                // marginBottom: 4,
               }}
             />
           ),
         }}
       />
+      {/* <Stack.Screen
+        name="KidsCatagory"
+        component={KidsCatagory}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Kids"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                // marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      /> */}
     </Stack.Navigator>
   );
 }
