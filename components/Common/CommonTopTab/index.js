@@ -40,7 +40,6 @@ export default function CommonTopTab({data = []}) {
                   width: 'auto',
                   padding: 0,
                 },
-
                 tabBarLabel: ({focused}) => (
                   <Text
                     style={{
@@ -50,9 +49,8 @@ export default function CommonTopTab({data = []}) {
                         : Fonts.Assistant300,
                       color: focused ? Colors.primarycolor : Colors.textcolor,
                       padding: 0,
-                      marginRight: 10,
                     }}>
-                    {item.name + '    '}
+                    {item.name + '  '}
                   </Text>
                 ),
               }}

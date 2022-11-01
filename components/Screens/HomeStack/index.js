@@ -11,6 +11,7 @@ import {image} from '../../../assets/images';
 import WomenCategory from '../Home/Catagory/WomenCategory';
 import MenCatagory from '../Home/Catagory/MenCatagory';
 import KidsCatagory from '../Home/Catagory/KidsCatagory';
+import HomeCatagory from '../Home/Catagory/HomeCatagory';
 
 const Stack = createNativeStackNavigator();
 const leftIcon = (
@@ -80,7 +81,7 @@ export default function HomeStack() {
           ),
         }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="KidsCatagory"
         component={KidsCatagory}
         options={{
@@ -96,7 +97,24 @@ export default function HomeStack() {
             />
           ),
         }}
-      /> */}
+      />
+      <Stack.Screen
+        name="HomeCatagory"
+        component={HomeCatagory}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Kids"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                // marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 }

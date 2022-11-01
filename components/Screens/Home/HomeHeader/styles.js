@@ -17,21 +17,25 @@ export const Styles = StyleSheet.create({
   detailContainer: {
     width: '50%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   locationContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginHorizontal: 5,
   },
   locationText: {
     color: 'white',
     fontSize: 12,
+    paddingLeft: 5,
+    width: 75,
     fontFamily: Fonts.Assistant400,
   },
   currencyContainer: {
     alignItems: 'center',
     flexDirection: 'row',
+    marginHorizontal: 5,
   },
   currencyIcon: {
     color: 'white',
@@ -43,5 +47,8 @@ export const Styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: Fonts.Assistant400,
     paddingLeft: 5,
+  },
+  cartContainer: {
+    marginHorizontal: 5,
   },
 });
