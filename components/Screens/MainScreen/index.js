@@ -13,7 +13,7 @@ import Search from '../Search';
 import HomeStack from '../HomeStack';
 
 import MyAccount from '../MyAccount';
-import WomenCategory from '../Home/WomenCategory';
+// import WomenCategory from '../Home/WomenCategory';
 
 const Tab = createBottomTabNavigator();
 

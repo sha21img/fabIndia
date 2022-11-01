@@ -22,6 +22,7 @@ import {
   OfferTabData,
   HomeTabdata,
   LifeTabdata,
+  hasSpaces,
 } from '../../../constant';
 import {Colors} from '../../../assets/Colors';
 import Interior from './Interior';
@@ -466,6 +467,32 @@ export default function Dashbord() {
   const handleClick = data => {
     setActive(data);
   };
+  const getTitle = (title, heading) => {
+    return (
+      <View
+        style={[
+          {position: 'absolute', top: '37%', left: '4%', zIndex: 10},
+          hasSpaces(heading) ? {width: width / 3} : {width: null},
+        ]}>
+        <Text
+          style={{
+            fontSize: 14,
+            color: '#4A4A4A',
+            fontFamily: Fonts.Assistant300,
+          }}>
+          {title}
+        </Text>
+        <Text
+          style={{
+            color: '#4A4A4A',
+            fontSize: 24,
+            fontFamily: Fonts.PlayfairDisplay700,
+          }}>
+          {heading}
+        </Text>
+      </View>
+    );
+  };
   return (
     <>
       <ScrollView
@@ -526,8 +553,7 @@ export default function Dashbord() {
           <Catagory />
         </ImageBackground>
         <NewHighlights
-          heading="New in"
-          title="Women"
+          title={getTitle('New in', 'Women')}
           data={WomenHighlightData}
           customStyle={{position: 'relative', top: -30}}
         />
@@ -570,8 +596,7 @@ export default function Dashbord() {
           customViewStyle={{marginTop: 15, marginBottom: 30}}
         />
         <NewHighlights
-          heading="New in"
-          title="Men"
+          title={getTitle('New in', 'women')}
           customStyle={{marginVertical: 10}}
           data={MenHighlightData}
         />
@@ -617,8 +642,7 @@ export default function Dashbord() {
         <Interior />
         <StateCategory />
         <NewHighlights
-          heading="New in"
-          title="HOME"
+          title={getTitle('New in', 'HOME')}
           customStyle={{marginVertical: 10}}
           data={HomeHighlightData}
         />

@@ -8,25 +8,26 @@ import {
   Image,
 } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
-import {Colors} from '../../../../assets/Colors';
-import Fonts from '../../../../assets/fonts';
-import {image} from '../../../../assets/images';
+import {Colors} from '../../../../../assets/Colors';
+import Fonts from '../../../../../assets/fonts';
+import {image} from '../../../../../assets/images';
 import {
   WoMenCatagoryTableData,
   WoMenCatagoryData,
   WoMenCatagoryData2,
   WoMenCatagoryBeachData,
-} from '../../../../constant';
-import Card from '../../../Common/Card';
-import Chip from '../../../Common/Chip';
-import CollectionCard from '../../../Common/CollectionCard';
-import CommonCarousel from '../../../Common/CommonCarousel';
-import CommonTopTab from '../../../Common/CommonTopTab';
-import LifeStyle from '../../../Common/LifeStyle';
-import NewHighlights from '../../../Common/NewHighlights';
-import OfferCard from '../../../Common/OfferCard';
-import StoriesCard from '../../../Common/StoriesCard';
-import SummerGalary from '../../../Common/SummerGalary';
+  hasSpaces,
+} from '../../../../../constant';
+import Card from '../../../../Common/Card';
+import Chip from '../../../../Common/Chip';
+import CollectionCard from '../../../../Common/CollectionCard';
+import CommonCarousel from '../../../../Common/CommonCarousel';
+import CommonTopTab from '../../../../Common/CommonTopTab';
+import LifeStyle from '../../../../Common/LifeStyle';
+import NewHighlights from '../../../../Common/NewHighlights';
+import OfferCard from '../../../../Common/OfferCard';
+import StoriesCard from '../../../../Common/StoriesCard';
+import SummerGalary from '../../../../Common/SummerGalary';
 import {Styles} from './style';
 const width = Dimensions.get('window').width;
 
@@ -349,6 +350,32 @@ const WomenCategory = () => {
       </>
     );
   };
+  const getTitle = (title, heading) => {
+    return (
+      <View
+        style={[
+          {position: 'absolute', top: '37%', left: '4%', zIndex: 10},
+          hasSpaces(heading) ? {width: width / 3} : {width: null},
+        ]}>
+        <Text
+          style={{
+            fontSize: 14,
+            color: '#4A4A4A',
+            fontFamily: Fonts.Assistant300,
+          }}>
+          {title}
+        </Text>
+        <Text
+          style={{
+            color: '#4A4A4A',
+            fontSize: 24,
+            fontFamily: Fonts.PlayfairDisplay600,
+          }}>
+          {heading}
+        </Text>
+      </View>
+    );
+  };
 
   return (
     <ScrollView
@@ -421,9 +448,21 @@ const WomenCategory = () => {
         </View>
       </View>
       {/* ==============Women Listing========== */}
-      <NewHighlights title="Apparel" data={WomenHighlightData} />
-      <NewHighlights title="Jewellery" data={WomenHighlightData} />
-      <NewHighlights title="Beauty" data={WomenHighlightData} />
+      <NewHighlights
+        title={getTitle('', 'Apparel')}
+        data={WomenHighlightData}
+        customStyle={{marginTop: 15}}
+      />
+      <NewHighlights
+        title={getTitle('', 'Jewellery')}
+        data={WomenHighlightData}
+        customStyle={{marginTop: 15}}
+      />
+      <NewHighlights
+        title={getTitle('', 'Beauty')}
+        data={WomenHighlightData}
+        customStyle={{marginTop: 15}}
+      />
       {/* ==============Seller Chips=========== */}
       <View style={Styles.chipbox}>
         <Chip
