@@ -33,7 +33,6 @@ export default function CommonCarousel({data = [], width, height}) {
                     width: width,
                     height: height,
                     alignSelf: 'center',
-                    marginVertical: 10,
                   }}
                   source={item.item.banner}>
                   <LinearGradient
@@ -59,12 +58,7 @@ export default function CommonCarousel({data = [], width, height}) {
         />
       </View>
       {/* </GestureHandlerRootView> */}
-      <View
-        style={{
-          width: '100%',
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
+      <View style={Styles.dotBox}>
         {data.map((item, index) => (
           <Text
             style={

@@ -17,4 +17,10 @@ export const Styles = StyleSheet.create({
     color: 'white',
     fontFamily: Fonts.Assistant400,
   },
+  dotBox:{
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 10,
+  }
 });
