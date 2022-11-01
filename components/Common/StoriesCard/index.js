@@ -18,8 +18,7 @@ export default function StoriesCard({
           style={{
             position: 'absolute',
             top: 20,
-            left: 7,
-            backgroundColor: 'rgba(187, 168, 101, 0.9)',
+            backgroundColor: 'rgba(187, 168, 101, 0.7)',
             paddingHorizontal: 5,
             flexDirection: 'row',
             paddingVertical: 3,
