@@ -40,7 +40,8 @@ const OfferCard = ({
           Styles.ShopTablet,
           {backgroundColor: backgroundColor, width: width},
         ]}>
-        <Text style={Styles.CardDescription}>{description}</Text>
+        {description()}
+        {/* <Text style={Styles.CardDescription}>{description}</Text> */}
         <View style={Styles.ShopNowContainer}>
           <View style={Styles.ShopNowContainerText}>
             <Text style={Styles.btntext}>Shop Now</Text>

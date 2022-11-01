@@ -22,6 +22,7 @@ const Fonts = {
   PlayfairDisplay400Italic: 'PlayfairDisplay-Italic',
   PlayfairDisplay600: 'PlayfairDisplay-SemiBold',
   PlayfairDisplay600Italic: 'PlayfairDisplay-SemiBoldItalic',
+  RunWildDemo: 'RunWild-Demo',
 };
 
 export default Fonts;

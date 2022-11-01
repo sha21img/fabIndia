@@ -4,6 +4,8 @@ const Fonts = {
   AssistantRegular: 'Assistant-Regular',
   RupeeForadian: 'Rupee_Foradian',
   PlayfairDisplayRegular: 'PlayfairDisplay-Regular',
+  IndieFlowerRegular: 'IndieFlower-Regular',
+  RunWildDemo: 'RunWild-Demo',
 };
 
 export default Fonts;
