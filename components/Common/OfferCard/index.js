@@ -16,7 +16,7 @@ const OfferCard = ({
   return (
     <View>
       <ImageBackground
-        source={image.offerPic}
+        source={data.banner}
         style={{height: 325, width: width}}>
         <LinearGradient
           colors={['transparent', backgroundColor]}

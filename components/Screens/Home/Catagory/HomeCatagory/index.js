@@ -12,14 +12,24 @@ import StoriesCard from '../../../../Common/StoriesCard';
 import {image} from '../../../../../assets/images';
 import Fonts from '../../../../../assets/fonts';
 import PointDetailCard from '../../../../Common/PointDetailCard';
-import {HomeCatagoryTab4, HomeCatagoryTab3} from '../../../../../constant';
+import {
+  HomeCatagoryTab4,
+  HomeCatagoryTab3,
+  HomeCatagoryTab2,
+  HomeCatagoryTab1,
+} from '../../../../../constant';
 import CommonTopTab from '../../../../Common/CommonTopTab';
 import LifeStyleCard from './LifeStyleCard';
 import CommonCarousel from '../../../../Common/CommonCarousel';
 import SimpleCard from '../../../../Common/SimpleCard';
+import Chip from '../../../../Common/Chip';
+import HomeDecor from './HomeDecor';
+import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
+import CommonBanner from '../../../../Common/CommonBanner';
 const width = Dimensions.get('window').width;
 
 export default function HomeCatagory() {
+  const [active, setActive] = React.useState('Bestsellers');
   const StoriesCardData = [
     {
       Image: image.homeStoryCardPic,
@@ -54,7 +64,6 @@ export default function HomeCatagory() {
       </View>
     );
   };
-  // Tab 3
   const SimpleCardList = item => {
     return (
       <>
@@ -71,6 +80,30 @@ export default function HomeCatagory() {
       </>
     );
   };
+  // Tab 1
+  const screenObj1 = {
+    Bedsheets: SimpleCardList,
+    Bedcovers: SimpleCardList,
+    'Bath Linen': SimpleCardList,
+    'Pillow Covers': SimpleCardList,
+  };
+  const dataMap1 = HomeCatagoryTab1.map(item => ({
+    name: item,
+    screen: screenObj1[item],
+  }));
+  // Tab 2
+  const screenObj2 = {
+    Cotton: SimpleCardList,
+    Linen: SimpleCardList,
+    Silk: SimpleCardList,
+    'Cotton Linen': SimpleCardList,
+    'Cotton Silk': SimpleCardList,
+  };
+  const dataMap2 = HomeCatagoryTab2.map(item => ({
+    name: item,
+    screen: screenObj2[item],
+  }));
+  // Tab 3
   const screenObj3 = {
     'Table Covers': SimpleCardList,
     'Table Napkins': SimpleCardList,
@@ -107,7 +140,6 @@ export default function HomeCatagory() {
     name: item,
     screen: screenObj4[item],
   }));
-
   const SummerCarouselData = [
     {
       heading_btn: () => SummerCarousel(),
@@ -163,6 +195,102 @@ export default function HomeCatagory() {
       </>
     );
   };
+  const getOfferTitleHeading = () => {
+    return (
+      <Text
+        style={{
+          fontSize: 26,
+          fontFamily: Fonts.PlayfairDisplay700Italic,
+          color: '#ffffff',
+          lineHeight: 35,
+        }}>
+        Handcrafted
+      </Text>
+    );
+  };
+  const getDescription = () => {
+    return (
+      <Text
+        style={{
+          fontSize: 26,
+          fontFamily: Fonts.Assistant400,
+          color: '#ffffff',
+        }}>
+        CUSHIONS
+      </Text>
+    );
+  };
+  const OfferData = [
+    {
+      offerValue: '70',
+      banner: image.HomeCarousel1,
+      heading: () => getOfferTitleHeading(),
+      description: () => getDescription(),
+    },
+    {
+      offerValue: '70',
+      banner: image.HomeCarousel,
+      heading: () => getOfferTitleHeading(),
+      description: () => getDescription(),
+    },
+  ];
+  const bannerHeading1 = () => {
+    return (
+      <>
+        <View style={{flexDirection: 'row'}}>
+          <Text
+            style={{
+              fontSize: 26,
+              color: 'white',
+              fontFamily: Fonts.Assistant300,
+            }}>
+            ADD A
+          </Text>
+          <Text
+            style={{
+              fontSize: 26,
+              paddingLeft: 5,
+              fontFamily: Fonts.Assistant700,
+              color: 'white',
+            }}>
+            MONOGRAM
+          </Text>
+        </View>
+        <Text
+          style={{
+            paddingVertical: 15,
+            fontSize: 16,
+            fontFamily: Fonts.Assistant400,
+            color: 'white',
+            lineHeight: 22,
+          }}>
+          Add a personal touch to your home linen with our new monogram service!
+        </Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'white',
+            paddingVertical: 10,
+            paddingHorizontal: 15,
+            alignSelf: 'flex-start',
+            borderRadius: 40,
+            marginTop: 10,
+            marginBottom: 5,
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: Fonts.Assistant400,
+              color: '#903233',
+            }}>
+            Add a monogram
+          </Text>
+        </TouchableOpacity>
+      </>
+    );
+  };
+  const handleClick = data => {
+    setActive(data);
+  };
   return (
     <ScrollView
       contentContainerStyle={{
@@ -170,6 +298,89 @@ export default function HomeCatagory() {
         paddingBottom: 20,
       }}>
       <TopGallery />
+      <HomeDecor
+        heading="Home Linen"
+        description="Handcraft for your home"
+        customstyle={{marginTop: 30}}
+      />
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          paddingHorizontal: 15,
+          marginTop: 5,
+        }}>
+        <Chip
+          title="Bestsellers"
+          handleClick={() => handleClick('Bestsellers')}
+          active={active}
+        />
+        <Chip
+          title="Recommended for you"
+          handleClick={() => handleClick('Recommended for you')}
+          active={active}
+        />
+      </View>
+      <View style={{marginLeft: 15, height: 440}}>
+        <CommonTopTab data={dataMap2} />
+      </View>
+      <CommonBanner
+        heading={bannerHeading1}
+        buttonText="Customize now"
+        bgImage={image.banner1}
+        customViewStyle={{marginTop: 15, marginBottom: 15}}
+      />
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          paddingHorizontal: 15,
+          marginTop: 5,
+        }}>
+        <Chip
+          title="Bestsellers"
+          handleClick={() => handleClick('Bestsellers')}
+          active={active}
+        />
+        <Chip
+          title="Recommended for you"
+          handleClick={() => handleClick('Recommended for you')}
+          active={active}
+        />
+      </View>
+      <View style={{marginLeft: 15, height: 440}}>
+        <CommonTopTab data={dataMap1} />
+      </View>
+      <OfferCommonCarousel
+        data={OfferData}
+        UptoText="UPTO"
+        backgroundColor={'#DB8C5F'}
+        width={width / 1.07}
+        height={420}
+        customStyle={{marginBottom: 10, marginTop: 20}}
+      />
+      <HomeDecor
+        heading="Brighten up your space"
+        description="Luxurious & Handcrafted"
+        customstyle={{marginVertical: 20}}
+      />
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          paddingHorizontal: 15,
+        }}>
+        <Chip
+          title="Bestsellers"
+          handleClick={() => handleClick('Bestsellers')}
+          active={active}
+        />
+        <Chip
+          title="Recommended for you"
+          handleClick={() => handleClick('Recommended for you')}
+          active={active}
+        />
+      </View>
       <View style={{marginLeft: 15, height: 440}}>
         <CommonTopTab data={dataMap3} />
       </View>

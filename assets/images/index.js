@@ -11,6 +11,7 @@ export const image = {
   WomenCarousel: require('./WomenCarousel.png'),
   manCarousel: require('./manCarousel.png'),
   HomeCarousel: require('./HomeCarousel.png'),
+  HomeCarousel1: require('./homeCarousel1.png'),
   LifeCarousel: require('./LifeCarousel.png'),
   KidsCarousel: require('./KidsCarousel.png'),
   BeautyCarousel: require('./BeautyCarousel.png'),
@@ -55,4 +56,8 @@ export const image = {
   lifeStyleBackground: require('./lifeStyleBackground.png'),
   collectionPic2: require('./Collection2.png'),
   lifeStyleImage: require('./lifeStyleImage.png'),
+  HomeDecor1: require('./HomeDecor1.png'),
+  HomeDecor2: require('./HomeDecor2.png'),
+  HomeDecor3: require('./HomeDecor3.png'),
+  HomeDecor4: require('./HomeDecor4.png'),
 };

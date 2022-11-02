@@ -6,8 +6,6 @@ import {Styles} from './styles';
 
 export default function CommonBanner({
   heading = null,
-  desciption = '',
-  buttonText = '',
   bgImage = '',
   customViewStyle = {},
 }) {
@@ -22,9 +20,6 @@ export default function CommonBanner({
         start={{x: 0, y: 0.5}}
         end={{x: 1, y: 0.5}}>
         {heading()}
-        <TouchableOpacity style={Styles.button}>
-          <Text style={Styles.buttonText}>{buttonText}</Text>
-        </TouchableOpacity>
       </LinearGradient>
     </ImageBackground>
   );
