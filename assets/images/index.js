@@ -55,4 +55,8 @@ export const image = {
   lifeStyleBackground: require('./lifeStyleBackground.png'),
   collectionPic2: require('./Collection2.png'),
   lifeStyleImage: require('./lifeStyleImage.png'),
+  kidsummer: require('./kidsummer.png'),
+  kidlazing: require('./kidlazing.png'),
+  kidplaytime: require('./kidplaytime.png'),
+  kidplaying: require('./kidplaying.png'),
 };

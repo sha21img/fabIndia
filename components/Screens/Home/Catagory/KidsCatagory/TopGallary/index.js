@@ -1,4 +1,4 @@
-import {View, Text, ImageBackground, Image} from 'react-native';
+import {View, Text, ImageBackground, Image, Dimensions} from 'react-native';
 import React from 'react';
 import {Styles} from './styles';
 import Fonts from '../../../../../../assets/fonts';
@@ -29,31 +29,65 @@ const imageData = [
     title: 'Bedtime stories',
   },
 ];
+const dimension = Dimensions.get('window');
+
 const TopGallary = () => {
   return (
     <View style={Styles.imagecontainer}>
-      {imageData.map((item, i) => {
-        return (
-          <ImageBackground
-            key={Math.random() * 6776}
-            resizeMode="cover"
-            style={Styles.backgroundimg}
-            source={item.image}>
-            <View
-              style={[
-                Styles.txtbox,
-                {top: i < 3 ? 15 : null, bottom: i >= 3 ? 15 : null},
-              ]}>
-              <Text style={Styles.imagetxt}>{item.title}</Text>
-            </View>
-          </ImageBackground>
-        );
-      })}
+      <ImageBackground
+        key={Math.random() * 6776}
+        resizeMode="cover"
+        style={{
+          height: 214,
+          width: dimension.width / 1.5,
+        }}
+        source={image.kidsummer}>
+        <View style={[Styles.txtbox, {top: 15}]}>
+          <Text style={Styles.imagetxt}>Summer vacation</Text>
+        </View>
+      </ImageBackground>
+      <ImageBackground
+        key={Math.random() * 6776}
+        resizeMode="cover"
+        style={{
+          height: 214,
+          width: dimension.width / 3,
+        }}
+        source={image.kidlazing}>
+        <View style={[Styles.txtbox, {top: 15}]}>
+          <Text style={Styles.imagetxt}>Lazing around</Text>
+        </View>
+      </ImageBackground>
+      <ImageBackground
+        key={Math.random() * 6776}
+        resizeMode="cover"
+        style={{
+          height: 214,
+          width: dimension.width / 3,
+        }}
+        source={image.kidplaytime}>
+        <View style={[Styles.txtbox, {bottom: 15}]}>
+          <Text style={Styles.imagetxt}>Playtime</Text>
+        </View>
+      </ImageBackground>
+      <ImageBackground
+        key={Math.random() * 6776}
+        resizeMode="cover"
+        style={{
+          height: 214,
+          width: dimension.width / 1.5,
+        }}
+        source={image.kidplaying}>
+        <View style={[Styles.txtbox, {bottom: 15}]}>
+          <Text style={Styles.imagetxt}>Playing dress up</Text>
+        </View>
+      </ImageBackground>
+
       <View
         style={{
           width: 160,
           height: 160,
-          backgroundColor: 'rgba(144, 50, 51, 0.8)',
+          backgroundColor: 'rgba(215, 175, 73, 0.8)',
           position: 'absolute',
           alignItems: 'center',
           justifyContent: 'center',
@@ -61,35 +95,24 @@ const TopGallary = () => {
           borderRadius: 100,
           top: 142,
         }}>
-        <Text
-          style={{
-            fontSize: 14,
-            fontFamily: Fonts.Assistant300,
-            color: '#FFFFFF',
-            lineHeight: 18,
-            textAlign: 'center',
-          }}>
-          A day in the life of a
-        </Text>
         <View
           style={{
             flexDirection: 'row',
-            paddingVertical: 6,
-            alignItems: 'flex-end',
+            alignItems: 'center',
           }}>
           <Image
             source={image.whitelogo}
-            style={{height: 20, width: 67}}
+            style={{height: 23, width: 67}}
             resizeMode="contain"
           />
           <Text
             style={{
               color: '#FFFFFF',
               marginLeft: 3,
-              fontSize: 18,
-              fontFamily: Fonts.PlayfairDisplay400,
+              fontSize: 20,
+              fontFamily: Fonts.IndieFlower,
             }}>
-            man
+            Kids
           </Text>
         </View>
       </View>
