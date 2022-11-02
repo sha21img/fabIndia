@@ -12,7 +12,7 @@ import WomenCategory from '../Home/Catagory/WomenCategory';
 import MenCatagory from '../Home/Catagory/MenCatagory';
 import KidsCatagory from '../Home/Catagory/KidsCatagory';
 import HomeCatagory from '../Home/Catagory/HomeCatagory';
-import HomeDecor from '../Home/Catagory/HomeDecor';
+import HomeDecorCatagory from '../Home/Catagory/HomeDecorCatagory';
 
 const Stack = createNativeStackNavigator();
 const leftIcon = (
@@ -24,7 +24,7 @@ const rightIcon = (
 
 export default function HomeStack() {
   return (
-    <Stack.Navigator initialRouteName="HomeDecor">
+    <Stack.Navigator initialRouteName="HomeDecorCatagory">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -117,8 +117,8 @@ export default function HomeStack() {
         }}
       />
       <Stack.Screen
-        name="HomeDecor"
-        component={HomeDecor}
+        name="HomeDecorCatagory"
+        component={HomeDecorCatagory}
         options={{
           header: props => (
             <Header
