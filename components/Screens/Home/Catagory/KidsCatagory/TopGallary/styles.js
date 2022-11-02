@@ -13,7 +13,7 @@ export const Styles = StyleSheet.create({
     width: dimension.width / 3,
   },
   txtbox: {
-    backgroundColor: 'rgba(151, 124, 104, 0.7)',
+    backgroundColor: 'rgba(215, 175, 73, 0.4)',
     paddingVertical: 3,
     position: 'absolute',
     width: '100%',
