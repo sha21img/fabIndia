@@ -99,3 +99,10 @@ export const HomeCatagoryTab4 = [
   'Room Makeover',
   'Staycation',
 ];
+
+export const HomeCatagoryTab3 = [
+  'Table Covers',
+  'Table Napkins',
+  'Runners',
+  'Mats'
+];

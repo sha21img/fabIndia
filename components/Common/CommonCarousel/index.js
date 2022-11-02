@@ -6,12 +6,17 @@ import LinearGradient from 'react-native-linear-gradient';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Colors} from '../../../assets/Colors';
 
-export default function CommonCarousel({data = [], width, height}) {
+export default function CommonCarousel({
+  data = [],
+  width,
+  height,
+  customStyle = {},
+}) {
   const [imgActive1, setImgActive1] = React.useState(0);
   return (
     <>
       {/* <GestureHandlerRootView style={{flex: 1, alignSelf: 'center'}}> */}
-      <View style={{alignItems: 'center'}}>
+      <View style={[{alignItems: 'center'}, customStyle]}>
         <Carousel
           loop={true}
           pagingEnabled
@@ -44,37 +49,32 @@ export default function CommonCarousel({data = [], width, height}) {
                     }}
                     start={{x: 0, y: 0}}
                     end={{x: 0, y: 1}}>
-                    {item.item.heading()}
-                    <TouchableOpacity style={Styles.ButtonBox}>
-                      <Text style={Styles.ButtonText}>
-                        {item.item.buttonText}
-                      </Text>
-                    </TouchableOpacity>
+                    {item.item.heading_btn()}
                   </LinearGradient>
                 </ImageBackground>
               </>
             );
           }}
         />
-      </View>
-      {/* </GestureHandlerRootView> */}
-      <View
-        style={{
-          width: '100%',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          marginTop: 10,
-        }}>
-        {data.map((item, index) => (
-          <Text
-            style={
-              imgActive1 == index
-                ? {color: Colors.primarycolor}
-                : {color: '#E5E5E5'}
-            }>
-            ●
-          </Text>
-        ))}
+        {/* </GestureHandlerRootView> */}
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 10,
+          }}>
+          {data.map((item, index) => (
+            <Text
+              style={
+                imgActive1 == index
+                  ? {color: Colors.primarycolor}
+                  : {color: '#E5E5E5'}
+              }>
+              ●
+            </Text>
+          ))}
+        </View>
       </View>
     </>
   );

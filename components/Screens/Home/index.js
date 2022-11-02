@@ -54,14 +54,12 @@ const HomeHighlightData = [
 ];
 const WomenCarouselData = [
   {
-    heading: () => WomenCarouselText(),
+    heading_btn: () => WomenCarouselText(),
     banner: image.WomenCarousel,
-    buttonText: 'Explore now',
   },
   {
-    heading: () => WomenCarouselText(),
+    heading_btn: () => WomenCarouselText(),
     banner: image.WomenCarousel,
-    buttonText: 'Explore now',
   },
 ];
 const WomenCarouselText = () => {
@@ -86,19 +84,35 @@ const WomenCarouselText = () => {
           Dresses
         </Text>
       </View>
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'rgba(74,74,74,0.7)',
+          padding: 10,
+          borderRadius: 40,
+          position: 'absolute',
+          left: 20,
+          bottom: 25,
+        }}>
+        <Text
+          style={{
+            fontSize: 16,
+            color: 'white',
+            fontFamily: Fonts.Assistant400,
+          }}>
+          Explore now
+        </Text>
+      </TouchableOpacity>
     </>
   );
 };
 const MenCarouselData = [
   {
-    heading: () => MenCarouselText(),
+    heading_btn: () => MenCarouselText(),
     banner: image.manCarousel,
-    buttonText: 'Explore now',
   },
   {
-    heading: () => MenCarouselText(),
+    heading_btn: () => MenCarouselText(),
     banner: image.manCarousel,
-    buttonText: 'Explore now',
   },
 ];
 const MenCarouselText = () => {
@@ -123,19 +137,35 @@ const MenCarouselText = () => {
           Dresses
         </Text>
       </View>
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'rgba(74,74,74,0.7)',
+          padding: 10,
+          borderRadius: 40,
+          position: 'absolute',
+          left: 20,
+          bottom: 25,
+        }}>
+        <Text
+          style={{
+            fontSize: 16,
+            color: 'white',
+            fontFamily: Fonts.Assistant400,
+          }}>
+          Explore now
+        </Text>
+      </TouchableOpacity>
     </>
   );
 };
 const HomeCarouselData = [
   {
-    heading: () => HomeCarouselText(),
+    heading_btn: () => HomeCarouselText(),
     banner: image.HomeCarousel,
-    buttonText: 'Explore now',
   },
   {
-    heading: () => HomeCarouselText(),
+    heading_btn: () => HomeCarouselText(),
     banner: image.HomeCarousel,
-    buttonText: 'Explore now',
   },
 ];
 const HomeCarouselText = () => {
@@ -149,19 +179,35 @@ const HomeCarouselText = () => {
         }}>
         STAYCATION
       </Text>
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'rgba(74,74,74,0.7)',
+          padding: 10,
+          borderRadius: 40,
+          position: 'absolute',
+          left: 20,
+          bottom: 25,
+        }}>
+        <Text
+          style={{
+            fontSize: 16,
+            color: 'white',
+            fontFamily: Fonts.Assistant400,
+          }}>
+          Explore now
+        </Text>
+      </TouchableOpacity>
     </>
   );
 };
 const LifeCarouselData = [
   {
-    heading: () => LifeCarouselText(),
+    heading_btn: () => LifeCarouselText(),
     banner: image.LifeCarousel,
-    buttonText: 'Explore now',
   },
   {
-    heading: () => LifeCarouselText(),
+    heading_btn: () => LifeCarouselText(),
     banner: image.LifeCarousel,
-    buttonText: 'Explore now',
   },
 ];
 const LifeCarouselText = () => {
@@ -185,19 +231,35 @@ const LifeCarouselText = () => {
         }}>
         The best of apparel, home and more - together!
       </Text>
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'rgba(74,74,74,0.7)',
+          padding: 10,
+          borderRadius: 40,
+          position: 'absolute',
+          left: 20,
+          bottom: 25,
+        }}>
+        <Text
+          style={{
+            fontSize: 16,
+            color: 'white',
+            fontFamily: Fonts.Assistant400,
+          }}>
+          Explore now
+        </Text>
+      </TouchableOpacity>
     </>
   );
 };
 const KidsCarouselData = [
   {
-    heading: () => KidsCarouselText(),
+    heading_btn: () => KidsCarouselText(),
     banner: image.KidsCarousel,
-    buttonText: 'Explore now',
   },
   {
-    heading: () => KidsCarouselText(),
+    heading_btn: () => KidsCarouselText(),
     banner: image.KidsCarousel,
-    buttonText: 'Explore now',
   },
 ];
 const KidsCarouselText = () => {
@@ -218,7 +280,7 @@ const KidsCarouselText = () => {
         </Text>
         <Text
           style={{
-            // fontFamily: 'IndieFlower-Regular',
+            fontFamily: Fonts.IndieFlower,
             fontSize: 24,
             color: 'white',
             marginLeft: 10,
@@ -226,19 +288,35 @@ const KidsCarouselText = () => {
           Kids
         </Text>
       </View>
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'rgba(74,74,74,0.7)',
+          padding: 10,
+          borderRadius: 40,
+          position: 'absolute',
+          left: 20,
+          bottom: 25,
+        }}>
+        <Text
+          style={{
+            fontSize: 16,
+            color: 'white',
+            fontFamily: Fonts.Assistant400,
+          }}>
+          Explore now
+        </Text>
+      </TouchableOpacity>
     </>
   );
 };
 const BeautyCarouselData = [
   {
-    heading: () => BeautyCarouselText(),
+    heading_btn: () => BeautyCarouselText(),
     banner: image.BeautyCarousel,
-    buttonText: 'Explore now',
   },
   {
-    heading: () => BeautyCarouselText(),
+    heading_btn: () => BeautyCarouselText(),
     banner: image.BeautyCarousel,
-    buttonText: 'Explore now',
   },
 ];
 const BeautyCarouselText = () => {
@@ -263,6 +341,24 @@ const BeautyCarouselText = () => {
           Secrets
         </Text>
       </View>
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'rgba(74,74,74,0.7)',
+          padding: 10,
+          borderRadius: 40,
+          position: 'absolute',
+          left: 20,
+          bottom: 25,
+        }}>
+        <Text
+          style={{
+            fontSize: 16,
+            color: 'white',
+            fontFamily: Fonts.Assistant400,
+          }}>
+          Explore now
+        </Text>
+      </TouchableOpacity>
     </>
   );
 };
