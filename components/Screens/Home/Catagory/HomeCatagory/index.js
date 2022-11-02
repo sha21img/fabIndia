@@ -26,7 +26,7 @@ import Chip from '../../../../Common/Chip';
 import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
 import CommonBanner from '../../../../Common/CommonBanner';
 import InteriorCatagory from '../../../../Common/InteriorCatagory';
-import HomeMade from '../HomeDecor/HomeMade';
+import HomeMade from '../HomeDecorCatagory/HomeMade';
 import HomeDecor from '../../../../Common/HomeDecor';
 const width = Dimensions.get('window').width;
 

@@ -6,9 +6,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import {image} from '../../../../../../assets/images';
 import LinearGradient from 'react-native-linear-gradient';
-import Fonts from '../../../../../../assets/fonts';
+import Fonts from '../../../assets/fonts';
 export default function HorizontalCard({item = {}}) {
   return (
     <TouchableOpacity style={Styles.marinContainer}>
