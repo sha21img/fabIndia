@@ -21,6 +21,7 @@ export const KidsTableData1 = [
   'Girls',
 ];
 export const KidsTableData2 = ['Bestsellers', 'Furniture', 'Games & Toys'];
+export const KidsTableData3 = ['Summer Vacation', 'Playtime'];
 export const WoMenCatagoryTableData = [
   'Apparel',
   'Jewellery',
