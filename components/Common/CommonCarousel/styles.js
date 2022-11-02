@@ -10,17 +10,17 @@ export const Styles = StyleSheet.create({
     borderRadius: 40,
     position: 'absolute',
     left: 20,
-    bottom: 30,
+    bottom: 25,
   },
   ButtonText: {
     fontSize: 16,
     color: 'white',
     fontFamily: Fonts.Assistant400,
   },
-  dotBox:{
+  dotBox: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
     marginVertical: 10,
-  }
+  },
 });

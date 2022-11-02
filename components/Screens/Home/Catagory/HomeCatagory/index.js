@@ -1,4 +1,10 @@
-import {View, Text, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import TopGallery from './TopGallery';
 import {Colors} from '../../../../../assets/Colors';
@@ -6,9 +12,12 @@ import StoriesCard from '../../../../Common/StoriesCard';
 import {image} from '../../../../../assets/images';
 import Fonts from '../../../../../assets/fonts';
 import PointDetailCard from '../../../../Common/PointDetailCard';
-import {HomeCatagoryTab4} from '../../../../../constant';
+import {HomeCatagoryTab4, HomeCatagoryTab3} from '../../../../../constant';
 import CommonTopTab from '../../../../Common/CommonTopTab';
 import LifeStyleCard from './LifeStyleCard';
+import CommonCarousel from '../../../../Common/CommonCarousel';
+import SimpleCard from '../../../../Common/SimpleCard';
+const width = Dimensions.get('window').width;
 
 export default function HomeCatagory() {
   const StoriesCardData = [
@@ -45,7 +54,33 @@ export default function HomeCatagory() {
       </View>
     );
   };
-
+  // Tab 3
+  const SimpleCardList = item => {
+    return (
+      <>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingVertical: 10,
+            backgroundColor: Colors.backgroundColor,
+          }}>
+          <SimpleCard />
+          <SimpleCard />
+        </ScrollView>
+      </>
+    );
+  };
+  const screenObj3 = {
+    'Table Covers': SimpleCardList,
+    'Table Napkins': SimpleCardList,
+    Runners: SimpleCardList,
+    Mats: SimpleCardList,
+  };
+  const dataMap3 = HomeCatagoryTab3.map(item => ({
+    name: item,
+    screen: screenObj3[item],
+  }));
   // Tab4
   const PointDetailCardList = item => {
     return (
@@ -73,6 +108,61 @@ export default function HomeCatagory() {
     screen: screenObj4[item],
   }));
 
+  const SummerCarouselData = [
+    {
+      heading_btn: () => SummerCarousel(),
+      banner: image.manCarousel,
+    },
+    {
+      heading_btn: () => SummerCarousel(),
+      banner: image.manCarousel,
+    },
+  ];
+  const SummerCarousel = () => {
+    return (
+      <>
+        <Text
+          style={{
+            fontSize: 26,
+            color: 'white',
+            lineHeight: 35,
+            fontFamily: Fonts.PlayfairDisplay400Italic,
+          }}>
+          Set for the summer?
+        </Text>
+        <Text
+          style={{
+            fontFamily: Fonts.Assistant400,
+            fontSize: 18,
+            lineHeight: 21,
+            color: 'white',
+            paddingVertical: 5,
+            paddingRight: 10,
+          }}>
+          Bring some an elegant mix of bath and bed linen
+        </Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'white',
+            paddingVertical: 8,
+            paddingHorizontal: 12,
+            borderRadius: 40,
+            position: 'absolute',
+            left: 20,
+            bottom: 25,
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: '#903233',
+              fontFamily: Fonts.Assistant400,
+            }}>
+            Explore collection
+          </Text>
+        </TouchableOpacity>
+      </>
+    );
+  };
   return (
     <ScrollView
       contentContainerStyle={{
@@ -80,6 +170,15 @@ export default function HomeCatagory() {
         paddingBottom: 20,
       }}>
       <TopGallery />
+      <View style={{marginLeft: 15, height: 440}}>
+        <CommonTopTab data={dataMap3} />
+      </View>
+      <CommonCarousel
+        data={SummerCarouselData}
+        width={width / 1.07}
+        height={410}
+        customStyle={{paddingVertical: 25}}
+      />
       <LifeStyleCard />
       <View style={{marginLeft: 15, height: 520}}>
         <CommonTopTab data={dataMap4} />
