@@ -3,32 +3,7 @@ import React from 'react';
 import {Styles} from './styles';
 import Fonts from '../../../../../../assets/fonts';
 import {image} from '../../../../../../assets/images';
-const imageData = [
-  {
-    image: image.rise,
-    title: 'Rise & shine!',
-  },
-  {
-    image: image.fitness,
-    title: 'Fitness routine',
-  },
-  {
-    image: image.meal,
-    title: 'Meal prep',
-  },
-  {
-    image: image.lounging,
-    title: 'Lounging',
-  },
-  {
-    image: image.out,
-    title: 'Out and about',
-  },
-  {
-    image: image.bedtime,
-    title: 'Bedtime stories',
-  },
-];
+
 const dimension = Dimensions.get('window');
 
 const TopGallary = () => {
@@ -91,9 +66,7 @@ const TopGallary = () => {
           position: 'absolute',
           alignItems: 'center',
           justifyContent: 'center',
-          margin: 'auto',
           borderRadius: 100,
-          top: 142,
         }}>
         <View
           style={{
