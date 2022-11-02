@@ -10,6 +10,7 @@ import {
   KidsTableData,
   KidsTableData1,
   KidsTableData2,
+  KidsTableData3,
   MenCatagoryTab3,
   MenCatagoryTableData,
 } from '../../../../../constant';
@@ -22,6 +23,7 @@ import LifeStyleCard from '../MenCatagory/LifeStyleCard';
 import PointDetailCard from '../../../../Common/PointDetailCard';
 import StoriesCard from '../../../../Common/StoriesCard';
 import CommonCarousel from '../../../../Common/CommonCarousel';
+import ArCarousel from '../../../../Common/ArCarousel';
 const width = Dimensions.get('window').width;
 
 const WomenHighlightData = [
@@ -114,6 +116,7 @@ const KidsCatagory = () => {
           flexDirection: 'row',
           alignItems: 'center',
           paddingHorizontal: 20,
+          paddingTop: 20,
         }}>
         <Text
           style={{
@@ -157,45 +160,21 @@ const KidsCatagory = () => {
       </ScrollView>
     );
   };
-  const WomenCarouselText = () => {
-    return (
-      <>
-        <View style={{flexDirection: 'row'}}>
-          <Text
-            style={{
-              fontSize: 24,
-              color: 'white',
-              fontFamily: Fonts.PlayfairDisplay800,
-            }}>
-            SUMMER
-          </Text>
-          <Text
-            style={{
-              fontSize: 26,
-              color: 'white',
-              marginLeft: 10,
-              fontFamily: Fonts.PlayfairDisplay400Italic,
-            }}>
-            Dresses
-          </Text>
-        </View>
-      </>
-    );
-  };
+
   const data = [
     {
-      heading: () => WomenCarouselText(),
+      // heading: () => WomenCarouselText(),
       banner: image.WomenCarousel,
-      buttonText: 'Explore now',
+      // buttonText: 'Explore now',
     },
     {
-      heading: () => WomenCarouselText(),
+      // heading: () => WomenCarouselText(),
       banner: image.WomenCarousel,
-      buttonText: 'Explore now',
+      // buttonText: 'Explore now',
     },
   ];
   const HomeScreen2 = item => {
-    return <CommonCarousel width={width} height={width} data={data} />;
+    return <ArCarousel data={data} width={width} height={380} />;
   };
   const screenObj1 = {
     Infants: HomeScreen,
@@ -249,11 +228,10 @@ const KidsCatagory = () => {
     );
   };
   const screenObj4 = {
-    'Lounging Around': HomeScreen1,
-    'Work from Home': HomeScreen1,
-    'In the Kitchen': HomeScreen1,
+    'Summer Vacation': HomeScreen1,
+    Playtime: HomeScreen1,
   };
-  const dataMap3 = MenCatagoryTab3.map(item => ({
+  const dataMap3 = KidsTableData3.map(item => ({
     name: item,
     screen: screenObj4[item],
   }));
@@ -319,51 +297,15 @@ const KidsCatagory = () => {
           active={active}
         />
       </View>
-      <View style={{paddingLeft: 15, height: 490}}>
+      <View
+        style={{
+          height: 450,
+          paddingHorizontal: 15,
+          backgroundColor: '#ffffff',
+        }}>
         <CommonTopTab data={dataMap2} />
       </View>
 
-      <View>
-        <ScrollView
-          horizontal
-          onScroll={({nativeEvent}) => onchangeCarousole(nativeEvent)}
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled>
-          {OfferData.map(item => (
-            <OfferCard
-              key={Math.random() * 9999}
-              data={item}
-              backgroundColor="#93BAC7"
-              UptoText="UPTO"
-            />
-          ))}
-        </ScrollView>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignSelf: 'center',
-          }}>
-          {OfferData.map((item, index) => (
-            <Text
-              key={Math.random() * 9999}
-              style={
-                imgActive1 == index
-                  ? {
-                      margin: 3,
-                      color: Colors.primarycolor,
-                      fontSize: 16,
-                    }
-                  : {
-                      margin: 3,
-                      color: '#ABABAB',
-                      fontSize: 16,
-                    }
-              }>
-              ●
-            </Text>
-          ))}
-        </View>
-      </View>
       {/* <Collections />
       <LifeStyleCard />
       <View style={{paddingLeft: 15, height: 530}}>
