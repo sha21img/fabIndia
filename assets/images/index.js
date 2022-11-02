@@ -64,4 +64,15 @@ export const image = {
   kidlazing: require('./kidlazing.png'),
   kidplaytime: require('./kidplaytime.png'),
   kidplaying: require('./kidplaying.png'),
+  homedecoraccents: require('./homedecoraccents.png'),
+  homedecorlight: require('./homedecorlight.png'),
+  homedecortable: require('./homedecortable.png'),
+  kidinterior1: require('./kidinterior1.png'),
+  kidinterior2: require('./kidinterior2.png'),
+  //
+  homedecorcloth: require('./homedecorcloth.png'),
+  homedecormetal: require('./homedecormetal.png'),
+  homedecorrattan: require('./homedecorrattan.png'),
+  homedecorwood: require('./homedecorwood.png'),
+  homedecorceramic: require('./homedecorceramic.png'),
 };
