@@ -394,6 +394,25 @@ const bannerHeading1 = () => {
         }}>
         Bring home Fabindia products that are designed by you, for you!
       </Text>
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'white',
+          paddingVertical: 10,
+          paddingHorizontal: 15,
+          alignSelf: 'flex-start',
+          borderRadius: 40,
+          marginTop: 10,
+          marginBottom: 5,
+        }}>
+        <Text
+          style={{
+            fontSize: 16,
+            fontFamily: Fonts.Assistant400,
+            color: '#903233',
+          }}>
+          Explore Now
+        </Text>
+      </TouchableOpacity>
     </>
   );
 };
@@ -429,6 +448,25 @@ const bannerHeading2 = () => {
         }}>
         Add a personal touch to your home linen with our new monogram service!
       </Text>
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'white',
+          paddingVertical: 10,
+          paddingHorizontal: 15,
+          alignSelf: 'flex-start',
+          borderRadius: 40,
+          marginTop: 10,
+          marginBottom: 5,
+        }}>
+        <Text
+          style={{
+            fontSize: 16,
+            fontFamily: Fonts.Assistant400,
+            color: '#903233',
+          }}>
+          Explore Now
+        </Text>
+      </TouchableOpacity>
     </>
   );
 };

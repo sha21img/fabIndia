@@ -36,14 +36,12 @@ export const Styles = StyleSheet.create({
     lineHeight: 30,
   },
   ShopTablet: {
-    height: 123,
     paddingHorizontal: 20,
   },
   ShopNowContainer: {
     alignItems: 'flex-start',
-    bottom: '25%',
-    position: 'absolute',
-    marginHorizontal: 20,
+    paddingBottom: 20,
+    paddingTop: 15,
   },
   ShopNowContainerText: {
     backgroundColor: '#ffffff',
@@ -58,6 +56,7 @@ export const Styles = StyleSheet.create({
   },
   btntext: {
     color: '#903233',
+    fontSize: 16,
     fontFamily: Fonts.Assistant400,
   },
 });
