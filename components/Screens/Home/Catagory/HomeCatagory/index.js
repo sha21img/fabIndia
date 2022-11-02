@@ -23,9 +23,11 @@ import LifeStyleCard from './LifeStyleCard';
 import CommonCarousel from '../../../../Common/CommonCarousel';
 import SimpleCard from '../../../../Common/SimpleCard';
 import Chip from '../../../../Common/Chip';
-import HomeDecor from './HomeDecor';
 import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
 import CommonBanner from '../../../../Common/CommonBanner';
+import InteriorCatagory from '../../../../Common/InteriorCatagory';
+import HomeMade from '../HomeDecor/HomeMade';
+import HomeDecor from '../../../../Common/HomeDecor';
 const width = Dimensions.get('window').width;
 
 export default function HomeCatagory() {
@@ -324,12 +326,17 @@ export default function HomeCatagory() {
       <View style={{marginLeft: 15, height: 440}}>
         <CommonTopTab data={dataMap2} />
       </View>
+      <View style={{marginVertical: 30}}>
+        <InteriorCatagory />
+      </View>
       <CommonBanner
         heading={bannerHeading1}
         buttonText="Customize now"
         bgImage={image.banner1}
         customViewStyle={{marginTop: 15, marginBottom: 15}}
       />
+
+      <HomeMade />
       <View
         style={{
           flexDirection: 'row',
