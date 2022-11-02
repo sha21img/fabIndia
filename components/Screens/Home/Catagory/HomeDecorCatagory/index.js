@@ -5,7 +5,7 @@ import TopGallary from './TopGallery';
 import InteriorCatagory from '../../../../Common/InteriorCatagory';
 import Fonts from '../../../../../assets/fonts';
 import HomeMade from './HomeMade';
-const HomeDecor = () => {
+const HomeDecorCatagory = () => {
   return (
     <ScrollView
       contentContainerStyle={{
@@ -43,4 +43,4 @@ const HomeDecor = () => {
   );
 };
 
-export default HomeDecor;
+export default HomeDecorCatagory;

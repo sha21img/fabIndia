@@ -12,8 +12,8 @@ import WomenCategory from '../Home/Catagory/WomenCategory';
 import MenCatagory from '../Home/Catagory/MenCatagory';
 import KidsCatagory from '../Home/Catagory/KidsCatagory';
 import HomeCatagory from '../Home/Catagory/HomeCatagory';
+import HomeDecorCatagory from '../Home/Catagory/HomeDecorCatagory';
 import FurnitureCategory from '../Home/Catagory/FurnitureCategory';
-import HomeDecor from '../Home/Catagory/HomeDecor';
 
 const Stack = createNativeStackNavigator();
 const leftIcon = (
@@ -135,8 +135,8 @@ export default function HomeStack() {
         }}
       />
       <Stack.Screen
-        name="HomeDecor"
-        component={HomeDecor}
+        name="HomeDecorCatagory"
+        component={HomeDecorCatagory}
         options={{
           header: props => (
             <Header
