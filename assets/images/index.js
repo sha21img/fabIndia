@@ -59,4 +59,8 @@ export const image = {
   kidlazing: require('./kidlazing.png'),
   kidplaytime: require('./kidplaytime.png'),
   kidplaying: require('./kidplaying.png'),
+  furniture1: require('./Furniture1.png'),
+  furniture2: require('./furniture2.jpg'),
+  furniture3: require('./furniture3.jpg'),
+  furniture4: require('./furniture4.jpg'),
 };

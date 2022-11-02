@@ -12,6 +12,7 @@ import WomenCategory from '../Home/Catagory/WomenCategory';
 import MenCatagory from '../Home/Catagory/MenCatagory';
 import KidsCatagory from '../Home/Catagory/KidsCatagory';
 import HomeCatagory from '../Home/Catagory/HomeCatagory';
+import FurnitureCategory from '../Home/Catagory/FurnitureCategory';
 
 const Stack = createNativeStackNavigator();
 const leftIcon = (
@@ -23,7 +24,7 @@ const rightIcon = (
 
 export default function HomeStack() {
   return (
-    <Stack.Navigator initialRouteName="KidsCatagory">
+    <Stack.Navigator initialRouteName="FurnitureCategory">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -37,6 +38,23 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Women"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                // marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="FurnitureCategory"
+        component={FurnitureCategory}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Furniture"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
