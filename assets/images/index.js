@@ -60,4 +60,8 @@ export const image = {
   HomeDecor2: require('./HomeDecor2.png'),
   HomeDecor3: require('./HomeDecor3.png'),
   HomeDecor4: require('./HomeDecor4.png'),
+  kidsummer: require('./kidsummer.png'),
+  kidlazing: require('./kidlazing.png'),
+  kidplaytime: require('./kidplaytime.png'),
+  kidplaying: require('./kidplaying.png'),
 };

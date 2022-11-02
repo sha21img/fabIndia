@@ -10,11 +10,12 @@ const OfferCard = ({
   offerContainerBackground = '#903233',
   data,
   UptoText = '',
+  customViewStyle = {},
 }) => {
   const {offerValue, heading, description} = data;
   const width = Dimensions.get('window').width;
   return (
-    <View>
+    <View style={customViewStyle}>
       <ImageBackground
         source={data.banner}
         style={{height: 325, width: width}}>

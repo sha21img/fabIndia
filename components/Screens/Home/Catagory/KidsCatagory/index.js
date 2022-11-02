@@ -1,4 +1,10 @@
-import {View, Text, ScrollView, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import {Colors} from '../../../../../assets/Colors';
 import TopGallary from './TopGallary';
@@ -235,6 +241,61 @@ const KidsCatagory = () => {
     name: item,
     screen: screenObj4[item],
   }));
+  const SummerCarousel = () => {
+    return (
+      <>
+        <Text
+          style={{
+            fontSize: 26,
+            color: '#FFFFFF',
+            lineHeight: 35,
+            fontFamily: Fonts.IndieFlower,
+          }}>
+          The cutest #OOTDs!
+        </Text>
+        <Text
+          style={{
+            fontFamily: Fonts.Assistant400,
+            fontSize: 16,
+            lineHeight: 21,
+            color: '#FFFFFF',
+            paddingVertical: 5,
+            paddingRight: 10,
+          }}>
+          Get your kids ready to sieze the day!
+        </Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'white',
+            paddingVertical: 8,
+            paddingHorizontal: 12,
+            borderRadius: 40,
+            position: 'absolute',
+            left: 20,
+            bottom: 25,
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: '#903233',
+              fontFamily: Fonts.Assistant400,
+            }}>
+            Explore collection
+          </Text>
+        </TouchableOpacity>
+      </>
+    );
+  };
+  const SummerCarouselData = [
+    {
+      heading_btn: () => SummerCarousel(),
+      banner: image.manCarousel,
+    },
+    {
+      heading_btn: () => SummerCarousel(),
+      banner: image.manCarousel,
+    },
+  ];
   return (
     <ScrollView
       contentContainerStyle={{
@@ -303,10 +364,85 @@ const KidsCatagory = () => {
           paddingHorizontal: 15,
           backgroundColor: '#ffffff',
         }}>
-        <CommonTopTab data={dataMap2} />
+        <CommonTopTab data={dataMap1} />
+      </View>
+      <View style={{paddingvertical: 40}}>
+        <ScrollView
+          horizontal
+          onScroll={({nativeEvent}) => onchangeCarousole(nativeEvent)}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{paddingTop: 40}}
+          pagingEnabled>
+          {OfferData.map(item => (
+            <OfferCard
+              key={Math.random() * 9999}
+              data={item}
+              backgroundColor="#93BAC7"
+              UptoText="UPTO"
+            />
+          ))}
+        </ScrollView>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'center',
+          }}>
+          {OfferData.map((item, index) => (
+            <Text
+              key={Math.random() * 9999}
+              style={
+                imgActive1 == index
+                  ? {
+                      margin: 3,
+                      color: Colors.primarycolor,
+                      fontSize: 16,
+                    }
+                  : {
+                      margin: 3,
+                      color: '#ABABAB',
+                      fontSize: 16,
+                    }
+              }>
+              ●
+            </Text>
+          ))}
+        </View>
       </View>
 
-      {/* <Collections />
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          paddingHorizontal: 15,
+          marginTop: 15,
+        }}>
+        <Chip
+          title="Bestsellers"
+          handleClick={() => handleClick('Bestsellers')}
+          active={active}
+        />
+        <Chip
+          title="Recommended for you"
+          handleClick={() => handleClick('Recommended for you')}
+          active={active}
+        />
+      </View>
+      <View
+        style={{
+          height: 450,
+          paddingHorizontal: 15,
+          backgroundColor: '#ffffff',
+        }}>
+        <CommonTopTab data={dataMap2} />
+      </View>
+      <CommonCarousel
+        data={SummerCarouselData}
+        width={width / 1.07}
+        height={410}
+        customStyle={{paddingVertical: 25}}
+      />
+
+      <Collections />
       <LifeStyleCard />
       <View style={{paddingLeft: 15, height: 530}}>
         <CommonTopTab data={dataMap3} />
@@ -315,7 +451,7 @@ const KidsCatagory = () => {
         data={StoriesCardData}
         title={GetStoriesTitle}
         custumStyles={{marginTop: 40}}
-      /> */}
+      />
     </ScrollView>
   );
 };
