@@ -105,5 +105,18 @@ export const HomeCatagoryTab3 = [
   'Table Covers',
   'Table Napkins',
   'Runners',
-  'Mats'
+  'Mats',
+];
+export const HomeCatagoryTab2 = [
+  'Cotton',
+  'Linen',
+  'Silk',
+  'Cotton Linen',
+  'Cotton Silk',
+];
+export const HomeCatagoryTab1 = [
+  'Bedsheets',
+  'Bedcovers',
+  'Bath Linen',
+  'Pillow Covers',
 ];

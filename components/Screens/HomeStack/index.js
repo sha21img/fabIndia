@@ -12,7 +12,11 @@ import WomenCategory from '../Home/Catagory/WomenCategory';
 import MenCatagory from '../Home/Catagory/MenCatagory';
 import KidsCatagory from '../Home/Catagory/KidsCatagory';
 import HomeCatagory from '../Home/Catagory/HomeCatagory';
+<<<<<<< HEAD
 import FurnitureCategory from '../Home/Catagory/FurnitureCategory';
+=======
+import HomeDecor from '../Home/Catagory/HomeDecor';
+>>>>>>> c2e51f4c9bdefa9d6d010e7da21da39be44d2ca2
 
 const Stack = createNativeStackNavigator();
 const leftIcon = (
@@ -124,6 +128,23 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Home Linen"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                // marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="HomeDecor"
+        component={HomeDecor}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Home Decor"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
