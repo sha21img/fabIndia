@@ -100,4 +100,17 @@ export const image = {
   homedecordadu: require('./homedecordadu.png'),
   homedecorikat: require('./homedecorikat.png'),
   homedecorkalamkari: require('./homedecorkalamkari.png'),
+  //
+  BeautyProduct1: require('./BeautyProduct1.png'),
+  BeautyProduct2: require('./BeautyProduct2.png'),
+  BeautyProduct3: require('./BeautyProduct3.png'),
+  BeautyProduct4: require('./BeautyProduct4.png'),
+  BeautyProduct5: require('./BeautyProduct5.png'),
+  BeautyProduct6: require('./BeautyProduct6.png'),
+  BeautyProduct7: require('./BeautyProduct7.png'),
+  BeautyProduct8: require('./BeautyProduct8.png'),
+  BeautyProduct9: require('./BeautyProduct9.png'),
+  BeautyProduct10: require('./BeautyProduct10.png'),
+  BeautyProduct11: require('./BeautyProduct11.png'),
+  // BeautyProduct4: require('./BeautyProduct4.png'),
 };

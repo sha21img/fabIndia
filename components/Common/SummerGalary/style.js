@@ -16,7 +16,7 @@ export const Styles = StyleSheet.create({
     width: '100%',
   },
   CardFooter: {
-    marginLeft: 10,
+    marginLeft: 5,
     marginVertical: 5,
     fontSize: 16,
     fontFamily: Fonts.Assistant400,
@@ -35,7 +35,7 @@ export const Styles = StyleSheet.create({
     color: '#4A4A4A',
     lineHeight: 23,
     marginHorizontal: 20,
-    paddingVertical:5
+    paddingVertical: 5,
   },
   CardCarousole: {
     height: 660,

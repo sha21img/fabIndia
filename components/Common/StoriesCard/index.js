@@ -58,7 +58,7 @@ export default function StoriesCard({
       </View>
       <View
         style={{
-          backgroundColor: '#BBA865',
+          backgroundColor: '#C2AB96',
           elevation: 5,
           marginLeft: 15,
         }}>
