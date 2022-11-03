@@ -6,6 +6,7 @@ import {
   Dimensions,
   ImageBackground,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import {Colors} from '../../../../../assets/Colors';
@@ -26,6 +27,7 @@ import CommonTopTab from '../../../../Common/CommonTopTab';
 import LifeStyle from '../../../../Common/LifeStyle';
 import NewHighlights from '../../../../Common/NewHighlights';
 import OfferCard from '../../../../Common/OfferCard';
+import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
 import StoriesCard from '../../../../Common/StoriesCard';
 import SummerGalary from '../../../../Common/SummerGalary';
 import {Styles} from './style';
@@ -55,17 +57,6 @@ const WomenCategory = () => {
     {image: image.womenPhoto3, name: 'Summer afternoons'},
     {image: image.womenPhoto4, name: 'Work from Home'},
   ];
-
-  const onchangeCarousole = nativeEvent => {
-    if (nativeEvent) {
-      const slide = Math.ceil(
-        nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
-      );
-      if (slide != imgActive1) {
-        setImgActive1(slide);
-      }
-    }
-  };
 
   const imageData = [
     {
@@ -102,14 +93,12 @@ const WomenCategory = () => {
 
   const WomenCarouselData = [
     {
-      heading: () => WomenCarouselText(),
+      heading_btn: () => WomenCarouselText(),
       banner: image.WomenCarousel,
-      buttonText: 'Explore collection',
     },
     {
-      heading: () => WomenCarouselText(),
+      heading_btn: () => WomenCarouselText(),
       banner: image.WomenCarousel,
-      buttonText: 'Explore collection',
     },
   ];
 
@@ -135,6 +124,25 @@ const WomenCategory = () => {
             Skincare that’s all natural
           </Text>
         </View>
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'white',
+            paddingVertical: 8,
+            paddingHorizontal: 12,
+            borderRadius: 40,
+            position: 'absolute',
+            left: 20,
+            bottom: 25,
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: '#903233',
+              fontFamily: Fonts.Assistant400,
+            }}>
+            Explore collection
+          </Text>
+        </TouchableOpacity>
       </>
     );
   };
@@ -148,6 +156,7 @@ const WomenCategory = () => {
       <>
         <ScrollView
           horizontal
+          showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
             paddingVertical: 10,
             backgroundColor: Colors.backgroundColor,
@@ -227,11 +236,13 @@ const WomenCategory = () => {
   const OfferData = [
     {
       offerValue: '70',
+      banner: image.WomenCarousel,
       heading: () => getOfferTitleHeading(),
       description: () => getDescription(),
     },
     {
       offerValue: '70',
+      banner: image.WomenCarousel,
       heading: () => getOfferTitleHeading(),
       description: () => getDescription(),
     },
@@ -312,6 +323,7 @@ const WomenCategory = () => {
           flexDirection: 'row',
           alignItems: 'center',
           paddingHorizontal: 20,
+          paddingVertical: 10,
         }}>
         <Text
           style={{
@@ -391,6 +403,7 @@ const WomenCategory = () => {
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
@@ -515,40 +528,19 @@ const WomenCategory = () => {
         <CommonTopTab data={dataMap1} />
       </View>
       {/* ===============Offer carousole======== */}
-      <View>
-        <ScrollView
-          horizontal
-          onScroll={({nativeEvent}) => onchangeCarousole(nativeEvent)}
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled>
-          {OfferData.map(item => (
-            <OfferCard key={Math.random() * 9999} data={item} />
-          ))}
-        </ScrollView>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignSelf: 'center',
-          }}>
-          {OfferData.map((item, index) => (
-            <Text
-              key={Math.random() * 988999}
-              style={
-                imgActive1 == index
-                  ? {
-                      margin: 3,
-                      color: Colors.primarycolor,
-                    }
-                  : {
-                      margin: 3,
-                      color: '#ABABAB',
-                    }
-              }>
-              ●
-            </Text>
-          ))}
-        </View>
-      </View>
+      <OfferCommonCarousel
+        data={OfferData}
+        width={width}
+        height={430}
+        customStyle={{marginVertical: 20}}
+      />
+
+      {/* 
+      
+      gallery space
+      
+       */}
+
       {/* ==============Seller Chips=========== */}
       <View style={Styles.chipbox}>
         <Chip
@@ -572,13 +564,13 @@ const WomenCategory = () => {
       </View>
       {/*=========== Beauty Essential ============*/}
       <CommonCarousel data={WomenCarouselData} width={width} height={410} />
-
       {/* ================Summer Galery======== */}
       <SummerGalary
         data={SummerGalaryData}
         title={getSummerTitle2()}
         subtitles="Something for Summer"
         backgroundColor="#EFE5E0"
+        customViewStyle={{marginTop: 20}}
       />
       {/* ==============Seller Chips=========== */}
       <View style={Styles.chipbox}>
@@ -601,7 +593,10 @@ const WomenCategory = () => {
       {/* ================Collection ======== */}
       <View style={{paddingVertical: 30}}>
         <Text style={Styles.CollectionHead}>Collections</Text>
-        <ScrollView horizontal>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{paddingLeft: 15}}>
           {collectionData.map(item => (
             <CollectionCard key={Math.random() * 122992} item={item} />
           ))}
@@ -614,7 +609,11 @@ const WomenCategory = () => {
         <CommonTopTab data={dataMap4} />
       </View>
       {/* ================Story Card======== */}
-      <StoriesCard data={StoriesCardData} title={GetStoriesTitle} />
+      <StoriesCard
+        custumStyles={{marginTop: 15}}
+        data={StoriesCardData}
+        title={GetStoriesTitle}
+      />
     </ScrollView>
   );
 };

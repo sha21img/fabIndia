@@ -38,16 +38,14 @@ export const Styles = StyleSheet.create({
   ShopTablet: {
     paddingHorizontal: 20,
   },
-  ShopNowContainer: {
-    alignItems: 'flex-start',
-    paddingBottom: 20,
-    paddingTop: 15,
-  },
   ShopNowContainerText: {
     backgroundColor: '#ffffff',
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 50,
+    alignSelf: 'flex-start',
+    marginTop: 15,
+    marginBottom: 25,
   },
   CardDescription: {
     fontSize: 16,

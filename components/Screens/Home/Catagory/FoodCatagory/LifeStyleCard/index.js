@@ -4,10 +4,8 @@ import LifeStyle from '../../../../../Common/LifeStyle';
 import {image} from '../../../../../../assets/images';
 import Fonts from '../../../../../../assets/fonts';
 const LifeStyleData = [
-  {image: image.womenPhoto1, name: 'Work from Home'},
-  {image: image.womenPhoto2, name: 'Summer afternoons'},
-  {image: image.womenPhoto3, name: 'Summer afternoons'},
-  {image: image.womenPhoto4, name: 'Work from Home'},
+  {image: image.womenPhoto1, name: 'Classic Breakfast'},
+  {image: image.womenPhoto2, name: 'Diet Conscious Habits'},
 ];
 const GetLifeStyleTitle = () => {
   return (
@@ -43,7 +41,7 @@ const LifeStyleCard = () => {
     <LifeStyle
       data={LifeStyleData}
       title={GetLifeStyleTitle}
-      customViewStyle={{marginTop: 10}}
+      customViewStyle={{marginTop: 20}}
     />
   );
 };

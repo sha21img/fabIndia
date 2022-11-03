@@ -120,6 +120,24 @@ export const HomeCatagoryTab1 = [
   'Bath Linen',
   'Pillow Covers',
 ];
+
+export const FoodCatagoryTab1 = [
+  'Spices, Seasonings & Masalas',
+  'Tea',
+  'Preserves',
+];
+
+export const FoodCatagoryTab2 = [
+  'Tulsi Tea',
+  'Herbal Infusions',
+  'Green Tea',
+  'Flavoured Tea',
+];
+export const FoodCatagoryTab3 = [
+  'Healthy Living',
+  'Snacking Sundays',
+  'Wholesome meals',
+];
 export const HomeDecorTableData = [
   'Dinnerware',
   'Drinkware',
