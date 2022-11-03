@@ -13,7 +13,7 @@ export const Styles = StyleSheet.create({
     width: dimension.width / 3,
   },
   txtbox: {
-    backgroundColor: 'rgba(224, 176, 112, 0.4)',
+    backgroundColor: 'rgba(74, 74, 74, 0.6)',
     paddingVertical: 3,
     position: 'absolute',
     marginLeft: 15,
@@ -21,10 +21,11 @@ export const Styles = StyleSheet.create({
     bottom: 15,
     borderRadius: 5,
     paddingVertical: 5,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   imagetxt: {
-    color: '#FFFFFF',
+    color: '#EDEDED',
     fontSize: 12,
-    fontFamily: Fonts.Assistant400,
   },
 });

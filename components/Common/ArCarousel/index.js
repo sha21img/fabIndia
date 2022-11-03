@@ -51,24 +51,24 @@ const ArCarousel = ({data = [], width, height}) => {
             );
           }}
         />
-      </View>
-      <View
-        style={{
-          width: width,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          backgroundColor: '#FFFFFF',
-        }}>
-        {data.map((item, index) => (
-          <Text
-            style={
-              imgActive1 == index
-                ? {color: Colors.primarycolor}
-                : {color: '#E5E5E5'}
-            }>
-            ●
-          </Text>
-        ))}
+        <View
+          style={{
+            width: width,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            backgroundColor: '#FFFFFF',
+          }}>
+          {data.map((item, index) => (
+            <Text
+              style={
+                imgActive1 == index
+                  ? {color: Colors.primarycolor}
+                  : {color: '#E5E5E5'}
+              }>
+              ●
+            </Text>
+          ))}
+        </View>
       </View>
     </>
   );

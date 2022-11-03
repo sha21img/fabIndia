@@ -5,7 +5,6 @@ export const Styles = StyleSheet.create({
     width: '100%',
     height: 460,
     marginBottom: 110,
-    backgroundColor: 'red',
   },
   headingBox: {padding: 20},
   heading: {

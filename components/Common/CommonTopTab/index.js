@@ -27,6 +27,7 @@ export default function CommonTopTab({data = []}) {
           tabBarStyle: {
             height: 40,
             backgroundColor: Colors.backgroundColor,
+            marginLeft: '2%',
             shadowColor: 'white',
           },
         }}>

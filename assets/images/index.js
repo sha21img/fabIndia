@@ -83,4 +83,10 @@ export const image = {
   HomeLiner3: require('./HomeLiner3.png'),
   HomeLiner2: require('./HomeLiner2.png'),
   HomeLiner1: require('./HomeLiner1.png'),
+  //
+  homedecorblockprint: require('./homedecorblockprint.png'),
+  homedecorapplique: require('./homedecorapplique.png'),
+  homedecordadu: require('./homedecordadu.png'),
+  homedecorikat: require('./homedecorikat.png'),
+  homedecorkalamkari: require('./homedecorkalamkari.png'),
 };

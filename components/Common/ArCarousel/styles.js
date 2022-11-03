@@ -11,9 +11,9 @@ export const Styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   mainbox: {
-    elevation: 3,
-    marginHorizontal: 16,
+    elevation: 1,
     backgroundColor: '#FFFFFF',
+    marginHorizontal: 1,
   },
   headingbox: {
     paddingVertical: 10,
