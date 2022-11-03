@@ -8,7 +8,9 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native';
+
 import Video from 'react-native-video';
+import {image} from '../../../../assets/images';
 const VideoP = () => {
   const [paused, setPaused] = useState(true);
   // console.log('pausedpausedpausedpaused', paused);
@@ -37,6 +39,28 @@ const VideoP = () => {
         hideShutterView={true}
         paused={paused}
       />
+      {paused && (
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.2)',
+            position: 'absolute',
+            resizeMode: 'cover',
+            zIndex: 10,
+            height: '100%',
+            width: '100%',
+          }}>
+          <TouchableOpacity onPress={() => setPaused(false)}>
+            <Image
+              source={image.ArtistImg2}
+              style={{
+                height: '100%',
+                width: '100%',
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
       <TouchableOpacity
         style={{
           alignItems: 'center',

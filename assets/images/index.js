@@ -68,6 +68,7 @@ export const image = {
   furniture2: require('./furniture2.jpg'),
   furniture3: require('./furniture3.jpg'),
   furniture4: require('./furniture4.jpg'),
+  furniture5: require('./furniture5.png'),
   homedecoraccents: require('./homedecoraccents.png'),
   homedecorlight: require('./homedecorlight.png'),
   homedecortable: require('./homedecortable.png'),
@@ -94,4 +95,9 @@ export const image = {
   FoodPhoto1: require('./FoodPhoto1.png'),
   FoodReceips1: require('./FoodReceips1.png'),
   FoodReceips2: require('./FoodReceips2.png'),
+  homedecorblockprint: require('./homedecorblockprint.png'),
+  homedecorapplique: require('./homedecorapplique.png'),
+  homedecordadu: require('./homedecordadu.png'),
+  homedecorikat: require('./homedecorikat.png'),
+  homedecorkalamkari: require('./homedecorkalamkari.png'),
 };

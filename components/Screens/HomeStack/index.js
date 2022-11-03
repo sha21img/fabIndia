@@ -14,6 +14,8 @@ import HomeCatagory from '../Home/Catagory/HomeCatagory';
 import HomeDecorCatagory from '../Home/Catagory/HomeDecorCatagory';
 import FurnitureCategory from '../Home/Catagory/FurnitureCategory';
 import FoodCatagory from '../Home/Catagory/FoodCatagory';
+import CustomizeCatagory from '../Home/Catagory/CustomizeCatagory';
+import MonogramCatagory from '../Home/Catagory/MonogramCatagory';
 
 const Stack = createNativeStackNavigator();
 const leftIcon = (
@@ -25,7 +27,7 @@ const rightIcon = (
 
 export default function HomeStack() {
   return (
-    <Stack.Navigator initialRouteName="FoodCatagory">
+    <Stack.Navigator initialRouteName="HomeDecorCatagory">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -157,7 +159,41 @@ export default function HomeStack() {
           header: props => (
             <Header
               leftIcon={leftIcon}
-              title="Food"
+              title="Customize"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                // marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="CustomizeCatagory"
+        component={CustomizeCatagory}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Customize"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                // marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="MonogramCatagory"
+        component={MonogramCatagory}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Customize"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',

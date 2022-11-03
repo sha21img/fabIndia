@@ -185,7 +185,7 @@ const KidsCatagory = () => {
     },
   ];
   const HomeScreen2 = item => {
-    return <ArCarousel data={data} width={width} height={380} />;
+    return <ArCarousel data={data} width={width / 1.09} height={380} />;
   };
   const screenObj1 = {
     Infants: HomeScreen,
@@ -412,7 +412,7 @@ const KidsCatagory = () => {
 
       <Collections />
       <LifeStyleCard />
-      <View style={{paddingLeft: 15, height: 530}}>
+      <View style={{paddingLeft: 15, height: 500}}>
         <CommonTopTab data={dataMap3} />
       </View>
       <StoriesCard

@@ -5,6 +5,7 @@ import {Styles} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Colors} from '../../../assets/Colors';
+import Fonts from '../../../assets/fonts';
 
 export default function CommonCarousel({
   data = [],
