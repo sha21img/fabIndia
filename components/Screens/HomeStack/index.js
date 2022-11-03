@@ -27,7 +27,7 @@ const rightIcon = (
 
 export default function HomeStack() {
   return (
-    <Stack.Navigator initialRouteName="HomeDecorCatagory">
+    <Stack.Navigator initialRouteName="CustomizeCatagory">
       <Stack.Screen
         name="Home"
         component={Home}

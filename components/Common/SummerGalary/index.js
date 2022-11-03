@@ -34,24 +34,26 @@ export default function SummerGalary({
     );
   });
   return (
-    <View
-      style={[
-        {height: 758, backgroundColor: Colors.backgroundColor},
-        customViewStyle,
-      ]}>
-      <View style={[Styles.Container, {backgroundColor: backgroundColor}]}>
-        {title}
+    <View style={customViewStyle}>
+      <View
+        style={{
+          height: '75%',
+          width: '100%',
+          backgroundColor: backgroundColor,
+          position: 'absolute',
+          zIndex: -1,
+        }}></View>
+      {title}
 
-        <Text style={Styles.ContainerHeader}>{subtitles}</Text>
+      <Text style={Styles.ContainerHeader}>{subtitles}</Text>
 
-        <View style={{position: 'absolute', top: 100}}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={Styles.CardCarousole}>
-            {cards}
-          </ScrollView>
-        </View>
+      <View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={Styles.CardCarousole}>
+          {cards}
+        </ScrollView>
       </View>
     </View>
   );
