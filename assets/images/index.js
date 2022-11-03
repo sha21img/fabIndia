@@ -80,4 +80,8 @@ export const image = {
   homedecorrattan: require('./homedecorrattan.png'),
   homedecorwood: require('./homedecorwood.png'),
   homedecorceramic: require('./homedecorceramic.png'),
+  //
+  HomeLiner3: require('./HomeLiner3.png'),
+  HomeLiner2: require('./HomeLiner2.png'),
+  HomeLiner1: require('./HomeLiner1.png'),
 };

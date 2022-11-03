@@ -1,9 +1,9 @@
 import {View, Text, ImageBackground, ScrollView} from 'react-native';
 import React from 'react';
 import VerticalCard from './VerticalCard';
-import {image} from '../../../../../../assets/images';
 import HorizontalCard from './HorizontalCard';
 import {Styles} from './styles';
+import {image} from '../../../assets/images';
 const BrightVerticalCardData = [
   {banner: image.HomeDecor1, title: 'Decor signatures'},
   {banner: image.HomeDecor2, title: 'Color me happy'},

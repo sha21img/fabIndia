@@ -23,9 +23,11 @@ import LifeStyleCard from './LifeStyleCard';
 import CommonCarousel from '../../../../Common/CommonCarousel';
 import SimpleCard from '../../../../Common/SimpleCard';
 import Chip from '../../../../Common/Chip';
-import HomeDecor from './HomeDecor';
 import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
 import CommonBanner from '../../../../Common/CommonBanner';
+import InteriorCatagory from '../../../../Common/InteriorCatagory';
+import HomeMade from '../HomeDecorCatagory/HomeMade';
+import HomeDecor from '../../../../Common/HomeDecor';
 const width = Dimensions.get('window').width;
 
 export default function HomeCatagory() {
@@ -42,11 +44,11 @@ export default function HomeCatagory() {
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          paddingHorizontal: 20,
+          padding: 20,
         }}>
         <Text
           style={{
-            // fontFamily: Fonts.LaBelleAurore400,
+            fontFamily: Fonts.RunWildDemo,
             color: '#ffffff',
             fontSize: 60,
             marginRight: 10,
@@ -298,38 +300,7 @@ export default function HomeCatagory() {
         paddingBottom: 20,
       }}>
       <TopGallery />
-      <HomeDecor
-        heading="Home Linen"
-        description="Handcraft for your home"
-        customstyle={{marginTop: 30}}
-      />
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-          marginTop: 5,
-        }}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={active}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      <View style={{marginLeft: 15, height: 440}}>
-        <CommonTopTab data={dataMap2} />
-      </View>
-      <CommonBanner
-        heading={bannerHeading1}
-        buttonText="Customize now"
-        bgImage={image.banner1}
-        customViewStyle={{marginTop: 15, marginBottom: 15}}
-      />
+      <HomeDecor heading="Home Linen" description="Handcraft for your home" />
       <View
         style={{
           flexDirection: 'row',
@@ -350,6 +321,37 @@ export default function HomeCatagory() {
       </View>
       <View style={{marginLeft: 15, height: 440}}>
         <CommonTopTab data={dataMap1} />
+      </View>
+      <View style={{marginVertical: 30}}>
+        <InteriorCatagory />
+      </View>
+      <CommonBanner
+        heading={bannerHeading1}
+        buttonText="Customize now"
+        bgImage={image.banner1}
+        customViewStyle={{marginTop: 15, marginBottom: 15}}
+      />
+      <HomeMade />
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          paddingHorizontal: 15,
+          marginTop: 5,
+        }}>
+        <Chip
+          title="Bestsellers"
+          handleClick={() => handleClick('Bestsellers')}
+          active={active}
+        />
+        <Chip
+          title="Recommended for you"
+          handleClick={() => handleClick('Recommended for you')}
+          active={active}
+        />
+      </View>
+      <View style={{marginLeft: 15, height: 440}}>
+        <CommonTopTab data={dataMap2} />
       </View>
       <OfferCommonCarousel
         data={OfferData}
