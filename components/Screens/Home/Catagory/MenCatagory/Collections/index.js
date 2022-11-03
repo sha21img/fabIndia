@@ -19,9 +19,9 @@ const collectionData = [
     color: '#464A62',
   },
 ];
-const Collections = () => {
+const Collections = ({customStyle}) => {
   return (
-    <View style={{paddingVertical: 30}}>
+    <View style={customStyle}>
       <Text style={Styles.collectiontxt}>Collections</Text>
       <ScrollView horizontal contentContainerStyle={Styles.container}>
         {collectionData.map(item => (

@@ -32,6 +32,7 @@ import TopGallery from './TopGallery';
 import PointDetailCard from '../../../../Common/PointDetailCard';
 import StoriesCard from '../../../../Common/StoriesCard';
 import Fonts from '../../../../../assets/fonts';
+import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
 const width = Dimensions.get('window').width;
 const getOfferTitleHeading = () => {
   return (
@@ -73,11 +74,13 @@ const getDescription = () => {
 const OfferData = [
   {
     offerValue: '70',
+    banner: image.manCarousel,
     heading: () => getOfferTitleHeading(),
     description: () => getDescription(),
   },
   {
     offerValue: '70',
+    banner: image.manCarousel,
     heading: () => getOfferTitleHeading(),
     description: () => getDescription(),
   },
@@ -100,6 +103,7 @@ const MenCatagory = () => {
     return (
       <ScrollView
         horizontal
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
           paddingVertical: 10,
           backgroundColor: Colors.backgroundColor,
@@ -121,22 +125,13 @@ const MenCatagory = () => {
     return (
       <ScrollView
         horizontal
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
           paddingVertical: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
         <PointDetailCard />
         <PointDetailCard />
-        {/* <Card
-          customViewStyle={{marginRight: 10}}
-          originalprice="1,000"
-          offer="20"
-        />
-        <Card
-          customViewStyle={{marginRight: 10}}
-          originalprice="1,000"
-          offer="20"
-        /> */}
       </ScrollView>
     );
   };
@@ -147,6 +142,7 @@ const MenCatagory = () => {
           flexDirection: 'row',
           alignItems: 'center',
           paddingHorizontal: 20,
+          paddingVertical: 10,
         }}>
         <Text
           style={{
@@ -243,7 +239,7 @@ const MenCatagory = () => {
       <View
         style={[
           {position: 'absolute', top: '37%', left: '4%', zIndex: 10},
-          hasSpaces(heading) ? {width: width / 3} : {width: null},
+          hasSpaces(heading) ? {width: width / 3.4} : {width: null},
         ]}>
         <Text
           style={{
@@ -276,12 +272,12 @@ const MenCatagory = () => {
   };
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
       }}>
       <TopGallery />
-
       <NewHighlights
         title={getTit('', 'Ethnic Wear')}
         data={WomenHighlightData}
@@ -312,7 +308,6 @@ const MenCatagory = () => {
       <View style={Styles.commontab}>
         <CommonTopTab data={dataMap} />
       </View>
-
       <SummerGalary
         data={SummerGalaryData}
         title={getTitle()}
@@ -357,6 +352,13 @@ const MenCatagory = () => {
           </TouchableOpacity>
         </ImageBackground>
       </View>
+
+      {/* 
+      
+      gallery space
+      
+       */}
+
       <View style={Styles.chipbox}>
         <Chip
           title="Fabric"
@@ -377,34 +379,14 @@ const MenCatagory = () => {
       <View style={Styles.commontab}>
         <CommonTopTab data={dataMap2} />
       </View>
-
-      <View>
-        <ScrollView
-          horizontal
-          onScroll={({nativeEvent}) => onchangeCarousole(nativeEvent)}
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled>
-          {OfferData.map(item => (
-            <OfferCard
-              key={Math.random() * 9999}
-              data={item}
-              backgroundColor="#93BAC7"
-            />
-          ))}
-        </ScrollView>
-        <View style={Styles.offerDatabox}>
-          {OfferData.map((item, index) => (
-            <Text
-              key={Math.random() * 9999}
-              style={
-                imgActive1 == index ? Styles.dotactive : Styles.dotinactive
-              }>
-              ●
-            </Text>
-          ))}
-        </View>
-      </View>
-      <Collections />
+      <OfferCommonCarousel
+        data={OfferData}
+        backgroundColor={'#93BAC7'}
+        width={width / 1.07}
+        height={430}
+        customStyle={{marginBottom: 10, marginTop: 20}}
+      />
+      <Collections customStyle={{marginVertical: 15}} />
       <LifeStyleCard />
       <View style={Styles.commontab}>
         <CommonTopTab data={dataMap3} />

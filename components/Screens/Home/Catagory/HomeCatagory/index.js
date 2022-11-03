@@ -44,7 +44,9 @@ export default function HomeCatagory() {
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          padding: 20,
+          paddingTop: 20,
+          paddingLeft: 15,
+          paddingBottom: 10,
         }}>
         <Text
           style={{
@@ -295,6 +297,7 @@ export default function HomeCatagory() {
   };
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
@@ -323,7 +326,7 @@ export default function HomeCatagory() {
         <CommonTopTab data={dataMap1} />
       </View>
       <View style={{marginVertical: 30}}>
-        <InteriorCatagory />
+        <InteriorCatagory buttonText="Get in touch with us" />
       </View>
       <CommonBanner
         heading={bannerHeading1}

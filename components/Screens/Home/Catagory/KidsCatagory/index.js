@@ -30,6 +30,7 @@ import PointDetailCard from '../../../../Common/PointDetailCard';
 import StoriesCard from '../../../../Common/StoriesCard';
 import CommonCarousel from '../../../../Common/CommonCarousel';
 import ArCarousel from '../../../../Common/ArCarousel';
+import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
 const width = Dimensions.get('window').width;
 
 const WomenHighlightData = [
@@ -66,11 +67,13 @@ const getDescription = () => {
 const OfferData = [
   {
     offerValue: '70',
+    banner: image.KidsCarousel,
     heading: () => getOfferTitleHeading(),
     description: () => getDescription(),
   },
   {
     offerValue: '70',
+    banner: image.KidsCarousel,
     heading: () => getOfferTitleHeading(),
     description: () => getDescription(),
   },
@@ -85,7 +88,7 @@ const KidsCatagory = () => {
       <View
         style={[
           {position: 'absolute', top: '37%', left: '4%', zIndex: 10},
-          hasSpaces('asdfgf') ? {width: width / 3} : {width: null},
+          hasSpaces(title) ? {width: width / 3} : {width: null},
         ]}>
         <Text
           style={{
@@ -123,6 +126,7 @@ const KidsCatagory = () => {
           alignItems: 'center',
           paddingHorizontal: 20,
           paddingTop: 20,
+          paddingBottom: 10,
         }}>
         <Text
           style={{
@@ -149,6 +153,7 @@ const KidsCatagory = () => {
     return (
       <ScrollView
         horizontal
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
           paddingVertical: 10,
           backgroundColor: Colors.backgroundColor,
@@ -224,6 +229,7 @@ const KidsCatagory = () => {
     return (
       <ScrollView
         horizontal
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
           paddingVertical: 10,
           backgroundColor: Colors.backgroundColor,
@@ -298,6 +304,7 @@ const KidsCatagory = () => {
   ];
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
@@ -340,6 +347,13 @@ const KidsCatagory = () => {
       <View style={{paddingLeft: 15, height: 490}}>
         <CommonTopTab data={dataMap} />
       </View>
+
+      {/* 
+      
+      gallery space
+      
+       */}
+
       <View
         style={{
           flexDirection: 'row',
@@ -366,67 +380,21 @@ const KidsCatagory = () => {
         }}>
         <CommonTopTab data={dataMap1} />
       </View>
-      <View style={{paddingvertical: 40}}>
-        <ScrollView
-          horizontal
-          onScroll={({nativeEvent}) => onchangeCarousole(nativeEvent)}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{paddingTop: 40}}
-          pagingEnabled>
-          {OfferData.map(item => (
-            <OfferCard
-              key={Math.random() * 9999}
-              data={item}
-              backgroundColor="#93BAC7"
-              UptoText="UPTO"
-            />
-          ))}
-        </ScrollView>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignSelf: 'center',
-          }}>
-          {OfferData.map((item, index) => (
-            <Text
-              key={Math.random() * 9999}
-              style={
-                imgActive1 == index
-                  ? {
-                      margin: 3,
-                      color: Colors.primarycolor,
-                      fontSize: 16,
-                    }
-                  : {
-                      margin: 3,
-                      color: '#ABABAB',
-                      fontSize: 16,
-                    }
-              }>
-              ●
-            </Text>
-          ))}
-        </View>
-      </View>
+      <OfferCommonCarousel
+        data={OfferData}
+        UptoText="UPTO"
+        backgroundColor={'#DB8C5F'}
+        width={width}
+        height={430}
+        customStyle={{marginBottom: 10, marginTop: 20}}
+      />
 
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-          marginTop: 15,
-        }}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={active}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
+      {/* 
+      
+      gallery space
+      
+       */}
+
       <View
         style={{
           height: 450,

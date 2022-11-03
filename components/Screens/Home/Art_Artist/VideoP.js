@@ -19,6 +19,7 @@ const VideoP = () => {
     bottom: 0,
     right: 0,
     height: 250,
+    backgroundColor: 'grey',
   };
   const viewStyle = {height: 250, marginVertical: 5};
   return (

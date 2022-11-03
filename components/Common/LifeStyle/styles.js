@@ -34,7 +34,6 @@ export const Styles = StyleSheet.create({
     width: '100%',
   },
   boxText: {
-    marginLeft: 10,
     marginVertical: 5,
     fontSize: 16,
     lineHeight: 21,

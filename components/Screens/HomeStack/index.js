@@ -7,13 +7,13 @@ import Header from '../../Common/Header';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {image} from '../../../assets/images';
 import WomenCategory from '../Home/Catagory/WomenCategory';
 import MenCatagory from '../Home/Catagory/MenCatagory';
 import KidsCatagory from '../Home/Catagory/KidsCatagory';
 import HomeCatagory from '../Home/Catagory/HomeCatagory';
 import HomeDecorCatagory from '../Home/Catagory/HomeDecorCatagory';
 import FurnitureCategory from '../Home/Catagory/FurnitureCategory';
+import FoodCatagory from '../Home/Catagory/FoodCatagory';
 
 const Stack = createNativeStackNavigator();
 const leftIcon = (
@@ -25,7 +25,7 @@ const rightIcon = (
 
 export default function HomeStack() {
   return (
-    <Stack.Navigator initialRouteName="HomeCatagory">
+    <Stack.Navigator initialRouteName="FoodCatagory">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -65,7 +65,6 @@ export default function HomeStack() {
           ),
         }}
       />
-
       <Stack.Screen
         name="SearchResult"
         component={SearchResult}
@@ -142,6 +141,23 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Home Decor"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                // marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="FoodCatagory"
+        component={FoodCatagory}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Food"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',

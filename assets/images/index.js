@@ -83,4 +83,15 @@ export const image = {
   HomeLiner3: require('./HomeLiner3.png'),
   HomeLiner2: require('./HomeLiner2.png'),
   HomeLiner1: require('./HomeLiner1.png'),
+  //
+  FoodCarousel: require('./FoodCarousel.png'),
+  FoodCategory3: require('./FoodCategory3.png'),
+  FoodCategory2: require('./FoodCategory2.png'),
+  FoodCategory1: require('./FoodCategory1.png'),
+  FoodPhoto4: require('./FoodPhoto4.png'),
+  FoodPhoto3: require('./FoodPhoto3.png'),
+  FoodPhoto2: require('./FoodPhoto2.png'),
+  FoodPhoto1: require('./FoodPhoto1.png'),
+  FoodReceips1: require('./FoodReceips1.png'),
+  FoodReceips2: require('./FoodReceips2.png'),
 };

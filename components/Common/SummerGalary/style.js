@@ -37,6 +37,7 @@ export const Styles = StyleSheet.create({
     color: '#4A4A4A',
     lineHeight: 23,
     marginHorizontal: 20,
+    paddingVertical:5
   },
   CardCarousole: {
     height: 660,
