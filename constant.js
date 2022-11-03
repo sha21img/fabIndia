@@ -120,3 +120,19 @@ export const HomeCatagoryTab1 = [
   'Bath Linen',
   'Pillow Covers',
 ];
+export const HomeDecorTableData = [
+  'Dinnerware',
+  'Drinkware',
+  'Serveware',
+  'Flatware',
+];
+export const HomeDecorTableData1 = [
+  'Morning Chai',
+  'Casual Lunch',
+  'Dinner Party',
+];
+export const HomeDecorTableData2 = [
+  'Lamps',
+  'Lamp Shades',
+  'Hanging & String Lights',
+];
