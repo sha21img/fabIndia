@@ -6,7 +6,7 @@ export const Styles = StyleSheet.create({
     fontSize: 18,
     color: '#ffffff',
     lineHeight: 23,
-    marginHorizontal: 20,
+    marginHorizontal: 15,
     fontFamily: Fonts.Assistant400,
   },
   CarddescriptionText: {

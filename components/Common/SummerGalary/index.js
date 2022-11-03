@@ -36,15 +36,14 @@ export default function SummerGalary({
   return (
     <View
       style={[
-        {height: 758, backgroundColor: Colors.backgroundColor},
+        {height: 710, backgroundColor: Colors.backgroundColor},
         customViewStyle,
       ]}>
       <View style={[Styles.Container, {backgroundColor: backgroundColor}]}>
         {title}
-
         <Text style={Styles.ContainerHeader}>{subtitles}</Text>
 
-        <View style={{position: 'absolute', top: 100}}>
+        <View style={{position: 'absolute', top: 105}}>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}

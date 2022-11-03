@@ -16,9 +16,7 @@ const OfferCard = ({
   const width = Dimensions.get('window').width;
   return (
     <View style={customViewStyle}>
-      <ImageBackground
-        source={data.banner}
-        style={{height: 325, width: width}}>
+      <ImageBackground source={data.banner} style={{height: 325, width: width}}>
         <LinearGradient
           colors={['transparent', backgroundColor]}
           style={Styles.cardGradient}>
@@ -43,10 +41,8 @@ const OfferCard = ({
         ]}>
         {description()}
         {/* <Text style={Styles.CardDescription}>{description}</Text> */}
-        <View style={Styles.ShopNowContainer}>
-          <View style={Styles.ShopNowContainerText}>
-            <Text style={Styles.btntext}>Shop Now</Text>
-          </View>
+        <View style={Styles.ShopNowContainerText}>
+          <Text style={Styles.btntext}>Shop Now</Text>
         </View>
       </View>
     </View>

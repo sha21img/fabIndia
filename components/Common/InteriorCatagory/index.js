@@ -4,7 +4,7 @@ import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
 const dimension = Dimensions.get('window');
-const InteriorCatagory = () => {
+const InteriorCatagory = ({buttonText}) => {
   return (
     <View
       style={{
@@ -60,7 +60,7 @@ const InteriorCatagory = () => {
         style={{
           backgroundColor: '#FFFFFF',
           paddingHorizontal: 10,
-          paddingVertical: 5,
+          paddingVertical: 7,
           borderRadius: 40,
         }}>
         <Text
@@ -69,7 +69,7 @@ const InteriorCatagory = () => {
             fontFamily: Fonts.Assistant400,
             fontSize: 16,
           }}>
-          INTERIOR DESIGN
+          {buttonText}
         </Text>
       </View>
       <View style={{position: 'absolute', backgroundColor: 'red', zIndex: -1}}>
