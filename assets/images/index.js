@@ -68,6 +68,7 @@ export const image = {
   furniture2: require('./furniture2.jpg'),
   furniture3: require('./furniture3.jpg'),
   furniture4: require('./furniture4.jpg'),
+  furniture5: require('./furniture5.png'),
   homedecoraccents: require('./homedecoraccents.png'),
   homedecorlight: require('./homedecorlight.png'),
   homedecortable: require('./homedecortable.png'),
