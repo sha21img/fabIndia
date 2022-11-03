@@ -75,6 +75,7 @@ const getTitle = () => {
         color: '#4A4A4A',
         fontSize: 30,
         marginHorizontal: 20,
+        paddingTop: 48,
       }}>
       Custom apparel
     </Text>
@@ -85,13 +86,15 @@ const MonogramCatagory = () => {
     <ScrollView contentContainerStyle={Styles.container}>
       <TopGallery />
       <HeaderBox />
-      <SummerGalary
-        data={SummerGalaryData}
-        title={getTitle()}
-        subtitles="Any way you like it!"
-        backgroundColor="#F6EFE6"
-        customViewStyle={Styles.space}
-      />
+      <View style={{}}>
+        <SummerGalary
+          data={SummerGalaryData}
+          title={getTitle()}
+          subtitles="Any way you like it!"
+          backgroundColor="#F6EFE6"
+          customViewStyle={{marginTop: 20}}
+        />
+      </View>
       <CommonBanner
         heading={bannerHeading1}
         buttonText="Customize now"

@@ -271,6 +271,7 @@ const WomenCategory = () => {
           color: '#4A4A4A',
           fontSize: 30,
           marginHorizontal: 20,
+          paddingTop: 48,
         }}>
         Summer prints
       </Text>

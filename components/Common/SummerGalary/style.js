@@ -5,7 +5,7 @@ export const Styles = StyleSheet.create({
   CardContainer: {
     height: 297,
     width: 258,
-    zIndex: 100,
+    // zIndex: 999,
     marginLeft: 15,
     elevation: 4,
   },
@@ -27,8 +27,6 @@ export const Styles = StyleSheet.create({
     color: '#ffffff',
   },
   Container: {
-    paddingTop: 48,
-    height: 648,
     position: 'relative',
   },
   ContainerHeader: {
@@ -43,5 +41,6 @@ export const Styles = StyleSheet.create({
     height: 660,
     flexDirection: 'column',
     flexWrap: 'wrap',
+    paddingRight: 10,
   },
 });
