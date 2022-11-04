@@ -25,7 +25,6 @@ const FurnitureCategory = () => {
         style={{
           fontFamily: Fonts.PlayfairDisplay600Italic,
           fontSize: 30,
-          fontWeight: '600',
           lineHeight: 40,
           color: '#ffffff',
         }}>
@@ -39,7 +38,6 @@ const FurnitureCategory = () => {
         style={{
           fontFamily: Fonts.PlayfairDisplay600Italic,
           fontSize: 30,
-          fontWeight: '600',
           lineHeight: 40,
           color: '#ffffff',
         }}>
@@ -53,7 +51,6 @@ const FurnitureCategory = () => {
         style={{
           fontFamily: Fonts.Assistant400,
           fontSize: 20,
-          fontWeight: '400',
           lineHeight: 26,
           color: '#ffffff',
         }}>
@@ -67,7 +64,6 @@ const FurnitureCategory = () => {
         style={{
           fontFamily: Fonts.Assistant400,
           fontSize: 20,
-          fontWeight: '400',
           lineHeight: 26,
           color: '#ffffff',
         }}>
@@ -172,13 +168,23 @@ const FurnitureCategory = () => {
   ];
 
   const StoriesTitle = () => {
-    return(
-      <View style={{flexDirection:"row"}}>
-        <Text style={{fontFamily:Fonts.RunWildDemo, fontWeight:"400", fontSize:60, lineHeight:60}}>Style</Text>
-        <Text style={{fontFamily:Fonts.Barlow400, fontSize:30, lineHeight:16}}>STORIES</Text>
+    return (
+      <View style={{flexDirection: 'row'}}>
+        <Text
+          style={{
+            fontFamily: Fonts.RunWildDemo,
+            fontSize: 60,
+            lineHeight: 60,
+          }}>
+          Style
+        </Text>
+        <Text
+          style={{fontFamily: Fonts.Barlow400, fontSize: 30, lineHeight: 16}}>
+          STORIES
+        </Text>
       </View>
-    )
-  }
+    );
+  };
   return (
     <ScrollView style={{backgroundColor: Colors.backgroundColor}}>
       {/* ==========Top Gallery ============== */}
@@ -219,7 +225,7 @@ const FurnitureCategory = () => {
       </View>
       {/* =============interior Design ================ */}
       <View style={{marginVertical: 30}}>
-        <InteriorCatagory />
+        <InteriorCatagory buttonText={'Get in touch with us'} />
       </View>
       {/* ==============Customized ==================== */}
       <Customize

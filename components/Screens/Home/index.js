@@ -35,6 +35,7 @@ import Art_Artist from './Art_Artist';
 import PointDetailCard from '../../Common/PointDetailCard';
 import SimpleCard from '../../Common/SimpleCard';
 import Fonts from '../../../assets/fonts';
+import TopSwiper from '../../Common/TopSwiper';
 const width = Dimensions.get('window').width;
 
 const WomenHighlightData = [
@@ -635,7 +636,15 @@ export default function Dashbord() {
           flexGrow: 1,
           paddingBottom: 20,
         }}>
-        <ImageBackground
+        <HomeHeader />
+        <TopSwiper
+          data={[
+            {banner: image.kidinterior1},
+            {banner: image.banner1},
+            {banner: image.kidinterior2},
+          ]}
+        />
+        {/* <ImageBackground
           resizeMode="cover"
           style={{width: '100%', height: 384}}
           source={image.Banner}>
@@ -679,7 +688,7 @@ export default function Dashbord() {
               #myfablife
             </Text>
           </TouchableOpacity>
-        </ImageBackground>
+        </ImageBackground> */}
         {/* <ImageBackground
           resizeMode="cover"
           style={{width: '100%', height: 110}}

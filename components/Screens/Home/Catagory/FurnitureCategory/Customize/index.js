@@ -15,7 +15,6 @@ const Customize = ({heading="", Description=''}) => {
           style={{
             fontFamily: Fonts.PlayfairDisplay400,
             fontSize: 26,
-            fontWeight: '400',
             lineHeight: 30,
             color: '#ffffff',
           }}>
@@ -26,7 +25,6 @@ const Customize = ({heading="", Description=''}) => {
             fontFamily: Fonts.Assistant400,
             fontSize: 16,
             color: '#ffffff',
-            fontWeight: '400',
             lineHeight: 22,
           }}>
           {Description}
@@ -47,7 +45,6 @@ const Customize = ({heading="", Description=''}) => {
               fontSize: 16,
               color: '#903233',
               lineHeight: 21,
-              fontWeight: '400',
             }}>
             Customize now
           </Text>

@@ -37,7 +37,7 @@ export const Styles = StyleSheet.create({
   },
   headingText1: {
     fontSize: 26,
-    // fontWeight: '400',
+    fontFamily: Fonts.RunWildDemo,
     color: 'white',
   },
   buttonBox: {

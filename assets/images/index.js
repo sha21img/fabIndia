@@ -113,5 +113,5 @@ export const image = {
   BeautyProduct9: require('./BeautyProduct9.png'),
   BeautyProduct10: require('./BeautyProduct10.png'),
   BeautyProduct11: require('./BeautyProduct11.png'),
-  // BeautyProduct4: require('./BeautyProduct4.png'),
+  color_logo: require('./color-logo.png'),
 };

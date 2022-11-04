@@ -19,7 +19,6 @@ export const Styles = StyleSheet.create({
   CardFooter: {
     marginLeft: 10,
     marginVertical: 5,
-    fontWeight:"400",
     fontSize: 16,
     fontFamily: Fonts.Assistant400,
     lineHeight: 21,
