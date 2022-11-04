@@ -2,9 +2,10 @@ import {StyleSheet} from 'react-native';
 import Fonts from '../../../../assets/fonts';
 export const Styles = StyleSheet.create({
   container: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     flexDirection: 'row',
-    margin: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
     alignItems: 'center',
   },
   logoBox: {
@@ -26,7 +27,7 @@ export const Styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   locationText: {
-    color: 'white',
+    color: '#792C27',
     fontSize: 12,
     paddingLeft: 5,
     width: 75,
@@ -38,12 +39,12 @@ export const Styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   currencyIcon: {
-    color: 'white',
+    color: '#792C27',
     fontSize: 22,
     fontFamily: Fonts.Assistant400,
   },
   currencyText: {
-    color: 'white',
+    color: '#792C27',
     fontSize: 14,
     fontFamily: Fonts.Assistant400,
     paddingLeft: 5,

@@ -1,6 +1,6 @@
 import {ImageBackground, View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
-import Carousel from 'react-native-reanimated-carousel';
+import Carousel from 'react-native-snap-carousel';
 import LinearGradient from 'react-native-linear-gradient';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Colors} from '../../../assets/Colors';
@@ -15,35 +15,33 @@ export default function OfferCommonCarousel({
   customStyle = {},
 }) {
   const [imgActive1, setImgActive1] = React.useState(0);
+  const renderItem = ({item}) => {
+    return (
+      <>
+        <OfferCard
+          key={Math.random() * 99}
+          UptoText={UptoText}
+          backgroundColor={backgroundColor}
+          data={item}
+        />
+      </>
+    );
+  };
   return (
     <>
-      {/* <GestureHandlerRootView style={{flex: 1, alignSelf: 'center'}}> */}
       <View style={[{alignItems: 'center'}, customStyle]}>
         <Carousel
-          loop={true}
-          pagingEnabled
-          onScrollEnd={index => setImgActive1(index)}
-          width={width}
-          height={height}
-          autoPlay={true}
+          autoplay
+          loop
           data={data}
-          scrollAnimationDuration={1000}
+          renderItem={renderItem}
           autoPlayInterval={3000}
-          // onSnapToItem={index => console.log(index)}
-          renderItem={item => {
-            return (
-              <>
-                <OfferCard
-                  key={Math.random() * 99}
-                  UptoText={UptoText}
-                  backgroundColor={backgroundColor}
-                  data={item.item}
-                />
-              </>
-            );
-          }}
+          sliderWidth={width}
+          itemWidth={width}
+          itemHeight={height}
+          sliderHeight={height}
+          onSnapToItem={index => setImgActive1(index)}
         />
-        {/* </GestureHandlerRootView> */}
         <View
           style={{
             width: '100%',
