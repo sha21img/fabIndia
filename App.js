@@ -29,7 +29,7 @@ export default function App() {
     });
   };
   useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    LogBox.ignoreAllLogs();
   }, []);
 
   if (netInfo) {

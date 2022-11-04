@@ -7,6 +7,7 @@ import SummerGalary from '../../../../Common/SummerGalary';
 import Fonts from '../../../../../assets/fonts';
 import {image} from '../../../../../assets/images';
 import CommonBanner from '../../../../Common/CommonBanner';
+import TopSwiper from '../../../../Common/TopSwiper';
 const SummerGalaryData = [
   {image: image.womenPhoto1, name: 'Saris'},
   {image: image.womenPhoto2, name: 'Dresses'},
@@ -84,7 +85,14 @@ const getTitle = () => {
 const MonogramCatagory = () => {
   return (
     <ScrollView contentContainerStyle={Styles.container}>
-      <TopGallery />
+      {/* <TopGallery /> */}
+      <TopSwiper
+        data={[
+          {banner: image.kidinterior1},
+          {banner: image.banner1},
+          {banner: image.kidinterior2},
+        ]}
+      />
       <HeaderBox />
       <View style={{}}>
         <SummerGalary

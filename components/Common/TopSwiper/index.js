@@ -24,7 +24,7 @@ export default function TopSwiper({data = [], customStyle}) {
       }
       showsButtons={true}>
       {data.map((item, i) => {
-        return <Image style={Styles.image} source={item.banner} />;
+        return <Image key={Math.random() * 1099900} style={Styles.image} source={item.banner} />;
       })}
     </Swiper>
   );

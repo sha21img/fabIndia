@@ -31,6 +31,7 @@ import StoriesCard from '../../../../Common/StoriesCard';
 import CommonCarousel from '../../../../Common/CommonCarousel';
 import ArCarousel from '../../../../Common/ArCarousel';
 import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
+import TopSwiper from '../../../../Common/TopSwiper';
 const width = Dimensions.get('window').width;
 
 const WomenHighlightData = [
@@ -310,7 +311,14 @@ const KidsCatagory = () => {
         paddingBottom: 20,
         flexGrow: 1,
       }}>
-      <TopGallary />
+      {/* <TopGallary /> */}
+      <TopSwiper
+        data={[
+          {banner: image.kidinterior1},
+          {banner: image.banner1},
+          {banner: image.kidinterior2},
+        ]}
+      />
       <NewHighlights
         title={getTitle('', 'Infants')}
         data={WomenHighlightData}

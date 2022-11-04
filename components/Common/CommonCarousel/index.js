@@ -70,6 +70,7 @@ export default function CommonCarousel({
           }}>
           {data.map((item, index) => (
             <Text
+              key={Math.random() * 1099900}
               style={
                 imgActive1 == index
                   ? {color: Colors.primarycolor}

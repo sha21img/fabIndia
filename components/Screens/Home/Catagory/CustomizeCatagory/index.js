@@ -14,6 +14,7 @@ import {image} from '../../../../../assets/images';
 import Fonts from '../../../../../assets/fonts';
 import CommonCarousel from '../../../../Common/CommonCarousel';
 import {Colors} from '../../../../../assets/Colors';
+import TopSwiper from '../../../../Common/TopSwiper';
 const width = Dimensions.get('window').width;
 
 const SummerGalaryData = [
@@ -91,7 +92,14 @@ const getTitle = () => {
 const CustomizeCatagory = () => {
   return (
     <ScrollView contentContainerStyle={Styles.container}>
-      <TopGallery />
+      {/* <TopGallery /> */}
+      <TopSwiper
+        data={[
+          {banner: image.kidinterior1},
+          {banner: image.banner1},
+          {banner: image.kidinterior2},
+        ]}
+      />
       <HeaderBox />
       <SummerGalary
         data={SummerGalaryData}

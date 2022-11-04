@@ -12,8 +12,9 @@ export const Styles = StyleSheet.create({
     width: '50%',
   },
   logo: {
-    height: 30,
-    width: 90,
+    backgroundColor: 'green',
+    height: 25,
+    width: 80,
   },
   detailContainer: {
     width: '50%',

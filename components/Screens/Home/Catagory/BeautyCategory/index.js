@@ -25,6 +25,7 @@ import LifeStyleCard from './LifeStyleCard';
 import StoriesCard from '../../../../Common/StoriesCard';
 import PointDetailCard from '../../../../Common/PointDetailCard';
 import Card from '../../../../Common/Card';
+import TopSwiper from '../../../../Common/TopSwiper';
 const width = Dimensions.get('window').width;
 
 export default function BeautyCategory() {
@@ -293,7 +294,14 @@ export default function BeautyCategory() {
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
       }}>
-      <TopGallery />
+      {/* <TopGallery /> */}
+      <TopSwiper
+        data={[
+          {banner: image.kidinterior1},
+          {banner: image.banner1},
+          {banner: image.kidinterior2},
+        ]}
+      />
       <SummerGalary
         data={SummerGalaryData}
         title={getSummerTitle()}

@@ -33,6 +33,7 @@ import PointDetailCard from '../../../../Common/PointDetailCard';
 import StoriesCard from '../../../../Common/StoriesCard';
 import Fonts from '../../../../../assets/fonts';
 import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
+import TopSwiper from '../../../../Common/TopSwiper';
 const width = Dimensions.get('window').width;
 const getOfferTitleHeading = () => {
   return (
@@ -278,7 +279,14 @@ const MenCatagory = () => {
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
       }}>
-      <TopGallery />
+      {/* <TopGallery /> */}
+      <TopSwiper
+        data={[
+          {banner: image.kidinterior1},
+          {banner: image.banner1},
+          {banner: image.kidinterior2},
+        ]}
+      />
       <NewHighlights
         title={getTit('', 'Ethnic Wear')}
         data={WomenHighlightData}

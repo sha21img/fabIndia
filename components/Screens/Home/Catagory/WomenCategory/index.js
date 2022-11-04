@@ -30,6 +30,7 @@ import OfferCard from '../../../../Common/OfferCard';
 import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
 import StoriesCard from '../../../../Common/StoriesCard';
 import SummerGalary from '../../../../Common/SummerGalary';
+import TopSwiper from '../../../../Common/TopSwiper';
 import {Styles} from './style';
 const width = Dimensions.get('window').width;
 
@@ -409,7 +410,7 @@ const WomenCategory = () => {
         paddingBottom: 20,
       }}>
       {/* =============Banner================= */}
-      <View style={Styles.imagecontainer}>
+      {/* <View style={Styles.imagecontainer}>
         {imageData.map((item, i) => {
           return (
             <ImageBackground
@@ -471,7 +472,14 @@ const WomenCategory = () => {
             </Text>
           </View>
         </View>
-      </View>
+      </View> */}
+      <TopSwiper
+        data={[
+          {banner: image.kidinterior1},
+          {banner: image.banner1},
+          {banner: image.kidinterior2},
+        ]}
+      />
       {/* ==============Women Listing========== */}
       <NewHighlights
         title={getTitle('', 'Apparel')}

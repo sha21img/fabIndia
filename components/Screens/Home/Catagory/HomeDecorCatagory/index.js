@@ -31,6 +31,7 @@ import LifeStyleCard from '../HomeCatagory/LifeStyleCard';
 import StoriesCard from '../../../../Common/StoriesCard';
 import PointDetailCard from '../../../../Common/PointDetailCard';
 import {Styles} from './styles';
+import TopSwiper from '../../../../Common/TopSwiper';
 const width = Dimensions.get('window').width;
 const data = [
   {
@@ -258,7 +259,14 @@ const HomeDecorCatagory = () => {
 
   return (
     <ScrollView contentContainerStyle={Styles.container}>
-      <TopGallary />
+      {/* <TopGallary /> */}
+      <TopSwiper
+        data={[
+          {banner: image.kidinterior1},
+          {banner: image.banner1},
+          {banner: image.kidinterior2},
+        ]}
+      />
       <HomeDecor heading="Home Décor" description="Handcrafted for your home" />
       <View style={Styles.chipbox}>
         <Chip

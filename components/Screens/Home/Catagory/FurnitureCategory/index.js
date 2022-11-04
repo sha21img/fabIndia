@@ -12,6 +12,7 @@ import CornerGallery from '../../../../Common/CornerGallery';
 import InteriorCatagory from '../../../../Common/InteriorCatagory';
 import PointDetailCard from '../../../../Common/PointDetailCard';
 import StoriesCard from '../../../../Common/StoriesCard';
+import TopSwiper from '../../../../Common/TopSwiper';
 import Customize from './Customize';
 import {Styles} from './style';
 import TopGallary from './TopGallary';
@@ -188,7 +189,14 @@ const FurnitureCategory = () => {
   return (
     <ScrollView style={{backgroundColor: Colors.backgroundColor}}>
       {/* ==========Top Gallery ============== */}
-      <TopGallary />
+      {/* <TopGallary /> */}
+      <TopSwiper
+        data={[
+          {banner: image.kidinterior1},
+          {banner: image.banner1},
+          {banner: image.kidinterior2},
+        ]}
+      />
       {/* ==========Corner Gallery ============== */}
       <CornerGallery
         header={CornerGalleryHeader}

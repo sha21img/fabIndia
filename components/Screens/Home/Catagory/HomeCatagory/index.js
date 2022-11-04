@@ -28,6 +28,7 @@ import CommonBanner from '../../../../Common/CommonBanner';
 import InteriorCatagory from '../../../../Common/InteriorCatagory';
 import HomeMade from '../HomeDecorCatagory/HomeMade';
 import HomeDecor from '../../../../Common/HomeDecor';
+import TopSwiper from '../../../../Common/TopSwiper';
 const width = Dimensions.get('window').width;
 
 export default function HomeCatagory() {
@@ -302,7 +303,14 @@ export default function HomeCatagory() {
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
       }}>
-      <TopGallery />
+      {/* <TopGallery /> */}
+      <TopSwiper
+        data={[
+          {banner: image.kidinterior1},
+          {banner: image.banner1},
+          {banner: image.kidinterior2},
+        ]}
+      />
       <HomeDecor heading="Home Linen" description="Handcraft for your home" />
       <View
         style={{

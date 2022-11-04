@@ -44,7 +44,7 @@ const Accordian = ({title, category}) => {
   });
   return (
     <>
-      <View style={Styles.accordbox}>
+      <View key={Math.random() * 1099900} style={Styles.accordbox}>
         <TouchableOpacity onPress={() => toggleListItem()}>
           <View
             style={[

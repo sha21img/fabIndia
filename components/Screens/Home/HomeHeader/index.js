@@ -11,11 +11,7 @@ export default function HomeHeader() {
   return (
     <View style={Styles.container}>
       <View style={Styles.logoBox}>
-        <Image
-          source={image.color_logo}
-          style={Styles.logo}
-          resizeMode="contain"
-        />
+        <Image source={image.color_logo} style={Styles.logo} />
       </View>
       <View style={Styles.detailContainer}>
         <TouchableOpacity style={Styles.locationContainer}>
