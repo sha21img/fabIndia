@@ -43,6 +43,7 @@ export const image = {
   PointDetailCard: require('./PointDetailCard.png'),
   Banner2: require('./Banner2.png'),
   Banner: require('./Banner.png'),
+  categoryBgBanner: require('./categoryBgBanner.jpg'),
   rise: require('./rise.png'),
   fitness: require('./fitness.png'),
   meal: require('./meal.png'),

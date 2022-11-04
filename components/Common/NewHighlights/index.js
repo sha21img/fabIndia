@@ -8,6 +8,7 @@ export default function NewHighlights({
   heading = '',
   title = null,
   data = [],
+  bgColor = '',
   customStyle = '',
 }) {
   const width = Dimensions.get('window').width;
@@ -23,7 +24,7 @@ export default function NewHighlights({
   return (
     <View style={[Styles.container, customStyle]}>
       {title}
-      <View style={Styles.imageContainer}>
+      <View style={[Styles.imageContainer, bgColor]}>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
