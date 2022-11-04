@@ -667,7 +667,7 @@ export default function Dashbord() {
               alignSelf: 'flex-start',
               borderRadius: 40,
               position: 'absolute',
-              bottom: 70,
+              bottom: 30,
               left: 20,
             }}>
             <Text
@@ -680,16 +680,23 @@ export default function Dashbord() {
             </Text>
           </TouchableOpacity>
         </ImageBackground>
-        <ImageBackground
+        {/* <ImageBackground
           resizeMode="cover"
           style={{width: '100%', height: 110}}
           source={image.Banner2}>
+          <Catagory />
+        </ImageBackground> */}
+        <ImageBackground
+          resizeMode="cover"
+          style={{width: '100%', marginVertical: 10}}
+          source={image.categoryBgBanner}>
           <Catagory />
         </ImageBackground>
         <NewHighlights
           title={getTitle('New in', 'Women')}
           data={WomenHighlightData}
-          customStyle={{position: 'relative', top: -30}}
+          bgColor={{backgroundColor: '#F3E0E0'}}
+          customStyle={{marginVertical: 20}}
         />
         <CommonCarousel
           data={WomenCarouselData}
@@ -730,8 +737,9 @@ export default function Dashbord() {
           customViewStyle={{marginTop: 15, marginBottom: 30}}
         />
         <NewHighlights
-          title={getTitle('New in', 'women')}
+          title={getTitle('New in', 'MEN')}
           customStyle={{marginVertical: 10}}
+          bgColor={{backgroundColor: '#F6EFE6'}}
           data={MenHighlightData}
         />
         <CommonCarousel
@@ -778,6 +786,7 @@ export default function Dashbord() {
         <NewHighlights
           title={getTitle('New in', 'HOME')}
           customStyle={{marginVertical: 10}}
+          bgColor={{backgroundColor: '#EDE8E7'}}
           data={HomeHighlightData}
         />
         <CommonCarousel

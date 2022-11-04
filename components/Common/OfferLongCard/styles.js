@@ -16,6 +16,7 @@ export const Styles = StyleSheet.create({
     width: 65,
     height: 65,
     borderRadius: 50,
+    padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(144,50,51,0.8)',
@@ -26,7 +27,7 @@ export const Styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: Fonts.Assistant300,
   },
-  offerText: { 
+  offerText: {
     color: '#fff',
     fontSize: 20,
     fontFamily: Fonts.Assistant700,

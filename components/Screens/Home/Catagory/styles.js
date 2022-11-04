@@ -2,9 +2,9 @@ import {StyleSheet} from 'react-native';
 import Fonts from '../../../../assets/fonts';
 export const Styles = StyleSheet.create({
   mainContainer: {
-    position: 'absolute',
-    top: -60,
-    zIndex: 10,
+    // position: 'absolute',
+    // top: -60,
+    // zIndex: 10,
   },
   container: {
     backgroundColor: 'transparent',
