@@ -1,3 +1,31 @@
+import ImageColors from 'react-native-image-colors';
+import {image} from './assets/images';
+
+export const getColor = async (uri = image.ArtistImg1) => {
+  const result = await ImageColors.getColors(uri, {
+    fallback: '#228B22',
+    cache: true,
+    key: 'unique_key',
+  });
+  switch (result.platform) {
+    case 'android':
+      // android result properties
+      const vibrantColor = result.vibrant;
+      return vibrantColor;
+      break;
+    case 'web':
+      // web result properties
+      const lightVibrantColor = result.lightVibrant;
+      break;
+    case 'ios':
+      // iOS result properties
+      const primaryColor = result.primary;
+      break;
+    default:
+      throw new Error('Unexpected platform key');
+  }
+};
+
 export const WomenTabdata = [
   'Saris',
   'Tunics',
