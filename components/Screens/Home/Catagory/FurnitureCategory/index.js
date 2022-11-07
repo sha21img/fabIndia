@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, ScrollView, Text, View} from 'react-native';
+import {Dimensions, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {Colors} from '../../../../../assets/Colors';
 import Fonts from '../../../../../assets/fonts';
 import {image} from '../../../../../assets/images';
@@ -7,9 +7,12 @@ import {Furniture2, KidsTableData2} from '../../../../../constant';
 import ArCarousel from '../../../../Common/ArCarousel';
 import Card from '../../../../Common/Card';
 import Chip from '../../../../Common/Chip';
+import CommonCarousel from '../../../../Common/CommonCarousel';
 import CommonTopTab from '../../../../Common/CommonTopTab';
 import CornerGallery from '../../../../Common/CornerGallery';
 import InteriorCatagory from '../../../../Common/InteriorCatagory';
+import LifeStyleCard from '../HomeCatagory/LifeStyleCard';
+import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
 import PointDetailCard from '../../../../Common/PointDetailCard';
 import StoriesCard from '../../../../Common/StoriesCard';
 import TopSwiper from '../../../../Common/TopSwiper';
@@ -129,6 +132,51 @@ const FurnitureCategory = () => {
     screen: screenObj2[item],
   }));
 
+  const SummerCarousel = () => {
+    return (
+      <>
+        <Text
+          style={{
+            fontSize: 26,
+            color: 'white',
+            lineHeight: 35,
+            fontFamily: Fonts.IndieFlower,
+          }}>
+          Make everyday Special
+        </Text>
+        <Text
+          style={{
+            fontFamily: Fonts.Assistant400,
+            fontSize: 18,
+            lineHeight: 21,
+            color: 'white',
+            paddingVertical: 5,
+            paddingRight: 10,
+          }}>
+          Make the room of their dreams!
+        </Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#FFFFFF',
+            padding: 10,
+            borderRadius: 40,
+            position: 'absolute',
+            left: 20,
+            bottom: 25,
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: '#903233',
+              fontFamily: Fonts.Assistant400,
+            }}>
+            Explore collection
+          </Text>
+        </TouchableOpacity>
+      </>
+    );
+  };
+
   const dataMap2 = Furniture2.map(item => ({
     name: item,
     screen: screenObj3[item],
@@ -167,6 +215,95 @@ const FurnitureCategory = () => {
       name: 'Bedroom',
     },
   ];
+
+  const OfferData = [
+    {
+      offerValue: '70',
+      banner: image.HomeCarousel1,
+      heading: () => getOfferTitleHeading(),
+      description: () => getDescription(),
+    },
+    {
+      offerValue: '70',
+      banner: image.HomeCarousel,
+      heading: () => getOfferTitleHeading(),
+      description: () => getDescription(),
+    },
+  ];
+
+  const SummerCarouselData = [
+    {
+      heading_btn: () => SummerCarousel(),
+      banner: image.manCarousel,
+    },
+    {
+      heading_btn: () => SummerCarousel(),
+      banner: image.manCarousel,
+    },
+  ];
+
+  const getOfferTitleHeading = () => {
+    return (
+      <Text
+        style={{
+          fontSize: 26,
+          fontFamily: Fonts.PlayfairDisplay700Italic,
+          color: '#ffffff',
+          lineHeight: 35,
+        }}>
+        Handcrafted
+      </Text>
+    );
+  };
+
+  const getDescription = () => {
+    return (
+      <Text
+        style={{
+          fontSize: 26,
+          fontFamily: Fonts.Assistant400,
+          color: '#ffffff',
+        }}>
+        CUSHIONS
+      </Text>
+    );
+  };
+
+  const StoriesCardData = [
+    {
+      Image: image.homeStoryCardPic,
+      description: 'Tanya mixes and matches bed linen to create a cozy rooms',
+    },
+  ];
+
+  const GetStoriesTitle = () => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: 20,
+        }}>
+        <Text
+          style={{
+            fontFamily: Fonts.RunWildDemo,
+            color: '#ffffff',
+            fontSize: 60,
+            marginRight: 10,
+          }}>
+          Style
+        </Text>
+        <Text
+          style={{
+            fontFamily: Fonts.Barlow400,
+            color: '#ffffff',
+            fontSize: 30,
+          }}>
+          STORIES
+        </Text>
+      </View>
+    );
+  };
 
   const StoriesTitle = () => {
     return (
@@ -242,6 +379,15 @@ const FurnitureCategory = () => {
         }
         heading={'CUSTOMIZE YOUR FURNITURE'}
       />
+      {/* ==============Offer common caurosole========= */}
+      <OfferCommonCarousel
+        data={OfferData}
+        UptoText="UPTO"
+        backgroundColor={'#DB8C5F'}
+        width={width / 1.07}
+        height={420}
+        customStyle={{marginVertical: 20}}
+      />
       {/* ==========Corner Gallery ============== */}
       <CornerGallery
         header={CornerGalleryHeader1}
@@ -276,24 +422,27 @@ const FurnitureCategory = () => {
         }}>
         <CommonTopTab data={dataMap2} />
       </View>
-      {/* ==============Seller Chips=========== */}
-      <View style={Styles.chipbox}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick1('Bestsellers')}
-          active={!!active1 ? active1 : 'Bestsellers'}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick1('Recommended for you')}
-          active={active1}
-        />
+      {/* ===========special card================ */}
+      <CommonCarousel
+        data={SummerCarouselData}
+        width={width}
+        height={410}
+        customStyle={{paddingTop: 25}}
+      />
+      {/* ===========lifeStyle 360=============== */}
+      <View style={Styles.box}>
+        <LifeStyleCard />
       </View>
+      {/* ==============Seller Chips=========== */}
       <View style={Styles.commontab}>
         <CommonTopTab data={dataMap} />
       </View>
       {/* ===============Stories Card =========== */}
-      <StoriesCard title={StoriesTitle} />
+      <StoriesCard
+        data={StoriesCardData}
+        title={GetStoriesTitle}
+        custumStyles={Styles.storycardbox}
+      />
     </ScrollView>
   );
 };

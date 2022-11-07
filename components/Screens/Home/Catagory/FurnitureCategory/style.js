@@ -11,4 +11,6 @@ export const Styles = StyleSheet.create({
     marginTop: 10,
   },
   commontab: {marginLeft: 15, height: 500, marginBottom: 40},
+  box: {marginTop: 40},
+  storycardbox: {marginTop: 40, backgroundColor: '#908EA6'},
 });
