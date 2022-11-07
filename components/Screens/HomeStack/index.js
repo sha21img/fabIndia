@@ -1,4 +1,4 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../Home';
@@ -17,18 +17,27 @@ import FoodCatagory from '../Home/Catagory/FoodCatagory';
 import CustomizeCatagory from '../Home/Catagory/CustomizeCatagory';
 import MonogramCatagory from '../Home/Catagory/MonogramCatagory';
 import BeautyCategory from '../Home/Catagory/BeautyCategory';
-
+import {useNavigation} from '@react-navigation/native';
 const Stack = createNativeStackNavigator();
-const leftIcon = (
-  <SimpleLineIcons name="arrow-left" color={Colors.primarycolor} size={20} />
-);
-const rightIcon = (
-  <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
-);
 
 export default function HomeStack() {
+  const navigation = useNavigation();
+
+  const leftIcon = (
+    <TouchableOpacity onPress={() => navigation.goBack()}>
+      <SimpleLineIcons
+        name="arrow-left"
+        color={Colors.primarycolor}
+        size={20}
+      />
+    </TouchableOpacity>
+  );
+  const rightIcon = (
+    <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
+  );
+
   return (
-    <Stack.Navigator initialRouteName="WomenCategory">
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -194,7 +203,7 @@ export default function HomeStack() {
           header: props => (
             <Header
               leftIcon={leftIcon}
-              title="Customize"
+              title="Add a Monogram"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
