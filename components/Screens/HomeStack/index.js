@@ -18,6 +18,7 @@ import CustomizeCatagory from '../Home/Catagory/CustomizeCatagory';
 import MonogramCatagory from '../Home/Catagory/MonogramCatagory';
 import BeautyCategory from '../Home/Catagory/BeautyCategory';
 import {useNavigation} from '@react-navigation/native';
+import LandingPageSaris from '../LandingPageL2/LandingPage-saris';
 const Stack = createNativeStackNavigator();
 
 export default function HomeStack() {
@@ -37,7 +38,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="LandingPageSaris">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -221,6 +222,22 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Beauty"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="LandingPageSaris"
+        component={LandingPageSaris}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Saris & Blouses"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
