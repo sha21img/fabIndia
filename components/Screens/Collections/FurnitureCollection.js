@@ -1,32 +1,36 @@
-import {View, Text, ScrollView, ImageBackground} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  ImageBackground,
+  Dimensions,
+} from 'react-native';
 import React from 'react';
-import NameCard from '../../Common/NameCard';
+const width = Dimensions.get('window').width;
 import Fonts from '../../../assets/fonts';
 import {image} from '../../../assets/images';
 import {Colors} from '../../../assets/Colors';
 
 const data = [
   {banner: image.manCarousel, title: 'Curtains'},
-  {banner: '', title: 'Home Decor'},
-  {banner: '', title: 'Bed Linen'},
   {banner: image.manCarousel, title: 'Tableware'},
   {banner: image.manCarousel, title: 'Curtains'},
-  {banner: '', title: 'Home Decor'},
+  {banner: image.manCarousel, title: 'Curtains'},
 ];
 export default function FurnitureCollection() {
-  const circleNameCard = data.map(item => {
+  const circleNameCard = data.map((item, index) => {
     return (
       <ImageBackground
         key={Math.random() * 777266}
         resizeMode="cover"
         source={item.banner}
         style={{
-          width: '100%',
-          height: 175,
+          width: index == 1 || index == 2 ? width / 2.05 : '100%',
+          height: 180,
           backgroundColor: Colors.primarycolor,
           justifyContent: 'center',
           alignItems: 'center',
-        //   margin: 5,
+          marginVertical: 5,
         }}>
         <Text
           style={{
@@ -62,13 +66,10 @@ export default function FurnitureCollection() {
         Add a dash of tradition to your home with our latest Ajarakh collection{' '}
       </Text>
       <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-        //   paddingVertical: 5,
-        //   height: 385,
-        //   flexDirection: 'column',
-        //   paddingHorizontal: 10,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
           flexWrap: 'wrap',
         }}>
         {circleNameCard}

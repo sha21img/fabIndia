@@ -21,7 +21,6 @@ export const Styles = StyleSheet.create({
   },
   catagoryText: {
     textAlign: 'center',
-    color: 'white',
     fontFamily: Fonts.Assistant400,
   },
 });

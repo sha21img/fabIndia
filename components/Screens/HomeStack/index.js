@@ -18,6 +18,8 @@ import Collections from '../Collections';
 import CustomizeCatagory from '../Home/Catagory/CustomizeCatagory';
 import MonogramCatagory from '../Home/Catagory/MonogramCatagory';
 import BeautyCategory from '../Home/Catagory/BeautyCategory';
+import Offers from '../Offers';
+import Fabulous from '../Fabulous';
 import {useNavigation} from '@react-navigation/native';
 import LandingPageSaris from '../LandingPageL2/LandingPage-saris';
 const Stack = createNativeStackNavigator();
@@ -39,7 +41,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="Collections">
+    <Stack.Navigator initialRouteName="Fabulous">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -255,6 +257,39 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Saris & Blouses"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="Offers"
+        component={Offers}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Offers"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Fabulous"
+        component={Fabulous}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Fabulous"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',

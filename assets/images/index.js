@@ -46,9 +46,11 @@ export const image = {
   categoryBgBanner: require('./categoryBgBanner.jpg'),
   rise: require('./rise.png'),
   fitness: require('./fitness.png'),
+  OfferCategoryBanner: require('./OfferCategoryBanner.png'),
   meal: require('./meal.png'),
   lounging: require('./lounging.png'),
   out: require('./out.png'),
+  FabulousBanner: require('./FabulousBanner.png'),
   bedtime: require('./bedtime.png'),
   whitelogo: require('./whitelogo.png'),
   offerPic: require('./OfferPic.jpg'),
@@ -113,5 +115,12 @@ export const image = {
   BeautyProduct9: require('./BeautyProduct9.png'),
   BeautyProduct10: require('./BeautyProduct10.png'),
   BeautyProduct11: require('./BeautyProduct11.png'),
+  //
+  FabulousCard1: require('./FabulousCard1.png'),
+  FabulousCard2: require('./FabulousCard2.png'),
+  FabulousCard3: require('./FabulousCard3.png'),
+  FabulousCard4: require('./FabulousCard4.png'),
+  //
   color_logo: require('./color-logo.png'),
+  FabulousBannerFlower: require('./FabulousBannerFlower.png'),
 };

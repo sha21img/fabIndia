@@ -40,6 +40,69 @@ import TopSwiper from '../../Common/TopSwiper';
 import axios from 'axios';
 const width = Dimensions.get('window').width;
 
+const categoryData = [
+  {
+    route: 'WomenCategory',
+    title: 'Women',
+    textColor: 'white',
+    bgColor: '#792C27',
+  },
+  {route: 'MenCatagory', title: 'Men', textColor: 'white', bgColor: '#792C27'},
+  {
+    route: 'KidsCatagory',
+    title: 'Kids',
+    textColor: 'white',
+    bgColor: '#792C27',
+  },
+  {
+    route: 'HomeCatagory',
+    title: 'Home Linen',
+    textColor: 'white',
+    bgColor: '#792C27',
+  },
+  {
+    route: 'FurnitureCategory',
+    title: 'Furniture',
+    textColor: 'white',
+    bgColor: '#792C27',
+  },
+  {
+    route: 'HomeDecorCatagory',
+    title: 'Home Decor',
+    textColor: 'white',
+    bgColor: '#792C27',
+  },
+  {
+    route: 'BeautyCategory',
+    title: 'Beauty',
+    textColor: 'white',
+    bgColor: '#792C27',
+  },
+  {
+    route: 'FoodCatagory',
+    title: 'Food',
+    textColor: 'white',
+    bgColor: '#792C27',
+  },
+  {
+    route: '',
+    title: 'INTERIOR DESIGN Studio',
+    textColor: 'white',
+    bgColor: '#D7AF49',
+  },
+  {
+    route: 'MonogramCatagory',
+    title: 'Add a Monogram',
+    textColor: 'white',
+    bgColor: '#D7AF49',
+  },
+  {
+    route: 'CustomizeCatagory',
+    title: 'Customize',
+    textColor: 'white',
+    bgColor: '#D7AF49',
+  },
+];
 const WomenHighlightData = [
   {image: image.womenCard, title: 'Saris'},
   {image: image.womenCard1, title: 'Tunics'},
@@ -681,12 +744,11 @@ export default function Dashbord() {
         {Ids.includes('FabHomepageSection1Slot') && (
           <TopSwiper data={dashboardData} slotId="FabHomepageSection1Slot" />
         )}
-
         <ImageBackground
           resizeMode="cover"
           style={{width: '100%', marginVertical: 10}}
           source={image.categoryBgBanner}>
-          <Catagory />
+          <Catagory data={categoryData} />
         </ImageBackground>
         <NewHighlights
           title={getTitle('New in', 'Women')}
@@ -849,7 +911,7 @@ export default function Dashbord() {
           height={330}
         />
         <Art_Artist />
-        <Legacy /> */}
+        <Legacy />
       </ScrollView>
     </>
   );
