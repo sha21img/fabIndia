@@ -120,7 +120,11 @@ export const image = {
   FabulousCard2: require('./FabulousCard2.png'),
   FabulousCard3: require('./FabulousCard3.png'),
   FabulousCard4: require('./FabulousCard4.png'),
+  FabulousBannerFlower: require('./FabulousBannerFlower.png'),
   //
   color_logo: require('./color-logo.png'),
-  FabulousBannerFlower: require('./FabulousBannerFlower.png'),
+  huesblue: require('./huesblue.png'),
+  TrendyHeader: require('./TrendyHeader.png'),
+  TrendyDesign: require('./TrendyDesign.png'),
+  GroupDots: require('./groupDots.png'),
 };

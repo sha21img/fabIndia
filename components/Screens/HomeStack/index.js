@@ -20,6 +20,7 @@ import MonogramCatagory from '../Home/Catagory/MonogramCatagory';
 import BeautyCategory from '../Home/Catagory/BeautyCategory';
 import Offers from '../Offers';
 import Fabulous from '../Fabulous';
+import NewArrivals from '../NewArrivals';
 import {useNavigation} from '@react-navigation/native';
 import LandingPageSaris from '../LandingPageL2/LandingPage-saris';
 const Stack = createNativeStackNavigator();
@@ -89,6 +90,23 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Search results for ‘Cotton...’"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="NewArrivals"
+        component={NewArrivals}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="What's new"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',

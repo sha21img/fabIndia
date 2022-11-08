@@ -11,7 +11,8 @@ export const getColor = async (uri = image.ArtistImg1) => {
     case 'android':
       // android result properties
       const vibrantColor = result.vibrant;
-      return vibrantColor;
+      console.log('1111111111', result);
+      return result;
       break;
     case 'web':
       // web result properties
@@ -183,9 +184,4 @@ export const HomeDecorTableData2 = [
   'Hanging & String Lights',
 ];
 
-export const CollectionWomenData = [
-  'Dupattas',
-  'Kurtas',
-  'Saris',
-  'Lehengas',
-];
+export const CollectionWomenData = ['Dupattas', 'Kurtas', 'Saris', 'Lehengas'];
