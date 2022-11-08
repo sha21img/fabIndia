@@ -695,7 +695,7 @@ export default function Dashbord() {
           source={image.Banner2}>
           <Catagory />
         </ImageBackground> */}
-        <ImageBackground
+        {/* <ImageBackground
           resizeMode="cover"
           style={{width: '100%', marginVertical: 10}}
           source={image.categoryBgBanner}>
@@ -862,7 +862,7 @@ export default function Dashbord() {
           height={330}
         />
         <Art_Artist />
-        <Legacy />
+        <Legacy /> */}
       </ScrollView>
     </>
   );

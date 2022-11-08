@@ -14,6 +14,7 @@ import HomeCatagory from '../Home/Catagory/HomeCatagory';
 import HomeDecorCatagory from '../Home/Catagory/HomeDecorCatagory';
 import FurnitureCategory from '../Home/Catagory/FurnitureCategory';
 import FoodCatagory from '../Home/Catagory/FoodCatagory';
+import Collections from '../Collections';
 import CustomizeCatagory from '../Home/Catagory/CustomizeCatagory';
 import MonogramCatagory from '../Home/Catagory/MonogramCatagory';
 import BeautyCategory from '../Home/Catagory/BeautyCategory';
@@ -37,7 +38,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="Collections">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -221,6 +222,22 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Beauty"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Collections"
+        component={Collections}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Collections"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
