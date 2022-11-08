@@ -25,10 +25,12 @@ export const Styles = StyleSheet.create({
   uptoText: {
     color: '#fff',
     fontSize: 16,
+    lineHeight: 19,
     fontFamily: Fonts.Assistant300,
   },
   offerText: {
     color: '#fff',
+    lineHeight: 19,
     fontSize: 20,
     fontFamily: Fonts.Assistant700,
   },
