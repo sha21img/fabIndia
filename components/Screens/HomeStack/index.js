@@ -1,4 +1,4 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../Home';
@@ -14,22 +14,34 @@ import HomeCatagory from '../Home/Catagory/HomeCatagory';
 import HomeDecorCatagory from '../Home/Catagory/HomeDecorCatagory';
 import FurnitureCategory from '../Home/Catagory/FurnitureCategory';
 import FoodCatagory from '../Home/Catagory/FoodCatagory';
+import Collections from '../Collections';
 import CustomizeCatagory from '../Home/Catagory/CustomizeCatagory';
 import MonogramCatagory from '../Home/Catagory/MonogramCatagory';
 import BeautyCategory from '../Home/Catagory/BeautyCategory';
 import NewArrivals from '../NewArrivals';
 
+import {useNavigation} from '@react-navigation/native';
+import LandingPageSaris from '../LandingPageL2/LandingPage-saris';
 const Stack = createNativeStackNavigator();
-const leftIcon = (
-  <SimpleLineIcons name="arrow-left" color={Colors.primarycolor} size={20} />
-);
-const rightIcon = (
-  <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
-);
 
 export default function HomeStack() {
+  const navigation = useNavigation();
+
+  const leftIcon = (
+    <TouchableOpacity onPress={() => navigation.goBack()}>
+      <SimpleLineIcons
+        name="arrow-left"
+        color={Colors.primarycolor}
+        size={20}
+      />
+    </TouchableOpacity>
+  );
+  const rightIcon = (
+    <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
+  );
+
   return (
-    <Stack.Navigator initialRouteName="NewArrivals">
+    <Stack.Navigator initialRouteName="Collections">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -212,7 +224,7 @@ export default function HomeStack() {
           header: props => (
             <Header
               leftIcon={leftIcon}
-              title="Customize"
+              title="Add a Monogram"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
@@ -230,6 +242,38 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Beauty"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Collections"
+        component={Collections}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Collections"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="LandingPageSaris"
+        component={LandingPageSaris}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Saris & Blouses"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',

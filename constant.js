@@ -182,3 +182,10 @@ export const HomeDecorTableData2 = [
   'Lamp Shades',
   'Hanging & String Lights',
 ];
+
+export const CollectionWomenData = [
+  'Dupattas',
+  'Kurtas',
+  'Saris',
+  'Lehengas',
+];

@@ -16,7 +16,7 @@ const data = [
       'Sleepwear',
       'Footwear',
       'Accessories',
-    ],
+    ], 
   },
   {
     id: 1,
