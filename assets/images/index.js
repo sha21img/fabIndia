@@ -115,4 +115,7 @@ export const image = {
   BeautyProduct11: require('./BeautyProduct11.png'),
   color_logo: require('./color-logo.png'),
   huesblue: require('./huesblue.png'),
+  TrendyHeader: require('./TrendyHeader.png'),
+  TrendyDesign: require('./TrendyDesign.png'),
+  GroupDots: require('./groupDots.png'),
 };
