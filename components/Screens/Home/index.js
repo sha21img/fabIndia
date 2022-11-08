@@ -849,7 +849,7 @@ export default function Dashbord() {
           height={330}
         />
         <Art_Artist />
-        <Legacy /> */}
+        <Legacy />
       </ScrollView>
     </>
   );
