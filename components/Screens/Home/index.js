@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  FlatList,
 } from 'react-native';
 import React from 'react';
 import HomeHeader from './HomeHeader';
@@ -36,6 +37,7 @@ import PointDetailCard from '../../Common/PointDetailCard';
 import SimpleCard from '../../Common/SimpleCard';
 import Fonts from '../../../assets/fonts';
 import TopSwiper from '../../Common/TopSwiper';
+import axios from 'axios';
 const width = Dimensions.get('window').width;
 
 const WomenHighlightData = [
@@ -540,6 +542,28 @@ const SimpleCardList = item => {
 };
 export default function Dashbord() {
   const [active, setActive] = React.useState('Bestsellers');
+  const [dashboardData, setDashboardData] = React.useState([]);
+  const [Ids, setIds] = React.useState([]);
+  const getData = async () => {
+    const response = await axios.get(
+      'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/occ/v2/fabindiab2c/cms/pages?lang=en&curr=INR',
+    );
+    // console.log('response,', response.data.contentSlots.contentSlot);
+    setDashboardData(response.data.contentSlots.contentSlot);
+    getIds(response.data.contentSlots.contentSlot);
+  };
+  const getIds = data => {
+    const newArray = data.map(item => {
+      // console.log('aaaa', item.slotId);
+      return setIds(prev => {
+        return [...prev, item.slotId];
+      });
+    });
+  };
+  React.useEffect(() => {
+    getData();
+  }, []);
+  // console.log('aaaaaaaaaaa', Ids);
   // Tab 1
   const screenObj = {
     Saris: CardCompo,
@@ -628,6 +652,23 @@ export default function Dashbord() {
       </View>
     );
   };
+  // const renderItem = ({item}) => {
+  //   console.log('item', item.components.component[0]?.uid);
+  //   return (
+  //     <>
+  //       {item.slotId == 'FabHomepageSection1Slot' && (
+  //         <TopSwiper
+  //           slotId={item.components.component[0]?.uid}
+  //           // data={[
+  //           //   {banner: image.kidinterior1},
+  //           //   {banner: image.banner1},
+  //           //   {banner: image.kidinterior2},
+  //           // ]}
+  //         />
+  //       )}
+  //     </>
+  //   );
+  // };
   return (
     <>
       <ScrollView
@@ -637,64 +678,10 @@ export default function Dashbord() {
           paddingBottom: 20,
         }}>
         <HomeHeader />
-        <TopSwiper
-          data={[
-            {banner: image.kidinterior1},
-            {banner: image.banner1},
-            {banner: image.kidinterior2},
-          ]}
-        />
-        {/* <ImageBackground
-          resizeMode="cover"
-          style={{width: '100%', height: 384}}
-          source={image.Banner}>
-          <HomeHeader />
-          <TouchableOpacity
-            style={{
-              backgroundColor: 'rgba(0,0,0,0.6)',
-              paddingVertical: 7,
-              paddingHorizontal: 15,
-              alignSelf: 'flex-start',
-              borderRadius: 40,
-              marginVertical: 5,
-              marginHorizontal: 20,
-            }}>
-            <Text
-              style={{
-                fontSize: 16,
-                color: 'white',
-                fontFamily: Fonts.Assistant400,
-              }}>
-              Tap to customize & buy!
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              backgroundColor: 'rgba(0,0,0,0.6)',
-              paddingVertical: 7,
-              paddingHorizontal: 15,
-              alignSelf: 'flex-start',
-              borderRadius: 40,
-              position: 'absolute',
-              bottom: 30,
-              left: 20,
-            }}>
-            <Text
-              style={{
-                fontSize: 12,
-                fontFamily: Fonts.Assistant600,
-                color: 'white',
-              }}>
-              #myfablife
-            </Text>
-          </TouchableOpacity>
-        </ImageBackground> */}
-        {/* <ImageBackground
-          resizeMode="cover"
-          style={{width: '100%', height: 110}}
-          source={image.Banner2}>
-          <Catagory />
-        </ImageBackground> */}
+        {Ids.includes('FabHomepageSection1Slot') && (
+          <TopSwiper data={dashboardData} slotId="FabHomepageSection1Slot" />
+        )}
+
         <ImageBackground
           resizeMode="cover"
           style={{width: '100%', marginVertical: 10}}
@@ -866,4 +853,60 @@ export default function Dashbord() {
       </ScrollView>
     </>
   );
+}
+
+{
+  /* <ImageBackground
+          resizeMode="cover"
+          style={{width: '100%', height: 384}}
+          source={image.Banner}>
+          <HomeHeader />
+          <TouchableOpacity
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.6)',
+              paddingVertical: 7,
+              paddingHorizontal: 15,
+              alignSelf: 'flex-start',
+              borderRadius: 40,
+              marginVertical: 5,
+              marginHorizontal: 20,
+            }}>
+            <Text
+              style={{
+                fontSize: 16,
+                color: 'white',
+                fontFamily: Fonts.Assistant400,
+              }}>
+              Tap to customize & buy!
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.6)',
+              paddingVertical: 7,
+              paddingHorizontal: 15,
+              alignSelf: 'flex-start',
+              borderRadius: 40,
+              position: 'absolute',
+              bottom: 30,
+              left: 20,
+            }}>
+            <Text
+              style={{
+                fontSize: 12,
+                fontFamily: Fonts.Assistant600,
+                color: 'white',
+              }}>
+              #myfablife
+            </Text>
+          </TouchableOpacity>
+        </ImageBackground> */
+}
+{
+  /* <ImageBackground
+          resizeMode="cover"
+          style={{width: '100%', height: 110}}
+          source={image.Banner2}>
+          <Catagory />
+        </ImageBackground> */
 }
