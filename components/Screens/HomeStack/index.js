@@ -17,6 +17,7 @@ import FoodCatagory from '../Home/Catagory/FoodCatagory';
 import CustomizeCatagory from '../Home/Catagory/CustomizeCatagory';
 import MonogramCatagory from '../Home/Catagory/MonogramCatagory';
 import BeautyCategory from '../Home/Catagory/BeautyCategory';
+import NewArrivals from '../NewArrivals';
 
 const Stack = createNativeStackNavigator();
 const leftIcon = (
@@ -28,7 +29,7 @@ const rightIcon = (
 
 export default function HomeStack() {
   return (
-    <Stack.Navigator initialRouteName="FurnitureCategory">
+    <Stack.Navigator initialRouteName="NewArrivals">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -76,6 +77,23 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Search results for ‘Cotton...’"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="NewArrivals"
+        component={NewArrivals}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="What's new"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',

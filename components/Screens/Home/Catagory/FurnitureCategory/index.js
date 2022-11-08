@@ -1,5 +1,11 @@
 import React from 'react';
-import {Dimensions, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Dimensions,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Colors} from '../../../../../assets/Colors';
 import Fonts from '../../../../../assets/fonts';
 import {image} from '../../../../../assets/images';
@@ -19,6 +25,7 @@ import TopSwiper from '../../../../Common/TopSwiper';
 import Customize from './Customize';
 import {Styles} from './style';
 import TopGallary from './TopGallary';
+import JewelleryRange from '../../../../Common/JewelleryRange';
 const width = Dimensions.get('window').width;
 const FurnitureCategory = () => {
   const [active, setActive] = React.useState();
@@ -256,6 +263,49 @@ const FurnitureCategory = () => {
     );
   };
 
+  const JewelleryRangeData = [
+    {
+      image: image.furniture3,
+      name: 'Bangles & Bracelets',
+    },
+    {
+      image: image.furniture4,
+      name: 'Anklets',
+    },
+    {
+      image: image.furniture2,
+      name: 'Rings',
+    },
+    {
+      image: image.furniture3,
+      name: 'Nose and Pins',
+    },
+    {
+      image: image.furniture4,
+      name: 'Dining',
+    },
+    {
+      image: image.furniture2,
+      name: 'Bedroom',
+    },
+    {
+      image: image.furniture2,
+      name: 'Bedroom',
+    },
+    {
+      image: image.furniture2,
+      name: 'Bedroom',
+    },
+    {
+      image: image.furniture2,
+      name: 'Bedroom',
+    },
+    {
+      image: image.furniture2,
+      name: 'Bedroom',
+    },
+  ];
+
   const getDescription = () => {
     return (
       <Text
@@ -443,6 +493,22 @@ const FurnitureCategory = () => {
         title={GetStoriesTitle}
         custumStyles={Styles.storycardbox}
       />
+      {/* ==========Jewellery Range ============== */}
+      {/* <JewelleryRange
+        title={() => (
+          <Text
+          numberOfLines={1}
+            style={{
+              fontFamily: Fonts.PlayfairDisplay600Italic,
+              fontSize: 18,
+              color:"#4A4A4A",
+              lineHeight: 26,
+            }}>
+            A range of jewellery for every ocassion!
+          </Text>
+        )}
+        JewelleryRangeData={JewelleryRangeData}
+      /> */}
     </ScrollView>
   );
 };
