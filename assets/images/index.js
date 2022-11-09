@@ -128,4 +128,6 @@ export const image = {
   TrendyDesign: require('./TrendyDesign.png'),
   GroupDots: require('./groupDots.png'),
   SarisBanner: require('./SarisBanner.png'),
+  BedsheetBanner: require('./BedsheetBanner.png'),
+  DiningBanner: require('./DiningBanner.png'),
 };

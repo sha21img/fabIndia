@@ -26,7 +26,9 @@ import LandingPageSaris from '../LandingPageL2/LandingPage-saris';
 import LandingPageJewellery from '../LandingPageL2/LandingPageJewellery';
 import LandingPageMenKurtas from '../LandingPageL2/LandingPage-menKurtas';
 import LandingPageSaris_Blouses from '../LandingPageL2/LandingPageSaris_Blouses';
-
+import LandingPageBedsheets from '../LandingPageL2/LandingPageBedsheets';
+import LandingPageDiningTable from '../LandingPageL2/LandingPageDiningTable';
+import LandingPage360WFH from '../LandingPageL2/LandingPage360WFH';
 const Stack = createNativeStackNavigator();
 
 export default function HomeStack() {
@@ -46,7 +48,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="LandingPageSaris_Blouses">
+    <Stack.Navigator initialRouteName="LandingPage360WFH">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -360,6 +362,54 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Block Print Saris & Blouses"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="LandingPageBedsheets"
+        component={LandingPageBedsheets}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Bedsheets"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="LandingPageDiningTable"
+        component={LandingPageDiningTable}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Dining Tables"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="LandingPage360WFH"
+        component={LandingPage360WFH}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Lifestyle 360 / WFH"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',

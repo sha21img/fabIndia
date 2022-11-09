@@ -10,35 +10,7 @@ export default function TopBanner() {
       <ImageBackground
         resizeMode="cover"
         style={{width: '100%', height: 250}}
-        source={image.SarisBanner}>
-        <View
-          style={{
-            backgroundColor: 'rgba(0,0,0,0.7)',
-            marginTop: 'auto',
-            paddingVertical: 10,
-            alignSelf: 'flex-start',
-            marginVertical: 25,
-            paddingHorizontal: 15,
-          }}>
-          <Text
-            style={{
-              fontFamily: Fonts.PlayfairDisplay700,
-              fontSize: 30,
-              lineHeight: 32,
-              color: 'white',
-            }}>
-            Block Print
-          </Text>
-          <Text
-            style={{
-              fontFamily: Fonts.Assistant400,
-              fontSize: 16,
-              color: 'white',
-            }}>
-            Rajasthan
-          </Text>
-        </View>
-      </ImageBackground>
+        source={image.BedsheetBanner}></ImageBackground>
       <View style={{backgroundColor: '#FAF2F2', padding: 15}}>
         <Text
           style={{
@@ -47,7 +19,7 @@ export default function TopBanner() {
             lineHeight: 21,
             color: Colors.textcolor,
           }}>
-          A fascinating craft from the heart of India
+          Sweet dreams are made of these...
         </Text>
         <Text
           style={{
@@ -57,9 +29,9 @@ export default function TopBanner() {
             color: Colors.textcolor,
             paddingVertical: 10,
           }}>
-          Wear your style on your sleeve with our collection of stunning silks,
-          gorgeous georgettes, charming cottons and a lot more - crafted to
-          perfection.
+          Organic handpicked cotton, softly woven into a luxurious bedsheet. Our
+          artisans ensure each piece is designed to perfection, so that you end
+          the day on a high note!
         </Text>
         <Text
           style={{

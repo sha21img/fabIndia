@@ -10,35 +10,7 @@ export default function TopBanner() {
       <ImageBackground
         resizeMode="cover"
         style={{width: '100%', height: 250}}
-        source={image.SarisBanner}>
-        <View
-          style={{
-            backgroundColor: 'rgba(0,0,0,0.7)',
-            marginTop: 'auto',
-            paddingVertical: 10,
-            alignSelf: 'flex-start',
-            marginVertical: 25,
-            paddingHorizontal: 15,
-          }}>
-          <Text
-            style={{
-              fontFamily: Fonts.PlayfairDisplay700,
-              fontSize: 30,
-              lineHeight: 32,
-              color: 'white',
-            }}>
-            Block Print
-          </Text>
-          <Text
-            style={{
-              fontFamily: Fonts.Assistant400,
-              fontSize: 16,
-              color: 'white',
-            }}>
-            Rajasthan
-          </Text>
-        </View>
-      </ImageBackground>
+        source={image.DiningBanner}></ImageBackground>
       <View style={{backgroundColor: '#FAF2F2', padding: 15}}>
         <Text
           style={{
