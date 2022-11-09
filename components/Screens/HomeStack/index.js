@@ -42,7 +42,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="Fabulous">
+    <Stack.Navigator initialRouteName="FabulousCardDetails">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -316,6 +316,22 @@ export default function HomeStack() {
           ),
         }}
       />
+      {/* <Stack.Screen
+        name="FabulousCardDetails"
+        component={FabulousCardDetails}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="FabulousCardDetails"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      /> */}
     </Stack.Navigator>
   );
 }

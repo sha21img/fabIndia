@@ -414,7 +414,7 @@ const KidsCatagory = () => {
       <CommonCarousel
         data={SummerCarouselData}
         width={width / 1.07}
-        height={410}
+        height={440}
         customStyle={{paddingVertical: 25}}
       />
 
