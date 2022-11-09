@@ -21,9 +21,7 @@ export const Styles = StyleSheet.create({
     bottom: -165,
   },
   card: {
-    height: 340,
     width: 258,
-    zIndex: 20,
     marginLeft: 15,
     elevation: 1,
   },
@@ -42,5 +40,10 @@ export const Styles = StyleSheet.create({
     left: 12,
     color: '#ffffff',
     fontFamily: Fonts.Assistant400,
+  },
+  ScrollContainer: {
+    height: 380,
+    flexDirection: 'column',
+    flexWrap: 'wrap',
   },
 });

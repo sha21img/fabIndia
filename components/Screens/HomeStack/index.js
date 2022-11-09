@@ -44,7 +44,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="LandingPageMenKurtas">
+    <Stack.Navigator initialRouteName="LandingPageJewellery">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -310,22 +310,6 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Fabulous"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-              }}
-            />
-          ),
-        }}
-      />
-      <Stack.Screen
-        name="FabulousCardDetails"
-        component={FabulousCardDetails}
-        options={{
-          header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="FabulousCardDetails"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',

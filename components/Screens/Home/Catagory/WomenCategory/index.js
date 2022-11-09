@@ -349,14 +349,16 @@ const WomenCategory = () => {
 
   const GetLifeStyleTitle = () => {
     return (
-      <>
+      <View
+        style={{
+          paddingTop: 20,
+          paddingHorizontal: 15,
+        }}>
         <Text
           style={{
             fontFamily: Fonts.PlayfairDisplay600,
             color: '#4A4A4A',
             fontSize: 30,
-            marginHorizontal: 20,
-            marginBottom: 5,
           }}>
           Lifestyle 360
         </Text>
@@ -367,12 +369,11 @@ const WomenCategory = () => {
               color: '#4A4A4A',
               lineHeight: 23,
               fontFamily: Fonts.Assistant400,
-              marginHorizontal: 20,
             }}>
             Combos that’ll keep you feeling fab!
           </Text>
         </View>
-      </>
+      </View>
     );
   };
   const getTitle = (title, heading) => {
@@ -611,7 +612,11 @@ const WomenCategory = () => {
         </ScrollView>
       </View>
       {/* ================LifeStyle 360======== */}
-      <LifeStyle data={LifeStyleData} title={GetLifeStyleTitle} />
+      <LifeStyle
+        data={LifeStyleData}
+        title={GetLifeStyleTitle}
+        backgroundColor="#F8F2EF"
+      />
       {/* ================Beach day============ */}
       <View style={Styles.commontab}>
         <CommonTopTab data={dataMap4} />

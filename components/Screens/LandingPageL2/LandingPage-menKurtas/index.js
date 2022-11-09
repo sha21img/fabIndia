@@ -491,6 +491,26 @@ const LandingPageMenKurtas = () => {
         customStyle={{marginVertical: 40}}
       />
       <CommonCarousel data={WomenCarouselData} width={width} height={410} />
+      <View style={Styles.catbox}>
+        <Text style={Styles.playpatterntxt}>Play with patterns</Text>
+        <ScrollView horizontal contentContainerStyle={Styles.scrollcont}>
+          {/* <View style={{height: 270, flexDirection: 'column'}}> */}
+          {[0, 1, 2, 3, 4, 5].map(it => {
+            return (
+              <ImageBackground
+                resizeMode="cover"
+                source={image.huesblue}
+                imageStyle={{borderRadius: 100}}
+                style={Styles.backgroundimagebox2}>
+                <View style={Styles.txtbox}>
+                  <Text style={Styles.txt}>Woven</Text>
+                </View>
+              </ImageBackground>
+            );
+          })}
+          {/* </View> */}
+        </ScrollView>
+      </View>
       <View style={Styles.chipbox}>
         <Chip
           title="Bestsellers"
@@ -545,51 +565,9 @@ const LandingPageMenKurtas = () => {
           })}
         </ScrollView>
       </View>
-
-      <CommonCarousel
-        data={WomenCarouselData1}
-        width={width}
-        height={410}
-        customStyle={{marginTop: 40}}
-      />
-      <View style={Styles.catbox}>
-        <Text style={Styles.playpatterntxt}>Play with patterns</Text>
-        <ScrollView horizontal contentContainerStyle={Styles.scrollcont}>
-          {/* <View style={{height: 270, flexDirection: 'column'}}> */}
-          {[0, 1, 2, 3, 4, 5].map(it => {
-            return (
-              <ImageBackground
-                resizeMode="cover"
-                source={image.huesblue}
-                imageStyle={{borderRadius: 100}}
-                style={Styles.backgroundimagebox2}>
-                <View style={Styles.txtbox}>
-                  <Text style={Styles.txt}>Woven</Text>
-                </View>
-              </ImageBackground>
-            );
-          })}
-          {/* </View> */}
-        </ScrollView>
-      </View>
-      <View style={Styles.chipbox}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={active}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      <View style={{marginLeft: 15, height: 470}}>
-        <CommonTopTab data={dataMap} />
-      </View>
       <OfferCommonCarousel
         data={OfferData}
-        backgroundColor={'#DB8C5F'}
+        backgroundColor={'#EDEDED'}
         width={width}
         height={430}
         customStyle={{marginTop: 40}}
@@ -604,6 +582,31 @@ const LandingPageMenKurtas = () => {
         title={GetStoriesTitle}
         custumStyles={{marginTop: 40}}
       />
+
+      {/* <CommonCarousel
+        data={WomenCarouselData1}
+        width={width}
+        height={410}
+        customStyle={{marginTop: 40}}
+      /> */}
+
+      {/*<View style={Styles.chipbox}>
+        <Chip
+          title="Bestsellers"
+          handleClick={() => handleClick('Bestsellers')}
+          active={active}
+        />
+        <Chip
+          title="Recommended for you"
+          handleClick={() => handleClick('Recommended for you')}
+          active={active}
+        />
+      </View>
+      <View style={{marginLeft: 15, height: 470}}>
+        <CommonTopTab data={dataMap} />
+      </View>
+      
+       */}
     </ScrollView>
   );
 };

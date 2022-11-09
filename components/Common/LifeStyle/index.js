@@ -6,9 +6,9 @@ import {image} from '../../../assets/images';
 import {Styles} from './styles';
 
 export default function LifeStyle({
-  custumStyles = {},
   data = [],
   title = null,
+  backgroundColor = '',
   customViewStyle = {},
 }) {
   const cards = data.map((item, index) => {
@@ -19,7 +19,8 @@ export default function LifeStyle({
         style={[
           Styles.card,
           {
-            marginTop: index % 2 != 0 ? 33 : 15,
+            marginTop: index % 2 != 0 ? 30 : 10,
+            height: 340,
           },
         ]}>
         <LinearGradient
@@ -31,15 +32,28 @@ export default function LifeStyle({
     );
   });
   return (
-    <View style={[Styles.container, customViewStyle]}>
-      <View style={[Styles.containerBox, custumStyles]}>
-        {title()}
+    <View style={customViewStyle}>
+      <View
+        style={{
+          height: '75%',
+          width: '100%',
+          backgroundColor: backgroundColor,
+          position: 'absolute',
+          zIndex: -1,
+        }}></View>
+      {title()}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={Styles.ScrollContainer}>
+        {cards}
+      </ScrollView>
+      {/* <View style={[Styles.containerBox, custumStyles]}>
+        
         <View style={Styles.cardContainer}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {cards}
-          </ScrollView>
+          
         </View>
-      </View>
+      </View> */}
     </View>
   );
 }
