@@ -4,7 +4,7 @@ import TopBanner from './TopBanner';
 import {Colors} from '../../../../assets/Colors';
 import ResultCards from './ResultCards';
 
-export default function LandingPageSaris_Blouses() {
+export default function LandingPage360WFH() {
   return (
     <>
       <ScrollView
@@ -14,7 +14,7 @@ export default function LandingPageSaris_Blouses() {
           paddingBottom: 20,
         }}>
         <TopBanner />
-        <ResultCards data={[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]} />
+        <ResultCards data={[0, 0, 0, 0, 0, 0, 0]} />
       </ScrollView>
     </>
   );

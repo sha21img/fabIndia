@@ -5,7 +5,7 @@ import SingleProductCard from '../../Common/SingleProductCard';
 import {Styles} from './styles';
 import Fonts from '../../../assets/fonts';
 
-const SingleProduct = () => {
+const SingleProduct = ({data = [0]}) => {
   return (
     <>
       <View
@@ -20,10 +20,12 @@ const SingleProduct = () => {
       </View>
       <ScrollView
         contentContainerStyle={[Styles.scrollcontainer, {paddingBottom: 10}]}>
-        {[0].map(item => (
+        {data.map(item => (
           <SingleProductCard
             customViewStyle={{marginVertical: 10}}
             item={item}
+            Noti={true}
+            TREND={true}
           />
         ))}
       </ScrollView>

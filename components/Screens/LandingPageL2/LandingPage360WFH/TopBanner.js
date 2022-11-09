@@ -10,11 +10,11 @@ export default function TopBanner() {
       <ImageBackground
         resizeMode="cover"
         style={{width: '100%', height: 250}}
-        source={image.SarisBanner}>
+        source={image.lifeStyleImage}>
         <View
           style={{
-            backgroundColor: 'rgba(0,0,0,0.7)',
-            marginTop: 'auto',
+            backgroundColor: 'rgba(169, 145, 91, 0.69)',
+            // marginTop: 'auto',
             paddingVertical: 10,
             alignSelf: 'flex-start',
             marginVertical: 25,
@@ -27,7 +27,7 @@ export default function TopBanner() {
               lineHeight: 32,
               color: 'white',
             }}>
-            Block Print
+            Lifestyle 360
           </Text>
           <Text
             style={{
@@ -35,7 +35,7 @@ export default function TopBanner() {
               fontSize: 16,
               color: 'white',
             }}>
-            Rajasthan
+            Work from home
           </Text>
         </View>
       </ImageBackground>
@@ -47,7 +47,7 @@ export default function TopBanner() {
             lineHeight: 21,
             color: Colors.textcolor,
           }}>
-          A fascinating craft from the heart of India
+          Work from home made comfortable
         </Text>
         <Text
           style={{
@@ -57,9 +57,9 @@ export default function TopBanner() {
             color: Colors.textcolor,
             paddingVertical: 10,
           }}>
-          Wear your style on your sleeve with our collection of stunning silks,
-          gorgeous georgettes, charming cottons and a lot more - crafted to
-          perfection.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+          ornare dis pharetra metus, bibendum. Leo dui integer pulvinar ut.
+          Praesent pulvinar platea malesuada.
         </Text>
         <Text
           style={{
