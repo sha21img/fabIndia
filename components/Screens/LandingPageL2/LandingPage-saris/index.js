@@ -32,6 +32,7 @@ import StoriesCard from '../../../Common/StoriesCard';
 import JewelleryRange from '../../../Common/JewelleryRange';
 import {Styles} from './styles';
 import Videos from '../../../Common/Videos';
+import ColorCard from '../../../Common/ColorCard';
 const width = Dimensions.get('window').width;
 
 const LandingPageSaris = () => {
@@ -164,54 +165,54 @@ const LandingPageSaris = () => {
       </View>
     );
   };
-  const getBox = (dim, title = null) => {
-    return (
-      <>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <View
-            style={{
-              borderRadius: 50,
-              backgroundColor: '#97B7CF',
-              marginRight: 10,
-              // backgroundColor: imageColors.lightMuted,
-              height: dim,
-              width: dim,
-              // left: '-50%',
-              // top: 21,
-            }}></View>
-          <View
-            style={{
-              borderRadius: 50,
-              backgroundColor: '#477293',
-              marginRight: 10,
+  // const getBox = (dim, title = null) => {
+  //   return (
+  //     <>
+  //       <View
+  //         style={{
+  //           flexDirection: 'row',
+  //           alignItems: 'center',
+  //         }}>
+  //         <View
+  //           style={{
+  //             borderRadius: 50,
+  //             backgroundColor: '#97B7CF',
+  //             marginRight: 10,
+  //             // backgroundColor: imageColors.lightMuted,
+  //             height: dim,
+  //             width: dim,
+  //             // left: '-50%',
+  //             // top: 21,
+  //           }}></View>
+  //         <View
+  //           style={{
+  //             borderRadius: 50,
+  //             backgroundColor: '#477293',
+  //             marginRight: 10,
 
-              // backgroundColor: imageColors.muted,
-              height: dim,
-              width: dim,
-              // left: '-40%',
-              // top: 21,
-            }}></View>
-          <View
-            style={{
-              borderRadius: 50,
-              backgroundColor: '#1C384F',
-              marginRight: 10,
+  //             // backgroundColor: imageColors.muted,
+  //             height: dim,
+  //             width: dim,
+  //             // left: '-40%',
+  //             // top: 21,
+  //           }}></View>
+  //         <View
+  //           style={{
+  //             borderRadius: 50,
+  //             backgroundColor: '#1C384F',
+  //             marginRight: 10,
 
-              // backgroundColor: imageColors.darkMuted,
-              height: dim,
-              width: dim,
-              // top: 21,
-              // left: '-30%',
-            }}></View>
-        </View>
-        {title}
-      </>
-    );
-  };
+  //             // backgroundColor: imageColors.darkMuted,
+  //             height: dim,
+  //             width: dim,
+  //             // top: 21,
+  //             // left: '-30%',
+  //           }}></View>
+  //       </View>
+  //       {title}
+  //     </>
+  //   );
+  // };
   const WomenCarouselText1 = () => {
     return (
       <>
@@ -416,9 +417,38 @@ const LandingPageSaris = () => {
     name: item,
     screen: screenObj4[item],
   }));
+  // const getTitles = (title, heading) => {
+  //   return (
+  //     <View style={{alignItems: 'center'}}>
+  //       <Text
+  //         style={{
+  //           color: 'white',
+  //           fontFamily: Fonts.Assistant400,
+  //           fontSize: 14,
+  //         }}>
+  //         {title}
+  //       </Text>
+  //       {heading && (
+  //         <Text
+  //           style={{
+  //             color: 'white',
+  //             fontFamily: Fonts.PlayfairDisplay400Italic,
+  //             fontSize: 28,
+  //           }}>
+  //           {heading}
+  //         </Text>
+  //       )}
+  //     </View>
+  //   );
+  // };
   const getTitles = (title, heading) => {
     return (
-      <View style={{alignItems: 'center'}}>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 10,
+          paddingHorizontal: 10,
+        }}>
         <Text
           style={{
             color: 'white',
@@ -440,6 +470,61 @@ const LandingPageSaris = () => {
       </View>
     );
   };
+  const getBox = (dim, title = null) => {
+    return (
+      <>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <View
+            style={{
+              borderRadius: 50,
+              backgroundColor: '#97B7CF',
+              marginRight: 10,
+              // backgroundColor: imageColors.lightMuted,
+              height: dim,
+              width: dim,
+            }}></View>
+          <View
+            style={{
+              borderRadius: 50,
+              backgroundColor: '#477293',
+              marginRight: 10,
+
+              // backgroundColor: imageColors.muted,
+              height: dim,
+              width: dim,
+            }}></View>
+          <View
+            style={{
+              borderRadius: 50,
+              backgroundColor: '#1C384F',
+              marginRight: 10,
+
+              // backgroundColor: imageColors.darkMuted,
+              height: dim,
+              width: dim,
+            }}></View>
+        </View>
+      </>
+    );
+  };
+  const cardData = [
+    {
+      getTitles: getTitles('Beige & Neutrals', ''),
+      getBox: getBox(46),
+    },
+    {
+      getTitles: getTitles('Beige & Neutrals', ''),
+      getBox: getBox(46),
+    },
+    {
+      getTitles: getTitles('Beige & Neutrals', ''),
+      getBox: getBox(46),
+    },
+  ];
   const text = () => {
     return (
       <>
@@ -504,8 +589,12 @@ const LandingPageSaris = () => {
       <View style={{marginLeft: 15, height: 470}}>
         <CommonTopTab data={dataMap} />
       </View>
-
-      <View style={Styles.cardbox}>
+      <ColorCard
+        getBox={getBox(79)}
+        getTitles={getTitles('Our Colour of the Season', 'Hues of BLUE')}
+        cardData={cardData}
+      />
+      {/* <View style={Styles.cardbox}>
         <Text style={Styles.cardtxt}>What’s your color?</Text>
         <ImageBackground
           onLoadStart={async () => {
@@ -542,7 +631,7 @@ const LandingPageSaris = () => {
             );
           })}
         </ScrollView>
-      </View>
+      </View> */}
 
       <CommonCarousel
         data={WomenCarouselData1}

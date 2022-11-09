@@ -240,47 +240,7 @@ const LandingPageJewellery = () => {
   const handleClick = data => {
     setActive(data);
   };
-  const getBox = (dim, title = null) => {
-    return (
-      <>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <View
-            style={{
-              borderRadius: 50,
-              backgroundColor: '#97B7CF',
-              marginRight: 10,
-              // backgroundColor: imageColors.lightMuted,
-              height: dim,
-              width: dim,
-            }}></View>
-          <View
-            style={{
-              borderRadius: 50,
-              backgroundColor: '#477293',
-              marginRight: 10,
 
-              // backgroundColor: imageColors.muted,
-              height: dim,
-              width: dim,
-            }}></View>
-          <View
-            style={{
-              borderRadius: 50,
-              backgroundColor: '#1C384F',
-              marginRight: 10,
-
-              // backgroundColor: imageColors.darkMuted,
-              height: dim,
-              width: dim,
-            }}></View>
-        </View>
-      </>
-    );
-  };
   const getTitles = (title, heading) => {
     return (
       <View

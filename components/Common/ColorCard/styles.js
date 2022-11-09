@@ -17,7 +17,7 @@ export const Styles = StyleSheet.create({
   backgroundimagebox: {
     position: 'absolute',
     left: -40,
-    bottom: 10,
+    bottom: 70,
     width: '100%',
     flexWrap: 'wrap',
   },
