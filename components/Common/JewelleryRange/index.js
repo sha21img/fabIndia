@@ -9,7 +9,12 @@ import {
 import Fonts from '../../../assets/fonts';
 import {Styles} from './style';
 
-const JewelleryRange = ({title, JewelleryRangeData}) => {
+const JewelleryRange = ({
+  title,
+  JewelleryRangeData,
+  customViewStyle = {},
+  backgroundColor = '',
+}) => {
   const [count, setCount] = useState([]);
 
   useEffect(() => {
@@ -39,7 +44,7 @@ const JewelleryRange = ({title, JewelleryRangeData}) => {
             Styles.CardBodyContainer,
             {
               height: count.includes(index) ? 147 : 270,
-              marginTop: index % 2 == 0 && index % 4 != 0 ? 50 : 20,
+              marginTop: index % 2 == 0 && index % 4 != 0 ? 30 : 10,
             },
           ]}>
           <View
@@ -64,18 +69,22 @@ const JewelleryRange = ({title, JewelleryRangeData}) => {
   });
 
   return (
-    <View style={{height: 556}}>
-      <View style={Styles.GalleryContainer}>
-        <View style={Styles.HeadingContainer}>{title()}</View>
-        <View style={Styles.scrollingContainer}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={Styles.ScrollContainer}>
-            {Cards}
-          </ScrollView>
-        </View>
-      </View>
+    <View style={customViewStyle}>
+      <View
+        style={{
+          height: '75%',
+          width: '100%',
+          backgroundColor: backgroundColor,
+          position: 'absolute',
+          zIndex: -1,
+        }}></View>
+      {title()}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={Styles.ScrollContainer}>
+        {Cards}
+      </ScrollView>
     </View>
   );
 };

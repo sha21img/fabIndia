@@ -34,7 +34,7 @@ import {Styles} from './styles';
 import Videos from '../../../Common/Videos';
 const width = Dimensions.get('window').width;
 
-const LandingPageSaris = () => {
+const LandingPageMenKurtas = () => {
   const [paused, setPaused] = useState(true);
   const [active, setActive] = React.useState('Bestsellers');
   const [imageColors, setImageColors] = React.useState({});
@@ -462,7 +462,9 @@ const LandingPageSaris = () => {
       />
       <JewelleryRange
         title={() => (
-          <Text style={Styles.jewellerytxt}>Saris for every mood</Text>
+          <Text style={Styles.jewellerytxt}>
+            A range of kurtas for every ocassion!
+          </Text>
         )}
         JewelleryRangeData={JewelleryRangeData}
       />
@@ -606,4 +608,4 @@ const LandingPageSaris = () => {
   );
 };
 
-export default LandingPageSaris;
+export default LandingPageMenKurtas;
