@@ -5,19 +5,19 @@ export const Styles = StyleSheet.create({
     marginLeft: 15,
     width: 215,
   },
-  GalleryContainer:{
+  GalleryContainer: {
     height: 408,
     position: 'relative',
     backgroundColor: '#EDEDED',
     paddingTop: 40,
   },
-  HeadingContainer:{marginLeft: 15},
-  scrollingContainer:{position: 'absolute', top: 45},
-  ScrollContainer:{
+  HeadingContainer: {marginLeft: 15},
+  scrollingContainer: {position: 'absolute', top: 45},
+  ScrollContainer: {
     height: 490,
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: 'center',
-  }
+  },
 });

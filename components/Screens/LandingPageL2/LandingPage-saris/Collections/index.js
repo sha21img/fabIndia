@@ -20,7 +20,7 @@ const collectionData = [
 const Collections = ({customStyle}) => {
   return (
     <View style={customStyle}>
-      <Text style={Styles.collectiontxt}>Collections</Text>
+      <Text style={Styles.collectiontxt}>Complete your collection</Text>
       <ScrollView horizontal contentContainerStyle={Styles.container}>
         {collectionData.map(item => (
           <CollectionCard item={item} />
