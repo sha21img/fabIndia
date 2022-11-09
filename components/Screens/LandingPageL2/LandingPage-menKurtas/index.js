@@ -32,6 +32,7 @@ import StoriesCard from '../../../Common/StoriesCard';
 import JewelleryRange from '../../../Common/JewelleryRange';
 import {Styles} from './styles';
 import Videos from '../../../Common/Videos';
+import ColorCard from '../../../Common/ColorCard';
 const width = Dimensions.get('window').width;
 
 const LandingPageMenKurtas = () => {
@@ -416,9 +417,15 @@ const LandingPageMenKurtas = () => {
     name: item,
     screen: screenObj4[item],
   }));
+
   const getTitles = (title, heading) => {
     return (
-      <View style={{alignItems: 'center'}}>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 10,
+          paddingHorizontal: 10,
+        }}>
         <Text
           style={{
             color: 'white',
@@ -440,6 +447,17 @@ const LandingPageMenKurtas = () => {
       </View>
     );
   };
+  const cardData = [
+    {
+      getTitles: getTitles('Beige & Neutrals', ''),
+    },
+    {
+      getTitles: getTitles('Beige & Neutrals', ''),
+    },
+    {
+      getTitles: getTitles('Beige & Neutrals', ''),
+    },
+  ];
   const text = () => {
     return (
       <>
@@ -526,8 +544,11 @@ const LandingPageMenKurtas = () => {
       <View style={{marginLeft: 15, height: 470}}>
         <CommonTopTab data={dataMap} />
       </View>
-
-      <View style={Styles.cardbox}>
+      <ColorCard
+        getTitles={getTitles('Our Colour of the Season', 'Hues of BLUE')}
+        cardData={cardData}
+      />
+      {/* <View style={Styles.cardbox}>
         <Text style={Styles.cardtxt}>What’s your color?</Text>
         <ImageBackground
           onLoadStart={async () => {
@@ -562,7 +583,7 @@ const LandingPageMenKurtas = () => {
             );
           })}
         </ScrollView>
-      </View>
+      </View> */}
       <OfferCommonCarousel
         data={OfferData}
         backgroundColor={'#EDEDED'}

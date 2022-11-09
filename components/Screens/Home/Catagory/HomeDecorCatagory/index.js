@@ -360,7 +360,7 @@ const HomeDecorCatagory = () => {
       <StoriesCard
         data={StoriesCardData}
         title={GetStoriesTitle}
-        custumStyles={Styles.storycardbox}
+        custumStyles={{marginTop: 40, backgroundColor: '#908EA6'}}
       />
     </ScrollView>
   );

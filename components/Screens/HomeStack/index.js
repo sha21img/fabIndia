@@ -1,4 +1,4 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../Home';
@@ -29,6 +29,8 @@ import LandingPageSaris_Blouses from '../LandingPageL2/LandingPageSaris_Blouses'
 import LandingPageBedsheets from '../LandingPageL2/LandingPageBedsheets';
 import LandingPageDiningTable from '../LandingPageL2/LandingPageDiningTable';
 import LandingPage360WFH from '../LandingPageL2/LandingPage360WFH';
+import LandingPagebedroom from '../LandingPageL2/LandingPage-bedroom';
+
 const Stack = createNativeStackNavigator();
 
 export default function HomeStack() {
@@ -378,6 +380,23 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Bedsheets"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="LandingPagebedroom"
+        component={LandingPagebedroom}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Bedroom"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
