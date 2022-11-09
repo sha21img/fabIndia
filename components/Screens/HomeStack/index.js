@@ -42,7 +42,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="FabulousCardDetails">
+    <Stack.Navigator initialRouteName="LandingPageSaris">
       <Stack.Screen
         name="Home"
         component={Home}

@@ -43,7 +43,7 @@ const LifeStyleCard = () => {
     <LifeStyle
       data={LifeStyleData}
       title={GetLifeStyleTitle}
-      customViewStyle={{marginTop: 10}}
+      customViewStyle={{paddingTop: 40}}
     />
   );
 };

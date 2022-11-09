@@ -11,7 +11,6 @@ import React, {useEffect, useState} from 'react';
 import Video from 'react-native-video';
 import {image} from '../../../../assets/images';
 import VideoPlayer from 'react-native-video-player';
-import {createThumbnail} from 'react-native-create-thumbnail';
 import Fonts from '../../../../assets/fonts';
 import Chip from '../../../Common/Chip';
 import CommonTopTab from '../../../Common/CommonTopTab';
@@ -30,6 +29,9 @@ import Collections from './Collections';
 import LifeStyleCard from './LifeStyleCard';
 import PointDetailCard from '../../../Common/PointDetailCard';
 import StoriesCard from '../../../Common/StoriesCard';
+import JewelleryRange from '../../../Common/JewelleryRange';
+import {Styles} from './styles';
+import Videos from '../../../Common/Videos';
 const width = Dimensions.get('window').width;
 
 const LandingPageSaris = () => {
@@ -120,23 +122,6 @@ const LandingPageSaris = () => {
       </>
     );
   };
-  const viewStyle = {height: 380};
-  const player = React.useRef(null);
-  const [a, setA] = useState();
-  let thumbnailUrl;
-  useEffect(() => {
-    createThumbnail({
-      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-      timeStamp: 10000,
-    })
-      .then(response => {
-        console.log('thumbnail', response);
-        thumbnailUrl = response.path;
-        setA(response.path);
-      })
-      .catch(err => console.log('thumbnail err', err));
-  }, []);
-  console.log('thumbnailUrlthumbnailUrl', thumbnailUrl);
   const handleClick = data => {
     setActive(data);
   };
@@ -235,7 +220,7 @@ const LandingPageSaris = () => {
             style={{
               fontSize: 26,
               color: 'white',
-              fontFamily: Fonts.PlayfairDisplay400Italic,
+              fontFamily: Fonts.PlayfairDisplay700Italic,
             }}>
             For the Golden Girl
           </Text>
@@ -366,6 +351,48 @@ const LandingPageSaris = () => {
       description: 'Tanya pairs out Dabu printed kurta with a chanderi dupatta',
     },
   ];
+  const JewelleryRangeData = [
+    {
+      image: image.furniture3,
+      name: 'Bangles & Bracelets',
+    },
+    {
+      image: image.furniture4,
+      name: 'Anklets',
+    },
+    {
+      image: image.furniture2,
+      name: 'Rings',
+    },
+    {
+      image: image.furniture3,
+      name: 'Nose and Pins',
+    },
+    {
+      image: image.furniture4,
+      name: 'Dining',
+    },
+    {
+      image: image.furniture2,
+      name: 'Bedroom',
+    },
+    {
+      image: image.furniture2,
+      name: 'Bedroom',
+    },
+    {
+      image: image.furniture2,
+      name: 'Bedroom',
+    },
+    {
+      image: image.furniture2,
+      name: 'Bedroom',
+    },
+    {
+      image: image.furniture2,
+      name: 'Bedroom',
+    },
+  ];
   const HomeScreen1 = item => {
     return (
       <ScrollView
@@ -413,84 +440,36 @@ const LandingPageSaris = () => {
       </View>
     );
   };
-  return (
-    <ScrollView
-      contentContainerStyle={{
-        flexGrow: 1,
-        paddingBottom: 30,
-        backgroundColor: '#FFFFFF',
-      }}>
-      <View style={{position: 'relative'}}>
-        <VideoPlayer
-          // disableControlsAutoHide={true}
-          // hideControlsOnStart={true}
-          // disableSeek={true}
-          // showDuration={false}
-          // useNativeDriver={true}
-          // disableTimer={true}
-          video={{
-            uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-          }}
-          videoHeight={1200}
-          // onPlayPress={() => console.log('hihih')}
-          pauseOnPress={() => console.log('hihih')}
-          // onStart={() => console.log('hihih')}
-          onLoad={() => {
-            // console.log('hiiiiiiiiiiiiiiiiii');
-          }}
-          resizeMode="cover"
-          thumbnail={{uri: a}}
-          endThumbnail={{uri: a}}
-          // showDuration={true}
-        />
-        <View
-          style={{
-            position: 'absolute',
-            alignSelf: 'center',
-            top: '60%',
-          }}>
-          <View
-            style={{
-              paddingHorizontal: 15,
-              paddingVertical: 5,
-              marginBottom: 5,
-              textAlign: 'center',
-              backgroundColor: '#816481',
-            }}>
-            <Text
-              style={{
-                textAlign: 'center',
-                color: '#FFFFFF',
-                fontFamily: Fonts.PlayfairDisplay700,
-              }}>
-              ONE SARI
-            </Text>
+  const text = () => {
+    return (
+      <>
+        <View style={Styles.videotxtbox}>
+          <View style={Styles.topheadbox}>
+            <Text style={Styles.topheadtxt}>ONE SARI</Text>
           </View>
-          <View
-            style={{
-              paddingHorizontal: 15,
-              paddingVertical: 5,
-              backgroundColor: '#816481',
-            }}>
-            <Text
-              style={{
-                textAlign: 'center',
-                color: '#FFFFFF',
-                fontFamily: Fonts.PlayfairDisplay400,
-              }}>
-              FIVE DRAPES
-            </Text>
+          <View style={Styles.bottomheadbox}>
+            <Text style={Styles.bottomheadtxt}>FIVE DRAPES</Text>
           </View>
         </View>
-      </View>
+      </>
+    );
+  };
+  return (
+    <ScrollView contentContainerStyle={Styles.container}>
+      <Videos
+        text={text}
+        url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+      />
+      <JewelleryRange
+        title={() => (
+          <Text numberOfLines={1} style={Styles.jewellerytxt}>
+            Saris for every mood
+          </Text>
+        )}
+        JewelleryRangeData={JewelleryRangeData}
+      />
 
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-          marginTop: 10,
-        }}>
+      <View style={Styles.chipbox}>
         <Chip
           title="Bestsellers"
           handleClick={() => handleClick('Bestsellers')}
@@ -502,23 +481,17 @@ const LandingPageSaris = () => {
           active={active}
         />
       </View>
-      <View style={{marginLeft: 15, height: 470}}>
+      <View style={Styles.commontab}>
         <CommonTopTab data={dataMap} />
       </View>
       <NewHighlights
         title={getTitle('It’s all about the', 'fabric')}
         data={WomenHighlightData}
         bgColor={{backgroundColor: '#EDEDED'}}
-        customStyle={{marginVertical: 20}}
+        customStyle={{marginVertical: 40}}
       />
       <CommonCarousel data={WomenCarouselData} width={width} height={410} />
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-          marginTop: 10,
-        }}>
+      <View style={Styles.chipbox}>
         <Chip
           title="Bestsellers"
           handleClick={() => handleClick('Bestsellers')}
@@ -534,15 +507,8 @@ const LandingPageSaris = () => {
         <CommonTopTab data={dataMap} />
       </View>
 
-      <View style={{paddingHorizontal: 15}}>
-        <Text
-          style={{
-            fontFamily: Fonts.PlayfairDisplay600Italic,
-            fontSize: 20,
-            color: Colors.textcolor,
-          }}>
-          What’s your color?
-        </Text>
+      <View style={Styles.cardbox}>
+        <Text style={Styles.cardtxt}>What’s your color?</Text>
         <ImageBackground
           onLoadStart={async () => {
             const color = await getColor(image.huesblue);
@@ -551,20 +517,8 @@ const LandingPageSaris = () => {
           }}
           resizeMode="cover"
           source={image.huesblue}
-          style={{
-            height: 180,
-            width: '100%',
-            overflow: 'hidden',
-          }}>
-          <View
-            style={{
-              position: 'absolute',
-              left: -40,
-              top: 21,
-              // bottom: dim == 46 ? 10 : null,
-              width: '100%',
-              flexWrap: 'wrap',
-            }}>
+          style={Styles.backgoundimage}>
+          <View style={Styles.backgroundimagebox}>
             {getBox(79)}
             {getTitles('Our Colour of the Season', 'Hues of BLUE')}
           </View>
@@ -581,21 +535,8 @@ const LandingPageSaris = () => {
                 }}
                 resizeMode="cover"
                 source={image.huesblue}
-                style={{
-                  height: 140,
-                  width: 140,
-                  overflow: 'hidden',
-                  marginTop: 10,
-                  marginRight: 10,
-                }}>
-                <View
-                  style={{
-                    position: 'absolute',
-                    left: -23,
-                    bottom: 10,
-                    width: '100%',
-                    flexWrap: 'wrap',
-                  }}>
+                style={Styles.backgoundimage1}>
+                <View style={Styles.backgroundimagebox1}>
                   {getBox(46)}
                   {getTitles('Beige & Neutrals', '')}
                 </View>
@@ -611,23 +552,9 @@ const LandingPageSaris = () => {
         height={410}
         customStyle={{marginTop: 40}}
       />
-      <View style={{paddingHorizontal: 15}}>
-        <Text
-          style={{
-            fontFamily: Fonts.PlayfairDisplay600Italic,
-            fontSize: 20,
-            color: Colors.textcolor,
-          }}>
-          Play with patterns
-        </Text>
-        <ScrollView
-          horizontal
-          contentContainerStyle={{
-            height: 290,
-            flexGrow: 1,
-            flexDirection: 'column',
-            flexWrap: 'wrap',
-          }}>
+      <View style={Styles.catbox}>
+        <Text style={Styles.playpatterntxt}>Play with patterns</Text>
+        <ScrollView horizontal contentContainerStyle={Styles.scrollcont}>
           {/* <View style={{height: 270, flexDirection: 'column'}}> */}
           {[0, 1, 2, 3, 4, 5].map(it => {
             return (
@@ -635,36 +562,27 @@ const LandingPageSaris = () => {
                 resizeMode="cover"
                 source={image.huesblue}
                 imageStyle={{borderRadius: 100}}
-                style={{
-                  height: 130,
-                  marginRight: 10,
-                  marginTop: 10,
-                  width: 130,
-                  borderRadius: 100,
-                  alignItems: 'center',
-                  justifyContent: 'flex-end',
-                  paddingBottom: 10,
-                }}>
-                <View
-                  style={{
-                    borderRadius: 5,
-                    padding: 3,
-                    backgroundColor: 'rgba(143, 141, 139, 0.5)',
-                  }}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontFamily: Fonts.Assistant400,
-                      fontSize: 12,
-                    }}>
-                    Woven
-                  </Text>
+                style={Styles.backgroundimagebox2}>
+                <View style={Styles.txtbox}>
+                  <Text style={Styles.txt}>Woven</Text>
                 </View>
               </ImageBackground>
             );
           })}
           {/* </View> */}
         </ScrollView>
+      </View>
+      <View style={Styles.chipbox}>
+        <Chip
+          title="Bestsellers"
+          handleClick={() => handleClick('Bestsellers')}
+          active={active}
+        />
+        <Chip
+          title="Recommended for you"
+          handleClick={() => handleClick('Recommended for you')}
+          active={active}
+        />
       </View>
       <View style={{marginLeft: 15, height: 470}}>
         <CommonTopTab data={dataMap} />
@@ -676,9 +594,9 @@ const LandingPageSaris = () => {
         height={430}
         customStyle={{marginTop: 40}}
       />
-      <Collections customStyle={{marginVertical: 15}} />
+      <Collections customStyle={{paddingTop: 40}} />
       <LifeStyleCard />
-      <View style={{paddingLeft: 15, height: 520}}>
+      <View style={{paddingLeft: 15, height: 540, paddingTop: 20}}>
         <CommonTopTab data={dataMap3} />
       </View>
       <StoriesCard
