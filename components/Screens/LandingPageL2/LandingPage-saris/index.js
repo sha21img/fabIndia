@@ -11,7 +11,6 @@ import React, {useEffect, useState} from 'react';
 import Video from 'react-native-video';
 import {image} from '../../../../assets/images';
 import VideoPlayer from 'react-native-video-player';
-import {createThumbnail} from 'react-native-create-thumbnail';
 import Fonts from '../../../../assets/fonts';
 import Chip from '../../../Common/Chip';
 import CommonTopTab from '../../../Common/CommonTopTab';
@@ -32,6 +31,7 @@ import PointDetailCard from '../../../Common/PointDetailCard';
 import StoriesCard from '../../../Common/StoriesCard';
 import JewelleryRange from '../../../Common/JewelleryRange';
 import {Styles} from './styles';
+import Videos from '../../../Common/Videos';
 const width = Dimensions.get('window').width;
 
 const LandingPageSaris = () => {
@@ -122,23 +122,6 @@ const LandingPageSaris = () => {
       </>
     );
   };
-  const viewStyle = {height: 380};
-  const player = React.useRef(null);
-  const [a, setA] = useState();
-  let thumbnailUrl;
-  useEffect(() => {
-    createThumbnail({
-      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-      timeStamp: 10000,
-    })
-      .then(response => {
-        console.log('thumbnail', response);
-        thumbnailUrl = response.path;
-        setA(response.path);
-      })
-      .catch(err => console.log('thumbnail err', err));
-  }, []);
-  console.log('thumbnailUrlthumbnailUrl', thumbnailUrl);
   const handleClick = data => {
     setActive(data);
   };
@@ -457,31 +440,9 @@ const LandingPageSaris = () => {
       </View>
     );
   };
-  return (
-    <ScrollView contentContainerStyle={Styles.container}>
-      <View>
-        <VideoPlayer
-          // disableControlsAutoHide={true}
-          // hideControlsOnStart={true}
-          // disableSeek={true}
-          // showDuration={false}
-          // useNativeDriver={true}
-          // disableTimer={true}
-          video={{
-            uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-          }}
-          videoHeight={1200}
-          // onPlayPress={() => console.log('hihih')}
-          pauseOnPress={() => console.log('hihih')}
-          // onStart={() => console.log('hihih')}
-          onLoad={() => {
-            // console.log('hiiiiiiiiiiiiiiiiii');
-          }}
-          resizeMode="cover"
-          thumbnail={{uri: a}}
-          endThumbnail={{uri: a}}
-          // showDuration={true}
-        />
+  const text = () => {
+    return (
+      <>
         <View style={Styles.videotxtbox}>
           <View style={Styles.topheadbox}>
             <Text style={Styles.topheadtxt}>ONE SARI</Text>
@@ -490,7 +451,15 @@ const LandingPageSaris = () => {
             <Text style={Styles.bottomheadtxt}>FIVE DRAPES</Text>
           </View>
         </View>
-      </View>
+      </>
+    );
+  };
+  return (
+    <ScrollView contentContainerStyle={Styles.container}>
+      <Videos
+        text={text}
+        url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+      />
       <JewelleryRange
         title={() => (
           <Text numberOfLines={1} style={Styles.jewellerytxt}>

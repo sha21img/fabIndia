@@ -10,7 +10,7 @@ export const Styles = StyleSheet.create({
   videotxtbox: {
     position: 'absolute',
     alignSelf: 'center',
-    top: '60%',
+    top: '65%',
   },
   topheadbox: {
     paddingHorizontal: 15,
