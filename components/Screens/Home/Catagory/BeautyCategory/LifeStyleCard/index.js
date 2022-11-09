@@ -9,14 +9,16 @@ const LifeStyleData = [
 ];
 const GetLifeStyleTitle = () => {
   return (
-    <>
+    <View
+      style={{
+        paddingTop: 20,
+        paddingHorizontal: 15,
+      }}>
       <Text
         style={{
           fontFamily: Fonts.PlayfairDisplay600,
           color: '#4A4A4A',
           fontSize: 30,
-          marginHorizontal: 20,
-          marginBottom: 5,
         }}>
         Lifestyle 360
       </Text>
@@ -27,12 +29,11 @@ const GetLifeStyleTitle = () => {
             color: '#4A4A4A',
             lineHeight: 23,
             fontFamily: Fonts.Assistant400,
-            marginHorizontal: 20,
           }}>
           Combos that’ll keep you feeling fab!
         </Text>
       </View>
-    </>
+    </View>
   );
 };
 
@@ -42,6 +43,7 @@ const LifeStyleCard = () => {
       data={LifeStyleData}
       title={GetLifeStyleTitle}
       customViewStyle={{marginTop: 20}}
+      backgroundColor="#EFE5E0"
     />
   );
 };
