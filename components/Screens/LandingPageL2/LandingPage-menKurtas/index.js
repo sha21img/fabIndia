@@ -512,7 +512,6 @@ const LandingPageMenKurtas = () => {
         <ImageBackground
           onLoadStart={async () => {
             const color = await getColor(image.huesblue);
-            console.log('color', color);
             setImageColors(color);
           }}
           resizeMode="cover"
@@ -530,7 +529,6 @@ const LandingPageMenKurtas = () => {
               <ImageBackground
                 onLoadStart={async () => {
                   const color = await getColor(image.huesblue);
-                  console.log('color', color);
                   setImageColors(color);
                 }}
                 resizeMode="cover"
