@@ -127,4 +127,5 @@ export const image = {
   TrendyHeader: require('./TrendyHeader.png'),
   TrendyDesign: require('./TrendyDesign.png'),
   GroupDots: require('./groupDots.png'),
+  SarisBanner: require('./SarisBanner.png'),
 };

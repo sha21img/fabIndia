@@ -25,6 +25,8 @@ import {useNavigation} from '@react-navigation/native';
 import LandingPageSaris from '../LandingPageL2/LandingPage-saris';
 import LandingPageJewellery from '../LandingPageL2/LandingPageJewellery';
 import LandingPageMenKurtas from '../LandingPageL2/LandingPage-menKurtas';
+import LandingPageSaris_Blouses from '../LandingPageL2/LandingPageSaris_Blouses';
+
 const Stack = createNativeStackNavigator();
 
 export default function HomeStack() {
@@ -44,7 +46,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="LandingPageJewellery">
+    <Stack.Navigator initialRouteName="LandingPageSaris_Blouses">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -342,6 +344,22 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Men’s Kurtas"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="LandingPageSaris_Blouses"
+        component={LandingPageSaris_Blouses}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Block Print Saris & Blouses"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
