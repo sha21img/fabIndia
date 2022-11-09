@@ -1,6 +1,13 @@
 import react, {useEffect, useState} from 'react';
-import {Dimensions, ImageBackground, ScrollView, View} from 'react-native';
-import { Styles } from './style';
+import {
+  Dimensions,
+  ImageBackground,
+  ScrollView,
+  View,
+  Text,
+} from 'react-native';
+import Fonts from '../../../assets/fonts';
+import {Styles} from './style';
 
 const JewelleryRange = ({title, JewelleryRangeData}) => {
   const [count, setCount] = useState([]);
@@ -24,23 +31,41 @@ const JewelleryRange = ({title, JewelleryRangeData}) => {
 
   const Cards = JewelleryRangeData.map((el, index) => {
     return (
-      <ImageBackground
-        key={Math.random() * 3726562}
-        source={el.image}
-        style={[
-          Styles.CardBodyContainer,
-          {
-            height: count.includes(index) ? 147 : 270,
-            marginTop: index % 2 == 0 && index % 4 != 0 ? 50 : 20,
-          },
-        ]}></ImageBackground>
+      <>
+        <ImageBackground
+          key={Math.random() * 3726562}
+          source={el.image}
+          style={[
+            Styles.CardBodyContainer,
+            {
+              height: count.includes(index) ? 147 : 270,
+              marginTop: index % 2 == 0 && index % 4 != 0 ? 50 : 20,
+            },
+          ]}>
+          <View
+            style={{
+              bottom: 0,
+              position: 'absolute',
+              paddingVertical: 10,
+              paddingHorizontal: 12,
+            }}>
+            <Text
+              style={{
+                color: 'white',
+                fontFamily: Fonts.Assistant400,
+                fontSize: 16,
+              }}>
+              {el.name}
+            </Text>
+          </View>
+        </ImageBackground>
+      </>
     );
   });
 
   return (
     <View style={{height: 556}}>
-      <View
-        style={Styles.GalleryContainer}>
+      <View style={Styles.GalleryContainer}>
         <View style={Styles.HeadingContainer}>{title()}</View>
         <View style={Styles.scrollingContainer}>
           <ScrollView
