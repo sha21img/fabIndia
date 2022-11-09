@@ -23,6 +23,8 @@ import Fabulous from '../Fabulous';
 import NewArrivals from '../NewArrivals';
 import {useNavigation} from '@react-navigation/native';
 import LandingPageSaris from '../LandingPageL2/LandingPage-saris';
+import LandingPageJewellery from '../LandingPageL2/LandingPageJewellery';
+import LandingPageMenKurtas from '../LandingPageL2/LandingPage-menKurtas';
 const Stack = createNativeStackNavigator();
 
 export default function HomeStack() {
@@ -42,7 +44,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="LandingPageSaris">
+    <Stack.Navigator initialRouteName="LandingPageMenKurtas">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -316,7 +318,7 @@ export default function HomeStack() {
           ),
         }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="FabulousCardDetails"
         component={FabulousCardDetails}
         options={{
@@ -331,7 +333,39 @@ export default function HomeStack() {
             />
           ),
         }}
-      /> */}
+      />
+      <Stack.Screen
+        name="LandingPageJewellery"
+        component={LandingPageJewellery}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Jewellery"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="LandingPageMenKurtas"
+        component={LandingPageMenKurtas}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Men’s Kurtas"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 }
