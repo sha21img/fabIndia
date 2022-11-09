@@ -2,11 +2,17 @@ import {View, Text, TouchableOpacity, LogBox} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
+import FabulousCardDetails from './components/Screens/FabulousCardDetails';
 import MainScreen from './components/Screens/MainScreen';
 import NetInfo from '@react-native-community/netinfo';
+import Header from './components/Common/Header';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+// import {useNavigation} from '@react-navigation/native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {Colors} from './assets/Colors';
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+export default function App(props) {
   const [netInfo, setNetInfo] = useState('');
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
@@ -31,15 +37,48 @@ export default function App() {
   useEffect(() => {
     LogBox.ignoreAllLogs();
   }, []);
-
+  const leftIcon = props => {
+    return (
+      <TouchableOpacity onPress={() => props.navigation.goBack()}>
+        <SimpleLineIcons
+          name="arrow-left"
+          color={Colors.primarycolor}
+          size={20}
+        />
+      </TouchableOpacity>
+    );
+  };
+  const rightIcon = (
+    <TouchableOpacity>
+      <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
+    </TouchableOpacity>
+  );
   if (netInfo) {
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="FabulousCardDetails">
           <Stack.Screen
             name="MainScreen"
             component={MainScreen}
             options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="FabulousCardDetails"
+            component={FabulousCardDetails}
+            options={{
+              header: props => {
+                return (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="FabulousCardDetails"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                    }}
+                  />
+                );
+              },
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>

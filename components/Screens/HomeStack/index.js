@@ -319,6 +319,22 @@ export default function HomeStack() {
         }}
       />
       <Stack.Screen
+        name="FabulousCardDetails"
+        component={FabulousCardDetails}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="FabulousCardDetails"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
         name="LandingPageJewellery"
         component={LandingPageJewellery}
         options={{
