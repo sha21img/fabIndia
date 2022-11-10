@@ -32,6 +32,7 @@ import CommonCarousel from '../../../../Common/CommonCarousel';
 import ArCarousel from '../../../../Common/ArCarousel';
 import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
 import TopSwiper from '../../../../Common/TopSwiper';
+import {getData} from '../../../../Common/Helper';
 const width = Dimensions.get('window').width;
 
 const WomenHighlightData = [
@@ -80,9 +81,28 @@ const OfferData = [
   },
 ];
 const KidsCatagory = () => {
-  const [imgActive1, setImgActive1] = React.useState(0);
-
   const [active, setActive] = React.useState('Bestsellers');
+  const [imgActive1, setImgActive1] = React.useState(0);
+  const [dashboardData, setDashboardData] = React.useState([]);
+  const [Ids, setIds] = React.useState([]);
+  const getInitialData = async () => {
+    const response = await getData('fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fkids&lang=en&curr=INR');
+    setDashboardData(response.contentSlots.contentSlot);
+    getIds(response.contentSlots.contentSlot);
+  };
+  const getIds = data => {
+    let datas = [];
+    const newArray = data.map(item => {
+      datas.push(item.position);
+      return datas;
+    });
+    setIds(datas);
+    // console.log('first', newArray);
+  };
+
+  React.useEffect(() => {
+    getInitialData();
+  }, []);
 
   const getTitle = (heading, title) => {
     return (
@@ -311,14 +331,9 @@ const KidsCatagory = () => {
         paddingBottom: 20,
         flexGrow: 1,
       }}>
-      {/* <TopGallary /> */}
-      <TopSwiper
-        data={[
-          {banner: image.kidinterior1},
-          {banner: image.banner1},
-          {banner: image.kidinterior2},
-        ]}
-      />
+      {Ids.includes('Section1') && (
+        <TopSwiper data={dashboardData} position="Section1" />
+      )}
       <NewHighlights
         title={getTitle('', 'Infants')}
         data={WomenHighlightData}
