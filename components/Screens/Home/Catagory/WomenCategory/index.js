@@ -24,6 +24,7 @@ import Chip from '../../../../Common/Chip';
 import CollectionCard from '../../../../Common/CollectionCard';
 import CommonCarousel from '../../../../Common/CommonCarousel';
 import CommonTopTab from '../../../../Common/CommonTopTab';
+import {getData} from '../../../../Common/Helper';
 import LifeStyle from '../../../../Common/LifeStyle';
 import NewHighlights from '../../../../Common/NewHighlights';
 import OfferCard from '../../../../Common/OfferCard';
@@ -37,6 +38,26 @@ const width = Dimensions.get('window').width;
 const WomenCategory = () => {
   const [imgActive1, setImgActive1] = React.useState(0);
   const [active, setActive] = React.useState('');
+  const [dashboardData, setDashboardData] = React.useState([]);
+  const [Ids, setIds] = React.useState([]);
+  const getInitialData = async () => {
+    const response = await getData('fabindiab2c/cms/pages?lang=en&curr=INR');
+    setDashboardData(response.contentSlots.contentSlot);
+    getIds(response.contentSlots.contentSlot);
+  };
+  const getIds = data => {
+    let datas = [];
+    const newArray = data.map(item => {
+      datas.push(item.position);
+      return datas;
+    });
+    setIds(datas);
+    // console.log('first', newArray);
+  };
+
+  React.useEffect(() => {
+    getInitialData();
+  }, []);
   const StoriesCardData = [
     {
       Image: image.womenStoryCardPic,
@@ -474,13 +495,16 @@ const WomenCategory = () => {
           </View>
         </View>
       </View> */}
-      <TopSwiper
+      {Ids.includes('Section1') && (
+        <TopSwiper data={dashboardData} position="Section1" />
+      )}
+      {/* <TopSwiper
         data={[
           {banner: image.kidinterior1},
           {banner: image.banner1},
           {banner: image.kidinterior2},
         ]}
-      />
+      /> */}
       {/* ==============Women Listing========== */}
       <NewHighlights
         title={getTitle('', 'Apparel')}

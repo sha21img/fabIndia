@@ -38,6 +38,7 @@ import SimpleCard from '../../Common/SimpleCard';
 import Fonts from '../../../assets/fonts';
 import TopSwiper from '../../Common/TopSwiper';
 import axios from 'axios';
+import {getData} from '../../Common/Helper';
 const width = Dimensions.get('window').width;
 
 const categoryData = [
@@ -607,27 +608,22 @@ export default function Dashbord() {
   const [active, setActive] = React.useState('Bestsellers');
   const [dashboardData, setDashboardData] = React.useState([]);
   const [Ids, setIds] = React.useState([]);
-  const getData = async () => {
-    const response = await axios.get(
-      'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/occ/v2/fabindiab2c/cms/pages?lang=en&curr=INR',
-    );
-    // console.log('response,', response.data.contentSlots.contentSlot);
-    setDashboardData(response.data.contentSlots.contentSlot);
-    getIds(response.data.contentSlots.contentSlot);
+  const getInitialData = async () => {
+    const response = await getData('fabindiab2c/cms/pages?lang=en&curr=INR');
+    setDashboardData(response.contentSlots.contentSlot);
+    getIds(response.contentSlots.contentSlot);
   };
   const getIds = data => {
+    let datas = [];
     const newArray = data.map(item => {
-      // console.log('aaaa', item.slotId);
-      return setIds(prev => {
-        return [...prev, item.slotId];
-      });
+      datas.push(item.position);
+      return datas;
     });
+    setIds(datas);
   };
   React.useEffect(() => {
-    getData();
+    getInitialData();
   }, []);
-  // console.log('aaaaaaaaaaa', Ids);
-  // Tab 1
   const screenObj = {
     Saris: CardCompo,
     Tunics: CardCompo,
@@ -715,23 +711,6 @@ export default function Dashbord() {
       </View>
     );
   };
-  // const renderItem = ({item}) => {
-  //   console.log('item', item.components.component[0]?.uid);
-  //   return (
-  //     <>
-  //       {item.slotId == 'FabHomepageSection1Slot' && (
-  //         <TopSwiper
-  //           slotId={item.components.component[0]?.uid}
-  //           // data={[
-  //           //   {banner: image.kidinterior1},
-  //           //   {banner: image.banner1},
-  //           //   {banner: image.kidinterior2},
-  //           // ]}
-  //         />
-  //       )}
-  //     </>
-  //   );
-  // };
   return (
     <>
       <ScrollView
@@ -741,8 +720,8 @@ export default function Dashbord() {
           paddingBottom: 20,
         }}>
         <HomeHeader />
-        {Ids.includes('FabHomepageSection1Slot') && (
-          <TopSwiper data={dashboardData} slotId="FabHomepageSection1Slot" />
+        {Ids.includes('Section1') && (
+          <TopSwiper data={dashboardData} position="Section1" />
         )}
         <ImageBackground
           resizeMode="cover"

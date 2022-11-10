@@ -5,11 +5,11 @@ import Feather from 'react-native-vector-icons/Feather';
 import {Styles} from './styles';
 import axios from 'axios';
 
-export default function TopSwiper({data = [], customStyle, slotId}) {
+export default function TopSwiper({data = [], customStyle, position}) {
   const [carouselData, setCarouselData] = React.useState([]);
   const getCarauselIds = async () => {
     const filterArray = data.filter(item => {
-      return item.slotId == slotId;
+      return item.position == position;
     });
     const filterSlotId = filterArray[0].components.component[0].uid;
     const response = await axios.get(
