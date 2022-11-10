@@ -3,6 +3,7 @@ import {Dimensions, ImageBackground, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
+import { Styles } from './style';
 
 const WomenTrendy = ({data = [], title, opacity=0.8}) => {
   const [count, setCount] = useState([]);
@@ -27,7 +28,7 @@ const WomenTrendy = ({data = [], title, opacity=0.8}) => {
     <>
       <View style={{width: Dimensions.get('window').width}}>
         {title()}
-        <View style={{flexDirection: 'row', flexWrap: 'wrap', width: '100%'}}>
+        <View style={Styles.GalleryContainer}>
           {data.map((item, index) => {
             return (
               <ImageBackground
@@ -35,28 +36,17 @@ const WomenTrendy = ({data = [], title, opacity=0.8}) => {
                 source={item.banner}>
                 {count.includes(index) ? (
                   <View
-                    style={{
-                      backgroundColor: Colors.primarycolor,
-                      height: 180,
-                      opacity: opacity,
-                      width: '100%',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
+                    style={[Styles.TextContainer, {opacity: opacity,}]}>
                     <Text
-                      style={{
-                        fontFamily: Fonts.PlayfairDisplay600Italic,
-                        fontSize: 26,
-                        color: '#ffffff',
-                      }}>
+                      style={[Styles.TextData]}>
                       {item.Footer}
                     </Text>
                   </View>
                 ) : (
                   <LinearGradient
                     colors={['transparent', Colors.primarycolor]}
-                    style={{width:"100%", height:67, bottom:0, position:"absolute"}}>
-                    <Text style={{fontSize: 16, color: '#ffffff', bottom:12, left:15, position:"absolute"}}>
+                    style={Styles.LinearContainer}>
+                    <Text style={Styles.LinearContainerText}>
                       {item.Footer}
                     </Text>
                   </LinearGradient>
