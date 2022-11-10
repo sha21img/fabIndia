@@ -11,7 +11,6 @@ const ColorCard = ({getBox = null, getTitles = null, cardData = []}) => {
       <ImageBackground
         onLoadStart={async () => {
           const color = await getColor(image.huesblue);
-          console.log('color', color);
           //   setImageColors(color);
         }}
         resizeMode="cover"
@@ -27,7 +26,6 @@ const ColorCard = ({getBox = null, getTitles = null, cardData = []}) => {
             <ImageBackground
               onLoadStart={async () => {
                 const color = await getColor(image.huesblue);
-                console.log('color', color);
                 // setImageColors(color);
               }}
               resizeMode="cover"

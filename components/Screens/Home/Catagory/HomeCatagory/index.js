@@ -51,7 +51,6 @@ export default function HomeCatagory() {
       return datas;
     });
     setIds(datas);
-    // console.log('first', newArray);
   };
 
   React.useEffect(() => {

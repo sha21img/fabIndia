@@ -112,7 +112,6 @@ const MenCatagory = () => {
       return datas;
     });
     setIds(datas);
-    // console.log('first', newArray);
   };
 
   React.useEffect(() => {

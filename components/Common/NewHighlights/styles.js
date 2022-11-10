@@ -8,7 +8,6 @@ export const Styles = StyleSheet.create({
   },
 
   imageContainer: {
-    backgroundColor: '#F6EFE6',
     paddingLeft: '15%',
     paddingTop: 20,
     paddingBottom: 5,

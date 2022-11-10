@@ -11,7 +11,6 @@ export const getColor = async (uri = image.ArtistImg1) => {
     case 'android':
       // android result properties
       const vibrantColor = result.vibrant;
-      console.log('1111111111', result);
       return result;
       break;
     case 'web':
