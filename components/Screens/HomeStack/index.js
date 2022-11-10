@@ -50,7 +50,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="KidsCatagory">
       <Stack.Screen
         name="Home"
         component={Home}
