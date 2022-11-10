@@ -50,7 +50,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="HomeCatagory">
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -67,7 +67,6 @@ export default function HomeStack() {
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
-                // marginBottom: 4,
               }}
             />
           ),

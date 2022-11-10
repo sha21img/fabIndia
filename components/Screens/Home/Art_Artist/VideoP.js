@@ -13,7 +13,6 @@ import Video from 'react-native-video';
 import {image} from '../../../../assets/images';
 const VideoP = () => {
   const [paused, setPaused] = useState(true);
-  // console.log('pausedpausedpausedpaused', paused);
   const videoStyle = {
     position: 'absolute',
     top: 0,

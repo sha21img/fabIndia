@@ -47,7 +47,6 @@ export default function BeautyCategory() {
       return datas;
     });
     setIds(datas);
-    // console.log('first', newArray);
   };
 
   React.useEffect(() => {

@@ -2,10 +2,9 @@ import React from 'react';
 import axios from 'axios';
 const BaseURL =
   'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/occ/v2/';
-console.log(BaseURL, 'env');
+const ComponentBaseURL = 'https://apisap.fabindia.com/occ/v2/';
+export const imageURL = 'https://apisap.fabindia.com/';
 const postData = async (url, body) => {
-  console.log(url, 'url');
-  console.log(body, 'body');
   const Token = localStorage.getItem('token');
   const response = await fetch(`${BaseURL}/${url}`, {
     method: 'POST',
@@ -39,6 +38,22 @@ const getData = async path => {
     console.error(e);
   }
 };
+const getComponentData = async path => {
+  // const Token = localStorage.getItem('token');
+  const response = await fetch(`${ComponentBaseURL}/${path}`, {
+    method: 'GET',
+    // mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  try {
+    const result2 = await response.json();
+    return result2;
+  } catch (e) {
+    console.error(e);
+  }
+};
 const axiosPostData = async (url, formData) => {
   const Token = localStorage.getItem('token');
   return axios
@@ -58,4 +73,4 @@ const axiosPostData = async (url, formData) => {
       // }
     });
 };
-export {postData, getData};
+export {postData, getData, getComponentData};

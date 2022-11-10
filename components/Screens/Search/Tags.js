@@ -16,7 +16,6 @@ const data1 = [
 const Tags = () => {
   const [active, setActive] = useState('');
   const handleClick = data => {
-    console.log(data);
     setActive(data);
   };
   return data1.map(item => (

@@ -12,7 +12,6 @@ const Videos = ({text = null, url = ''}) => {
       timeStamp: 10000,
     })
       .then(response => {
-        console.log('thumbnail', response);
         thumbnailUrl = response.path;
         setA(response.path);
       })
@@ -26,11 +25,11 @@ const Videos = ({text = null, url = ''}) => {
         }}
         videoHeight={1200}
         // onPlayPress={() => console.log('hihih')}
-        pauseOnPress={() => console.log('hihih')}
+        // pauseOnPress={() => console.log('hihih')}
         // onStart={() => console.log('hihih')}
-        onLoad={() => {
-          // console.log('hiiiiiiiiiiiiiiiiii');
-        }}
+        // onLoad={() => {
+        //   console.log('hiiiiiiiiiiiiiiiiii');
+        // }}
         resizeMode="cover"
         thumbnail={{uri: a}}
         endThumbnail={{uri: a}}
