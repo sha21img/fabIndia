@@ -26,10 +26,34 @@ import StoriesCard from '../../../../Common/StoriesCard';
 import PointDetailCard from '../../../../Common/PointDetailCard';
 import FoodReceips from './FoodReceips';
 import TopSwiper from '../../../../Common/TopSwiper';
+import {getData} from '../../../../Common/Helper';
 const width = Dimensions.get('window').width;
 
 export default function FoodCatagory() {
   const [active, setActive] = React.useState('Bestsellers');
+  const [Ids, setIds] = React.useState([]);
+  const [dashboardData, setDashboardData] = React.useState([]);
+
+  const getInitialData = async () => {
+    const response = await getData(
+      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2FFood&lang=en&curr=INR',
+    );
+    setDashboardData(response.contentSlots.contentSlot);
+    getIds(response.contentSlots.contentSlot);
+  };
+  const getIds = data => {
+    let datas = [];
+    const newArray = data.map(item => {
+      datas.push(item.position);
+      return datas;
+    });
+    setIds(datas);
+    // console.log('first', newArray);
+  };
+
+  React.useEffect(() => {
+    getInitialData();
+  }, []);
 
   const SummerGalaryData = [
     {image: image.FoodPhoto4, name: 'Spices, Seasonings & Masalas'},
@@ -273,13 +297,16 @@ export default function FoodCatagory() {
         paddingBottom: 20,
       }}>
       {/* <TopGallery /> */}
-      <TopSwiper
+      {Ids.includes('Section1') && (
+        <TopSwiper data={dashboardData} position="Section1" />
+      )}
+      {/* <TopSwiper
         data={[
           {banner: image.kidinterior1},
           {banner: image.banner1},
           {banner: image.kidinterior2},
         ]}
-      />
+      /> */}
       <SummerGalary
         data={SummerGalaryData}
         title={getSummerTitle()}

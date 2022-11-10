@@ -29,10 +29,34 @@ import InteriorCatagory from '../../../../Common/InteriorCatagory';
 import HomeMade from '../HomeDecorCatagory/HomeMade';
 import HomeDecor from '../../../../Common/HomeDecor';
 import TopSwiper from '../../../../Common/TopSwiper';
+import {getData} from '../../../../Common/Helper';
 const width = Dimensions.get('window').width;
 
 export default function HomeCatagory() {
   const [active, setActive] = React.useState('Bestsellers');
+  const [Ids, setIds] = React.useState([]);
+  const [dashboardData, setDashboardData] = React.useState([]);
+
+  const getInitialData = async () => {
+    const response = await getData(
+      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fhome-living&lang=en&curr=INR',
+    );
+    setDashboardData(response.contentSlots.contentSlot);
+    getIds(response.contentSlots.contentSlot);
+  };
+  const getIds = data => {
+    let datas = [];
+    const newArray = data.map(item => {
+      datas.push(item.position);
+      return datas;
+    });
+    setIds(datas);
+    // console.log('first', newArray);
+  };
+
+  React.useEffect(() => {
+    getInitialData();
+  }, []);
   const StoriesCardData = [
     {
       Image: image.homeStoryCardPic,
@@ -304,13 +328,16 @@ export default function HomeCatagory() {
         paddingBottom: 20,
       }}>
       {/* <TopGallery /> */}
-      <TopSwiper
+      {Ids.includes('Section1') && (
+        <TopSwiper data={dashboardData} position="Section1" />
+      )}
+      {/* <TopSwiper
         data={[
           {banner: image.kidinterior1},
           {banner: image.banner1},
           {banner: image.kidinterior2},
         ]}
-      />
+      /> */}
       <HomeDecor heading="Home Linen" description="Handcraft for your home" />
       <View
         style={{

@@ -26,10 +26,33 @@ import Customize from './Customize';
 import {Styles} from './style';
 import TopGallary from './TopGallary';
 import JewelleryRange from '../../../../Common/JewelleryRange';
+import {getData} from '../../../../Common/Helper';
 const width = Dimensions.get('window').width;
 const FurnitureCategory = () => {
   const [active, setActive] = React.useState();
   const [active1, setActive1] = React.useState();
+  const [dashboardData, setDashboardData] = React.useState([]);
+  const [Ids, setIds] = React.useState([]);
+  const getInitialData = async () => {
+    const response = await getData(
+      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Ffurniture&lang=en&curr=INR',
+    );
+    setDashboardData(response.contentSlots.contentSlot);
+    getIds(response.contentSlots.contentSlot);
+  };
+  const getIds = data => {
+    let datas = [];
+    const newArray = data.map(item => {
+      datas.push(item.position);
+      return datas;
+    });
+    setIds(datas);
+    // console.log('first', newArray);
+  };
+
+  React.useEffect(() => {
+    getInitialData();
+  }, []);
   const CornerGalleryHeader = () => {
     return (
       <Text
@@ -377,13 +400,16 @@ const FurnitureCategory = () => {
     <ScrollView style={{backgroundColor: Colors.backgroundColor}}>
       {/* ==========Top Gallery ============== */}
       {/* <TopGallary /> */}
-      <TopSwiper
+      {Ids.includes('Section1') && (
+        <TopSwiper data={dashboardData} position="Section1" />
+      )}
+      {/* <TopSwiper
         data={[
           {banner: image.kidinterior1},
           {banner: image.banner1},
           {banner: image.kidinterior2},
         ]}
-      />
+      /> */}
       {/* ==========Corner Gallery ============== */}
       <CornerGallery
         header={CornerGalleryHeader}
