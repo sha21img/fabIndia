@@ -50,7 +50,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="KidsCatagory">
+    <Stack.Navigator initialRouteName="HomeCatagory">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -199,7 +199,7 @@ export default function HomeStack() {
           header: props => (
             <Header
               leftIcon={leftIcon}
-              title="Customize"
+              title="Food"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
