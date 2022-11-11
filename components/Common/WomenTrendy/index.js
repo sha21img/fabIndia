@@ -3,9 +3,9 @@ import {Dimensions, ImageBackground, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
-import { Styles } from './style';
+import {Styles} from './style';
 
-const WomenTrendy = ({data = [], title, opacity=0.8}) => {
+const WomenTrendy = ({data = [], title, opacity = 0.8, customStyle}) => {
   const [count, setCount] = useState([]);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const WomenTrendy = ({data = [], title, opacity=0.8}) => {
   }, []);
   return (
     <>
-      <View style={{width: Dimensions.get('window').width}}>
+      <View style={[{width: Dimensions.get('window').width}, customStyle]}>
         {title()}
         <View style={Styles.GalleryContainer}>
           {data.map((item, index) => {
@@ -35,12 +35,8 @@ const WomenTrendy = ({data = [], title, opacity=0.8}) => {
                 style={{height: 180, width: Dimensions.get('window').width / 2}}
                 source={item.banner}>
                 {count.includes(index) ? (
-                  <View
-                    style={[Styles.TextContainer, {opacity: opacity,}]}>
-                    <Text
-                      style={[Styles.TextData]}>
-                      {item.Footer}
-                    </Text>
+                  <View style={[Styles.TextContainer, {opacity: opacity}]}>
+                    <Text style={[Styles.TextData]}>{item.Footer}</Text>
                   </View>
                 ) : (
                   <LinearGradient

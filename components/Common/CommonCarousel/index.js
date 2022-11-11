@@ -27,27 +27,27 @@ export default function CommonCarousel({
   const [newHighlights, setNewHighlights] = React.useState([]);
   const [compData, setCompData] = React.useState([]);
 
-  const getNewHighlightIds = async () => {
-    const filterArray = data.filter(item => {
-      return item.position == position;
-    });
-    const filterSlotId = filterArray[0].components.component[0].uid;
-    console.log('slotId-=-=-=', filterSlotId);
-    const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${filterSlotId}&lang=en&curr=INR`,
-    );
-    setCompData(response.component[0]);
-    const bannerId = response.component[0].banners;
-    getNewHighlightData(bannerId);
-  };
-  const getNewHighlightData = async bannerId => {
-    const splitBannerId = bannerId.split(' ').join(',');
-    const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
-    );
-    setNewHighlights(response?.component);
-    // console.log("this is a new", response.component)
-  };
+  // const getNewHighlightIds = async () => {
+  //   const filterArray = data.filter(item => {
+  //     return item.position == position;
+  //   });
+  //   const filterSlotId = filterArray[0].components.component[0].uid;
+  //   console.log('slotId-=-=-=', filterSlotId);
+  //   const response = await getComponentData(
+  //     `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${filterSlotId}&lang=en&curr=INR`,
+  //   );
+  //   setCompData(response.component[0]);
+  //   const bannerId = response.component[0].banners;
+  //   getNewHighlightData(bannerId);
+  // };
+  // const getNewHighlightData = async bannerId => {
+  //   const splitBannerId = bannerId.split(' ').join(',');
+  //   const response = await getComponentData(
+  //     `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+  //   );
+  //   setNewHighlights(response?.component);
+  //   // console.log("this is a new", response.component)
+  // };
   // const imageCard = newHighlights.map(item => {
   //   return (
   //     <View key={Math.random() * 987} style={Styles.imageBox}>
@@ -59,9 +59,9 @@ export default function CommonCarousel({
   //     </View>
   //   );
   // });
-  useEffect(() => {
-    getNewHighlightIds();
-  }, []);
+  // useEffect(() => {
+  //   getNewHighlightIds();
+  // }, []);
 
   const renderItem = ({item}) => {
     return (
@@ -74,7 +74,7 @@ export default function CommonCarousel({
           alignSelf: 'center',
         }}
         // source={{uri: `${imageURL}${item.media.url}`}}
-        source={image.ArtistImg1}>
+        source={item.banner}>
         <LinearGradient
           colors={['rgba(0,0,0,0.4)', 'rgba(255,255,255,0)']}
           style={{
@@ -84,7 +84,7 @@ export default function CommonCarousel({
           }}
           start={{x: 0, y: 0}}
           end={{x: 0, y: 1}}>
-          {/* {item.heading_btn()} */}
+          {item.heading_btn()}
         </LinearGradient>
       </ImageBackground>
     );

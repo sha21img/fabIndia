@@ -44,9 +44,7 @@ export default function SummerGalary({
           zIndex: -1,
         }}></View>
       {title}
-
       <Text style={Styles.ContainerHeader}>{subtitles}</Text>
-
       <View>
         <ScrollView
           horizontal

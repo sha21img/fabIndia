@@ -12,9 +12,8 @@ export const Styles = StyleSheet.create({
     height: 67,
     width: '100%',
   },
-  cardText:{
+  cardText: {
     marginLeft: 5,
-    marginVertical: 5,
     fontSize: 16,
     fontFamily: Fonts.Assistant400,
     lineHeight: 21,
@@ -22,5 +21,5 @@ export const Styles = StyleSheet.create({
     bottom: 12,
     left: 12,
     color: '#ffffff',
-  }
+  },
 });

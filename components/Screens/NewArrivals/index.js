@@ -134,69 +134,8 @@ const NewArrivals = () => {
       Footer: 'Beauty',
       banner: image.womenPhoto4,
     },
-    {
-      Footer: 'Beauty',
-      banner: image.womenPhoto4,
-    },
-    {
-      Footer: 'Beauty',
-      banner: image.womenPhoto4,
-    },
   ];
 
-  const MenTrendCarouselData = [
-    {
-      Footer: 'Apparel',
-      banner: image.womenPhoto1,
-    },
-    {
-      Footer: 'Jewellery',
-      banner: image.womenPhoto2,
-    },
-    {
-      Footer: 'Footwear',
-      banner: image.womenPhoto3,
-    },
-    {
-      Footer: 'Beauty',
-      banner: image.womenPhoto4,
-    },
-    {
-      Footer: 'Beauty',
-      banner: image.womenPhoto4,
-    },
-    {
-      Footer: 'Beauty',
-      banner: image.womenPhoto4,
-    },
-  ];
-
-  const NewHomeCarouselData = [
-    {
-      Footer: 'Apparel',
-      banner: image.womenPhoto1,
-    },
-    {
-      Footer: 'Jewellery',
-      banner: image.womenPhoto2,
-    },
-    {
-      Footer: 'Footwear',
-      banner: image.womenPhoto3,
-    },
-    {
-      Footer: 'Beauty',
-      banner: image.womenPhoto4,
-    },
-    {
-      Footer: 'Beauty',
-      banner: image.womenPhoto4,
-    },
-    {
-      Footer: 'Beauty',
-      banner: image.womenPhoto4,
-    },
-  ];
   const NewFurnitureCarouselData = [
     {
       name: 'Tables',
@@ -328,6 +267,7 @@ const NewArrivals = () => {
       <CommonCarousel data={NewTrendCarouselData} width={width} height={380} />
       {/* ===========Women Trend========== */}
       <WomenTrendy
+        customStyle={{paddingVertical: 15}}
         data={WomenTrendCarouselData}
         title={() => (
           <Text
@@ -342,11 +282,9 @@ const NewArrivals = () => {
           </Text>
         )}
       />
-      <View style={Styles.BodyTextContainer}>
-        <Text style={Styles.BodyText}>
-          A curated list of new launches for women
-        </Text>
-      </View>
+      <Text style={Styles.BodyText}>
+        A curated list of new launches for women
+      </Text>
       {/* ===========Selling tab================= */}
       <View
         style={{
@@ -371,7 +309,8 @@ const NewArrivals = () => {
       </View>
       {/* ===========Men Trend========== */}
       <WomenTrendy
-        data={MenTrendCarouselData}
+        data={WomenTrendCarouselData}
+        customStyle={{paddingVertical: 15}}
         opacity={0.6}
         title={() => (
           <Text
@@ -386,11 +325,9 @@ const NewArrivals = () => {
           </Text>
         )}
       />
-      <View style={Styles.BodyTextContainer}>
-        <Text style={Styles.BodyText}>
-          A curated list of new launches for women
-        </Text>
-      </View>
+      <Text style={Styles.BodyText}>
+        A curated list of new launches for women
+      </Text>
       {/* ===========Selling tab================= */}
       <View
         style={{
@@ -419,11 +356,11 @@ const NewArrivals = () => {
         backgroundColor={'#A97A9B'}
         width={width / 1.07}
         height={420}
-        customStyle={{marginVertical: 20}}
+        customStyle={{marginVertical: 25}}
       />
       {/* ===========New Home============== */}
       <NewHome
-        data={NewHomeCarouselData}
+        data={WomenTrendCarouselData}
         title={() => {
           return (
             <View style={{marginTop: 50, marginLeft: 20}}>
@@ -447,11 +384,9 @@ const NewArrivals = () => {
           );
         }}
       />
-      <View style={Styles.BodyTextContainer}>
-        <Text style={Styles.BodyText}>
-          A curated list of new launches for women
-        </Text>
-      </View>
+      <Text style={Styles.BodyText}>
+        A curated list of new launches for women
+      </Text>
       {/* ===========Selling tab================= */}
       <View
         style={{
@@ -484,7 +419,8 @@ const NewArrivals = () => {
       />
       {/* ===========Men Trend========== */}
       <WomenTrendy
-        data={MenTrendCarouselData}
+        customStyle={{paddingVertical: 15}}
+        data={WomenTrendCarouselData}
         opacity={0.6}
         title={() => (
           <Text
@@ -495,15 +431,13 @@ const NewArrivals = () => {
               marginLeft: 15,
               fontFamily: Fonts.PlayfairDisplay600Italic,
             }}>
-            Men
+            Kids
           </Text>
         )}
       />
-      <View style={Styles.BodyTextContainer}>
-        <Text style={Styles.BodyText}>
-          A curated list of new launches for women
-        </Text>
-      </View>
+      <Text style={Styles.BodyText}>
+        A curated list of new launches for women
+      </Text>
       {/* ===========Selling tab================= */}
       <View
         style={{
@@ -552,11 +486,9 @@ const NewArrivals = () => {
           );
         }}
       />
-      <View style={Styles.BodyTextContainer}>
-        <Text style={Styles.BodyText}>
-          A curated list of new launches for women
-        </Text>
-      </View>
+      <Text style={Styles.BodyText}>
+        A curated list of new launches for women
+      </Text>
       {/* ===========Selling tab================= */}
       <View
         style={{
