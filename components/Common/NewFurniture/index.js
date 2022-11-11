@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {ImageBackground, ScrollView, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Fonts from '../../../assets/fonts';
 import {Styles} from './style';
 
 const NewFurniture = ({data, title}) => {
-    const [count, setCount] = useState([]);
+  const [count, setCount] = useState([]);
 
   useEffect(() => {
     let d = data.length;
@@ -36,28 +36,32 @@ const NewFurniture = ({data, title}) => {
           },
         ]}>
         <View
-          style={[Styles.linearContainer,{backgroundColor:item.bannerColor}]}>
-          <Text
-            style={Styles.cardText}>
-            {item.name}
-          </Text>
+          style={[Styles.linearContainer, {backgroundColor: item.bannerColor}]}>
+          <Text style={Styles.cardText}>{item.name}</Text>
         </View>
-       
       </ImageBackground>
     );
   });
   return (
-    <View style={{height: 646}}>
-      <View style={{height: 400, backgroundColor: '#EDE8E7'}}>
-        {title()}
-        <View style={{height:550}}>
-          <ScrollView
-            horizontal
-            contentContainerStyle={{flexDirection: 'column', flexWrap: 'wrap'}}>
-            {Card}
-          </ScrollView>
-        </View>
-      </View>
+    <View style={{backgroundColor: 'white'}}>
+      <View
+        style={{
+          backgroundColor: '#EDEDED',
+          width: '100%',
+          height: '55%',
+          position: 'absolute',
+        }}
+      />
+      {title()}
+      <ScrollView
+        horizontal
+        contentContainerStyle={{
+          flexDirection: 'column',
+          flexWrap: 'wrap',
+          maxHeight: 530,
+        }}>
+        {Card}
+      </ScrollView>
     </View>
   );
 };

@@ -25,9 +25,6 @@ export const Styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: Fonts.PlayfairDisplay600Italic,
     lineHeight: 21,
-    // position: 'absolute',
-    // bottom: 12,
-    // left: 12,
     color: '#ffffff',
   }
 });

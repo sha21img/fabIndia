@@ -8,83 +8,60 @@ import {image} from '../../../assets/images';
 
 export default function NewHighlights({
   data = [],
-  position,
+  // position,
+  title = '',
   bgColor = '',
   customStyle = '',
 }) {
-  const width = Dimensions.get('window').width;
+  // const width = Dimensions.get('window').width;
 
-  const [newHighlights, setNewHighlights] = React.useState([]);
-  const [compData, setCompData] = React.useState([]);
+  // const [newHighlights, setNewHighlights] = React.useState([]);
+  // const [compData, setCompData] = React.useState([]);
 
-  const getNewHighlightIds = async () => {
-    const filterArray = data.filter(item => {
-      return item.position == position;
-    });
-    const filterSlotId = filterArray[0].components.component[0].uid;
-    const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${filterSlotId}&lang=en&curr=INR`,
-    );
-    setCompData(response.component[0]);
-    const bannerId = response.component[0].banners;
-    getNewHighlightData(bannerId);
-  };
-  const getNewHighlightData = async bannerId => {
-    const splitBannerId = bannerId.split(' ').join(',');
-    const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
-    );
-    setNewHighlights(response.component);
-  };
+  // const getNewHighlightIds = async () => {
+  //   const filterArray = data.filter(item => {
+  //     return item.position == position;
+  //   });
+  //   const filterSlotId = filterArray[0].components.component[0].uid;
+  //   const response = await getComponentData(
+  //     `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${filterSlotId}&lang=en&curr=INR`,
+  //   );
+  //   setCompData(response.component[0]);
+  //   const bannerId = response.component[0].banners;
+  //   getNewHighlightData(bannerId);
+  // };
+  // const getNewHighlightData = async bannerId => {
+  //   const splitBannerId = bannerId.split(' ').join(',');
+  //   const response = await getComponentData(
+  //     `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+  //   );
+  //   setNewHighlights(response.component);
+  // };
   const imageCard = data.map(item => {
     return (
       <View key={Math.random() * 987} style={Styles.imageBox}>
         <Image
           style={Styles.image}
           // source={{uri: `${imageURL}${item.media.url}`}}
-          source={image.ArtistImg4}
+          // source={image.ArtistImg4}
+          source={item.image}
         />
         <Text style={Styles.imageText}>{item.title}</Text>
       </View>
     );
   });
-  useEffect(() => {
-    getNewHighlightIds();
-  }, []);
+  // useEffect(() => {
+  //   getNewHighlightIds();
+  // }, []);
 
   return (
     <View style={[Styles.container, customStyle]}>
-      <View
-        style={[
-          {position: 'absolute', top: '37%', left: '4%', zIndex: 10},
-          hasSpaces(compData.title ? compData.title : '')
-            ? {width: width / 3}
-            : {width: null},
-        ]}>
-        <Text
-          style={{
-            fontSize: 14,
-            color: '#4A4A4A',
-            fontFamily: Fonts.Assistant300,
-          }}>
-          {/* {compData.headline} */}
-          New In
-        </Text>
-        <Text
-          style={{
-            color: '#4A4A4A',
-            fontSize: 24,
-            fontFamily: Fonts.PlayfairDisplay700,
-          }}>
-          {/* {compData.title} */}
-          Women
-        </Text>
-      </View>
+      {title}
       <View
         style={[
           Styles.imageContainer,
           //  {backgroundColor: compData.color}
-          {backgroundColor: '#F3EAE6'},
+          bgColor,
         ]}>
         <ScrollView
           horizontal
@@ -96,3 +73,30 @@ export default function NewHighlights({
     </View>
   );
 }
+
+// <View
+// style={[
+//   {position: 'absolute', top: '37%', left: '4%', zIndex: 10},
+//   hasSpaces(compData.title ? compData.title : '')
+//     ? {width: width / 3}
+//     : {width: null},
+// ]}>
+// <Text
+//   style={{
+//     fontSize: 14,
+//     color: '#4A4A4A',
+//     fontFamily: Fonts.Assistant300,
+//   }}>
+//   {/* {compData.headline} */}
+//   New In
+// </Text>
+// <Text
+//   style={{
+//     color: '#4A4A4A',
+//     fontSize: 24,
+//     fontFamily: Fonts.PlayfairDisplay700,
+//   }}>
+//   {/* {compData.title} */}
+//   Women
+// </Text>
+// </View>

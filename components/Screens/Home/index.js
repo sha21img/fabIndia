@@ -735,17 +735,26 @@ export default function Dashbord() {
         {/* )} */}
         {Ids.includes('Section3') && (
           <NewHighlights
-            data={dashboardData}
-            customStyle={{marginVertical: 20}}
-            position="Section3"
+            // data={dashboardData}
+            // customStyle={{marginVertical: 20}}
+            // position="Section3"
+
+            title={getTitle('New in', 'Women')}
+            customStyle={{marginVertical: 10}}
+            bgColor={{backgroundColor: '#F3E0E0'}}
+            data={WomenHighlightData}
           />
         )}
         {Ids.includes('Section4') && (
           <CommonCarousel
-            data={dashboardData}
+            // data={dashboardData}
+            // width={width / 1.07}
+            // height={330}
+            // position="Section4"
+
+            data={WomenCarouselData}
             width={width / 1.07}
             height={330}
-            position="Section4"
           />
         )}
         {/* {Ids.includes('Section5') && (
@@ -786,17 +795,25 @@ export default function Dashbord() {
         />
         {Ids.includes('Section7') && (
           <NewHighlights
-            data={dashboardData}
-            customStyle={{marginVertical: 20}}
-            position="Section7"
+            // data={dashboardData}
+            // customStyle={{marginVertical: 20}}
+            // position="Section7"
+
+            title={getTitle('New in', 'Men')}
+            customStyle={{marginVertical: 10}}
+            bgColor={{backgroundColor: '#F6EFE6'}}
+            data={MenHighlightData}
           />
         )}
         {Ids.includes('Section8') && (
           <CommonCarousel
-            data={dashboardData}
+            // data={dashboardData}
+            // width={width / 1.07}
+            // height={330}
+            // position="Section8"
+            data={MenCarouselData}
             width={width / 1.07}
             height={330}
-            position="Section8"
           />
         )}
         {/* {Ids.includes('Section8') && (

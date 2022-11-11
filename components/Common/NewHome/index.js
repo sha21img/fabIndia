@@ -19,22 +19,32 @@ const NewHome = ({data, title}) => {
         <LinearGradient
           colors={['transparent', '#925D4D']}
           style={Styles.linearContainer}>
-          <Text style={Styles.cardText}>{item.name}</Text>
+          <Text style={Styles.cardText}>{item.Footer}</Text>
         </LinearGradient>
       </ImageBackground>
     );
   });
   return (
-    <View style={{height: 433}}>
-      <View style={{height: 338, backgroundColor: '#EDE8E7'}}>
-        {title()}
-        <View>
-          <ScrollView
-            horizontal
-            contentContainerStyle={{flexDirection: 'column', flexWrap: 'wrap'}}>
-            {Card}
-          </ScrollView>
-        </View>
+    <View style={{backgroundColor: 'white'}}>
+      <View
+        style={{
+          backgroundColor: '#F3ECE8',
+          width: '100%',
+          height: '80%',
+          position: 'absolute',
+        }}
+      />
+      {title()}
+      <View>
+        <ScrollView
+          horizontal
+          contentContainerStyle={{
+            flexDirection: 'column',
+            flexWrap: 'wrap',
+            height: 330,
+          }}>
+          {Card}
+        </ScrollView>
       </View>
     </View>
   );
