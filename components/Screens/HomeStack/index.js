@@ -6,7 +6,6 @@ import SearchResult from '../Search/SearchResult';
 import Header from '../../Common/Header';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import WomenCategory from '../Home/Catagory/WomenCategory';
 import MenCatagory from '../Home/Catagory/MenCatagory';
 import KidsCatagory from '../Home/Catagory/KidsCatagory';
@@ -30,6 +29,9 @@ import LandingPageBedsheets from '../LandingPageL2/LandingPageBedsheets';
 import LandingPageDiningTable from '../LandingPageL2/LandingPageDiningTable';
 import LandingPage360WFH from '../LandingPageL2/LandingPage360WFH';
 import LandingPagebedroom from '../LandingPageL2/LandingPage-bedroom';
+import Diwali from '../EventLanding/Diwali';
+import {Colors} from '../../../assets/Colors';
+import Dussehra from '../EventLanding/Dussehra';
 
 const Stack = createNativeStackNavigator();
 
@@ -50,7 +52,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="NewArrivals">
+    <Stack.Navigator initialRouteName="Dussehra">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -428,6 +430,40 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Lifestyle 360 / WFH"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="Diwali"
+        component={Diwali}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Happy Diwali!"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="Dussehra"
+        component={Dussehra}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Happy Dussehra!"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',

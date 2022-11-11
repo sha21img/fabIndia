@@ -130,4 +130,6 @@ export const image = {
   SarisBanner: require('./SarisBanner.png'),
   BedsheetBanner: require('./BedsheetBanner.png'),
   DiningBanner: require('./DiningBanner.png'),
+  EventKid1: require('./Eventkid1.png'),
+  EventKid2: require('./Eventkid2.png'),
 };
