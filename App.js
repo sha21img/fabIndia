@@ -8,8 +8,11 @@ import NetInfo from '@react-native-community/netinfo';
 import Header from './components/Common/Header';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 // import {useNavigation} from '@react-navigation/native';
+import Filter from './components/Common/Filter';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Fonts from './assets/fonts';
 import {Colors} from './assets/Colors';
+
 const Stack = createNativeStackNavigator();
 
 export default function App(props) {
@@ -53,10 +56,22 @@ export default function App(props) {
       <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
     </TouchableOpacity>
   );
+  const rightText = (
+    <TouchableOpacity>
+      <Text
+        style={{
+          fontFamily: Fonts.Assistant400,
+          fontSize: 16,
+          color: '#979797',
+        }}>
+        Clear all
+      </Text>
+    </TouchableOpacity>
+  );
   if (netInfo) {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="MainScreen">
+        <Stack.Navigator initialRouteName="Filter">
           <Stack.Screen
             name="MainScreen"
             component={MainScreen}
@@ -78,6 +93,23 @@ export default function App(props) {
                   />
                 );
               },
+            }}
+          />
+
+          <Stack.Screen
+            name="Filter"
+            component={Filter}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Filter By"
+                  rightIcon={rightText}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
             }}
           />
         </Stack.Navigator>
