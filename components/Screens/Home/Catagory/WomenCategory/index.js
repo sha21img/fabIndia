@@ -494,9 +494,9 @@ const WomenCategory = () => {
           </View>
         </View>
       </View> */}
-      {Ids.includes('Section1') && (
+      {/* {Ids.includes('Section1') && (
         <TopSwiper data={dashboardData} position="Section1" />
-      )}
+      )} */}
       {/* <TopSwiper
         data={[
           {banner: image.kidinterior1},

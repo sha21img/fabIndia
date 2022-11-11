@@ -12,6 +12,9 @@ import HomeProductCategory from './HomeProductCategory';
 import FurnitureCollection from './FurnitureCollection';
 import ArCarousel from '../../Common/ArCarousel';
 import {image} from '../../../assets/images';
+import Videos from '../../Common/Videos';
+import Fonts from '../../../assets/fonts';
+import TopVideo from './TopVideo';
 const width = Dimensions.get('window').width;
 
 const data = [
@@ -68,6 +71,41 @@ export default function Collections() {
     name: item,
     screen: screenObj3[item],
   }));
+  const text = () => {
+    return (
+      <>
+        <View
+          style={{
+            backgroundColor: '#C57B31',
+            paddingVertical: 10,
+            paddingHorizontal: 15,
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+            position: 'absolute',
+            bottom: '10%',
+          }}>
+          <Text
+            style={{
+              fontFamily: Fonts.PlayfairDisplay700,
+              fontSize: 30,
+              color: 'white',
+            }}>
+            AJRAKH
+          </Text>
+          <Text
+            style={{
+              fontFamily: Fonts.Assistant400,
+              fontSize: 22,
+              color: 'white',
+              marginTop: 5,
+            }}>
+            Celebrating Traditions
+          </Text>
+        </View>
+      </>
+    );
+  };
   return (
     <>
       <ScrollView
@@ -76,37 +114,44 @@ export default function Collections() {
           backgroundColor: Colors.backgroundColor,
           paddingBottom: 20,
         }}>
-        {/*
-         
-        Video
-
-         */}
-        <WomenCollection />
+        <TopVideo />
+        <WomenCollection customStyle={{paddingVertical: 15}} />
         <View style={{marginLeft: 15, height: 470}}>
           <CommonTopTab data={dataMap} />
         </View>
-        <KidsCards />
+        <KidsCards customStyle={{paddingTop: 20}} />
         <View style={{marginLeft: 15, height: 470}}>
           <CommonTopTab data={dataMap} />
         </View>
-        <MenCollection />
+        <MenCollection customStyle={{paddingTop: 20}} />
         <View style={{marginLeft: 15, height: 470}}>
           <CommonTopTab data={dataMap} />
         </View>
-        <Accessories />
+        <Accessories customStyle={{paddingTop: 20}} />
         <View style={{marginLeft: 15, height: 470}}>
           <CommonTopTab data={dataMap} />
         </View>
-        <HomeProductCategory />
+        <View style={{paddingVertical: 20}}>
+          <Text
+            style={{
+              fontFamily: Fonts.PlayfairDisplay600Italic,
+              fontSize: 22,
+              color: Colors.textcolor,
+              paddingVertical: 10,
+              paddingHorizontal: 15,
+            }}>
+            The story of our Ajrakh craft
+          </Text>
+          <Videos
+            text={text}
+            url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          />
+        </View>
+        <HomeProductCategory customStyle={{marginTop: 10}} />
         <View style={{marginLeft: 15, height: 470}}>
           <CommonTopTab data={dataMap} />
         </View>
-        {/*
-         
-        Video
-
-         */}
-        <FurnitureCollection />
+        <FurnitureCollection customStyle={{marginTop: 10}} />
         <View style={{marginLeft: 15, height: 470}}>
           <CommonTopTab data={dataMap} />
         </View>
