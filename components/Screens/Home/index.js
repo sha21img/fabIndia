@@ -39,6 +39,8 @@ import Fonts from '../../../assets/fonts';
 import TopSwiper from '../../Common/TopSwiper';
 import axios from 'axios';
 import {getData} from '../../Common/Helper';
+import WomenTab from './Tabs.js/WomenTab';
+import MenTab from './Tabs.js/MenTab';
 const width = Dimensions.get('window').width;
 
 const categoryData = [
@@ -746,6 +748,9 @@ export default function Dashbord() {
             position="Section4"
           />
         )}
+        {/* {Ids.includes('Section5') && (
+          <WomenTab data={dashboardData} position="Section5" />
+        )} */}
         <View
           style={{
             flexDirection: 'row',
@@ -794,6 +799,10 @@ export default function Dashbord() {
             position="Section8"
           />
         )}
+        {/* {Ids.includes('Section8') && (
+          <MenTab data={dashboardData} position="Section9" />
+        )} */}
+
         <View
           style={{
             flexDirection: 'row',
