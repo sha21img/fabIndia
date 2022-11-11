@@ -4,6 +4,7 @@ import {Styles} from './styles';
 import {getComponentData, imageURL} from '../Helper';
 import {hasSpaces} from '../../../constant';
 import Fonts from '../../../assets/fonts';
+import {image} from '../../../assets/images';
 
 export default function NewHighlights({
   data = [],
@@ -35,12 +36,13 @@ export default function NewHighlights({
     );
     setNewHighlights(response.component);
   };
-  const imageCard = newHighlights.map(item => {
+  const imageCard = data.map(item => {
     return (
       <View key={Math.random() * 987} style={Styles.imageBox}>
         <Image
           style={Styles.image}
-          source={{uri: `${imageURL}${item.media.url}`}}
+          // source={{uri: `${imageURL}${item.media.url}`}}
+          source={image.ArtistImg4}
         />
         <Text style={Styles.imageText}>{item.title}</Text>
       </View>
@@ -65,7 +67,8 @@ export default function NewHighlights({
             color: '#4A4A4A',
             fontFamily: Fonts.Assistant300,
           }}>
-          {compData.headline}
+          {/* {compData.headline} */}
+          New In
         </Text>
         <Text
           style={{
@@ -73,10 +76,16 @@ export default function NewHighlights({
             fontSize: 24,
             fontFamily: Fonts.PlayfairDisplay700,
           }}>
-          {compData.title}
+          {/* {compData.title} */}
+          Women
         </Text>
       </View>
-      <View style={[Styles.imageContainer, {backgroundColor: compData.color}]}>
+      <View
+        style={[
+          Styles.imageContainer,
+          //  {backgroundColor: compData.color}
+          {backgroundColor: '#F3EAE6'},
+        ]}>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
