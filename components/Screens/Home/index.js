@@ -39,7 +39,6 @@ import Fonts from '../../../assets/fonts';
 import TopSwiper from '../../Common/TopSwiper';
 import axios from 'axios';
 import {getData} from '../../Common/Helper';
-import Tabs from './Tabs.js';
 const width = Dimensions.get('window').width;
 
 const categoryData = [
@@ -724,28 +723,30 @@ export default function Dashbord() {
         {Ids.includes('Section1') && (
           <TopSwiper data={dashboardData} position="Section1" />
         )}
+        {/* {Ids.includes('Section2') && ( */}
         <ImageBackground
           resizeMode="cover"
           style={{width: '100%', marginVertical: 10}}
           source={image.categoryBgBanner}>
           <Catagory data={categoryData} />
         </ImageBackground>
-        <NewHighlights
-          title={getTitle('New in', 'Women')}
-          data={WomenHighlightData}
-          bgColor={{backgroundColor: '#F3E0E0'}}
-          customStyle={{marginVertical: 20}}
-        />
-        <CommonCarousel
-          data={WomenCarouselData}
-          width={width / 1.07}
-          height={330}
-        />
-        {/* {Ids.includes('Section5') && (
-          <Tabs data={dashboardData} position="Section5" />
-        )} */}
-
-        {/* <View
+        {/* )} */}
+        {Ids.includes('Section3') && (
+          <NewHighlights
+            data={dashboardData}
+            customStyle={{marginVertical: 20}}
+            position="Section3"
+          />
+        )}
+        {Ids.includes('Section4') && (
+          <CommonCarousel
+            data={dashboardData}
+            width={width / 1.07}
+            height={330}
+            position="Section4"
+          />
+        )}
+        <View
           style={{
             flexDirection: 'row',
             flexWrap: 'wrap',
@@ -762,10 +763,10 @@ export default function Dashbord() {
             handleClick={() => handleClick('Recommended for you')}
             active={active}
           />
-        </View> */}
-        {/* <View style={{marginLeft: 15, height: 470}}>
+        </View>
+        <View style={{marginLeft: 15, height: 470}}>
           <CommonTopTab data={dataMap} />
-        </View> */}
+        </View>
         <CommonBanner
           heading={bannerHeading1}
           buttonText="Customize now"
@@ -778,17 +779,21 @@ export default function Dashbord() {
           bgImage={image.banner1}
           customViewStyle={{marginTop: 15, marginBottom: 30}}
         />
-        <NewHighlights
-          title={getTitle('New in', 'MEN')}
-          customStyle={{marginVertical: 10}}
-          bgColor={{backgroundColor: '#F6EFE6'}}
-          data={MenHighlightData}
-        />
-        <CommonCarousel
-          data={MenCarouselData}
-          width={width / 1.07}
-          height={330}
-        />
+        {Ids.includes('Section7') && (
+          <NewHighlights
+            data={dashboardData}
+            customStyle={{marginVertical: 20}}
+            position="Section7"
+          />
+        )}
+        {Ids.includes('Section8') && (
+          <CommonCarousel
+            data={dashboardData}
+            width={width / 1.07}
+            height={330}
+            position="Section8"
+          />
+        )}
         <View
           style={{
             flexDirection: 'row',
@@ -895,7 +900,9 @@ export default function Dashbord() {
           height={330}
         />
         <Art_Artist />
-        <Legacy />
+        {Ids.includes('Section22') && (
+          <Legacy data={dashboardData} position="Section22" />
+        )}
       </ScrollView>
     </>
   );
