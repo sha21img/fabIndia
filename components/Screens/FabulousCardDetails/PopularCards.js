@@ -21,7 +21,7 @@ export default function PopularCards({
               fontFamily: Fonts.PlayfairDisplay700Italic,
               fontSize: 18,
               lineHeight: 22,
-              paddingVertical: 7,
+              paddingVertical: 5,
               color: Colors.textcolor,
             }}>
             {title}
@@ -32,6 +32,7 @@ export default function PopularCards({
                 fontFamily: Fonts.Assistant400,
                 fontSize: 16,
                 color: Colors.textcolor,
+                paddingVertical: 5,
                 lineHeight: 22,
               }}>
               {description}

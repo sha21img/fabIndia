@@ -14,6 +14,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
+import {image} from '../../../assets/images';
 
 export default function CommonCarousel({
   data = [],
@@ -72,7 +73,8 @@ export default function CommonCarousel({
           height: height,
           alignSelf: 'center',
         }}
-        source={{uri: `${imageURL}${item.media.url}`}}>
+        // source={{uri: `${imageURL}${item.media.url}`}}
+        source={image.ArtistImg1}>
         <LinearGradient
           colors={['rgba(0,0,0,0.4)', 'rgba(255,255,255,0)']}
           style={{
@@ -93,7 +95,7 @@ export default function CommonCarousel({
         <Carousel
           autoplay
           loop
-          data={newHighlights}
+          data={data}
           renderItem={renderItem}
           autoPlayInterval={3000}
           sliderWidth={width}
@@ -109,7 +111,7 @@ export default function CommonCarousel({
             justifyContent: 'center',
             marginTop: 10,
           }}>
-          {newHighlights.map((item, index) => (
+          {data.map((item, index) => (
             <Text
               key={Math.random() * 1099900}
               style={
