@@ -91,7 +91,8 @@ export default function CommonCarousel({
   };
   return (
     <>
-      <View style={[{alignItems: 'center'}, customStyle]}>
+      <View
+        style={[{alignItems: 'center', backgroundColor: 'white'}, customStyle]}>
         <Carousel
           autoplay
           loop
@@ -110,6 +111,7 @@ export default function CommonCarousel({
             flexDirection: 'row',
             justifyContent: 'center',
             marginTop: 10,
+            backgroundColor: 'white',
           }}>
           {data.map((item, index) => (
             <Text

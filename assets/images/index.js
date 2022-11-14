@@ -132,4 +132,5 @@ export const image = {
   DiningBanner: require('./DiningBanner.png'),
   EventKid1: require('./Eventkid1.png'),
   EventKid2: require('./Eventkid2.png'),
+  EventFlower: require('./EventFlower.png'),
 };
