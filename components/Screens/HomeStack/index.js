@@ -32,6 +32,8 @@ import LandingPagebedroom from '../LandingPageL2/LandingPage-bedroom';
 import Diwali from '../EventLanding/Diwali';
 import {Colors} from '../../../assets/Colors';
 import Dussehra from '../EventLanding/Dussehra';
+import MyProfile from '../MyAccount/MyProfile';
+import MyOrder from '../MyAccount/MyOrder';
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +60,7 @@ export default function HomeStack() {
         component={Home}
         options={{headerShown: false}}
       />
+
       <Stack.Screen
         name="WomenCategory"
         component={WomenCategory}
