@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -17,7 +17,7 @@ import MyAccount from '../MyAccount';
 
 const Tab = createBottomTabNavigator();
 
-export default function MainScreen() {
+export default function MainScreen(props) {
   return (
     <Tab.Navigator
       initialRouteName="HomeStack"
@@ -91,17 +91,20 @@ export default function MainScreen() {
         }}
       />
       <Tab.Screen
-        name="Account"
+        name="MyAccount"
         component={MyAccount}
         options={{
           tabBarLabel: 'Account',
           tabBarActiveTintColor: Colors.primarycolor,
           tabBarIcon: ({focused}) => (
-            <MaterialCommunityIcons
-              name="account-outline"
-              color={focused ? Colors.primarycolor : Colors.inactiveicon}
-              size={25}
-            />
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('MyAccount')}>
+              <MaterialCommunityIcons
+                name="account-outline"
+                color={focused ? Colors.primarycolor : Colors.inactiveicon}
+                size={25}
+              />
+            </TouchableOpacity>
           ),
           headerShown: false,
         }}
