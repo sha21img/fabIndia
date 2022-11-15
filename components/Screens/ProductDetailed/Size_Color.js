@@ -252,7 +252,6 @@ const Styles = StyleSheet.create({
     borderRadius: 50,
     marginRight: 10,
   },
-  
   chipTextInActive: {
     fontFamily: Fonts.Assistant700,
     fontSize: 16,
