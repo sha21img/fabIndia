@@ -546,7 +546,7 @@ const CardCompo = item => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          paddingVertical: 10,
+          padding: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
         <Card
@@ -566,7 +566,7 @@ const OfferLongCardList = item => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          paddingVertical: 10,
+          padding: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
         <OfferLongCard />
@@ -581,7 +581,7 @@ const PointDetailCardList = item => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          paddingVertical: 10,
+          padding: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
         <PointDetailCard />
@@ -597,7 +597,7 @@ const SimpleCardList = item => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          paddingVertical: 10,
+          padding: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
         <SimpleCard />
@@ -778,9 +778,9 @@ export default function Dashbord() {
             active={active}
           />
         </View>
-        <View style={{marginLeft: 15, height: 470}}>
-          <CommonTopTab data={dataMap} />
-        </View>
+        {/* <View style={{marginLeft: 15, height: 470}}> */}
+        <CommonTopTab data={dataMap} />
+        {/* </View> */}
         <CommonBanner
           heading={bannerHeading1}
           buttonText="Customize now"
@@ -838,22 +838,23 @@ export default function Dashbord() {
             active={active}
           />
         </View>
-        <View style={{marginLeft: 15, height: 470}}>
-          <CommonTopTab data={dataMap1} />
-        </View>
+        {/* <View style={{marginLeft: 15, height: 470}}> */}
+        <CommonTopTab data={dataMap1} />
+        {/* </View> */}
 
-        <View style={{marginLeft: 15, height: 310}}>
-          <Text
-            style={{
-              fontFamily: Fonts.PlayfairDisplay600Italic,
-              fontSize: 20,
-              paddingTop: 20,
-              color: Colors.textcolor,
-            }}>
-            Offers for you
-          </Text>
-          <CommonTopTab data={dataMap2} />
-        </View>
+        {/* <View style={{marginLeft: 15, height: 310}}> */}
+        <Text
+          style={{
+            fontFamily: Fonts.PlayfairDisplay600Italic,
+            fontSize: 20,
+            paddingTop: 20,
+            color: Colors.textcolor,
+            marginLeft: 15,
+          }}>
+          Offers for you
+        </Text>
+        <CommonTopTab data={dataMap2} />
+        {/* </View> */}
         <Interior />
         <StateCategory />
         <NewHighlights
@@ -885,9 +886,9 @@ export default function Dashbord() {
             active={active}
           />
         </View>
-        <View style={{marginLeft: 15, height: 440}}>
-          <CommonTopTab data={dataMap3} />
-        </View>
+        {/* <View style={{marginLeft: 15, height: 440}}> */}
+        <CommonTopTab data={dataMap3} />
+        {/* </View> */}
         <LookingFor active={active} />
         <CommonCarousel
           data={LifeCarouselData}
@@ -912,9 +913,9 @@ export default function Dashbord() {
             active={active}
           />
         </View>
-        <View style={{marginLeft: 15, height: 520}}>
-          <CommonTopTab data={dataMap4} />
-        </View>
+        {/* <View style={{marginLeft: 15, height: 520}}> */}
+        <CommonTopTab data={dataMap4} />
+        {/* </View> */}
         <CommonCarousel
           data={KidsCarouselData}
           width={width / 1.07}

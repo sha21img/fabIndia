@@ -119,7 +119,7 @@ const LandingPageJewellery = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <Card
@@ -287,7 +287,7 @@ const LandingPageJewellery = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          paddingVertical: 10,
+          padding: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
         <PointDetailCard />
@@ -400,9 +400,7 @@ const LandingPageJewellery = () => {
           active={active}
         />
       </View>
-      <View style={{marginLeft: 15, height: 470}}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      <CommonTopTab data={dataMap} />
       <CommonCarousel
         data={WomenCarouselData}
         width={width}
@@ -439,9 +437,7 @@ const LandingPageJewellery = () => {
           active={active}
         />
       </View>
-      <View style={{marginLeft: 15, height: 470}}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      <CommonTopTab data={dataMap} />
       <ColorCard
         getTitles={getTitles('Our Colour of the Season', 'Hues of BLUE')}
         cardData={cardData}
@@ -455,9 +451,7 @@ const LandingPageJewellery = () => {
       />
       <Collections customStyle={{paddingTop: 40}} />
       <LifeStyleCard />
-      <View style={{paddingLeft: 15, height: 540, paddingTop: 20}}>
-        <CommonTopTab data={dataMap3} />
-      </View>
+      <CommonTopTab data={dataMap3} />
       <StoriesCard
         data={StoriesCardData}
         title={GetStoriesTitle}

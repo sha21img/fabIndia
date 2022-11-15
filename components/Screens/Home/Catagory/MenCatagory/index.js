@@ -128,7 +128,7 @@ const MenCatagory = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          paddingVertical: 10,
+          padding: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
         <Card
@@ -150,7 +150,7 @@ const MenCatagory = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          paddingVertical: 10,
+          padding: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
         <PointDetailCard />
@@ -339,9 +339,9 @@ const MenCatagory = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap} />
+      {/* </View> */}
       <SummerGalary
         data={SummerGalaryData}
         title={getTitle()}
@@ -361,9 +361,9 @@ const MenCatagory = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap1} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap1} />
+      {/* </View> */}
       <View style={{marginVertical: 40}}>
         <ImageBackground
           source={image.customkurtas}
@@ -410,9 +410,9 @@ const MenCatagory = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap2} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap2} />
+      {/* </View> */}
       <OfferCommonCarousel
         data={OfferData}
         backgroundColor={'#93BAC7'}
@@ -422,9 +422,9 @@ const MenCatagory = () => {
       />
       <Collections customStyle={{marginVertical: 15}} />
       <LifeStyleCard />
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap3} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap3} />
+      {/* </View> */}
       <StoriesCard
         data={StoriesCardData}
         title={GetStoriesTitle}

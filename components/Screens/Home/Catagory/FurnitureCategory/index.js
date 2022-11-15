@@ -123,7 +123,7 @@ const FurnitureCategory = () => {
       <ArCarousel
         key={Math.random() * 22983}
         data={data}
-        width={width}
+        width={width / 1.07}
         height={380}
       />
     );
@@ -134,7 +134,7 @@ const FurnitureCategory = () => {
       <ScrollView
         horizontal
         contentContainerStyle={{
-          paddingVertical: 10,
+          padding: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
         <PointDetailCard />
@@ -436,8 +436,6 @@ const FurnitureCategory = () => {
       </View>
       <View
         style={{
-          height: 450,
-          paddingHorizontal: 15,
           backgroundColor: '#ffffff',
           marginBottom: 10,
         }}>
@@ -488,15 +486,9 @@ const FurnitureCategory = () => {
           active={active}
         />
       </View>
-      <View
-        style={{
-          height: 450,
-          paddingHorizontal: 15,
-          backgroundColor: '#ffffff',
-          marginBottom: 10,
-        }}>
-        <CommonTopTab data={dataMap2} />
-      </View>
+
+      <CommonTopTab data={dataMap2} />
+
       {/* ===========special card================ */}
       <CommonCarousel
         data={SummerCarouselData}
@@ -509,9 +501,9 @@ const FurnitureCategory = () => {
         <LifeStyleCard />
       </View>
       {/* ==============Seller Chips=========== */}
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap} />
+      {/* </View> */}
       {/* ===============Stories Card =========== */}
       <StoriesCard
         data={StoriesCardData}

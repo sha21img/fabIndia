@@ -86,7 +86,9 @@ const KidsCatagory = () => {
   const [dashboardData, setDashboardData] = React.useState([]);
   const [Ids, setIds] = React.useState([]);
   const getInitialData = async () => {
-    const response = await getData('fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fkids&lang=en&curr=INR');
+    const response = await getData(
+      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fkids&lang=en&curr=INR',
+    );
     setDashboardData(response.contentSlots.contentSlot);
     getIds(response.contentSlots.contentSlot);
   };
@@ -175,7 +177,7 @@ const KidsCatagory = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          paddingVertical: 10,
+          padding: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
         <Card
@@ -205,7 +207,7 @@ const KidsCatagory = () => {
     },
   ];
   const HomeScreen2 = item => {
-    return <ArCarousel data={data} width={width / 1.09} height={380} />;
+    return <ArCarousel data={data} width={width / 1.07} height={380} />;
   };
   const screenObj1 = {
     Infants: HomeScreen,
@@ -251,7 +253,7 @@ const KidsCatagory = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          paddingVertical: 10,
+          padding: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
         <PointDetailCard />
@@ -366,9 +368,9 @@ const KidsCatagory = () => {
           active={active}
         />
       </View>
-      <View style={{paddingLeft: 15, height: 490}}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      {/* <View style={{paddingLeft: 15, height: 490}}> */}
+      <CommonTopTab data={dataMap} />
+      {/* </View> */}
 
       {/* 
       
@@ -394,14 +396,8 @@ const KidsCatagory = () => {
           active={active}
         />
       </View>
-      <View
-        style={{
-          height: 450,
-          paddingHorizontal: 15,
-          backgroundColor: '#ffffff',
-        }}>
-        <CommonTopTab data={dataMap1} />
-      </View>
+      <CommonTopTab data={dataMap1} />
+
       <OfferCommonCarousel
         data={OfferData}
         UptoText="UPTO"
@@ -417,14 +413,8 @@ const KidsCatagory = () => {
       
        */}
 
-      <View
-        style={{
-          height: 450,
-          paddingHorizontal: 15,
-          backgroundColor: '#ffffff',
-        }}>
-        <CommonTopTab data={dataMap2} />
-      </View>
+      <CommonTopTab data={dataMap2} />
+
       <CommonCarousel
         data={SummerCarouselData}
         width={width / 1.07}
@@ -434,9 +424,9 @@ const KidsCatagory = () => {
 
       <Collections />
       <LifeStyleCard />
-      <View style={{paddingLeft: 15, height: 500}}>
-        <CommonTopTab data={dataMap3} />
-      </View>
+      {/* <View style={{paddingLeft: 15, height: 500}}> */}
+      <CommonTopTab data={dataMap3} />
+      {/* </View> */}
       <StoriesCard
         data={StoriesCardData}
         title={GetStoriesTitle}

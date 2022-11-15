@@ -110,7 +110,7 @@ const LandingPageSaris = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <Card
@@ -400,7 +400,7 @@ const LandingPageSaris = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          paddingVertical: 10,
+          padding: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
         <PointDetailCard />
@@ -564,9 +564,9 @@ const LandingPageSaris = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap} />
+      {/* </View> */}
       <NewHighlights
         title={getTitle('It’s all about the', 'fabric')}
         data={WomenHighlightData}
@@ -586,9 +586,9 @@ const LandingPageSaris = () => {
           active={active}
         />
       </View>
-      <View style={{marginLeft: 15, height: 470}}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      {/* <View style={{marginLeft: 15, height: 470}}> */}
+      <CommonTopTab data={dataMap} />
+      {/* </View> */}
       <ColorCard
         getBox={getBox(79)}
         getTitles={getTitles('Our Colour of the Season', 'Hues of BLUE')}
@@ -669,9 +669,9 @@ const LandingPageSaris = () => {
           active={active}
         />
       </View>
-      <View style={{marginLeft: 15, height: 470}}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      {/* <View style={{marginLeft: 15, height: 470}}> */}
+      <CommonTopTab data={dataMap} />
+      {/* </View> */}
       <OfferCommonCarousel
         data={OfferData}
         backgroundColor={'#DB8C5F'}
@@ -681,9 +681,9 @@ const LandingPageSaris = () => {
       />
       <Collections customStyle={{paddingTop: 40}} />
       <LifeStyleCard />
-      <View style={{paddingLeft: 15, height: 540, paddingTop: 20}}>
-        <CommonTopTab data={dataMap3} />
-      </View>
+      {/* <View style={{paddingLeft: 15, height: 540, paddingTop: 20}}> */}
+      <CommonTopTab data={dataMap3} />
+      {/* </View> */}
       <StoriesCard
         data={StoriesCardData}
         title={GetStoriesTitle}

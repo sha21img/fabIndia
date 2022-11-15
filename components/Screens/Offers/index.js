@@ -136,7 +136,7 @@ export default function Offers() {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <Card
@@ -242,9 +242,7 @@ export default function Offers() {
             active={active}
           />
         </View>
-        <View style={{marginLeft: 15, height: 470}}>
-          <CommonTopTab data={dataMap} />
-        </View>
+        <CommonTopTab data={dataMap} />
         <SummerGalary
           data={SummerGalaryData}
           title={getSummerTitle()}
@@ -275,9 +273,7 @@ export default function Offers() {
             active={active}
           />
         </View>
-        <View style={{marginLeft: 15, height: 470}}>
-          <CommonTopTab data={dataMap} />
-        </View>
+        <CommonTopTab data={dataMap} />
       </ScrollView>
     </>
   );

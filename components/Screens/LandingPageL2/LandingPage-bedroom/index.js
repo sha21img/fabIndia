@@ -130,7 +130,7 @@ const LandingPagebedroom = () => {
     },
   ];
   const CardCompo = item => {
-    return <ArCarousel data={data} width={width / 1.09} height={380} />;
+    return <ArCarousel data={data} width={width / 1.07} height={380} />;
   };
   const screenObj = {
     Saris: CardCompo,
@@ -346,7 +346,7 @@ const LandingPagebedroom = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <PointDetailCard />
@@ -413,9 +413,7 @@ const LandingPagebedroom = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      <CommonTopTab data={dataMap} />
       <OfferCommonCarousel
         data={OfferData}
         backgroundColor={'#EDEDED'}
@@ -465,9 +463,7 @@ const LandingPagebedroom = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      <CommonTopTab data={dataMap} />
       <CommonCarousel
         data={WomenCarouselData1}
         width={width}
@@ -484,9 +480,7 @@ const LandingPagebedroom = () => {
       <View style={{marginTop: 40}}>
         <LifeStyleCard />
       </View>
-      <View style={{marginLeft: 15, height: 520}}>
-        <CommonTopTab data={dataMap4} />
-      </View>
+      <CommonTopTab data={dataMap4} />
       <StoriesCard
         data={StoriesCardData}
         title={GetStoriesTitle}
