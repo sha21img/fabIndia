@@ -34,6 +34,7 @@ export const WomenTabdata = [
   'Tops Shirts',
   'Pants',
 ];
+export const ProductOrderdata = ['Items Ordered & Delivery Details', 'Payment'];
 export const MenCatagoryTableData = [
   'Ethnic Wear',
   'Western Wear',
