@@ -13,10 +13,10 @@ import Details from './Details';
 import Size_Color from './Size_Color';
 import Popular from './Popular';
 import Footer from './Footer';
-import Video_title from './Video_title';
+import Art_Artist from './Art_Artist';
 import CommonTopTab from '../../Common/CommonTopTab';
 import {WomenTabdata} from '../../../constant';
-import Review from './Review';
+import Customize from './Customize';
 const width = Dimensions.get('window').width;
 
 export default function ProductDetailed() {
@@ -70,7 +70,14 @@ export default function ProductDetailed() {
         contentContainerStyle={{flexGrow: 1, backgroundColor: 'white'}}>
         <CommonCarousel data={WomenCarouselData} width={width} height={360} />
         <Details />
-        <Size_Color customStyle={{marginVertical: 15}} />
+        <Size_Color customStyle={{marginTop: 20}} />
+        <Customize
+          heading="Get your linen monogrammed!"
+          description="Add a personal touch to your bath linen with a
+monogram. Ideal as a gift for a loved one, or 
+an addition to your home."
+          btnText="Add a monogram"
+        />
         <CommonTopTab data={dataMap} />
         <Popular
           heading="Style it right!"
@@ -79,8 +86,7 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
           data={[0, 0, 0, 0]}
           customStyle={{marginVertical: 10}}
         />
-        <Video_title />
-        <Review />
+        <Art_Artist />
         <Popular
           customStyle={{marginVertical: 10}}
           heading="Frequently bought together"
