@@ -179,7 +179,7 @@ const WomenCategory = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <Card
@@ -503,7 +503,7 @@ const WomenCategory = () => {
           {banner: image.banner1},
           {banner: image.kidinterior2},
         ]}
-      /> */}
+      /> 
       {/* ==============Women Listing========== */}
       <NewHighlights
         title={getTitle('', 'Apparel')}
@@ -533,9 +533,9 @@ const WomenCategory = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap} />
+      {/* </View> */}
       {/* ================Summer Galery======== */}
       <SummerGalary
         data={SummerGalaryData}
@@ -556,9 +556,9 @@ const WomenCategory = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap1} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap1} />
+      {/* </View> */}
       {/* ===============Offer carousole======== */}
       <OfferCommonCarousel
         data={OfferData}
@@ -591,9 +591,9 @@ const WomenCategory = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap3} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap3} />
+      {/* </View> */}
       {/*=========== Beauty Essential ============*/}
       <CommonCarousel data={WomenCarouselData} width={width} height={410} />
       {/* ================Summer Galery======== */}
@@ -617,9 +617,9 @@ const WomenCategory = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap} />
+      {/* </View> */}
       {/*=========== Beauty Essential ============*/}
       <CommonCarousel data={WomenCarouselData} width={width} height={410} />
       {/* ================Collection ======== */}
@@ -641,9 +641,9 @@ const WomenCategory = () => {
         backgroundColor="#F8F2EF"
       />
       {/* ================Beach day============ */}
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap4} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap4} />
+      {/* </View> */}
       {/* ================Story Card======== */}
       <StoriesCard
         custumStyles={{marginTop: 15}}

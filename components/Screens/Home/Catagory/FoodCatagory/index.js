@@ -99,7 +99,7 @@ export default function FoodCatagory() {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <SimpleCard />
@@ -115,7 +115,7 @@ export default function FoodCatagory() {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <PointDetailCard />
@@ -331,9 +331,9 @@ export default function FoodCatagory() {
           active={active}
         />
       </View>
-      <View style={{marginLeft: 15, height: 440}}>
-        <CommonTopTab data={dataMap1} />
-      </View>
+      {/* <View style={{marginLeft: 15, height: 440}}> */}
+      <CommonTopTab data={dataMap1} />
+      {/* </View> */}
       <OfferCommonCarousel
         data={OfferData}
         UptoText="UPTO"
@@ -367,9 +367,7 @@ export default function FoodCatagory() {
           active={active}
         />
       </View>
-      <View style={{marginLeft: 15, height: 440}}>
-        <CommonTopTab data={dataMap2} />
-      </View>
+      <CommonTopTab data={dataMap2} />
       <CommonCarousel data={WomenCarouselData} width={width} height={410} />
       <SummerGalary
         data={HomeProductData}
@@ -379,9 +377,7 @@ export default function FoodCatagory() {
         customViewStyle={{marginBottom: 50, marginTop: 20}}
       />
       <LifeStyleCard />
-      <View style={{marginLeft: 15, height: 520}}>
-        <CommonTopTab data={dataMap3} />
-      </View>
+      <CommonTopTab data={dataMap3} />
       <FoodReceips
         heading={ReceipsCardHeading}
         customStyle={{backgroundColor: '#CFA566'}}
