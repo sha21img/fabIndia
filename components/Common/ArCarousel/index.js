@@ -7,7 +7,7 @@ import {Styles} from './styles';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 
-const ArCarousel = ({data = [], width, height}) => {
+const ArCarousel = ({data = [], width, height, customStyle = {}}) => {
   const [imgActive1, setImgActive1] = React.useState(0);
   const renderItem = ({item}) => {
     return (
@@ -15,7 +15,7 @@ const ArCarousel = ({data = [], width, height}) => {
         <Image
           source={item.banner}
           style={{height: 250, width: width}}
-          resizeMode="cover"
+          // resizeMode="cover"
         />
         <View style={Styles.headingbox}>
           <Text style={Styles.headingtxt}>Single Loft Bed</Text>
@@ -38,7 +38,8 @@ const ArCarousel = ({data = [], width, height}) => {
   };
   return (
     <>
-      <View style={Styles.container}>
+      <View
+        style={[{backgroundColor: 'white', alignItems: 'center'}, customStyle]}>
         <Carousel
           autoplay
           loop
