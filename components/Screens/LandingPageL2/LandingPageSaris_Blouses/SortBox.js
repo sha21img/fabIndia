@@ -3,7 +3,7 @@ import React from 'react';
 import Fonts from '../../../../assets/fonts';
 import {Colors} from '../../../../assets/Colors';
 
-export default function SortBox() {
+export default function SortBox({openSort = null}) {
   return (
     <View
       style={{
@@ -40,7 +40,7 @@ export default function SortBox() {
             borderLeftColor: '#828282',
           }}
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => openSort()}>
           <Text
             style={{
               padding: 10,

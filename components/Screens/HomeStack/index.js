@@ -54,13 +54,12 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="LandingPageSaris_Blouses">
       <Stack.Screen
         name="Home"
         component={Home}
         options={{headerShown: false}}
       />
-
       <Stack.Screen
         name="WomenCategory"
         component={WomenCategory}
