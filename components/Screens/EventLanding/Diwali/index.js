@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../../../assets/Colors';
@@ -160,7 +161,7 @@ const Diwali = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <Card
@@ -231,7 +232,7 @@ const Diwali = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <PointDetailCard />
@@ -306,9 +307,9 @@ const Diwali = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap} />
+      {/* </View> */}
       <KidsEventDiwali
         customViewStyle={{marginTop: 30}}
         data={KidsEventData}
@@ -335,9 +336,7 @@ const Diwali = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      <CommonTopTab data={dataMap} />
       <HomeEventDiwali
         customViewStyle={{marginTop: 30, backgroundColor: '#C4C4C4'}}
         data={HomeEventData}
@@ -364,9 +363,7 @@ const Diwali = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      <CommonTopTab data={dataMap} />
       <CommonCarousel
         data={SummerCarouselData}
         width={width / 1.07}
@@ -487,9 +484,7 @@ const Diwali = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      <CommonTopTab data={dataMap} />
       <CommonCarousel
         data={SummerCarouselData}
         width={width / 1.07}
@@ -500,9 +495,7 @@ const Diwali = () => {
         title={GetLifeStyleTitle}
         backgroundColor="#903233"
       />
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap4} />
-      </View>
+      <CommonTopTab data={dataMap4} />
       <StoriesCard
         custumStyles={{marginTop: 15, backgroundColor: '#C5A575'}}
         data={StoriesCardData}

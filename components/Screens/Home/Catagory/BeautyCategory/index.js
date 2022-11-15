@@ -115,7 +115,7 @@ export default function BeautyCategory() {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <PointDetailCard />
@@ -131,7 +131,7 @@ export default function BeautyCategory() {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <Card
@@ -352,9 +352,7 @@ export default function BeautyCategory() {
           active={active}
         />
       </View>
-      <View style={{marginLeft: 15, height: 470}}>
-        <CommonTopTab data={dataMap1} />
-      </View>
+      <CommonTopTab data={dataMap1} />
       <OfferCommonCarousel
         data={OfferData}
         UptoText="UPTO"
@@ -388,9 +386,7 @@ export default function BeautyCategory() {
           active={active}
         />
       </View>
-      <View style={{marginLeft: 15, height: 470}}>
-        <CommonTopTab data={dataMap2} />
-      </View>
+      <CommonTopTab data={dataMap2} />
       <CommonCarousel data={WomenCarouselData} width={width} height={410} />
       <SummerGalary
         data={HomeProductData}
@@ -400,9 +396,7 @@ export default function BeautyCategory() {
         customViewStyle={{marginBottom: 50, marginTop: 20}}
       />
       <LifeStyleCard />
-      <View style={{marginLeft: 15, height: 520}}>
-        <CommonTopTab data={dataMap3} />
-      </View>
+      <CommonTopTab data={dataMap3} />
       <StoriesCard
         data={StoriesCardData}
         title={GetStoriesTitle}

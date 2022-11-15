@@ -175,7 +175,7 @@ const NewArrivals = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          paddingVertical: 10,
+          padding: 10,
           backgroundColor: Colors.backgroundColor,
         }}>
         <Card
@@ -304,9 +304,9 @@ const NewArrivals = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap1} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap1} />
+      {/* </View> */}
       {/* ===========Men Trend========== */}
       <WomenTrendy
         data={WomenTrendCarouselData}
@@ -347,9 +347,9 @@ const NewArrivals = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap1} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap1} />
+      {/* </View> */}
       <OfferCommonCarousel
         data={OfferData}
         // UptoText="UPTO"
@@ -406,9 +406,9 @@ const NewArrivals = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap1} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap1} />
+      {/* </View> */}
       <OfferCommonCarousel
         data={OfferData}
         // UptoText="UPTO"
@@ -457,9 +457,9 @@ const NewArrivals = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap1} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap1} />
+      {/* </View> */}
       {/* ===========New Furniture=========== */}
       <NewFurniture
         data={NewFurnitureCarouselData}
@@ -508,9 +508,9 @@ const NewArrivals = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontab}>
-        <CommonTopTab data={dataMap1} />
-      </View>
+      {/* <View style={Styles.commontab}> */}
+      <CommonTopTab data={dataMap1} />
+      {/* </View> */}
     </ScrollView>
   );
 };

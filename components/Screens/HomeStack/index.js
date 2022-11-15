@@ -54,7 +54,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="LandingPageSaris_Blouses">
+    <Stack.Navigator initialRouteName="Diwali">
       <Stack.Screen
         name="Home"
         component={Home}

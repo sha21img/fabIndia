@@ -34,7 +34,7 @@ export default function Collections() {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <Card
@@ -60,7 +60,7 @@ export default function Collections() {
   }));
 
   const HomeScreen2 = item => {
-    return <ArCarousel data={data} width={width / 1.09} height={380} />;
+    return <ArCarousel data={data} width={width / 1.07} height={380} />;
   };
   const screenObj3 = {
     Bestsellers: HomeScreen2,
@@ -116,21 +116,13 @@ export default function Collections() {
         }}>
         <TopVideo />
         <WomenCollection customStyle={{paddingVertical: 15}} />
-        <View style={{marginLeft: 15, height: 470}}>
-          <CommonTopTab data={dataMap} />
-        </View>
+        <CommonTopTab data={dataMap} />
         <KidsCards customStyle={{paddingTop: 20}} />
-        <View style={{marginLeft: 15, height: 470}}>
-          <CommonTopTab data={dataMap} />
-        </View>
+        <CommonTopTab data={dataMap} />
         <MenCollection customStyle={{paddingTop: 20}} />
-        <View style={{marginLeft: 15, height: 470}}>
-          <CommonTopTab data={dataMap} />
-        </View>
+        <CommonTopTab data={dataMap} />
         <Accessories customStyle={{paddingTop: 20}} />
-        <View style={{marginLeft: 15, height: 470}}>
-          <CommonTopTab data={dataMap} />
-        </View>
+        <CommonTopTab data={dataMap} />
         <View style={{paddingVertical: 20}}>
           <Text
             style={{
@@ -148,21 +140,11 @@ export default function Collections() {
           />
         </View>
         <HomeProductCategory customStyle={{marginTop: 10}} />
-        <View style={{marginLeft: 15, height: 470}}>
-          <CommonTopTab data={dataMap} />
-        </View>
+        <CommonTopTab data={dataMap} />
         <FurnitureCollection customStyle={{marginTop: 10}} />
-        <View style={{marginLeft: 15, height: 470}}>
-          <CommonTopTab data={dataMap} />
-        </View>
-        <View
-          style={{
-            height: 450,
-            paddingHorizontal: 15,
-            backgroundColor: '#ffffff',
-          }}>
-          <CommonTopTab data={dataMap2} />
-        </View>
+        <CommonTopTab data={dataMap} />
+
+        <CommonTopTab data={dataMap2} />
       </ScrollView>
     </>
   );

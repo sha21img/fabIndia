@@ -93,7 +93,7 @@ export default function CommonCarousel({
     <>
       <View
         style={[
-          {alignItems: 'center', backgroundColor: '#F6F6F6'},
+          {alignItems: 'center', backgroundColor: '#FFFFFF'},
           customStyle,
         ]}>
         <Carousel
@@ -114,7 +114,6 @@ export default function CommonCarousel({
             flexDirection: 'row',
             justifyContent: 'center',
             marginTop: 10,
-            backgroundColor: '#F6F6F6',
           }}>
           {data.map((item, index) => (
             <Text

@@ -58,7 +58,7 @@ const HomeDecorCatagory = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <SimpleCard />
@@ -70,7 +70,7 @@ const HomeDecorCatagory = () => {
   const KidsCardList = item => {
     return (
       <>
-        <ArCarousel data={data} width={width / 1.1} height={380} />
+        <ArCarousel data={data} width={width / 1.07} height={380} />
       </>
     );
   };
@@ -81,7 +81,7 @@ const HomeDecorCatagory = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
-            paddingVertical: 10,
+            padding: 10,
             backgroundColor: Colors.backgroundColor,
           }}>
           <PointDetailCard />
@@ -280,9 +280,7 @@ const HomeDecorCatagory = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontabbox}>
-        <CommonTopTab data={dataMap} />
-      </View>
+      <CommonTopTab data={dataMap} />
       <View style={Styles.box}>
         <InteriorCatagory />
       </View>
@@ -307,9 +305,7 @@ const HomeDecorCatagory = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontabbox}>
-        <CommonTopTab data={dataMap1} />
-      </View>
+      <CommonTopTab data={dataMap1} />
 
       <OfferCommonCarousel
         data={OfferData}
@@ -341,9 +337,7 @@ const HomeDecorCatagory = () => {
           active={active}
         />
       </View>
-      <View style={Styles.commontabbox}>
-        <CommonTopTab data={dataMap2} />
-      </View>
+      <CommonTopTab data={dataMap2} />
 
       <CommonCarousel
         data={SummerCarouselData}
@@ -354,9 +348,7 @@ const HomeDecorCatagory = () => {
       <View style={Styles.box}>
         <LifeStyleCard />
       </View>
-      <View style={Styles.commontabbox1}>
-        <CommonTopTab data={dataMap4} />
-      </View>
+      <CommonTopTab data={dataMap4} />
       <StoriesCard
         data={StoriesCardData}
         title={GetStoriesTitle}
