@@ -10,6 +10,7 @@ import React, {useState} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 export default function Footer({oos}) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -44,12 +45,30 @@ export default function Footer({oos}) {
         }}>
         <View style={Styles.mainContainer}>
           <View style={Styles.centeredView}>
-            <Text>ssddfsdfdg</Text>
-            <Text>ssddfsdfdg</Text>
-            <Text>ssddfsdfdg</Text>
-            <Text>ssddfsdfdg</Text>
-            <Text>ssddfsdfdg</Text>
-            <Text>ssddfsdfdg</Text>
+            <View style={Styles.headingBox}>
+              <Text style={Styles.heading}>
+                We’ll let you know once this item is back in stock!
+              </Text>
+              <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                <Entypo
+                  name="circle-with-cross"
+                  color={Colors.primarycolor}
+                  size={24}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={Styles.description}>
+              <Text>
+                You'll receive an e-mail and SMS on your registered e-mail
+                address and mobile number as soon as we have this item
+                available.
+              </Text>
+            </View>
+            <TouchableOpacity
+              onPress={() => setModalVisible(!modalVisible)}
+              style={Styles.notiBtnBox}>
+              <Text style={Styles.cartText}>Done</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -78,6 +97,7 @@ const Styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
+    padding: 20,
   },
   heartBox: {
     borderWidth: 1.5,
@@ -99,5 +119,29 @@ const Styles = StyleSheet.create({
     color: 'white',
     fontFamily: Fonts.Assistant400,
     fontSize: 16,
+  },
+  headingBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 5,
+  },
+  heading: {
+    fontSize: 20,
+    lineHeight: 24,
+    fontFamily: Fonts.Assistant600,
+    color: Colors.textcolor,
+    width: '85%',
+  },
+  description: {
+    paddingVertical: 10,
+  },
+  notiBtnBox: {
+    backgroundColor: Colors.primarycolor,
+    padding: 12,
+    marginTop: 10,
+    width: '100%',
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

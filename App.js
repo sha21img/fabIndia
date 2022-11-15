@@ -12,6 +12,7 @@ import Filter from './components/Common/Filter';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fonts from './assets/fonts';
 import {Colors} from './assets/Colors';
+import PDP_Compare from './components/Screens/PDP_Compare';
 import ProductDetailed from './components/Screens/ProductDetailed';
 
 const Stack = createNativeStackNavigator();
@@ -120,6 +121,22 @@ export default function App(props) {
                 <Header
                   leftIcon={leftIcon(props)}
                   title="Cotton Viscose Printed Short..."
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="PDP_Compare"
+            component={PDP_Compare}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="PDP_Compare"
                   rightIcon={rightIcon}
                   customStyle={{
                     backgroundColor: '#F8F6F5',

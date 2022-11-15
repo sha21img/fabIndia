@@ -1,6 +1,8 @@
 import {
   View,
   Text,
+  Modal,
+  Alert,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
@@ -9,10 +11,14 @@ import React, {useState} from 'react';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 export default function Size_Color({customStyle}) {
   const [size, setSize] = useState('XS');
   const [color, setColor] = useState('blue');
+  const [modalVisible, setModalVisible] = useState(false);
+
+  openSize = () => setModalVisible(true);
   return (
     <View style={[Styles.container, customStyle]}>
       <Text style={Styles.sizeTxt}>Size</Text>
@@ -38,7 +44,7 @@ export default function Size_Color({customStyle}) {
         })}
       </ScrollView>
       <Text style={Styles.leftTxt}>ONLY 3 LEFT!</Text>
-      <TouchableOpacity style={Styles.chartBox}>
+      <TouchableOpacity onPress={() => openSize()} style={Styles.chartBox}>
         <FontAwesome5 name="ruler" color={'#903233'} size={15} />
         <Text style={Styles.chartText}>View size chart</Text>
       </TouchableOpacity>
@@ -60,6 +66,43 @@ export default function Size_Color({customStyle}) {
           })}
         </View>
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={Styles.mainContainer}>
+          <View style={Styles.centeredView}>
+            <View style={Styles.headingBox}>
+              <Text style={Styles.heading}>Size chart</Text>
+              <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                <Entypo
+                  name="circle-with-cross"
+                  color={Colors.primarycolor}
+                  size={24}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={Styles.chipContainer}>
+              {['Inches', 'Cms'].map(item => {
+                return (
+                  <>
+                    <TouchableOpacity style={Styles.chipActive}>
+                      <Text style={Styles.chipTextActive}>{item}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={Styles.chipInActive}>
+                      <Text style={Styles.chipTextActive}>{item}</Text>
+                    </TouchableOpacity>
+                  </>
+                );
+              })}
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -67,6 +110,32 @@ export default function Size_Color({customStyle}) {
 const Styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
+  },
+  mainContainer: {
+    width: '100%',
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+  },
+  centeredView: {
+    marginTop: 'auto',
+    width: '100%',
+    backgroundColor: 'white',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    padding: 20,
+  },
+  headingBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 5,
+    alignItems: 'center',
+  },
+  heading: {
+    fontSize: 20,
+    lineHeight: 24,
+    fontFamily: Fonts.Assistant600,
+    color: Colors.textcolor,
+    width: '85%',
   },
   btnBox: {
     paddingVertical: 5,
@@ -159,5 +228,33 @@ const Styles = StyleSheet.create({
     height: 20,
     borderRadius: 50,
     margin: 2,
+  },
+  chipContainer: {
+    paddingVertical: 5,
+    flexDirection: 'row',
+  },
+  chipActive: {
+    paddingHorizontal: 15,
+    paddingVertical: 7,
+    backgroundColor: Colors.textcolor,
+    borderRadius: 50,
+    marginRight: 10,
+  },
+  chipTextActive: {
+    fontFamily: Fonts.Assistant700,
+    fontSize: 16,
+    color: 'white',
+  },
+  chipInActive: {
+    paddingHorizontal: 15,
+    paddingVertical: 7,
+    backgroundColor: '#E0D9D6',
+    borderRadius: 50,
+    marginRight: 10,
+  },
+  chipTextInActive: {
+    fontFamily: Fonts.Assistant700,
+    fontSize: 16,
+    color: Colors.textcolor,
   },
 });
