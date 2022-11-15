@@ -1,82 +1,82 @@
 import React from 'react';
-import {Image, ScrollView, Text, View} from 'react-native';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {image} from '../../../assets/images';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './style';
 import {Colors} from '../../../assets/Colors';
 import Header from '../../Common/Header';
 import Fonts from '../../../assets/fonts';
-export default MyAccount = () => {
-  const pages = [
-    {
-      icon: image.document,
-      name: 'My Orders',
-      routes: '',
-    },
-    {
-      icon: image.location,
-      name: 'My Addresses',
-      routes: '',
-    },
-    {
-      icon: image.headphone,
-      name: 'Customer Care',
-      routes: '',
-    },
-    {
-      icon: image.ribbon,
-      name: 'FabFamily',
-      routes: '',
-    },
-    {
-      icon: image.savedCard,
-      name: 'Saved Cards',
-      routes: '',
-    },
-    {
-      icon: image.pendingPayment,
-      name: 'Pending Payments',
-      routes: '',
-    },
-    {
-      icon: image.GiftCard,
-      name: 'Gift Cards',
-      routes: '',
-    },
-    {
-      icon: image.ContactUs,
-      name: 'Contact us',
-      routes: '',
-    },
-    {
-      icon: image.UnSubscribe,
-      name: 'Unsubscribe',
-      routes: '',
-    },
-    {
-      icon: image.DelAccount,
-      name: 'Delete my Account',
-      routes: '',
-    },
-  ];
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MyOrder from './MyOrder';
+import OrderInProgress from './MyOrder/OrderInProgress';
+import MyProfile from './MyProfile';
+
+const Stack = createNativeStackNavigator();
+const pages = [
+  {
+    icon: image.document,
+    name: 'My Orders',
+    routes: '',
+  },
+  {
+    icon: image.location,
+    name: 'My Addresses',
+    routes: '',
+  },
+  {
+    icon: image.headphone,
+    name: 'Customer Care',
+    routes: '',
+  },
+  {
+    icon: image.ribbon,
+    name: 'FabFamily',
+    routes: '',
+  },
+  {
+    icon: image.savedCard,
+    name: 'Saved Cards',
+    routes: '',
+  },
+  {
+    icon: image.pendingPayment,
+    name: 'Pending Payments',
+    routes: '',
+  },
+  {
+    icon: image.GiftCard,
+    name: 'Gift Cards',
+    routes: '',
+  },
+  {
+    icon: image.ContactUs,
+    name: 'Contact us',
+    routes: '',
+  },
+  {
+    icon: image.UnSubscribe,
+    name: 'Unsubscribe',
+    routes: '',
+  },
+  {
+    icon: image.DelAccount,
+    name: 'Delete my Account',
+    routes: '',
+  },
+];
+const MyAccounts = props => {
   return (
     <>
-      <Header
-        customStyle={{elevation: 3, backgroundColor: '#ffffff'}}
-        title="My Account"
-        leftIcon={
-          <MaterialCommunityIcons name="chevron-left" style={{fontSize: 25}} />
-        }
-        rightIcon={
-          <MaterialCommunityIcons name="cart-outline" style={{fontSize: 25}} />
-        }
-      />
-      {/* <View style={{elevation:10, width:'100%', height:3}}></View> */}
-      {/* <ScrollView style={{backgroundColor: '#ffffff', marginTop: 5}}>
+      <View style={{elevation: 10, width: '100%', height: 3}}></View>
+      <ScrollView style={{backgroundColor: '#ffffff', marginTop: 5}}>
         <View style={styles.profileContainer}>
-          <View style={{alignItems: 'flex-end'}}>
+          <TouchableOpacity
+            style={{alignItems: 'flex-end'}}
+            onPress={() => props.navigation.navigate('MyProfile')}>
             <MaterialCommunityIcons name="border-color" size={15} />
-          </View>
+          </TouchableOpacity>
           <View
             style={{
               paddingVertical: 20,
@@ -138,7 +138,8 @@ export default MyAccount = () => {
         </View>
         {pages.map(item => {
           return (
-            <View
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('MyOrder')}
               key={Math.random() * 10000}
               style={{
                 padding: 20,
@@ -161,10 +162,98 @@ export default MyAccount = () => {
                 </Text>
               </View>
               <Image source={image.rightArrow} />
-            </View>
+            </TouchableOpacity>
           );
         })}
-      </ScrollView> */}
+      </ScrollView>
+    </>
+  );
+};
+export default MyAccount = props => {
+  const leftIcon = (
+    <TouchableOpacity onPress={() => props.navigation.goBack()}>
+      <SimpleLineIcons
+        name="arrow-left"
+        color={Colors.primarycolor}
+        size={20}
+      />
+    </TouchableOpacity>
+  );
+  const rightIcon = (
+    <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
+  );
+  return (
+    <>
+      <Stack.Navigator initialRouteName="OrderInProgress">
+        <Stack.Screen
+          name="MyAccounts"
+          component={MyAccounts}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Profile"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="MyOrder"
+          component={MyOrder}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Orders"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="OrderInProgress"
+          component={OrderInProgress}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Orders"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="MyProfile"
+          component={MyProfile}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Profile"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+      </Stack.Navigator>
     </>
   );
 };
