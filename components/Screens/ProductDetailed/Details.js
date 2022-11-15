@@ -25,6 +25,7 @@ export default function Details({customStyle}) {
         <Text style={Styles.priceofftxt}>₹ 1,000</Text>
         <Text style={Styles.offertxt}>20% off</Text>
       </View>
+      <Text style={Styles.oos}>Out of stock</Text>
       <View style={Styles.btnBox}>
         <TouchableOpacity style={Styles.btn}>
           <Text style={Styles.btnText}>Compare</Text>
@@ -37,7 +38,7 @@ export default function Details({customStyle}) {
 const Styles = StyleSheet.create({
   cardDetailContainer: {
     padding: 15,
-    backgroundColor: 'white',
+    backgroundColor: '#F6F6F6',
   },
   singleproducttitle: {
     fontSize: 18,
@@ -47,7 +48,7 @@ const Styles = StyleSheet.create({
     paddingRight: 5,
   },
   txtbox: {
-    paddingVertical: 10,
+    paddingVertical: 5,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -92,6 +93,13 @@ const Styles = StyleSheet.create({
     fontFamily: Fonts.Assistant700,
     color: '#96AD66',
     fontSize: 16,
+  },
+  oos: {
+    fontFamily: Fonts.Assistant700,
+    color: '#DA5959',
+    fontSize: 16,
+    lineHeight: 22,
+    paddingVertical: 5,
   },
   titleContainer: {
     flexDirection: 'row',

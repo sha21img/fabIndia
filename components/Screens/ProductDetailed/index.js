@@ -16,6 +16,7 @@ import Footer from './Footer';
 import Video_title from './Video_title';
 import CommonTopTab from '../../Common/CommonTopTab';
 import {WomenTabdata} from '../../../constant';
+import Review from './Review';
 const width = Dimensions.get('window').width;
 
 export default function ProductDetailed() {
@@ -35,12 +36,18 @@ export default function ProductDetailed() {
   const DetailsData = item => {
     return (
       <>
-        <View style={{backgroundColor: 'red'}}>
-          <Text>sdfg</Text>
-          <Text>sdfg</Text>
-          <Text>sdfg</Text>
-          <Text>sdfg</Text>
-          <Text>sdfg</Text>
+        <View style={{padding: 15, backgroundColor: 'white'}}>
+          <Text
+            style={{
+              fontFamily: Fonts.Assistant400,
+              fontSize: 16,
+              lineHeight: 22,
+            }}>
+            Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor
+            incididunt ut labore et dole magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliq ex ea commodo
+            consequat.
+          </Text>
         </View>
       </>
     );
@@ -73,6 +80,7 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
           customStyle={{marginVertical: 10}}
         />
         <Video_title />
+        <Review />
         <Popular
           customStyle={{marginVertical: 10}}
           heading="Frequently bought together"
@@ -89,7 +97,7 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
           data={[0, 0, 0, 0]}
         />
       </ScrollView>
-      <Footer />
+      <Footer oos={false} />
     </>
   );
 }
