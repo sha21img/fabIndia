@@ -5,15 +5,11 @@ import Fonts from '../../../assets/fonts';
 const width = Dimensions.get('window').width;
 
 export const Styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    paddingTop: 15,
-    backgroundColor: '#FFFFFF',
-  },
   mainbox: {
-    elevation: 1,
-    backgroundColor: '#FFFFFF',
-    marginHorizontal: 1,
+    elevation: 3,
+    backgroundColor: 'white',
+    margin: 2,
+    marginVertical: 15,
   },
   headingbox: {
     paddingVertical: 10,

@@ -10,10 +10,21 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../../../assets/Colors';
 import Fonts from '../../../../assets/fonts';
 import {image} from '../../../../assets/images';
-import {MenCatagoryData} from '../../../../constant';
+import {
+  HomeCatagoryTab4,
+  KidsTableData2,
+  MenCatagoryData,
+} from '../../../../constant';
+import ArCarousel from '../../../Common/ArCarousel';
 import Card from '../../../Common/Card';
 import Chip from '../../../Common/Chip';
 import CommonTopTab from '../../../Common/CommonTopTab';
+import LifeStyleCard from '../../../Common/LifeStyleCard';
+import PointDetailCard from '../../../Common/PointDetailCard';
+import StoriesCard from '../../../Common/StoriesCard';
+import HomeCard from './HomeCard';
+import KidsCard from './KidsCard';
+import MenCard from './MenCard';
 const width = Dimensions.get('window').width;
 const data = [
   {
@@ -53,7 +64,7 @@ const HomeScreen = item => {
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
-        paddingVertical: 10,
+        padding: 10,
         backgroundColor: Colors.backgroundColor,
       }}>
       <Card
@@ -85,9 +96,94 @@ const Dussehra = () => {
     name: item,
     screen: screenObj2[item],
   }));
+  const data1 = [
+    {
+      banner: image.WomenCarousel,
+    },
+    {
+      banner: image.WomenCarousel,
+    },
+  ];
+  const HomeScreen2 = item => {
+    return <ArCarousel data={data1} width={width / 1.07} height={380} />;
+  };
+  const screenObj3 = {
+    Bestsellers: HomeScreen2,
+    Furniture: HomeScreen2,
+    'Games & Toys': HomeScreen2,
+  };
+  const PointDetailCardList = item => {
+    return (
+      <>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            padding: 15,
+            backgroundColor: Colors.backgroundColor,
+          }}>
+          <PointDetailCard />
+          <PointDetailCard />
+        </ScrollView>
+      </>
+    );
+  };
+  const dataMap2 = KidsTableData2.map(item => ({
+    name: item,
+    screen: screenObj3[item],
+  }));
+  const screenObj4 = {
+    'Meals at Home': PointDetailCardList,
+    'Room Makeover': PointDetailCardList,
+    Staycation: PointDetailCardList,
+  };
+  const dataMap4 = HomeCatagoryTab4.map(item => ({
+    name: item,
+    screen: screenObj4[item],
+  }));
+  const GetStoriesTitle = () => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingTop: 20,
+          paddingLeft: 15,
+          paddingBottom: 10,
+        }}>
+        <Text
+          style={{
+            fontFamily: Fonts.RunWildDemo,
+            color: '#ffffff',
+            fontSize: 60,
+            marginRight: 10,
+          }}>
+          Style
+        </Text>
+        <Text
+          style={{
+            fontFamily: Fonts.Barlow400,
+            color: '#ffffff',
+            fontSize: 30,
+          }}>
+          STORIES
+        </Text>
+      </View>
+    );
+  };
+  const StoriesCardData = [
+    {
+      Image: image.homeStoryCardPic,
+      description: 'Tanya mixes and matches bed linen to create a cozy rooms',
+    },
+  ];
   return (
     <ScrollView
-      contentContainerStyle={{paddingBottom: 30, backgroundColor: '#FFFFFF'}}>
+      contentContainerStyle={{
+        paddingBottom: 30,
+        backgroundColor: '#FFFFFF',
+        flexGrow: 1,
+      }}>
       <ImageBackground
         source={image.dushera}
         style={{
@@ -222,9 +318,22 @@ const Dussehra = () => {
           active={active}
         />
       </View>
-      <View style={{paddingLeft: 15, height: 490}}>
-        <CommonTopTab data={dataMap1} />
-      </View>
+      <CommonTopTab data={dataMap1} />
+      <MenCard />
+      <CommonTopTab data={dataMap1} />
+
+      <HomeCard />
+      <CommonTopTab data={dataMap2} />
+
+      <KidsCard />
+      <CommonTopTab data={dataMap1} />
+      <LifeStyleCard />
+      <CommonTopTab data={dataMap4} />
+      <StoriesCard
+        data={StoriesCardData}
+        title={GetStoriesTitle}
+        custumStyles={{marginTop: 40, backgroundColor: '#908EA6'}}
+      />
     </ScrollView>
   );
 };
