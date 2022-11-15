@@ -1,23 +1,13 @@
 import {View, Text} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import React from 'react';
-import {ScrollView} from 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
-import Card from '../Card';
-import ShowData from './ShowData';
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function CommonTopTab({data = []}) {
-  function* myFun() {
-    while (true) {
-      yield 'auto';
-    }
-  }
-
-  const myFunGen = myFun();
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
@@ -37,7 +27,6 @@ export default function CommonTopTab({data = []}) {
           return (
             <Tab.Screen
               key={Math.random() * 3456}
-              // name={item.title}
               name={item.name}
               options={{
                 tabBarItemStyle: {

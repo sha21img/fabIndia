@@ -35,7 +35,7 @@ const Videos = ({text = null, url = ''}) => {
         endThumbnail={{uri: a}}
         // showDuration={true}
       />
-      {text()}
+      {text() ? text() : null}
     </View>
   );
 };
