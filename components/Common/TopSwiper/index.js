@@ -4,32 +4,33 @@ import Swiper from 'react-native-swiper';
 import Feather from 'react-native-vector-icons/Feather';
 import {Styles} from './styles';
 import axios from 'axios';
+import {image} from '../../../assets/images';
 
-export default function TopSwiper({data = [], customStyle, position}) {
-  const [carouselData, setCarouselData] = React.useState([]);
-  const getCarauselIds = async () => {
-    const filterArray = data.filter(item => {
-      return item.position == position;
-    });
-    const filterSlotId = filterArray[0].components.component[0].uid;
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${filterSlotId}&lang=en&curr=INR`,
-    );
+export default function TopSwiper({data = [0, 0, 0], customStyle, position}) {
+  // const [carouselData, setCarouselData] = React.useState([]);
+  // const getCarauselIds = async () => {
+  //   const filterArray = data.filter(item => {
+  //     return item.position == position;
+  //   });
+  //   const filterSlotId = filterArray[0].components.component[0].uid;
+  //   const response = await axios.get(
+  //     `https://apisap.fabindia.com/occ/v2/fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${filterSlotId}&lang=en&curr=INR`,
+  //   );
 
-    const bannerId = response.data.component[0].banners;
+  //   const bannerId = response.data.component[0].banners;
 
-    getCarauselData(bannerId);
-  };
-  const getCarauselData = async bannerId => {
-    const splitBannerId = bannerId.split(' ').join(',');
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
-    );
-    setCarouselData(response.data.component);
-  };
-  useEffect(() => {
-    getCarauselIds();
-  }, []);
+  //   getCarauselData(bannerId);
+  // };
+  // const getCarauselData = async bannerId => {
+  //   const splitBannerId = bannerId.split(' ').join(',');
+  //   const response = await axios.get(
+  //     `https://apisap.fabindia.com/occ/v2/fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+  //   );
+  //   setCarouselData(response.data.component);
+  // };
+  // useEffect(() => {
+  //   getCarauselIds();
+  // }, []);
   return (
     <Swiper
       loop={true}
@@ -49,14 +50,15 @@ export default function TopSwiper({data = [], customStyle, position}) {
         </View>
       }
       showsButtons={true}>
-      {carouselData.map((item, i) => {
+      {data.map((item, i) => {
         return (
           <Image
             key={Math.random() * 1099900}
             style={Styles.image}
-            source={{
-              uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
-            }}
+            // source={{
+            //   uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
+            // }}
+            source={image.ArtistImg1}
           />
         );
       })}
