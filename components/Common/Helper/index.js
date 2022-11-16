@@ -24,7 +24,7 @@ const postData = async (url, body) => {
 };
 const getData = async path => {
   // const Token = localStorage.getItem('token');
-  const response = await fetch(`${BaseURL}/${path}`, {
+  const response = await fetch(`${ComponentBaseURL}/${path}`, {
     method: 'GET',
     // mode: 'cors',
     headers: {

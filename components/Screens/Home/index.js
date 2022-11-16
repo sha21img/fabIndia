@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  Alert,
   FlatList,
 } from 'react-native';
 import React from 'react';
@@ -24,6 +25,7 @@ import {
   HomeTabdata,
   LifeTabdata,
   hasSpaces,
+  HomePageSection,
 } from '../../../constant';
 import {Colors} from '../../../assets/Colors';
 import Interior from './Interior';
@@ -609,19 +611,135 @@ const SimpleCardList = item => {
 export default function Dashbord() {
   const [active, setActive] = React.useState('Bestsellers');
   const [dashboardData, setDashboardData] = React.useState([]);
+  const [filteredComp, setFilteredComp] = React.useState([]);
   const [Ids, setIds] = React.useState([]);
   const getInitialData = async () => {
     const response = await getData('fabindiab2c/cms/pages?lang=en&curr=INR');
     setDashboardData(response.contentSlots.contentSlot);
-    getIds(response.contentSlots.contentSlot);
+    getSections(response.contentSlots.contentSlot);
+    // getIds(response.contentSlots.contentSlot);
   };
-  const getIds = data => {
-    let datas = [];
-    const newArray = data.map(item => {
-      datas.push(item.position);
-      return datas;
+  // const getIds = data => {
+  //   let datas = [];
+  //   const newArray = data.map(item => {
+  //     datas.push(item.position);
+  //     return datas;
+  //   });
+  //   setIds(datas);
+  // // };
+  const checkSwitch = param => {
+    switch (param?.typeCode) {
+      case 'FabResponsiveGridBannerCarouselComponent':
+        return <TopSwiper />;
+      case 'FabCmsLinkCarousalComponent':
+        return (
+          <ImageBackground
+            resizeMode="cover"
+            style={{width: '100%', marginVertical: 10}}
+            source={image.categoryBgBanner}>
+            <Catagory data={categoryData} />
+          </ImageBackground>
+        );
+      case 'FabBannerCarouselComponent':
+        return (
+          <NewHighlights
+            // data={dashboardData}
+            // customStyle={{marginVertical: 20}}
+            // position="Section3"
+
+            title={getTitle('New in', 'Women')}
+            customStyle={{marginVertical: 10}}
+            bgColor={{backgroundColor: '#F3E0E0'}}
+            data={WomenHighlightData}
+          />
+        );
+      case 'FabBannerResponsiveCarouselComponent':
+        return (
+          <CommonCarousel
+            // data={dashboardData}
+            // width={width / 1.07}
+            // height={330}
+            // position="Section4"
+
+            data={WomenCarouselData}
+            width={width / 1.07}
+            height={330}
+          />
+        );
+      case 'FabCMSTabContainer':
+        return (
+          <>
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                paddingHorizontal: 15,
+                marginTop: 10,
+              }}>
+              <Chip
+                title="Bestsellers"
+                handleClick={() => handleClick('Bestsellers')}
+                active={active}
+              />
+              <Chip
+                title="Recommended for you"
+                handleClick={() => handleClick('Recommended for you')}
+                active={active}
+              />
+            </View>
+            <CommonTopTab data={dataMap} />
+          </>
+        );
+      case 'FabResponsiveBannerCarouselComponent':
+        return (
+          <CommonCarousel
+            // data={dashboardData}
+            // width={width / 1.07}
+            // height={330}
+            // position="Section8"
+            data={MenCarouselData}
+            width={width / 1.07}
+            height={330}
+          />
+        );
+      case 'FabTitleCMSTabParagraphContainer':
+        return (
+          <>
+            <Text
+              style={{
+                fontFamily: Fonts.PlayfairDisplay600Italic,
+                fontSize: 20,
+                paddingTop: 20,
+                color: Colors.textcolor,
+                marginLeft: 15,
+              }}>
+              Offers for you
+            </Text>
+            <CommonTopTab data={dataMap2} />
+          </>
+        );
+      case 'SimpleResponsiveBannerComponent':
+        return <Interior />;
+      case 'YoutubeVideoComponent':
+        return <Art_Artist />;
+      case 'FabTitleBannerCarouselComponent':
+        return <Legacy data={dashboardData} position="Section22" />;
+      case 'CMSFlexComponent':
+        return;
+      default:
+        return;
+    }
+  };
+
+  const getSections = data => {
+    var dataa = [];
+    HomePageSection.map(sectionId => {
+      const filter = data.find(item => {
+        return item.position == sectionId;
+      });
+      dataa.push(filter.components?.component[0]);
     });
-    setIds(datas);
+    setFilteredComp(dataa);
   };
   React.useEffect(() => {
     getInitialData();
@@ -722,214 +840,9 @@ export default function Dashbord() {
           paddingBottom: 20,
         }}>
         <HomeHeader />
-        {Ids.includes('Section1') && (
-          <TopSwiper data={dashboardData} position="Section1" />
-        )}
-        {/* {Ids.includes('Section2') && ( */}
-        <ImageBackground
-          resizeMode="cover"
-          style={{width: '100%', marginVertical: 10}}
-          source={image.categoryBgBanner}>
-          <Catagory data={categoryData} />
-        </ImageBackground>
-        {/* )} */}
-        {Ids.includes('Section3') && (
-          <NewHighlights
-            // data={dashboardData}
-            // customStyle={{marginVertical: 20}}
-            // position="Section3"
-
-            title={getTitle('New in', 'Women')}
-            customStyle={{marginVertical: 10}}
-            bgColor={{backgroundColor: '#F3E0E0'}}
-            data={WomenHighlightData}
-          />
-        )}
-        {Ids.includes('Section4') && (
-          <CommonCarousel
-            // data={dashboardData}
-            // width={width / 1.07}
-            // height={330}
-            // position="Section4"
-
-            data={WomenCarouselData}
-            width={width / 1.07}
-            height={330}
-          />
-        )}
-        {/* {Ids.includes('Section5') && (
-          <WomenTab data={dashboardData} position="Section5" />
-        )} */}
-        <View
-          style={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            paddingHorizontal: 15,
-            marginTop: 10,
-          }}>
-          <Chip
-            title="Bestsellers"
-            handleClick={() => handleClick('Bestsellers')}
-            active={active}
-          />
-          <Chip
-            title="Recommended for you"
-            handleClick={() => handleClick('Recommended for you')}
-            active={active}
-          />
-        </View>
-        {/* <View style={{marginLeft: 15, height: 470}}> */}
-        <CommonTopTab data={dataMap} />
-        {/* </View> */}
-        <CommonBanner
-          heading={bannerHeading1}
-          buttonText="Customize now"
-          bgImage={image.banner1}
-          customViewStyle={{marginTop: 30, marginBottom: 15}}
-        />
-        <CommonBanner
-          heading={bannerHeading2}
-          buttonText="Add a monogram"
-          bgImage={image.banner1}
-          customViewStyle={{marginTop: 15, marginBottom: 30}}
-        />
-        {Ids.includes('Section7') && (
-          <NewHighlights
-            // data={dashboardData}
-            // customStyle={{marginVertical: 20}}
-            // position="Section7"
-
-            title={getTitle('New in', 'Men')}
-            customStyle={{marginVertical: 10}}
-            bgColor={{backgroundColor: '#F6EFE6'}}
-            data={MenHighlightData}
-          />
-        )}
-        {Ids.includes('Section8') && (
-          <CommonCarousel
-            // data={dashboardData}
-            // width={width / 1.07}
-            // height={330}
-            // position="Section8"
-            data={MenCarouselData}
-            width={width / 1.07}
-            height={330}
-          />
-        )}
-        {/* {Ids.includes('Section8') && (
-          <MenTab data={dashboardData} position="Section9" />
-        )} */}
-
-        <View
-          style={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            paddingHorizontal: 15,
-            marginTop: 15,
-          }}>
-          <Chip
-            title="Bestsellers"
-            handleClick={() => handleClick('Bestsellers')}
-            active={active}
-          />
-          <Chip
-            title="Recommended for you"
-            handleClick={() => handleClick('Recommended for you')}
-            active={active}
-          />
-        </View>
-        {/* <View style={{marginLeft: 15, height: 470}}> */}
-        <CommonTopTab data={dataMap1} />
-        {/* </View> */}
-
-        {/* <View style={{marginLeft: 15, height: 310}}> */}
-        <Text
-          style={{
-            fontFamily: Fonts.PlayfairDisplay600Italic,
-            fontSize: 20,
-            paddingTop: 20,
-            color: Colors.textcolor,
-            marginLeft: 15,
-          }}>
-          Offers for you
-        </Text>
-        <CommonTopTab data={dataMap2} />
-        {/* </View> */}
-        <Interior />
-        <StateCategory />
-        <NewHighlights
-          title={getTitle('New in', 'HOME')}
-          customStyle={{marginVertical: 10}}
-          bgColor={{backgroundColor: '#EDE8E7'}}
-          data={HomeHighlightData}
-        />
-        <CommonCarousel
-          data={HomeCarouselData}
-          width={width / 1.07}
-          height={330}
-        />
-        <View
-          style={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            paddingHorizontal: 15,
-            marginTop: 10,
-          }}>
-          <Chip
-            title="Bestsellers"
-            handleClick={() => handleClick('Bestsellers')}
-            active={active}
-          />
-          <Chip
-            title="Recommended for you"
-            handleClick={() => handleClick('Recommended for you')}
-            active={active}
-          />
-        </View>
-        {/* <View style={{marginLeft: 15, height: 440}}> */}
-        <CommonTopTab data={dataMap3} />
-        {/* </View> */}
-        <LookingFor active={active} />
-        <CommonCarousel
-          data={LifeCarouselData}
-          width={width / 1.07}
-          height={330}
-        />
-        <View
-          style={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            paddingHorizontal: 15,
-            marginTop: 10,
-          }}>
-          <Chip
-            title="Bestsellers"
-            handleClick={() => handleClick('Bestsellers')}
-            active={active}
-          />
-          <Chip
-            title="Recommended for you"
-            handleClick={() => handleClick('Recommended for you')}
-            active={active}
-          />
-        </View>
-        {/* <View style={{marginLeft: 15, height: 520}}> */}
-        <CommonTopTab data={dataMap4} />
-        {/* </View> */}
-        <CommonCarousel
-          data={KidsCarouselData}
-          width={width / 1.07}
-          height={330}
-        />
-        <CommonCarousel
-          data={BeautyCarouselData}
-          width={width / 1.07}
-          height={330}
-        />
-        <Art_Artist />
-        {Ids.includes('Section22') && (
-          <Legacy data={dashboardData} position="Section22" />
-        )}
+        {filteredComp.map(item => {
+          return checkSwitch(item);
+        })}
       </ScrollView>
     </>
   );
@@ -982,11 +895,366 @@ export default function Dashbord() {
           </TouchableOpacity>
         </ImageBackground> */
 }
+
+//////////////////////////////
+//
+//
+//
+//
+//
+//
+//
+//////////////////////////////
+//
+//
+//
+//
+//
+//
+//
+//////////////////////////////
+//
+//
+//
+//
+//
+//
+//
+//////////////////////////////
+//
+//
+//
+//
+//
+//
+//
+//////////////////////////////
+//
+//
+//
+//
+//
+//
+//
+//////////////////////////////
+//
+//
+//
+//
+//
+//
+//
+//////////////////////////////
+//
+//
+//
+//
+//
+//
+//
+//////////////////////////////
+
+{
+  /* {Ids.includes('Section1') && ( */
+}
+{
+  /* <TopSwiper data={dashboardData} position="Section1" /> */
+}
+{
+  /* )} */
+}
+{
+  /* {Ids.includes('Section2') && ( */
+}
 {
   /* <ImageBackground
           resizeMode="cover"
-          style={{width: '100%', height: 110}}
-          source={image.Banner2}>
-          <Catagory />
+          style={{width: '100%', marginVertical: 10}}
+          source={image.categoryBgBanner}>
+          <Catagory data={categoryData} />
         </ImageBackground> */
+}
+{
+  /* )} */
+}
+{
+  /* {Ids.includes('Section3') && ( */
+}
+{
+  /* <NewHighlights
+            // data={dashboardData}
+            // customStyle={{marginVertical: 20}}
+            // position="Section3"
+
+            title={getTitle('New in', 'Women')}
+            customStyle={{marginVertical: 10}}
+            bgColor={{backgroundColor: '#F3E0E0'}}
+            data={WomenHighlightData}
+          /> */
+}
+{
+  /* )} */
+}
+{
+  /* {Ids.includes('Section4') && ( */
+}
+{
+  /* <CommonCarousel
+          // data={dashboardData}
+          // width={width / 1.07}
+          // height={330}
+          // position="Section4"
+
+          data={WomenCarouselData}
+          width={width / 1.07}
+          height={330}
+        /> */
+}
+{
+  /* )} */
+}
+{
+  /* {Ids.includes('Section5') && (
+          <WomenTab data={dashboardData} position="Section5" />
+        )} */
+}
+{
+  /* <View
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            paddingHorizontal: 15,
+            marginTop: 10,
+          }}>
+          <Chip
+            title="Bestsellers"
+            handleClick={() => handleClick('Bestsellers')}
+            active={active}
+          />
+          <Chip
+            title="Recommended for you"
+            handleClick={() => handleClick('Recommended for you')}
+            active={active}
+          />
+        </View> */
+}
+{
+  /* <View style={{marginLeft: 15, height: 470}}> */
+}
+{
+  /* <CommonTopTab data={dataMap} /> */
+}
+{
+  /* </View> */
+}
+{
+  /* <CommonBanner
+          heading={bannerHeading1}
+          buttonText="Customize now"
+          bgImage={image.banner1}
+          customViewStyle={{marginTop: 30, marginBottom: 15}}
+        />
+        <CommonBanner
+          heading={bannerHeading2}
+          buttonText="Add a monogram"
+          bgImage={image.banner1}
+          customViewStyle={{marginTop: 15, marginBottom: 30}}
+        /> */
+}
+{
+  /* {Ids.includes('Section7') && ( */
+}
+{
+  /* <NewHighlights
+            // data={dashboardData}
+            // customStyle={{marginVertical: 20}}
+            // position="Section7"
+
+            title={getTitle('New in', 'Men')}
+            customStyle={{marginVertical: 10}}
+            bgColor={{backgroundColor: '#F6EFE6'}}
+            data={MenHighlightData}
+          /> */
+}
+{
+  /* )} */
+}
+{
+  /* {Ids.includes('Section8') && (
+          <CommonCarousel
+            // data={dashboardData}
+            // width={width / 1.07}
+            // height={330}
+            // position="Section8"
+            data={MenCarouselData}
+            width={width / 1.07}
+            height={330}
+          />
+        )} */
+}
+{
+  /* {Ids.includes('Section8') && (
+          <MenTab data={dashboardData} position="Section9" />
+        )} */
+}
+
+{
+  /* <View
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            paddingHorizontal: 15,
+            marginTop: 15,
+          }}>
+          <Chip
+            title="Bestsellers"
+            handleClick={() => handleClick('Bestsellers')}
+            active={active}
+          />
+          <Chip
+            title="Recommended for you"
+            handleClick={() => handleClick('Recommended for you')}
+            active={active}
+          />
+        </View> */
+}
+{
+  /* <View style={{marginLeft: 15, height: 470}}> */
+}
+{
+  /* <CommonTopTab data={dataMap1} /> */
+}
+{
+  /* </View> */
+}
+
+{
+  /* <View style={{marginLeft: 15, height: 310}}> */
+}
+{
+  /* <Text
+          style={{
+            fontFamily: Fonts.PlayfairDisplay600Italic,
+            fontSize: 20,
+            paddingTop: 20,
+            color: Colors.textcolor,
+            marginLeft: 15,
+          }}>
+          Offers for you
+        </Text> */
+}
+{
+  /* <CommonTopTab data={dataMap2} /> */
+}
+{
+  /* </View> */
+}
+{
+  /* <Interior /> */
+}
+{
+  /* <StateCategory /> */
+}
+{
+  /* <NewHighlights
+          title={getTitle('New in', 'HOME')}
+          customStyle={{marginVertical: 10}}
+          bgColor={{backgroundColor: '#EDE8E7'}}
+          data={HomeHighlightData}
+        /> */
+}
+{
+  /* <CommonCarousel
+          data={HomeCarouselData}
+          width={width / 1.07}
+          height={330}
+        /> */
+}
+{
+  /* <View
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            paddingHorizontal: 15,
+            marginTop: 10,
+          }}>
+          <Chip
+            title="Bestsellers"
+            handleClick={() => handleClick('Bestsellers')}
+            active={active}
+          />
+          <Chip
+            title="Recommended for you"
+            handleClick={() => handleClick('Recommended for you')}
+            active={active}
+          />
+        </View> */
+}
+{
+  /* <View style={{marginLeft: 15, height: 440}}> */
+}
+{
+  /* <CommonTopTab data={dataMap3} /> */
+}
+{
+  /* </View> */
+}
+{
+  /* <LookingFor active={active} /> */
+}
+{
+  /* <CommonCarousel
+          data={LifeCarouselData}
+          width={width / 1.07}
+          height={330}
+        /> */
+}
+{
+  /* <View
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            paddingHorizontal: 15,
+            marginTop: 10,
+          }}>
+          <Chip
+            title="Bestsellers"
+            handleClick={() => handleClick('Bestsellers')}
+            active={active}
+          />
+          <Chip
+            title="Recommended for you"
+            handleClick={() => handleClick('Recommended for you')}
+            active={active}
+          />
+        </View> */
+}
+{
+  /* <View style={{marginLeft: 15, height: 520}}> */
+}
+{
+  /* <CommonTopTab data={dataMap4} /> */
+}
+{
+  /* </View> */
+}
+{
+  /* <CommonCarousel
+          data={KidsCarouselData}
+          width={width / 1.07}
+          height={330}
+        />
+        <CommonCarousel
+          data={BeautyCarouselData}
+          width={width / 1.07}
+          height={330}
+        /> */
+}
+{
+  /* <Art_Artist /> */
+}
+{
+  /* {Ids.includes('Section22') && (
+          <Legacy data={dashboardData} position="Section22" />
+        )} */
 }
