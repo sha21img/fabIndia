@@ -35,7 +35,11 @@ const customStyles = {
 const PaymentPage = () => {
   return (
     <ScrollView
-      contentContainerStyle={{flexGrow: 1, backgroundColor: '#FFFFFF'}}>
+      contentContainerStyle={{
+        flexGrow: 1,
+        backgroundColor: '#FFFFFF',
+        paddingHorizontal: 15,
+      }}>
       <View style={{borderBottomWidth: 1, borderBottomColor: '#EDEDED'}}>
         <Text
           style={{
@@ -203,6 +207,7 @@ export default function OrderInProgress() {
         contentContainerStyle={{
           backgroundColor: '#FFFFFF',
           flexGrow: 1,
+          paddingHorizontal: 15,
         }}>
         {[0, 0, 0].map(item => {
           return (
@@ -366,7 +371,7 @@ export default function OrderInProgress() {
         paddingBottom: 30,
         flexGrow: 1,
         backgroundColor: '#FFFFFF',
-        paddingHorizontal: 15,
+        // paddingHorizontal: 15,
       }}>
       <CommonTopTab data={dataMap} />
     </ScrollView>

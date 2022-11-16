@@ -12,6 +12,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MyOrder from './MyOrder';
 import OrderInProgress from './MyOrder/OrderInProgress';
 import MyProfile from './MyProfile';
+import ReturnItem from './MyOrder/ReturnItem';
 
 const Stack = createNativeStackNavigator();
 const pages = [
@@ -184,7 +185,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="OrderInProgress">
+      <Stack.Navigator initialRouteName="ReturnItem">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
@@ -244,6 +245,23 @@ export default MyAccount = props => {
               <Header
                 leftIcon={leftIcon}
                 title="My Profile"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="ReturnItem"
+          component={ReturnItem}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Orders"
                 rightIcon={rightIcon}
                 customStyle={{
                   backgroundColor: '#F8F6F5',
