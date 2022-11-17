@@ -13,6 +13,7 @@ import MyOrder from './MyOrder';
 import OrderInProgress from './MyOrder/OrderInProgress';
 import MyProfile from './MyProfile';
 import ReturnItem from './MyOrder/ReturnItem';
+import Login_Register from '../Login_Register';
 
 const Stack = createNativeStackNavigator();
 const pages = [
@@ -185,7 +186,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="ReturnItem">
+      <Stack.Navigator initialRouteName="Login_Register">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
@@ -266,6 +267,22 @@ export default MyAccount = props => {
                 customStyle={{
                   backgroundColor: '#F8F6F5',
                   marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Login_Register"
+          component={Login_Register}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Account"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
                 }}
               />
             ),

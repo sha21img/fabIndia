@@ -294,7 +294,6 @@ export default function HomeStack() {
           ),
         }}
       />
-
       <Stack.Screen
         name="Offers"
         component={Offers}
@@ -391,7 +390,6 @@ export default function HomeStack() {
           ),
         }}
       />
-
       <Stack.Screen
         name="LandingPagebedroom"
         component={LandingPagebedroom}
@@ -440,7 +438,6 @@ export default function HomeStack() {
           ),
         }}
       />
-
       <Stack.Screen
         name="Diwali"
         component={Diwali}
@@ -457,7 +454,6 @@ export default function HomeStack() {
           ),
         }}
       />
-
       <Stack.Screen
         name="Dussehra"
         component={Dussehra}
