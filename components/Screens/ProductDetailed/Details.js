@@ -1,9 +1,26 @@
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Alert,
+  ScrollView,
+  Modal,
+  TouchableOpacity,
+} from 'react-native';
+import React, {useState} from 'react';
 import Fonts from '../../../assets/fonts';
+import Entypo from 'react-native-vector-icons/Entypo';
 import {Colors} from '../../../assets/Colors';
+import Card from '../../Common/Card';
+import Card1 from '../../Common/Card1';
+import SimpleCard from '../../Common/SimpleCard';
+import PointDetailCard from '../../Common/PointDetailCard';
 
 export default function Details({customStyle}) {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  openCompare = () => setModalVisible(true);
   return (
     <View style={[Styles.cardDetailContainer, customStyle]}>
       <Text style={Styles.singleproducttitle}>
@@ -27,15 +44,92 @@ export default function Details({customStyle}) {
       </View>
       <Text style={Styles.oos}>Out of stock</Text>
       <View style={Styles.btnBox}>
-        <TouchableOpacity style={Styles.btn}>
+        <TouchableOpacity style={Styles.btn} onPress={() => openCompare()}>
           <Text style={Styles.btnText}>Compare</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={Styles.btn}>
+          <Text style={Styles.btnText}>View in AR</Text>
+        </TouchableOpacity>
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={Styles.mainContainer}>
+          <View style={Styles.centeredView}>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{flexGrow: 1}}>
+              <View style={Styles.headingBox}>
+                <Text style={Styles.heading}>Choose a bundle to compare</Text>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(!modalVisible)}>
+                  <Entypo
+                    name="circle-with-cross"
+                    color={Colors.primarycolor}
+                    size={26}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={Styles.chipContainer}>
+                {['Similar', 'Recently viewed'].map(item => {
+                  return (
+                    <>
+                      <TouchableOpacity style={Styles.chipActive}>
+                        <Text style={Styles.chipTextActive}>{item}</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={Styles.chipInActive}>
+                        <Text style={Styles.chipTextInActive}>{item}</Text>
+                      </TouchableOpacity>
+                    </>
+                  );
+                })}
+              </View>
+              <ScrollView
+                horizontal
+                contentContainerStyle={Styles.productListContainer}>
+                {[0, 0, 0].map(item => {
+                  return <PointDetailCard compare={true} />;
+                })}
+              </ScrollView>
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
 
 const Styles = StyleSheet.create({
+  mainContainer: {
+    width: '100%',
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+  },
+  centeredView: {
+    marginTop: 'auto',
+    width: '100%',
+    backgroundColor: 'white',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+  },
+  headingBox: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  heading: {
+    fontSize: 20,
+    lineHeight: 24,
+    fontFamily: Fonts.Assistant600,
+    color: Colors.textcolor,
+  },
   cardDetailContainer: {
     padding: 15,
     backgroundColor: '#F6F6F6',
@@ -124,5 +218,39 @@ const Styles = StyleSheet.create({
   titleText: {
     paddingHorizontal: 5,
     color: '#ADA866',
+  },
+
+  chipContainer: {
+    paddingVertical: 5,
+    flexDirection: 'row',
+    paddingHorizontal: 15,
+  },
+  chipActive: {
+    paddingHorizontal: 15,
+    paddingVertical: 7,
+    backgroundColor: Colors.textcolor,
+    borderRadius: 50,
+    marginRight: 10,
+  },
+  chipTextActive: {
+    fontFamily: Fonts.Assistant700,
+    fontSize: 16,
+    color: 'white',
+  },
+  chipInActive: {
+    paddingHorizontal: 15,
+    paddingVertical: 7,
+    backgroundColor: '#E0D9D6',
+    borderRadius: 50,
+    marginRight: 10,
+  },
+  chipTextInActive: {
+    fontFamily: Fonts.Assistant700,
+    fontSize: 16,
+    color: Colors.textcolor,
+  },
+  productListContainer: {
+    paddingLeft: 15,
+    paddingVertical: 10,
   },
 });

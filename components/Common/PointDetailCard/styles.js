@@ -8,8 +8,7 @@ export const Styles = StyleSheet.create({
   },
   detailContainer: {
     paddingHorizontal: 10,
-    paddingTop: 10,
-    paddingBottom: 20,
+    paddingVertical: 10,
   },
   heading: {
     fontSize: 16,
@@ -50,5 +49,16 @@ export const Styles = StyleSheet.create({
     color: '#96AD66',
     fontSize: 16,
     lineHeight: 21,
+  },
+  btn: {
+    backgroundColor: '#F7F7F7',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btnText: {
+    fontFamily: Fonts.Assistant400,
+    color: Colors.primarycolor,
+    fontSize: 14,
+    paddingVertical: 12,
   },
 });
