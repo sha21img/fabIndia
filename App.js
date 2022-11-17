@@ -14,6 +14,7 @@ import Fonts from './assets/fonts';
 import {Colors} from './assets/Colors';
 import PDP_Compare from './components/Screens/PDP_Compare';
 import ProductDetailed from './components/Screens/ProductDetailed';
+import MyAddresses from './components/Screens/MyAccount/MyAddresses';
 
 const Stack = createNativeStackNavigator();
 
@@ -73,7 +74,7 @@ export default function App(props) {
   if (netInfo) {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="MainScreen">
+        <Stack.Navigator initialRouteName="MyAddresses">
           <Stack.Screen
             name="MainScreen"
             component={MainScreen}
@@ -137,6 +138,22 @@ export default function App(props) {
                 <Header
                   leftIcon={leftIcon(props)}
                   title="PDP_Compare"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="MyAddresses"
+            component={MyAddresses}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Address"
                   rightIcon={rightIcon}
                   customStyle={{
                     backgroundColor: '#F8F6F5',
