@@ -7,6 +7,7 @@ import {Colors} from '../../../../../assets/Colors';
 import {image} from '../../../../../assets/images';
 import Fonts from '../../../../../assets/fonts';
 import StepIndicator from 'react-native-step-indicator';
+import OrderProductLongCard from '../../../../Common/OrderProductLongCard';
 
 const labels = ['Order confirmed', 'Shipped', 'Delivery  pending'];
 const customStyles = {
@@ -14,23 +15,23 @@ const customStyles = {
   currentStepIndicatorSize: 30,
   separatorStrokeWidth: 2,
   currentStepStrokeWidth: 3,
-  stepStrokeCurrentColor: '#fe7013',
+  stepStrokeCurrentColor: '#96AD66',
   stepStrokeWidth: 3,
-  stepStrokeFinishedColor: '#fe7013',
+  stepStrokeFinishedColor: '#96AD66',
   stepStrokeUnFinishedColor: '#aaaaaa',
-  separatorFinishedColor: '#fe7013',
+  separatorFinishedColor: '#96AD66',
   separatorUnFinishedColor: '#aaaaaa',
-  stepIndicatorFinishedColor: '#fe7013',
+  stepIndicatorFinishedColor: '#96AD66',
   stepIndicatorUnFinishedColor: '#ffffff',
   stepIndicatorCurrentColor: '#ffffff',
   stepIndicatorLabelFontSize: 13,
   currentStepIndicatorLabelFontSize: 13,
-  stepIndicatorLabelCurrentColor: '#fe7013',
+  stepIndicatorLabelCurrentColor: '#96AD66',
   stepIndicatorLabelFinishedColor: '#ffffff',
   stepIndicatorLabelUnFinishedColor: '#aaaaaa',
   labelColor: '#999999',
   labelSize: 13,
-  currentStepLabelColor: '#fe7013',
+  currentStepLabelColor: '#979797',
 };
 const PaymentPage = () => {
   return (
@@ -240,116 +241,29 @@ export default function OrderInProgress() {
                     stepCount={3}
                   />
                 </View>
-                {[0, 0, 0, 0].map(item => {
-                  return (
-                    <View
-                      style={{
-                        backgroundColor: '#FFFFFF',
-                        elevation: 5,
-                        marginBottom: 10,
-                      }}>
-                      <View
-                        style={{
-                          paddingHorizontal: 10,
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                          width: '100%',
-                          paddingVertical: 10,
-                        }}>
-                        <View style={{width: '35%'}}>
-                          <Image
-                            source={image.ArtistImg1}
-                            style={{height: 131, width: 106}}
-                          />
-                        </View>
-                        <View style={{width: '60%'}}>
-                          <Text
-                            style={{
-                              fontFamily: Fonts.Assistant400,
-                              fontSize: 14,
-                              lineHeight: 18,
-                              color: Colors.textcolor,
-                            }}>
-                            Cotton Silk Block Printed Sari Product Name
-                          </Text>
-                          <View
-                            style={{flexDirection: 'row', paddingVertical: 5}}>
-                            <Text
-                              style={{
-                                marginRight: 10,
-                                fontFamily: Fonts.Assistant400,
-                                fontSize: 14,
-                                lineHeight: 18,
-                                color: Colors.textcolor,
-                              }}>
-                              Size M
-                            </Text>
-                            <Text
-                              style={{
-                                marginRight: 10,
-                                fontFamily: Fonts.Assistant400,
-                                fontSize: 14,
-                                lineHeight: 18,
-                                color: Colors.textcolor,
-                              }}>
-                              Qty1
-                            </Text>
-                          </View>
-                          <Text
-                            style={{
-                              marginRight: 10,
-                              fontFamily: Fonts.RupeeForadian,
-                              fontSize: 14,
-                              lineHeight: 19,
-                              color: Colors.textcolor,
-                            }}>
-                            ₹ 800
-                          </Text>
 
-                          <View style={{flexDirection: 'row', paddingTop: 10}}>
-                            <View
-                              style={{
-                                height: 15,
-                                width: 15,
-                                borderRadius: 100,
-                                borderWidth: 1,
-                                borderColor: '#FAA859',
-                                marginRight: 5,
-                              }}></View>
-                            <View>
-                              <Text
-                                style={{
-                                  color: '#FAA859',
-                                  fontSize: 14,
-                                  fontFamily: Fonts.Assistant700,
-                                  lineHeight: 18,
-                                }}>
-                                In progress
-                              </Text>
-                              <Text>Arriving by Friday, 14 May</Text>
-                            </View>
-                          </View>
-                        </View>
-                      </View>
-                      <View
-                        style={{
-                          paddingVertical: 10,
-                          alignItems: 'center',
-                          backgroundColor: '#FAFAFA',
-                        }}>
-                        <Text
-                          style={{
-                            fontFamily: Fonts.Assistant600,
-                            fontSize: 14,
-                            lineHeight: 18,
-                            color: Colors.textcolor,
-                          }}>
-                          Cancel
-                        </Text>
-                      </View>
-                    </View>
-                  );
-                })}
+                <OrderProductLongCard
+                  data={[
+                    {
+                      title: 'Cotton Silk Block Printed Sari Product Name',
+                      size: 'M',
+                      quantity: '1',
+                      price: '800',
+                    },
+                    {
+                      title: 'Cotton Silk Block Printed Sari Product Name',
+                      size: 'M',
+                      quantity: '1',
+                      price: '800',
+                    },
+                    {
+                      title: 'Cotton Silk Block Printed Sari Product Name',
+                      size: 'M',
+                      quantity: '1',
+                      price: '800',
+                    },
+                  ]}
+                />
               </View>
             </>
           );

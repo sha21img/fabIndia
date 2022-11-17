@@ -27,33 +27,32 @@ export default function MyOrder() {
   }, []);
   return (
     <>
-      <View style={{padding: 15, backgroundColor: '#F9F9F9'}}>
-        <DropDownPicker
-          style={{
-            borderColor: !genderOpen ? '#BDBDBD' : 'transparent',
-            width: '50%',
-            borderWidth: !genderOpen ? 1 : null,
-          }}
-          dropDownContainerStyle={{
-            borderColor: 'transparent',
-            width: '50%',
-            backgroundColor: 'white',
-            elevation: 10,
-          }}
-          open={genderOpen}
-          value={genderValue} //genderValue
-          items={gender}
-          setOpen={setGenderOpen}
-          setValue={setGenderValue}
-          setItems={setGender}
-          placeholder="Select date range "
-          //   placeholderStyle={styles.placeholderStyles}
-          onOpen={onGenderOpen}
-          onChangeValue={item => console.log('hihih', item)}
-          zIndex={3000}
-          zIndexInverse={1000}
-        />
-      </View>
+      <DropDownPicker
+        containerStyle={{backgroundColor: '#F9F9F9', padding: 15}}
+        style={{
+          borderColor: !genderOpen ? '#BDBDBD' : 'transparent',
+          width: '50%',
+          borderWidth: !genderOpen ? 1 : null,
+          padding: 150,
+        }}
+        dropDownContainerStyle={{
+          borderColor: 'transparent',
+          width: '50%',
+          backgroundColor: 'white',
+          elevation: 10,
+        }}
+        open={genderOpen}
+        value={genderValue} //genderValue
+        items={gender}
+        setOpen={setGenderOpen}
+        setValue={setGenderValue}
+        setItems={setGender}
+        placeholder="Select date range "
+        onOpen={onGenderOpen}
+        onChangeValue={item => console.log('hihih', item)}
+        zIndex={3000}
+        zIndexInverse={1000}
+      />
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,

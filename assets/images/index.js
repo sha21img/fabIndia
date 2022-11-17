@@ -135,4 +135,6 @@ export const image = {
   dushera: require('./dushera.png'),
   vv: require('./vv.png'),
   EventFlower: require('./EventFlower.png'),
+  tick: require('./tick.png'),
+  plus: require('./plus.png'),
 };
