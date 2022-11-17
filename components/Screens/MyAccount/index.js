@@ -13,6 +13,7 @@ import MyOrder from './MyOrder';
 import OrderInProgress from './MyOrder/OrderInProgress';
 import MyProfile from './MyProfile';
 import ReturnItem from './MyOrder/ReturnItem';
+import OrderSuccess from './MyOrder/OrderSuccess';
 
 const Stack = createNativeStackNavigator();
 const pages = [
@@ -262,6 +263,23 @@ export default MyAccount = props => {
               <Header
                 leftIcon={leftIcon}
                 title="My Orders"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="OrderSuccess"
+          component={OrderSuccess}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Profile"
                 rightIcon={rightIcon}
                 customStyle={{
                   backgroundColor: '#F8F6F5',

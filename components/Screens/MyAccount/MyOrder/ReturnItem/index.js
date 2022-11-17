@@ -12,6 +12,7 @@ import React, {useState} from 'react';
 import RadioButtonRN from 'radio-buttons-react-native';
 import Fonts from '../../../../../assets/fonts';
 import {Colors} from '../../../../../assets/Colors';
+import OrderProductCard from '../../../../Common/OrderProductCard';
 
 const data = [
   {label: 'Received a wrong or defective product '},
@@ -91,7 +92,7 @@ const ReturnItem = () => {
   return (
     <>
       <ScrollView style={Styles.container} showsVerticalScrollIndicator={false}>
-        <View style={Styles.product}>
+        {/* <View style={Styles.product}>
           <View style={{marginRight: 10}}>
             <Image
               style={Styles.image}
@@ -110,7 +111,14 @@ const ReturnItem = () => {
             </Text>
             <Text style={Styles.price}> ₹ 3,500</Text>
           </View>
-        </View>
+        </View> */}
+        <OrderProductCard
+          image="https://www.bringitonline.in/uploads/2/2/4/5/22456530/saree-photographers-in-delhi-bringitonline-2_orig.jpeg"
+          title="Cotton Silk Block Printed Sari Product Name"
+          size="M"
+          quantity="1"
+          price="3,500"
+        />
 
         <View style={Styles.policyContainer}>
           <Text> ↩ Eligible for return till 15 Jun </Text>
