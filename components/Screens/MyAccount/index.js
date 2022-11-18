@@ -15,6 +15,7 @@ import MyProfile from './MyProfile';
 import ReturnItem from './MyOrder/ReturnItem';
 import OrderSuccess from './MyOrder/OrderSuccess';
 import Login_Register from '../Login_Register';
+import ChangePassword from './MyProfile/ChangePassword';
 
 const Stack = createNativeStackNavigator();
 const pages = [
@@ -187,7 +188,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="OrderSuccess">
+      <Stack.Navigator initialRouteName="ChangePassword">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
@@ -298,6 +299,24 @@ export default MyAccount = props => {
               <Header
                 leftIcon={leftIcon}
                 title="My Account"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+
+        <Stack.Screen
+          name="ChangePassword"
+          component={ChangePassword}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Profile"
                 rightIcon={rightIcon}
                 customStyle={{
                   backgroundColor: '#F8F6F5',

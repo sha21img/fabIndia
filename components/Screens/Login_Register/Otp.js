@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import OtpInputs from 'react-native-otp-inputs';
+// import OtpInputs from 'react-native-otp-inputs';
 
 export default function Otp() {
   const handleOtpInputs = e => {
@@ -21,7 +21,7 @@ export default function Otp() {
           </Text>
         </View>
         <View>
-          <View style={{paddingHorizontal: '10%', marginTop: 100}}>
+          {/* <View style={{paddingHorizontal: '10%', marginTop: 100}}>
             <OtpInputs
               inputStyles={{
                 margin: 5,
@@ -38,7 +38,7 @@ export default function Otp() {
               numberOfInputs={4}
               handleChange={e => handleOtpInputs(e)}
             />
-          </View>
+          </View> */}
           <TouchableOpacity style={{}} onPress={() => focusOTP()}>
             <Text
               style={{

@@ -7,6 +7,8 @@ const Styles = StyleSheet.create({
   },
   mainView: {
     flexGrow: 1,
+    paddingBottom: 20,
+    marginHorizontal: 15,
   },
   bodyContainer: {
     flex: 1,
@@ -14,7 +16,7 @@ const Styles = StyleSheet.create({
   },
   secondDiv: {
     flex: 1,
-    padding: 20,
+    paddingVertical: 20,
   },
   contacttxt: {
     fontSize: 18,
@@ -96,11 +98,8 @@ const Styles = StyleSheet.create({
   },
   defaultaddressbox: {
     flexDirection: 'row',
-    paddingVertical: 20,
-    borderBottomWidth: 0.5,
-    borderBottomColor: 'grey',
+    paddingTop: 30,
     alignItems: 'center',
-    paddingHorizontal: 10,
   },
   defaultaddresstxt: {
     height: 15,
@@ -115,6 +114,10 @@ const Styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 30,
   },
-  btntxt: {},
+  btncontainer: {
+    padding: 12,
+    backgroundColor: '#FDFDFD',
+    elevation: 5,
+  },
 });
 export default Styles;

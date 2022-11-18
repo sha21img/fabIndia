@@ -11,8 +11,11 @@ import {
 import React, {useState} from 'react';
 import Fonts from '../../../../assets/fonts';
 import {Colors} from '../../../../assets/Colors';
+import InputText from '../../../Common/InputText';
+import CommonButton from '../../../Common/CommonButton';
 
 const MyProfile = () => {
+  const [text, setText] = React.useState('');
   const [editUser, setEditUser] = useState({
     name: '',
     mobile: '',
@@ -25,6 +28,20 @@ const MyProfile = () => {
     );
   };
   console.log('user', editUser);
+  const faqs = [
+    {
+      id: '1',
+      name: 'Name',
+    },
+    {
+      id: '2',
+      name: 'Mobile number',
+    },
+    {
+      id: '3',
+      name: 'Email address',
+    },
+  ];
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
@@ -66,45 +83,21 @@ const MyProfile = () => {
         <ScrollView
           contentContainerStyle={styles.fields}
           showsVerticalScrollIndicato={false}>
-          <View>
-            <Text style={{fontFamily: Fonts.Assistant400, fontSize: 12}}>
-              Name
-            </Text>
-            <TextInput
-              style={{height: 35}}
-              underlineColorAndroid={'#EDEDED'}
-              onChangeText={newText =>
-                setEditUser({...editUser, name: newText})
-              }
-              defaultValue={editUser.name}
+          {faqs.map((faq, index) => (
+            <InputText
+              underlineColor="#EDEDED"
+              activeUnderlineColor=" #979797"
+              customStyle={{
+                borderRadius: 1,
+                fontSize: 14,
+                marginTop: 30,
+                backgroundColor: '#FFFFFF',
+              }}
+              label={faq.name}
+              value={text}
+              onChangeText={text => setText(text)}
             />
-          </View>
-          <View style={{marginTop: 30}}>
-            <Text style={{fontFamily: Fonts.Assistant400, fontSize: 12}}>
-              Mobile number
-            </Text>
-            <TextInput
-              style={{height: 35}}
-              underlineColorAndroid={'#EDEDED'}
-              onChangeText={newText =>
-                setEditUser({...editUser, mobile: newText})
-              }
-              defaultValue={editUser.mobile}
-            />
-          </View>
-          <View style={{marginTop: 30}}>
-            <Text style={{fontFamily: Fonts.Assistant400, fontSize: 12}}>
-              Email address
-            </Text>
-            <TextInput
-              style={{height: 35}}
-              underlineColorAndroid={'#EDEDED'}
-              onChangeText={newText =>
-                setEditUser({...editUser, email: newText})
-              }
-              defaultValue={editUser.email}
-            />
-          </View>
+          ))}
 
           <TouchableOpacity style={{paddingTop: 10}}>
             <Text
@@ -122,19 +115,16 @@ const MyProfile = () => {
       <View
         style={{
           padding: 15,
-          backgroundColor: 'rgba(253, 253, 253, 0.7)',
-          marginTop: 2,
+          backgroundColor: '#FDFDFD',
+          elevation: 5,
         }}>
-        <TouchableOpacity
-          style={styles.updateButton}
-          onPress={() => updateProfileHandler()}>
-          <Text
-            style={{
-              color: 'white',
-            }}>
-            Update profile
-          </Text>
-        </TouchableOpacity>
+        <CommonButton
+          backgroundColor="#BDBDBD"
+          txt="Update profile"
+          customViewStyle={{
+            backgroundColor: Colors.primarycolor,
+          }}
+        />
       </View>
     </>
   );
@@ -156,7 +146,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   fields: {
-    paddingTop: 28,
     paddingHorizontal: 15,
   },
   updateButton: {
