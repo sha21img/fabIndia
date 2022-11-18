@@ -313,7 +313,6 @@ export default MyAccount = props => {
             ),
           }}
         />
-
         <Stack.Screen
           name="Otp"
           component={Otp}
@@ -331,10 +330,6 @@ export default MyAccount = props => {
             ),
           }}
         />
-
-
-
-
         <Stack.Screen
           name="ChangePassword"
           component={ChangePassword}
