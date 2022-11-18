@@ -61,8 +61,6 @@ const Styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     flexDirection: 'row',
-    // marginLeft: 8,
-    // marginRight: 10,
   },
   textinput: {
     borderRadius: 1,
@@ -71,7 +69,7 @@ const Styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   textinput1: {
-    // paddingLeft: 20,
+    height: 40,
     letterSpacing: 2,
     borderBottomColor: 'white',
     marginVertical: Platform.OS === 'android' ? 5 : 10,

@@ -191,7 +191,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="LoginMobile">
+      <Stack.Navigator initialRouteName="MyAccounts">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
