@@ -3,17 +3,14 @@ import React from 'react';
 import Fonts from '../../../assets/fonts';
 
 export default function CommonButton({
-  backgroundColor = '',
   txt = '',
   customViewStyle = {},
+  btntxtColor = '#FFFFF',
 }) {
   return (
-    <View style={[Styles.bottomContainer, customViewStyle]}>
-      <TouchableOpacity
-        style={[Styles.appButtonContainer, {backgroundColor: backgroundColor}]}>
-        <Text style={Styles.appButtonText}>{txt}</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity style={[Styles.appButtonContainer, customViewStyle]}>
+      <Text style={[Styles.appButtonText, {color: btntxtColor}]}>{txt}</Text>
+    </TouchableOpacity>
   );
 }
 const Styles = StyleSheet.create({
@@ -38,12 +35,6 @@ const Styles = StyleSheet.create({
   },
   bold: {
     fontWeight: '800',
-  },
-  bottomContainer: {
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    backgroundColor: '#FDFDFD',
-    elevation: 5,
   },
   appButtonContainer: {
     borderRadius: 100,

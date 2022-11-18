@@ -1,21 +1,9 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Image,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
-import {image} from '../../../../assets/images';
-
+import {View, ScrollView, Text, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
-
 import Styles from './styles';
 import {Colors} from '../../../../assets/Colors';
-import Fonts from '../../../../assets/fonts';
 import CommonButton from '../../../Common/CommonButton';
 const faqs = [
   {
@@ -35,27 +23,17 @@ const MyAddresses = props => {
       <ScrollView
         contentContainerStyle={Styles.container}
         showsVerticalScrollIndicator={false}>
-        <Text
-          style={{
-            FontFamily: Fonts.Assistant600,
-            fontSize: 18,
-            color: Colors.textcolor,
-          }}>
-          Saved Addresses
-        </Text>
+        <Text style={Styles.headingtxt}>Saved Addresses</Text>
         <View style={Styles.body}>
           {faqs.map((faq, index) => (
             <View
-              style={{
-                backgroundColor: '#FFFFFF',
-                borderRadius: 10,
-                padding: 15,
-                flexDirection: 'row',
-                elevation: 5,
-                justifyContent: 'space-between',
-                marginBottom: faq.length - 1 == index ? 0 : 15,
-              }}>
-              <View style={{maxWidth: '60%'}}>
+              style={[
+                Styles.txtbox,
+                {
+                  marginBottom: faq.length - 1 == index ? 0 : 15,
+                },
+              ]}>
+              <View style={{width: '65%'}}>
                 <Text style={Styles.mainDivText}>Home(Default)</Text>
                 <Text style={[Styles.titletxt]}>
                   102 FI Tara Orchard Avenue
@@ -73,23 +51,12 @@ const MyAddresses = props => {
                 />
               </TouchableOpacity>
               {show == faq.id ? (
-                <View
-                  style={{
-                    position: 'absolute',
-                    backgroundColor: 'white',
-                    elevation: 5,
-                    top: '50%',
-                    left: '75%',
-                    paddingVertical: 14,
-                    paddingHorizontal: 24,
-                  }}>
+                <View style={Styles.modalbox}>
                   <TouchableOpacity>
-                    <Text style={{fontWeight: 'bold'}}>Edit</Text>
+                    <Text style={Styles.edittxt}>Edit</Text>
                   </TouchableOpacity>
                   <TouchableOpacity>
-                    <Text style={{fontWeight: 'bold', marginTop: 10}}>
-                      Delete
-                    </Text>
+                    <Text style={Styles.deletetxt}>Delete</Text>
                   </TouchableOpacity>
                 </View>
               ) : null}
@@ -102,28 +69,24 @@ const MyAddresses = props => {
             color={Colors.primarycolor}
             size={20}
           />
-          <Text style={{paddingLeft: 10, color: 'brown'}}>
-            Add a new Addresses
-          </Text>
+          <Text style={Styles.addbtntxt}>Add a new Addresses</Text>
         </TouchableOpacity>
       </ScrollView>
-      <CommonButton
-        backgroundColor={Colors.primarycolor}
-        txt="Continue"
-        customViewStyle={{paddingVertical: 12}}
-      />
-      {/* <View style={{padding: 12}}>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
+
+      <View
+        style={{
+          padding: 12,
+          backgroundColor: '#FDFDFD',
+          elevation: 5,
+        }}>
+        <CommonButton
+          backgroundColor="#BDBDBD"
+          txt="Continue"
+          customViewStyle={{
             backgroundColor: Colors.primarycolor,
-            paddingVertical: 10,
-            borderRadius: 30,
-          }}>
-          <Text style={{color: 'white'}}>Continue</Text>
-        </View>
-      </View> */}
+          }}
+        />
+      </View>
     </>
   );
 };

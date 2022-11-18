@@ -187,7 +187,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="Login_Register">
+      <Stack.Navigator initialRouteName="OrderSuccess">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
