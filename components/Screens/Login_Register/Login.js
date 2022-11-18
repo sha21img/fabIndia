@@ -7,10 +7,13 @@ import {
   Image,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
 import React, {useState} from 'react';
 import InputText from '../../Common/InputText';
 import {Colors} from '../../../assets/Colors';
+import Fonts from '../../../assets/fonts';
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 export default function Login() {
   const [text, setText] = React.useState('');
@@ -32,80 +35,41 @@ export default function Login() {
   return (
     <>
       <View style={styles.container}>
-        <View>
-          <Text style={styles.titleText}>Log in with email address</Text>
-        </View>
-        <View style={styles.textInputContainer}>
-          <TextInput
-            style={styles.input}
-            // underlineColorAndroid={'#afafaf'}
-            placeholder="Email address"
-            autoCorrect={false}
-            textContentType={'email'}
-          />
-
-          <View
-            style={{
-              flexDirection: 'row',
-            }}>
-            <View style={{width: '90%'}}>
-              <TextInput
-                style={styles.input}
-                // underlineColorAndroid={'#afafaf'}
-                placeholder="Password"
-                secureTextEntry={hideOldPass}
-                autoCorrect={false}
-                textContentType={'password'}
-              />
-            </View>
-            <TouchableOpacity onPress={() => toggleOldHide()}>
-              <Image
-                onPress={() => toggleOldHide()}
-                source={icon}
-                style={{height: 25, width: 25, marginTop: 35}}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <View style={{paddingBottom: 20}}>
-            <TouchableOpacity>
-              <Text
-                style={{
-                  color: '#903233',
-                }}>
-                Forgot password
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.horizontalContainer}>
-            <View style={styles.horizontalLine} />
-            <View>
-              <Text style={styles.orText}>Or</Text>
-            </View>
-            <View style={styles.horizontalLine} />
-          </View>
-        </View>
+        <Text style={styles.titleText}>Log in with email address</Text>
         <InputText
+          label={'Email address'}
+          onChangeText={text => setText(text)}
+          value={text}
+          customStyle={{marginTop: 10}}
+        />
+        <InputText
+          label={'Password'}
+          onChangeText={text => setText(text)}
+          customStyle={{marginTop: 10}}
+          value={text}
           right={
             <TextInput.Icon
               name={() => (
-                <AntDesign
-                  name="shoppingcart"
+                <Feather
+                  name="eye-off"
                   color={Colors.primarycolor}
-                  size={25}
+                  size={20}
                   onPress={() => {}}
                 />
               )}
             />
           }
         />
-        {/* <InputText
-          underlineColor="#EDEDED"
-          activeUnderlineColor=" #979797"
-          label={faq.name}
-          value={text}
-          onChangeText={text => setText(text)}
-        /> */}
+        <TouchableOpacity style={styles.readText}>
+          <Text style={styles.forgetText}>Forgot password</Text>
+        </TouchableOpacity>
+        <View style={styles.horizontalContainer}>
+          <View style={styles.horizontalLine} />
+          <View>
+            <Text style={styles.orText}>Or</Text>
+          </View>
+          <View style={styles.horizontalLine} />
+        </View>
         <View style={styles.iconContainer}>
           <TouchableOpacity onPress={() => facebookLoginHandler()}>
             <Image source={facebookIcon} style={styles.facebookIcon} />
@@ -120,38 +84,22 @@ export default function Login() {
 }
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-    paddingHorizontal: 10,
-    paddingTop: 100,
+    width: width,
+    height: height,
+    padding: 15,
     backgroundColor: '#ffffff',
   },
-
   titleText: {
-    fontSize: 17,
-    color: 'black',
-    width: Dimensions.get('window').width - 20,
+    fontFamily: Fonts.Assistant600,
+    fontSize: 18,
+    paddingVertical: 10,
+    color: Colors.textcolor,
   },
-
-  textInputContainer: {
-    width: Dimensions.get('window').width - 20,
-    justifyContent: 'center',
-    marginTop: 20,
-  },
-  input: {
-    marginTop: 20,
-    height: 50,
-    borderBottomColor: '#afafaf',
-    borderBottomWidth: 1,
-    marginVertical: 10,
-    width: Dimensions.get('window').width - 20,
-  },
-
   iconContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
+    marginVertical: 20,
   },
   googleIcon: {
     height: 50,
@@ -165,7 +113,14 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginRight: 10,
   },
-
+  readText: {
+    paddingVertical: 7,
+  },
+  forgetText: {
+    fontFamily: Fonts.Assistant400,
+    fontSize: 14,
+    color: '#903233',
+  },
   orText: {
     width: 50,
     textAlign: 'center',
@@ -175,16 +130,11 @@ const styles = StyleSheet.create({
   horizontalContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    // paddingHorizontal: 15,
-    marginTop: 20,
+    marginVertical: 30,
   },
   horizontalLine: {
     flex: 1,
     height: 1,
-    backgroundColor: '#bdbdbd',
-  },
-  socialIconContainer: {
-    flexDirection: 'row',
-    marginTop: 20,
+    backgroundColor: '#BDBDBD',
   },
 });
