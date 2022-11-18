@@ -840,9 +840,9 @@ export default function Dashbord() {
           paddingBottom: 20,
         }}>
         <HomeHeader />
-        {filteredComp.map(item => {
+        {/* {filteredComp.map(item => {
           return checkSwitch(item);
-        })}
+        })} */}
       </ScrollView>
     </>
   );
