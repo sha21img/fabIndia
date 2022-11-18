@@ -3,7 +3,6 @@ import {
   Text,
   StyleSheet,
   Switch,
-  TextInput,
   TouchableOpacity,
   Dimensions,
   ScrollView,
@@ -11,6 +10,13 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import InputText from '../../../../Common/InputText';
+import {TextInput} from 'react-native-paper';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
+import {Colors} from '../../../../../assets/Colors';
+import {Styles} from './style';
+import CommonButton from '../../../../Common/CommonButton';
+import Fonts from '../../../../../assets/fonts';
 
 export default function ChangePassword() {
   const icon = {
@@ -20,6 +26,11 @@ export default function ChangePassword() {
   const [hideNewPass, setHideNewPass] = useState(true);
   const [passwordNotMatch, setPasswordNotMatch] = useState(false);
   const [desable, setDesable] = useState();
+  const [toggle, setToggle] = useState({
+    oldPass: true,
+    newPass: true,
+    confirmPass: true,
+  });
   const [text, setText] = React.useState('');
 
   const [password, setPassword] = useState({
@@ -57,165 +68,100 @@ export default function ChangePassword() {
   console.log('user', password.newPass.length, password.confirmPass.length);
 
   return (
-    // <ScrollView contentContainerStyle={styles.container}>
-    //   <View style={{paddingHorizontal: 10, marginTop: 100}}>
     <>
       <ScrollView
         showsVerticalScrollIndicator={true}
-        contentContainerStyle={{
-          paddingHorizontal: 15,
-          paddingTop: 55,
-          backgroundColor: '#FFFFFF',
-          flexGrow: 1,
-        }}>
-        <View style={styles.fieldContainer}>
-          <View style={{width: '90%'}}>
-            <InputText
-              underlineColor="#EDEDED"
-              activeUnderlineColor=" #979797"
-              customStyle={{
-                borderRadius: 1,
-                fontSize: 14,
-                marginBottom: 5,
-                backgroundColor: '#FFFFFF',
-              }}
-              label="Pincode"
-              value={password.oldPass}
-              onChangeText={pass => setPassword({...password, oldPass: pass})}
+        contentContainerStyle={Styles.container}>
+        <InputText
+          secureTextEntry={toggle.oldPass}
+          underlineColor="#EDEDED"
+          activeUnderlineColor=" #979797"
+          customStyle={Styles.txtinput}
+          label="Old password"
+          value={password.oldPass}
+          onChangeText={pass => setPassword({...password, oldPass: pass})}
+          right={
+            <TextInput.Icon
+              name={() => (
+                <Feather
+                  name={toggle.oldPass ? 'eye-off' : 'eye'}
+                  color={Colors.textcolor}
+                  size={15}
+                  onPress={() =>
+                    setToggle({...toggle, oldPass: !toggle.oldPass})
+                  }
+                />
+              )}
             />
-            {/* {password.oldPass && (
-              <Text style={styles.fieldLabel}>Old password</Text>
-            )}
-            <TextInput
-              style={styles.input}
-              placeholder={'Old password'}
-              secureTextEntry={hideOldPass}
-              autoCorrect={false}
-              textContentType={'password'}
-              onChangeText={pass => setPassword({...password, oldPass: pass})}
-              defaultValue={password.oldPass}
-            /> */}
-          </View>
-          <TouchableOpacity onPress={() => toggleOldHide()}>
-            <Image source={icon} style={styles.eyeButton} />
-          </TouchableOpacity>
-        </View>
+          }
+        />
         <View>
           <TouchableOpacity>
-            <Text style={{color: '#903233', paddingLeft: 5}}>
-              Forgot password
-            </Text>
+            <Text style={Styles.forgottxt}>Forgot password</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.fieldContainer}>
-          <View style={{width: '90%'}}>
-            {password.newPass && (
-              <Text style={styles.fieldLabel}>New password</Text>
-            )}
-            <TextInput
-              style={styles.input}
-              // underlineColorAndroid={'#afafaf'}
-              placeholder={'New password'}
-              secureTextEntry={hideNewPass}
-              autoCorrect={false}
-              textContentType={'password'}
-              onChangeText={pass => setPassword({...password, newPass: pass})}
-              defaultValue={password.newPass}
+
+        <InputText
+          underlineColor="#EDEDED"
+          secureTextEntry={toggle.newPass}
+          activeUnderlineColor=" #979797"
+          customStyle={[Styles.txtinput, {marginTop: 30}]}
+          label="New password"
+          value={password.newPass}
+          onChangeText={pass => setPassword({...password, newPass: pass})}
+          right={
+            <TextInput.Icon
+              name={() => (
+                <Feather
+                  name={toggle.newPass ? 'eye-off' : 'eye'}
+                  color={Colors.textcolor}
+                  size={15}
+                  onPress={pass => {
+                    setToggle({...toggle, newPass: !toggle.newPass});
+                  }}
+                />
+              )}
             />
-          </View>
-          <TouchableOpacity onPress={() => toggleNewHide()}>
-            <Image source={icon} style={styles.eyeButton} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.confirmContainer}>
-          {password.confirmPass && (
-            <Text style={styles.fieldLabel}>Confirm Password</Text>
-          )}
-          <TextInput
-            style={styles.confirmInput}
-            placeholder={'Confirm password'}
-            onChangeText={pass => setPassword({...password, confirmPass: pass})}
-            defaultValue={password.confirmPass}
-          />
-        </View>
+          }
+        />
+        <InputText
+          underlineColor="#EDEDED"
+          secureTextEntry={toggle.confirmPass}
+          activeUnderlineColor=" #979797"
+          customStyle={[Styles.txtinput, {marginTop: 30}]}
+          label="Confirm password"
+          value={password.confirmPass}
+          onChangeText={pass => setPassword({...password, confirmPass: pass})}
+          right={
+            <TextInput.Icon
+              name={() => (
+                <Feather
+                  name={toggle.confirmPass ? 'eye-off' : 'eye'}
+                  color={Colors.textcolor}
+                  size={15}
+                  onPress={() =>
+                    setToggle({...toggle, confirmPass: !toggle.confirmPass})
+                  }
+                />
+              )}
+            />
+          }
+        />
         {passwordNotMatch && (
-          <View
-            style={{
-              paddingLeft: 5,
-            }}>
-            <TouchableOpacity>
-              <Text
-                style={{
-                  color: '#903233',
-                }}>
-                Password not matching
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity>
+            <Text style={Styles.passnotmatch}>Password not matching</Text>
+          </TouchableOpacity>
         )}
       </ScrollView>
-
-      <View style={{paddingBottom: 10}}>
-        <TouchableOpacity
-          style={
-            !desable ? styles.updateButtonEnable : styles.updateButtonDesable
-          }
-          desabled={desable}
-          onPress={() => changePasswordHandler()}>
-          <Text
-            style={{
-              color: 'white',
-            }}>
-            Change password
-          </Text>
-        </TouchableOpacity>
+      <View style={Styles.commonbtnbox}>
+        <CommonButton
+          backgroundColor="#BDBDBD"
+          txt="Change password"
+          customViewStyle={{
+            backgroundColor: !desable ? '#BDBDBD' : Colors.primarycolor,
+          }}
+        />
       </View>
     </>
-    // </ScrollView>
   );
 }
-const styles = StyleSheet.create({
-  updateButtonEnable: {
-    width: '90%',
-    height: 40,
-    backgroundColor: '#903233',
-    marginHorizontal: '5%',
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input: {
-    height: 35,
-    borderBottomColor: '#afafaf',
-    borderBottomWidth: 1,
-    width: Dimensions.get('window').width - 20,
-  },
-  confirmInput: {
-    height: 35,
-    borderBottomColor: '#afafaf',
-    borderBottomWidth: 1,
-
-    width: Dimensions.get('window').width,
-  },
-  fieldLabel: {
-    padding: 0,
-  },
-  fieldContainer: {
-    flexDirection: 'row',
-    marginTop: 30,
-  },
-  confirmContainer: {
-    marginTop: 30,
-  },
-  updateButtonDesable: {
-    width: '90%',
-
-    height: 40,
-    backgroundColor: 'gray',
-    marginHorizontal: '5%',
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  eyeButton: {height: 25, width: 25, marginTop: 35},
-});

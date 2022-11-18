@@ -190,7 +190,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="ChangePassword">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
