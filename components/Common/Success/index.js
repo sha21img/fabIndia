@@ -73,7 +73,20 @@ export default function Success({
           />
         )}
       </ScrollView>
-      <CommonButton backgroundColor={Colors.primarycolor} txt={btntxt} />
+      <View
+        style={{
+          padding: 12,
+          backgroundColor: '#FDFDFD',
+          elevation: 5,
+        }}>
+        <CommonButton
+          backgroundColor="#BDBDBD"
+          txt={btntxt}
+          customViewStyle={{
+            backgroundColor: Colors.primarycolor,
+          }}
+        />
+      </View>
     </>
   );
 }

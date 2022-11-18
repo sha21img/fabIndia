@@ -8,22 +8,6 @@ const Styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 20,
   },
-  header: {
-    flexDirection: 'row',
-    marginHorizontal: 15,
-    justifyContent: 'center',
-    marginTop: 20,
-  },
-  chargeDetails: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  chargeDetailsText: {
-    // color: Colors.mainTextColor,
-    // fontFamily: Fonts.nunitoBold,
-    fontSize: 22,
-    fontWeight: 'bold',
-  },
   locationIcon: {
     height: 8,
     width: 8,
@@ -35,40 +19,27 @@ const Styles = StyleSheet.create({
     alignSelf: 'center',
   },
   body: {
-    // flex: 1,
-    // marginHorizontal: 18,
     marginVertical: 20,
-    // paddingVertical: 10,
-    // shadowColor: Colors.darkBlue,
-    // shadowOffset: {
-    //   width: 50,
-    //   height: 50
-    // },
-    // shadowOpacity: 1,
-    // shadowRadius: 25,
-    // elevation: 10,
-    // justifyContent: 'space-between'
-  },
-  div: {
-    marginVertical: 9,
-    // backgroundColor: Colors.mainThemeColor,
-    borderRadius: 15,
-    paddingVertical: 18,
-    paddingLeft: 0,
-    paddingRight: 25,
-    flexDirection: 'row',
-  },
-  divIcon: {
-    height: 60,
-    width: 60,
   },
   mainDivText: {
-    // fontFamily: Fonts.openSansRegular,
     fontSize: 14,
     fontFamily: Fonts.Assistant600,
     color: Colors.textcolor,
     lineHeight: 18,
     marginBottom: 5,
+  },
+  headingtxt: {
+    FontFamily: Fonts.Assistant600,
+    fontSize: 18,
+    color: Colors.textcolor,
+  },
+  txtbox: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    padding: 15,
+    flexDirection: 'row',
+    elevation: 5,
+    justifyContent: 'space-between',
   },
   titletxt: {
     fontSize: 14,
@@ -76,45 +47,32 @@ const Styles = StyleSheet.create({
     color: Colors.textcolor,
     lineHeight: 18,
   },
-  secondaryDivText: {
-    // color: Colors.black,
-    // fontFamily: Fonts.openSansSemiBold,
-    fontSize: 12,
-    marginTop: 5,
+  modalbox: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    elevation: 5,
+    top: '40%',
+    right: '8%',
+    padding: 15,
+    width: '35%',
+    borderRadius: 5,
   },
-  greenDot: {
-    height: 12,
-    width: 12,
-    borderRadius: 6,
-    // backgroundColor: Colors.primaryButton,
+  edittxt: {
+    fontFamily: Fonts.Assistant400,
+    fontSize: 16,
+    color: Colors.textcolor,
   },
-  notActiveDot: {
-    height: 12,
-    width: 12,
-    borderRadius: 6,
-    borderWidth: 1.3,
-    // borderColor: Colors.primaryButton,
-    backgroundColor: 'transparent',
+  deletetxt: {
+    fontFamily: Fonts.Assistant400,
+    fontSize: 16,
+    color: Colors.textcolor,
+    marginTop: 10,
   },
-  straightLine: {
-    height: 0.5,
-    width: '100%',
-    // backgroundColor: Colors.white,
-  },
-  cntnBtn: {
-    width: '100%',
-    // backgroundColor: Colors.white,
-    borderRadius: 50,
-    paddingVertical: 13,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  continueText: {
-    // color: Colors.lightBlue,
-    // fontFamily: Fonts.openSansRegular,
-    fontSize: 15,
-    fontWeight: 'bold',
+  addbtntxt: {
+    paddingLeft: 10,
+    fontFamily: Fonts.Assistant400,
+    fontSize: 16,
+    color: Colors.primarycolor,
   },
 });
 export default Styles;
