@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import {Styles} from './styles';
+import Otp from './Otp';
 
 export default function Login_Register() {
   const largeimage = {
@@ -27,49 +28,47 @@ export default function Login_Register() {
   const loginWithEmailHandler = () => {};
   const resisterHandler = () => {};
   return (
-    <ImageBackground
-      source={largeimage}
-      resizeMode="cover"
-      style={Styles.backgroundImage}>
-      <View style={Styles.container}>
-        <View>
-          <Text style={Styles.titleText}>
-            Log in or register to manage your orders
-          </Text>
-        </View>
-        <View style={Styles.buttonContainer}>
-          <TouchableOpacity
-            style={Styles.button}
-            onPress={() => loginWithMobileHandler()}>
-            <Text style={Styles.loginText}>Log in with moble no.</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={Styles.button}
-            onPress={() => loginWithEmailHandler()}>
-            <Text style={Styles.loginText}>Log in with email</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={Styles.registerButton}
-            onPress={() => resisterHandler()}>
-            <Text style={Styles.registerText}>Register</Text>
-          </TouchableOpacity>
-          <View style={Styles.horizontalContainer}>
-            <View style={Styles.horizontalLine} />
-            <View>
-              <Text style={Styles.orText}>or</Text>
-            </View>
-            <View style={Styles.iconContainer} />
-          </View>
-          <View style={Styles.socialIconContainer}>
-            <TouchableOpacity onPress={() => facebookLoginHandler()}>
-              <Image source={facebookIcon} style={Styles.facebookIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => googleLoginHandler()}>
-              <Image source={googleIcon} style={Styles.googleIcon} />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </ImageBackground>
+    <></>
+    // <Otp />
+    // <ImageBackground
+    //   source={largeimage}
+    //   resizeMode="cover"
+    //   style={Styles.container}>
+    //   <Text style={Styles.titleText}>
+    //     Log in or register to manage your orders
+    //   </Text>
+    //   <View style={Styles.buttonContainer}>
+    //     <TouchableOpacity
+    //       style={Styles.button}
+    //       onPress={() => loginWithMobileHandler()}>
+    //       <Text style={Styles.loginText}>Log in with moble no.</Text>
+    //     </TouchableOpacity>
+    //     <TouchableOpacity
+    //       style={Styles.button}
+    //       onPress={() => loginWithEmailHandler()}>
+    //       <Text style={Styles.loginText}>Log in with email</Text>
+    //     </TouchableOpacity>
+    //     <TouchableOpacity
+    //       style={Styles.registerButton}
+    //       onPress={() => resisterHandler()}>
+    //       <Text style={Styles.registerText}>Register</Text>
+    //     </TouchableOpacity>
+    //     <View style={Styles.horizontalContainer}>
+    //       <View style={Styles.horizontalLine} />
+    //       <View>
+    //         <Text style={Styles.orText}>or</Text>
+    //       </View>
+    //       <View style={Styles.iconContainer} />
+    //     </View>
+    //     <View style={Styles.socialIconContainer}>
+    //       <TouchableOpacity onPress={() => facebookLoginHandler()}>
+    //         <Image source={facebookIcon} style={Styles.facebookIcon} />
+    //       </TouchableOpacity>
+    //       <TouchableOpacity onPress={() => googleLoginHandler()}>
+    //         <Image source={googleIcon} style={Styles.googleIcon} />
+    //       </TouchableOpacity>
+    //     </View>
+    //   </View>
+    // </ImageBackground>
   );
 }

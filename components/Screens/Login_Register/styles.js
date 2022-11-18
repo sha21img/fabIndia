@@ -1,4 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
+import {Colors} from '../../../assets/Colors';
+import Fonts from '../../../assets/fonts';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 export const Styles = StyleSheet.create({
@@ -6,29 +8,33 @@ export const Styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  backgroundImage: {
     height: windowHeight,
     width: windowWidth,
   },
-  titleText: {color: '#ffffff', fontSize: 17},
+  titleText: {
+    fontFamily: Fonts.Assistant600,
+    fontSize: 18,
+    lineHeight: 24,
+    color: 'white',
+    paddingHorizontal: 20,
+  },
   button: {
-    width: '70%',
-    height: 40,
-    backgroundColor: '#903233',
+    width: '60%',
+    backgroundColor: Colors.primarycolor,
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 10,
+    paddingVertical: 8,
   },
   registerButton: {
-    width: '70%',
-    height: 40,
+    width: '60%',
     backgroundColor: '#ffffff',
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 10,
+    paddingVertical: 8,
   },
   buttonContainer: {
     width: windowWidth,
@@ -36,8 +42,18 @@ export const Styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
   },
-  loginText: {color: 'white', fontSize: 16},
-  registerText: {color: '#903233', fontSize: 16},
+  loginText: {
+    fontFamily: Fonts.Assistant400,
+    fontSize: 16,
+    lineHeight: 21,
+    color: 'white',
+  },
+  registerText: {
+    fontFamily: Fonts.Assistant400,
+    fontSize: 16,
+    lineHeight: 21,
+    color: Colors.textcolor,
+  },
   googleIcon: {
     height: 50,
     width: 50,
@@ -50,7 +66,11 @@ export const Styles = StyleSheet.create({
     borderRadius: 50,
     margin: 5,
   },
-  iconContainer: {flex: 1, height: 1, backgroundColor: '#ffffff'},
+  iconContainer: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#ffffff',
+  },
   orText: {
     width: 50,
     textAlign: 'center',
@@ -63,6 +83,10 @@ export const Styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginTop: 20,
   },
-  horizontalLine: {flex: 1, height: 1, backgroundColor: '#ffffff'},
+  horizontalLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#ffffff',
+  },
   socialIconContainer: {flexDirection: 'row', marginTop: 20},
 });
