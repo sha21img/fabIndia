@@ -5,7 +5,7 @@ import Fonts from '../../../assets/fonts';
 export default function CommonButton({
   txt = '',
   customViewStyle = {},
-  btntxtColor = '#FFFFF',
+  btntxtColor = '#FFFFFF',
 }) {
   return (
     <TouchableOpacity style={[Styles.appButtonContainer, customViewStyle]}>

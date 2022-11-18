@@ -5,10 +5,16 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
-  TextInput,
 } from 'react-native';
+import {TextInput} from 'react-native-paper';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import React, {useState} from 'react';
+import InputText from '../../Common/InputText';
+import {Colors} from '../../../assets/Colors';
+
 export default function Login() {
+  const [text, setText] = React.useState('');
+
   const [hideOldPass, setHideOldPass] = useState(true);
   const googleIcon = {
     uri: 'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
@@ -71,7 +77,6 @@ export default function Login() {
               </Text>
             </TouchableOpacity>
           </View>
-
           <View style={styles.horizontalContainer}>
             <View style={styles.horizontalLine} />
             <View>
@@ -80,7 +85,27 @@ export default function Login() {
             <View style={styles.horizontalLine} />
           </View>
         </View>
-
+        <InputText
+          right={
+            <TextInput.Icon
+              name={() => (
+                <AntDesign
+                  name="shoppingcart"
+                  color={Colors.primarycolor}
+                  size={25}
+                  onPress={() => {}}
+                />
+              )}
+            />
+          }
+        />
+        {/* <InputText
+          underlineColor="#EDEDED"
+          activeUnderlineColor=" #979797"
+          label={faq.name}
+          value={text}
+          onChangeText={text => setText(text)}
+        /> */}
         <View style={styles.iconContainer}>
           <TouchableOpacity onPress={() => facebookLoginHandler()}>
             <Image source={facebookIcon} style={styles.facebookIcon} />
