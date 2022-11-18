@@ -34,6 +34,7 @@ import {Colors} from '../../../assets/Colors';
 import Dussehra from '../EventLanding/Dussehra';
 import MyProfile from '../MyAccount/MyProfile';
 import MyOrder from '../MyAccount/MyOrder';
+import Header1 from '../../Common/Header1';
 
 const Stack = createNativeStackNavigator();
 
@@ -54,7 +55,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="LandingPageSaris">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -65,14 +66,7 @@ export default function HomeStack() {
         component={WomenCategory}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Women"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-              }}
-            />
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
           ),
         }}
       />
@@ -81,16 +75,18 @@ export default function HomeStack() {
         component={FurnitureCategory}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Furniture"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-                // marginBottom: 4,
-              }}
-            />
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
           ),
+          //   <Header
+          //     leftIcon={leftIcon}
+          //     title="Furniture"
+          //     rightIcon={rightIcon}
+          //     customStyle={{
+          //       backgroundColor: '#F8F6F5',
+          //       // marginBottom: 4,
+          //     }}
+          //   />
+          // ),
         }}
       />
       <Stack.Screen
@@ -132,15 +128,7 @@ export default function HomeStack() {
         component={MenCatagory}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Men"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-                // marginBottom: 4,
-              }}
-            />
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
           ),
         }}
       />
@@ -149,15 +137,7 @@ export default function HomeStack() {
         component={KidsCatagory}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Kids"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-                // marginBottom: 4,
-              }}
-            />
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
           ),
         }}
       />
@@ -166,15 +146,7 @@ export default function HomeStack() {
         component={HomeCatagory}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Home Linen"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-                // marginBottom: 4,
-              }}
-            />
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
           ),
         }}
       />
@@ -183,15 +155,7 @@ export default function HomeStack() {
         component={HomeDecorCatagory}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Home Decor"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-                // marginBottom: 4,
-              }}
-            />
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
           ),
         }}
       />
@@ -200,15 +164,7 @@ export default function HomeStack() {
         component={FoodCatagory}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Food"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-                // marginBottom: 4,
-              }}
-            />
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
           ),
         }}
       />
@@ -217,15 +173,7 @@ export default function HomeStack() {
         component={CustomizeCatagory}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Customize"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-                // marginBottom: 4,
-              }}
-            />
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
           ),
         }}
       />
@@ -234,15 +182,7 @@ export default function HomeStack() {
         component={MonogramCatagory}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Add a Monogram"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-                // marginBottom: 4,
-              }}
-            />
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
           ),
         }}
       />
@@ -251,14 +191,7 @@ export default function HomeStack() {
         component={BeautyCategory}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Beauty"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-              }}
-            />
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
           ),
         }}
       />
@@ -283,14 +216,19 @@ export default function HomeStack() {
         component={LandingPageSaris}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Saris & Blouses"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-              }}
+            <Header1
+              customViewStyle={{backgroundColor: '#FFFFFF'}}
+              headtext="WOMEN"
+              count="1"
             />
+            // <Header
+            //   leftIcon={leftIcon}
+            //   title="Saris & Blouses"
+            //   rightIcon={rightIcon}
+            //   customStyle={{
+            //     backgroundColor: '#F8F6F5',
+            //   }}
+            // />
           ),
         }}
       />
@@ -331,14 +269,19 @@ export default function HomeStack() {
         component={LandingPageJewellery}
         options={{
           header: props => (
-            <Header
+            <Header1
+              customViewStyle={{backgroundColor: '#FFFFFF'}}
+              headtext="JEWELLERY"
+              count="1"
+            />
+            /* <Header
               leftIcon={leftIcon}
               title="Jewellery"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
-              }}
-            />
+              }
+            /> */
           ),
         }}
       />
@@ -347,14 +290,19 @@ export default function HomeStack() {
         component={LandingPageMenKurtas}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Men’s Kurtas"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-              }}
+            <Header1
+              customViewStyle={{backgroundColor: '#FFFFFF'}}
+              headtext="Men’s Kurtas"
+              count="1"
             />
+            // <Header
+            //   leftIcon={leftIcon}
+            //   title="Men’s Kurtas"
+            //   rightIcon={rightIcon}
+            //   customStyle={{
+            //     backgroundColor: '#F8F6F5',
+            //   }}
+            // />
           ),
         }}
       />
@@ -395,14 +343,19 @@ export default function HomeStack() {
         component={LandingPagebedroom}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Bedroom"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-              }}
+            <Header1
+              customViewStyle={{backgroundColor: '#FFFFFF'}}
+              headtext="Bedroom"
+              count="1"
             />
+            // <Header
+            //   leftIcon={leftIcon}
+            //   title="Bedroom"
+            //   rightIcon={rightIcon}
+            //   customStyle={{
+            //     backgroundColor: '#F8F6F5',
+            //   }}
+            // />
           ),
         }}
       />
