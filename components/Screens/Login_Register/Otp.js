@@ -6,64 +6,48 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
+<<<<<<< HEAD
+import CommonButton from '../../Common/CommonButton';
+import {Colors} from '../../../assets/Colors';
+import OTPInputView from '@twotalltotems/react-native-otp-input';
+import Fonts from '../../../assets/fonts';
+=======
 // import OtpInputs from 'react-native-otp-inputs';
+>>>>>>> 516241ef5aafb896f2cc03c9ed8dfe49d9cd34f1
 
 export default function Otp() {
-  const handleOtpInputs = e => {
-    console.log(e);
-  };
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={{marginTop: 30}}>
-          <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-            Please enter 4 digit code sent to your registered mobile number
-          </Text>
-        </View>
+        <Text style={styles.heading}>
+          Please enter 4 digit code sent to your registered mobile number
+        </Text>
+
         <View>
-          {/* <View style={{paddingHorizontal: '10%', marginTop: 100}}>
-            <OtpInputs
-              inputStyles={{
-                margin: 5,
-                borderBottomWidth: 1,
-                borderBottomColor: 'grey',
-                fontSize: 15,
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
-              numberOfInputs={4}
-              handleChange={e => handleOtpInputs(e)}
-            />
-          </View> */}
-          <TouchableOpacity style={{}} onPress={() => focusOTP()}>
-            <Text
-              style={{
-                color: '#903233',
-                marginTop: 20,
-                textAlign: 'center',
-              }}>
-              Resend code
-            </Text>
+          <OTPInputView
+            style={styles.OtpContainer}
+            pinCount={4}
+            // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
+            // onCodeChanged = {code => { this.setState({code})}}
+            autoFocusOnLoad
+            codeInputFieldStyle={styles.otp}
+            onCodeFilled={code => {
+              console.log(`Code is ${code}, you are good to go!`);
+            }}
+          />
+          <TouchableOpacity>
+            <Text style={styles.readText}>Resend code</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <View style={{marginTop: 370}}>
-        <View style={{paddingBottom: 10}}>
-          <TouchableOpacity
-            style={styles.confirmButton}
-            onPress={() => updateProfileHandler()}>
-            <Text
-              style={{
-                color: 'white',
-              }}>
-              Confirm
-            </Text>
-          </TouchableOpacity>
-        </View>
+      <View style={styles.btnBox}>
+        <CommonButton
+          backgroundColor="#BDBDBD"
+          txt="Log in"
+          customViewStyle={{
+            backgroundColor: Colors.primarycolor,
+          }}
+        />
       </View>
     </>
   );
@@ -71,17 +55,41 @@ export default function Otp() {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'space-around',
     padding: 15,
   },
-
-  confirmButton: {
-    width: '90%',
-    height: 40,
-    backgroundColor: '#903233',
-    marginHorizontal: '5%',
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+  heading: {
+    marginVertical: 20,
+    fontSize: 18,
+    fontFamily: Fonts.Assistant600,
+    color: Colors.textcolor,
+  },
+  readText: {
+    fontSize: 14,
+    fontFamily: Fonts.Assistant400,
+    color: Colors.textcolor,
+    color: '#903233',
+    paddingVertical: 10,
+    textAlign: 'center',
+  },
+  btnBox: {
+    padding: 15,
+    backgroundColor: '#FDFDFD',
+    elevation: 5,
+  },
+  OtpContainer: {
+    width: '100%',
+    height: 60,
+    paddingHorizontal: 15,
+    marginTop: 25,
+  },
+  otp: {
+    width: 65,
+    height: 45,
+    borderWidth: 0,
+    borderBottomWidth: 2,
+    borderBottomColor: '#EDEDED',
+    color: Colors.textcolor,
+    fontSize: 18,
+    fontFamily: Fonts.Assistant700,
   },
 });
