@@ -15,12 +15,9 @@ import MyProfile from './MyProfile';
 import ReturnItem from './MyOrder/ReturnItem';
 import OrderSuccess from './MyOrder/OrderSuccess';
 import Login_Register from '../Login_Register';
-<<<<<<< HEAD
 import Otp from '../Login_Register/Otp';
 import Login from '../Login_Register/Login';
-=======
 import ChangePassword from './MyProfile/ChangePassword';
->>>>>>> 516241ef5aafb896f2cc03c9ed8dfe49d9cd34f1
 
 const Stack = createNativeStackNavigator();
 const pages = [
