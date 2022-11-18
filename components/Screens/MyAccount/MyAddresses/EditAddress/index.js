@@ -14,6 +14,8 @@ import CountryPicker from 'rn-country-picker';
 import {Colors} from '../../../../../assets/Colors';
 import CommonButton from '../../../../Common/CommonButton';
 import InputText from '../../../../Common/InputText';
+import CheckBox from 'react-native-check-box';
+
 import Styles from './styles';
 const faqs = [
   {
@@ -64,6 +66,8 @@ const EditAddress = props => {
   const [mobilePrefix, setMobilePrefix] = useState('60');
   const [isFocus, setIsFocus] = useState(false);
   const [State, setState] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
+
   const _selectedValue = index => {
     setMobilePrefix(index);
   };
@@ -75,51 +79,51 @@ const EditAddress = props => {
           showsVerticalScrollIndicator={false}>
           <View style={Styles.secondDiv}>
             <Text style={Styles.contacttxt}>Contact details</Text>
-            <View style={Styles.body}>
-              {faqs.map((faq, index) => (
-                <InputText
-                  underlineColor="#EDEDED"
-                  activeUnderlineColor=" #979797"
-                  customStyle={Styles.textinput}
-                  label={faq.name}
-                  value={text}
-                  onChangeText={text => setText(text)}
+
+            {faqs.map((faq, index) => (
+              <InputText
+                underlineColor="#EDEDED"
+                activeUnderlineColor=" #979797"
+                customStyle={Styles.textinput}
+                label={faq.name}
+                value={text}
+                onChangeText={text => setText(text)}
+              />
+            ))}
+            <View style={Styles.pickerbox}>
+              <CountryPicker
+                disable={false}
+                animationType={'slide'}
+                containerStyle={Styles.pickercontainer}
+                pickerTitleStyle={Styles.pickertitle}
+                selectedCountryTextStyle={Styles.selectedTextStyle}
+                countryNameTextStyle={Styles.selectnametxt}
+                pickerTitle={'Country Picker'}
+                searchBarPlaceHolder={'Search......'}
+                hideCountryFlag={false}
+                hideCountryCode={false}
+                searchBarStyle={Styles.searchbar}
+                selectedValue={_selectedValue}
+                countryCode={mobilePrefix}
+              />
+              <View style={{flex: 1, paddingHorizontal: 15}}>
+                <TextInput
+                  activeOutlineColor="white"
+                  activeUnderlineColor="white"
+                  underlineColor="white"
+                  style={Styles.textinput1}
+                  value={phoneNumber}
+                  placeholder="phone number"
+                  onChangeText={value =>
+                    value.length <= 10 ? setPhoneNumber(value) : false
+                  }
+                  placeholderTextColor="grey"
+                  keyboardType={'number-pad'}
+                  disableFullscreenUI={true}
                 />
-              ))}
-              <View style={Styles.pickerbox}>
-                <CountryPicker
-                  disable={false}
-                  animationType={'slide'}
-                  containerStyle={Styles.pickercontainer}
-                  pickerTitleStyle={Styles.pickertitle}
-                  selectedCountryTextStyle={Styles.selectedTextStyle}
-                  countryNameTextStyle={Styles.selectnametxt}
-                  pickerTitle={'Country Picker'}
-                  searchBarPlaceHolder={'Search......'}
-                  hideCountryFlag={false}
-                  hideCountryCode={false}
-                  searchBarStyle={Styles.searchbar}
-                  selectedValue={_selectedValue}
-                  countryCode={mobilePrefix}
-                />
-                <View style={{flex: 1, paddingHorizontal: 15}}>
-                  <TextInput
-                    activeOutlineColor="white"
-                    activeUnderlineColor="white"
-                    underlineColor="white"
-                    style={Styles.textinput1}
-                    value={phoneNumber}
-                    placeholder="phone number"
-                    onChangeText={value =>
-                      value.length <= 10 ? setPhoneNumber(value) : false
-                    }
-                    placeholderTextColor="grey"
-                    keyboardType={'number-pad'}
-                    disableFullscreenUI={true}
-                  />
-                </View>
               </View>
             </View>
+
             <View>
               <View>
                 <Text style={Styles.addresstxt}>Address</Text>
@@ -145,10 +149,19 @@ const EditAddress = props => {
                   setIsFocus(false);
                 }}
               />
-              <TextInput
-                activeUnderlineColor="grey"
-                style={Styles.textinput}
+              <InputText
+                underlineColor="#EDEDED"
+                activeUnderlineColor=" #979797"
+                customStyle={Styles.textinput}
                 label="Pincode"
+                value={text}
+                onChangeText={text => setText(text)}
+              />
+              <InputText
+                underlineColor="#EDEDED"
+                activeUnderlineColor=" #979797"
+                customStyle={Styles.textinput}
+                label="Country"
                 value={text}
                 onChangeText={text => setText(text)}
               />
@@ -194,22 +207,31 @@ const EditAddress = props => {
                   setIsFocus(false);
                 }}
               />
-              <TextInput
-                activeUnderlineColor="grey"
-                style={Styles.textinput}
+
+              <InputText
+                underlineColor="#EDEDED"
+                activeUnderlineColor=" #979797"
+                customStyle={Styles.textinput}
                 label="Address Line 1"
                 value={text}
                 onChangeText={text => setText(text)}
               />
-              <TextInput
-                activeUnderlineColor="grey"
-                style={Styles.textinput}
+              <InputText
+                underlineColor="#EDEDED"
+                activeUnderlineColor=" #979797"
+                customStyle={Styles.textinput}
                 label="Address Line 2 (optional)"
                 value={text}
                 onChangeText={text => setText(text)}
               />
               <View style={Styles.defaultaddressbox}>
-                <View style={Styles.defaultaddresstxt}></View>
+                <CheckBox
+                  checkBoxColor={Colors.primarycolor}
+                  onClick={() => {
+                    setIsChecked(!isChecked);
+                  }}
+                  isChecked={isChecked}
+                />
                 <Text style={{paddingHorizontal: 12}}>
                   Make as default address
                 </Text>
@@ -217,20 +239,13 @@ const EditAddress = props => {
             </View>
           </View>
         </ScrollView>
-        <View
-          style={{
-            padding: 12,
-            backgroundColor: '#FDFDFD',
-            elevation: 5,
-          }}>
+        <View style={Styles.btncontainer}>
           <CommonButton
             backgroundColor="#BDBDBD"
             txt="Save address"
             customViewStyle={{
               backgroundColor: Colors.primarycolor,
             }}
-
-            // customViewStyle={{paddingVertical: 12, width: '50%'}}
           />
         </View>
       </View>

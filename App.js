@@ -174,6 +174,7 @@ export default function App(props) {
                   rightIcon={rightIcon}
                   customStyle={{
                     backgroundColor: '#F8F6F5',
+                    marginBottom: 4,
                   }}
                 />
               ),

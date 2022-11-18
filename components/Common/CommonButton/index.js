@@ -5,10 +5,13 @@ import Fonts from '../../../assets/fonts';
 export default function CommonButton({
   txt = '',
   customViewStyle = {},
-  btntxtColor = '#FFFFF',
+  btntxtColor = '#FFFFFF',
+  handleClick = null,
 }) {
   return (
-    <TouchableOpacity style={[Styles.appButtonContainer, customViewStyle]}>
+    <TouchableOpacity
+      style={[Styles.appButtonContainer, customViewStyle]}
+      onPress={handleClick}>
       <Text style={[Styles.appButtonText, {color: btntxtColor}]}>{txt}</Text>
     </TouchableOpacity>
   );
@@ -43,7 +46,6 @@ const Styles = StyleSheet.create({
   },
   appButtonText: {
     fontSize: 16,
-    color: '#fff',
     fontFamily: Fonts.Assistant400,
     alignSelf: 'center',
   },
