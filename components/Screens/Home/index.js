@@ -739,6 +739,7 @@ export default function Dashbord() {
       });
       dataa.push(filter.components?.component[0]);
     });
+    console.log('dataa', dataa);
     setFilteredComp(dataa);
   };
   React.useEffect(() => {

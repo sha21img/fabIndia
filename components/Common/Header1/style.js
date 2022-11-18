@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import Fonts from '../../../../assets/fonts';
+import Fonts from '../../../assets/fonts';
 export const Styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
@@ -7,6 +7,7 @@ export const Styles = StyleSheet.create({
     padding: 15,
     alignItems: 'center',
     justifyContent: 'space-between',
+    elevation: 5,
   },
   logo: {
     backgroundColor: 'green',
