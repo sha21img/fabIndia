@@ -41,7 +41,7 @@ const Styles = StyleSheet.create({
   },
   appButtonContainer: {
     borderRadius: 100,
-    paddingVertical: 10,
+    paddingVertical: 12,
     paddingHorizontal: 12,
   },
   appButtonText: {
