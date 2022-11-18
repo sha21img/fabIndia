@@ -6,10 +6,14 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
+<<<<<<< HEAD
 import CommonButton from '../../Common/CommonButton';
 import {Colors} from '../../../assets/Colors';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import Fonts from '../../../assets/fonts';
+=======
+// import OtpInputs from 'react-native-otp-inputs';
+>>>>>>> 516241ef5aafb896f2cc03c9ed8dfe49d9cd34f1
 
 export default function Otp() {
   return (

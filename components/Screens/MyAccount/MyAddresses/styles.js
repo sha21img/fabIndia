@@ -74,5 +74,30 @@ const Styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.primarycolor,
   },
+  modalcontainer: {flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'},
+  modalbox: {
+    marginTop: 'auto',
+    backgroundColor: '#FFFFFF',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    paddingTop: 15,
+    paddingHorizontal: 15,
+  },
+  headbox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  headtxt: {
+    fontSize: 18,
+    fontFamily: Fonts.Assistant600,
+    color: Colors.textcolor,
+  },
+  head1txt: {
+    fontSize: 14,
+    paddingTop: 15,
+    fontFamily: Fonts.Assistant400,
+    color: Colors.textcolor,
+  },
 });
 export default Styles;
