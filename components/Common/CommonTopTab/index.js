@@ -25,11 +25,13 @@ export default function CommonTopTab({data = []}) {
           },
         }}>
         {data.map((item, index) => {
-          console.log('item.name', item.title);
+          {
+            /* console.log('item.name', item.title); */
+          }
           return (
             <Tab.Screen
               key={Math.random() * 3456}
-              name={item.name}
+              name={item.title}
               options={{
                 tabBarItemStyle: {
                   width: 'auto',

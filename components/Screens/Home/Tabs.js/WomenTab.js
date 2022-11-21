@@ -24,7 +24,7 @@ export default function WomenTab({data = {}}) {
     //   `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${filterSlotId}&lang=en&curr=INR`,
     // );
     const bannerId = data.tabs;
-    console.log('commontabbannerId', bannerId);
+    // console.log('commontabbannerId', bannerId);
     getBannerCount(bannerId);
   };
   const getTabData = async data => {
@@ -33,18 +33,18 @@ export default function WomenTab({data = {}}) {
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    console.log('ALALALALLAALALL', response.component);
+    // console.log('ALALALALLAALALL', response.component);
     setToptabLabelData(response.component);
     //2
   };
 
   const getBannerCount = async bannerId => {
     const splitBannerId = bannerId.split(' ').join(',');
-    console.log('response', splitBannerId);
+    // console.log('response', splitBannerId);
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    console.log('responseresponse', response);
+    // console.log('responseresponse', response);
     setChipData(response.component);
 
     getTabData(response.component[0]);
