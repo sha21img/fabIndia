@@ -608,7 +608,7 @@ const SimpleCardList = item => {
     </>
   );
 };
-export default function Dashbord() {
+export default function Dashbord(props) {
   const [active, setActive] = React.useState('Bestsellers');
   const [dashboardData, setDashboardData] = React.useState([]);
   const [filteredComp, setFilteredComp] = React.useState([]);
@@ -669,7 +669,9 @@ export default function Dashbord() {
       case 'FabCMSTabContainer':
         return (
           <>
-            <View
+            <WomenTab data={param} />
+
+            {/* <View
               style={{
                 flexDirection: 'row',
                 flexWrap: 'wrap',
@@ -687,7 +689,7 @@ export default function Dashbord() {
                 active={active}
               />
             </View>
-            <CommonTopTab data={dataMap} />
+            <CommonTopTab data={dataMap} /> */}
           </>
         );
       case 'FabResponsiveBannerCarouselComponent':
@@ -840,10 +842,10 @@ export default function Dashbord() {
           flexGrow: 1,
           paddingBottom: 20,
         }}>
-        <HomeHeader />
-        {/* {filteredComp.map(item => {
+        <HomeHeader props={props} />
+        {filteredComp.map(item => {
           return checkSwitch(item);
-        })} */}
+        })}
       </ScrollView>
     </>
   );

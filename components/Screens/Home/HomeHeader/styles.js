@@ -50,4 +50,9 @@ export const Styles = StyleSheet.create({
   cartContainer: {
     marginHorizontal: 5,
   },
+  imagestyle: {
+    width: 90,
+    height: 30,
+    marginLeft: 15,
+  },
 });
