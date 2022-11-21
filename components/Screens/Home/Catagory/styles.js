@@ -17,8 +17,8 @@ export const Styles = StyleSheet.create({
     borderRadius: 100,
   },
   imgDim: {
-    width: 75,
-    height: 75,
+    width: 70,
+    height: 70,
     borderRadius: 100,
   },
   catagoryText: {

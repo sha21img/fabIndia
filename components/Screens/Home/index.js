@@ -43,6 +43,7 @@ import axios from 'axios';
 import {getData} from '../../Common/Helper';
 import WomenTab from './Tabs.js/WomenTab';
 import MenTab from './Tabs.js/MenTab';
+import OfferTab from './Tabs.js/OfferTab';
 const width = Dimensions.get('window').width;
 
 const categoryData = [
@@ -656,26 +657,6 @@ export default function Dashbord(props) {
         return (
           <>
             <WomenTab data={param} />
-
-            {/* <View
-              style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                paddingHorizontal: 15,
-                marginTop: 10,
-              }}>
-              <Chip
-                title="Bestsellers"
-                handleClick={() => handleClick('Bestsellers')}
-                active={active}
-              />
-              <Chip
-                title="Recommended for you"
-                handleClick={() => handleClick('Recommended for you')}
-                active={active}
-              />
-            </View>
-            <CommonTopTab data={dataMap} /> */}
           </>
         );
       case 'FabResponsiveBannerCarouselComponent':
@@ -703,7 +684,7 @@ export default function Dashbord(props) {
               }}>
               Offers for you
             </Text>
-            <CommonTopTab data={dataMap2} />
+            <OfferTab data={param} />
           </>
         );
       case 'SimpleResponsiveBannerComponent':
