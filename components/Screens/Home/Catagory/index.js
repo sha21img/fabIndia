@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {getComponentData, imageURL} from '../../../Common/Helper';
 import {image} from '../../../../assets/images';
+import { hasSpaces } from '../../../../constant';
 
 export default function Catagory({data}) {
   const [categoryData, setCategoryData] = React.useState([]);
@@ -17,6 +18,7 @@ export default function Catagory({data}) {
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
+    
     setCategoryData(response.component);
     console.log(response, 'responseresponse');
   };
@@ -29,7 +31,7 @@ export default function Catagory({data}) {
       <>
         <View style={Styles.mainContainer}>
           <TouchableOpacity
-            onPress={() => navigation.navigate(item.route)}
+            // onPress={() => navigation.navigate(item.linkName)}
             style={Styles.catagory}>
             <Image source={image.ArtistImg3} style={Styles.imgDim}></Image>
           </TouchableOpacity>

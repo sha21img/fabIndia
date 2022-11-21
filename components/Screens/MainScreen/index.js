@@ -21,7 +21,7 @@ const Drawer = createDrawerNavigator();
 const DrawerContent = () => {
   return (
     <>
-      <Text>juiuyt</Text>
+      <Text>DrawerContent</Text>
     </>
   );
 };
