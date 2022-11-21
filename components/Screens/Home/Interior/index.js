@@ -8,16 +8,18 @@ import {
 } from 'react-native';
 import React from 'react';
 import {image} from '../../../../assets/images';
+import {imageURL} from '../../../Common/Helper';
 import {Styles} from './styles';
 const width = Dimensions.get('window').width;
 
-export default function Interior() {
+export default function Interior({data}) {
   return (
     <ImageBackground
       resizeMode="cover"
       style={Styles.imagebg}
-      source={image.interiorBackground}>
-      <View style={Styles.thoughtBox}>
+      source={{uri: `${imageURL}${data?.media?.mobile?.url}`}}>
+      {/* source={image.interiorBackground}> */}
+      {/* <View style={Styles.thoughtBox}>
         <Text style={Styles.thoughtText}>Build your sanctuary</Text>
       </View>
       <View style={Styles.headingBox}>
@@ -26,7 +28,7 @@ export default function Interior() {
       </View>
       <TouchableOpacity style={Styles.buttonBox}>
         <Text style={Styles.buttonText}>Get in touch with us</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </ImageBackground>
   );
 }

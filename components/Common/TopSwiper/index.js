@@ -4,64 +4,84 @@ import Swiper from 'react-native-swiper';
 import Feather from 'react-native-vector-icons/Feather';
 import {Styles} from './styles';
 import axios from 'axios';
-import {image} from '../../../assets/images';
+import {getComponentData, imageURL} from '../Helper';
+import {Colors} from '../../../assets/Colors';
 
-export default function TopSwiper({data = [0, 0, 0], customStyle, position}) {
-  // const [carouselData, setCarouselData] = React.useState([]);
-  // const getCarauselIds = async () => {
-  //   const filterArray = data.filter(item => {
-  //     return item.position == position;
-  //   });
-  //   const filterSlotId = filterArray[0].components.component[0].uid;
-  //   const response = await axios.get(
-  //     `https://apisap.fabindia.com/occ/v2/fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${filterSlotId}&lang=en&curr=INR`,
-  //   );
-
-  //   const bannerId = response.data.component[0].banners;
-
-  //   getCarauselData(bannerId);
-  // };
-  // const getCarauselData = async bannerId => {
-  //   const splitBannerId = bannerId.split(' ').join(',');
-  //   const response = await axios.get(
-  //     `https://apisap.fabindia.com/occ/v2/fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
-  //   );
-  //   setCarouselData(response.data.component);
-  // };
-  // useEffect(() => {
-  //   getCarauselIds();
-  // }, []);
+export default function TopSwiper({customStyle, data}) {
+  const [carouselData, setCarouselData] = React.useState([]);
+  const getCarauselIds = async () => {
+    const bannerId = data.banners;
+    getCarauselData(bannerId);
+  };
+  const getCarauselData = async bannerId => {
+    const splitBannerId = bannerId.split(' ').join(',');
+    const response = await getComponentData(
+      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+    );
+    setCarouselData(response.component);
+  };
+  useEffect(() => {
+    getCarauselIds();
+  }, []);
   return (
-    <Swiper
-      loop={true}
-      autoplay={true}
-      autoplayTimeout={5}
-      showsPagination={false}
-      height={230}
-      style={customStyle}
-      nextButton={
-        <View style={Styles.button}>
-          <Feather name="chevron-right" style={Styles.btnIcon} />
-        </View>
-      }
-      prevButton={
-        <View style={Styles.button}>
-          <Feather name="chevron-left" style={Styles.btnIcon} />
-        </View>
-      }
-      showsButtons={true}>
-      {data.map((item, i) => {
-        return (
-          <Image
-            key={Math.random() * 1099900}
-            style={Styles.image}
-            // source={{
-            //   uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
-            // }}
-            source={image.ArtistImg1}
+    <View style={[customStyle, {paddingBottom: 25}]}>
+      <Swiper
+        loop={true}
+        autoplay={true}
+        autoplayTimeout={5}
+        showsPagination={true}
+        height={240}
+        dot={
+          <View
+            style={{
+              backgroundColor: '#F3ECE8',
+              width: 8,
+              height: 8,
+              borderRadius: 4,
+              marginLeft: 3,
+              marginRight: 3,
+              marginTop: 3,
+              marginBottom: -80,
+            }}
           />
-        );
-      })}
-    </Swiper>
+        }
+        activeDot={
+          <View
+            style={{
+              backgroundColor: Colors.primarycolor,
+              width: 8,
+              height: 8,
+              borderRadius: 4,
+              marginLeft: 3,
+              marginRight: 3,
+              marginTop: 3,
+              marginBottom: -80,
+            }}
+          />
+        }
+        // nextButton={
+        //   <View style={Styles.button}>
+        //     <Feather name="chevron-right" style={Styles.btnIcon} />
+        //   </View>
+        // }
+        // prevButton={
+        //   <View style={Styles.button}>
+        //     <Feather name="chevron-left" style={Styles.btnIcon} />
+        //   </View>
+        // }
+        showsButtons={false}>
+        {carouselData?.map((item, i) => {
+          return (
+            <Image
+              key={Math.random() * 1099900}
+              style={Styles.image}
+              source={{
+                uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
+              }}
+            />
+          );
+        })}
+      </Swiper>
+    </View>
   );
 }

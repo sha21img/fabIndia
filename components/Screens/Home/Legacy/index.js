@@ -3,14 +3,11 @@ import React, {useEffect} from 'react';
 import {Styles} from './styles';
 import {getComponentData, imageURL} from '../../../Common/Helper';
 
-export default function Legacy({data = [], position = ''}) {
+export default function Legacy({data = {}}) {
   const [newLegacyData, setLegacyData] = React.useState([]);
 
   const getLegacyIds = async () => {
-    const filterArray = data.filter(item => {
-      return item.position == position;
-    });
-    const filterSlotId = filterArray[0].components.component[0].banners;
+    const filterSlotId = data.banners;
     getNewHighlightData(filterSlotId);
   };
   const getNewHighlightData = async bannerId => {

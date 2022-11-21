@@ -630,41 +630,27 @@ export default function Dashbord() {
   const checkSwitch = param => {
     switch (param?.typeCode) {
       case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper />;
+        return <TopSwiper data={param} />;
       case 'FabCmsLinkCarousalComponent':
         return (
           <ImageBackground
             resizeMode="cover"
-            style={{width: '100%', marginVertical: 10}}
+            style={{width: '100%'}}
             source={image.categoryBgBanner}>
-            <Catagory data={categoryData} />
+            <Catagory data={param} />
           </ImageBackground>
         );
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights
-            // data={dashboardData}
-            // customStyle={{marginVertical: 20}}
-            // position="Section3"
-
-            title={getTitle('New in', 'Women')}
             customStyle={{marginVertical: 10}}
             bgColor={{backgroundColor: '#F3E0E0'}}
-            data={WomenHighlightData}
+            data={param}
           />
         );
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel
-            // data={dashboardData}
-            // width={width / 1.07}
-            // height={330}
-            // position="Section4"
-
-            data={WomenCarouselData}
-            width={width / 1.07}
-            height={330}
-          />
+          <CommonCarousel data={param} width={width / 1.07} height={330} />
         );
       case 'FabCMSTabContainer':
         return (
@@ -719,11 +705,11 @@ export default function Dashbord() {
           </>
         );
       case 'SimpleResponsiveBannerComponent':
-        return <Interior />;
+        return <Interior data={param} />;
       case 'YoutubeVideoComponent':
         return <Art_Artist />;
       case 'FabTitleBannerCarouselComponent':
-        return <Legacy data={dashboardData} position="Section22" />;
+        return <Legacy data={param} />;
       case 'CMSFlexComponent':
         return;
       default:
@@ -739,7 +725,6 @@ export default function Dashbord() {
       });
       dataa.push(filter.components?.component[0]);
     });
-    console.log('dataa', dataa);
     setFilteredComp(dataa);
   };
   React.useEffect(() => {

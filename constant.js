@@ -187,13 +187,13 @@ export const HomeDecorTableData2 = [
 export const CollectionWomenData = ['Dupattas', 'Kurtas', 'Saris', 'Lehengas'];
 
 export const HomePageSection = [
-  'Section1', // Top Swipper
   'Section2', //category
+  'Section1', // Top Swipper
   'Section3', //Women new high
   'Section4', // women carousel
   'Section5', // women Tab
   'Section6', // Empty
-  'Section7', //men new high     
+  'Section7', //men new high
   'Section8', //men carousel
   'Section9', // 9 repeat men tab
   'Section9A', // 9A kid new high

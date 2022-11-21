@@ -2,25 +2,29 @@ import {StyleSheet} from 'react-native';
 import Fonts from '../../../../assets/fonts';
 export const Styles = StyleSheet.create({
   mainContainer: {
-    // position: 'absolute',
-    // top: -60,
-    // zIndex: 10,
+    marginRight: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   container: {
     backgroundColor: 'transparent',
-    padding: 15,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
   },
   catagory: {
-    width: 85,
-    height: 85,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 100,
-    padding: 10,
-    marginRight: 10,
+  },
+  imgDim: {
+    width: 75,
+    height: 75,
+    borderRadius: 100,
   },
   catagoryText: {
     textAlign: 'center',
-    fontFamily: Fonts.Assistant400,
+    fontFamily: Fonts.Assistant600,
+    fontSize: 18,
+    paddingTop: 2,
   },
 });

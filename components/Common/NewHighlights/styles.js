@@ -6,7 +6,22 @@ export const Styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
   },
-
+  headingBox: {
+    position: 'absolute',
+    top: '37%',
+    left: '4%',
+    zIndex: 10,
+  },
+  headingText: {
+    fontSize: 14,
+    color: '#4A4A4A',
+    fontFamily: Fonts.Assistant300,
+  },
+  headingTitle: {
+    color: '#4A4A4A',
+    fontSize: 24,
+    fontFamily: Fonts.PlayfairDisplay700,
+  },
   imageContainer: {
     paddingLeft: '15%',
     paddingTop: 20,
@@ -14,7 +29,6 @@ export const Styles = StyleSheet.create({
     marginLeft: '17%',
     backgroundColor: '#F3E0E0',
   },
-
   imageBox: {
     padding: 5,
   },
