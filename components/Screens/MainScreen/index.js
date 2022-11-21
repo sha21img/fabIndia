@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Platform} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -13,10 +13,38 @@ import Search from '../Search';
 import HomeStack from '../HomeStack';
 
 import MyAccount from '../MyAccount';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 // import WomenCategory from '../Home/WomenCategory';
 
 const Tab = createBottomTabNavigator();
-
+const Drawer = createDrawerNavigator();
+const DrawerContent = () => {
+  return (
+    <>
+      <Text>juiuyt</Text>
+    </>
+  );
+};
+const DrawerComponent = () => {
+  return (
+    <>
+      <Drawer.Navigator
+        initialRouteName={'HomeStack'}
+        backBehavior={'history'}
+        drawerContent={props => <DrawerContent {...props} />}
+        defaultStatus={'closed'}
+        screenOptions={{
+          header: () => false,
+          // drawerStyle: {
+          //   width: 400,
+          // },
+          swipeEnabled: Platform.OS == 'android' ? false : true,
+        }}>
+        <Drawer.Screen name="HomeStack" component={HomeStack} />
+      </Drawer.Navigator>
+    </>
+  );
+};
 export default function MainScreen(props) {
   return (
     <Tab.Navigator
@@ -41,8 +69,8 @@ export default function MainScreen(props) {
         // },
       }}>
       <Tab.Screen
-        name="HomeStack"
-        component={HomeStack}
+        name="DrawerComponent"
+        component={DrawerComponent}
         options={{
           tabBarLabel: 'Home',
           tabBarActiveTintColor: Colors.primarycolor,

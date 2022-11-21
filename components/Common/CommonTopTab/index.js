@@ -4,6 +4,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
+import ShowData from './ShowData';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -24,6 +25,7 @@ export default function CommonTopTab({data = []}) {
           },
         }}>
         {data.map((item, index) => {
+          console.log('item.name', item.title);
           return (
             <Tab.Screen
               key={Math.random() * 3456}
@@ -51,14 +53,14 @@ export default function CommonTopTab({data = []}) {
                         color: focused ? Colors.primarycolor : Colors.textcolor,
                         padding: 0,
                       }}>
-                      {item.name + '      '}
-                      {/* {item.title + '       '} */}
+                      {/* {item.name + '      '} */}
+                      {item.title + '       '}
                     </Text>
                   </View>
                 ),
               }}
-              component={item.screen}
-              // component={() => <ShowData item={item} />}
+              // component={item.screen}
+              component={() => <ShowData item={item} />}
             />
           );
         })}

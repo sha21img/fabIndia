@@ -10,11 +10,24 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 import {Colors} from '../../../../assets/Colors';
-
-export default function HomeHeader() {
+import {useNavigation} from '@react-navigation/native';
+export default function HomeHeader(props) {
+  const navigation = useNavigation();
   return (
     <View style={Styles.container}>
-      <SimpleLineIcons name="menu" color={Colors.primarycolor} size={20} />
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}>
+        <SimpleLineIcons
+          name="menu"
+          color={Colors.primarycolor}
+          size={20}
+          onPress={() => navigation.openDrawer()}
+        />
+        <Image source={image.color_logo} style={Styles.imagestyle} />
+      </View>
 
       <View style={Styles.detailContainer}>
         <TouchableOpacity style={Styles.locationContainer}>
