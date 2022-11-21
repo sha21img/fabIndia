@@ -634,12 +634,12 @@ export default function Dashbord(props) {
         return <TopSwiper data={param} />;
       case 'FabCmsLinkCarousalComponent':
         return (
-          <ImageBackground
-            resizeMode="cover"
-            style={{width: '100%'}}
-            source={image.categoryBgBanner}>
-            <Catagory data={param} />
-          </ImageBackground>
+          // <ImageBackground
+          //   resizeMode="cover"
+          //   style={{width: '100%'}}
+          //   source={image.categoryBgBanner}>
+          <Catagory data={param} />
+          // </ImageBackground>
         );
       case 'FabBannerCarouselComponent':
         return (

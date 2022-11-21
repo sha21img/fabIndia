@@ -15,15 +15,17 @@ export const Styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 100,
+    elevation: 10,
   },
   imgDim: {
     width: 70,
     height: 70,
+    elevation: 10,
     borderRadius: 100,
   },
   catagoryText: {
     textAlign: 'center',
-    fontFamily: Fonts.Assistant600,
+    fontFamily: Fonts.Assistant500,
     fontSize: 18,
     paddingTop: 2,
   },
