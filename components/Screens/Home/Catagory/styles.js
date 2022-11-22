@@ -7,8 +7,8 @@ export const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-    backgroundColor: 'transparent',
     paddingHorizontal: 10,
+    flexDirection: 'row',
     paddingVertical: 7,
   },
   catagory: {

@@ -1,53 +1,77 @@
-import {View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
-import React, {useEffect} from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  FlatList,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {Styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {getComponentData, imageURL} from '../../../Common/Helper';
 import {image} from '../../../../assets/images';
-import { hasSpaces } from '../../../../constant';
+import {hasSpaces} from '../../../../constant';
 
 export default function Catagory({data}) {
-  const [categoryData, setCategoryData] = React.useState([]);
-  const getBannerIds = async () => {
+  const [categoryData, setCategoryData] = useState([]);
+  const [categoryDataArray, setCategoryDataArray] = useState([]);
+  const [page, setPage] = useState(0);
+
+  const getBannerIds = () => {
     const bannerId = data.cmsLinks;
-    getCategoryData(bannerId);
+    const splitBannerId = bannerId.split(' ').join(',');
+    getCategoryData(splitBannerId);
   };
   const getCategoryData = async bannerId => {
-    const splitBannerId = bannerId.split(' ').join(',');
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${bannerId}&lang=en&curr=INR`,
     );
-    
-    setCategoryData(response.component);
-    console.log(response, 'responseresponse');
+    setPage(page + 1);
+    setCategoryDataArray(response);
+    if (categoryData.length) {
+      setCategoryData(prev => [...prev, ...response.component]);
+    } else {
+      setCategoryData(response.component);
+    }
   };
   useEffect(() => {
     getBannerIds();
   }, []);
+  const endReach = () => {
+    if (categoryDataArray?.pagination?.totalPages > page) {
+      getBannerIds();
+    }
+  };
   const navigation = useNavigation();
-  const catagory = categoryData.map(item => {
+  const catagory = item => {
     return (
       <>
         <View style={Styles.mainContainer}>
           <TouchableOpacity
-            // onPress={() => navigation.navigate(item.linkName)}
+            onPress={() => navigation.navigate(item.item.name)}
             style={Styles.catagory}>
             <Image source={image.ArtistImg3} style={Styles.imgDim}></Image>
           </TouchableOpacity>
-          <Text style={[Styles.catagoryText, {color: item.textColor}]}>
-            {item.linkName}
+          <Text style={[Styles.catagoryText, {color: item.item.textColor}]}>
+            {item.item.name}
           </Text>
         </View>
       </>
     );
-  });
+  };
   return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={Styles.container}>
-      {catagory}
-    </ScrollView>
+    <View style={Styles.container}>
+      <FlatList
+        horizontal
+        data={categoryData}
+        onEndReached={endReach}
+        showsHorizontalScrollIndicator={false}
+        onEndReachedThreshold={0.1}
+        keyExtractor={(item, index) => index}
+        renderItem={catagory}
+      />
+    </View>
   );
 }
