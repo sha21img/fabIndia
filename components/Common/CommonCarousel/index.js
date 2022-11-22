@@ -51,12 +51,12 @@ export default function CommonCarousel({
   const renderItem = ({item}) => {
     return (
       <ImageBackground
-        resizeMode="cover"
+        resizeMode="stretch"
         key={Math.random() * 1099900}
         style={{
-          width: width,
+          flex: 1,
           height: height,
-          alignSelf: 'center',
+          width: width,
         }}
         source={{uri: `${imageURL}${item.media.url}`}}>
         <LinearGradient
