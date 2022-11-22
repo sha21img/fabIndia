@@ -618,16 +618,7 @@ export default function Dashbord(props) {
     const response = await getData('fabindiab2c/cms/pages?lang=en&curr=INR');
     setDashboardData(response.contentSlots.contentSlot);
     getSections(response.contentSlots.contentSlot);
-    // getIds(response.contentSlots.contentSlot);
   };
-  // const getIds = data => {
-  //   let datas = [];
-  //   const newArray = data.map(item => {
-  //     datas.push(item.position);
-  //     return datas;
-  //   });
-  //   setIds(datas);
-  // // };
   const checkSwitch = param => {
     switch (param?.typeCode) {
       case 'FabResponsiveGridBannerCarouselComponent':
@@ -809,9 +800,11 @@ export default function Dashbord(props) {
           paddingBottom: 20,
         }}>
         <HomeHeader props={props} />
-        {filteredComp.map(item => {
-          return checkSwitch(item);
-        })}
+        <FlatList
+          data={filteredComp}
+          keyExtractor={(item, index) => index}
+          renderItem={item => checkSwitch(item.item)}
+        />
       </ScrollView>
     </>
   );

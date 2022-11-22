@@ -1,16 +1,14 @@
-import {View, Text, ScrollView, Image, Dimensions} from 'react-native';
-import React, {useEffect} from 'react';
+import {View, Text, Image, FlatList, Dimensions} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {Styles} from './styles';
 import {getComponentData, imageURL} from '../Helper';
 import {hasSpaces} from '../../../constant';
-import Fonts from '../../../assets/fonts';
-import {image} from '../../../assets/images';
 
 export default function NewHighlights({data, customStyle = ''}) {
   const width = Dimensions.get('window').width;
-
   const [newHighlights, setNewHighlights] = React.useState([]);
-  const [compData, setCompData] = React.useState([]);
+  const [dataArray, setDataArray] = useState([]);
+  const [page, setPage] = useState(0);
 
   const getNewHighlightIds = async () => {
     const bannerId = data.banners;
@@ -19,32 +17,41 @@ export default function NewHighlights({data, customStyle = ''}) {
   const getNewHighlightData = async bannerId => {
     const splitBannerId = bannerId.split(' ').join(',');
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    console.log('response', response.component);
-    setNewHighlights(response.component);
+    setPage(page + 1);
+    setDataArray(response);
+    if (newHighlights.length) {
+      setNewHighlights(prev => [...prev, ...response.component]);
+    } else {
+      setNewHighlights(response.component);
+    }
   };
-  const imageCard = newHighlights.map(item => {
+  const imageCard = item => {
     return (
       <View key={Math.random() * 987} style={Styles.imageBox}>
         <Image
           style={Styles.image}
-          source={{uri: `${imageURL}${item.media.url}`}}
+          source={{uri: `${imageURL}${item.item.media.url}`}}
         />
-        <Text style={Styles.imageText}>{item.title}</Text>
+        <Text style={Styles.imageText}>{item.item.title}</Text>
       </View>
     );
-  });
+  };
   useEffect(() => {
     getNewHighlightIds();
   }, []);
-
+  const endReach = () => {
+    if (dataArray?.pagination?.totalPages > page) {
+      getNewHighlightIds();
+    }
+  };
   return (
     <View style={[Styles.container, customStyle]}>
       <View
         style={[
           Styles.headingBox,
-          hasSpaces(compData.title ? compData.title : '')
+          hasSpaces(data.title ? data.title : '')
             ? {width: width / 3}
             : {width: null},
         ]}>
@@ -52,12 +59,15 @@ export default function NewHighlights({data, customStyle = ''}) {
         <Text style={Styles.headingTitle}>{data.title}</Text>
       </View>
       <View style={[Styles.imageContainer, {backgroundColor: data.color}]}>
-        <ScrollView
+        <FlatList
           horizontal
+          data={newHighlights}
+          onEndReached={endReach}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={Styles.ScrollView}>
-          {imageCard}
-        </ScrollView>
+          onEndReachedThreshold={0.1}
+          keyExtractor={(item, index) => index}
+          renderItem={imageCard}
+        />
       </View>
     </View>
   );
