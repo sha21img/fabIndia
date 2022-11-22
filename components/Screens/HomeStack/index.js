@@ -1,4 +1,4 @@
-import {TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../Home';
@@ -55,7 +55,7 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="Women">
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -70,23 +70,24 @@ export default function HomeStack() {
           ),
         }}
       />
+
       <Stack.Screen
-        name="FurnitureCategory"
-        component={FurnitureCategory}
+        name="Personal Care"
+        component={() => <Text>Personal Care</Text>}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
           ),
-          //   <Header
-          //     leftIcon={leftIcon}
-          //     title="Furniture"
-          //     rightIcon={rightIcon}
-          //     customStyle={{
-          //       backgroundColor: '#F8F6F5',
-          //       // marginBottom: 4,
-          //     }}
-          //   />
-          // ),
+        }}
+      />
+      <Stack.Screen
+        name="Furniture"
+        component={() => <Text>Furniture</Text>}
+        // component={FurnitureCategory}
+        options={{
+          header: props => (
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+          ),
         }}
       />
       <Stack.Screen
@@ -125,7 +126,8 @@ export default function HomeStack() {
       />
       <Stack.Screen
         name="Men"
-        component={MenCatagory}
+        // component={MenCatagory}
+        component={() => <Text>lkjh</Text>}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
@@ -134,7 +136,8 @@ export default function HomeStack() {
       />
       <Stack.Screen
         name="Kids"
-        component={KidsCatagory}
+        component={() => <Text>Kids</Text>}
+        // component={KidsCatagory}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
@@ -142,8 +145,9 @@ export default function HomeStack() {
         }}
       />
       <Stack.Screen
-        name="HomeCatagory"
-        component={HomeCatagory}
+        name="Home & Living"
+        // component={HomeCatagory}
+        component={() => <Text>Home & Living</Text>}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
@@ -160,8 +164,19 @@ export default function HomeStack() {
         }}
       />
       <Stack.Screen
-        name="FoodCatagory"
-        component={FoodCatagory}
+        name="Gifting"
+        component={() => <Text>Gifting</Text>}
+        options={{
+          header: props => (
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="Food"
+        component={() => <Text>Food Catagory</Text>}
+        // component={FoodCatagory}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
