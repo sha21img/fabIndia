@@ -55,14 +55,14 @@ export default function HomeStack() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="Women">
       <Stack.Screen
         name="Home"
         component={Home}
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="WomenCategory"
+        name="Women"
         component={WomenCategory}
         options={{
           header: props => (
@@ -124,7 +124,7 @@ export default function HomeStack() {
         }}
       />
       <Stack.Screen
-        name="MenCatagory"
+        name="Men"
         component={MenCatagory}
         options={{
           header: props => (
@@ -133,7 +133,7 @@ export default function HomeStack() {
         }}
       />
       <Stack.Screen
-        name="KidsCatagory"
+        name="Kids"
         component={KidsCatagory}
         options={{
           header: props => (

@@ -15,7 +15,7 @@ const width = Dimensions.get('window').width;
 export default function Interior({data}) {
   return (
     <ImageBackground
-      resizeMode="cover"
+      resizeMode="stretch"
       style={Styles.imagebg}
       source={{uri: `${imageURL}${data?.media?.mobile?.url}`}}>
       {/* source={image.interiorBackground}> */}

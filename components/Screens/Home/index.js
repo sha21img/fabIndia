@@ -697,7 +697,7 @@ export default function Dashbord(props) {
       const filter = data.find(item => {
         return item.position == sectionId;
       });
-      dataa.push(filter.components?.component[0]);
+      dataa.push(filter?.components?.component[0]);
     });
     setFilteredComp(dataa);
   };

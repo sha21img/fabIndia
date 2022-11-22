@@ -214,3 +214,23 @@ export const HomePageSection = [
   'Section22', //legacy
   'Section23', // not available in our figma
 ];
+
+export const LandingPageL1Women = [
+  'Section1', // Top Swipper
+  'Section2', //Apparel highlight
+  'Section3', //Duppatta highlight
+  'Section4', // jewellery highlight
+  'Section5', // Ethnic wear
+  'Section6', // women toptab
+  'Section7', //Women Indian Banner
+  // 'Section8', //Gallery grid
+  // 'Section9', //empty
+  'Section10', //Banner
+  'Section11', //Western Wears
+  'Section12', //women tops toptab
+  'Section13', //carousel
+  'Section14', //Collections
+  // 'Section15', //empty
+  // 'Section16', //empty
+  // 'Section17', //empty
+];

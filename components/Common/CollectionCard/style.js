@@ -7,7 +7,7 @@ export const Styles = StyleSheet.create({
   container: {
     width: 210,
     height: 312,
-    resizeMode: 'cover',
+    resizeMode: 'stretch',
     paddingVertical: 15,
     marginRight: 15,
   },
