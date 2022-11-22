@@ -51,9 +51,9 @@ const WomenCategory = () => {
       'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fwomen&lang=en&curr=INR',
     );
 
-    setDashboardData(response.contentSlots.contentSlot);
+    setDashboardData(response?.contentSlots?.contentSlot);
     // getIds(response.contentSlots.contentSlot);
-    getSections(response.contentSlots.contentSlot);
+    getSections(response?.contentSlots?.contentSlot);
   };
 
   const getSections = data => {
