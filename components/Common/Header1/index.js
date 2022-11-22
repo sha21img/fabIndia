@@ -8,12 +8,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Styles} from './style';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
+import {useNavigation} from '@react-navigation/native';
 
 export default function Header1({
   customViewStyle = {},
   headtext = '',
   count = '',
 }) {
+  const navigation = useNavigation();
   return (
     <View style={[Styles.container, customViewStyle]}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -21,6 +23,7 @@ export default function Header1({
           name="arrow-left"
           color={Colors.primarycolor}
           size={20}
+          onPress={() => navigation.goBack()}
         />
         <View style={{paddingLeft: 10}}>
           <Text
