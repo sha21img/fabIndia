@@ -18,6 +18,8 @@ import {
   WoMenCatagoryData2,
   WoMenCatagoryBeachData,
   hasSpaces,
+  HomePageSection,
+  LandingPageL1Women,
 } from '../../../../../constant';
 import Card from '../../../../Common/Card';
 import Chip from '../../../../Common/Chip';
@@ -29,9 +31,11 @@ import LifeStyle from '../../../../Common/LifeStyle';
 import NewHighlights from '../../../../Common/NewHighlights';
 import OfferCard from '../../../../Common/OfferCard';
 import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
+import SingleBanner from '../../../../Common/SingleBanner';
 import StoriesCard from '../../../../Common/StoriesCard';
 import SummerGalary from '../../../../Common/SummerGalary';
 import TopSwiper from '../../../../Common/TopSwiper';
+import WomenTab from '../../Tabs.js/WomenTab';
 import {Styles} from './style';
 const width = Dimensions.get('window').width;
 
@@ -40,18 +44,27 @@ const WomenCategory = () => {
   const [active, setActive] = React.useState('');
   const [dashboardData, setDashboardData] = React.useState([]);
   const [Ids, setIds] = React.useState([]);
+
+  const [filteredComp, setFilteredComp] = React.useState([]);
   const getInitialData = async () => {
-    const response = await getData('fabindiab2c/cms/pages?lang=en&curr=INR');
+    const response = await getData(
+      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fwomen&lang=en&curr=INR',
+    );
+
     setDashboardData(response.contentSlots.contentSlot);
-    getIds(response.contentSlots.contentSlot);
+    // getIds(response.contentSlots.contentSlot);
+    getSections(response.contentSlots.contentSlot);
   };
-  const getIds = data => {
-    let datas = [];
-    const newArray = data.map(item => {
-      datas.push(item.position);
-      return datas;
+
+  const getSections = data => {
+    var dataa = [];
+    LandingPageL1Women.map(sectionId => {
+      const filter = data.find(item => {
+        return item.position == sectionId;
+      });
+      dataa.push(filter?.components?.component[0]);
     });
-    setIds(datas);
+    setFilteredComp(dataa);
   };
 
   React.useEffect(() => {
@@ -422,6 +435,75 @@ const WomenCategory = () => {
       </View>
     );
   };
+  const checkSwitch = param => {
+    switch (param?.typeCode) {
+      case 'FabResponsiveGridBannerCarouselComponent':
+        return <TopSwiper data={param} />;
+      case 'FabBannerCarouselComponent':
+        return (
+          <NewHighlights
+            customStyle={{marginVertical: 10}}
+            bgColor={{backgroundColor: '#F3E0E0'}}
+            data={param}
+          />
+        );
+      case 'FabOffersGridBannerCarouselComponent':
+        return (
+          <LifeStyle
+            // data={LifeStyleData}
+            data={param}
+            // title={GetLifeStyleTitle}
+            backgroundColor="#F8F2EF"
+          />
+        );
+      case 'FabCMSTabContainer':
+        return (
+          <WomenTab data={param} />
+
+          // <CommonCarousel data={param} width={width / 1.07} height={330} />
+        );
+      case 'SimpleResponsiveBannerComponent':
+        return (
+          <Image
+            resizeMode="stretch"
+            source={{
+              uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
+            }}
+            style={{height: 300, width: width}}
+          />
+        );
+      // section8 grid
+      //section 9 empty
+      case 'FabResponsiveBannerCarouselComponent':
+        return <SingleBanner data={param} />;
+
+      case 'FabBannerResponsiveCarouselComponent':
+        return (
+          <CommonCarousel data={param} width={width / 1.07} height={330} />
+        );
+      case 'FabBannerL1ResponsiveCarouselComponent':
+        return (
+          <>
+            <Text
+              style={{
+                marginLeft: 15,
+                fontFamily: Fonts.PlayfairDisplay600Italic,
+                fontSize: 20,
+                color: Colors.textcolor,
+                marginBottom: 10,
+              }}>
+              Collections
+            </Text>
+            <CollectionCard data={param} />
+          </>
+        );
+      // CollectionCard
+      // case 'CMSFlexComponent':
+      //   return;
+      default:
+        return;
+    }
+  };
 
   return (
     <ScrollView
@@ -429,228 +511,333 @@ const WomenCategory = () => {
       contentContainerStyle={{
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
+        flexGrow: 1,
       }}>
-      {/* =============Banner================= */}
-      {/* <View style={Styles.imagecontainer}>
-        {imageData.map((item, i) => {
-          return (
-            <ImageBackground
-              key={Math.random() * 777266}
-              resizeMode="cover"
-              style={Styles.backgroundimg}
-              source={item.image}>
-              <View
-                style={[
-                  Styles.txtbox,
-                  {top: i < 3 ? 15 : null, bottom: i >= 3 ? 15 : null},
-                ]}>
-                <Text style={Styles.imagetxt}>{item.title}</Text>
-              </View>
-            </ImageBackground>
-          );
-        })}
-        <View
-          style={{
-            width: 160,
-            height: 160,
-            backgroundColor: 'rgba(144, 50, 51, 0.8)',
-            position: 'absolute',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: 'auto',
-            borderRadius: 100,
-            top: 142,
-          }}>
-          <Text
-            style={{
-              fontSize: 14,
-              fontFamily: Fonts.Assistant300,
-              color: '#FFFFFF',
-              lineHeight: 18,
-              textAlign: 'center',
-            }}>
-            A day in the life of a
-          </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              paddingVertical: 6,
-              alignItems: 'flex-end',
-            }}>
-            <Image
-              source={image.whitelogo}
-              style={{height: 20, width: 67}}
-              resizeMode="contain"
-            />
-            <Text
-              style={{
-                color: '#FFFFFF',
-                marginLeft: 3,
-                fontSize: 18,
-                fontFamily: Fonts.PlayfairDisplay400,
-              }}>
-              women
-            </Text>
-          </View>
-        </View>
-      </View> */}
-      {/* {Ids.includes('Section1') && (
-        <TopSwiper data={dashboardData} position="Section1" />
-      )} */}
-      {/* <TopSwiper
-        data={[
-          {banner: image.kidinterior1},
-          {banner: image.banner1},
-          {banner: image.kidinterior2},
-        ]}
-      /> 
-      {/* ==============Women Listing========== */}
-      <NewHighlights
-        title={getTitle('', 'Apparel')}
-        data={WomenHighlightData}
-        customStyle={{marginTop: 15}}
-      />
-      <NewHighlights
-        title={getTitle('', 'Jewellery')}
-        data={WomenHighlightData}
-        customStyle={{marginTop: 15}}
-      />
-      <NewHighlights
-        title={getTitle('', 'Beauty')}
-        data={WomenHighlightData}
-        customStyle={{marginTop: 15}}
-      />
-      {/* ==============Seller Chips=========== */}
-      <View style={Styles.chipbox}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={!!active ? active : 'Bestsellers'}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      {/* <View style={Styles.commontab}> */}
-      <CommonTopTab data={dataMap} />
-      {/* </View> */}
-      {/* ================Summer Galery======== */}
-      <SummerGalary
-        data={SummerGalaryData}
-        title={getSummerTitle()}
-        subtitles="Keep it cool this summer"
-        backgroundColor="#EFE5E0"
-      />
-      {/* ==============Seller Chips=========== */}
-      <View style={Styles.chipbox}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={!!active ? active : 'Bestsellers'}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      {/* <View style={Styles.commontab}> */}
-      <CommonTopTab data={dataMap1} />
-      {/* </View> */}
-      {/* ===============Offer carousole======== */}
-      <OfferCommonCarousel
-        data={OfferData}
-        width={width}
-        height={430}
-        customStyle={{marginVertical: 20}}
-      />
-
-      {/* 
-      
-      gallery space
-      
-       */}
-
-      {/* ==============Seller Chips=========== */}
-      <View style={Styles.chipbox}>
-        <Chip
-          title="Craft"
-          handleClick={() => handleClick('Craft')}
-          active={!!active ? active : 'Craft'}
-        />
-        <Chip
-          title="Fabric"
-          handleClick={() => handleClick('Fabric')}
-          active={active}
-        />
-        <Chip
-          title="Occassion"
-          handleClick={() => handleClick('Occassion')}
-          active={active}
-        />
-      </View>
-      {/* <View style={Styles.commontab}> */}
-      <CommonTopTab data={dataMap3} />
-      {/* </View> */}
-      {/*=========== Beauty Essential ============*/}
-      <CommonCarousel data={WomenCarouselData} width={width} height={410} />
-      {/* ================Summer Galery======== */}
-      <SummerGalary
-        data={SummerGalaryData}
-        title={getSummerTitle2()}
-        subtitles="Something for Summer"
-        backgroundColor="#EFE5E0"
-        customViewStyle={{marginTop: 20}}
-      />
-      {/* ==============Seller Chips=========== */}
-      <View style={Styles.chipbox}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={!!active ? active : 'Bestsellers'}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      {/* <View style={Styles.commontab}> */}
-      <CommonTopTab data={dataMap} />
-      {/* </View> */}
-      {/*=========== Beauty Essential ============*/}
-      <CommonCarousel data={WomenCarouselData} width={width} height={410} />
-      {/* ================Collection ======== */}
-      <View style={{paddingVertical: 30}}>
-        <Text style={Styles.CollectionHead}>Collections</Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{paddingLeft: 15}}>
-          {collectionData.map(item => (
-            <CollectionCard key={Math.random() * 122992} item={item} />
-          ))}
-        </ScrollView>
-      </View>
-      {/* ================LifeStyle 360======== */}
-      <LifeStyle
-        data={LifeStyleData}
-        title={GetLifeStyleTitle}
-        backgroundColor="#F8F2EF"
-      />
-      {/* ================Beach day============ */}
-      {/* <View style={Styles.commontab}> */}
-      <CommonTopTab data={dataMap4} />
-      {/* </View> */}
-      {/* ================Story Card======== */}
-      <StoriesCard
-        custumStyles={{marginTop: 15}}
-        data={StoriesCardData}
-        title={GetStoriesTitle}
-      />
+      {filteredComp.map(item => {
+        return checkSwitch(item);
+      })}
     </ScrollView>
   );
 };
 export default WomenCategory;
+{
+  /* <ScrollView
+showsVerticalScrollIndicator={false}
+contentContainerStyle={{
+  backgroundColor: Colors.backgroundColor,
+  paddingBottom: 20,
+}}> */
+}
+{
+  /* =============Banner================= */
+}
+{
+  /* <View style={Styles.imagecontainer}>
+  {imageData.map((item, i) => {
+    return (
+      <ImageBackground
+        key={Math.random() * 777266}
+        resizeMode="cover"
+        style={Styles.backgroundimg}
+        source={item.image}>
+        <View
+          style={[
+            Styles.txtbox,
+            {top: i < 3 ? 15 : null, bottom: i >= 3 ? 15 : null},
+          ]}>
+          <Text style={Styles.imagetxt}>{item.title}</Text>
+        </View>
+      </ImageBackground>
+    );
+  })}
+  <View
+    style={{
+      width: 160,
+      height: 160,
+      backgroundColor: 'rgba(144, 50, 51, 0.8)',
+      position: 'absolute',
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin: 'auto',
+      borderRadius: 100,
+      top: 142,
+    }}>
+    <Text
+      style={{
+        fontSize: 14,
+        fontFamily: Fonts.Assistant300,
+        color: '#FFFFFF',
+        lineHeight: 18,
+        textAlign: 'center',
+      }}>
+      A day in the life of a
+    </Text>
+    <View
+      style={{
+        flexDirection: 'row',
+        paddingVertical: 6,
+        alignItems: 'flex-end',
+      }}>
+      <Image
+        source={image.whitelogo}
+        style={{height: 20, width: 67}}
+        resizeMode="contain"
+      />
+      <Text
+        style={{
+          color: '#FFFFFF',
+          marginLeft: 3,
+          fontSize: 18,
+          fontFamily: Fonts.PlayfairDisplay400,
+        }}>
+        women
+      </Text>
+    </View>
+  </View>
+</View> */
+}
+{
+  /* {Ids.includes('Section1') && (
+  <TopSwiper data={dashboardData} position="Section1" />
+)} */
+}
+{
+  /* <TopSwiper
+  data={[
+    {banner: image.kidinterior1},
+    {banner: image.banner1},
+    {banner: image.kidinterior2},
+  ]}
+/> 
+{/* ==============Women Listing========== */
+}
+{
+  /* <NewHighlights
+  title={getTitle('', 'Apparel')}
+  data={WomenHighlightData}
+  customStyle={{marginTop: 15}}
+/>
+<NewHighlights
+  title={getTitle('', 'Jewellery')}
+  data={WomenHighlightData}
+  customStyle={{marginTop: 15}}
+/>
+<NewHighlights
+  title={getTitle('', 'Beauty')}
+  data={WomenHighlightData}
+  customStyle={{marginTop: 15}}
+/> */
+}
+{
+  /* ==============Seller Chips=========== */
+}
+{
+  /* <View style={Styles.chipbox}>
+  <Chip
+    title="Bestsellers"
+    handleClick={() => handleClick('Bestsellers')}
+    active={!!active ? active : 'Bestsellers'}
+  />
+  <Chip
+    title="Recommended for you"
+    handleClick={() => handleClick('Recommended for you')}
+    active={active}
+  />
+</View> */
+}
+{
+  /* <View style={Styles.commontab}> */
+}
+{
+  /* <CommonTopTab data={dataMap} /> */
+}
+{
+  /* </View> */
+}
+{
+  /* ================Summer Galery======== */
+}
+{
+  /* <SummerGalary
+  data={SummerGalaryData}
+  title={getSummerTitle()}
+  subtitles="Keep it cool this summer"
+  backgroundColor="#EFE5E0"
+/> */
+}
+{
+  /* ==============Seller Chips=========== */
+}
+{
+  /* <View style={Styles.chipbox}>
+  <Chip
+    title="Bestsellers"
+    handleClick={() => handleClick('Bestsellers')}
+    active={!!active ? active : 'Bestsellers'}
+  />
+  <Chip
+    title="Recommended for you"
+    handleClick={() => handleClick('Recommended for you')}
+    active={active}
+  />
+</View> */
+}
+{
+  /* <View style={Styles.commontab}> */
+}
+{
+  /* <CommonTopTab data={dataMap1} /> */
+}
+{
+  /* </View> */
+}
+{
+  /* ===============Offer carousole======== */
+}
+{
+  /* <OfferCommonCarousel
+  data={OfferData}
+  width={width}
+  height={430}
+  customStyle={{marginVertical: 20}}
+/> */
+}
+
+{
+  /* 
+
+gallery space
+
+ */
+}
+
+{
+  /* ==============Seller Chips=========== */
+}
+{
+  /* <View style={Styles.chipbox}>
+  <Chip
+    title="Craft"
+    handleClick={() => handleClick('Craft')}
+    active={!!active ? active : 'Craft'}
+  />
+  <Chip
+    title="Fabric"
+    handleClick={() => handleClick('Fabric')}
+    active={active}
+  />
+  <Chip
+    title="Occassion"
+    handleClick={() => handleClick('Occassion')}
+    active={active}
+  />
+</View> */
+}
+{
+  /* <View style={Styles.commontab}> */
+}
+{
+  /* <CommonTopTab data={dataMap3} /> */
+}
+{
+  /* </View> */
+}
+{
+  /*=========== Beauty Essential ============*/
+}
+{
+  /* <CommonCarousel data={WomenCarouselData} width={width} height={410} /> */
+}
+{
+  /* ================Summer Galery======== */
+}
+{
+  /* <SummerGalary
+  data={SummerGalaryData}
+  title={getSummerTitle2()}
+  subtitles="Something for Summer"
+  backgroundColor="#EFE5E0"
+  customViewStyle={{marginTop: 20}}
+/> */
+}
+{
+  /* ==============Seller Chips=========== */
+}
+{
+  /* <View style={Styles.chipbox}>
+  <Chip
+    title="Bestsellers"
+    handleClick={() => handleClick('Bestsellers')}
+    active={!!active ? active : 'Bestsellers'}
+  />
+  <Chip
+    title="Recommended for you"
+    handleClick={() => handleClick('Recommended for you')}
+    active={active}
+  />
+</View> */
+}
+{
+  /* <View style={Styles.commontab}> */
+}
+{
+  /* <CommonTopTab data={dataMap} /> */
+}
+{
+  /* </View> */
+}
+{
+  /*=========== Beauty Essential ============*/
+}
+{
+  /* <CommonCarousel data={WomenCarouselData} width={width} height={410} /> */
+}
+{
+  /* ================Collection ======== */
+}
+{
+  /* <View style={{paddingVertical: 30}}>
+  <Text style={Styles.CollectionHead}>Collections</Text>
+  <ScrollView
+    horizontal
+    showsHorizontalScrollIndicator={false}
+    contentContainerStyle={{paddingLeft: 15}}>
+    {collectionData.map(item => (
+      <CollectionCard key={Math.random() * 122992} item={item} />
+    ))}
+  </ScrollView>
+</View> */
+}
+{
+  /* ================LifeStyle 360======== */
+}
+{
+  /* <LifeStyle
+  data={LifeStyleData}
+  title={GetLifeStyleTitle}
+  backgroundColor="#F8F2EF"
+/> */
+}
+{
+  /* ================Beach day============ */
+}
+{
+  /* <View style={Styles.commontab}> */
+}
+{
+  /* <CommonTopTab data={dataMap4} /> */
+}
+{
+  /* </View> */
+}
+{
+  /* ================Story Card======== */
+}
+{
+  /* <StoriesCard
+  custumStyles={{marginTop: 15}}
+  data={StoriesCardData}
+  title={GetStoriesTitle}
+/> */
+}
+// </ScrollView>

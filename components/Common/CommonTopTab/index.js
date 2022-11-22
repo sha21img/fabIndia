@@ -25,45 +25,46 @@ export default function CommonTopTab({data = []}) {
           },
         }}>
         {data.map((item, index) => {
-          {
-            /* console.log('item.name', item.title); */
-          }
           return (
-            <Tab.Screen
-              key={Math.random() * 3456}
-              name={item.title}
-              options={{
-                tabBarItemStyle: {
-                  width: 'auto',
-                  padding: 0,
-                },
-                tabBarLabel: ({focused}) => (
-                  <View
-                    style={{
-                      marginLeft: 15,
-                      borderBottomWidth: 2,
-                      borderBottomColor: focused
-                        ? Colors.primarycolor
-                        : 'transparent',
-                    }}>
-                    <Text
+            item?.title && (
+              <Tab.Screen
+                key={Math.random() * 3456}
+                name={item?.title ? item?.title : 'po'}
+                options={{
+                  tabBarItemStyle: {
+                    width: 'auto',
+                    padding: 0,
+                  },
+                  tabBarLabel: ({focused}) => (
+                    <View
                       style={{
-                        fontSize: 18,
-                        fontFamily: focused
-                          ? Fonts.Assistant700
-                          : Fonts.Assistant300,
-                        color: focused ? Colors.primarycolor : Colors.textcolor,
-                        padding: 0,
+                        marginLeft: 15,
+                        borderBottomWidth: 2,
+                        borderBottomColor: focused
+                          ? Colors.primarycolor
+                          : 'transparent',
                       }}>
-                      {/* {item.name + '      '} */}
-                      {item.title + '       '}
-                    </Text>
-                  </View>
-                ),
-              }}
-              // component={item.screen}
-              component={() => <ShowData item={item} />}
-            />
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          fontFamily: focused
+                            ? Fonts.Assistant700
+                            : Fonts.Assistant300,
+                          color: focused
+                            ? Colors.primarycolor
+                            : Colors.textcolor,
+                          padding: 0,
+                        }}>
+                        {/* {item.name + '      '} */}
+                        {item?.title + '       '}
+                      </Text>
+                    </View>
+                  ),
+                }}
+                // component={item.screen}
+                component={() => <ShowData item={item} />}
+              />
+            )
           );
         })}
       </Tab.Navigator>
