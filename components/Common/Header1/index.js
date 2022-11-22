@@ -19,12 +19,15 @@ export default function Header1({
   return (
     <View style={[Styles.container, customViewStyle]}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <SimpleLineIcons
-          name="arrow-left"
-          color={Colors.primarycolor}
-          size={20}
-          onPress={() => navigation.goBack()}
-        />
+        <TouchableOpacity
+          style={{paddingHorizontal: 5}}
+          onPress={() => navigation.goBack()}>
+          <SimpleLineIcons
+            name="arrow-left"
+            color={Colors.primarycolor}
+            size={20}
+          />
+        </TouchableOpacity>
         <View style={{paddingLeft: 10}}>
           <Text
             style={{

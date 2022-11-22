@@ -1,11 +1,18 @@
 import react from 'react';
-import {Image, ImageBackground, ScrollView, Text, View} from 'react-native';
+import {
+  Image,
+  FlatList,
+  ImageBackground,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import {image} from '../../../assets/images';
 import {Styles} from './styles';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {getComponentData} from '../Helper';
 
 export default function LifeStyle({
@@ -15,35 +22,44 @@ export default function LifeStyle({
   customViewStyle = {},
 }) {
   const [categoryData, setCategoryData] = React.useState([]);
+  const [page, setPage] = useState(0);
+  const [array, setArray] = useState([]);
 
-  React.useEffect(() => {
-    getBannerIds();
-  }, []);
   const getBannerIds = async () => {
     const bannerId = data.banners;
-    getCategoryData(bannerId);
+    const splitBannerId = bannerId.split(' ').join(',');
+    getCategoryData(splitBannerId);
   };
   const getCategoryData = async bannerId => {
-    const splitBannerId = bannerId.split(' ').join(',');
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${bannerId}&lang=en&curr=INR`,
     );
-
-    setCategoryData(response.component);
+    setPage(page + 1);
+    setCategoryData(response);
+    if (array.length) {
+      setArray(prev => [...prev, ...response.component]);
+    } else {
+      setArray(response.component);
+    }
     console.log(response, 'responseresponse');
   };
-  // FabWomenCategoryPageSection5Banner2 FabWomenCategoryPageSection5Banner3 FabWomenCategoryPageSection5Banner4 FabWomenCategoryPageSection5Banner1
+  useEffect(() => {
+    getBannerIds();
+  }, []);
+  const endReach = () => {
+    if (categoryData?.pagination?.totalPages > page) {
+      getBannerIds();
+    }
+  };
 
-  const cards = categoryData.map((item, index) => {
+  const cards = (item, index) => {
     console.log('item', item);
     return (
       <ImageBackground
         key={Math.random() * 1099900}
-        // source={item.image}
-        // source={image.ArtistImg1}
         resizeMode="cover"
         source={{
-          uri: `https://apisap.fabindia.com/${item.media.url}`,
+          uri: `https://apisap.fabindia.com/${item.item.media.url}`,
         }}
         style={[
           Styles.card,
@@ -59,7 +75,7 @@ export default function LifeStyle({
         </LinearGradient> */}
       </ImageBackground>
     );
-  });
+  };
   return (
     <View style={customViewStyle}>
       <View
@@ -96,13 +112,22 @@ export default function LifeStyle({
           </Text>
         </View>
       </View>
-      <ScrollView
+
+      <FlatList
+        horizontal
+        data={array}
+        onEndReached={endReach}
+        showsHorizontalScrollIndicator={false}
+        onEndReachedThreshold={0.1}
+        keyExtractor={(item, index) => index}
+        renderItem={cards}
+      />
+      {/* <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={Styles.ScrollContainer}>
         {cards}
-        {/* <Text>lkjh</Text> */}
-      </ScrollView>
+      </ScrollView> */}
       {/* <View style={[Styles.containerBox, custumStyles]}>
         
         <View style={Styles.cardContainer}>
