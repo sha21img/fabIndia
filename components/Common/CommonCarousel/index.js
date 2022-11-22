@@ -95,7 +95,7 @@ export default function CommonCarousel({
             width: '100%',
             flexDirection: 'row',
             justifyContent: 'center',
-            marginTop: 10,
+            marginTop: 5,
           }}>
           {newHighlights.map((item, index) => (
             <Text
