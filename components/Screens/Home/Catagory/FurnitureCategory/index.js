@@ -27,31 +27,119 @@ import {Styles} from './style';
 import TopGallary from './TopGallary';
 import JewelleryRange from '../../../../Common/JewelleryRange';
 import {getData} from '../../../../Common/Helper';
+import {LandingPageFurniture} from '../../../../../constant';
+import NewHighlights from '../../../../Common/NewHighlights';
+import LifeStyle from '../../../../Common/LifeStyle';
+import WomenTab from '../../Tabs.js/WomenTab';
+import SingleBanner from '../../../../Common/SingleBanner';
+import CollectionCard from '../../../../Common/CollectionCard';
 const width = Dimensions.get('window').width;
+
 const FurnitureCategory = () => {
   const [active, setActive] = React.useState();
   const [active1, setActive1] = React.useState();
-  const [dashboardData, setDashboardData] = React.useState([]);
+  const [sectionData, setSectionData] = React.useState([]);
   const [Ids, setIds] = React.useState([]);
+  const [filteredComp, setFilteredComp] = React.useState([]);
+
   const getInitialData = async () => {
     const response = await getData(
       'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Ffurniture&lang=en&curr=INR',
     );
-    setDashboardData(response.contentSlots.contentSlot);
-    getIds(response.contentSlots.contentSlot);
+    setSectionData(response?.contentSlots?.contentSlot);
+    getSections(response?.contentSlots?.contentSlot);
   };
-  const getIds = data => {
-    let datas = [];
-    const newArray = data.map(item => {
-      datas.push(item.position);
-      return datas;
+  const getSections = data => {
+    var dataa = [];
+    LandingPageFurniture.map(sectionId => {
+      const filter = data.find(item => {
+        return item.position == sectionId;
+      });
+      dataa.push(filter?.components?.component[0]);
     });
-    setIds(datas);
+    setFilteredComp(dataa);
   };
 
   React.useEffect(() => {
     getInitialData();
   }, []);
+  const checkSwitch = param => {
+    switch (param?.typeCode) {
+      //1
+      case 'FabResponsiveGridBannerCarouselComponent':
+        return <TopSwiper data={param} />;
+      //2,3,4
+      case 'FabBannerCarouselComponent':
+        return (
+          <NewHighlights
+            customStyle={{marginVertical: 10}}
+            bgColor={{backgroundColor: '#F3E0E0'}}
+            data={param}
+          />
+        );
+      //5
+      case 'FabOffersGridBannerCarouselComponent':
+        return (
+          <LifeStyle
+            // data={LifeStyleData}
+            data={param}
+            // title={GetLifeStyleTitle}
+            backgroundColor="#F8F2EF"
+          />
+        );
+      //6
+      case 'FabCMSTabContainer':
+        return (
+          <WomenTab data={param} />
+
+          // <CommonCarousel data={param} width={width / 1.07} height={330} />
+        );
+      //7,8,9 empty
+      // case 'SimpleResponsiveBannerComponent':
+      //   return (
+      //     <Image
+      //       resizeMode="stretch"
+      //       source={{
+      //         uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
+      //       }}
+      //       style={{height: 300, width: width}}
+      //     />
+      //   );
+      //10
+      case 'FabResponsiveBannerCarouselComponent':
+        return <SingleBanner data={param} />;
+      //11,12 empty
+
+      //  13
+
+      case 'FabBannerResponsiveCarouselComponent':
+        return (
+          <CommonCarousel data={param} width={width / 1.07} height={330} />
+        );
+      // 14
+      case 'FabBannerL1ResponsiveCarouselComponent':
+        return (
+          <>
+            <Text
+              style={{
+                marginLeft: 15,
+                fontFamily: Fonts.PlayfairDisplay600Italic,
+                fontSize: 20,
+                color: Colors.textcolor,
+                marginBottom: 10,
+              }}>
+              Collections
+            </Text>
+            <CollectionCard data={param} />
+          </>
+        );
+      // CollectionCard
+      // case 'CMSFlexComponent':
+      //   return;
+      default:
+        return;
+    }
+  };
   const CornerGalleryHeader = () => {
     return (
       <Text
@@ -396,137 +484,109 @@ const FurnitureCategory = () => {
     );
   };
   return (
-    <ScrollView style={{backgroundColor: Colors.backgroundColor}}>
-      {/* ==========Top Gallery ============== */}
-      {/* <TopGallary /> */}
-      {Ids.includes('Section1') && (
-        <TopSwiper data={dashboardData} position="Section1" />
-      )}
-      {/* <TopSwiper
-        data={[
-          {banner: image.kidinterior1},
-          {banner: image.banner1},
-          {banner: image.kidinterior2},
-        ]}
-      /> */}
-      {/* ==========Corner Gallery ============== */}
-      <CornerGallery
-        header={CornerGalleryHeader}
-        subHeader={CornerGallerySubheader}
-        data={CornerGalleryData}
-      />
-      {/* ===========Selling tab================= */}
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-          marginTop: 15,
-        }}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={!!active ? active : 'Bestsellers'}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      <View
-        style={{
-          backgroundColor: '#ffffff',
-          marginBottom: 10,
-        }}>
-        <CommonTopTab data={dataMap2} />
-      </View>
-      {/* =============interior Design ================ */}
-      <View style={{marginVertical: 30}}>
-        <InteriorCatagory buttonText={'Get in touch with us'} />
-      </View>
-      {/* ==============Customized ==================== */}
-      <Customize
-        Description={
-          'Bring home your very own customized Fabindia furniture! From wood finish to upholstery, make every piece your own!'
-        }
-        heading={'CUSTOMIZE YOUR FURNITURE'}
-      />
-      {/* ==============Offer common caurosole========= */}
-      <OfferCommonCarousel
-        data={OfferData}
-        UptoText="UPTO"
-        backgroundColor={'#DB8C5F'}
-        width={width / 1.07}
-        height={420}
-        customStyle={{marginVertical: 20}}
-      />
-      {/* ==========Corner Gallery ============== */}
-      <CornerGallery
-        header={CornerGalleryHeader1}
-        subHeader={CornerGallerySubheader1}
-        data={CornerGalleryData}
-      />
-      {/* ===========Selling tab================= */}
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-          marginTop: 15,
-        }}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={!!active ? active : 'Bestsellers'}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-
-      <CommonTopTab data={dataMap2} />
-
-      {/* ===========special card================ */}
-      <CommonCarousel
-        data={SummerCarouselData}
-        width={width}
-        height={410}
-        customStyle={{paddingTop: 25}}
-      />
-      {/* ===========lifeStyle 360=============== */}
-      <View style={Styles.box}>
-        <LifeStyleCard />
-      </View>
-      {/* ==============Seller Chips=========== */}
-      {/* <View style={Styles.commontab}> */}
-      <CommonTopTab data={dataMap} />
-      {/* </View> */}
-      {/* ===============Stories Card =========== */}
-      <StoriesCard
-        data={StoriesCardData}
-        title={GetStoriesTitle}
-        custumStyles={Styles.storycardbox}
-      />
-      {/* ==========Jewellery Range ============== */}
-      {/* <JewelleryRange
-        title={() => (
-          <Text
-          numberOfLines={1}
-            style={{
-              fontFamily: Fonts.PlayfairDisplay600Italic,
-              fontSize: 18,
-              color:"#4A4A4A",
-              lineHeight: 26,
-            }}>
-            A range of jewellery for every ocassion!
-          </Text>
-        )}
-        JewelleryRangeData={JewelleryRangeData}
-      /> */}
+    <ScrollView
+      style={{
+        backgroundColor: Colors.backgroundColor,
+        paddingBottom: 20,
+        flexGrow: 1,
+      }}>
+      {filteredComp.map(item => {
+        return checkSwitch(item);
+      })}
     </ScrollView>
   );
 };
+
 export default FurnitureCategory;
+// {Ids.includes('Section1') && (
+//   <TopSwiper data={dashboardData} position="Section1" />
+// )}
+
+// <CornerGallery
+//   header={CornerGalleryHeader}
+//   subHeader={CornerGallerySubheader}
+//   data={CornerGalleryData}
+// />
+// <View
+//   style={{
+//     flexDirection: 'row',
+//     flexWrap: 'wrap',
+//     paddingHorizontal: 15,
+//     marginTop: 15,
+//   }}>
+//   <Chip
+//     title="Bestsellers"
+//     handleClick={() => handleClick('Bestsellers')}
+//     active={!!active ? active : 'Bestsellers'}
+//   />
+//   <Chip
+//     title="Recommended for you"
+//     handleClick={() => handleClick('Recommended for you')}
+//     active={active}
+//   />
+// </View>
+// <View
+//   style={{
+//     backgroundColor: '#ffffff',
+//     marginBottom: 10,
+//   }}>
+//   <CommonTopTab data={dataMap2} />
+// </View>
+// <View style={{marginVertical: 30}}>
+//   <InteriorCatagory buttonText={'Get in touch with us'} />
+// </View>
+// <Customize
+//   Description={
+//     'Bring home your very own customized Fabindia furniture! From wood finish to upholstery, make every piece your own!'
+//   }
+//   heading={'CUSTOMIZE YOUR FURNITURE'}
+// />
+// <OfferCommonCarousel
+//   data={OfferData}
+//   UptoText="UPTO"
+//   backgroundColor={'#DB8C5F'}
+//   width={width / 1.07}
+//   height={420}
+//   customStyle={{marginVertical: 20}}
+// />
+// <CornerGallery
+//   header={CornerGalleryHeader1}
+//   subHeader={CornerGallerySubheader1}
+//   data={CornerGalleryData}
+// />
+// <View
+//   style={{
+//     flexDirection: 'row',
+//     flexWrap: 'wrap',
+//     paddingHorizontal: 15,
+//     marginTop: 15,
+//   }}>
+//   <Chip
+//     title="Bestsellers"
+//     handleClick={() => handleClick('Bestsellers')}
+//     active={!!active ? active : 'Bestsellers'}
+//   />
+//   <Chip
+//     title="Recommended for you"
+//     handleClick={() => handleClick('Recommended for you')}
+//     active={active}
+//   />
+// </View>
+
+// <CommonTopTab data={dataMap2} />
+
+// <CommonCarousel
+//   data={SummerCarouselData}
+//   width={width}
+//   height={410}
+//   customStyle={{paddingTop: 25}}
+// />
+// <View style={Styles.box}>
+//   <LifeStyleCard />
+// </View>
+// <CommonTopTab data={dataMap} />
+// <StoriesCard
+//   data={StoriesCardData}
+//   title={GetStoriesTitle}
+//   custumStyles={Styles.storycardbox}
+// />

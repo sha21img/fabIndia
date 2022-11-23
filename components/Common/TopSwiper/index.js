@@ -6,6 +6,7 @@ import {Styles} from './styles';
 import axios from 'axios';
 import {getComponentData, imageURL} from '../Helper';
 import {Colors} from '../../../assets/Colors';
+import {image} from '../../../assets/images';
 
 export default function TopSwiper({customStyle, data}) {
   const [carouselData, setCarouselData] = React.useState([]);
@@ -71,15 +72,31 @@ export default function TopSwiper({customStyle, data}) {
         //   </View>
         // }
         showsButtons={false}>
+        {/* <View>
+          <Image
+            key={Math.random() * 1099900}
+            style={Styles.image}
+            source={image.ArtistImg1}
+          />
+        </View>
+        <View>
+          <Image
+            key={Math.random() * 1099900}
+            style={Styles.image}
+            source={image.ArtistImg1}
+          />
+        </View> */}
         {carouselData?.map((item, i) => {
           return (
-            <Image
-              key={Math.random() * 1099900}
-              style={Styles.image}
-              source={{
-                uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
-              }}
-            />
+            <View key={i}>
+              <Image
+                key={Math.random() * 1099900}
+                style={Styles.image}
+                source={{
+                  uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
+                }}
+              />
+            </View>
           );
         })}
       </Swiper>

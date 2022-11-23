@@ -72,18 +72,9 @@ export default function HomeStack() {
       />
 
       <Stack.Screen
-        name="Personal Care"
-        component={() => <Text>Personal Care</Text>}
-        options={{
-          header: props => (
-            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
-          ),
-        }}
-      />
-      <Stack.Screen
         name="Furniture"
-        component={() => <Text>Furniture</Text>}
-        // component={FurnitureCategory}
+        // component={() => <Text>Furniture</Text>}
+        component={FurnitureCategory}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
@@ -126,8 +117,8 @@ export default function HomeStack() {
       />
       <Stack.Screen
         name="Men"
-        // component={MenCatagory}
-        component={() => <Text>lkjh</Text>}
+        component={MenCatagory}
+        // component={() => <Text>lkjh</Text>}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
@@ -146,8 +137,8 @@ export default function HomeStack() {
       />
       <Stack.Screen
         name="Home & Living"
-        // component={HomeCatagory}
-        component={() => <Text>Home & Living</Text>}
+        component={HomeCatagory}
+        // component={() => <Text>Home & Living</Text>}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
@@ -202,7 +193,7 @@ export default function HomeStack() {
         }}
       />
       <Stack.Screen
-        name="BeautyCategory"
+        name="Personal Care"
         component={BeautyCategory}
         options={{
           header: props => (
