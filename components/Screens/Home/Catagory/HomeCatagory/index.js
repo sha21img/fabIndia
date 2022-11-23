@@ -4,6 +4,7 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import React from 'react';
 import TopGallery from './TopGallery';
@@ -17,6 +18,7 @@ import {
   HomeCatagoryTab3,
   HomeCatagoryTab2,
   HomeCatagoryTab1,
+  LandingPageHomeLiving,
 } from '../../../../../constant';
 import CommonTopTab from '../../../../Common/CommonTopTab';
 import LifeStyleCard from './LifeStyleCard';
@@ -30,27 +32,35 @@ import HomeMade from '../HomeDecorCatagory/HomeMade';
 import HomeDecor from '../../../../Common/HomeDecor';
 import TopSwiper from '../../../../Common/TopSwiper';
 import {getData} from '../../../../Common/Helper';
+import LifeStyle from '../../../../Common/LifeStyle';
+import WomenTab from '../../Tabs.js/WomenTab';
+import SingleBanner from '../../../../Common/SingleBanner';
+import CollectionCard from '../../../../Common/CollectionCard';
+import NewHighlights from '../../../../Common/NewHighlights';
 const width = Dimensions.get('window').width;
 
 export default function HomeCatagory() {
   const [active, setActive] = React.useState('Bestsellers');
   const [Ids, setIds] = React.useState([]);
-  const [dashboardData, setDashboardData] = React.useState([]);
+  const [sectionData, setSectionData] = React.useState([]);
+  const [filteredComp, setFilteredComp] = React.useState([]);
 
   const getInitialData = async () => {
     const response = await getData(
       'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fhome-living&lang=en&curr=INR',
     );
-    setDashboardData(response.contentSlots.contentSlot);
-    getIds(response.contentSlots.contentSlot);
+    setSectionData(response?.contentSlots?.contentSlot);
+    getSections(response?.contentSlots?.contentSlot);
   };
-  const getIds = data => {
-    let datas = [];
-    const newArray = data.map(item => {
-      datas.push(item.position);
-      return datas;
+  const getSections = data => {
+    var dataa = [];
+    LandingPageHomeLiving.map(sectionId => {
+      const filter = data.find(item => {
+        return item.position == sectionId;
+      });
+      dataa.push(filter?.components?.component[0]);
     });
-    setIds(datas);
+    setFilteredComp(dataa);
   };
 
   React.useEffect(() => {
@@ -319,119 +329,194 @@ export default function HomeCatagory() {
   const handleClick = data => {
     setActive(data);
   };
+  const checkSwitch = param => {
+    switch (param?.typeCode) {
+      case 'FabResponsiveGridBannerCarouselComponent':
+        return <TopSwiper data={param} />;
+      case 'FabBannerCarouselComponent':
+        return (
+          <NewHighlights
+            customStyle={{marginVertical: 10}}
+            bgColor={{backgroundColor: '#F3E0E0'}}
+            data={param}
+          />
+        );
+      case 'FabOffersGridBannerCarouselComponent':
+        return (
+          <LifeStyle
+            // data={LifeStyleData}
+            data={param}
+            // title={GetLifeStyleTitle}
+            backgroundColor="#F8F2EF"
+          />
+        );
+      case 'FabCMSTabContainer':
+        return (
+          <WomenTab data={param} />
+
+          // <CommonCarousel data={param} width={width / 1.07} height={330} />
+        );
+      case 'SimpleResponsiveBannerComponent':
+        return (
+          <Image
+            resizeMode="stretch"
+            source={{
+              uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
+            }}
+            style={{height: 300, width: width}}
+          />
+        );
+      // section8 grid
+      //section 9 empty
+      case 'FabResponsiveBannerCarouselComponent':
+        return <SingleBanner data={param} />;
+
+      case 'FabBannerResponsiveCarouselComponent':
+        return (
+          <CommonCarousel data={param} width={width / 1.07} height={330} />
+        );
+      case 'FabBannerL1ResponsiveCarouselComponent':
+        return (
+          <>
+            <Text
+              style={{
+                marginLeft: 15,
+                fontFamily: Fonts.PlayfairDisplay600Italic,
+                fontSize: 20,
+                color: Colors.textcolor,
+                marginBottom: 10,
+              }}>
+              Collections
+            </Text>
+            <CollectionCard data={param} />
+          </>
+        );
+      // CollectionCard
+      // case 'CMSFlexComponent':
+      //   return;
+      default:
+        return;
+    }
+  };
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
+        flexGrow: 1,
       }}>
-      {/* <TopGallery /> */}
-      {Ids.includes('Section1') && (
-        <TopSwiper data={dashboardData} position="Section1" />
-      )}
-      {/* <TopSwiper
-        data={[
-          {banner: image.kidinterior1},
-          {banner: image.banner1},
-          {banner: image.kidinterior2},
-        ]}
-      /> */}
-      <HomeDecor heading="Home Linen" description="Handcraft for your home" />
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-          marginTop: 5,
-        }}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={active}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      {/* <View style={{marginLeft: 15, height: 440}}> */}
-      <CommonTopTab data={dataMap1} />
-      {/* </View> */}
-      <View style={{marginVertical: 30}}>
-        <InteriorCatagory buttonText="Get in touch with us" />
-      </View>
-      <CommonBanner
-        heading={bannerHeading1}
-        buttonText="Customize now"
-        bgImage={image.banner1}
-        customViewStyle={{marginTop: 15, marginBottom: 15}}
-      />
-      <HomeMade />
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-          marginTop: 5,
-        }}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={active}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      <CommonTopTab data={dataMap2} />
-      <OfferCommonCarousel
-        data={OfferData}
-        UptoText="UPTO"
-        backgroundColor={'#DB8C5F'}
-        width={width / 1.07}
-        height={420}
-        customStyle={{marginBottom: 10, marginTop: 20}}
-      />
-      <HomeDecor
-        heading="Brighten up your space"
-        description="Luxurious & Handcrafted"
-        customstyle={{marginVertical: 20}}
-      />
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-        }}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={active}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      <CommonTopTab data={dataMap3} />
-      <CommonCarousel
-        data={SummerCarouselData}
-        width={width / 1.07}
-        height={410}
-        customStyle={{paddingVertical: 25}}
-      />
-      <LifeStyleCard />
-      <CommonTopTab data={dataMap4} />
-      <StoriesCard
-        data={StoriesCardData}
-        title={GetStoriesTitle}
-        custumStyles={{marginTop: 40, backgroundColor: '#908EA6'}}
-      />
+      {filteredComp.map(item => {
+        return checkSwitch(item);
+      })}
     </ScrollView>
   );
+}
+
+{
+  /* <ScrollView
+showsVerticalScrollIndicator={false}
+contentContainerStyle={{
+  backgroundColor: Colors.backgroundColor,
+  paddingBottom: 20,
+}}>
+{Ids.includes('Section1') && (
+  <TopSwiper data={dashboardData} position="Section1" />
+)}
+
+<HomeDecor heading="Home Linen" description="Handcraft for your home" />
+<View
+  style={{
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: 15,
+    marginTop: 5,
+  }}>
+  <Chip
+    title="Bestsellers"
+    handleClick={() => handleClick('Bestsellers')}
+    active={active}
+  />
+  <Chip
+    title="Recommended for you"
+    handleClick={() => handleClick('Recommended for you')}
+    active={active}
+  />
+</View>
+<CommonTopTab data={dataMap1} />
+
+<View style={{marginVertical: 30}}>
+  <InteriorCatagory buttonText="Get in touch with us" />
+</View>
+<CommonBanner
+  heading={bannerHeading1}
+  buttonText="Customize now"
+  bgImage={image.banner1}
+  customViewStyle={{marginTop: 15, marginBottom: 15}}
+/>
+<HomeMade />
+<View
+  style={{
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: 15,
+    marginTop: 5,
+  }}>
+  <Chip
+    title="Bestsellers"
+    handleClick={() => handleClick('Bestsellers')}
+    active={active}
+  />
+  <Chip
+    title="Recommended for you"
+    handleClick={() => handleClick('Recommended for you')}
+    active={active}
+  />
+</View>
+<CommonTopTab data={dataMap2} />
+<OfferCommonCarousel
+  data={OfferData}
+  UptoText="UPTO"
+  backgroundColor={'#DB8C5F'}
+  width={width / 1.07}
+  height={420}
+  customStyle={{marginBottom: 10, marginTop: 20}}
+/>
+<HomeDecor
+  heading="Brighten up your space"
+  description="Luxurious & Handcrafted"
+  customstyle={{marginVertical: 20}}
+/>
+<View
+  style={{
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: 15,
+  }}>
+  <Chip
+    title="Bestsellers"
+    handleClick={() => handleClick('Bestsellers')}
+    active={active}
+  />
+  <Chip
+    title="Recommended for you"
+    handleClick={() => handleClick('Recommended for you')}
+    active={active}
+  />
+</View>
+<CommonTopTab data={dataMap3} />
+<CommonCarousel
+  data={SummerCarouselData}
+  width={width / 1.07}
+  height={410}
+  customStyle={{paddingVertical: 25}}
+/>
+<LifeStyleCard />
+<CommonTopTab data={dataMap4} />
+<StoriesCard
+  data={StoriesCardData}
+  title={GetStoriesTitle}
+  custumStyles={{marginTop: 40, backgroundColor: '#908EA6'}}
+/>
+</ScrollView> */
 }

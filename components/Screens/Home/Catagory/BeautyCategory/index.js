@@ -4,6 +4,7 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import React from 'react';
 import TopGallery from './TopGallary';
@@ -17,6 +18,7 @@ import {
   FoodCatagoryTab1,
   FoodCatagoryTab2,
   FoodCatagoryTab3,
+  LandingPagePersonalCare,
 } from '../../../../../constant';
 import SimpleCard from '../../../../Common/SimpleCard';
 import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
@@ -27,28 +29,35 @@ import PointDetailCard from '../../../../Common/PointDetailCard';
 import Card from '../../../../Common/Card';
 import TopSwiper from '../../../../Common/TopSwiper';
 import {getData} from '../../../../Common/Helper';
+import WomenTab from '../../Tabs.js/WomenTab';
+import NewHighlights from '../../../../Common/NewHighlights';
 const width = Dimensions.get('window').width;
 
 export default function BeautyCategory() {
   const [active, setActive] = React.useState('Bestsellers');
   const [dashboardData, setDashboardData] = React.useState([]);
+
+  const [sectionsData, setSectionsData] = React.useState([]);
+  const [filteredComp, setFilteredComp] = React.useState([]);
   const [Ids, setIds] = React.useState([]);
   const getInitialData = async () => {
     const response = await getData(
       'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fpersonal-care&lang=en&curr=INR',
     );
-    setDashboardData(response.contentSlots.contentSlot);
-    getIds(response.contentSlots.contentSlot);
-  };
-  const getIds = data => {
-    let datas = [];
-    const newArray = data.map(item => {
-      datas.push(item.position);
-      return datas;
-    });
-    setIds(datas);
-  };
+    setSectionsData(response?.contentSlots?.contentSlot);
 
+    getSections(response?.contentSlots?.contentSlot);
+  };
+  const getSections = data => {
+    var dataa = [];
+    LandingPagePersonalCare.map(sectionId => {
+      const filter = data.find(item => {
+        return item.position == sectionId;
+      });
+      dataa.push(filter?.components?.component[0]);
+    });
+    setFilteredComp(dataa);
+  };
   React.useEffect(() => {
     getInitialData();
   }, []);
@@ -309,99 +318,136 @@ export default function BeautyCategory() {
       </View>
     );
   };
+  const checkSwitch = param => {
+    switch (param?.typeCode) {
+      //1
+      case 'FabResponsiveGridBannerCarouselComponent':
+        return <TopSwiper data={param} />;
+      //  2,3,4
+      case 'FabBannerCarouselComponent':
+        return (
+          <NewHighlights
+            customStyle={{marginVertical: 10}}
+            bgColor={{backgroundColor: '#F3E0E0'}}
+            data={param}
+          />
+        );
+      //5 not present
+
+      //6
+      case 'FabCMSTabContainer':
+        return <WomenTab data={param} />;
+
+      //7
+      case 'SimpleResponsiveBannerComponent':
+        return (
+          <Image
+            resizeMode="stretch"
+            source={{
+              uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
+            }}
+            style={{height: 300, width: width}}
+          />
+        );
+
+      //8,9,10 empty
+      //11 not present
+      //12 empty
+      default:
+        return;
+    }
+  };
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
+        flexGrow: 1,
       }}>
-      {/* <TopGallery /> */}
-      {Ids.includes('Section1') && (
-        <TopSwiper data={dashboardData} position="Section1" />
-      )}
-      {/* <TopSwiper
-        data={[
-          {banner: image.kidinterior1},
-          {banner: image.banner1},
-          {banner: image.kidinterior2},
-        ]}
-      /> */}
-      <SummerGalary
-        data={SummerGalaryData}
-        title={getSummerTitle()}
-        subtitles="Using nature’s best for your skin"
-        backgroundColor="#EFE5E0"
-        customViewStyle={{marginBottom: 50}}
-      />
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-          marginTop: 5,
-        }}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={active}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      <CommonTopTab data={dataMap1} />
-      <OfferCommonCarousel
-        data={OfferData}
-        UptoText="UPTO"
-        backgroundColor={'#DB8C5F'}
-        width={width / 1.07}
-        height={420}
-        customStyle={{marginVertical: 20}}
-      />
-      <SummerGalary
-        data={HomeProductData}
-        title={getSummerTitle1()}
-        subtitles="Rejuvenate every morning!"
-        backgroundColor="#EFE5E0"
-        customViewStyle={{marginBottom: 50, marginTop: 20}}
-      />
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-          marginTop: 5,
-        }}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={active}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      <CommonTopTab data={dataMap2} />
-      <CommonCarousel data={WomenCarouselData} width={width} height={410} />
-      <SummerGalary
-        data={HomeProductData}
-        title={getSummerTitle1()}
-        subtitles="Bask in the sun with the best in beauty"
-        backgroundColor="#EFE5E0"
-        customViewStyle={{marginBottom: 50, marginTop: 20}}
-      />
-      <LifeStyleCard />
-      <CommonTopTab data={dataMap3} />
-      <StoriesCard
-        data={StoriesCardData}
-        title={GetStoriesTitle}
-        custumStyles={{marginTop: 40, backgroundColor: '#C2AB96'}}
-      />
+      {filteredComp.map(item => {
+        return checkSwitch(item);
+      })}
     </ScrollView>
   );
 }
+
+// {Ids.includes('Section1') && (
+//   <TopSwiper data={dashboardData} position="Section1" />
+// )}
+
+// <SummerGalary
+//   data={SummerGalaryData}
+//   title={getSummerTitle()}
+//   subtitles="Using nature’s best for your skin"
+//   backgroundColor="#EFE5E0"
+//   customViewStyle={{marginBottom: 50}}
+// />
+// <View
+//   style={{
+//     flexDirection: 'row',
+//     flexWrap: 'wrap',
+//     paddingHorizontal: 15,
+//     marginTop: 5,
+//   }}>
+//   <Chip
+//     title="Bestsellers"
+//     handleClick={() => handleClick('Bestsellers')}
+//     active={active}
+//   />
+//   <Chip
+//     title="Recommended for you"
+//     handleClick={() => handleClick('Recommended for you')}
+//     active={active}
+//   />
+// </View>
+// <CommonTopTab data={dataMap1} />
+// <OfferCommonCarousel
+//   data={OfferData}
+//   UptoText="UPTO"
+//   backgroundColor={'#DB8C5F'}
+//   width={width / 1.07}
+//   height={420}
+//   customStyle={{marginVertical: 20}}
+// />
+// <SummerGalary
+//   data={HomeProductData}
+//   title={getSummerTitle1()}
+//   subtitles="Rejuvenate every morning!"
+//   backgroundColor="#EFE5E0"
+//   customViewStyle={{marginBottom: 50, marginTop: 20}}
+// />
+// <View
+//   style={{
+//     flexDirection: 'row',
+//     flexWrap: 'wrap',
+//     paddingHorizontal: 15,
+//     marginTop: 5,
+//   }}>
+//   <Chip
+//     title="Bestsellers"
+//     handleClick={() => handleClick('Bestsellers')}
+//     active={active}
+//   />
+//   <Chip
+//     title="Recommended for you"
+//     handleClick={() => handleClick('Recommended for you')}
+//     active={active}
+//   />
+// </View>
+// <CommonTopTab data={dataMap2} />
+// <CommonCarousel data={WomenCarouselData} width={width} height={410} />
+// <SummerGalary
+//   data={HomeProductData}
+//   title={getSummerTitle1()}
+//   subtitles="Bask in the sun with the best in beauty"
+//   backgroundColor="#EFE5E0"
+//   customViewStyle={{marginBottom: 50, marginTop: 20}}
+// />
+// <LifeStyleCard />
+// <CommonTopTab data={dataMap3} />
+// <StoriesCard
+//   data={StoriesCardData}
+//   title={GetStoriesTitle}
+//   custumStyles={{marginTop: 40, backgroundColor: '#C2AB96'}}
+// />

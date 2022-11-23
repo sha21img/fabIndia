@@ -25,8 +25,9 @@ export default function CommonTopTab({data = []}) {
           },
         }}>
         {data.map((item, index) => {
+          console.log('itemcomon tab', item.title);
           return (
-            item?.title && (
+            !!item?.title && (
               <Tab.Screen
                 key={Math.random() * 3456}
                 name={item?.title ? item?.title : 'po'}
