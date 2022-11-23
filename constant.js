@@ -234,3 +234,49 @@ export const LandingPageL1Women = [
   // 'Section16', //empty
   // 'Section17', //empty
 ];
+
+export const LandingPageL1Kids = [
+  'Section1', // Top Swipper
+  'Section2', // infants highlight
+  'Section3', // girls highlight
+  'Section4', // Boys highlight
+  'Section5', // Shop by category
+  'Section6', // Kids toptab
+  'Section7', // Kids bright banner
+  // 'Section8', // Gallery grid
+  // 'Section9', // empty
+  'Section10', // Banner 50% off
+  'Section11', // Top sellers
+  'Section12', // kids cloths toptab
+  'Section13', // carousel
+  'Section14', // Collections
+  // 'Section15', // empty
+  // 'Section16', // empty
+  // 'Section17', // empty
+];
+export const LandingPageL1Gifting = [
+  'Section1',
+  'Section2',
+  'Section3',
+  'Section4',
+];
+
+export const LandingPageL1Food = [
+  'Section1', // Top Swipper
+  'Section2', // Essentials highlight
+  'Section3', // Snacks highlight
+  'Section4', // condiments highlight
+  'Section5', // Shop by category
+  // 'Section6', // FabTitleCMSTabContainer
+  'Section7', // Take a bite banner
+  // // 'Section8', // Gallery grid
+  // // 'Section9', // empty
+  'Section10', // Banner snaks
+  'Section11', // Condiments
+  'Section12', // empty
+  'Section13', // carousel
+  'Section14', // Collections
+  // 'Section15', // empty
+  // 'Section16', // empty
+  // 'Section17', // empty
+];

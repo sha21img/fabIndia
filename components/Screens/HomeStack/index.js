@@ -17,6 +17,7 @@ import Collections from '../Collections';
 import CustomizeCatagory from '../Home/Catagory/CustomizeCatagory';
 import MonogramCatagory from '../Home/Catagory/MonogramCatagory';
 import BeautyCategory from '../Home/Catagory/BeautyCategory';
+import GiftingCatagory from '../Home/Catagory/GiftingCatagory';
 import Offers from '../Offers';
 import Fabulous from '../Fabulous';
 import NewArrivals from '../NewArrivals';
@@ -32,8 +33,6 @@ import LandingPagebedroom from '../LandingPageL2/LandingPage-bedroom';
 import Diwali from '../EventLanding/Diwali';
 import {Colors} from '../../../assets/Colors';
 import Dussehra from '../EventLanding/Dussehra';
-import MyProfile from '../MyAccount/MyProfile';
-import MyOrder from '../MyAccount/MyOrder';
 import Header1 from '../../Common/Header1';
 
 const Stack = createNativeStackNavigator();
@@ -82,8 +81,7 @@ export default function HomeStack() {
       />
       <Stack.Screen
         name="Furniture"
-        component={() => <Text>Furniture</Text>}
-        // component={FurnitureCategory}
+        component={FurnitureCategory}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
@@ -136,8 +134,7 @@ export default function HomeStack() {
       />
       <Stack.Screen
         name="Kids"
-        component={() => <Text>Kids</Text>}
-        // component={KidsCatagory}
+        component={KidsCatagory}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
@@ -146,8 +143,7 @@ export default function HomeStack() {
       />
       <Stack.Screen
         name="Home & Living"
-        // component={HomeCatagory}
-        component={() => <Text>Home & Living</Text>}
+        component={HomeCatagory}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
@@ -165,7 +161,7 @@ export default function HomeStack() {
       />
       <Stack.Screen
         name="Gifting"
-        component={() => <Text>Gifting</Text>}
+        component={GiftingCatagory}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
@@ -175,8 +171,7 @@ export default function HomeStack() {
 
       <Stack.Screen
         name="Food"
-        component={() => <Text>Food Catagory</Text>}
-        // component={FoodCatagory}
+        component={FoodCatagory}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />

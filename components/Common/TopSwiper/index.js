@@ -18,7 +18,6 @@ export default function TopSwiper({customStyle, data}) {
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-
     setCarouselData(response.component);
   };
   useEffect(() => {

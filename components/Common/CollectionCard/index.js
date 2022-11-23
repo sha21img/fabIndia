@@ -1,14 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  ImageBackground,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import {Colors} from '../../../assets/Colors';
-import Fonts from '../../../assets/fonts';
+import {ImageBackground, ScrollView} from 'react-native';
 import {getComponentData} from '../Helper';
 import {Styles} from './style';
 
@@ -23,20 +14,15 @@ const CollectionCard = ({data = {}}) => {
   };
   const getCarauselData = async bannerId => {
     const splitBannerId = bannerId.split(' ').join(',');
-    console.log('Collection card sl=plit id', splitBannerId);
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    console.log('Collection card response', response.component);
     setCollectionCardData(response.component);
-
-    // setCarouselData(response.component);
   };
   return (
     <>
       <ScrollView horizontal contentContainerStyle={{paddingHorizontal: 15}}>
         {collectionCardData.map(item => {
-          console.log('itemitem', item);
           return (
             <ImageBackground
               style={Styles.container}

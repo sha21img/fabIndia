@@ -4,6 +4,7 @@ import {
   ScrollView,
   Text,
   Dimensions,
+  FlatList,
   ImageBackground,
   Image,
   TouchableOpacity,
@@ -42,17 +43,12 @@ const width = Dimensions.get('window').width;
 const WomenCategory = () => {
   const [imgActive1, setImgActive1] = React.useState(0);
   const [active, setActive] = React.useState('');
-  const [dashboardData, setDashboardData] = React.useState([]);
-  const [Ids, setIds] = React.useState([]);
 
   const [filteredComp, setFilteredComp] = React.useState([]);
   const getInitialData = async () => {
     const response = await getData(
       'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fwomen&lang=en&curr=INR',
     );
-
-    setDashboardData(response?.contentSlots?.contentSlot);
-    // getIds(response.contentSlots.contentSlot);
     getSections(response?.contentSlots?.contentSlot);
   };
 
@@ -513,9 +509,11 @@ const WomenCategory = () => {
         paddingBottom: 20,
         flexGrow: 1,
       }}>
-      {filteredComp.map(item => {
-        return checkSwitch(item);
-      })}
+      <FlatList
+        data={filteredComp}
+        keyExtractor={(item, index) => index}
+        renderItem={item => checkSwitch(item.item)}
+      />
     </ScrollView>
   );
 };
