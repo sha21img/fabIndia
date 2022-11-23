@@ -3,7 +3,9 @@ import {
   Text,
   ScrollView,
   Dimensions,
+  FlatList,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import React from 'react';
 import {Colors} from '../../../../../assets/Colors';
@@ -17,6 +19,7 @@ import {
   KidsTableData1,
   KidsTableData2,
   KidsTableData3,
+  LandingPageL1Kids,
   MenCatagoryTab3,
   MenCatagoryTableData,
 } from '../../../../../constant';
@@ -33,6 +36,10 @@ import ArCarousel from '../../../../Common/ArCarousel';
 import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
 import TopSwiper from '../../../../Common/TopSwiper';
 import {getData} from '../../../../Common/Helper';
+import CollectionCard from '../../../../Common/CollectionCard';
+import SingleBanner from '../../../../Common/SingleBanner';
+import WomenTab from '../../Tabs.js/WomenTab';
+import LifeStyle from '../../../../Common/LifeStyle';
 const width = Dimensions.get('window').width;
 
 const WomenHighlightData = [
@@ -85,22 +92,24 @@ const KidsCatagory = () => {
   const [imgActive1, setImgActive1] = React.useState(0);
   const [dashboardData, setDashboardData] = React.useState([]);
   const [Ids, setIds] = React.useState([]);
+  const [filteredComp, setFilteredComp] = React.useState([]);
   const getInitialData = async () => {
     const response = await getData(
       'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fkids&lang=en&curr=INR',
     );
     setDashboardData(response.contentSlots.contentSlot);
-    getIds(response.contentSlots.contentSlot);
+    getSections(response?.contentSlots?.contentSlot);
   };
-  const getIds = data => {
-    let datas = [];
-    const newArray = data.map(item => {
-      datas.push(item.position);
-      return datas;
+  const getSections = data => {
+    var dataa = [];
+    LandingPageL1Kids.map(sectionId => {
+      const filter = data.find(item => {
+        return item.position == sectionId;
+      });
+      dataa.push(filter?.components?.component[0]);
     });
-    setIds(datas);
+    setFilteredComp(dataa);
   };
-
   React.useEffect(() => {
     getInitialData();
   }, []);
@@ -170,7 +179,6 @@ const KidsCatagory = () => {
       </View>
     );
   };
-
   const HomeScreen = item => {
     return (
       <ScrollView
@@ -193,7 +201,6 @@ const KidsCatagory = () => {
       </ScrollView>
     );
   };
-
   const data = [
     {
       // heading: () => WomenCarouselText(),
@@ -317,123 +324,241 @@ const KidsCatagory = () => {
   const SummerCarouselData = [
     {
       heading_btn: () => SummerCarousel(),
-      banner: image.manCarousel,
+      banner: image,
     },
     {
       heading_btn: () => SummerCarousel(),
       banner: image.manCarousel,
     },
   ];
+
+  // new
+
+  const checkSwitch = param => {
+    switch (param?.typeCode) {
+      case 'FabResponsiveGridBannerCarouselComponent':
+        return <TopSwiper data={param} />;
+      case 'FabBannerCarouselComponent':
+        return (
+          <NewHighlights
+            customStyle={{marginVertical: 10}}
+            bgColor={{backgroundColor: '#F3E0E0'}}
+            data={param}
+          />
+        );
+      case 'FabOffersGridBannerCarouselComponent':
+        return (
+          <LifeStyle
+            // data={LifeStyleData}
+            data={param}
+            // title={GetLifeStyleTitle}
+            backgroundColor="#F8F2EF"
+          />
+        );
+      case 'FabCMSTabContainer':
+        return (
+          <WomenTab data={param} />
+
+          // <CommonCarousel data={param} width={width / 1.07} height={330} />
+        );
+      case 'SimpleResponsiveBannerComponent':
+        return (
+          <Image
+            resizeMode="stretch"
+            source={{
+              uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
+            }}
+            style={{height: 300, width: width}}
+          />
+        );
+      // section8 grid
+      //section 9 empty
+      case 'FabResponsiveBannerCarouselComponent':
+        return <SingleBanner data={param} />;
+
+      case 'FabBannerResponsiveCarouselComponent':
+        return (
+          <CommonCarousel data={param} width={width / 1.07} height={330} />
+        );
+      case 'FabBannerL1ResponsiveCarouselComponent':
+        return (
+          <>
+            <Text
+              style={{
+                marginLeft: 15,
+                fontFamily: Fonts.PlayfairDisplay600Italic,
+                fontSize: 20,
+                color: Colors.textcolor,
+                marginBottom: 10,
+              }}>
+              Collections
+            </Text>
+            <CollectionCard data={param} />
+          </>
+        );
+      // CollectionCard
+      // case 'CMSFlexComponent':
+      //   return;
+      default:
+        return;
+    }
+  };
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        backgroundColor: Colors.backgroundColor,
-        paddingBottom: 20,
-        flexGrow: 1,
-      }}>
-      {Ids.includes('Section1') && (
-        <TopSwiper data={dashboardData} position="Section1" />
-      )}
-      <NewHighlights
-        title={getTitle('', 'Infants')}
-        data={WomenHighlightData}
-        customStyle={{marginTop: 15}}
+    <>
+      <FlatList
+        data={filteredComp}
+        keyExtractor={(item, index) => index}
+        renderItem={item => checkSwitch(item.item)}
       />
-      <NewHighlights
-        title={getTitle('', 'Girls')}
-        data={WomenHighlightData}
-        customStyle={{marginTop: 15}}
-      />
-      <NewHighlights
-        title={getTitle('', 'Boys')}
-        data={WomenHighlightData}
-        customStyle={{marginTop: 15}}
-      />
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-          marginTop: 20,
-        }}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={active}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      {/* <View style={{paddingLeft: 15, height: 490}}> */}
-      <CommonTopTab data={dataMap} />
-      {/* </View> */}
-
-      {/* 
-      
-      gallery space
-      
-       */}
-
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-          marginTop: 15,
-        }}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={active}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      <CommonTopTab data={dataMap1} />
-
-      <OfferCommonCarousel
-        data={OfferData}
-        UptoText="UPTO"
-        backgroundColor={'#DB8C5F'}
-        width={width}
-        height={430}
-        customStyle={{marginBottom: 10, marginTop: 20}}
-      />
-
-      {/* 
-      
-      gallery space
-      
-       */}
-
-      <CommonTopTab data={dataMap2} />
-
-      <CommonCarousel
-        data={SummerCarouselData}
-        width={width / 1.07}
-        height={440}
-        customStyle={{paddingVertical: 25}}
-      />
-
-      <Collections />
-      <LifeStyleCard />
-      {/* <View style={{paddingLeft: 15, height: 500}}> */}
-      <CommonTopTab data={dataMap3} />
-      {/* </View> */}
-      <StoriesCard
-        data={StoriesCardData}
-        title={GetStoriesTitle}
-        custumStyles={{marginTop: 40}}
-      />
-    </ScrollView>
+    </>
   );
 };
 
 export default KidsCatagory;
+
+{
+  /* <ScrollView
+showsVerticalScrollIndicator={false}
+contentContainerStyle={{
+  backgroundColor: Colors.backgroundColor,
+  paddingBottom: 20,
+  flexGrow: 1,
+}}> */
+}
+// {Ids.includes('Section1') && (
+//   <TopSwiper data={dashboardData} position="Section1" />
+// )}
+{
+  /* <NewHighlights
+  title={getTitle('', 'Infants')}
+  data={WomenHighlightData}
+  customStyle={{marginTop: 15}}
+/> */
+}
+{
+  /* <NewHighlights
+  title={getTitle('', 'Girls')}
+  data={WomenHighlightData}
+  customStyle={{marginTop: 15}}
+/> */
+}
+{
+  /* <NewHighlights
+  title={getTitle('', 'Boys')}
+  data={WomenHighlightData}
+  customStyle={{marginTop: 15}}
+/> */
+}
+{
+  /* <View
+  style={{
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: 15,
+    marginTop: 20,
+  }}>
+  <Chip
+    title="Bestsellers"
+    handleClick={() => handleClick('Bestsellers')}
+    active={active}
+  />
+  <Chip
+    title="Recommended for you"
+    handleClick={() => handleClick('Recommended for you')}
+    active={active}
+  />
+</View> */
+}
+{
+  /* <View style={{paddingLeft: 15, height: 490}}> */
+}
+{
+  /* <CommonTopTab data={dataMap} /> */
+}
+{
+  /* </View> */
+}
+
+{
+  /* 
+
+gallery space
+
+ */
+}
+
+// <View
+//   style={{
+//     flexDirection: 'row',
+//     flexWrap: 'wrap',
+//     paddingHorizontal: 15,
+//     marginTop: 15,
+//   }}>
+//   <Chip
+//     title="Bestsellers"
+//     handleClick={() => handleClick('Bestsellers')}
+//     active={active}
+//   />
+//   <Chip
+//     title="Recommended for you"
+//     handleClick={() => handleClick('Recommended for you')}
+//     active={active}
+//   />
+// </View>
+{
+  /* <CommonTopTab data={dataMap1} /> */
+}
+
+{
+  /* <OfferCommonCarousel
+  data={OfferData}
+  UptoText="UPTO"
+  backgroundColor={'#DB8C5F'}
+  width={width}
+  height={430}
+  customStyle={{marginBottom: 10, marginTop: 20}}
+/> */
+}
+
+{
+  /* 
+
+gallery space
+
+ */
+}
+
+{
+  /* <CommonTopTab data={dataMap2} /> */
+}
+
+{
+  /* <CommonCarousel
+  data={SummerCarouselData}
+  width={width / 1.07}
+  height={440}
+  customStyle={{paddingVertical: 25}}
+/> */
+}
+
+{
+  /* <Collections />
+<LifeStyleCard /> */
+}
+{
+  /* <View style={{paddingLeft: 15, height: 500}}> */
+}
+{
+  /* <CommonTopTab data={dataMap3} /> */
+}
+{
+  /* </View> */
+}
+{
+  /* <StoriesCard
+  data={StoriesCardData}
+  title={GetStoriesTitle}
+  custumStyles={{marginTop: 40}}
+/>
+</ScrollView> */
+}
