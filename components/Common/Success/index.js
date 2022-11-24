@@ -18,6 +18,7 @@ export default function Success({
   description = '',
   btntxt = '',
   showCard = true,
+  descfont = {},
 }) {
   return (
     <>
@@ -42,22 +43,27 @@ export default function Success({
             }}>
             <Image style={{height: 24, width: 34}} source={image.tick} />
           </View>
+          {!!title && (
+            <Text
+              style={{
+                fontSize: 18,
+                paddingVertical: 16,
+                fontFamily: Fonts.Assistant600,
+                color: Colors.textcolor,
+              }}>
+              {title}
+            </Text>
+          )}
           <Text
-            style={{
-              fontSize: 18,
-              paddingVertical: 16,
-              fontFamily: Fonts.Assistant600,
-              color: Colors.textcolor,
-            }}>
-            {title}
-          </Text>
-          <Text
-            style={{
-              fontSize: 16,
-              textAlign: 'center',
-              paddingVertical: 15,
-              fontFamily: Fonts.Assistant400,
-            }}>
+            style={[
+              {
+                fontSize: 16,
+                textAlign: 'center',
+                paddingVertical: 15,
+                fontFamily: Fonts.Assistant400,
+              },
+              descfont,
+            ]}>
             {description}
           </Text>
         </View>
