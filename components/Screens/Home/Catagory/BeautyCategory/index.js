@@ -7,13 +7,9 @@ import {
   Image,
 } from 'react-native';
 import React from 'react';
-import TopGallery from './TopGallary';
 import {Colors} from '../../../../../assets/Colors';
-import SummerGalary from '../../../../Common/SummerGalary';
 import {image} from '../../../../../assets/images';
 import Fonts from '../../../../../assets/fonts';
-import Chip from '../../../../Common/Chip';
-import CommonTopTab from '../../../../Common/CommonTopTab';
 import {
   FoodCatagoryTab1,
   FoodCatagoryTab2,
@@ -21,10 +17,6 @@ import {
   LandingPagePersonalCare,
 } from '../../../../../constant';
 import SimpleCard from '../../../../Common/SimpleCard';
-import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
-import CommonCarousel from '../../../../Common/CommonCarousel';
-import LifeStyleCard from './LifeStyleCard';
-import StoriesCard from '../../../../Common/StoriesCard';
 import PointDetailCard from '../../../../Common/PointDetailCard';
 import Card from '../../../../Common/Card';
 import TopSwiper from '../../../../Common/TopSwiper';
