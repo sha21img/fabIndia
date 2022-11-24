@@ -19,6 +19,8 @@ import Otp from '../Login_Register/Otp';
 import Login from '../Login_Register/Login';
 import LoginMobile from '../Login_Register/LoginMobile';
 import ChangePassword from './MyProfile/ChangePassword';
+import ChangeMobileNumber from './MyProfile/ChangeMobileNumber';
+import ChangePasswordSuccesfully from './MyProfile/ChangePasswordSuccesfully';
 
 const Stack = createNativeStackNavigator();
 const pages = [
@@ -76,8 +78,7 @@ const pages = [
 const MyAccounts = props => {
   return (
     <>
-      <View style={{elevation: 10, width: '100%', height: 3}}></View>
-      <ScrollView style={{backgroundColor: '#ffffff', marginTop: 5}}>
+      <ScrollView style={{backgroundColor: '#ffffff'}}>
         <View style={styles.profileContainer}>
           <TouchableOpacity
             style={{alignItems: 'flex-end'}}
@@ -244,6 +245,23 @@ export default MyAccount = props => {
           }}
         />
         <Stack.Screen
+          name="ChangePasswordSuccesfully"
+          component={ChangePasswordSuccesfully}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Change password"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
           name="MyProfile"
           component={MyProfile}
           options={{
@@ -302,6 +320,23 @@ export default MyAccount = props => {
               <Header
                 leftIcon={leftIcon}
                 title="My Account"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="ChangeMobileNumber"
+          component={ChangeMobileNumber}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Change mobile number"
                 rightIcon={rightIcon}
                 customStyle={{
                   backgroundColor: '#F8F6F5',

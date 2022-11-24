@@ -6,7 +6,14 @@ import Card from '../../../Common/Card';
 import {Colors} from '../../../../assets/Colors';
 import {WomenTabdata} from '../../../../constant';
 import {getComponentData} from '../../../Common/Helper';
-
+const ABC = () => {
+  return (
+    <View style={{flexDirection: 'row'}}>
+      <Card />
+      <Card />
+    </View>
+  );
+};
 export default function WomenTab({data = {}}) {
   const [active, setActive] = React.useState('');
   const [chipData, setChipData] = React.useState([]);
@@ -73,7 +80,9 @@ export default function WomenTab({data = {}}) {
           );
         })}
       </View>
-      {toptabLabelData.length > 0 && <CommonTopTab data={toptabLabelData} />}
+      {toptabLabelData.length > 0 && (
+        <CommonTopTab data={toptabLabelData} Card={ABC()} />
+      )}
     </>
   );
 }

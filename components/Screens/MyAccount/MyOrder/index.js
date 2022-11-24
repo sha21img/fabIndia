@@ -28,18 +28,22 @@ export default function MyOrder() {
   return (
     <>
       <DropDownPicker
-        containerStyle={{backgroundColor: '#F9F9F9', padding: 15}}
+        containerStyle={{
+          backgroundColor: '#F9F9F9',
+          padding: 15,
+          elevation: 5,
+          zIndex: 999,
+        }}
         style={{
           borderColor: !genderOpen ? '#BDBDBD' : 'transparent',
           width: '50%',
           borderWidth: !genderOpen ? 1 : null,
-          padding: 150,
         }}
         dropDownContainerStyle={{
           borderColor: 'transparent',
           width: '50%',
           backgroundColor: 'white',
-          elevation: 10,
+          margin: 15,
         }}
         open={genderOpen}
         value={genderValue} //genderValue
@@ -56,8 +60,9 @@ export default function MyOrder() {
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
-          backgroundColor: '#FFFFFF',
+          backgroundColor: '#F9F9F9',
           paddingHorizontal: 15,
+          paddingVertical: 20,
         }}>
         {/* <View style={{paddingHorizontal: 15}}> */}
         {[0, 0, 0, 0].map(item => {
@@ -65,8 +70,9 @@ export default function MyOrder() {
             <View
               style={{
                 padding: 10,
-                backgroundColor: 'rgba(151, 151, 151, 0.09)',
+                backgroundColor: '#FFFFFF',
                 marginVertical: 8,
+                elevation: 5,
               }}>
               <View
                 style={{

@@ -8,7 +8,8 @@ import ShowData from './ShowData';
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function CommonTopTab({data = []}) {
+export default function CommonTopTab({data = [], Card}) {
+  console.log('Card', Card);
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
@@ -63,7 +64,7 @@ export default function CommonTopTab({data = []}) {
                   ),
                 }}
                 // component={item.screen}
-                component={() => <ShowData item={item} />}
+                component={() => Card}
               />
             )
           );

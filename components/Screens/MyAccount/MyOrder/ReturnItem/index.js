@@ -13,6 +13,7 @@ import RadioButtonRN from 'radio-buttons-react-native';
 import Fonts from '../../../../../assets/fonts';
 import {Colors} from '../../../../../assets/Colors';
 import OrderProductCard from '../../../../Common/OrderProductCard';
+import {useNavigation} from '@react-navigation/native';
 
 const data = [
   {label: 'Received a wrong or defective product '},
@@ -88,6 +89,7 @@ const dataTwo = [{label: getFirst()}, {label: getSecond()}];
 const ReturnItem = () => {
   const [selected, setSelected] = useState(null);
   const [modalShow, setModalShow] = useState(false);
+  const navigation = useNavigation();
 
   return (
     <>
@@ -247,7 +249,9 @@ const ReturnItem = () => {
                 backgroundColor: '#FDFDFD',
               }}>
               <TouchableOpacity
-                onPress={() => setModalShow(true)}
+                onPress={() => {
+                  setModalShow(true), navigation.navigate('OrderSuccess');
+                }}
                 style={Styles.appButtonContainer}>
                 <Text style={Styles.appButtonText}>Confirm return</Text>
               </TouchableOpacity>

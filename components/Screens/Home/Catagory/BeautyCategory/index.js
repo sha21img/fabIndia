@@ -335,8 +335,8 @@ export default function BeautyCategory() {
       //5 not present
 
       //6
-      case 'FabCMSTabContainer':
-        return <WomenTab data={param} />;
+      // case 'FabCMSTabContainer':
+      //   return <WomenTab data={param} />;
 
       //7
       case 'SimpleResponsiveBannerComponent':

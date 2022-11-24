@@ -24,6 +24,25 @@ export default function TopSwiper({customStyle, data}) {
   useEffect(() => {
     getCarauselIds();
   }, []);
+  const Page = () => {
+    return (
+      <>
+        {carouselData?.map((item, i) => {
+          return (
+            <View key={i}>
+              <Image
+                key={Math.random() * 1099900}
+                style={Styles.image}
+                source={{
+                  uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
+                }}
+              />
+            </View>
+          );
+        })}
+      </>
+    );
+  };
   return (
     <View style={[customStyle, {paddingBottom: 25}]}>
       <Swiper
@@ -71,20 +90,7 @@ export default function TopSwiper({customStyle, data}) {
         //   </View>
         // }
         showsButtons={false}>
-        {/* <View>
-          <Image
-            key={Math.random() * 1099900}
-            style={Styles.image}
-            source={image.ArtistImg1}
-          />
-        </View>
-        <View>
-          <Image
-            key={Math.random() * 1099900}
-            style={Styles.image}
-            source={image.ArtistImg1}
-          />
-        </View> */}
+        {/* <Page /> */}
         {carouselData?.map((item, i) => {
           return (
             <View key={i}>
