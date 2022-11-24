@@ -85,8 +85,6 @@ const MyProfile = () => {
           showsVerticalScrollIndicato={false}>
           {faqs.map((faq, index) => (
             <InputText
-              underlineColor="#EDEDED"
-              activeUnderlineColor=" #979797"
               customStyle={{
                 borderRadius: 1,
                 fontSize: 14,

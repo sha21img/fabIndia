@@ -21,23 +21,27 @@ import LoginMobile from '../Login_Register/LoginMobile';
 import ChangePassword from './MyProfile/ChangePassword';
 import ChangeMobileNumber from './MyProfile/ChangeMobileNumber';
 import ChangePasswordSuccesfully from './MyProfile/ChangePasswordSuccesfully';
+import ContactUs from './ContactUs';
+import CustomerCare from './CustomerCare';
+import CustomerCareStatus from './CustomerCare/CustomerCareStatus';
+import TrackRequest from './CustomerCare/TrackRequest';
 
 const Stack = createNativeStackNavigator();
 const pages = [
   {
     icon: image.document,
     name: 'My Orders',
-    routes: '',
+    routes: 'MyOrder',
   },
   {
     icon: image.location,
     name: 'My Addresses',
-    routes: '',
+    routes: 'MyAddresses',
   },
   {
     icon: image.headphone,
     name: 'Customer Care',
-    routes: '',
+    routes: 'CustomerCare',
   },
   {
     icon: image.ribbon,
@@ -62,7 +66,7 @@ const pages = [
   {
     icon: image.ContactUs,
     name: 'Contact us',
-    routes: '',
+    routes: 'ContactUs',
   },
   {
     icon: image.UnSubscribe,
@@ -147,7 +151,7 @@ const MyAccounts = props => {
         {pages.map(item => {
           return (
             <TouchableOpacity
-              onPress={() => props.navigation.navigate('MyOrder')}
+              onPress={() => props.navigation.navigate(item.routes)}
               key={Math.random() * 10000}
               style={{
                 padding: 20,
@@ -192,7 +196,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="MyAccounts">
+      <Stack.Navigator initialRouteName="CustomerCare">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
@@ -201,6 +205,94 @@ export default MyAccount = props => {
               <Header
                 leftIcon={leftIcon}
                 title="My Profile"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="CustomerCare"
+          component={CustomerCare}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Customer Care"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+
+        <Stack.Screen
+          name="TrackRequest"
+          component={TrackRequest}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Track Requests"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+
+        <Stack.Screen
+          name="CustomerCareStatus"
+          component={CustomerCareStatus}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Customer Care"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+
+        <Stack.Screen
+          name="ReturnItem"
+          component={ReturnItem}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Orders"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="ContactUs"
+          component={ContactUs}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Orders"
                 rightIcon={rightIcon}
                 customStyle={{
                   backgroundColor: '#F8F6F5',
@@ -278,23 +370,7 @@ export default MyAccount = props => {
             ),
           }}
         />
-        <Stack.Screen
-          name="ReturnItem"
-          component={ReturnItem}
-          options={{
-            header: props => (
-              <Header
-                leftIcon={leftIcon}
-                title="My Orders"
-                rightIcon={rightIcon}
-                customStyle={{
-                  backgroundColor: '#F8F6F5',
-                  marginBottom: 4,
-                }}
-              />
-            ),
-          }}
-        />
+
         <Stack.Screen
           name="OrderSuccess"
           component={OrderSuccess}

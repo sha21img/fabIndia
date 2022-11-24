@@ -68,7 +68,8 @@ export default function CommonTopTab({data = [], Card}) {
                   ),
                 }}
                 // component={item.screen}
-                component={() => Card}
+                // component={Common}
+                children={() => <ShowData item={item} />}
               />
             )
           );

@@ -31,7 +31,7 @@ const DrawerComponent = () => {
       <Drawer.Navigator
         initialRouteName={'HomeStack'}
         backBehavior={'history'}
-        drawerContent={props => <DrawerContent {...props} />}
+        drawerContent={DrawerContent}
         defaultStatus={'closed'}
         screenOptions={{
           header: () => false,
@@ -46,9 +46,10 @@ const DrawerComponent = () => {
   );
 };
 export default function MainScreen(props) {
+  console.log(props);
   return (
     <Tab.Navigator
-      initialRouteName="HomeStack"
+      initialRouteName="DrawerComponent"
       screenOptions={{
         tabBarStyle: {
           height: 70,
@@ -126,7 +127,7 @@ export default function MainScreen(props) {
           tabBarActiveTintColor: Colors.primarycolor,
           tabBarIcon: ({focused}) => (
             <TouchableOpacity
-              onPress={() => props.navigation.navigate('MyAccounts')}>
+              onPress={() => props.navigation.navigate('MyAccount')}>
               <MaterialCommunityIcons
                 name="account-outline"
                 color={focused ? Colors.primarycolor : Colors.inactiveicon}

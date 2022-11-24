@@ -5,8 +5,8 @@ import {Colors} from '../../../assets/Colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default function InputText({
-  underlineColor = '',
-  activeUnderlineColor = '',
+  underlineColor = '#EDEDED',
+  activeUnderlineColor = '#979797',
   customStyle = {},
   label = '',
   value = '',

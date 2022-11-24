@@ -164,7 +164,7 @@ export default function App(props) {
             }}
           />
           <Stack.Screen
-            name="EditAddress"
+            name="Address"
             component={EditAddress}
             options={{
               header: props => (

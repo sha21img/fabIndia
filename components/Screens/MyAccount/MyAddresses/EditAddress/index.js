@@ -82,8 +82,6 @@ const EditAddress = props => {
 
             {faqs.map((faq, index) => (
               <InputText
-                underlineColor="#EDEDED"
-                activeUnderlineColor=" #979797"
                 customStyle={Styles.textinput}
                 label={faq.name}
                 value={text}
@@ -150,16 +148,12 @@ const EditAddress = props => {
                 }}
               />
               <InputText
-                underlineColor="#EDEDED"
-                activeUnderlineColor=" #979797"
                 customStyle={Styles.textinput}
                 label="Pincode"
                 value={text}
                 onChangeText={text => setText(text)}
               />
               <InputText
-                underlineColor="#EDEDED"
-                activeUnderlineColor=" #979797"
                 customStyle={Styles.textinput}
                 label="Country"
                 value={text}
@@ -209,16 +203,12 @@ const EditAddress = props => {
               />
 
               <InputText
-                underlineColor="#EDEDED"
-                activeUnderlineColor=" #979797"
                 customStyle={Styles.textinput}
                 label="Address Line 1"
                 value={text}
                 onChangeText={text => setText(text)}
               />
               <InputText
-                underlineColor="#EDEDED"
-                activeUnderlineColor=" #979797"
                 customStyle={Styles.textinput}
                 label="Address Line 2 (optional)"
                 value={text}
