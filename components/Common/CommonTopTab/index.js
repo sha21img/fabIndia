@@ -35,6 +35,9 @@ export default function CommonTopTab({data = [], Card}) {
                   tabBarItemStyle: {
                     width: 'auto',
                     padding: 0,
+                    marginRight: 10,
+                    // margin: 0,
+                    // backgroundColor: 'red',
                   },
                   tabBarLabel: ({focused}) => (
                     <View
@@ -44,6 +47,8 @@ export default function CommonTopTab({data = [], Card}) {
                         borderBottomColor: focused
                           ? Colors.primarycolor
                           : 'transparent',
+                        flexWrap: 'nowrap',
+                        width: '100%',
                       }}>
                       <Text
                         style={{
@@ -54,10 +59,10 @@ export default function CommonTopTab({data = [], Card}) {
                           color: focused
                             ? Colors.primarycolor
                             : Colors.textcolor,
-                          padding: 0,
+                          // padding: 0,
                         }}>
                         {/* {item.name + '      '} */}
-                        {item?.title + '       '}
+                        {item?.title}
                       </Text>
                     </View>
                   ),
