@@ -159,7 +159,6 @@ export default function HomeStack() {
           ),
         }}
       />
-
       <Stack.Screen
         name="Food"
         component={FoodCatagory}

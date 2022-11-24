@@ -301,7 +301,7 @@ export const LandingPagePersonalCare = [
   'Section3', //Duppatta highlight
   'Section4', // jewellery highlight
   'Section5', // not present
-  'Section6', // personalcare toptab
+  // 'Section6', // personalcare toptab
   'Section7', //single image
   // 'Section8', //empty
   // 'Section9', //empty
@@ -342,7 +342,7 @@ export const LandingPageL1Food = [
   'Section3', // Snacks highlight
   'Section4', // condiments highlight
   'Section5', // Shop by category
-  // 'Section6', // FabTitleCMSTabContainer
+  'Section6', // FabTitleCMSTabContainer
   'Section7', // Take a bite banner
   // // 'Section8', // Gallery grid
   // // 'Section9', // empty

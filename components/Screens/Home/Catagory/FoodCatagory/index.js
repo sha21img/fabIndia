@@ -1,33 +1,9 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  FlatList,
-  Dimensions,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
-import React from 'react';
-import TopGallery from './TopGallary';
+import {Text, FlatList, Dimensions, Image} from 'react-native';
+import React, {useState} from 'react';
 import {Colors} from '../../../../../assets/Colors';
-import SummerGalary from '../../../../Common/SummerGalary';
-import {image} from '../../../../../assets/images';
 import Fonts from '../../../../../assets/fonts';
-import Chip from '../../../../Common/Chip';
-import CommonTopTab from '../../../../Common/CommonTopTab';
-import {
-  FoodCatagoryTab1,
-  FoodCatagoryTab2,
-  FoodCatagoryTab3,
-  LandingPageL1Food,
-} from '../../../../../constant';
-import SimpleCard from '../../../../Common/SimpleCard';
-import OfferCommonCarousel from '../../../../Common/OfferCommonCarousel';
+import {LandingPageL1Food} from '../../../../../constant';
 import CommonCarousel from '../../../../Common/CommonCarousel';
-import LifeStyleCard from './LifeStyleCard';
-import StoriesCard from '../../../../Common/StoriesCard';
-import PointDetailCard from '../../../../Common/PointDetailCard';
-import FoodReceips from './FoodReceips';
 import TopSwiper from '../../../../Common/TopSwiper';
 import {getData} from '../../../../Common/Helper';
 import CollectionCard from '../../../../Common/CollectionCard';
@@ -35,10 +11,11 @@ import SingleBanner from '../../../../Common/SingleBanner';
 import WomenTab from '../../Tabs.js/WomenTab';
 import LifeStyle from '../../../../Common/LifeStyle';
 import NewHighlights from '../../../../Common/NewHighlights';
+import CommonTitleTab from '../../../../Common/CommonTitleTab';
 const width = Dimensions.get('window').width;
 
 export default function FoodCatagory() {
-  const [filteredComp, setFilteredComp] = React.useState([]);
+  const [filteredComp, setFilteredComp] = useState([]);
 
   const getInitialData = async () => {
     const response = await getData(
@@ -81,8 +58,8 @@ export default function FoodCatagory() {
             backgroundColor="#F8F2EF"
           />
         );
-      // case 'FabTitleCMSTabContainer':
-      //   return <Text>dsfdfg</Text>
+      case 'FabTitleCMSTabContainer':
+        return <CommonTitleTab data={param} />;
       case 'FabCMSTabContainer':
         return (
           <WomenTab data={param} />
@@ -144,8 +121,6 @@ export default function FoodCatagory() {
     />
   );
 }
-
-//
 
 {
   /* <ScrollView

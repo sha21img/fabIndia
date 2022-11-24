@@ -25,7 +25,6 @@ export default function CommonTopTab({data = []}) {
           },
         }}>
         {data.map((item, index) => {
-          console.log('itemcomon tab', item.title);
           return (
             !!item?.title && (
               <Tab.Screen
