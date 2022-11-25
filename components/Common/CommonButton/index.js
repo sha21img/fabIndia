@@ -49,4 +49,5 @@ const Styles = StyleSheet.create({
     fontFamily: Fonts.Assistant400,
     alignSelf: 'center',
   },
+
 });

@@ -15,9 +15,15 @@ import MyProfile from './MyProfile';
 import ReturnItem from './MyOrder/ReturnItem';
 import OrderSuccess from './MyOrder/OrderSuccess';
 import Login_Register from '../Login_Register';
+import Register from '../Login_Register/Register';
 import Otp from '../Login_Register/Otp';
+import AddCard from './SavedCard/AddCard';
+import AllCards from './SavedCard/AllCards';
+import PendingProductList from './PendingPayments/PendingProductList';
+import PendingProductDetails from './PendingPayments/PendingProductDetails';
 import Login from '../Login_Register/Login';
 import LoginMobile from '../Login_Register/LoginMobile';
+import RegisterSuccess from '../Login_Register/RegisterSuccess';
 import ChangePassword from './MyProfile/ChangePassword';
 import ChangeMobileNumber from './MyProfile/ChangeMobileNumber';
 import ChangePasswordSuccesfully from './MyProfile/ChangePasswordSuccesfully';
@@ -200,7 +206,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="GiftCard">
+      <Stack.Navigator initialRouteName="PendingProductList">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
@@ -461,6 +467,40 @@ export default MyAccount = props => {
           }}
         />
         <Stack.Screen
+          name="RegisterSuccess"
+          component={RegisterSuccess}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Register"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={Register}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Register"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
           name="ChangeMobileNumber"
           component={ChangeMobileNumber}
           options={{
@@ -519,6 +559,74 @@ export default MyAccount = props => {
               <Header
                 leftIcon={leftIcon}
                 title="Change Password"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="AddCard"
+          component={AddCard}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Saved Cards"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="AllCards"
+          component={AllCards}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Saved Cards"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="PendingProductList"
+          component={PendingProductList}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Pending Payments"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="PendingProductDetails"
+          component={PendingProductDetails}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Pending Payments"
                 rightIcon={rightIcon}
                 customStyle={{
                   backgroundColor: '#F8F6F5',

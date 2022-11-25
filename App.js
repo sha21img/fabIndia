@@ -1,3 +1,4 @@
+import SplashScreen from 'react-native-splash-screen';
 import {View, Text, TouchableOpacity, LogBox} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -22,6 +23,7 @@ const Stack = createNativeStackNavigator();
 export default function App(props) {
   const [netInfo, setNetInfo] = useState('');
   useEffect(() => {
+    SplashScreen.hide();
     const unsubscribe = NetInfo.addEventListener(state => {
       setNetInfo(state.isConnected);
     });
