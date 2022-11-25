@@ -21,15 +21,12 @@ import LoginMobile from '../Login_Register/LoginMobile';
 import ChangePassword from './MyProfile/ChangePassword';
 import ChangeMobileNumber from './MyProfile/ChangeMobileNumber';
 import ChangePasswordSuccesfully from './MyProfile/ChangePasswordSuccesfully';
-<<<<<<< HEAD
 import ContactUs from './ContactUs';
 import CustomerCare from './CustomerCare';
 import CustomerCareStatus from './CustomerCare/CustomerCareStatus';
 import TrackRequest from './CustomerCare/TrackRequest';
 
-=======
 import ResetPassword from '../Login_Register/ResetPassword';
->>>>>>> ee77cc233d2d624d009a06a15b28c5752e2fd756
 const Stack = createNativeStackNavigator();
 const pages = [
   {
@@ -200,11 +197,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-<<<<<<< HEAD
       <Stack.Navigator initialRouteName="CustomerCare">
-=======
-      <Stack.Navigator initialRouteName="ResetPassword">
->>>>>>> ee77cc233d2d624d009a06a15b28c5752e2fd756
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
