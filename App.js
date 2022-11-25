@@ -75,7 +75,7 @@ export default function App(props) {
   if (netInfo) {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="MainScreen">
+        <Stack.Navigator initialRouteName="MyAddresses">
           <Stack.Screen
             name="MainScreen"
             component={MainScreen}

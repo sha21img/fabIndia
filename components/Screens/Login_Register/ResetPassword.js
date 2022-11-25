@@ -5,51 +5,21 @@ import CommonButton from '../../Common/CommonButton';
 import Fonts from '../../../assets/fonts';
 import CountryPicker from 'rn-country-picker';
 import {TextInput} from 'react-native-paper';
+import InputText from '../../Common/InputText';
 
-export default function LoginMobile() {
-  const [mobilePrefix, setMobilePrefix] = useState('60');
-  const [phoneNumber, setPhoneNumber] = useState('');
+export default function ResetPassword() {
+  const [text, setText] = useState('');
 
-  const _selectedValue = index => {
-    setMobilePrefix(index);
-  };
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.heading}>Log in with mobile number</Text>
-        <View style={styles.pickerbox}>
-          <CountryPicker
-            disable={false}
-            animationType={'slide'}
-            containerStyle={styles.pickercontainer}
-            pickerTitleStyle={styles.pickertitle}
-            selectedCountryTextStyle={styles.selectedTextStyle}
-            countryNameTextStyle={styles.selectnametxt}
-            pickerTitle={'Country Picker'}
-            searchBarPlaceHolder={'Search......'}
-            hideCountryFlag={false}
-            hideCountryCode={false}
-            searchBarStyle={styles.searchbar}
-            selectedValue={_selectedValue}
-            countryCode={mobilePrefix}
-          />
-          <View style={{flex: 1, paddingHorizontal: 15}}>
-            <TextInput
-              activeOutlineColor="white"
-              activeUnderlineColor="white"
-              underlineColor="white"
-              style={styles.textinput1}
-              value={phoneNumber}
-              placeholder="phone number"
-              onChangeText={value =>
-                value.length <= 10 ? setPhoneNumber(value) : false
-              }
-              placeholderTextColor="grey"
-              keyboardType={'number-pad'}
-              disableFullscreenUI={true}
-            />
-          </View>
-        </View>
+        <InputText
+          label={'Email address'}
+          onChangeText={text => setText(text)}
+          value={text}
+          customStyle={{marginTop: 10}}
+        />
       </ScrollView>
       <View style={styles.btnBox}>
         <CommonButton
