@@ -137,4 +137,6 @@ export const image = {
   EventFlower: require('./EventFlower.png'),
   tick: require('./tick.png'),
   plus: require('./plus.png'),
+  RegLeft: require('./RegLeft.png'),
+  RegRight: require('./RegRight.png'),
 };
