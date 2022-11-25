@@ -60,7 +60,8 @@ const MyAddresses = props => {
                 </View>
                 {show == faq.id ? (
                   <View style={Styles.modalbox}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => props.navigation.navigate('Address')}>
                       <Text style={Styles.edittxt}>Edit</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => setModalShow(true)}>
@@ -77,7 +78,9 @@ const MyAddresses = props => {
             </>
           ))}
         </View>
-        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
+        <TouchableOpacity
+          style={{flexDirection: 'row', alignItems: 'center'}}
+          onPress={() => props.navigation.navigate('Address')}>
           <Entypo
             name="circle-with-plus"
             color={Colors.primarycolor}

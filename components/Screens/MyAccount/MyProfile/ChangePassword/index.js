@@ -75,7 +75,6 @@ export default function ChangePassword() {
         <InputText
           secureTextEntry={toggle.oldPass}
           underlineColor="#EDEDED"
-          activeUnderlineColor=" #979797"
           customStyle={Styles.txtinput}
           label="Old password"
           value={password.oldPass}
@@ -104,7 +103,6 @@ export default function ChangePassword() {
         <InputText
           underlineColor="#EDEDED"
           secureTextEntry={toggle.newPass}
-          activeUnderlineColor=" #979797"
           customStyle={[Styles.txtinput, {marginTop: 30}]}
           label="New password"
           value={password.newPass}
@@ -125,9 +123,7 @@ export default function ChangePassword() {
           }
         />
         <InputText
-          underlineColor="#EDEDED"
           secureTextEntry={toggle.confirmPass}
-          activeUnderlineColor=" #979797"
           customStyle={[Styles.txtinput, {marginTop: 30}]}
           label="Confirm password"
           value={password.confirmPass}

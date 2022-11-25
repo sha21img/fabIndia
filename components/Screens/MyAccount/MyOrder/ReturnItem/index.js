@@ -14,13 +14,14 @@ import Fonts from '../../../../../assets/fonts';
 import {Colors} from '../../../../../assets/Colors';
 import OrderProductCard from '../../../../Common/OrderProductCard';
 import {useNavigation} from '@react-navigation/native';
+import CommonButton from '../../../../Common/CommonButton';
 
 const data = [
-  {label: 'Received a wrong or defective product '},
-  {label: 'Image did not match the actual product '},
-  {label: 'Quality issues'},
-  {label: 'I changed my mind'},
-  {label: 'Size or fit issues'},
+  {label: 'Received a wrong or defective product', index: 0},
+  {label: 'Image did not match the actual product', index: 1},
+  {label: 'Quality issues', index: 2},
+  {label: 'I changed my mind', index: 3},
+  {label: 'Size or fit issues', index: 4},
 ];
 const getFirst = () => {
   return (
@@ -136,8 +137,10 @@ const ReturnItem = () => {
               circleSize={17}
               box={false}
               data={data}
-              activeColor="maroon"
-              selectedBtn={e => setSelected(e)}
+              activeColor={Colors.primarycolor}
+              selectedBtn={e => {
+                console.log('e', e), setSelected(e.index);
+              }}
               style={{marginVertical: 9}}
             />
 
@@ -153,7 +156,7 @@ const ReturnItem = () => {
           </View>
         </View>
         <View style={Styles.inputContainer}>
-          {selected && (
+          {selected == 0 && (
             <TextInput
               numberOfLines={3}
               placeholder="Additional Comments"
@@ -178,7 +181,54 @@ const ReturnItem = () => {
 
         {/* ///---button---/// */}
       </View>
-      <View
+      {/* {selected == 0 && ( */}
+      {selected !== 4 && (
+        <View
+          style={{
+            padding: 12,
+            backgroundColor: '#FDFDFD',
+            elevation: 5,
+          }}>
+          <CommonButton
+            backgroundColor="#BDBDBD"
+            txt="Confirm return"
+            customViewStyle={{
+              backgroundColor: selected == 0 ? Colors.primarycolor : '#BDBDBD',
+            }}
+          />
+        </View>
+      )}
+      {selected == 4 && (
+        <View
+          style={{
+            padding: 12,
+            backgroundColor: '#FDFDFD',
+            flexDirection: 'row',
+            elevation: 5,
+          }}>
+          <CommonButton
+            backgroundColor="#BDBDBD"
+            txt="Try exchange"
+            btntxtColor={Colors.primarycolor}
+            customViewStyle={{
+              width: '48%',
+              marginRight: 10,
+              borderColor: Colors.primarycolor,
+              borderWidth: 1,
+            }}
+          />
+          <CommonButton
+            backgroundColor="#BDBDBD"
+            txt="Confirm return"
+            customViewStyle={{
+              backgroundColor: Colors.primarycolor,
+              width: '48%',
+            }}
+          />
+        </View>
+      )}
+      {/* )} */}
+      {/* <View
         style={{
           padding: 10,
           backgroundColor: '#FDFDFD',
@@ -188,7 +238,7 @@ const ReturnItem = () => {
           style={Styles.appButtonContainer}>
           <Text style={Styles.appButtonText}>Confirm return</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       {/* ////---Modal---//// */}
 

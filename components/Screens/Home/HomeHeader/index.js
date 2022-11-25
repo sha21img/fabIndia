@@ -19,6 +19,7 @@ export default function HomeHeader(props) {
         style={{
           flexDirection: 'row',
           alignItems: 'center',
+          // backgroundColor: 'red',
         }}>
         <SimpleLineIcons
           name="menu"

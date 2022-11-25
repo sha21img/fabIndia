@@ -139,4 +139,5 @@ export const image = {
   plus: require('./plus.png'),
   RegLeft: require('./RegLeft.png'),
   RegRight: require('./RegRight.png'),
+  fabgiftcard: require('./fabgiftcard.png'),
 };
