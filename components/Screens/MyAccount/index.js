@@ -27,6 +27,9 @@ import CustomerCareStatus from './CustomerCare/CustomerCareStatus';
 import TrackRequest from './CustomerCare/TrackRequest';
 
 import ResetPassword from '../Login_Register/ResetPassword';
+import DeleteMyAccount from './DeleteMyAccount';
+import Unsubscribe from './Unsubscribe';
+import GiftCard from './GiftCard';
 const Stack = createNativeStackNavigator();
 const pages = [
   {
@@ -197,7 +200,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="CustomerCare">
+      <Stack.Navigator initialRouteName="GiftCard">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
@@ -206,6 +209,57 @@ export default MyAccount = props => {
               <Header
                 leftIcon={leftIcon}
                 title="My Profile"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="DeleteMyAccount"
+          component={DeleteMyAccount}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Delete my account"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="GiftCard"
+          component={GiftCard}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Gift Cards"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Unsubscribe"
+          component={Unsubscribe}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Delete my account"
                 rightIcon={rightIcon}
                 customStyle={{
                   backgroundColor: '#F8F6F5',

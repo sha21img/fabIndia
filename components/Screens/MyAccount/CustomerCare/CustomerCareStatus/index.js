@@ -5,13 +5,15 @@ import CancelItem from '../CancelItem';
 import ReturnItem from '../ReturnItem';
 import ExchangeItem from '../ExchangeItem';
 import PersonalDetail from '../PersonalDetail';
+import Help from '../Help';
 
 export default function CustomerCareStatus({route}) {
   //   console.log('route', route.params);
   //   const status = route.params.index;
   return (
     <>
-      <PersonalDetail />
+      <Help />
+      {/* <PersonalDetail /> */}
       {/* <ExchangeItem /> */}
       {/* <ReturnItem /> */}
     </>
