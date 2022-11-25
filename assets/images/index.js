@@ -137,4 +137,5 @@ export const image = {
   EventFlower: require('./EventFlower.png'),
   tick: require('./tick.png'),
   plus: require('./plus.png'),
+  fabgiftcard: require('./fabgiftcard.png'),
 };
