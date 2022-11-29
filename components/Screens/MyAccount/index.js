@@ -206,7 +206,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="PendingProductList">
+      <Stack.Navigator initialRouteName="AllCards">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}

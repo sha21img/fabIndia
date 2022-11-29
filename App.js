@@ -17,6 +17,10 @@ import PDP_Compare from './components/Screens/PDP_Compare';
 import ProductDetailed from './components/Screens/ProductDetailed';
 import MyAddresses from './components/Screens/MyAccount/MyAddresses';
 import EditAddress from './components/Screens/MyAccount/MyAddresses/EditAddress';
+import EmptyCart from './components/Screens/Checkout/EmptyCart';
+import ErrorScreen from './components/Screens/ErrorScreen';
+import YourWishlist from './components/Screens/YourWishlist';
+import StoreLocator from './components/Screens/StoreLocator';
 
 const Stack = createNativeStackNavigator();
 
@@ -77,7 +81,7 @@ export default function App(props) {
   if (netInfo) {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="MainScreen">
+        <Stack.Navigator initialRouteName="StoreLocator">
           <Stack.Screen
             name="MainScreen"
             component={MainScreen}
@@ -165,6 +169,21 @@ export default function App(props) {
               ),
             }}
           />
+            <Stack.Screen
+            name="EmptyCart"
+            component={EmptyCart}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Your Shopping cart"
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
           <Stack.Screen
             name="Address"
             component={EditAddress}
@@ -173,6 +192,57 @@ export default function App(props) {
                 <Header
                   leftIcon={leftIcon(props)}
                   title="Address"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                    marginBottom: 4,
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="ErrorScreen"
+            component={ErrorScreen}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="404Error"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                    marginBottom: 4,
+                  }}
+                />
+              ),
+            }}
+          />
+           <Stack.Screen
+            name="YourWishlist"
+            component={YourWishlist}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Your Wishlist"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                    marginBottom: 4,
+                  }}
+                />
+              ),
+            }}
+          />
+            <Stack.Screen
+            name="StoreLocator"
+            component={StoreLocator}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Your Wishlist"
                   rightIcon={rightIcon}
                   customStyle={{
                     backgroundColor: '#F8F6F5',

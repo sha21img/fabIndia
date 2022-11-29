@@ -140,4 +140,10 @@ export const image = {
   RegLeft: require('./RegLeft.png'),
   RegRight: require('./RegRight.png'),
   fabgiftcard: require('./fabgiftcard.png'),
+  // 
+  transCart: require('./transCart.png'),
+  Shape: require('./Shape.png'),
+  fabshow: require('./fabshow.png'),
+
+  
 };
