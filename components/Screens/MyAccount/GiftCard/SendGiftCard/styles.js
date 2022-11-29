@@ -66,12 +66,12 @@ export const Styles = StyleSheet.create({
   amountTxtView: {
     backgroundColor: '#FAFAFA',
     paddingVertical: 20,
-    paddingHorizontal: 15,
     marginTop: 10,
   },
   amountTxtInnerView: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    paddingHorizontal: 15,
   },
   button: {
     paddingHorizontal: 12,
@@ -97,5 +97,34 @@ export const Styles = StyleSheet.create({
     fontSize: 18,
     color: '#FFFFFF',
     fontFamily: Fonts.Assistant300,
+  },
+  textinput: {
+    marginTop: 20,
+    marginHorizontal: 15,
+    paddingHorizontal: 0,
+  },
+  textarea: {
+    marginTop: 50,
+    textAlignVertical: 'top',
+    borderWidth: 1,
+    borderColor: '#EDEDED',
+    marginHorizontal: 15,
+  },
+  bottombox: {marginBottom: 20, paddingHorizontal: 16, marginTop: 15},
+  notetext: {
+    fontSize: 16,
+    fontFamily: Fonts.Assistant600,
+    color: Colors.textcolor,
+  },
+  bottomdescription: {
+    fontSize: 14,
+    fontFamily: Fonts.Assistant400,
+    color: Colors.textcolor,
+    lineHeight: 18,
+  },
+  commonbtn: {
+    backgroundColor: Colors.primarycolor,
+    marginHorizontal: 15,
+    marginTop: 30,
   },
 });
