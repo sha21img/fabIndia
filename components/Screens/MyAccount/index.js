@@ -36,6 +36,7 @@ import ResetPassword from '../Login_Register/ResetPassword';
 import DeleteMyAccount from './DeleteMyAccount';
 import Unsubscribe from './Unsubscribe';
 import GiftCard from './GiftCard';
+import FabFamily from './FabFamily';
 const Stack = createNativeStackNavigator();
 const pages = [
   {
@@ -206,7 +207,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="PendingProductList">
+      <Stack.Navigator initialRouteName="FabFamily">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
@@ -215,6 +216,23 @@ export default MyAccount = props => {
               <Header
                 leftIcon={leftIcon}
                 title="My Profile"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="FabFamily"
+          component={FabFamily}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="FabFamily"
                 rightIcon={rightIcon}
                 customStyle={{
                   backgroundColor: '#F8F6F5',

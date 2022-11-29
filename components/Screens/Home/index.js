@@ -635,7 +635,7 @@ export default function Dashbord(props) {
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights
-            customStyle={{marginVertical: 10}}
+            customStyle={{marginVertical: 40}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={param}
           />
