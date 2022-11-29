@@ -13,8 +13,6 @@ import Filter from './components/Common/Filter';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fonts from './assets/fonts';
 import {Colors} from './assets/Colors';
-import PDP_Compare from './components/Screens/PDP_Compare';
-import ProductDetailed from './components/Screens/ProductDetailed';
 import MyAddresses from './components/Screens/MyAccount/MyAddresses';
 import EditAddress from './components/Screens/MyAccount/MyAddresses/EditAddress';
 
