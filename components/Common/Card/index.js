@@ -11,7 +11,7 @@ export default function Card({
   offer = null,
 }) {
   const defaultViewCustomStyles = {
-    width: 242,
+    width: 200,
     elevation: 1,
     backgroundColor: '#FFFFFF',
   };
@@ -21,7 +21,7 @@ export default function Card({
       <View style={[defaultViewCustomStyles, customViewStyle]}>
         <Image
           source={image.card}
-          style={{height: 308, width: 242}}
+          style={{height: 208, width: 'auto'}}
           resizeMode="cover"
         />
         <View style={Styles.headingbox}>

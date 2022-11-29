@@ -1,4 +1,12 @@
-import {View, Text, TouchableOpacity, Platform} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Platform,
+  ImageBackground,
+  Dimensions,
+  FlatList,
+} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -14,15 +22,538 @@ import HomeStack from '../HomeStack';
 
 import MyAccount from '../MyAccount';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-// import WomenCategory from '../Home/WomenCategory';
+import {useNavigation} from '@react-navigation/native';
+import {image} from '../../../assets/images';
+import Accordian from '../../Common/Accordian';
 
+// import WomenCategory from '../Home/WomenCategory';
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
-const DrawerContent = () => {
+const data = [
+  {
+    id: 0,
+    title: 'Women',
+    description: 'Jacket,Sweater,Sweatshirt',
+    category: [
+      {
+        name: 'All in Women',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Saris & Blouses',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Ethnic Wear',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Fusion Wear',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+
+      {
+        name: 'Jewellery',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Maternity Wear',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Sleepwear',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Footwear',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Accessories',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+    ],
+  },
+  {
+    id: 1,
+    title: 'Men',
+    description: 'Jacket,Sweater,Sweatshirt',
+    category: [
+      {
+        name: 'All in Women',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Saris & Blouses',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Ethnic Wear',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Fusion Wear',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+
+      {
+        name: 'Jewellery',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Maternity Wear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Sleepwear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Footwear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Accessories',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: 'Kids',
+    description: 'Jacket,Sweater,Sweatshirt',
+    category: [
+      {
+        name: 'All in Women',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Saris & Blouses',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Ethnic Wear',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Fusion Wear',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+
+      {
+        name: 'Jewellery',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Maternity Wear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Sleepwear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Footwear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Accessories',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+    ],
+  },
+  {
+    id: 3,
+    description: 'Jacket,Sweater,Sweatshirt',
+    title: 'Home Linen',
+    category: [
+      {
+        name: 'All in Women',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Saris & Blouses',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Ethnic Wear',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Fusion Wear',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+
+      {
+        name: 'Jewellery',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Maternity Wear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Sleepwear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Footwear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Accessories',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+    ],
+  },
+  {
+    id: 4,
+    description: 'Jacket,Sweater,Sweatshirt',
+    title: 'Furniture',
+    category: [
+      {
+        name: 'All in Women',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Saris & Blouses',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Ethnic Wear',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Fusion Wear',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+
+      {
+        name: 'Jewellery',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Maternity Wear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Sleepwear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Footwear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Accessories',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+    ],
+  },
+  {
+    id: 5,
+    description: 'Jacket,Sweater,Sweatshirt',
+    title: 'Home Decor',
+    category: [
+      {
+        name: 'All in Women',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Saris & Blouses',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Ethnic Wear',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Fusion Wear',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+
+      {
+        name: 'Jewellery',
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Maternity Wear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Sleepwear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Footwear',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+      {
+        name: 'Accessories',
+
+        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
+      },
+    ],
+  },
+  {
+    id: 6,
+    description: 'Jacket,Sweater,Sweatshirt',
+    title: 'Home Decor',
+    category: [
+      {
+        name: 'All in Women',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Saris & Blouses',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Ethnic Wear',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Fusion Wear',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+
+      {
+        name: 'Jewellery',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Maternity Wear',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Sleepwear',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Footwear',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Accessories',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+    ],
+  },
+  {
+    id: 7,
+    description: 'Jacket,Sweater,Sweatshirt',
+    title: 'Beauty',
+    category: [
+      {
+        name: 'All in Women',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Saris & Blouses',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Ethnic Wear',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Fusion Wear',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+
+      {
+        name: 'Jewellery',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Maternity Wear',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Sleepwear',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Footwear',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Accessories',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+    ],
+  },
+  {
+    id: 8,
+    description: 'Jacket,Sweater,Sweatshirt',
+    title: 'Food',
+    category: [
+      {
+        name: 'All in Women',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Saris & Blouses',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Ethnic Wear',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Fusion Wear',
+        // subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+
+      {
+        name: 'Jewellery',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Maternity Wear',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Sleepwear',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Footwear',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Accessories',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+    ],
+  },
+  {
+    id: 9,
+    description: 'Jacket,Sweater,Sweatshirt',
+    title: 'Collections',
+    category: [
+      {
+        name: 'All in Women',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Saris & Blouses',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Ethnic Wear',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Fusion Wear',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+
+      {
+        name: 'Jewellery',
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Maternity Wear',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Sleepwear',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Footwear',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+      {
+        name: 'Accessories',
+
+        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
+      },
+    ],
+  },
+];
+const CategorySection = () => {
   return (
-    <>
-      <Text>DrawerContent</Text>
-    </>
+    <FlatList
+      // columnWrapperStyle={{
+      //   backgroundColor: 'red',
+      //   // justifyContent: 'space-around',
+      //   paddingHorizontal: 15,
+      // }}
+      data={data}
+      keyExtractor={item => item.id.toString()}
+      renderItem={({item, index}) => (
+        <Accordian
+          title={item.title}
+          category={item.category}
+          description={item.description}
+        />
+      )}
+    />
+    /* {[0, 0, 0, 0, 0, 0].map(item => {
+        return (
+          <>
+            <ImageBackground
+              resizeMode="cover"
+              source={image.fabfamily}
+              style={{
+                height: 100,
+                width: width / 3.5,
+                overflow: 'hidden',
+                backgroundColor: 'rgba(144, 50, 51, 0.5)',
+                marginRight: 10,
+                marginTop: 10,
+              }}>
+              <View style={{paddingHorizontal: 15}}>
+                <Text>;lkj</Text>
+              </View>
+            </ImageBackground>
+          </>
+        );
+      })} */
+  );
+};
+const DrawerContent = () => {
+  const navigation = useNavigation();
+  return (
+    <TouchableOpacity onPress={() => navigation.navigate('CategorySection')}>
+      <Text>Shop By Categories</Text>
+    </TouchableOpacity>
   );
 };
 const DrawerComponent = () => {
@@ -41,6 +572,7 @@ const DrawerComponent = () => {
           swipeEnabled: Platform.OS == 'android' ? false : true,
         }}>
         <Drawer.Screen name="HomeStack" component={HomeStack} />
+        <Drawer.Screen name="CategorySection" component={CategorySection} />
       </Drawer.Navigator>
     </>
   );
