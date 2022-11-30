@@ -446,6 +446,7 @@ const WomenCategory = () => {
       case 'FabOffersGridBannerCarouselComponent':
         return (
           <LifeStyle
+            customViewStyle={{marginVertical: 20}}
             // data={LifeStyleData}
             data={param}
             // title={GetLifeStyleTitle}
@@ -465,7 +466,7 @@ const WomenCategory = () => {
             source={{
               uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
             }}
-            style={{height: 300, width: width}}
+            style={{height: 213, width: width}}
           />
         );
       // section8 grid
@@ -475,7 +476,12 @@ const WomenCategory = () => {
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel data={param} width={width / 1.07} height={330} />
+          <CommonCarousel
+            data={param}
+            width={width / 1.07}
+            height={200}
+            customStyle={{marginVertical: 20}}
+          />
         );
       case 'FabBannerL1ResponsiveCarouselComponent':
         return (

@@ -79,7 +79,7 @@ export default function App(props) {
   if (netInfo) {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="CartPage">
+        <Stack.Navigator initialRouteName="MainScreen">
           <Stack.Screen
             name="MainScreen"
             component={MainScreen}
@@ -129,6 +129,21 @@ export default function App(props) {
                   leftIcon={leftIcon(props)}
                   title="Address"
                   rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="EmptyCart"
+            component={EmptyCart}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Your Shopping cart"
                   customStyle={{
                     backgroundColor: '#F8F6F5',
                   }}

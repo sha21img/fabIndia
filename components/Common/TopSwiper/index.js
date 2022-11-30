@@ -24,25 +24,7 @@ export default function TopSwiper({customStyle, data}) {
   useEffect(() => {
     getCarauselIds();
   }, []);
-  const Page = () => {
-    return (
-      <>
-        {carouselData?.map((item, i) => {
-          return (
-            <View key={i}>
-              <Image
-                key={Math.random() * 1099900}
-                style={Styles.image}
-                source={{
-                  uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
-                }}
-              />
-            </View>
-          );
-        })}
-      </>
-    );
-  };
+
   return (
     <View style={[customStyle, {paddingBottom: 25}]}>
       <Swiper
@@ -50,7 +32,7 @@ export default function TopSwiper({customStyle, data}) {
         autoplay={true}
         autoplayTimeout={5}
         showsPagination={true}
-        height={240}
+        height={212}
         dot={
           <View
             style={{
@@ -79,29 +61,16 @@ export default function TopSwiper({customStyle, data}) {
             }}
           />
         }
-        // nextButton={
-        //   <View style={Styles.button}>
-        //     <Feather name="chevron-right" style={Styles.btnIcon} />
-        //   </View>
-        // }
-        // prevButton={
-        //   <View style={Styles.button}>
-        //     <Feather name="chevron-left" style={Styles.btnIcon} />
-        //   </View>
-        // }
         showsButtons={false}>
-        {/* <Page /> */}
         {carouselData?.map((item, i) => {
           return (
-            <View key={i}>
-              <Image
-                key={Math.random() * 1099900}
-                style={Styles.image}
-                source={{
-                  uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
-                }}
-              />
-            </View>
+            <Image
+              key={Math.random() * 1099900}
+              style={Styles.image}
+              source={{
+                uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
+              }}
+            />
           );
         })}
       </Swiper>

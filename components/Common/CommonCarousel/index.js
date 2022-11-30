@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  Dimensions,
 } from 'react-native';
 import React, {useEffect} from 'react';
 // import Carousel from 'react-native-reanimated-carousel';
@@ -19,6 +20,7 @@ export default function CommonCarousel({
   height,
   customStyle = {},
 }) {
+  const newWidth = Dimensions.get('window').width;
   const [imgActive1, setImgActive1] = React.useState(0);
   const [newHighlights, setNewHighlights] = React.useState([]);
 
@@ -49,6 +51,7 @@ export default function CommonCarousel({
   }, []);
 
   const renderItem = ({item}) => {
+    const mediaurl1 = item.media.url || item.media.mobile.url;
     return (
       <ImageBackground
         resizeMode="stretch"
@@ -56,9 +59,10 @@ export default function CommonCarousel({
         style={{
           flex: 1,
           height: height,
-          width: width,
+          width: !!item.media.url ? width : newWidth,
+          resizeMode: 'contain',
         }}
-        source={{uri: `${imageURL}${item.media.url}`}}>
+        source={{uri: `${imageURL}${mediaurl1}`}}>
         <LinearGradient
           colors={['rgba(0,0,0,0.4)', 'rgba(255,255,255,0)']}
           style={{
@@ -84,8 +88,8 @@ export default function CommonCarousel({
           data={newHighlights}
           renderItem={renderItem}
           autoPlayInterval={3000}
-          sliderWidth={width}
-          itemWidth={width}
+          sliderWidth={!!newHighlights[0]?.media?.url ? width : newWidth}
+          itemWidth={!!newHighlights[0]?.media?.url ? width : newWidth}
           itemHeight={height}
           sliderHeight={height}
           onSnapToItem={index => setImgActive1(index)}

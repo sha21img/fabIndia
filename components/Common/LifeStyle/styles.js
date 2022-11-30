@@ -21,7 +21,7 @@ export const Styles = StyleSheet.create({
     bottom: -165,
   },
   card: {
-    width: 258,
+    width: 218,
     marginLeft: 15,
     elevation: 1,
   },

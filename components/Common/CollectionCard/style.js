@@ -5,8 +5,8 @@ const width = Dimensions.get('window').width;
 
 export const Styles = StyleSheet.create({
   container: {
-    width: 210,
-    height: 312,
+    width: 185,
+    height: 222,
     resizeMode: 'stretch',
     paddingVertical: 15,
     marginRight: 15,

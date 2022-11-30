@@ -635,14 +635,14 @@ export default function Dashbord(props) {
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights
-            customStyle={{marginVertical: 40}}
+            customStyle={{marginVertical: 20}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={param}
           />
         );
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel data={param} width={width / 1.07} height={330} />
+          <CommonCarousel data={param} width={width / 1.07} height={200} />
         );
       case 'FabCMSTabContainer':
         return (
@@ -653,13 +653,10 @@ export default function Dashbord(props) {
       case 'FabResponsiveBannerCarouselComponent':
         return (
           <CommonCarousel
-            // data={dashboardData}
-            // width={width / 1.07}
-            // height={330}
-            // position="Section8"
-            data={MenCarouselData}
-            width={width / 1.07}
-            height={330}
+            data={param}
+            width={width}
+            height={200}
+            customStyle={{marginTop: 20}}
           />
         );
       case 'FabTitleCMSTabParagraphContainer':
