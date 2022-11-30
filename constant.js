@@ -35,6 +35,8 @@ export const WomenTabdata = [
   'Pants',
 ];
 export const ProductOrderdata = ['Items Ordered & Delivery Details', 'Payment'];
+export const StoreLocateTab = ['India', 'International'];
+
 export const MenCatagoryTableData = [
   'Ethnic Wear',
   'Western Wear',
