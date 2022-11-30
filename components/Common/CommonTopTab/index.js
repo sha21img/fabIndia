@@ -26,9 +26,6 @@ export default function CommonTopTab(props) {
           },
         }}>
         {data.map((item, index) => {
-          {
-            /* console.log('po', item.card); */
-          }
           return (
             !!item?.title && (
               <Tab.Screen
