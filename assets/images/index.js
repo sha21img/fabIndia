@@ -1,5 +1,7 @@
 export const image = {
   card: require('./card.png'),
+  cartFlower: require('./cartFlower.png'),
+  cartFlower1: require('./cartFlower1.png'),
   womenCard: require('./womenCard.png'),
   womenCard1: require('./womenCard1.png'),
   menCard: require('./menCard.png'),
@@ -144,7 +146,6 @@ export const image = {
   Shape: require('./Shape.png'),
   fabshow: require('./fabshow.png'),
 
-  
   fabfamily: require('./fabfamily.png'),
   fabfamilyflower: require('./fabfamilyflower.png'),
   referfriend1: require('./referfriend1.png'),

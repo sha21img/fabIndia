@@ -15,7 +15,7 @@ import Fonts from './assets/fonts';
 import {Colors} from './assets/Colors';
 import MyAddresses from './components/Screens/MyAccount/MyAddresses';
 import EditAddress from './components/Screens/MyAccount/MyAddresses/EditAddress';
-import EmptyCart from './components/Screens/Checkout/EmptyCart';
+import CartPage from './components/Screens/Checkout/CartPage';
 import ErrorScreen from './components/Screens/ErrorScreen';
 import YourWishlist from './components/Screens/YourWishlist';
 import StoreLocator from './components/Screens/StoreLocator';
@@ -79,7 +79,7 @@ export default function App(props) {
   if (netInfo) {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="StoreLocator">
+        <Stack.Navigator initialRouteName="CartPage">
           <Stack.Screen
             name="MainScreen"
             component={MainScreen}
@@ -136,9 +136,9 @@ export default function App(props) {
               ),
             }}
           />
-            <Stack.Screen
-            name="EmptyCart"
-            component={EmptyCart}
+          <Stack.Screen
+            name="CartPage"
+            component={CartPage}
             options={{
               header: props => (
                 <Header
@@ -185,7 +185,7 @@ export default function App(props) {
               ),
             }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="YourWishlist"
             component={YourWishlist}
             options={{
@@ -202,7 +202,7 @@ export default function App(props) {
               ),
             }}
           />
-            <Stack.Screen
+          <Stack.Screen
             name="StoreLocator"
             component={StoreLocator}
             options={{

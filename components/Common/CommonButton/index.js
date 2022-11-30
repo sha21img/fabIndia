@@ -41,7 +41,7 @@ const Styles = StyleSheet.create({
   },
   appButtonContainer: {
     borderRadius: 100,
-    paddingVertical: 12,
+    paddingVertical: 10,
     paddingHorizontal: 12,
   },
   appButtonText: {
@@ -49,5 +49,4 @@ const Styles = StyleSheet.create({
     fontFamily: Fonts.Assistant400,
     alignSelf: 'center',
   },
-
 });
