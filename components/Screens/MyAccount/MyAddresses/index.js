@@ -119,10 +119,6 @@ const MyAddresses = props => {
               <TouchableOpacity onPress={() => setModalShow(false)}>
                 <Ionicons name="close-circle-outline" size={15} />
               </TouchableOpacity>
-
-              {/* <Text onPress={() => setModalShow(false)} style={{fontSize: 20}}>
-                ✖
-              </Text> */}
             </View>
             <Text style={Styles.head1txt}>
               Are you sure you want to remove this Address?

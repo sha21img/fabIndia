@@ -8,183 +8,107 @@ import {
   FlatList,
 } from 'react-native';
 import React, {useState} from 'react';
-import Fonts from '../../../assets/fonts';
-import {Colors} from '../../../assets/Colors';
-
 import {image} from '../../../assets/images';
-import StepIndicator from 'react-native-step-indicator';
-import DropDownPicker from 'react-native-dropdown-picker';
 import Styles from './styles';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-export default function CartCard() {
-  const [currentPosition, setCurrentPosition] = useState(0);
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'},
-  ]);
-  const labels = ['Cart', 'Address', 'Payment'];
-  const customStyles = {
-    stepIndicatorSize: 30,
-    currentStepIndicatorSize: 30,
-    separatorStrokeWidth: 2,
-    currentStepStrokeWidth: 3,
-    stepStrokeCurrentColor: '#96AD66',
-    stepStrokeWidth: 6,
-    stepStrokeFinishedColor: '#96AD66',
-    stepStrokeUnFinishedColor: '#aaaaaa',
-    separatorFinishedColor: '#96AD66',
-    separatorUnFinishedColor: '#aaaaaa',
-    stepIndicatorFinishedColor: '#96AD66',
-    stepIndicatorUnFinishedColor: '#ffffff',
-    stepIndicatorCurrentColor: '#903233',
-    stepIndicatorLabelFontSize: 13,
-    currentStepIndicatorLabelFontSize: 13,
-    stepIndicatorLabelCurrentColor: '#96AD66',
-    stepIndicatorLabelFinishedColor: '#ffffff',
-    stepIndicatorLabelUnFinishedColor: '#aaaaaa',
-    labelColor: '#999999',
-    labelSize: 13,
-    currentStepLabelColor: '#979797',
-  };
-  const onGenderOpen = React.useCallback(() => {
-    setCompanyOpen(false);
-  }, []);
-  return (
-    <View>
-      <StepIndicator
-        customStyles={customStyles}
-        currentPosition={currentPosition}
-        labels={labels}
-        stepCount={3}
-      />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          marginTop: 30,
-        }}>
-        <Text>6 items</Text>
-        <Text style={{color: '#4A4A4A', fontFamily: Fonts.Assistant400}}>
-          Total: ₹1,19,800
-        </Text>
-      </View>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text style={{color: '#903233'}}>View Order value details</Text>
-        <Text style={{color: '#96AD66'}}> You save ₹19,000! </Text>
-      </View>
-      {[0, 0, 0, 0, 0].map(() => {
-        return (
-          <>
-            <View style={{marginTop: 30, flexDirection: 'row'}}>
-              <Image
-                source={image.womenCard1}
-                style={Styles.imagedimension}
-                resizeMode="cover"
-              />
-              <View style={{paddingHorizontal: 15}}>
-                <Text>jia Cotton Towel Set of 2</Text>
-                <View style={{flexDirection: 'row', paddingTop: 30}}>
-                  <Text>Color - </Text>
-                  <View
-                    style={{
-                      width: 18,
-                      height: 18,
-                      borderRadius: 20 / 2,
-                      backgroundColor: 'lightblue',
-                      borderColor: 'black',
-                      borderWidth: 3,
-                    }}></View>
-                </View>
+export default function CartCard({
+  data = [],
+  monogramClick = '',
+  SizeQClick = '',
+  EmiClick = '',
+  RemoveClick = '',
+  CustomClick = '',
+}) {
+  const cardListRender = () => {
+    return (
+      <>
+        <View style={Styles.mainContainer}>
+          {false ? (
+            <View style={Styles.offerTextContainer}>
+              <Text style={Styles.offerText}>
+                <Text style={Styles.offerText1}>Buy 2 Get 2 </Text>for apparel,
+                only on discounted...
+              </Text>
+            </View>
+          ) : null}
+          <View style={Styles.cartContainer}>
+            <Image
+              source={image.womenCard1}
+              style={Styles.imagedimension}
+              resizeMode="cover"
+            />
+            <View style={Styles.detailContainer}>
+              <Text style={Styles.title}>
+                jia Cotton Towel Set of 2 kl kl kl k lk lk l kl k lk l kl k lk l
+                kl k lk lk l; l; l ;l
+              </Text>
+              <View style={Styles.colorBox}>
+                <Text style={Styles.colorText}>Color - </Text>
                 <View
                   style={{
-                    width: '50%',
-                    flexDirection: 'row',
-                    paddingTop: 20,
-                  }}>
-                  <DropDownPicker
-                    containerStyle={{}}
-                    style={{
-                      borderColor: 'transparent',
-                      backgroundColor: '#EDEDED',
-                      width: '80%',
-                      borderWidth: null,
-                    }}
-                    dropDownContainerStyle={{
-                      borderColor: 'transparent',
-                      width: '70%',
-                      backgroundColor: 'white',
-                      // margin: 15,
-                    }}
-                    open={open}
-                    placeholder="Size Bath towel"
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                  />
-                  <DropDownPicker
-                    containerStyle={{
-                      right: 26,
-                    }}
-                    style={{
-                      borderColor: 'transparent',
-                      backgroundColor: '#EDEDED',
-
-                      width: '50%',
-                      borderWidth: null,
-                    }}
-                    dropDownContainerStyle={{
-                      borderColor: 'transparent',
-                      width: '70%',
-                      backgroundColor: 'white',
-                    }}
-                    open={open}
-                    value={value}
-                    placeholder="QTY "
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                  />
-                </View>
-                <View style={{flexDirection: 'row', paddingTop: 20}}>
-                  <Text style={{fontSize: 14, color: '#4A4A4A'}}>₹ 2500</Text>
-                  <Text
-                    style={{
-                      paddingLeft: 10,
-                      textDecorationLine: 'line-through',
-                    }}>
-                    ₹ 3,000
-                  </Text>
-                </View>
-                <Text style={{color: '#96AD66', paddingTop: 10}}>
-                  You save ₹500!
-                </Text>
-                <Text style={{color: '#903233', paddingTop: 10}}>
-                  Monogrammed
-                </Text>
+                    width: 15,
+                    height: 15,
+                    borderRadius: 20 / 2,
+                    backgroundColor: 'lightblue',
+                    borderColor: 'black',
+                    borderWidth: 2,
+                    marginHorizontal: 3,
+                  }}></View>
               </View>
-            </View>
-            <View
-              style={{
-                paddingHorizontal: 30,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                paddingVertical: 20,
-              }}>
-              <TouchableOpacity>
-                <Text style={{color: 'black', fontSize: 14}}>Remove</Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  paddingVertical: 5,
+                }}>
+                <TouchableOpacity
+                  style={Styles.sizeContainer}
+                  onPress={() => SizeQClick()}>
+                  <Text style={Styles.sizeText}>Size</Text>
+                  <MaterialIcons name="keyboard-arrow-down" size={20} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={Styles.quantityContainer}
+                  onPress={() => SizeQClick()}>
+                  <Text style={Styles.QuantityText}>Quantity</Text>
+                  <MaterialIcons name="keyboard-arrow-down" size={20} />
+                </TouchableOpacity>
+              </View>
+              <View style={Styles.currencyContainer}>
+                <Text style={Styles.curr}>₹ 2500</Text>
+                <Text style={Styles.curr1}>₹ 3,000</Text>
+              </View>
+              <Text style={Styles.saveText}>You save ₹500!</Text>
+              <TouchableOpacity onPress={() => monogramClick()}>
+                <Text style={Styles.typeText}>Monogrammed</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={{color: 'black'}}>Add to wishlist</Text>
+              {/* <TouchableOpacity onPress={() => CustomClick()}>
+                <Text style={Styles.typeText}>Customized</Text>
               </TouchableOpacity>
+              <TouchableOpacity onPress={() => EmiClick()}>
+                <Text style={Styles.typeText}>EMI selected</Text>
+              </TouchableOpacity> */}
             </View>
-          </>
-        );
-      })}
-    </View>
+          </View>
+          <View style={Styles.btnContainer}>
+            <TouchableOpacity onPress={() => RemoveClick()} style={Styles.btn}>
+              <Text style={Styles.btnText}>Remove</Text>
+            </TouchableOpacity>
+            <View style={Styles.divider}></View>
+            <TouchableOpacity style={Styles.btn}>
+              <Text style={Styles.btnText}>Add to wishlist</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </>
+    );
+  };
+  return (
+    <FlatList
+      data={data}
+      showsVerticalScrollIndicator={false}
+      keyExtractor={(item, index) => index}
+      renderItem={cardListRender}
+    />
   );
 }
