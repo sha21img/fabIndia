@@ -91,7 +91,10 @@ const ReturnItem = () => {
   const [selected, setSelected] = useState(null);
   const [modalShow, setModalShow] = useState(false);
   const navigation = useNavigation();
-
+  const handleClick = () => {
+    console.log('handleClick');
+    setModalShow(!modalShow);
+  };
   return (
     <>
       <ScrollView style={Styles.container} showsVerticalScrollIndicator={false}>
@@ -190,6 +193,7 @@ const ReturnItem = () => {
             elevation: 5,
           }}>
           <CommonButton
+            handleClick={handleClick}
             backgroundColor="#BDBDBD"
             txt="Confirm return"
             customViewStyle={{

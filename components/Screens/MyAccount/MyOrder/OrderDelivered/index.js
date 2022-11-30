@@ -1,13 +1,13 @@
-import {View, Text, ScrollView, Alert, Image} from 'react-native';
+import {View, Text, ScrollView, Modal, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CommonTopTab from '../../../../Common/CommonTopTab';
-import {ProductOrderdata, WomenTabdata} from '../../../../../constant';
-import Card from '../../../../Common/Card';
-import {Colors} from '../../../../../assets/Colors';
-import {image} from '../../../../../assets/images';
+import {ProductOrderdata} from '../../../../../constant';
 import Fonts from '../../../../../assets/fonts';
-import StepIndicator from 'react-native-step-indicator';
+import {Colors} from '../../../../../assets/Colors';
 import OrderProductLongCard from '../../../../Common/OrderProductLongCard';
+import StepIndicator from 'react-native-step-indicator';
+import CloseIcon from 'react-native-vector-icons/Ionicons';
+import CommonButton from '../../../../Common/CommonButton';
 
 const labels = ['Order confirmed', 'Shipped', 'Delivery  pending'];
 const customStyles = {
@@ -200,17 +200,28 @@ const PaymentPage = () => {
     </ScrollView>
   );
 };
-export default function OrderInProgress() {
+const CardCompo = item => {
   const [currentPosition, setCurrentPosition] = useState(0);
-  const CardCompo = item => {
-    return (
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible1, setModalVisible1] = useState(false);
+
+  const handleClick = data => {
+    console.log('currentPosition', data);
+    if (data == 'Return') {
+      setModalVisible(!modalVisible);
+    } else {
+      setModalVisible1(!modalVisible1);
+    }
+  };
+  return (
+    <>
       <ScrollView
         contentContainerStyle={{
           backgroundColor: '#FFFFFF',
           flexGrow: 1,
           paddingHorizontal: 15,
         }}>
-        {[0, 0, 0].map(item => {
+        {[0].map(item => {
           return (
             <>
               <View>
@@ -221,28 +232,30 @@ export default function OrderInProgress() {
                     fontSize: 14,
                     color: '#979797',
                     lineHeight: 18,
+                    marginBottom: 10,
                   }}>
                   5 items ordered
                 </Text>
-                <Text
-                  style={{
-                    paddingTop: 10,
-                    fontFamily: Fonts.Assistant600,
-                    fontSize: 14,
-                    color: Colors.textcolor,
-                  }}>
-                  Shipment 1
-                </Text>
-                <View style={{paddingVertical: 10}}>
-                  <StepIndicator
-                    customStyles={customStyles}
-                    currentPosition={currentPosition}
-                    labels={labels}
-                    stepCount={3}
-                  />
-                </View>
+                {/* <Text
+                style={{
+                  paddingTop: 10,
+                  fontFamily: Fonts.Assistant600,
+                  fontSize: 14,
+                  color: Colors.textcolor,
+                }}>
+                Shipment 1
+              </Text>
+              <View style={{paddingVertical: 10}}>
+                <StepIndicator
+                  customStyles={customStyles}
+                  currentPosition={currentPosition}
+                  labels={labels}
+                  stepCount={3}
+                />
+              </View> */}
 
                 <OrderProductLongCard
+                  handliClick={handleClick}
                   data={[
                     {
                       title: 'Cotton Silk Block Printed Sari Product Name',
@@ -269,8 +282,94 @@ export default function OrderInProgress() {
           );
         })}
       </ScrollView>
-    );
-  };
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View
+          style={{width: '100%', flex: 1, backgroundColor: 'rgba(0,0,0,0.6)'}}>
+          <View
+            style={{
+              marginTop: 'auto',
+              width: '100%',
+              backgroundColor: 'white',
+              borderTopRightRadius: 10,
+              borderTopLeftRadius: 10,
+            }}>
+            <View style={{padding: 15}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontFamily: Fonts.Assistant600,
+                    color: Colors.textcolor,
+                  }}>
+                  Refund details
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(!modalVisible)}>
+                  <CloseIcon
+                    name="close-circle-outline"
+                    size={25}
+                    color="gray"
+                  />
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginTop: 15,
+                }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontFamily: Fonts.Assistant600,
+                    color: Colors.textcolor,
+                    lineHeight: 21,
+                  }}>
+                  Total refund amount
+                </Text>
+                <Text>₹800</Text>
+              </View>
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontFamily: Fonts.Assistant400,
+                  color: Colors.textcolor,
+                }}>
+                Refund was credited to your bank account
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        <View
+          style={{
+            padding: 12,
+            backgroundColor: '#FDFDFD',
+          }}>
+          <CommonButton
+            backgroundColor="#BDBDBD"
+            txt="Done"
+            customViewStyle={{
+              backgroundColor: Colors.primarycolor,
+            }}
+          />
+        </View>
+      </Modal>
+    </>
+  );
+};
+export default function OrderDelivered() {
   const screenObj = {
     'Items Ordered & Delivery Details': CardCompo,
     Payment: PaymentPage,

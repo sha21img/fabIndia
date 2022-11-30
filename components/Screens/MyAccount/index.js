@@ -37,6 +37,7 @@ import DeleteMyAccount from './DeleteMyAccount';
 import Unsubscribe from './Unsubscribe';
 import GiftCard from './GiftCard';
 import FabFamily from './FabFamily';
+import OrderDelivered from './MyOrder/OrderDelivered';
 const Stack = createNativeStackNavigator();
 const pages = [
   {
@@ -207,7 +208,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="FabFamily">
+      <Stack.Navigator initialRouteName="MyOrder">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
@@ -350,6 +351,23 @@ export default MyAccount = props => {
         <Stack.Screen
           name="ReturnItem"
           component={ReturnItem}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Orders"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="OrderDelivered"
+          component={OrderDelivered}
           options={{
             header: props => (
               <Header
