@@ -15,7 +15,7 @@ import Fonts from './assets/fonts';
 import {Colors} from './assets/Colors';
 import MyAddresses from './components/Screens/MyAccount/MyAddresses';
 import EditAddress from './components/Screens/MyAccount/MyAddresses/EditAddress';
-import EmptyCart from './components/Screens/Checkout/EmptyCart';
+import CartPage from './components/Screens/Checkout/CartPage';
 import ErrorScreen from './components/Screens/ErrorScreen';
 import YourWishlist from './components/Screens/YourWishlist';
 import StoreLocator from './components/Screens/StoreLocator';
@@ -139,6 +139,21 @@ export default function App(props) {
           <Stack.Screen
             name="EmptyCart"
             component={EmptyCart}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Your Shopping cart"
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="CartPage"
+            component={CartPage}
             options={{
               header: props => (
                 <Header

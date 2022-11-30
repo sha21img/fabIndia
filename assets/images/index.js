@@ -1,5 +1,7 @@
 export const image = {
   card: require('./card.png'),
+  cartFlower: require('./cartFlower.png'),
+  cartFlower1: require('./cartFlower1.png'),
   womenCard: require('./womenCard.png'),
   womenCard1: require('./womenCard1.png'),
   menCard: require('./menCard.png'),

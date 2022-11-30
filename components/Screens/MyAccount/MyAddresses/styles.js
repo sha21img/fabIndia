@@ -64,7 +64,10 @@ const Styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.primarycolor,
   },
-  modalcontainer: {flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'},
+  modalcontainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
   modalbox: {
     position: 'absolute',
     backgroundColor: 'white',
