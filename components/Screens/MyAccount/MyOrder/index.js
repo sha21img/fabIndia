@@ -1,11 +1,12 @@
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Colors} from '../../../../assets/Colors';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Fonts from '../../../../assets/fonts';
 import DropDownPicker from 'react-native-dropdown-picker';
-
+import {useNavigation} from '@react-navigation/native';
 export default function MyOrder() {
+  const navigation = useNavigation();
   const [gender, setGender] = React.useState([
     {label: 'Past month ', value: 'Past month'},
     {label: 'Past 6 months', value: 'Past 6 months'},
@@ -65,9 +66,35 @@ export default function MyOrder() {
           paddingVertical: 20,
         }}>
         {/* <View style={{paddingHorizontal: 15}}> */}
-        {[0, 0, 0, 0].map(item => {
+        {[
+          {
+            date: '10 May 2021',
+            leftitems: 5,
+            price: '12,450.00',
+            orderid: 'FAB-6457325',
+            status: 'In progress',
+            route: 'OrderInProgress',
+          },
+          {
+            date: '10 May 2021',
+            leftitems: 5,
+            price: '12,450.00',
+            orderid: 'FAB-6457325',
+            status: 'Delivered',
+            route: 'OrderDelivered',
+          },
+          {
+            date: '10 May 2021',
+            leftitems: 5,
+            price: '12,450.00',
+            orderid: 'FAB-6457325',
+            status: 'Cancelled',
+            route: '',
+          },
+        ].map(item => {
           return (
-            <View
+            <TouchableOpacity
+              onPress={() => navigation.navigate(item.route)}
               style={{
                 padding: 10,
                 backgroundColor: '#FFFFFF',
@@ -85,7 +112,7 @@ export default function MyOrder() {
                     fontSize: 16,
                     color: Colors.textcolor,
                   }}>
-                  10 May 2021
+                  {item.date}
                 </Text>
                 <SimpleLineIcons
                   name="arrow-right"
@@ -108,7 +135,7 @@ export default function MyOrder() {
                     fontSize: 14,
                     color: Colors.textcolor,
                   }}>
-                  5 items
+                  {item.leftitems} items
                 </Text>
                 <Text
                   style={{
@@ -118,7 +145,7 @@ export default function MyOrder() {
                     fontSize: 14,
                     color: Colors.textcolor,
                   }}>
-                  ₹ 12,450.00
+                  ₹{item.price}
                 </Text>
                 <Text
                   style={{
@@ -128,7 +155,7 @@ export default function MyOrder() {
                     fontSize: 12,
                     color: Colors.primarycolor,
                   }}>
-                  Order ID: FAB-6457325
+                  Order ID:{item.orderid}
                 </Text>
               </View>
 
@@ -152,10 +179,10 @@ export default function MyOrder() {
                     color: Colors.textcolor,
                     marginLeft: 5,
                   }}>
-                  In progress
+                  {item.status}
                 </Text>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         })}
         {/* </View> */}

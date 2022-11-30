@@ -277,7 +277,7 @@ export default function OrderInProgress() {
   };
   const dataMap = ProductOrderdata.map(item => ({
     title: item,
-    screen: screenObj[item],
+    card: screenObj[item],
   }));
   return (
     <ScrollView
@@ -287,7 +287,7 @@ export default function OrderInProgress() {
         backgroundColor: '#FFFFFF',
         // paddingHorizontal: 15,
       }}>
-      <CommonTopTab data={dataMap} Card={CardCompo()} />
+      <CommonTopTab data={dataMap} />
     </ScrollView>
   );
 }

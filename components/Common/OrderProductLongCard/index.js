@@ -1,10 +1,10 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {image} from '../../../assets/images';
 import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
 
-export default function OrderProductLongCard({data = []}) {
+export default function OrderProductLongCard({data = [], handliClick = null}) {
   return data.map(item => {
     return (
       <View
@@ -102,7 +102,8 @@ export default function OrderProductLongCard({data = []}) {
             backgroundColor: '#FAFAFA',
             flexDirection: 'row',
           }}>
-          <View
+          <TouchableOpacity
+            onPress={() => handliClick('Return')}
             style={{
               width: '50%',
               alignItems: 'center',
@@ -118,8 +119,10 @@ export default function OrderProductLongCard({data = []}) {
               }}>
               Return
             </Text>
-          </View>
-          <View style={{width: '50%', alignItems: 'center'}}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{width: '50%', alignItems: 'center'}}
+            onPress={() => handliClick('Exchange')}>
             <Text
               style={{
                 fontFamily: Fonts.Assistant600,
@@ -129,7 +132,7 @@ export default function OrderProductLongCard({data = []}) {
               }}>
               Exchange
             </Text>
-          </View>
+          </TouchableOpacity>
           {/* <Text
             style={{
               fontFamily: Fonts.Assistant600,

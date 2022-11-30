@@ -8,10 +8,15 @@ import {WomenTabdata} from '../../../../constant';
 import {getComponentData} from '../../../Common/Helper';
 const ABC = () => {
   return (
-    <View style={{flexDirection: 'row'}}>
+    <ScrollView
+      contentContainerStyle={{
+        flexDirection: 'row',
+        paddingHorizontal: 15,
+        backgroundColor: '#FFFFFF',
+      }}>
       <Card />
       <Card />
-    </View>
+    </ScrollView>
   );
 };
 export default function WomenTab({data = {}}) {
@@ -40,7 +45,7 @@ export default function WomenTab({data = {}}) {
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    // console.log('ALALALALLAALALL', response.component);
+    console.log('ALALALALLAALALL', response.component);
     setToptabLabelData(response.component);
     //2
   };
@@ -60,6 +65,16 @@ export default function WomenTab({data = {}}) {
   useEffect(() => {
     getTabCount();
   }, []);
+  const cardsObj = {
+    Jewellery: ABC,
+    'Saris & Blouses': ABC,
+    'Stoles & Sarongs': ABC,
+    'Women Ethnic': ABC,
+    'Women Western': ABC,
+    'Men Footwear': ABC,
+    'Men Ethnic': ABC,
+    'Men Western': ABC,
+  };
   // console.log('oiuyf', toptabLabelData);
   return (
     <>
@@ -81,7 +96,14 @@ export default function WomenTab({data = {}}) {
         })}
       </View>
       {toptabLabelData.length > 0 && (
-        <CommonTopTab data={toptabLabelData} Card={ABC()} />
+        <CommonTopTab
+          data={toptabLabelData.map(item => ({
+            ...item,
+            card: cardsObj[item.title],
+
+            // card: cardsObj[item.title],
+          }))}
+        />
       )}
     </>
   );

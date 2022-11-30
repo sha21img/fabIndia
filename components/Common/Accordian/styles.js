@@ -4,25 +4,24 @@ import Fonts from '../../../assets/fonts';
 export const Styles = StyleSheet.create({
   accordbox: {
     overflow: 'hidden',
-    borderColor: '#dfdfdf',
+    // borderColor: '#dfdfdf',
   },
   titlebox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: 15,
-    paddingVertical: 20,
-
-    borderColor: '#EDEDED',
+    top: 50,
+    // flexDirection: 'row',
   },
   titletxt: {
     fontSize: 16,
     color: Colors.textcolor,
   },
   activebox: {
-    paddingHorizontal: 15,
-    backgroundColor: '#F6F6F6',
-    paddingBottom: 25,
+    // paddingHorizontal: 15,
+    // backgroundColor: '#F6F6F6',
+    paddingBottom: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    // width: ,
   },
   activetxt: {
     fontSize: 14,

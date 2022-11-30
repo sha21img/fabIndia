@@ -4,15 +4,103 @@ import {
   LayoutAnimation,
   Animated,
   TouchableOpacity,
+  ImageBackground,
+  Dimensions,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Styles} from './styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
-const Accordian = ({title, category}) => {
+import {image} from '../../../assets/images';
+const width = Dimensions.get('window').width;
+const NewAccordion = item => {
+  const toggleAnimation = {
+    duration: 300,
+    update: {
+      duration: 300,
+      property: LayoutAnimation.Properties.opacity,
+      type: LayoutAnimation.Types.easeInEaseOut,
+    },
+    delete: {
+      duration: 200,
+      property: LayoutAnimation.Properties.opacity,
+      type: LayoutAnimation.Types.easeInEaseOut,
+    },
+  };
+  const [showContent, setShowContent] = useState(false);
+  const animationController = React.useRef(new Animated.Value(0)).current;
+  const toggleListItem = () => {
+    const config = {
+      duration: 300,
+      toValue: showContent ? 0 : 1,
+      useNativeDriver: true,
+    };
+    Animated.timing(animationController, config).start();
+    LayoutAnimation.configureNext(toggleAnimation);
+    setShowContent(!showContent);
+  };
+  const arrowTransform = animationController.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
+  console.log(item);
+  return (
+    <View key={Math.random() * 1099900} style={Styles.accordbox}>
+      <TouchableOpacity
+        onPress={() => toggleListItem()}
+        style={{
+          // flexDirection: 'row',
+          // justifyContent: 'space-between',
+          paddingHorizontal: 15,
+          paddingTop: 10,
+          backgroundColor: '#F6F6F6',
+        }}>
+        <View style={Styles.activebox} key={Math.random() * 1099900}>
+          <Text
+            style={[
+              Styles.activetxt,
+              {fontFamily: showContent ? Fonts.Assistant700 : null},
+            ]}>
+            {item.item.name}
+          </Text>
+          {!!item?.item?.subcategory && (
+            <Animated.View
+              style={{
+                transform: [{rotateZ: arrowTransform}],
+              }}>
+              <MaterialIcons
+                name="keyboard-arrow-down"
+                color={Colors.primarycolor}
+                size={20}
+              />
+            </Animated.View>
+          )}
+        </View>
+      </TouchableOpacity>
+      {!!item?.item?.subcategory && showContent ? (
+        <View style={{paddingTop: 15, backgroundColor: '#FFFFFF'}}>
+          {item.item.subcategory.map((item, index) => {
+            return (
+              <View
+                style={{
+                  paddingHorizontal: 15,
+                  paddingBottom: 15,
+                }}>
+                <Text>{item.title}</Text>
+              </View>
+            );
+          })}
+        </View>
+      ) : null}
+    </View>
+  );
+};
+const Accordian = ({title, category, description}) => {
+  console.log('Accordian', description);
   const toggleAnimation = {
     duration: 300,
     update: {
@@ -46,41 +134,58 @@ const Accordian = ({title, category}) => {
     <>
       <View key={Math.random() * 1099900} style={Styles.accordbox}>
         <TouchableOpacity onPress={() => toggleListItem()}>
-          <View
-            style={[
-              Styles.titlebox,
-              {
-                borderTopWidth: showContent ? 0 : 1,
-                backgroundColor: showContent ? '#F6F6F6' : '#ffffff',
-              },
-            ]}>
-            <Text
-              style={[
-                Styles.titletxt,
-                {
-                  fontFamily: showContent
-                    ? Fonts.Assistant700
-                    : Fonts.Assistant400,
-                },
-              ]}>
-              {title}
-            </Text>
-            <Animated.View style={{transform: [{rotateZ: arrowTransform}]}}>
-              <MaterialIcons
-                name="keyboard-arrow-down"
-                color={Colors.primarycolor}
-                size={30}
-              />
-            </Animated.View>
-          </View>
+          <ImageBackground
+            resizeMode="cover"
+            source={image.HomeDecor3}
+            style={{
+              height: 150,
+              width: width,
+              overflow: 'hidden',
+              backgroundColor: 'rgba(144, 50, 51, 0.5)',
+              marginTop: 2,
+            }}>
+            <View style={[Styles.titlebox]}>
+              <View style={{flexDirection: 'row'}}>
+                <Text
+                  style={[
+                    Styles.titletxt,
+                    {
+                      fontFamily: showContent
+                        ? Fonts.Assistant700
+                        : Fonts.Assistant400,
+                      paddingRight: 10,
+                    },
+                  ]}>
+                  {title}
+                </Text>
+                <Animated.View
+                  style={{
+                    transform: [{rotateZ: arrowTransform}],
+                  }}>
+                  <MaterialIcons
+                    name="keyboard-arrow-down"
+                    color={Colors.primarycolor}
+                    size={20}
+                  />
+                </Animated.View>
+              </View>
+              <Text
+                style={[
+                  Styles.titletxt,
+                  {
+                    fontFamily: showContent
+                      ? Fonts.Assistant700
+                      : Fonts.Assistant400,
+                  },
+                ]}>
+                {description}
+              </Text>
+            </View>
+          </ImageBackground>
         </TouchableOpacity>
         {showContent &&
           category.map((item, index) => {
-            return (
-              <View style={Styles.activebox} key={Math.random() * 1099900}>
-                <Text style={Styles.activetxt}>{item}</Text>
-              </View>
-            );
+            return <NewAccordion item={item} />;
           })}
       </View>
     </>

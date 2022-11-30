@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Colors} from '../../../../../assets/Colors';
+import Fonts from '../../../../../assets/fonts';
+import CommonButton from '../../../../Common/CommonButton';
 import InputText from '../../../../Common/InputText';
 import {Styles} from './styles';
 
@@ -47,11 +49,7 @@ function SendGiftCard() {
           label={'Recipient email'}
           onChangeText={text => setUserDetail({...userDetail, email: text})}
           value={userDetail.email}
-          customStyle={{
-            marginTop: 20,
-            marginHorizontal: 15,
-            paddingHorizontal: 0,
-          }}
+          customStyle={Styles.textinput}
         />
         <InputText
           label={'Confirm recipient email'}
@@ -59,11 +57,7 @@ function SendGiftCard() {
             setUserDetail({...userDetail, confirmemail: text})
           }
           value={userDetail.confirmemail}
-          customStyle={{
-            marginTop: 20,
-            marginHorizontal: 15,
-            paddingHorizontal: 0,
-          }}
+          customStyle={Styles.textinput}
         />
 
         <Text style={Styles.chooseAmtTxt}>Choose an amount</Text>
@@ -92,75 +86,41 @@ function SendGiftCard() {
             label={'Enter other amount'}
             onChangeText={text => setUserDetail({...userDetail, amount: text})}
             value={userDetail.amount}
-            customStyle={{
-              marginTop: 10,
-              paddingHorizontal: 0,
-              backgroundColor: '#FAFAFA',
-            }}
+            customStyle={[Styles.textinput, {backgroundColor: '#FAFAFA'}]}
           />
         </View>
-        <View style={{marginTop: 20, paddingHorizontal: 16}}>
-          <TextInput
-            style={{
-              fontSize: 18,
-              textDecorationLine: 'underline',
-              textDecorationColor: 'gray',
-              borderBottomWidth: 1,
-              borderBottomColor: '#EDEEEC',
-            }}
-            placeholder="To"
-            placeholderTextColor="gray"
-          />
-        </View>
+        <InputText
+          label={'To'}
+          onChangeText={text => setUserDetail({...userDetail, amount: text})}
+          value={userDetail.amount}
+          customStyle={Styles.textinput}
+        />
+        <InputText
+          label={'From'}
+          onChangeText={text => setUserDetail({...userDetail, amount: text})}
+          value={userDetail.amount}
+          customStyle={Styles.textinput}
+        />
+        <InputText
+          placeholder="Add a personal message"
+          placeholderTextColor="#979797"
+          onChangeText={text => setUserDetail({...userDetail, amount: text})}
+          value={userDetail.amount}
+          numberOfLines={4}
+          multiline={true}
+          underlineColor="transparent"
+          activeUnderlineColor="transparent"
+          customStyle={Styles.textarea}
+        />
+        <CommonButton
+          backgroundColor="#BDBDBD"
+          txt="Send gift card"
+          customViewStyle={Styles.commonbtn}
+        />
 
-        <View style={{marginTop: 20, paddingHorizontal: 16}}>
-          <TextInput
-            style={{
-              fontSize: 18,
-              textDecorationLine: 'underline',
-              textDecorationColor: 'gray',
-              borderBottomWidth: 1,
-              borderBottomColor: '#EDEEEC',
-            }}
-            placeholder="From"
-            placeholderTextColor="gray"
-          />
-        </View>
-
-        <View style={{marginTop: 60, marginBottom: 20, paddingHorizontal: 16}}>
-          <TextInput
-            style={{
-              fontSize: 18,
-              paddingHorizontal: 10,
-              paddingVertical: 5,
-              borderColor: '#EDEEEC',
-              borderWidth: 1,
-              textAlignVertical: 'top',
-            }}
-            placeholder="Add a personal message"
-            placeholderTextColor="gray"
-            numberOfLines={5}
-            multiline={true}
-          />
-        </View>
-        <View style={{paddingHorizontal: 16}}>
-          <TouchableOpacity
-            style={{
-              paddingHorizontal: 25,
-              paddingVertical: 15,
-              width: '100%',
-              backgroundColor: '#750000',
-              marginBottom: 20,
-              borderRadius: 24,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Text style={{color: 'white'}}>Send gift card</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{marginBottom: 20, paddingHorizontal: 16}}>
-          <Text style={{fontSize: 16, fontWeight: 'bold'}}>Please note</Text>
-          <Text>
+        <View style={Styles.bottombox}>
+          <Text style={Styles.notetext}>Please note</Text>
+          <Text style={Styles.bottomdescription}>
             The gift card cannot be cancelled,refunded or returned.Once
             purchased,the recipient email cannot be changed.Expiry date - 1 year
             from today.Only applicable to india user.
