@@ -144,10 +144,10 @@ export const image = {
   Shape: require('./Shape.png'),
   fabshow: require('./fabshow.png'),
 
-  
   fabfamily: require('./fabfamily.png'),
   fabfamilyflower: require('./fabfamilyflower.png'),
   referfriend1: require('./referfriend1.png'),
   referfriend2: require('./referfriend2.png'),
   referfriend3: require('./referfriend3.png'),
+  saree: require('./saree.png'),
 };

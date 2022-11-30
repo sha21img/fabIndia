@@ -79,7 +79,7 @@ export default function App(props) {
   if (netInfo) {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="StoreLocator">
+        <Stack.Navigator initialRouteName="MainScreen">
           <Stack.Screen
             name="MainScreen"
             component={MainScreen}
@@ -136,7 +136,7 @@ export default function App(props) {
               ),
             }}
           />
-            <Stack.Screen
+          <Stack.Screen
             name="EmptyCart"
             component={EmptyCart}
             options={{
@@ -185,7 +185,7 @@ export default function App(props) {
               ),
             }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="YourWishlist"
             component={YourWishlist}
             options={{
@@ -202,7 +202,7 @@ export default function App(props) {
               ),
             }}
           />
-            <Stack.Screen
+          <Stack.Screen
             name="StoreLocator"
             component={StoreLocator}
             options={{

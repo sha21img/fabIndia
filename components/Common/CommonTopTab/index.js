@@ -70,7 +70,7 @@ export default function CommonTopTab(props) {
                 // component={item.screen}
                 // component={Common}
                 children={() =>
-                  item?.card ? item?.card() : <Text>hello</Text>
+                  item?.card ? item?.card(item) : <Text>hello</Text>
                 }
               />
             )
