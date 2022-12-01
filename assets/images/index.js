@@ -145,4 +145,15 @@ export const image = {
   referfriend1: require('./referfriend1.png'),
   referfriend2: require('./referfriend2.png'),
   referfriend3: require('./referfriend3.png'),
+  fabIndiaDebitCard: require('./fabIndiaDebitCard.png'),
+  facebook: require('./facebook.png'),
+  whatsapp: require('./whatsapp.png'),
+  messenger: require('./messenger.png'),
+  gmail: require('./gmail.png'),
+  imessage: require('./imessage.png'),
+  viber: require('./viber.png'),
+  instagram: require('./instagram.png'),
+  zohomail: require('./zohomail.png'),
+  outlook: require('./outlook.png'),
+  hike: require('./hike.png')
 };
