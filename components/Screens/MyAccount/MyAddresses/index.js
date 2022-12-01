@@ -29,6 +29,7 @@ const MyAddresses = props => {
     <>
       <ScrollView
         contentContainerStyle={Styles.container}
+        nestedScrollEnabled={true}
         showsVerticalScrollIndicator={false}>
         <Text style={Styles.headingtxt}>Saved Addresses</Text>
         <View style={Styles.body}>

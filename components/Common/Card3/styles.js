@@ -5,11 +5,11 @@ import Fonts from '../../../assets/fonts';
 const width = Dimensions.get('window').width;
 
 export const Styles = StyleSheet.create({
-  imagedimension: {height: 212, width: '100%'},
+  imagedimension: {height: 212, width: 'auto'},
   headingbox: {
     paddingHorizontal: 10,
     paddingTop: 10,
-    paddingBottom: 20,
+    flex: 1,
   },
   headingtxt: {
     fontSize: 16,
@@ -52,11 +52,14 @@ export const Styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    backgroundColor: '#FAFAFA',
   },
   dash: {height: '100%', width: 1, backgroundColor: '#BDBDBD'},
-    actionstxt:{
-      fontSize:14,
-      fontFamily:Fonts.Assistant600,
-      color:'#4A4A4A'
-  }
+  actionstxt: {
+    fontSize: 14,
+    fontFamily: Fonts.Assistant600,
+    color: '#4A4A4A',
+  },
 });

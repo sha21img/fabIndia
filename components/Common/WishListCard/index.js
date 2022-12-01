@@ -6,11 +6,16 @@ import {Styles} from './style';
 export default function WishListCard() {
   return (
     <>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{backgroundColor: 'white'}}>
-          <Text style={Styles.txt1}>
-            It's never too late to add to your cart!
-          </Text>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          backgroundColor: '#FFFFFF',
+          flexGrow: 1,
+        }}>
+        <Text style={Styles.txt1}>
+          It's never too late to add to your cart!
+        </Text>
+        <View style={{backgroundColor: '#F6F6F6', paddingHorizontal: 15}}>
           <Text style={Styles.txt2}>6 products</Text>
         </View>
 

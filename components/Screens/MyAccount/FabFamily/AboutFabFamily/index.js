@@ -25,7 +25,7 @@ function AboutFabFamily() {
           source={require('../../images/image1.png')}
         /> */}
 
-        <ImageBackground
+        {/* <ImageBackground
           resizeMode="cover"
           source={image.fabfamily}
           style={{
@@ -43,7 +43,7 @@ function AboutFabFamily() {
             source={image.fabfamilyflower}
             style={{position: 'absolute', right: 0, bottom: 0}}
           />
-        </ImageBackground>
+        </ImageBackground> */}
         <View style={Styles.txtView}>
           <Text style={Styles.txtOne}>
             Join our exclusive membership program that opens up a world of

@@ -47,56 +47,20 @@ function ReferFriend() {
           );
         })}
 
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
           <Text style={Styles.termsAndConditions}>View Terms & Conditions</Text>
         </TouchableOpacity>
-        {/* <View style={Styles.circleView}>
-          <View style={Styles.circleContainer}>
-            <View style={Styles.circle}></View>
-          </View>
-          <View style={Styles.referTextView}>
-            <Text style={Styles.referText}>
-              Refer your friend by sharing your unique code.
-            </Text>
-          </View>
-        </View>
-        <View style={Styles.circleView}>
-          <View style={Styles.circleContainer}>
-            <View style={Styles.circle}></View>
-          </View>
-          <View style={Styles.referTextView}>
-            <Text style={Styles.referText}>
-              On registering, your friend gets{' '}
-              <Text style={Styles.referTextBold}>50 points</Text>
-            </Text>
-          </View>
-        </View>
-        <View style={Styles.circleView}>
-          <View style={Styles.circleContainer}>
-            <View style={Styles.circle}></View>
-          </View>
-          <View style={Styles.referTextView}>
-            <Text style={Styles.referText}>
-              When your friend gets their first order delivered,
-              <Text style={Styles.referTextBold}> you get 300 points!</Text>
-            </Text>
-          </View>
-        </View> */}
-
-        {/* <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <Text style={Styles.termsAndConditions}>View Terms & Conditions</Text>
-        </TouchableOpacity> */}
 
         <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
             setModalVisible(!modalVisible);
           }}>
           <View style={Styles.modalShadow}>
-            <View style={Styles.modalMainView}>
+            <Text>oijhu</Text>
+            {/* <View style={Styles.modalMainView}>
               <View style={Styles.headingView}>
                 <Text style={Styles.modalHeadingTxt}>Terms & Conditions</Text>
                 <Pressable onPress={() => setModalVisible(!modalVisible)}>
@@ -125,7 +89,7 @@ function ReferFriend() {
                   eget integer malesuada habitasse.
                 </Text>
               </View>
-            </View>
+            </View> */}
           </View>
         </Modal>
       </ScrollView>

@@ -39,10 +39,7 @@ export default function CartCard({
               resizeMode="cover"
             />
             <View style={Styles.detailContainer}>
-              <Text style={Styles.title}>
-                jia Cotton Towel Set of 2 kl kl kl k lk lk l kl k lk l kl k lk l
-                kl k lk lk l; l; l ;l
-              </Text>
+              <Text style={Styles.title}>jia Cotton Towel Set of 2</Text>
               <View style={Styles.colorBox}>
                 <Text style={Styles.colorText}>Color - </Text>
                 <View
