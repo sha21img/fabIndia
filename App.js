@@ -19,6 +19,7 @@ import CartPage from './components/Screens/Checkout/CartPage';
 import ErrorScreen from './components/Screens/ErrorScreen';
 import YourWishlist from './components/Screens/YourWishlist';
 import StoreLocator from './components/Screens/StoreLocator';
+import EmptyCart from './components/Screens/Checkout/EmptyCart';
 
 const Stack = createNativeStackNavigator();
 
