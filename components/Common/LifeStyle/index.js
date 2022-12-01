@@ -28,20 +28,25 @@ export default function LifeStyle({
   const getBannerIds = async () => {
     const bannerId = data.banners;
     const splitBannerId = bannerId.split(' ').join(',');
+    console.log('splitBannerId', splitBannerId);
     getCategoryData(splitBannerId);
   };
   const getCategoryData = async bannerId => {
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${bannerId}&lang=en&curr=INR`,
     );
+    console.log(
+      'responsesdfghjhgfdsaf1111111111111111111111111111111response',
+      response.component[0].media.url,
+    );
+
     setPage(page + 1);
     setCategoryData(response);
-    if (array.length) {
+    if (array.length > 0) {
       setArray(prev => [...prev, ...response.component]);
     } else {
       setArray(response.component);
     }
-    console.log(response, 'responseresponse');
   };
   useEffect(() => {
     getBannerIds();
@@ -53,7 +58,7 @@ export default function LifeStyle({
   };
 
   const cards = (item, index) => {
-    console.log('item', item);
+    // console.log('item', item);
     return (
       <ImageBackground
         key={Math.random() * 1099900}
@@ -65,7 +70,7 @@ export default function LifeStyle({
           Styles.card,
           {
             marginTop: index % 2 != 0 ? 30 : 10,
-            height: 340,
+            height: 250,
           },
         ]}>
         {/* <LinearGradient
@@ -94,7 +99,7 @@ export default function LifeStyle({
         }}>
         <Text
           style={{
-            fontFamily: Fonts.PlayfairDisplay600,
+            fontFamily: Fonts.PlayfairDisplay600Italic,
             color: '#4A4A4A',
             fontSize: 30,
           }}>

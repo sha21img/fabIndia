@@ -1,8 +1,9 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+const width = Dimensions.get('window').width;
 export const Styles = StyleSheet.create({
   image: {
-    width: '100%',
-    height: '100%',
+    width: width,
+    height: 212,
   },
   button: {
     backgroundColor: 'rgba(0,0,0,0.3)',

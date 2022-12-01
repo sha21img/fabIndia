@@ -45,7 +45,7 @@ export default function WomenTab({data = {}}) {
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    console.log('ALALALALLAALALL', response.component);
+    // console.log('ALALALALLAALALL', response.component);
     setToptabLabelData(response.component);
     //2
   };
@@ -74,6 +74,19 @@ export default function WomenTab({data = {}}) {
     'Men Footwear': ABC,
     'Men Ethnic': ABC,
     'Men Western': ABC,
+    Boys: ABC,
+    'Infant Girls': ABC,
+    Girls: ABC,
+    'Infant Boys': ABC,
+    'Home & Living': ABC,
+    Furniture: ABC,
+    Dupattas: ABC,
+    'Churidars & Salwars': ABC,
+    Kurtas: ABC,
+    'Tops, Shirts & Tunics': ABC,
+    'Dresses & Jumpsuits': ABC,
+    'Pants & Palazzos': ABC,
+    Sleepwear: ABC,
   };
   // console.log('oiuyf', toptabLabelData);
   return (

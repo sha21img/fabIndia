@@ -1,5 +1,7 @@
 export const image = {
   card: require('./card.png'),
+  cartFlower: require('./cartFlower.png'),
+  cartFlower1: require('./cartFlower1.png'),
   womenCard: require('./womenCard.png'),
   womenCard1: require('./womenCard1.png'),
   menCard: require('./menCard.png'),
@@ -140,6 +142,10 @@ export const image = {
   RegLeft: require('./RegLeft.png'),
   RegRight: require('./RegRight.png'),
   fabgiftcard: require('./fabgiftcard.png'),
+  transCart: require('./transCart.png'),
+  Shape: require('./Shape.png'),
+  fabshow: require('./fabshow.png'),
+
   fabfamily: require('./fabfamily.png'),
   fabfamilyflower: require('./fabfamilyflower.png'),
   referfriend1: require('./referfriend1.png'),
@@ -155,5 +161,6 @@ export const image = {
   instagram: require('./instagram.png'),
   zohomail: require('./zohomail.png'),
   outlook: require('./outlook.png'),
-  hike: require('./hike.png')
+  hike: require('./hike.png'),
+  saree: require('./saree.png'),
 };

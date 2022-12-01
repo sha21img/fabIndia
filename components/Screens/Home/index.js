@@ -624,25 +624,23 @@ export default function Dashbord(props) {
       case 'FabResponsiveGridBannerCarouselComponent':
         return <TopSwiper data={param} />;
       case 'FabCmsLinkCarousalComponent':
-        return (
-          // <ImageBackground
-          //   resizeMode="cover"
-          //   style={{width: '100%'}}
-          //   source={image.categoryBgBanner}>
-          <Catagory data={param} />
-          // </ImageBackground>
-        );
+        return <Catagory data={param} />;
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights
-            customStyle={{marginVertical: 40}}
+            customStyle={{marginVertical: 20}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={param}
           />
         );
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel data={param} width={width / 1.07} height={330} />
+          <CommonCarousel
+            data={param}
+            width={width / 1.07}
+            height={200}
+            customStyle={{margin: 20}}
+          />
         );
       case 'FabCMSTabContainer':
         return (
@@ -653,13 +651,10 @@ export default function Dashbord(props) {
       case 'FabResponsiveBannerCarouselComponent':
         return (
           <CommonCarousel
-            // data={dashboardData}
-            // width={width / 1.07}
-            // height={330}
-            // position="Section8"
-            data={MenCarouselData}
-            width={width / 1.07}
-            height={330}
+            data={param}
+            width={width}
+            height={200}
+            customStyle={{margin: 20}}
           />
         );
       case 'FabTitleCMSTabParagraphContainer':
@@ -684,8 +679,8 @@ export default function Dashbord(props) {
         return <Art_Artist />;
       case 'FabTitleBannerCarouselComponent':
         return <Legacy data={param} />;
-      case 'CMSFlexComponent':
-        return;
+      // case 'CMSFlexComponent':
+      //   return;
       default:
         return;
     }
@@ -793,19 +788,13 @@ export default function Dashbord(props) {
   };
   return (
     <>
-      <ScrollView
-        contentContainerStyle={{
-          backgroundColor: Colors.backgroundColor,
-          flexGrow: 1,
-          paddingBottom: 20,
-        }}>
-        <HomeHeader props={props} />
-        <FlatList
-          data={filteredComp}
-          keyExtractor={(item, index) => index}
-          renderItem={item => checkSwitch(item.item)}
-        />
-      </ScrollView>
+      <FlatList
+        contentContainerStyle={{flexGrow: 1, backgroundColor: '#FFFFFF'}}
+        ListHeaderComponent={() => <HomeHeader props={props} />}
+        data={filteredComp}
+        keyExtractor={(item, index) => index}
+        renderItem={item => checkSwitch(item.item)}
+      />
     </>
   );
 }

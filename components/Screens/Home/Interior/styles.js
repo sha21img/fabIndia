@@ -5,10 +5,9 @@ const width = Dimensions.get('window').width;
 export const Styles = StyleSheet.create({
   imagebg: {
     width: '100%',
-    height: width / 1.3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 10,
+    height: 213,
+    marginTop: 40,
+    resizeMode: 'contain',
   },
   thoughtBox: {
     backgroundColor: '#288196',

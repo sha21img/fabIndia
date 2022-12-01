@@ -15,6 +15,13 @@ import Fonts from './assets/fonts';
 import {Colors} from './assets/Colors';
 import MyAddresses from './components/Screens/MyAccount/MyAddresses';
 import EditAddress from './components/Screens/MyAccount/MyAddresses/EditAddress';
+import CartPage from './components/Screens/Checkout/CartPage';
+import ErrorScreen from './components/Screens/ErrorScreen';
+import YourWishlist from './components/Screens/YourWishlist';
+import StoreLocator from './components/Screens/StoreLocator';
+import EmptyCart from './components/Screens/Checkout/EmptyCart';
+import PDP_Compare from './components/Screens/PDP_Compare';
+import ProductDetailed from './components/Screens/ProductDetailed';
 
 const Stack = createNativeStackNavigator();
 
@@ -100,6 +107,39 @@ export default function App(props) {
             }}
           />
           <Stack.Screen
+            name="PDP_Compare"
+            component={PDP_Compare}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="PDP_Compare"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+
+          <Stack.Screen
+            name="ProductDetailed"
+            component={ProductDetailed}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Cotton Viscose Printed Short..."
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
             name="Filter"
             component={Filter}
             options={{
@@ -133,6 +173,36 @@ export default function App(props) {
             }}
           />
           <Stack.Screen
+            name="EmptyCart"
+            component={EmptyCart}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Your Shopping cart"
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="CartPage"
+            component={CartPage}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Your Shopping cart"
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
             name="Address"
             component={EditAddress}
             options={{
@@ -140,6 +210,24 @@ export default function App(props) {
                 <Header
                   leftIcon={leftIcon(props)}
                   title="Address"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                    marginBottom: 4,
+                  }}
+                />
+              ),
+            }}
+          />
+
+          <Stack.Screen
+            name="StoreLocator"
+            component={StoreLocator}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Your Wishlist"
                   rightIcon={rightIcon}
                   customStyle={{
                     backgroundColor: '#F8F6F5',
