@@ -2,6 +2,7 @@ import {View, Text, FlatList, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {getComponentData} from '../../../Common/Helper';
 import CommonTopTab from '../../../Common/CommonTopTab';
+import {image} from '../../../../assets/images';
 
 export default function OfferTab({data = {}}) {
   const [offerData, setOfferData] = useState([]);
@@ -11,12 +12,7 @@ export default function OfferTab({data = {}}) {
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    // console.log('responseresponse', response.component);
     setOfferData(response.component);
-    // setChipData(response.component);
-
-    // getTabData(response.component[0]);
-    // setCarouselData(response.data.component);
   };
   const getOfferCount = () => {
     const bannerId = data.components;
@@ -41,41 +37,42 @@ export default function OfferTab({data = {}}) {
     }, []);
     return (
       <>
-        {bannerData.length > 0 && (
-          <FlatList
-            horizontal
-            // style={Styles.cardListContainer}
-            contentContainerStyle={{
-              paddingHorizontal: 15,
-              backgroundColor: '#FFFFFF',
-            }}
-            showsHorizontalScrollIndicator={false}
-            data={bannerData}
-            // data={carouselData}
-            keyExtractor={(item, index) => index}
-            renderItem={({item, index}) => {
-              console.log('item.media.url', item.media.url);
-              return (
-                <View
-                  style={{
-                    marginRight: 10,
-                  }}>
-                  <Image
-                    style={{height: 128, width: 192, resizeMode: 'contain'}}
-                    source={{
-                      uri: `https://apisap.fabindia.com/${item.media.url}`,
-                    }}
-                  />
-                </View>
-              );
-            }}
-          />
-        )}
+        <FlatList
+          horizontal
+          // style={Styles.cardListContainer}
+          contentContainerStyle={{
+            paddingHorizontal: 15,
+            backgroundColor: '#FFFFFF',
+          }}
+          showsHorizontalScrollIndicator={false}
+          data={bannerData}
+          // data={carouselData}
+          keyExtractor={(item, index) => index}
+          renderItem={({item, index}) => {
+            console.log('item.media.url', item.media.url);
+            return (
+              <View
+                style={{
+                  marginRight: 10,
+                }}>
+                <Image
+                  style={{height: 128, width: 192, resizeMode: 'contain'}}
+                  // source={image.ArtistImg1}
+                  source={{
+                    uri: `https://apisap.fabindia.com/${item.media.url}`,
+                  }}
+                />
+              </View>
+            );
+          }}
+        />
       </>
     );
   };
   const cardsObj = {
     Women: ABC,
+    // Men: ABC,
+    // Men: ABC,
   };
   return (
     <>

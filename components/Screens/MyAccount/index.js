@@ -41,6 +41,7 @@ import OrderDelivered from './MyOrder/OrderDelivered';
 import OrderCancelled from './MyOrder/OrderCancelled';
 import OrderStatus from './MyOrder/OrderStatus';
 import ReturnStatus from './MyOrder/ReturnStatus';
+import ErrorScreen from '../ErrorScreen';
 const Stack = createNativeStackNavigator();
 const pages = [
   {
@@ -61,7 +62,7 @@ const pages = [
   {
     icon: image.ribbon,
     name: 'FabFamily',
-    routes: '',
+    routes: 'FabFamily',
   },
   {
     icon: image.savedCard,
@@ -211,7 +212,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="MyOrder">
+      <Stack.Navigator initialRouteName="FabFamily">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
@@ -220,6 +221,23 @@ export default MyAccount = props => {
               <Header
                 leftIcon={leftIcon}
                 title="My Profile"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="ErrorScreen"
+          component={ErrorScreen}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="FabFamily"
                 rightIcon={rightIcon}
                 customStyle={{
                   backgroundColor: '#F8F6F5',

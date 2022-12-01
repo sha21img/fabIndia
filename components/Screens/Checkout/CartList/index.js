@@ -42,7 +42,7 @@ const customStyles = {
 };
 
 const labels = ['Cart', 'Address', 'Payment'];
-export default function CartList() {
+export default function CartList(props) {
   const [showOrderDetail, setShowOrderDetail] = useState(false);
   const [modalShowMono, setModalShowMono] = useState(false);
   const [showCustom, setShowCustom] = useState(false);
@@ -76,6 +76,7 @@ export default function CartList() {
     <>
       <ScrollView
         contentContainerStyle={styles.mainView}
+        nestedScrollEnabled={true}
         showsVerticalScrollIndircator={false}>
         {currentPosition == 0 ? (
           <View style={styles.noticeBox}>
@@ -121,7 +122,7 @@ export default function CartList() {
             />
           </>
         ) : currentPosition == 1 ? (
-          <MyAddresses />
+          <MyAddresses {...props} />
         ) : null}
       </ScrollView>
       {currentPosition == 0 ? (

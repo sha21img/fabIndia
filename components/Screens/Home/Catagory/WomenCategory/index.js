@@ -23,6 +23,7 @@ import {
   LandingPageL1Women,
 } from '../../../../../constant';
 import Card from '../../../../Common/Card';
+import CategoryGrid from '../../../../Common/CategoryGrid';
 import Chip from '../../../../Common/Chip';
 import CollectionCard from '../../../../Common/CollectionCard';
 import CommonCarousel from '../../../../Common/CommonCarousel';
@@ -470,6 +471,8 @@ const WomenCategory = () => {
           />
         );
       // section8 grid
+      case 'FabBannerResponsiveTableComponent':
+        return <CategoryGrid data={param} />;
       //section 9 empty
       case 'FabResponsiveBannerCarouselComponent':
         return <SingleBanner data={param} />;

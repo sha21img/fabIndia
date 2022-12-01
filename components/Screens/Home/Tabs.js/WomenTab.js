@@ -45,7 +45,7 @@ export default function WomenTab({data = {}}) {
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    console.log('ALALALALLAALALL', response.component);
+    // console.log('ALALALALLAALALL', response.component);
     setToptabLabelData(response.component);
     //2
   };

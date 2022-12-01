@@ -10,50 +10,48 @@ import {
 import React from 'react';
 import Fonts from '../../../assets/fonts';
 import {image} from '../../../assets/images';
-import {Colors} from '../../../assets/Colors'
+import {Colors} from '../../../assets/Colors';
 import Styles from './style';
 import WishListCard from '../../Common/WishListCard';
 import CommonButton from '../../Common/CommonButton';
 export default function YourWishlist() {
   return (
     <>
-      {false ? (
+      {true ? (
         <>
-        <View style={Styles.secondDiv}>
-          <View style={Styles.ImageView}>
-            <Image
-              source={image.Shape}
-              style={Styles.imagedimension}
-              resizeMode="cover"
-            />
-            <View style={Styles.textView}>
-              <Text style={Styles.carttxt}>Your Wishlist is empty !</Text>
-              <Text style={Styles.carttxt2}>
-                Save items that you like in your wishlist
-              </Text>
+          <View style={Styles.secondDiv}>
+            <View style={Styles.ImageView}>
+              <Image
+                source={image.Shape}
+                style={Styles.imagedimension}
+                resizeMode="cover"
+              />
+              <View style={Styles.textView}>
+                <Text style={Styles.carttxt}>Your Wishlist is empty !</Text>
+                <Text style={Styles.carttxt2}>
+                  Save items that you like in your wishlist
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
-        <View
-        style={{
-          padding: 12,
-          backgroundColor: '#FDFDFD',
-          elevation: 5,
-        }}>
-        <CommonButton
-          backgroundColor="#BDBDBD"
-          txt="Submit"
-          customViewStyle={{
-            backgroundColor: Colors.primarycolor,
-          }}
-        />
-      </View>
-      </>
+          <View
+            style={{
+              padding: 12,
+              backgroundColor: '#FDFDFD',
+              elevation: 5,
+            }}>
+            <CommonButton
+              backgroundColor="#BDBDBD"
+              txt="Start shopping"
+              customViewStyle={{
+                backgroundColor: Colors.primarycolor,
+              }}
+            />
+          </View>
+        </>
       ) : (
-        <View style={{padding: 15, backgroundColor: 'white'}}>
-          <WishListCard />
-        </View>
+        <WishListCard />
       )}
-      </>
+    </>
   );
 }

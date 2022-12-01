@@ -146,8 +146,8 @@ export default function MainScreen(props) {
         }}
       />
       <Tab.Screen
-        name="Menu"
-        component={Menu}
+        name="CategorySection"
+        component={CategorySection}
         options={{
           tabBarLabel: 'Menu',
           headerShown: false,

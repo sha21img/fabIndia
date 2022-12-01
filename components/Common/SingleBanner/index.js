@@ -10,9 +10,6 @@ export default function SingleBanner({data = {}}) {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     getBannerIds();
-    console.log(
-      '000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-    );
   }, []);
   const getBannerIds = async () => {
     const bannerId = data.banners;
