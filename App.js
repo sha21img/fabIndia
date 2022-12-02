@@ -19,6 +19,7 @@ import EmptyCart from './components/Screens/Checkout/EmptyCart';
 import ErrorScreen from './components/Screens/ErrorScreen';
 import YourWishlist from './components/Screens/YourWishlist';
 import StoreLocator from './components/Screens/StoreLocator';
+import AboutUsMenu from './components/Screens/AboutUsMenu';
 
 const Stack = createNativeStackNavigator();
 
@@ -79,12 +80,13 @@ export default function App(props) {
   if (netInfo) {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="StoreLocator">
+        <Stack.Navigator initialRouteName="AboutUsMenu">
           <Stack.Screen
             name="MainScreen"
             component={MainScreen}
             options={{headerShown: false}}
           />
+        
           <Stack.Screen
             name="FabulousCardDetails"
             component={FabulousCardDetails}

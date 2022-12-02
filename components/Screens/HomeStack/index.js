@@ -34,6 +34,7 @@ import Diwali from '../EventLanding/Diwali';
 import {Colors} from '../../../assets/Colors';
 import Dussehra from '../EventLanding/Dussehra';
 import Header1 from '../../Common/Header1';
+import AboutUsMenu from '../AboutUsMenu';
 
 const Stack = createNativeStackNavigator();
 
@@ -66,6 +67,23 @@ export default function HomeStack() {
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="AboutUsMenu"
+        component={AboutUsMenu}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Menu"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                marginBottom: 4,
+              }}
+            />
           ),
         }}
       />

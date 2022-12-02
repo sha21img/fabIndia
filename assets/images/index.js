@@ -16,6 +16,7 @@ export const image = {
   KidsCarousel: require('./KidsCarousel.png'),
   BeautyCarousel: require('./BeautyCarousel.png'),
   banner1: require('./banner1.png'),
+  banner3: require('./Banner3.png'),
   ArtistImg3: require('./ArtistImg3.png'),
   ArtistImg4: require('./ArtistImg4.png'),
   ArtistImg1: require('./ArtistImg1.png'),
@@ -144,10 +145,23 @@ export const image = {
   Shape: require('./Shape.png'),
   fabshow: require('./fabshow.png'),
 
-  
   fabfamily: require('./fabfamily.png'),
   fabfamilyflower: require('./fabfamilyflower.png'),
   referfriend1: require('./referfriend1.png'),
   referfriend2: require('./referfriend2.png'),
   referfriend3: require('./referfriend3.png'),
+
+  Oldbanner: require('../../assets/images/Oldbanner.png'),
+  FabIndiaSubLogo: require('../../assets/images/FabIndiaSubLogo.png'),
+  VilageWomen: require('../../assets/images/VilageWomen.png'),
+  Workers: require('../../assets/images/Workers.png'),
+  legacy1: require('../../assets/images/legacy1.png'),
+  legacy2: require('../../assets/images/legacy2.png'),
+  SchoolGirls: require('../../assets/images/ShoolGirls.png'),
+  NaturalCertified: require('../../assets/images/NaturalCertified.png'),
+  OrganicCertified: require('../../assets/images/OrganicCertified.png'),
+  ConversionCertified: require('../../assets/images/ConversionCertified.png'),
+  OrganicLogo: require('../../assets/images/OrganicLogo.png'),
+  SgsLogo: require('../../assets/images/SgsLogo.png'),
+  Year60Logo: require('../../assets/images/Year60Logo.png'),
 };
