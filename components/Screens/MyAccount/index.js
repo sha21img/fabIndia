@@ -200,7 +200,7 @@ const MyAccounts = props => {
 export default MyAccount = props => {
   console.log('plmnjiokjbhujh', props.navigation);
   const leftIcon = (
-    <TouchableOpacity onPress={() => props.navigation.canGoBack()}>
+    <TouchableOpacity onPress={() => props.navigation.goBack()}>
       <SimpleLineIcons
         name="arrow-left"
         color={Colors.primarycolor}
