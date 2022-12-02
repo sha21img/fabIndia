@@ -23,6 +23,7 @@ import TopSwiper from '../../../../Common/TopSwiper';
 import {getData} from '../../../../Common/Helper';
 import WomenTab from '../../Tabs.js/WomenTab';
 import NewHighlights from '../../../../Common/NewHighlights';
+import CommonTitleTab from '../../../../Common/CommonTitleTab';
 const width = Dimensions.get('window').width;
 
 export default function BeautyCategory() {
@@ -327,8 +328,9 @@ export default function BeautyCategory() {
       //5 not present
 
       //6
-      // case 'FabCMSTabContainer':
-      //   return <WomenTab data={param} />;
+      case 'FabCMSTabContainer':
+        //   return <WomenTab data={param} />;
+        return <CommonTitleTab data={param} />;
 
       //7
       case 'SimpleResponsiveBannerComponent':

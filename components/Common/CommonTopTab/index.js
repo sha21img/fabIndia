@@ -36,8 +36,6 @@ export default function CommonTopTab(props) {
                     width: 'auto',
                     padding: 0,
                     marginRight: 10,
-                    // margin: 0,
-                    // backgroundColor: 'red',
                   },
                   tabBarLabel: ({focused}) => (
                     <View

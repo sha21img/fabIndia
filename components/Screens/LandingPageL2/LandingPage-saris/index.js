@@ -573,7 +573,7 @@ const LandingPageSaris = () => {
         bgColor={{backgroundColor: '#EDEDED'}}
         customStyle={{marginVertical: 40}}
       />
-      <CommonCarousel data={WomenCarouselData} width={width} height={410} />
+      <CommonCarousel data={WomenCarouselData} width={width} height={200} />
       <View style={Styles.chipbox}>
         <Chip
           title="Bestsellers"
@@ -634,7 +634,7 @@ const LandingPageSaris = () => {
       <CommonCarousel
         data={WomenCarouselData1}
         width={width}
-        height={410}
+        height={200}
         customStyle={{marginTop: 40}}
       />
       <View style={Styles.catbox}>

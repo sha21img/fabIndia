@@ -236,7 +236,7 @@ export const LandingPageL1Women = [
   'Section8', //Gallery grid
   // 'Section9', //empty
   'Section10', //Banner
-  // 'Section11', //Western Wears
+  'Section11', //Western Wears
   'Section12', //women tops toptab
   'Section13', //carousel
   'Section14', //Collections
@@ -311,7 +311,7 @@ export const LandingPagePersonalCare = [
   'Section3', //Duppatta highlight
   'Section4', // jewellery highlight
   'Section5', // not present
-  // 'Section6', // personalcare toptab
+  'Section6', // personalcare toptab
   'Section7', //single image
   // 'Section8', //empty
   // 'Section9', //empty

@@ -41,7 +41,7 @@ export default function FabulousCardDetails() {
           backgroundColor: '#E5E5E5',
           flexGrow: 1,
         }}>
-        <CommonCarousel data={SummerCarouselData} width={width} height={440} />
+        <CommonCarousel data={SummerCarouselData} width={width} height={200} />
         <ProductDetail />
         <PopularCards
           customViewStyle={{paddingVertical: 10}}

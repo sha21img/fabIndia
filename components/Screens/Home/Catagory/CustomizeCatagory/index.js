@@ -115,7 +115,7 @@ const CustomizeCatagory = () => {
         backgroundColor="#F6EFE6"
         customViewStyle={{marginVertical: 30}}
       />
-      <CommonCarousel data={WomenCarouselData} width={width} height={410} />
+      <CommonCarousel data={WomenCarouselData} width={width} height={200} />
       <SummerGalary
         data={SummerGalaryData}
         title={getTitle()}

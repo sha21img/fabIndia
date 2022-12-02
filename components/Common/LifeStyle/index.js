@@ -58,13 +58,13 @@ export default function LifeStyle({
   };
 
   const cards = (item, index) => {
-    // console.log('item', item);
+    console.log('item-=-=-=-=--=-', index);
     return (
       <ImageBackground
         key={Math.random() * 1099900}
         resizeMode="cover"
         source={{
-          uri: `https://apisap.fabindia.com/${item.item.media.url}`,
+          uri: `https://apisap.fabindia.com/${item.media.url}`,
         }}
         style={[
           Styles.card,
@@ -125,7 +125,7 @@ export default function LifeStyle({
         showsHorizontalScrollIndicator={false}
         onEndReachedThreshold={0.1}
         keyExtractor={(item, index) => index}
-        renderItem={cards}
+        renderItem={({item, index}) => cards(item, index)}
       />
       {/* <ScrollView
         horizontal

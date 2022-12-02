@@ -8,7 +8,7 @@ export default function Carousel({data, customStyles}) {
   return (
     <View style={customStyles}>
       <Text style={Styles.heading}>{data.headline}</Text>
-      <CommonCarousel data={data} width={width / 1.07} height={330} />
+      <CommonCarousel data={data} width={width / 1.07} height={200} />
     </View>
   );
 }

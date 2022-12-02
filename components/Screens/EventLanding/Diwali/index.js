@@ -367,7 +367,7 @@ const Diwali = () => {
       <CommonCarousel
         data={SummerCarouselData}
         width={width / 1.07}
-        height={330}
+        height={200}
       />
       <View
         style={{
@@ -488,7 +488,7 @@ const Diwali = () => {
       <CommonCarousel
         data={SummerCarouselData}
         width={width / 1.07}
-        height={330}
+        height={200}
       />
       <LifeStyle
         data={LifeStyleData}

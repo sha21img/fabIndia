@@ -68,7 +68,7 @@ export default function ProductDetailed() {
     <>
       <ScrollView
         contentContainerStyle={{flexGrow: 1, backgroundColor: 'white'}}>
-        <CommonCarousel data={WomenCarouselData} width={width} height={360} />
+        <CommonCarousel data={WomenCarouselData} width={width} height={200} />
         <Details />
         <Size_Color customStyle={{marginTop: 20}} />
         <Customize

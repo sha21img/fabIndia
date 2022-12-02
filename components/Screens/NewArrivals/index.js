@@ -264,7 +264,7 @@ const NewArrivals = () => {
   return (
     <ScrollView style={{backgroundColor: Colors.backgroundColor}}>
       {/* ==========New Trendy =========== */}
-      <CommonCarousel data={NewTrendCarouselData} width={width} height={380} />
+      <CommonCarousel data={NewTrendCarouselData} width={width} height={200} />
       {/* ===========Women Trend========== */}
       <WomenTrendy
         customStyle={{paddingVertical: 15}}

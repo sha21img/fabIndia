@@ -462,13 +462,15 @@ const WomenCategory = () => {
         );
       case 'SimpleResponsiveBannerComponent':
         return (
-          <Image
-            resizeMode="stretch"
-            source={{
-              uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
-            }}
-            style={{height: 213, width: width}}
-          />
+          <View style={{marginTop: 20}}>
+            <Image
+              resizeMode="stretch"
+              source={{
+                uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
+              }}
+              style={{height: 213, width: width}}
+            />
+          </View>
         );
       // section8 grid
       case 'FabBannerResponsiveTableComponent':
@@ -511,19 +513,24 @@ const WomenCategory = () => {
   };
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
+    // <ScrollView
+    //   showsVerticalScrollIndicator={false}
+    //   contentContainerStyle={{
+    //     backgroundColor: Colors.backgroundColor,
+    //     paddingBottom: 20,
+    //     flexGrow: 1,
+    //   }}>
+    <FlatList
       contentContainerStyle={{
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
         flexGrow: 1,
-      }}>
-      <FlatList
-        data={filteredComp}
-        keyExtractor={(item, index) => index}
-        renderItem={item => checkSwitch(item.item)}
-      />
-    </ScrollView>
+      }}
+      data={filteredComp}
+      keyExtractor={(item, index) => index}
+      renderItem={item => checkSwitch(item.item)}
+    />
+    // </ScrollView>
   );
 };
 export default WomenCategory;

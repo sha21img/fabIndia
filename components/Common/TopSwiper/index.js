@@ -8,7 +8,7 @@ import {getComponentData, imageURL} from '../Helper';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
 
-export default function TopSwiper({customStyle, data}) {
+export default function TopSwiper({customStyle = {}, data = {}}) {
   const [carouselData, setCarouselData] = React.useState([]);
   const getCarauselIds = async () => {
     const bannerId = data.banners;

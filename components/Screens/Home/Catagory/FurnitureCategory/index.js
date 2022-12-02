@@ -72,7 +72,7 @@ const FurnitureCategory = () => {
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights
-            customStyle={{marginVertical: 10}}
+            customStyle={{marginTop: 30}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={param}
           />
@@ -85,6 +85,7 @@ const FurnitureCategory = () => {
             data={param}
             // title={GetLifeStyleTitle}
             backgroundColor="#F8F2EF"
+            customViewStyle={{marginVertical: 30}}
           />
         );
       //6
@@ -114,7 +115,7 @@ const FurnitureCategory = () => {
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel data={param} width={width / 1.07} height={330} />
+          <CommonCarousel data={param} width={width / 1.07} height={200} />
         );
       // 14
       case 'FabBannerL1ResponsiveCarouselComponent':

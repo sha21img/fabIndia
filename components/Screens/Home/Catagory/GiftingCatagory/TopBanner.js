@@ -34,6 +34,6 @@ export default function TopBanner({data, customStyles}) {
 export const Styles = StyleSheet.create({
   imageContainer: {
     width: '100%',
-    height: 200,
+    height: 117,
   },
 });

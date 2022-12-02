@@ -198,8 +198,9 @@ const MyAccounts = props => {
   );
 };
 export default MyAccount = props => {
+  console.log('plmnjiokjbhujh', props.navigation);
   const leftIcon = (
-    <TouchableOpacity onPress={() => props.navigation.goBack()}>
+    <TouchableOpacity onPress={() => props.navigation.canGoBack()}>
       <SimpleLineIcons
         name="arrow-left"
         color={Colors.primarycolor}
@@ -212,7 +213,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="FabFamily">
+      <Stack.Navigator initialRouteName="MyAccounts">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}

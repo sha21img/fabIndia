@@ -5,7 +5,7 @@ import {image} from '../../../assets/images';
 import {Colors} from '../../../assets/Colors';
 
 const width = Dimensions.get('window').width;
-export default function SingleBanner({data = {}}) {
+export default function SingleBanner({data = {}, customStyle = {}}) {
   const [bannerData, setBannerData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -27,17 +27,22 @@ export default function SingleBanner({data = {}}) {
 
     //   setCarouselData(response.component);
   };
+  const defaultStyle = {
+    marginVertical: 20,
+  };
   return (
     <>
       {isLoading && (
-        <Image
-          resizeMode="stretch"
-          //   source={image.ArtistImg1}
-          source={{
-            uri: `https://apisap.fabindia.com/${bannerData.media.mobile.url}`,
-          }}
-          style={{height: 213, width: width}}
-        />
+        <View style={[defaultStyle, customStyle]}>
+          <Image
+            resizeMode="stretch"
+            //   source={image.ArtistImg1}
+            source={{
+              uri: `https://apisap.fabindia.com/${bannerData.media.mobile.url}`,
+            }}
+            style={{height: 213, width: width}}
+          />
+        </View>
       )}
     </>
   );

@@ -347,6 +347,7 @@ export default function HomeCatagory() {
             // data={LifeStyleData}
             data={param}
             // title={GetLifeStyleTitle}
+            customViewStyle={{marginVertical: 20}}
             backgroundColor="#F8F2EF"
           />
         );
@@ -358,13 +359,15 @@ export default function HomeCatagory() {
         );
       case 'SimpleResponsiveBannerComponent':
         return (
-          <Image
-            resizeMode="stretch"
-            source={{
-              uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
-            }}
-            style={{height: 300, width: width}}
-          />
+          <View style={{marginTop: 20}}>
+            <Image
+              resizeMode="stretch"
+              source={{
+                uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
+              }}
+              style={{height: 300, width: width}}
+            />
+          </View>
         );
       // section8 grid
       //section 9 empty
@@ -373,7 +376,7 @@ export default function HomeCatagory() {
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel data={param} width={width / 1.07} height={330} />
+          <CommonCarousel data={param} width={width / 1.07} height={200} />
         );
       case 'FabBannerL1ResponsiveCarouselComponent':
         return (
