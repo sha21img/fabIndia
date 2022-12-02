@@ -26,6 +26,7 @@ export default function CommonTopTab(props) {
           },
         }}>
         {data.map((item, index) => {
+          console.log(item)
           return (
             !!item?.title && (
               <Tab.Screen
@@ -62,7 +63,7 @@ export default function CommonTopTab(props) {
                           // padding: 0,
                         }}>
                         {/* {item.name + '      '} */}
-                        {item?.title}
+                        {item?.title +"  "}
                       </Text>
                     </View>
                   ),

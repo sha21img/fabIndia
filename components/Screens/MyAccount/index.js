@@ -38,6 +38,12 @@ import Unsubscribe from './Unsubscribe';
 import GiftCard from './GiftCard';
 import FabFamily from './FabFamily';
 import OrderDelivered from './MyOrder/OrderDelivered';
+import AboutFabindia from './AboutFabindia';
+import AboutUs from './AboutFabindia/AboutUs';
+import Philosophy from './AboutFabindia/Philosophy';
+import Certification from './AboutFabindia/Certification';
+import FabIndiaSchools from './AboutFabindia/FabIndiaSchools';
+import Years60 from './AboutFabindia/Years60';
 import OrderCancelled from './MyOrder/OrderCancelled';
 import OrderStatus from './MyOrder/OrderStatus';
 import ReturnStatus from './MyOrder/ReturnStatus';
@@ -237,7 +243,109 @@ export default MyAccount = props => {
             header: props => (
               <Header
                 leftIcon={leftIcon}
-                title="FabFamily"
+                title="The FabIndia Schools"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="FabIndiaSchools"
+          component={FabIndiaSchools}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="60 Years of FabIndia"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Years60"
+          component={Years60}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="60 Years of FabIndia"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Certification"
+          component={Certification}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Organic Certification"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Philosophy"
+          component={Philosophy}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="Our philosophy"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="AboutUs"
+          component={AboutUs}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="About us"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="AboutFabindia"
+          component={AboutFabindia}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="About Fabindia"
                 rightIcon={rightIcon}
                 customStyle={{
                   backgroundColor: '#F8F6F5',
