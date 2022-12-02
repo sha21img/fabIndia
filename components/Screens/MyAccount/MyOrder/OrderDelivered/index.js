@@ -8,6 +8,7 @@ import OrderProductLongCard from '../../../../Common/OrderProductLongCard';
 import StepIndicator from 'react-native-step-indicator';
 import CloseIcon from 'react-native-vector-icons/Ionicons';
 import CommonButton from '../../../../Common/CommonButton';
+import {useNavigation} from '@react-navigation/native';
 
 const labels = ['Order confirmed', 'Shipped', 'Delivery  pending'];
 const customStyles = {
@@ -200,18 +201,20 @@ const PaymentPage = () => {
     </ScrollView>
   );
 };
-const CardCompo = item => {
+const CardCompo = props => {
+  const navigation = useNavigation();
   const [currentPosition, setCurrentPosition] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
 
   const handleClick = data => {
-    console.log('currentPosition', data);
-    if (data == 'Return') {
-      setModalVisible(!modalVisible);
-    } else {
-      setModalVisible1(!modalVisible1);
-    }
+    props.navigation.navigate('ReturnStatus', {screen: data});
+    // console.log('currentPosition', data);
+    // if (data == 'Return') {
+    //   setModalVisible(!modalVisible);
+    // } else {
+    //   setModalVisible1(!modalVisible1);
+    // }
   };
   return (
     <>
@@ -369,9 +372,9 @@ const CardCompo = item => {
     </>
   );
 };
-export default function OrderDelivered() {
+export default function OrderDelivered(props) {
   const screenObj = {
-    'Items Ordered & Delivery Details': CardCompo,
+    'Items Ordered & Delivery Details': () => CardCompo(props),
     Payment: PaymentPage,
   };
   const dataMap = ProductOrderdata.map(item => ({

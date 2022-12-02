@@ -10,9 +10,6 @@ export default function SingleBanner({data = {}}) {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     getBannerIds();
-    console.log(
-      '000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-    );
   }, []);
   const getBannerIds = async () => {
     const bannerId = data.banners;
@@ -39,7 +36,7 @@ export default function SingleBanner({data = {}}) {
           source={{
             uri: `https://apisap.fabindia.com/${bannerData.media.mobile.url}`,
           }}
-          style={{height: 300, width: width}}
+          style={{height: 213, width: width}}
         />
       )}
     </>

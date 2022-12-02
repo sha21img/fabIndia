@@ -44,6 +44,10 @@ import Philosophy from './AboutFabindia/Philosophy';
 import Certification from './AboutFabindia/Certification';
 import FabIndiaSchools from './AboutFabindia/FabIndiaSchools';
 import Years60 from './AboutFabindia/Years60';
+import OrderCancelled from './MyOrder/OrderCancelled';
+import OrderStatus from './MyOrder/OrderStatus';
+import ReturnStatus from './MyOrder/ReturnStatus';
+import ErrorScreen from '../ErrorScreen';
 const Stack = createNativeStackNavigator();
 const pages = [
   {
@@ -64,7 +68,7 @@ const pages = [
   {
     icon: image.ribbon,
     name: 'FabFamily',
-    routes: '',
+    routes: 'FabFamily',
   },
   {
     icon: image.savedCard,
@@ -214,7 +218,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="MyOrder">
+      <Stack.Navigator initialRouteName="FabFamily">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
@@ -233,13 +237,30 @@ export default MyAccount = props => {
           }}
         />
         <Stack.Screen
+          name="ErrorScreen"
+          component={ErrorScreen}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="The FabIndia Schools"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
           name="FabIndiaSchools"
           component={FabIndiaSchools}
           options={{
             header: props => (
               <Header
                 leftIcon={leftIcon}
-                title="The FabIndia Schools"
+                title="60 Years of FabIndia"
                 rightIcon={rightIcon}
                 customStyle={{
                   backgroundColor: '#F8F6F5',
@@ -455,8 +476,25 @@ export default MyAccount = props => {
             ),
           }}
         />
-
         <Stack.Screen
+          name="ReturnStatus"
+          component={ReturnStatus}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Orders"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+
+        {/* <Stack.Screen
           name="ReturnItem"
           component={ReturnItem}
           options={{
@@ -472,10 +510,10 @@ export default MyAccount = props => {
               />
             ),
           }}
-        />
+        /> */}
         <Stack.Screen
-          name="OrderDelivered"
-          component={OrderDelivered}
+          name="OrderStatus"
+          component={OrderStatus}
           options={{
             header: props => (
               <Header
@@ -490,6 +528,7 @@ export default MyAccount = props => {
             ),
           }}
         />
+
         <Stack.Screen
           name="ContactUs"
           component={ContactUs}
@@ -524,23 +563,7 @@ export default MyAccount = props => {
             ),
           }}
         />
-        <Stack.Screen
-          name="OrderInProgress"
-          component={OrderInProgress}
-          options={{
-            header: props => (
-              <Header
-                leftIcon={leftIcon}
-                title="My Orders"
-                rightIcon={rightIcon}
-                customStyle={{
-                  backgroundColor: '#F8F6F5',
-                  marginBottom: 4,
-                }}
-              />
-            ),
-          }}
-        />
+
         <Stack.Screen
           name="ChangePasswordSuccesfully"
           component={ChangePasswordSuccesfully}

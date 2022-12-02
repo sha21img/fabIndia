@@ -23,6 +23,7 @@ import {
   LandingPageL1Women,
 } from '../../../../../constant';
 import Card from '../../../../Common/Card';
+import CategoryGrid from '../../../../Common/CategoryGrid';
 import Chip from '../../../../Common/Chip';
 import CollectionCard from '../../../../Common/CollectionCard';
 import CommonCarousel from '../../../../Common/CommonCarousel';
@@ -446,6 +447,7 @@ const WomenCategory = () => {
       case 'FabOffersGridBannerCarouselComponent':
         return (
           <LifeStyle
+            customViewStyle={{marginVertical: 20}}
             // data={LifeStyleData}
             data={param}
             // title={GetLifeStyleTitle}
@@ -465,17 +467,24 @@ const WomenCategory = () => {
             source={{
               uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
             }}
-            style={{height: 300, width: width}}
+            style={{height: 213, width: width}}
           />
         );
       // section8 grid
+      case 'FabBannerResponsiveTableComponent':
+        return <CategoryGrid data={param} />;
       //section 9 empty
       case 'FabResponsiveBannerCarouselComponent':
         return <SingleBanner data={param} />;
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel data={param} width={width / 1.07} height={330} />
+          <CommonCarousel
+            data={param}
+            width={width / 1.07}
+            height={200}
+            customStyle={{marginVertical: 20}}
+          />
         );
       case 'FabBannerL1ResponsiveCarouselComponent':
         return (

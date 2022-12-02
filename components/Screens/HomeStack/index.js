@@ -35,6 +35,7 @@ import {Colors} from '../../../assets/Colors';
 import Dussehra from '../EventLanding/Dussehra';
 import Header1 from '../../Common/Header1';
 import AboutUsMenu from '../AboutUsMenu';
+import YourWishlist from '../YourWishlist';
 
 const Stack = createNativeStackNavigator();
 
@@ -105,6 +106,23 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Search results for ‘Cotton...’"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="YourWishlist"
+        component={YourWishlist}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Your Wishlist"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',

@@ -7,7 +7,7 @@ import {Styles} from './styles';
 export default function Card3({customViewStyle = {}, item}) {
   const defaultViewCustomStyles = {
     width: '48%',
-    // elevation: 1,
+    elevation: 1,
     backgroundColor: '#FFFFFF',
   };
 
@@ -29,12 +29,11 @@ export default function Card3({customViewStyle = {}, item}) {
             <Text style={Styles.priceofftxt}>₹ 1,000</Text>
             <Text style={Styles.offertxt}>20% off</Text>
           </View>
-          <View style={Styles.actions}>
-            <Text style={Styles.actionstxt}>Remove</Text>
-            <View style={Styles.dash}></View>
-            <Text style={Styles.actionstxt}>Add to cart</Text>
-
-          </View>
+        </View>
+        <View style={Styles.actions}>
+          <Text style={Styles.actionstxt}>Remove</Text>
+          <View style={Styles.dash}></View>
+          <Text style={Styles.actionstxt}>Add to cart</Text>
         </View>
       </View>
     </>
