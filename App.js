@@ -19,6 +19,7 @@ import CartPage from './components/Screens/Checkout/CartPage';
 import ErrorScreen from './components/Screens/ErrorScreen';
 import YourWishlist from './components/Screens/YourWishlist';
 import StoreLocator from './components/Screens/StoreLocator';
+import AboutUsMenu from './components/Screens/AboutUsMenu';
 import EmptyCart from './components/Screens/Checkout/EmptyCart';
 import PDP_Compare from './components/Screens/PDP_Compare';
 import ProductDetailed from './components/Screens/ProductDetailed';
@@ -88,6 +89,7 @@ export default function App(props) {
             component={MainScreen}
             options={{headerShown: false}}
           />
+        
           <Stack.Screen
             name="FabulousCardDetails"
             component={FabulousCardDetails}

@@ -34,6 +34,11 @@ export const WomenTabdata = [
   'Tops Shirts',
   'Pants',
 ];
+export const AboutUsTab = [
+  'About us',
+  'Our vision & mission',
+  'Values & Guiding Principles',
+];
 export const ProductOrderdata = ['Items Ordered & Delivery Details', 'Payment'];
 export const StoreLocateTab = ['India', 'International'];
 export const ExchangeProduct = [
