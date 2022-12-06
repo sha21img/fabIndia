@@ -45,6 +45,7 @@ import WomenTab from './Tabs.js/WomenTab';
 import MenTab from './Tabs.js/MenTab';
 import OfferTab from './Tabs.js/OfferTab';
 const width = Dimensions.get('window').width;
+import RazorpayCheckout from 'react-native-razorpay';
 
 const categoryData = [
   {
@@ -791,6 +792,35 @@ export default function Dashbord(props) {
       </View>
     );
   };
+
+  const openCheckout = () => {
+    var options = {
+      description: 'Payment for Fab india',
+      image: 'https://i.imgur.com/3g7nmJC.png',
+      currency: 'INR',
+      key: 'rzp_test_T70CWf6iJpuekL',
+      amount: '10000',
+      name: 'FAB India',
+      orderId: 'order_test_121',
+      prefill: {
+        email: 'anuj.agrawal@anscommerce.com',
+        contact: '9462797441',
+        name: 'Anuj agrawal'
+      },
+      theme: { color: Colors.primarycolor }
+    }
+    RazorpayCheckout.open(options).then((data) => {
+      // handle success
+      console.log('Razorpay==>', JSON.stringify(data))
+
+      // alert(`Success: ${data.razorpay_payment_id}`);
+    }).catch((error) => {
+      // handle failure
+      console.log('error==>', JSON.stringify(error))
+      // alert(`Error: ${error.code} | ${error.description}`);
+    });
+  }
+
   return (
     <>
       <ScrollView
@@ -800,6 +830,13 @@ export default function Dashbord(props) {
           paddingBottom: 20,
         }}>
         <HomeHeader props={props} />
+
+        {/* <TouchableOpacity
+          style={{ padding: 16, margin: 16, borderWidth: 1, borderRadius: 8, bgColor: Colors.primarycolor, alignItems: 'center' }}
+          onPress={openCheckout}>
+          <Text>Place Order</Text>
+        </TouchableOpacity> */}
+
         <FlatList
           data={filteredComp}
           keyExtractor={(item, index) => index}
