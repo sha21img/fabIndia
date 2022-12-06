@@ -23,6 +23,7 @@ import AboutUsMenu from './components/Screens/AboutUsMenu';
 import EmptyCart from './components/Screens/Checkout/EmptyCart';
 import PDP_Compare from './components/Screens/PDP_Compare';
 import ProductDetailed from './components/Screens/ProductDetailed';
+import OrderConfirmation from './components/Screens/OrderConfirmation';
 
 const Stack = createNativeStackNavigator();
 
@@ -167,6 +168,21 @@ export default function App(props) {
                   leftIcon={leftIcon(props)}
                   title="Address"
                   rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="OrderConfirmation"
+            component={OrderConfirmation}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Order Confirmation"
                   customStyle={{
                     backgroundColor: '#F8F6F5',
                   }}

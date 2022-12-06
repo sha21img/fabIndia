@@ -16,6 +16,7 @@ import {Colors} from '../../../../assets/Colors';
 import CommonButton from '../../../Common/CommonButton';
 import MyAddresses from '../../MyAccount/MyAddresses';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Payment from '../Payment';
 
 const customStyles = {
   stepIndicatorSize: 30,
@@ -49,11 +50,11 @@ export default function CartList(props) {
   const [showSizeQ, setShowSizeQ] = useState(false);
   const [showRemove, setShowRemove] = useState(false);
   const [showEmi, setShowEmi] = useState(false);
-  const [currentPosition, setCurrentPosition] = useState(0);
+  const [currentPosition, setCurrentPosition] = useState(2);
   const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     // setCurrentPosition(1);
-  });
+  }, []);
   const orderValueDetail = () => {
     setShowOrderDetail(true);
   };
@@ -123,6 +124,8 @@ export default function CartList(props) {
           </>
         ) : currentPosition == 1 ? (
           <MyAddresses {...props} />
+        ) : currentPosition == 2 ? (
+          <Payment />
         ) : null}
       </ScrollView>
       {currentPosition == 0 ? (
@@ -133,6 +136,7 @@ export default function CartList(props) {
             elevation: 5,
           }}>
           <CommonButton
+            handleClick={() => setCurrentPosition(prev => prev + 1)}
             txt="Place order"
             customViewStyle={{
               backgroundColor: Colors.primarycolor,
