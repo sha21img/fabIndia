@@ -1,10 +1,18 @@
-import {View, Text, Image, FlatList, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Styles} from './styles';
 import {getComponentData, imageURL} from '../Helper';
 import {hasSpaces} from '../../../constant';
 
-export default function NewHighlights({data, customStyle = ''}) {
+export default function NewHighlights(props) {
+  const {data, customStyle = ''} = props;
   const width = Dimensions.get('window').width;
   const [newHighlights, setNewHighlights] = React.useState([]);
   const [dataArray, setDataArray] = useState([]);
@@ -29,13 +37,20 @@ export default function NewHighlights({data, customStyle = ''}) {
   };
   const imageCard = item => {
     return (
-      <View key={Math.random() * 987} style={Styles.imageBox}>
+      <TouchableOpacity
+        onPress={() =>
+          props.navigation.navigate('LandingPageSaris_Blouses', {
+            code: 'women-saris-blouses',
+          })
+        }
+        key={Math.random() * 987}
+        style={Styles.imageBox}>
         <Image
           style={Styles.image}
           source={{uri: `${imageURL}${item.item.media.url}`}}
         />
         <Text style={Styles.imageText}>{item.item.title}</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
   useEffect(() => {

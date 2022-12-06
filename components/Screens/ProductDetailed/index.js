@@ -20,16 +20,19 @@ import Customize from './Customize';
 const width = Dimensions.get('window').width;
 
 export default function ProductDetailed() {
-  const WomenCarouselData = [
-    {
-      heading_btn: () => WomenCarouselText(),
-      banner: image.WomenCarousel,
-    },
-    {
-      heading_btn: () => WomenCarouselText(),
-      banner: image.WomenCarousel,
-    },
-  ];
+  const WomenCarouselData = {
+    banners:
+      'FabHomepageSection14ABannerComponent FabHomepageSection14BBannerComponent',
+    container: 'false',
+    modifiedtime: '2022-07-27T16:17:04.554+05:30',
+    name: 'FabBannerResponsiveCarouselComponent',
+    parents:
+      'FabHomepageSection14ABannerComponent FabHomepageSection14BBannerComponent',
+    synchronizationBlocked: 'false',
+    typeCode: 'FabBannerResponsiveCarouselComponent',
+    uid: 'FabHomepageSection14CaroselComponent',
+    uuid: 'eyJpdGVtSWQiOiJGYWJIb21lcGFnZVNlY3Rpb24xNENhcm9zZWxDb21wb25lbnQiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+  };
   const WomenCarouselText = () => {
     return <></>;
   };
@@ -68,7 +71,14 @@ export default function ProductDetailed() {
     <>
       <ScrollView
         contentContainerStyle={{flexGrow: 1, backgroundColor: 'white'}}>
-        <CommonCarousel data={WomenCarouselData} width={width} height={200} />
+        <CommonCarousel
+          data={WomenCarouselData}
+          width={width}
+          height={380}
+          customStyle={{
+            backgroundColor: '#F6F6F6',
+          }}
+        />
         <Details />
         <Size_Color customStyle={{marginTop: 20}} />
         <Customize

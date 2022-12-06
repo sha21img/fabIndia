@@ -203,8 +203,7 @@ const MyAccounts = props => {
     </>
   );
 };
-export default MyAccount = props => {
-  console.log('plmnjiokjbhujh', props.navigation);
+const MyAccount = props => {
   const leftIcon = (
     <TouchableOpacity onPress={() => props.navigation.goBack()}>
       <SimpleLineIcons
@@ -842,3 +841,4 @@ export default MyAccount = props => {
     </>
   );
 };
+export default MyAccount;

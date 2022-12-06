@@ -9,6 +9,7 @@ import ShowData from './ShowData';
 const Tab = createMaterialTopTabNavigator();
 
 export default function CommonTopTab(props) {
+  console.log('props.....', props);
   const {data = [], Card} = props;
   return (
     <NavigationContainer independent={true}>
@@ -26,7 +27,7 @@ export default function CommonTopTab(props) {
           },
         }}>
         {data.map((item, index) => {
-          console.log(item)
+          console.log(item);
           return (
             !!item?.title && (
               <Tab.Screen
@@ -53,7 +54,7 @@ export default function CommonTopTab(props) {
                         style={{
                           fontSize: 18,
                           fontFamily: focused
-                            ? Fonts.Assistant700
+                            ? Fonts.Assistant600
                             : Fonts.Assistant300,
                           color: focused
                             ? Colors.primarycolor
@@ -61,7 +62,7 @@ export default function CommonTopTab(props) {
                           // padding: 0,
                         }}>
                         {/* {item.name + '      '} */}
-                        {item?.title +"  "}
+                        {item?.title}
                       </Text>
                     </View>
                   ),
@@ -69,7 +70,7 @@ export default function CommonTopTab(props) {
                 // component={item.screen}
                 // component={Common}
                 component={() =>
-                  item?.card ? item?.card(item) : <Text>hello</Text>
+                  item?.card ? item?.card(props, item) : <Text>hello</Text>
                 }
               />
               /* {() => (item?.card ? item?.card(item) : <Text>hello</Text>)} */

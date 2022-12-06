@@ -36,6 +36,7 @@ import Dussehra from '../EventLanding/Dussehra';
 import Header1 from '../../Common/Header1';
 import AboutUsMenu from '../AboutUsMenu';
 import YourWishlist from '../YourWishlist';
+import InteriorCatagory from '../../Common/InteriorCatagory';
 
 const Stack = createNativeStackNavigator();
 
@@ -62,6 +63,7 @@ export default function HomeStack() {
         component={Home}
         options={{headerShown: false}}
       />
+
       <Stack.Screen
         name="Women"
         component={WomenCategory}
@@ -342,14 +344,15 @@ export default function HomeStack() {
           ),
         }}
       />
+
       <Stack.Screen
-        name="LandingPageSaris_Blouses"
-        component={LandingPageSaris_Blouses}
+        name="InteriorCatagory"
+        component={InteriorCatagory}
         options={{
           header: props => (
             <Header
               leftIcon={leftIcon}
-              title="Block Print Saris & Blouses"
+              title="Interior Design Solutions"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
@@ -357,6 +360,27 @@ export default function HomeStack() {
             />
           ),
         }}
+      />
+      <Stack.Screen
+        name="LandingPageSaris_Blouses"
+        component={LandingPageSaris_Blouses}
+        options={{
+          header: props => (
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+          ),
+        }}
+        // options={{
+        //   header: props => (
+        //     <Header
+        //       leftIcon={leftIcon}
+        //       title="Block Print Saris & Blouses"
+        //       rightIcon={rightIcon}
+        //       customStyle={{
+        //         backgroundColor: '#F8F6F5',
+        //       }}
+        //     />
+        //   ),
+        // }}
       />
       <Stack.Screen
         name="LandingPageBedsheets"

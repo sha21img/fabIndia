@@ -1,4 +1,4 @@
-import {View, Image} from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Swiper from 'react-native-swiper';
 import Feather from 'react-native-vector-icons/Feather';
@@ -7,8 +7,11 @@ import axios from 'axios';
 import {getComponentData, imageURL} from '../Helper';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
+import {useNavigation} from '@react-navigation/native';
 
-export default function TopSwiper({customStyle = {}, data = {}}) {
+export default function TopSwiper(props) {
+  const navigation = useNavigation();
+  const {customStyle = {}, data = {}} = props;
   const [carouselData, setCarouselData] = React.useState([]);
   const getCarauselIds = async () => {
     const bannerId = data.banners;
@@ -24,10 +27,30 @@ export default function TopSwiper({customStyle = {}, data = {}}) {
   useEffect(() => {
     getCarauselIds();
   }, []);
+  const swiperItems = carouselData?.map((item, i) => {
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('LandingPageSaris_Blouses', {
+            code: 'women-saris-blouses',
+          })
+        }>
+        <Image
+          onPress={() => console.log('JIJIJ')}
+          key={i}
+          style={Styles.image}
+          source={{
+            uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
+          }}
+        />
+      </TouchableOpacity>
+    );
+  });
 
   return (
     <View style={[customStyle, {paddingBottom: 25}]}>
       <Swiper
+        pagingEnabled={true}
         loop={true}
         autoplay={true}
         autoplayTimeout={5}
@@ -62,17 +85,7 @@ export default function TopSwiper({customStyle = {}, data = {}}) {
           />
         }
         showsButtons={false}>
-        {carouselData?.map((item, i) => {
-          return (
-            <Image
-              key={Math.random() * 1099900}
-              style={Styles.image}
-              source={{
-                uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
-              }}
-            />
-          );
-        })}
+        {swiperItems}
       </Swiper>
     </View>
   );

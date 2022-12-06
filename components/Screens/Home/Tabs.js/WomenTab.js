@@ -6,7 +6,9 @@ import Card from '../../../Common/Card';
 import {Colors} from '../../../../assets/Colors';
 import {WomenTabdata} from '../../../../constant';
 import {getComponentData} from '../../../Common/Helper';
-const ABC = () => {
+
+const ABC = props => {
+  console.log('prop////s', props);
   return (
     <ScrollView
       contentContainerStyle={{
@@ -14,12 +16,13 @@ const ABC = () => {
         paddingHorizontal: 15,
         backgroundColor: '#FFFFFF',
       }}>
-      <Card />
-      <Card />
+      <Card {...props} />
+      <Card {...props} />
     </ScrollView>
   );
 };
-export default function WomenTab({data = {}}) {
+export default function WomenTab(props) {
+  const {data = {}} = props;
   const [active, setActive] = React.useState('');
   const [chipData, setChipData] = React.useState([]);
   const [toptabLabelData, setToptabLabelData] = React.useState([]);
@@ -135,6 +138,7 @@ export default function WomenTab({data = {}}) {
       </View>
       {toptabLabelData.length > 0 && (
         <CommonTopTab
+          {...props}
           data={toptabLabelData.map(item => ({
             ...item,
             card: cardsObj[item.title],
