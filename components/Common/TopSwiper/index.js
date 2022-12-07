@@ -23,7 +23,7 @@ export default function TopSwiper({customStyle, data}) {
   };
   useEffect(() => {
     getCarauselIds();
-  }, []);
+  }, [carouselData]);
   const Page = () => {
     return (
       <>

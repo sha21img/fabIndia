@@ -26,6 +26,7 @@ import Card from '../../../../Common/Card';
 import Chip from '../../../../Common/Chip';
 import CollectionCard from '../../../../Common/CollectionCard';
 import CommonCarousel from '../../../../Common/CommonCarousel';
+import CommonImageGrid from '../../../../Common/CommonImageGrid';
 import CommonTopTab from '../../../../Common/CommonTopTab';
 import {getData} from '../../../../Common/Helper';
 import LifeStyle from '../../../../Common/LifeStyle';
@@ -469,6 +470,10 @@ const WomenCategory = () => {
           />
         );
       // section8 grid
+      case 'FabBannerResponsiveTableComponent':
+        return (
+       <CommonImageGrid/>
+        );
       //section 9 empty
       case 'FabResponsiveBannerCarouselComponent':
         return <SingleBanner data={param} />;
