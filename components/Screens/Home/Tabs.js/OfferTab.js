@@ -1,10 +1,11 @@
-import {View, Text, FlatList, Image} from 'react-native';
+import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {getComponentData} from '../../../Common/Helper';
 import CommonTopTab from '../../../Common/CommonTopTab';
 import {image} from '../../../../assets/images';
 
-export default function OfferTab({data = {}}) {
+export default function OfferTab(props) {
+  const {data = {}} = props;
   const [offerData, setOfferData] = useState([]);
   const getBannerCount = async bannerId => {
     const splitBannerId = bannerId.split(' ').join(',');
@@ -21,7 +22,8 @@ export default function OfferTab({data = {}}) {
   useEffect(() => {
     getOfferCount();
   }, []);
-  const ABC = data => {
+  const ABC = (props, data) => {
+    console.log('props.data', props.data);
     const [bannerData, setBannerData] = useState([]);
     const getBannerData = async () => {
       const splitBannerId = data.banners.split(' ').join(',');
@@ -51,7 +53,10 @@ export default function OfferTab({data = {}}) {
           renderItem={({item, index}) => {
             console.log('item.media.url', item.media.url);
             return (
-              <View
+              <TouchableOpacity
+                onPress={() =>
+                  props.navigation.navigate('LandingPageSaris_Blouses')
+                }
                 style={{
                   marginRight: 10,
                 }}>
@@ -62,7 +67,7 @@ export default function OfferTab({data = {}}) {
                     uri: `https://apisap.fabindia.com/${item.media.url}`,
                   }}
                 />
-              </View>
+              </TouchableOpacity>
             );
           }}
         />
@@ -71,18 +76,18 @@ export default function OfferTab({data = {}}) {
   };
   const cardsObj = {
     Women: ABC,
-    // Men: ABC,
-    // Men: ABC,
+    Men: ABC,
+    Kids: ABC,
+    Home: ABC,
   };
   return (
     <>
       {offerData.length > 0 && (
         <CommonTopTab
+          {...props}
           data={offerData.map(item => ({
             ...item,
             card: cardsObj[item.title],
-
-            // card: cardsObj[item.title],
           }))}
         />
       )}

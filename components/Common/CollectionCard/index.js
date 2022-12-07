@@ -21,7 +21,12 @@ const CollectionCard = ({data = {}}) => {
   };
   return (
     <>
-      <ScrollView horizontal contentContainerStyle={{paddingHorizontal: 15}}>
+      <ScrollView
+        horizontal
+        contentContainerStyle={{
+          paddingHorizontal: 15,
+          backgroundColor: 'white',
+        }}>
         {collectionCardData.map(item => {
           return (
             <ImageBackground

@@ -33,7 +33,7 @@ import LinearGradient from 'react-native-linear-gradient';
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
-const CategorySection = () => {
+const CategorySection = props => {
   return (
     <FlatList
       // columnWrapperStyle={{
@@ -45,6 +45,7 @@ const CategorySection = () => {
       keyExtractor={item => item.id.toString()}
       renderItem={({item, index}) => (
         <Accordian
+          {...props}
           title={item.title}
           category={item.category}
           description={item.description}
@@ -90,7 +91,7 @@ const DrawerContent = () => {
     {
       name: 'Shop By Categories',
       icon: <Ionicons name="ios-grid-outline" size={20} />,
-      route: '',
+      route: 'CategorySection',
     },
     {
       name: 'Shop By Collection',
@@ -153,6 +154,10 @@ const DrawerContent = () => {
       {drawerContent.map(item => {
         return (
           <TouchableOpacity
+            onPress={() =>
+              item.route == 'CategorySection' &&
+              navigation.navigate('CategorySection')
+            }
             style={{
               padding: 20,
               flexDirection: 'row',
@@ -292,7 +297,10 @@ export default function MainScreen(props) {
           tabBarActiveTintColor: Colors.primarycolor,
           tabBarIcon: ({focused}) => (
             <TouchableOpacity
-              onPress={() => props.navigation.navigate('MyAccount')}>
+            // onPress={() =>
+            //   props.navigation.navigate('MyAccounts', {screen: 'MyAccount'})
+            // }
+            >
               <MaterialCommunityIcons
                 name="account-outline"
                 color={focused ? Colors.primarycolor : Colors.inactiveicon}

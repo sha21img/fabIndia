@@ -342,7 +342,7 @@ const HomeDecorCatagory = () => {
       <CommonCarousel
         data={SummerCarouselData}
         width={width}
-        height={410}
+        height={200}
         customStyle={{paddingTop: 25}}
       />
       <View style={Styles.box}>

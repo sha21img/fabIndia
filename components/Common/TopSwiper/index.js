@@ -1,4 +1,4 @@
-import {View, Image} from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 // import Swiper from 'react-native-swiper';
 import Feather from 'react-native-vector-icons/Feather';
@@ -7,9 +7,12 @@ import axios from 'axios';
 import {getComponentData, imageURL} from '../Helper';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
-import { SliderBox } from "react-native-image-slider-box";
+import {useNavigation} from '@react-navigation/native';
+import {SliderBox} from 'react-native-image-slider-box';
 
-export default function TopSwiper({customStyle, data}) {
+export default function TopSwiper(props) {
+  const navigation = useNavigation();
+  const {customStyle = {}, data = {}} = props;
   const [carouselData, setCarouselData] = React.useState([]);
   const getCarauselIds = async () => {
     const bannerId = data.banners;
@@ -21,16 +24,35 @@ export default function TopSwiper({customStyle, data}) {
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
     // setCarouselData(response.component);
-    let images = []
+    let images = [];
     for (let i = 0; i < response.component.length; i++) {
       const item = response.component[i];
-      images.push("https://apisap.fabindia.com/" + item.media.mobile.url)
+      images.push('https://apisap.fabindia.com/' + item.media.mobile.url);
     }
-    setCarouselData(images)
+    setCarouselData(images);
   };
   useEffect(() => {
     getCarauselIds();
   }, []);
+  const swiperItems = carouselData?.map((item, i) => {
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('LandingPageSaris_Blouses', {
+            code: 'women-saris-blouses',
+          })
+        }>
+        <Image
+          onPress={() => console.log('JIJIJ')}
+          key={i}
+          style={Styles.image}
+          source={{
+            uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
+          }}
+        />
+      </TouchableOpacity>
+    );
+  });
 
   return (
     <View style={customStyle}>

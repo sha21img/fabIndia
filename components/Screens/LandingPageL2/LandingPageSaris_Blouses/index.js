@@ -17,7 +17,8 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Fonts from '../../../../assets/fonts';
 import Filter from '../../../Common/Filter';
 
-export default function LandingPageSaris_Blouses() {
+export default function LandingPageSaris_Blouses(props) {
+  // console.log('LandingPageSaris', route.params.code);
   const [modalVisible, setModalVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
@@ -31,12 +32,15 @@ export default function LandingPageSaris_Blouses() {
           flexGrow: 1,
           paddingBottom: 20,
         }}>
-        <TopBanner />
+        {/* <TopBanner /> */}
         <SortBox
           openSort={openSort}
           //  openFilter={openFilter}
         />
-        <ResultCards data={[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]} />
+        <ResultCards
+          data={[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+          {...props}
+        />
       </ScrollView>
       <Modal
         animationType="slide"

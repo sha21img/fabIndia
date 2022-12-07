@@ -50,19 +50,24 @@ const GiftingCatagory = () => {
   };
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
+    // <ScrollView
+    //   showsVerticalScrollIndicator={false}
+    //   contentContainerStyle={{
+    //     backgroundColor: Colors.backgroundColor,
+    //     paddingBottom: 20,
+    //     flexGrow: 1,
+    //   }}>
+    <FlatList
       contentContainerStyle={{
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
         flexGrow: 1,
-      }}>
-      <FlatList
-        data={filteredComp}
-        keyExtractor={(item, index) => index}
-        renderItem={item => checkSwitch(item.item)}
-      />
-    </ScrollView>
+      }}
+      data={filteredComp}
+      keyExtractor={(item, index) => index}
+      renderItem={item => checkSwitch(item.item)}
+    />
+    // </ScrollView>
   );
 };
 export default GiftingCatagory;

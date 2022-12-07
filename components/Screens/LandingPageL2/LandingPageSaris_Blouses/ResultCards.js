@@ -3,7 +3,9 @@ import React from 'react';
 import Card from '../../../Common/Card';
 import Card1 from '../../../Common/Card1';
 
-export default function ResultCards({data = []}) {
+export default function ResultCards(props) {
+  console.log('props', props);
+  const {data = []} = props;
   return (
     <>
       <View
@@ -14,7 +16,7 @@ export default function ResultCards({data = []}) {
           paddingHorizontal: 15,
         }}>
         {data.map(item => {
-          return <Card1 customViewStyle={{marginVertical: 7}} />;
+          return <Card1 customViewStyle={{marginVertical: 7}} {...props} />;
         })}
       </View>
     </>

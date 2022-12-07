@@ -86,8 +86,8 @@ export default function FoodCatagory() {
           <CommonCarousel
             data={param}
             width={width / 1.07}
-            height={330}
-            customStyle={{marginVertical: 10}}
+            height={200}
+            customStyle={{marginVertical: 20}}
           />
         );
       case 'FabBannerL1ResponsiveCarouselComponent':
@@ -115,6 +115,11 @@ export default function FoodCatagory() {
   };
   return (
     <FlatList
+      contentContainerStyle={{
+        backgroundColor: Colors.backgroundColor,
+        paddingBottom: 20,
+        flexGrow: 1,
+      }}
       data={filteredComp}
       keyExtractor={(item, index) => index}
       renderItem={item => checkSwitch(item.item)}

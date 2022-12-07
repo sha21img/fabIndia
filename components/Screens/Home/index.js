@@ -610,6 +610,10 @@ const SimpleCardList = item => {
   );
 };
 export default function Dashbord(props) {
+  console.log(
+    'props++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
+    props,
+  );
   const [active, setActive] = React.useState('Bestsellers');
   const [dashboardData, setDashboardData] = React.useState([]);
   const [filteredComp, setFilteredComp] = React.useState([]);
@@ -622,12 +626,13 @@ export default function Dashbord(props) {
   const checkSwitch = param => {
     switch (param?.typeCode) {
       case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper data={param} />;
+        return <TopSwiper data={param} {...props} />;
       case 'FabCmsLinkCarousalComponent':
-        return <Catagory data={param} />;
+        return <Catagory data={param} {...props} />;
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights
+            {...props}
             customStyle={{marginVertical: 20}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={param}
@@ -636,6 +641,7 @@ export default function Dashbord(props) {
       case 'FabBannerResponsiveCarouselComponent':
         return (
           <CommonCarousel
+            {...props}
             data={param}
             width={width / 1.07}
             height={200}
@@ -645,7 +651,7 @@ export default function Dashbord(props) {
       case 'FabCMSTabContainer':
         return (
           <>
-            <WomenTab data={param} />
+            <WomenTab data={param} {...props} />
           </>
         );
       case 'FabResponsiveBannerCarouselComponent':
@@ -670,11 +676,11 @@ export default function Dashbord(props) {
               }}>
               Offers for you
             </Text>
-            <OfferTab data={param} />
+            <OfferTab data={param} {...props} />
           </>
         );
       case 'SimpleResponsiveBannerComponent':
-        return <Interior data={param} />;
+        return <Interior data={param} {...props} />;
       case 'YoutubeVideoComponent':
         return <Art_Artist />;
       case 'FabTitleBannerCarouselComponent':

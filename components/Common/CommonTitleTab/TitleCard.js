@@ -59,15 +59,15 @@ const Styles = StyleSheet.create({
     paddingVertical: 10,
   },
   imgDim: {
-    width: width / 2,
-    height: 250,
+    width: 178,
+    height: 226,
   },
   cardContainer: {
     marginRight: 10,
   },
   titleBox: {
     padding: 5,
-    width: width / 2,
+    width: 178,
   },
   title: {
     fontSize: 16,

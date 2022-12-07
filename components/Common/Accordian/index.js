@@ -16,8 +16,11 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
+import {useNavigation} from '@react-navigation/native';
 const width = Dimensions.get('window').width;
-const NewAccordion = item => {
+const NewAccordion = props => {
+  const {item} = props;
+  const navigation = useNavigation();
   const toggleAnimation = {
     duration: 300,
     update: {
@@ -59,13 +62,19 @@ const NewAccordion = item => {
           paddingTop: 10,
           backgroundColor: '#F6F6F6',
         }}>
-        <View style={Styles.activebox} key={Math.random() * 1099900}>
+        <TouchableOpacity
+          onPress={() => {
+            console.log('hih'),
+              navigation.navigate('LandingPageSaris_Blousess');
+          }}
+          style={Styles.activebox}
+          key={Math.random() * 1099900}>
           <Text
             style={[
               Styles.activetxt,
               {fontFamily: showContent ? Fonts.Assistant700 : null},
             ]}>
-            {item.item.name}
+            {item.name}
           </Text>
           {!!item?.item?.subcategory && (
             <Animated.View
@@ -79,7 +88,7 @@ const NewAccordion = item => {
               />
             </Animated.View>
           )}
-        </View>
+        </TouchableOpacity>
       </TouchableOpacity>
       {!!item?.item?.subcategory && showContent ? (
         <View style={{paddingTop: 15, backgroundColor: '#FFFFFF'}}>
@@ -99,7 +108,9 @@ const NewAccordion = item => {
     </View>
   );
 };
-const Accordian = ({title, category, description}) => {
+const Accordian = props => {
+  const {title, category, description} = props;
+  console.log('propssssssssssssssssssssssssss', props);
   console.log('Accordian', description);
   const toggleAnimation = {
     duration: 300,
@@ -185,7 +196,7 @@ const Accordian = ({title, category, description}) => {
         </TouchableOpacity>
         {showContent &&
           category.map((item, index) => {
-            return <NewAccordion item={item} />;
+            return <NewAccordion item={item} {...props} />;
           })}
       </View>
     </>

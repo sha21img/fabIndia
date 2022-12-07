@@ -203,7 +203,7 @@ const MyAccounts = props => {
     </>
   );
 };
-export default MyAccount = props => {
+const MyAccount = props => {
   const leftIcon = (
     <TouchableOpacity onPress={() => props.navigation.goBack()}>
       <SimpleLineIcons
@@ -218,7 +218,7 @@ export default MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="FabFamily">
+      <Stack.Navigator initialRouteName="MyAccounts">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
@@ -841,3 +841,4 @@ export default MyAccount = props => {
     </>
   );
 };
+export default MyAccount;

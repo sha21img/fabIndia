@@ -23,6 +23,7 @@ import AboutUsMenu from './components/Screens/AboutUsMenu';
 import EmptyCart from './components/Screens/Checkout/EmptyCart';
 import PDP_Compare from './components/Screens/PDP_Compare';
 import ProductDetailed from './components/Screens/ProductDetailed';
+import Header1 from './components/Common/Header1';
 import OrderConfirmation from './components/Screens/OrderConfirmation';
 
 const Stack = createNativeStackNavigator();
@@ -90,7 +91,7 @@ export default function App(props) {
             component={MainScreen}
             options={{headerShown: false}}
           />
-        
+
           <Stack.Screen
             name="FabulousCardDetails"
             component={FabulousCardDetails}
@@ -131,13 +132,14 @@ export default function App(props) {
             component={ProductDetailed}
             options={{
               header: props => (
-                <Header
-                  leftIcon={leftIcon(props)}
-                  title="Cotton Viscose Printed Short..."
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                  }}
+                <Header1
+                  customViewStyle={{backgroundColor: '#FFFFFF'}}
+                  // leftIcon={leftIcon(props)}
+                  // title="Cotton Viscose Printed Short..."
+                  // rightIcon={rightIcon}
+                  // customStyle={{
+                  //   backgroundColor: '#F8F6F5',
+                  // }}
                 />
               ),
             }}

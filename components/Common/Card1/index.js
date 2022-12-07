@@ -1,10 +1,12 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Fonts from '../../../assets/fonts';
 import {image} from '../../../assets/images';
 import {Styles} from './styles';
 
-export default function Card1({customViewStyle = {}, item}) {
+export default function Card1(props) {
+  const {customViewStyle = {}, item} = props;
+  console.log('poirewsdfghj', props);
   const defaultViewCustomStyles = {
     width: '48%',
     elevation: 1,
@@ -13,7 +15,9 @@ export default function Card1({customViewStyle = {}, item}) {
 
   return (
     <>
-      <View style={[defaultViewCustomStyles, customViewStyle]}>
+      <TouchableOpacity
+        style={[defaultViewCustomStyles, customViewStyle]}
+        onPress={() => props.navigation.navigate('ProductDetailed')}>
         <Image
           source={image.card}
           style={Styles.imagedimension}
@@ -30,7 +34,7 @@ export default function Card1({customViewStyle = {}, item}) {
             <Text style={Styles.offertxt}>20% off</Text>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </>
   );
 }
