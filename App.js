@@ -132,7 +132,7 @@ export default function App(props) {
             component={ProductDetailed}
             options={{
               header: props => (
-                <Header1
+                <Header
                   customViewStyle={{backgroundColor: '#FFFFFF'}}
                   // leftIcon={leftIcon(props)}
                   // title="Cotton Viscose Printed Short..."
