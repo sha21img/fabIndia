@@ -146,6 +146,7 @@ export const image = {
   transCart: require('./transCart.png'),
   Shape: require('./Shape.png'),
   fabshow: require('./fabshow.png'),
+  map:require('./map.png'), 
 
   fabfamily: require('./fabfamily.png'),
   fabfamilyflower: require('./fabfamilyflower.png'),

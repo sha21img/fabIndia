@@ -1,6 +1,6 @@
 import {Platform, StyleSheet} from 'react-native';
-import {Colors} from '../../../assets/Colors';
-import Fonts from '../../../assets/fonts';
+import {Colors} from '../../../../assets/Colors';
+import Fonts from '../../../../assets/fonts';
 const Styles = StyleSheet.create({
   container:{flexGrow: 1, backgroundColor: '#FFFFFF'},
   imgback:{

@@ -34,25 +34,25 @@ export default function TopSwiper(props) {
   useEffect(() => {
     getCarauselIds();
   }, []);
-  const swiperItems = carouselData?.map((item, i) => {
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('LandingPageSaris_Blouses', {
-            code: 'women-saris-blouses',
-          })
-        }>
-        <Image
-          onPress={() => console.log('JIJIJ')}
-          key={i}
-          style={Styles.image}
-          source={{
-            uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
-          }}
-        />
-      </TouchableOpacity>
-    );
-  });
+  // const swiperItems = carouselData?.map((item, i) => {
+  //   return (
+  //     <TouchableOpacity
+  //       onPress={() =>
+  //         navigation.navigate('LandingPageSaris_Blouses', {
+  //           code: 'women-saris-blouses',
+  //         })
+  //       }>
+  //       <Image
+  //         onPress={() => console.log('JIJIJ')}
+  //         key={i}
+  //         style={Styles.image}
+  //         source={{
+  //           uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
+  //         }}
+  //       />
+  //     </TouchableOpacity>
+  //   );
+  // });
 
   return (
     <View style={customStyle}>

@@ -40,6 +40,7 @@ import CollectionCard from '../../../../Common/CollectionCard';
 import SingleBanner from '../../../../Common/SingleBanner';
 import WomenTab from '../../Tabs.js/WomenTab';
 import LifeStyle from '../../../../Common/LifeStyle';
+import CommonImageGrid from '../../../../Common/CommonImageGrid';
 const width = Dimensions.get('window').width;
 
 const WomenHighlightData = [
@@ -373,7 +374,10 @@ const KidsCatagory = () => {
             />
           </View>
         );
+
       // section8 grid
+      case 'FabBannerResponsiveTableComponent':
+        return <CommonImageGrid/>;
       //section 9 empty
       case 'FabResponsiveBannerCarouselComponent':
         return <SingleBanner data={param} />;

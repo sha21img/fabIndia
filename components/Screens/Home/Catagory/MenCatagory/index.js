@@ -41,6 +41,7 @@ import LifeStyle from '../../../../Common/LifeStyle';
 import WomenTab from '../../Tabs.js/WomenTab';
 import SingleBanner from '../../../../Common/SingleBanner';
 import CollectionCard from '../../../../Common/CollectionCard';
+import CommonImageGrid from '../../../../Common/CommonImageGrid';
 const width = Dimensions.get('window').width;
 const getOfferTitleHeading = () => {
   return (
@@ -353,7 +354,12 @@ const MenCatagory = () => {
             />
           </View>
         );
+
       // section8 grid
+      case 'FabBannerResponsiveTableComponent':
+        return (
+       <CommonImageGrid/>
+        );
       //section 9 empty
       case 'FabResponsiveBannerCarouselComponent':
         return <SingleBanner data={param} />;
