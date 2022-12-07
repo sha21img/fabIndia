@@ -23,6 +23,7 @@ import {
   LandingPageL1Women,
 } from '../../../../../constant';
 import Card from '../../../../Common/Card';
+import CategoryGrid from '../../../../Common/CategoryGrid';
 import Chip from '../../../../Common/Chip';
 import CollectionCard from '../../../../Common/CollectionCard';
 import CommonCarousel from '../../../../Common/CommonCarousel';
@@ -447,6 +448,7 @@ const WomenCategory = () => {
       case 'FabOffersGridBannerCarouselComponent':
         return (
           <LifeStyle
+            customViewStyle={{marginVertical: 20}}
             // data={LifeStyleData}
             data={param}
             // title={GetLifeStyleTitle}
@@ -461,26 +463,36 @@ const WomenCategory = () => {
         );
       case 'SimpleResponsiveBannerComponent':
         return (
-          <Image
-            resizeMode="stretch"
-            source={{
-              uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
-            }}
-            style={{height: 300, width: width}}
-          />
+          <View style={{marginTop: 20}}>
+            <Image
+              resizeMode="stretch"
+              source={{
+                uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
+              }}
+              style={{height: 213, width: width}}
+            />
+          </View>
         );
       // section8 grid
       case 'FabBannerResponsiveTableComponent':
         return (
        <CommonImageGrid/>
         );
+      case 'FabBannerResponsiveTableComponent':
+
+        return <CategoryGrid data={param} />;
       //section 9 empty
       case 'FabResponsiveBannerCarouselComponent':
         return <SingleBanner data={param} />;
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel data={param} width={width / 1.07} height={330} />
+          <CommonCarousel
+            data={param}
+            width={width / 1.07}
+            height={200}
+            customStyle={{marginVertical: 20}}
+          />
         );
       case 'FabBannerL1ResponsiveCarouselComponent':
         return (
@@ -507,19 +519,24 @@ const WomenCategory = () => {
   };
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
+    // <ScrollView
+    //   showsVerticalScrollIndicator={false}
+    //   contentContainerStyle={{
+    //     backgroundColor: Colors.backgroundColor,
+    //     paddingBottom: 20,
+    //     flexGrow: 1,
+    //   }}>
+    <FlatList
       contentContainerStyle={{
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
         flexGrow: 1,
-      }}>
-      <FlatList
-        data={filteredComp}
-        keyExtractor={(item, index) => index}
-        renderItem={item => checkSwitch(item.item)}
-      />
-    </ScrollView>
+      }}
+      data={filteredComp}
+      keyExtractor={(item, index) => index}
+      renderItem={item => checkSwitch(item.item)}
+    />
+    // </ScrollView>
   );
 };
 export default WomenCategory;

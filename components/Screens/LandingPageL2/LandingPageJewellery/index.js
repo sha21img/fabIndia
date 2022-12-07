@@ -404,7 +404,7 @@ const LandingPageJewellery = () => {
       <CommonCarousel
         data={WomenCarouselData}
         width={width}
-        height={410}
+        height={200}
         customStyle={{paddingTop: 40}}
       />
       <View style={Styles.catbox}>

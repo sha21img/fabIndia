@@ -9,6 +9,7 @@ import ShowData from './ShowData';
 const Tab = createMaterialTopTabNavigator();
 
 export default function CommonTopTab(props) {
+  console.log('props.....', props);
   const {data = [], Card} = props;
   return (
     <NavigationContainer independent={true}>
@@ -26,9 +27,7 @@ export default function CommonTopTab(props) {
           },
         }}>
         {data.map((item, index) => {
-          {
-            /* console.log('po', item.card); */
-          }
+          console.log(item);
           return (
             !!item?.title && (
               <Tab.Screen
@@ -37,28 +36,25 @@ export default function CommonTopTab(props) {
                 options={{
                   tabBarItemStyle: {
                     width: 'auto',
-                    padding: 0,
-                    marginRight: 10,
-                    // margin: 0,
-                    // backgroundColor: 'red',
+                    // padding: 0,
+                    // marginRight: 10,
                   },
                   tabBarLabel: ({focused}) => (
                     <View
                       style={{
-                        marginLeft: 15,
+                        // marginLeft: 15,
                         borderBottomWidth: 2,
                         borderBottomColor: focused
                           ? Colors.primarycolor
                           : 'transparent',
-                        flexWrap: 'nowrap',
+                        // flexWrap: 'nowrap',
                         width: '100%',
                       }}>
                       <Text
                         style={{
                           fontSize: 18,
-                          fontFamily: focused
-                            ? Fonts.Assistant700
-                            : Fonts.Assistant300,
+                          fontFamily: Fonts.Assistant300,
+                          // : Fonts.Assistant300,
                           color: focused
                             ? Colors.primarycolor
                             : Colors.textcolor,
@@ -72,10 +68,11 @@ export default function CommonTopTab(props) {
                 }}
                 // component={item.screen}
                 // component={Common}
-                children={() =>
-                  item?.card ? item?.card() : <Text>hello</Text>
+                component={() =>
+                  item?.card ? item?.card(props, item) : <Text>hello</Text>
                 }
               />
+              /* {() => (item?.card ? item?.card(item) : <Text>hello</Text>)} */
             )
           );
         })}

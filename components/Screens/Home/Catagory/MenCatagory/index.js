@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Dimensions,
+  FlatList,
 } from 'react-native';
 import React from 'react';
 import {image} from '../../../../../assets/images';
@@ -343,13 +344,15 @@ const MenCatagory = () => {
         );
       case 'SimpleResponsiveBannerComponent':
         return (
-          <Image
-            resizeMode="stretch"
-            source={{
-              uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
-            }}
-            style={{height: 300, width: width}}
-          />
+          <View style={{marginTop: 20}}>
+            <Image
+              resizeMode="stretch"
+              source={{
+                uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
+              }}
+              style={{height: 300, width: width}}
+            />
+          </View>
         );
 
       // section8 grid
@@ -363,7 +366,12 @@ const MenCatagory = () => {
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel data={param} width={width / 1.07} height={330} />
+          <CommonCarousel
+            data={param}
+            width={width / 1.07}
+            height={200}
+            customStyle={{marginVertical: 20}}
+          />
         );
       case 'FabBannerL1ResponsiveCarouselComponent':
         return (
@@ -390,17 +398,27 @@ const MenCatagory = () => {
   };
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
+    <FlatList
       contentContainerStyle={{
         backgroundColor: Colors.backgroundColor,
         paddingBottom: 20,
         flexGrow: 1,
-      }}>
-      {filteredComp.map(item => {
-        return checkSwitch(item);
-      })}
-    </ScrollView>
+      }}
+      data={filteredComp}
+      keyExtractor={(item, index) => index}
+      renderItem={item => checkSwitch(item.item)}
+    />
+    // <ScrollView
+    //   showsVerticalScrollIndicator={false}
+    //   contentContainerStyle={{
+    //     backgroundColor: Colors.backgroundColor,
+    //     paddingBottom: 20,
+    //     flexGrow: 1,
+    //   }}>
+    //   {filteredComp.map(item => {
+    //     return checkSwitch(item);
+    //   })}
+    // </ScrollView>
   );
 };
 

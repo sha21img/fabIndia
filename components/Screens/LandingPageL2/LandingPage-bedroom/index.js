@@ -467,7 +467,7 @@ const LandingPagebedroom = () => {
       <CommonCarousel
         data={WomenCarouselData1}
         width={width}
-        height={410}
+        height={200}
         customStyle={{marginTop: 40}}
       />
       <Collections customStyle={{paddingTop: 40}} />

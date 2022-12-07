@@ -6,7 +6,9 @@ import Card from '../../../Common/Card';
 import {Colors} from '../../../../assets/Colors';
 import {WomenTabdata} from '../../../../constant';
 import {getComponentData} from '../../../Common/Helper';
-const ABC = () => {
+
+const ABC = props => {
+  console.log('prop////s', props);
   return (
     <ScrollView
       contentContainerStyle={{
@@ -14,12 +16,13 @@ const ABC = () => {
         paddingHorizontal: 15,
         backgroundColor: '#FFFFFF',
       }}>
-      <Card />
-      <Card />
+      <Card {...props} />
+      <Card {...props} />
     </ScrollView>
   );
 };
-export default function WomenTab({data = {}}) {
+export default function WomenTab(props) {
+  const {data = {}} = props;
   const [active, setActive] = React.useState('');
   const [chipData, setChipData] = React.useState([]);
   const [toptabLabelData, setToptabLabelData] = React.useState([]);
@@ -45,7 +48,7 @@ export default function WomenTab({data = {}}) {
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    console.log('ALALALALLAALALL', response.component);
+    // console.log('ALALALALLAALALL', response.component);
     setToptabLabelData(response.component);
     //2
   };
@@ -74,6 +77,44 @@ export default function WomenTab({data = {}}) {
     'Men Footwear': ABC,
     'Men Ethnic': ABC,
     'Men Western': ABC,
+    Boys: ABC,
+    'Infant Girls': ABC,
+    Girls: ABC,
+    'Infant Boys': ABC,
+    'Home & Living': ABC,
+    Furniture: ABC,
+    Dupattas: ABC,
+    'Churidars & Salwars': ABC,
+    Kurtas: ABC,
+    'Tops, Shirts & Tunics': ABC,
+    'Dresses & Jumpsuits': ABC,
+    'Pants & Palazzos': ABC,
+    Sleepwear: ABC,
+    Trousers: ABC,
+    Shirts: ABC,
+    'Girls Western Wear': ABC,
+    'Boys Ethnic Wear': ABC,
+    'Girls Ethnic Wear': ABC,
+    'Boys Western Wear': ABC,
+    'Infant Boys': ABC,
+    'Boys Kurta': ABC,
+    'Girls Ethnic Sets': ABC,
+    'Girls Dresses & Jumpsuits': ABC,
+    'Boys Shirt & Short Kurta': ABC,
+    'Infant Girls Sets': ABC,
+    'Bed Linen': ABC,
+    Bath: ABC,
+    'Kids Linen': ABC,
+    Curtain: ABC,
+    'Kitchen & Dining': ABC,
+    'Home Decor': ABC,
+    'Wall Decor': ABC,
+    Cushions: ABC,
+    'Floor Convering': ABC,
+    Bedroom: ABC,
+    Living: ABC,
+    Dining: ABC,
+    'Bar Furniture': ABC,
   };
   // console.log('oiuyf', toptabLabelData);
   return (
@@ -97,6 +138,7 @@ export default function WomenTab({data = {}}) {
       </View>
       {toptabLabelData.length > 0 && (
         <CommonTopTab
+          {...props}
           data={toptabLabelData.map(item => ({
             ...item,
             card: cardsObj[item.title],

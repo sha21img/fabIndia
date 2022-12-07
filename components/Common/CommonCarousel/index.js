@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  Dimensions,
 } from 'react-native';
 import React, {useEffect} from 'react';
 // import Carousel from 'react-native-reanimated-carousel';
@@ -13,12 +14,9 @@ import {getComponentData, imageURL} from '../Helper';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../../assets/Colors';
 
-export default function CommonCarousel({
-  data,
-  width,
-  height,
-  customStyle = {},
-}) {
+export default function CommonCarousel(props) {
+  const {data, width, height, customStyle = {}} = props;
+  const newWidth = Dimensions.get('window').width;
   const [imgActive1, setImgActive1] = React.useState(0);
   const [newHighlights, setNewHighlights] = React.useState([]);
 
@@ -49,26 +47,35 @@ export default function CommonCarousel({
   }, []);
 
   const renderItem = ({item}) => {
+    const mediaurl1 = item.media.url || item.media.mobile.url;
     return (
-      <ImageBackground
-        resizeMode="stretch"
-        key={Math.random() * 1099900}
-        style={{
-          flex: 1,
-          height: height,
-          width: width,
-        }}
-        source={{uri: `${imageURL}${item.media.url}`}}>
-        <LinearGradient
-          colors={['rgba(0,0,0,0.4)', 'rgba(255,255,255,0)']}
+      <TouchableOpacity
+        onPress={() =>
+          props.navigation.navigate('LandingPageSaris_Blouses', {
+            code: 'women-saris-blouses',
+          })
+        }>
+        <ImageBackground
+          resizeMode="stretch"
+          key={Math.random() * 1099900}
           style={{
-            padding: 20,
-            width: width,
+            flex: 1,
             height: height,
+            width: !!item.media.url ? width : newWidth,
+            resizeMode: 'contain',
           }}
-          start={{x: 0, y: 0}}
-          end={{x: 0, y: 1}}></LinearGradient>
-      </ImageBackground>
+          source={{uri: `${imageURL}${mediaurl1}`}}>
+          <LinearGradient
+            colors={['rgba(0,0,0,0.4)', 'rgba(255,255,255,0)']}
+            style={{
+              padding: 20,
+              width: width,
+              height: height,
+            }}
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}></LinearGradient>
+        </ImageBackground>
+      </TouchableOpacity>
     );
   };
   return (
@@ -84,8 +91,8 @@ export default function CommonCarousel({
           data={newHighlights}
           renderItem={renderItem}
           autoPlayInterval={3000}
-          sliderWidth={width}
-          itemWidth={width}
+          sliderWidth={!!newHighlights[0]?.media?.url ? width : newWidth}
+          itemWidth={!!newHighlights[0]?.media?.url ? width : newWidth}
           itemHeight={height}
           sliderHeight={height}
           onSnapToItem={index => setImgActive1(index)}

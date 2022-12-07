@@ -34,6 +34,9 @@ import Diwali from '../EventLanding/Diwali';
 import {Colors} from '../../../assets/Colors';
 import Dussehra from '../EventLanding/Dussehra';
 import Header1 from '../../Common/Header1';
+import AboutUsMenu from '../AboutUsMenu';
+import YourWishlist from '../YourWishlist';
+import InteriorCatagory from '../../Common/InteriorCatagory';
 
 const Stack = createNativeStackNavigator();
 
@@ -60,12 +63,30 @@ export default function HomeStack() {
         component={Home}
         options={{headerShown: false}}
       />
+
       <Stack.Screen
         name="Women"
         component={WomenCategory}
         options={{
           header: props => (
             <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="AboutUsMenu"
+        component={AboutUsMenu}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Menu"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                marginBottom: 4,
+              }}
+            />
           ),
         }}
       />
@@ -87,6 +108,23 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Search results for ‘Cotton...’"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+                marginBottom: 4,
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="YourWishlist"
+        component={YourWishlist}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Your Wishlist"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
@@ -306,14 +344,15 @@ export default function HomeStack() {
           ),
         }}
       />
+
       <Stack.Screen
-        name="LandingPageSaris_Blouses"
-        component={LandingPageSaris_Blouses}
+        name="InteriorCatagory"
+        component={InteriorCatagory}
         options={{
           header: props => (
             <Header
               leftIcon={leftIcon}
-              title="Block Print Saris & Blouses"
+              title="Interior Design Solutions"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
@@ -321,6 +360,27 @@ export default function HomeStack() {
             />
           ),
         }}
+      />
+      <Stack.Screen
+        name="LandingPageSaris_Blouses"
+        component={LandingPageSaris_Blouses}
+        options={{
+          header: props => (
+            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+          ),
+        }}
+        // options={{
+        //   header: props => (
+        //     <Header
+        //       leftIcon={leftIcon}
+        //       title="Block Print Saris & Blouses"
+        //       rightIcon={rightIcon}
+        //       customStyle={{
+        //         backgroundColor: '#F8F6F5',
+        //       }}
+        //     />
+        //   ),
+        // }}
       />
       <Stack.Screen
         name="LandingPageBedsheets"

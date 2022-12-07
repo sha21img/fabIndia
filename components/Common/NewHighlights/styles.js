@@ -30,12 +30,12 @@ export const Styles = StyleSheet.create({
     backgroundColor: '#F3E0E0',
   },
   imageBox: {
-    padding: 5,
+    marginRight: 10,
   },
   image: {
     width: 180,
     height: 180,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   imageText: {
     color: '#4A4A4A',

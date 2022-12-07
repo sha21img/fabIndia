@@ -610,6 +610,10 @@ const SimpleCardList = item => {
   );
 };
 export default function Dashbord(props) {
+  console.log(
+    'props++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
+    props,
+  );
   const [active, setActive] = React.useState('Bestsellers');
   const [dashboardData, setDashboardData] = React.useState([]);
   const [filteredComp, setFilteredComp] = React.useState([]);
@@ -622,44 +626,41 @@ export default function Dashbord(props) {
   const checkSwitch = param => {
     switch (param?.typeCode) {
       case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper data={param} />;
+        return <TopSwiper data={param} {...props} />;
       case 'FabCmsLinkCarousalComponent':
-        return (
-          // <ImageBackground
-          //   resizeMode="cover"
-          //   style={{width: '100%'}}
-          //   source={image.categoryBgBanner}>
-          <Catagory data={param} />
-          // </ImageBackground>
-        );
+        return <Catagory data={param} {...props} />;
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights
-            customStyle={{marginVertical: 40}}
+            {...props}
+            customStyle={{marginVertical: 20}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={param}
           />
         );
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel data={param} width={width / 1.07} height={330} />
+          <CommonCarousel
+            {...props}
+            data={param}
+            width={width / 1.07}
+            height={200}
+            customStyle={{margin: 20}}
+          />
         );
       case 'FabCMSTabContainer':
         return (
           <>
-            <WomenTab data={param} />
+            <WomenTab data={param} {...props} />
           </>
         );
       case 'FabResponsiveBannerCarouselComponent':
         return (
           <CommonCarousel
-            // data={dashboardData}
-            // width={width / 1.07}
-            // height={330}
-            // position="Section8"
-            data={MenCarouselData}
-            width={width / 1.07}
-            height={330}
+            data={param}
+            width={width}
+            height={200}
+            customStyle={{margin: 20}}
           />
         );
       case 'FabTitleCMSTabParagraphContainer':
@@ -675,17 +676,17 @@ export default function Dashbord(props) {
               }}>
               Offers for you
             </Text>
-            <OfferTab data={param} />
+            <OfferTab data={param} {...props} />
           </>
         );
       case 'SimpleResponsiveBannerComponent':
-        return <Interior data={param} />;
+        return <Interior data={param} {...props} />;
       case 'YoutubeVideoComponent':
         return <Art_Artist />;
       case 'FabTitleBannerCarouselComponent':
         return <Legacy data={param} />;
-      case 'CMSFlexComponent':
-        return;
+      // case 'CMSFlexComponent':
+      //   return;
       default:
         return;
     }
@@ -793,19 +794,13 @@ export default function Dashbord(props) {
   };
   return (
     <>
-      <ScrollView
-        contentContainerStyle={{
-          backgroundColor: Colors.backgroundColor,
-          flexGrow: 1,
-          paddingBottom: 20,
-        }}>
-        <HomeHeader props={props} />
-        <FlatList
-          data={filteredComp}
-          keyExtractor={(item, index) => index}
-          renderItem={item => checkSwitch(item.item)}
-        />
-      </ScrollView>
+      <FlatList
+        contentContainerStyle={{flexGrow: 1, backgroundColor: '#FFFFFF'}}
+        ListHeaderComponent={() => <HomeHeader props={props} />}
+        data={filteredComp}
+        keyExtractor={(item, index) => index}
+        renderItem={item => checkSwitch(item.item)}
+      />
     </>
   );
 }

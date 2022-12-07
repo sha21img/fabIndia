@@ -5,7 +5,7 @@ import Fonts from '../../../../../assets/fonts';
 export const Styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: '#FFFFFFF',
+    backgroundColor: 'white',
     paddingHorizontal: 15,
   },
   header: {

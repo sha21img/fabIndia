@@ -506,7 +506,7 @@ const LandingPageMenKurtas = () => {
         bgColor={{backgroundColor: '#EDEDED'}}
         customStyle={{marginVertical: 40}}
       />
-      <CommonCarousel data={WomenCarouselData} width={width} height={410} />
+      <CommonCarousel data={WomenCarouselData} width={width} height={200} />
       <View style={Styles.catbox}>
         <Text style={Styles.playpatterntxt}>Play with patterns</Text>
         <ScrollView horizontal contentContainerStyle={Styles.scrollcont}>

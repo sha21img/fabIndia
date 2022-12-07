@@ -7,20 +7,22 @@ export const Styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: Fonts.PlayfairDisplay600Italic,
     color: '#4A4A4A',
-    marginVertical: 20,
+    paddingHorizontal: 15,
+    paddingVertical: 20,
   },
 
-  txt2:{
-    fontSize: 12, 
+  txt2: {
+    fontSize: 12,
     color: '#979797',
-    marginVertical:10,
-    fontFamily:Fonts.Assistant600 
+    marginVertical: 10,
+    fontFamily: Fonts.Assistant600,
   },
-  mainView:{
+  mainView: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginTop: 10,
-    backgroundColor:'white'
-  }
+    paddingHorizontal: 15,
+    backgroundColor: 'white',
+  },
 });

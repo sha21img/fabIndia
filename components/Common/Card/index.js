@@ -1,28 +1,37 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Fonts from '../../../assets/fonts';
 import {image} from '../../../assets/images';
 import {Styles} from './styles';
+import {useNavigation} from '@react-navigation/native';
 
-export default function Card({
-  customViewStyle = {},
-  item,
-  originalprice = null,
-  offer = null,
-}) {
+export default function Card(props) {
+  const {
+    customViewStyle = {},
+    item,
+    originalprice = null,
+    offer = null,
+  } = props;
+
+  console.log('props.,mgfdtyuiop', props);
+
   const defaultViewCustomStyles = {
-    width: 200,
+    width: 192,
     elevation: 1,
     backgroundColor: '#FFFFFF',
+    marginRight: 10,
+    marginBottom: 1,
   };
 
   return (
     <>
-      <View style={[defaultViewCustomStyles, customViewStyle]}>
+      <TouchableOpacity
+        style={[defaultViewCustomStyles, customViewStyle]}
+        onPress={() => props.navigation.navigate('ProductDetailed')}>
         <Image
           source={image.card}
-          style={{height: 208, width: 'auto'}}
-          resizeMode="cover"
+          style={{height: 243, width: 192}}
+          resizeMode="contain"
         />
         <View style={Styles.headingbox}>
           <Text style={Styles.headingtxt}>
@@ -38,7 +47,7 @@ export default function Card({
             </Text>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </>
   );
 }

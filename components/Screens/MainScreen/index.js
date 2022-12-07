@@ -6,6 +6,7 @@ import {
   ImageBackground,
   Dimensions,
   FlatList,
+  ScrollView,
 } from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -25,489 +26,14 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {useNavigation} from '@react-navigation/native';
 import {image} from '../../../assets/images';
 import Accordian from '../../Common/Accordian';
+import {data} from '../../../constant';
+import LinearGradient from 'react-native-linear-gradient';
 
 // import WomenCategory from '../Home/WomenCategory';
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
-const data = [
-  {
-    id: 0,
-    title: 'Women',
-    description: 'Jacket,Sweater,Sweatshirt',
-    category: [
-      {
-        name: 'All in Women',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Saris & Blouses',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Ethnic Wear',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Fusion Wear',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
 
-      {
-        name: 'Jewellery',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Maternity Wear',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Sleepwear',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Footwear',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Accessories',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-    ],
-  },
-  {
-    id: 1,
-    title: 'Men',
-    description: 'Jacket,Sweater,Sweatshirt',
-    category: [
-      {
-        name: 'All in Women',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Saris & Blouses',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Ethnic Wear',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Fusion Wear',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-
-      {
-        name: 'Jewellery',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Maternity Wear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Sleepwear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Footwear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Accessories',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: 'Kids',
-    description: 'Jacket,Sweater,Sweatshirt',
-    category: [
-      {
-        name: 'All in Women',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Saris & Blouses',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Ethnic Wear',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Fusion Wear',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-
-      {
-        name: 'Jewellery',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Maternity Wear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Sleepwear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Footwear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Accessories',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-    ],
-  },
-  {
-    id: 3,
-    description: 'Jacket,Sweater,Sweatshirt',
-    title: 'Home Linen',
-    category: [
-      {
-        name: 'All in Women',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Saris & Blouses',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Ethnic Wear',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Fusion Wear',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-
-      {
-        name: 'Jewellery',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Maternity Wear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Sleepwear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Footwear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Accessories',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-    ],
-  },
-  {
-    id: 4,
-    description: 'Jacket,Sweater,Sweatshirt',
-    title: 'Furniture',
-    category: [
-      {
-        name: 'All in Women',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Saris & Blouses',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Ethnic Wear',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Fusion Wear',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-
-      {
-        name: 'Jewellery',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Maternity Wear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Sleepwear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Footwear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Accessories',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-    ],
-  },
-  {
-    id: 5,
-    description: 'Jacket,Sweater,Sweatshirt',
-    title: 'Home Decor',
-    category: [
-      {
-        name: 'All in Women',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Saris & Blouses',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Ethnic Wear',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Fusion Wear',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-
-      {
-        name: 'Jewellery',
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Maternity Wear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Sleepwear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Footwear',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-      {
-        name: 'Accessories',
-
-        subcategory: [{title: 'vicky'}, {title: 'vicky'}, {title: 'vicky'}],
-      },
-    ],
-  },
-  {
-    id: 6,
-    description: 'Jacket,Sweater,Sweatshirt',
-    title: 'Home Decor',
-    category: [
-      {
-        name: 'All in Women',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Saris & Blouses',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Ethnic Wear',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Fusion Wear',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-
-      {
-        name: 'Jewellery',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Maternity Wear',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Sleepwear',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Footwear',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Accessories',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-    ],
-  },
-  {
-    id: 7,
-    description: 'Jacket,Sweater,Sweatshirt',
-    title: 'Beauty',
-    category: [
-      {
-        name: 'All in Women',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Saris & Blouses',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Ethnic Wear',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Fusion Wear',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-
-      {
-        name: 'Jewellery',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Maternity Wear',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Sleepwear',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Footwear',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Accessories',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-    ],
-  },
-  {
-    id: 8,
-    description: 'Jacket,Sweater,Sweatshirt',
-    title: 'Food',
-    category: [
-      {
-        name: 'All in Women',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Saris & Blouses',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Ethnic Wear',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Fusion Wear',
-        // subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-
-      {
-        name: 'Jewellery',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Maternity Wear',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Sleepwear',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Footwear',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Accessories',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-    ],
-  },
-  {
-    id: 9,
-    description: 'Jacket,Sweater,Sweatshirt',
-    title: 'Collections',
-    category: [
-      {
-        name: 'All in Women',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Saris & Blouses',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Ethnic Wear',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Fusion Wear',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-
-      {
-        name: 'Jewellery',
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Maternity Wear',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Sleepwear',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Footwear',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-      {
-        name: 'Accessories',
-
-        subcategory: [{title: 'title'}, {title: 'title'}, {title: 'title'}],
-      },
-    ],
-  },
-];
-const CategorySection = () => {
+const CategorySection = props => {
   return (
     <FlatList
       // columnWrapperStyle={{
@@ -519,6 +45,7 @@ const CategorySection = () => {
       keyExtractor={item => item.id.toString()}
       renderItem={({item, index}) => (
         <Accordian
+          {...props}
           title={item.title}
           category={item.category}
           description={item.description}
@@ -550,10 +77,119 @@ const CategorySection = () => {
 };
 const DrawerContent = () => {
   const navigation = useNavigation();
+  let drawerContent = [
+    {
+      name: 'Orders',
+      icon: <Ionicons name="ios-logo-dropbox" size={20} />,
+      route: '',
+    },
+    {
+      name: 'Fabfamily',
+      icon: <Ionicons name="ios-logo-dropbox" size={20} />,
+      route: '',
+    },
+    {
+      name: 'Shop By Categories',
+      icon: <Ionicons name="ios-grid-outline" size={20} />,
+      route: 'CategorySection',
+    },
+    {
+      name: 'Shop By Collection',
+      icon: <Ionicons name="ios-logo-dropbox" size={20} />,
+      route: '',
+    },
+    {
+      name: 'Shop By Brands',
+      icon: <Ionicons name="ios-logo-dropbox" size={20} />,
+      route: '',
+    },
+    {
+      name: 'New Arrivals',
+      icon: <Ionicons name="ios-logo-dropbox" size={20} />,
+      route: '',
+    },
+    {
+      name: 'Sale Services',
+      icon: <Ionicons name="ios-logo-dropbox" size={20} />,
+      route: '',
+    },
+    {
+      name: 'Gift Cards',
+      icon: <Ionicons name="ios-logo-dropbox" size={20} />,
+      route: '',
+    },
+  ];
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('CategorySection')}>
-      <Text>Shop By Categories</Text>
-    </TouchableOpacity>
+    <ScrollView style={{flex: 1}}>
+      <ImageBackground blurRadius={3} source={image.Banner2}>
+        <LinearGradient
+          colors={['transparent', 'black']}
+          style={{
+            height: 150,
+            justifyContent: 'center',
+            paddingHorizontal: 20,
+          }}>
+          <View
+            style={{
+              backgroundColor: '#fff',
+              height: 55,
+              width: 55,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 7,
+            }}>
+            <Ionicons name="person" size={30} />
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 10,
+            }}>
+            <Text style={{color: '#fff'}}>Shasank.</Text>
+            <Ionicons name="md-chevron-forward-sharp" color="#fff" size={20} />
+          </View>
+        </LinearGradient>
+      </ImageBackground>
+      {drawerContent.map(item => {
+        return (
+          <TouchableOpacity
+            onPress={() =>
+              item.route == 'CategorySection' &&
+              navigation.navigate('CategorySection')
+            }
+            style={{
+              padding: 20,
+              flexDirection: 'row',
+              borderBottomColor: '#ebebeb',
+              borderBottomWidth: 1,
+            }}>
+            {item.icon}
+            <Text style={{color: Colors.textcolor, marginLeft: 10}}>
+              {item.name}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
+
+      {/* <TouchableOpacity style={{padding: 20, flexDirection:"row", borderBottomColor:'#ebebeb', borderBottomWidth:1}}>
+        <Ionicons name="ios-logo-dropbox" size={20} />
+        <Text style={{color:Colors.textcolor, marginLeft:10}}>Orders</Text>
+      </TouchableOpacity> */}
+      <View>
+        <TouchableOpacity style={{paddingVertical: 10, paddingHorizontal: 35}}>
+          <Text style={{color: Colors.textcolor, marginLeft: 15}}>FAQs</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{paddingVertical: 10, paddingHorizontal: 35}}>
+          <Text style={{color: Colors.textcolor, marginLeft: 15}}>
+            CONTACT US
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{paddingVertical: 10, paddingHorizontal: 35}}>
+          <Text style={{color: Colors.textcolor, marginLeft: 15}}>LEGALS</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 };
 const DrawerComponent = () => {
@@ -578,7 +214,7 @@ const DrawerComponent = () => {
   );
 };
 export default function MainScreen(props) {
-  console.log(props);
+  // console.log(props);
   return (
     <Tab.Navigator
       initialRouteName="DrawerComponent"
@@ -608,19 +244,22 @@ export default function MainScreen(props) {
           tabBarLabel: 'Home',
           tabBarActiveTintColor: Colors.primarycolor,
           tabBarIcon: ({focused}) => (
-            // <TouchableOpacity onPress={() => navigation.navigate('MainHome')}>
-            <Entypo
-              name="home"
-              size={25}
-              color={focused ? Colors.primarycolor : Colors.inactiveicon}
-            />
-            // </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                console.log('home'), props.navigation.navigate('Home');
+              }}>
+              <Entypo
+                name="home"
+                size={25}
+                color={focused ? Colors.primarycolor : Colors.inactiveicon}
+              />
+            </TouchableOpacity>
           ),
         }}
       />
       <Tab.Screen
-        name="Menu"
-        component={Menu}
+        name="CategorySection"
+        component={CategorySection}
         options={{
           tabBarLabel: 'Menu',
           headerShown: false,
@@ -641,7 +280,6 @@ export default function MainScreen(props) {
         options={{
           tabBarLabel: 'Search',
           tabBarActiveTintColor: Colors.primarycolor,
-
           tabBarIcon: ({focused}) => (
             <Ionicons
               name="ios-search-outline"
@@ -659,7 +297,10 @@ export default function MainScreen(props) {
           tabBarActiveTintColor: Colors.primarycolor,
           tabBarIcon: ({focused}) => (
             <TouchableOpacity
-              onPress={() => props.navigation.navigate('MyAccount')}>
+            // onPress={() =>
+            //   props.navigation.navigate('MyAccounts', {screen: 'MyAccount'})
+            // }
+            >
               <MaterialCommunityIcons
                 name="account-outline"
                 color={focused ? Colors.primarycolor : Colors.inactiveicon}
