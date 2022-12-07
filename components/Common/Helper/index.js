@@ -55,13 +55,11 @@ const getComponentData = async path => {
     console.error(e);
   }
 };
-const axiosPostData = async (url, formData) => {
-  const Token = localStorage.getItem('token');
+const UnAuthPostData = async (url, formData) => {
   return axios
-    .post(`${BaseURL}/${url}`, formData, {
+    .post(`${BaseURL}${url}`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `${Token}`,
+        'Content-Type': 'application/json',
       },
     })
     .then(res => {
@@ -74,4 +72,4 @@ const axiosPostData = async (url, formData) => {
       // }
     });
 };
-export {postData, getData, getComponentData};
+export {postData, getData, getComponentData, UnAuthPostData};

@@ -17,6 +17,7 @@ import CheckBox from 'react-native-check-box';
 import InputText from '../../Common/InputText';
 import CommonButton from '../../Common/CommonButton';
 import Fonts from '../../../assets/fonts';
+import {UnAuthPostData, postData} from '../../Common/Helper';
 const faqs = [
   {
     id: '2',
@@ -58,11 +59,19 @@ const data = [
 const Register = props => {
   const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [text, setText] = React.useState('');
+  const [text, setText] = React.useState({
+    'First name': '',
+    'Last name': '',
+    email: '',
+    newPass: '',
+    confPass: '',
+  });
   const [mobilePrefix, setMobilePrefix] = useState('60');
-  const [isFocus, setIsFocus] = useState(false);
-  const [State, setState] = useState('');
-  const [isChecked, setIsChecked] = useState(false);
+  const [generate, setgenerate] = useState(false);
+  const [transactionId, settransactionId] = useState('');
+  const [Otp, setOtp] = useState('');
+  const [isCheckedSignup, setIsCheckedSignup] = useState(false);
+  const [isAgree, setisAgree] = useState(false);
   const googleIcon = {
     uri: 'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
   };
@@ -72,6 +81,72 @@ const Register = props => {
   const _selectedValue = index => {
     setMobilePrefix(index);
   };
+
+  const HandleRegister = async () => {
+    let params = {
+      consents: '',
+      contactNumberCode: `+${mobilePrefix}`,
+      contactNumber: phoneNumber,
+      countryIsoCode: '',
+      dateOfBirth: '',
+      firstName: text['First name'],
+      gender: {code: 'MALE'},
+      lastName: text['Last name'],
+      password: text.newPass,
+      titleCode: '',
+      transactionId: transactionId,
+      uid: text.email,
+    };
+    console.log(params);
+    const res = await UnAuthPostData(
+      'fabindiab2c/users?lang=en&curr=INR',
+      params,
+    );
+    console.log(res);
+    if (res.status) {
+      // settransactionId(res?.data?.transactionId);
+      // setgenerate(true);
+    }
+  };
+
+  const GenerateOtp = async () => {
+    let params = {
+      isLogin: false,
+      isSignUp: true,
+      mobileDailCode: `+${mobilePrefix}`,
+      mobileNumber: phoneNumber,
+    };
+    console.log(params);
+    const res = await UnAuthPostData(
+      'fabindiab2c/otp/generate?lang=en&curr=INR',
+      params,
+    );
+    console.log(res);
+    if (res.status) {
+      settransactionId(res?.data?.transactionId);
+      setgenerate(true);
+    }
+  };
+
+  const VerifyOTP = async () => {
+    let params = {
+      otp: Otp,
+      transactionId: transactionId,
+      mobileDailCode: `+${mobilePrefix}`,
+      mobileNumber: phoneNumber,
+    };
+    console.log(params);
+    const res = await UnAuthPostData(
+      'fabindiab2c/otp/validate?lang=en&curr=INR',
+      params,
+    );
+    console.log(res);
+    if (res.status) {
+      setgenerate(true);
+    }
+  };
+
+  // console.log(text, phoneNumber, mobilePrefix);
   return (
     <SafeAreaView style={Styles.container}>
       <View style={Styles.bodyContainer}>
@@ -86,44 +161,98 @@ const Register = props => {
                 activeUnderlineColor=" #979797"
                 customStyle={Styles.textinput}
                 label={faq.name}
-                value={text}
-                onChangeText={text => setText(text)}
+                value={text[faq.name]}
+                onChangeText={text =>
+                  setText(prev => {
+                    return {...prev, [faq.name]: text};
+                  })
+                }
               />
             ))}
-            <View style={Styles.pickerbox}>
-              <CountryPicker
-                disable={false}
-                animationType={'slide'}
-                containerStyle={Styles.pickercontainer}
-                pickerTitleStyle={Styles.pickertitle}
-                selectedCountryTextStyle={Styles.selectedTextStyle}
-                countryNameTextStyle={Styles.selectnametxt}
-                pickerTitle={'Country Picker'}
-                searchBarPlaceHolder={'Search......'}
-                hideCountryFlag={false}
-                hideCountryCode={false}
-                searchBarStyle={Styles.searchbar}
-                selectedValue={_selectedValue}
-                countryCode={mobilePrefix}
-              />
-              <View style={{flex: 1, paddingHorizontal: 15}}>
+            {generate ? (
+              <View style={{marginVertical: 10}}>
+                <Text style={{textAlign: 'center', color: '#222'}}>
+                  Verify with OTP Send to{' '}
+                  {`${phoneNumber[0]}${phoneNumber[1]}******${phoneNumber[8]}${phoneNumber[9]}`}
+                </Text>
                 <TextInput
+                  value={Otp}
                   activeOutlineColor="white"
                   activeUnderlineColor="white"
                   underlineColor="white"
-                  style={Styles.textinput1}
-                  value={phoneNumber}
-                  placeholder="phone number"
                   onChangeText={value =>
-                    value.length <= 10 ? setPhoneNumber(value) : false
+                    value.length <= 4 ? setOtp(value) : false
                   }
-                  placeholderTextColor="grey"
-                  keyboardType={'number-pad'}
-                  disableFullscreenUI={true}
+                  multiline={true}
+                  keyboardType="numeric"
+                  style={{
+                    backgroundColor: '#fff',
+                    height: 50,
+                    textAlign: 'center',
+                    borderBottomColor: Colors.inactiveicon,
+                    borderBottomWidth: 1,
+                  }}
+                  placeholder="Enter 4-digit OTP"
                 />
               </View>
-            </View>
-            <View>
+            ) : (
+              <View style={Styles.pickerbox}>
+                <CountryPicker
+                  disable={false}
+                  animationType={'slide'}
+                  containerStyle={Styles.pickercontainer}
+                  pickerTitleStyle={Styles.pickertitle}
+                  selectedCountryTextStyle={Styles.selectedTextStyle}
+                  countryNameTextStyle={Styles.selectnametxt}
+                  pickerTitle={'Country Picker'}
+                  searchBarPlaceHolder={'Search......'}
+                  hideCountryFlag={false}
+                  hideCountryCode={false}
+                  searchBarStyle={Styles.searchbar}
+                  selectedValue={_selectedValue}
+                  countryCode={mobilePrefix}
+                />
+                <View style={{flex: 1, paddingHorizontal: 15}}>
+                  <TextInput
+                    activeOutlineColor="white"
+                    activeUnderlineColor="white"
+                    underlineColor="white"
+                    style={Styles.textinput1}
+                    value={phoneNumber}
+                    placeholder="phone number"
+                    onChangeText={value =>
+                      value.length <= 10 ? setPhoneNumber(value) : false
+                    }
+                    placeholderTextColor="grey"
+                    keyboardType={'number-pad'}
+                    disableFullscreenUI={true}
+                  />
+                </View>
+              </View>
+            )}
+            {generate ? (
+              <CommonButton
+                disable={phoneNumber.length != 10}
+                handleClick={VerifyOTP}
+                txt="Confirm OTP"
+                customViewStyle={{
+                  backgroundColor:
+                    phoneNumber.length == 10 ? Colors.primarycolor : '#BDBDBD',
+                }}
+              />
+            ) : (
+              <CommonButton
+                disable={phoneNumber.length != 10}
+                handleClick={GenerateOtp}
+                txt="Generate OTP"
+                customViewStyle={{
+                  backgroundColor:
+                    phoneNumber.length == 10 ? Colors.primarycolor : '#BDBDBD',
+                }}
+              />
+            )}
+
+            <View style={{marginTop: 15}}>
               <InputText
                 underlineColor="#EDEDED"
                 activeUnderlineColor=" #979797"
@@ -149,13 +278,14 @@ const Register = props => {
                 onChangeText={text => setText(text)}
               />
             </View>
-            <View style={Styles.defaultaddressbox}>
+            <View style={[Styles.defaultaddressbox]}>
               <CheckBox
+                style={{paddingVertical: 5}}
                 checkBoxColor={Colors.primarycolor}
                 onClick={() => {
-                  setIsChecked(!isChecked);
+                  setIsCheckedSignup(!isCheckedSignup);
                 }}
-                isChecked={isChecked}
+                isChecked={isCheckedSignup}
               />
               <Text style={{paddingHorizontal: 7}}>
                 Sign up for FabIndia newsletters
@@ -163,14 +293,17 @@ const Register = props => {
             </View>
             <View style={Styles.defaultaddressbox}>
               <CheckBox
+                style={{paddingVertical: 5}}
                 checkBoxColor={Colors.primarycolor}
                 onClick={() => {
-                  setIsChecked(!isChecked);
+                  setisAgree(!isAgree);
                 }}
-                isChecked={isChecked}
+                isChecked={isAgree}
               />
-              <Text style={{paddingHorizontal: 7}}>
-                By registering you agree to T&C and Privacy Policy
+              <Text style={{paddingHorizontal: 7, width: '85%'}}>
+                By registering you agree to{' '}
+                <Text style={{color: Colors.primarycolor}}>T&C</Text> and{' '}
+                <Text style={{color: Colors.primarycolor}}>Privacy Policy</Text>
               </Text>
             </View>
             <View style={Styles.horizontalContainer}>
@@ -189,16 +322,17 @@ const Register = props => {
               </TouchableOpacity>
             </View>
           </View>
+          <View style={Styles.btncontainer}>
+            <CommonButton
+              handleClick={HandleRegister}
+              backgroundColor="#BDBDBD"
+              txt="Register"
+              customViewStyle={{
+                backgroundColor: Colors.primarycolor,
+              }}
+            />
+          </View>
         </ScrollView>
-        <View style={Styles.btncontainer}>
-          <CommonButton
-            backgroundColor="#BDBDBD"
-            txt="Register"
-            customViewStyle={{
-              backgroundColor: Colors.primarycolor,
-            }}
-          />
-        </View>
       </View>
     </SafeAreaView>
   );

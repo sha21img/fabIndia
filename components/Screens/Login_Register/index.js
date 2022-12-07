@@ -11,7 +11,7 @@ import React from 'react';
 import {Styles} from './styles';
 import Otp from './Otp';
 
-export default function Login_Register() {
+export default function Login_Register(props) {
   const largeimage = {
     uri: 'https://img.freepik.com/free-photo/young-woman-wearing-winter-clothes_273609-22209.jpg',
   };
@@ -26,7 +26,9 @@ export default function Login_Register() {
   const googleLoginHandler = () => {};
   const loginWithMobileHandler = () => {};
   const loginWithEmailHandler = () => {};
-  const resisterHandler = () => {};
+  const resisterHandler = () => {
+    props.navigation.navigate('Register');
+  };
   return (
     // <></>
     // <Otp />
