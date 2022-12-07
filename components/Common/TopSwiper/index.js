@@ -1,6 +1,6 @@
 import {View, Image, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import Swiper from 'react-native-swiper';
+// import Swiper from 'react-native-swiper';
 import Feather from 'react-native-vector-icons/Feather';
 import {Styles} from './styles';
 import axios from 'axios';
@@ -8,6 +8,7 @@ import {getComponentData, imageURL} from '../Helper';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
 import {useNavigation} from '@react-navigation/native';
+import {SliderBox} from 'react-native-image-slider-box';
 
 export default function TopSwiper(props) {
   const navigation = useNavigation();
@@ -22,7 +23,13 @@ export default function TopSwiper(props) {
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    setCarouselData(response.component);
+    // setCarouselData(response.component);
+    let images = [];
+    for (let i = 0; i < response.component.length; i++) {
+      const item = response.component[i];
+      images.push('https://apisap.fabindia.com/' + item.media.mobile.url);
+    }
+    setCarouselData(images);
   };
   useEffect(() => {
     getCarauselIds();
@@ -48,9 +55,17 @@ export default function TopSwiper(props) {
   });
 
   return (
-    <View style={[customStyle, {paddingBottom: 25}]}>
-      <Swiper
-        pagingEnabled={true}
+    <View style={customStyle}>
+      <SliderBox
+        autoplay={true}
+        circleLoop={true}
+        sliderBoxHeight={212}
+        images={carouselData}
+        inactiveDotColor="#F3ECE8"
+        dotColor={Colors.primarycolor}
+      />
+
+      {/* <Swiper
         loop={true}
         autoplay={true}
         autoplayTimeout={5}
@@ -85,8 +100,18 @@ export default function TopSwiper(props) {
           />
         }
         showsButtons={false}>
-        {swiperItems}
-      </Swiper>
+        {carouselData?.map((item, i) => {
+          return (
+            <Image
+              key={Math.random() * 1099900}
+              style={Styles.image}
+              source={{
+                uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
+              }}
+            />
+          );
+        })}
+      </Swiper> */}
     </View>
   );
 }
