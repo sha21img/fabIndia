@@ -18,11 +18,13 @@ export default function TopSwiper(props) {
     const bannerId = data.banners;
     getCarauselData(bannerId);
   };
+  let code;
   const getCarauselData = async bannerId => {
     const splitBannerId = bannerId.split(' ').join(',');
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
+    console.log('response.component[0]', response);
     // setCarouselData(response.component);
     let images = [];
     for (let i = 0; i < response.component.length; i++) {
@@ -34,29 +36,38 @@ export default function TopSwiper(props) {
   useEffect(() => {
     getCarauselIds();
   }, []);
-  const swiperItems = carouselData?.map((item, i) => {
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('LandingPageSaris_Blouses', {
-            code: 'women-saris-blouses',
-          })
-        }>
-        <Image
-          onPress={() => console.log('JIJIJ')}
-          key={i}
-          style={Styles.image}
-          source={{
-            uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
-          }}
-        />
-      </TouchableOpacity>
-    );
-  });
+  // const swiperItems = carouselData?.map((item, i) => {
+  //   return (
+  //     <TouchableOpacity
+  //       onPress={() =>
+  //         navigation.navigate('LandingPageSaris_Blouses', {
+  //           code: 'women-saris-blouses',
+  //         })
+  //       }>
+  //       <Image
+  //         onPress={() => console.log('JIJIJ')}
+  //         key={i}
+  //         style={Styles.image}
+  //         source={{
+  //           uri: `https://apisap.fabindia.com/${item.media.mobile.url}`,
+  //         }}
+  //       />
+  //     </TouchableOpacity>
+  //   );
+  // });
 
   return (
     <View style={customStyle}>
       <SliderBox
+        // onCurrentImagePressed={() => {
+        //   // const newCode = item.item.urlLink;
+        //   // let splitURL = newCode.split('/');
+        //   // splitURL = splitURL[splitURL.length - 1];
+        //   navigation.navigate('LandingPageSaris_Blouses', {
+        //     // code: 'women-saris-blouses',
+        //     code: 'sale',
+        //   });
+        // }}
         autoplay={true}
         circleLoop={true}
         sliderBoxHeight={212}

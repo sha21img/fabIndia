@@ -6,7 +6,7 @@ const ComponentBaseURL = 'https://apisap.fabindia.com/occ/v2/';
 const BaseURL = 'https://apisap.fabindia.com/occ/v2/';
 export const imageURL = 'https://apisap.fabindia.com/';
 const postData = async (url, body) => {
-  const Token = localStorage.getItem('token');
+  const Token = 'bearer ElhKLe-VvjSmB_TEwcjzHZUyubU';
   const response = await fetch(`${BaseURL}/${url}`, {
     method: 'POST',
     headers: {
@@ -56,7 +56,7 @@ const getComponentData = async path => {
   }
 };
 const axiosPostData = async (url, formData) => {
-  const Token = localStorage.getItem('token');
+  // const Token = localStorage.getItem('token');
   return axios
     .post(`${BaseURL}/${url}`, formData, {
       headers: {
