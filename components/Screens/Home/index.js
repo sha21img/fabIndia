@@ -657,6 +657,7 @@ export default function Dashbord(props) {
       case 'FabResponsiveBannerCarouselComponent':
         return (
           <CommonCarousel
+            {...props}
             data={param}
             width={width}
             height={200}

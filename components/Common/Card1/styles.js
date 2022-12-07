@@ -9,7 +9,6 @@ export const Styles = StyleSheet.create({
   headingbox: {
     paddingHorizontal: 10,
     paddingTop: 10,
-    paddingBottom: 20,
   },
   headingtxt: {
     fontSize: 16,
