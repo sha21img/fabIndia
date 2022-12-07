@@ -27,7 +27,7 @@ export default function Art_Artist() {
         </Text>
       </View>
       <VideoP />
-      <View style={Styles.imageBox}>
+      {/* <View style={Styles.imageBox}>
         {artImageData.map((item, i) => {
           return (
             <Image
@@ -37,7 +37,7 @@ export default function Art_Artist() {
             />
           );
         })}
-      </View>
+      </View> */}
     </View>
   );
 }

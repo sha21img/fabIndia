@@ -36,26 +36,25 @@ export default function CommonTopTab(props) {
                 options={{
                   tabBarItemStyle: {
                     width: 'auto',
-                    padding: 0,
-                    marginRight: 10,
+                    // padding: 0,
+                    // marginRight: 10,
                   },
                   tabBarLabel: ({focused}) => (
                     <View
                       style={{
-                        marginLeft: 15,
+                        // marginLeft: 15,
                         borderBottomWidth: 2,
                         borderBottomColor: focused
                           ? Colors.primarycolor
                           : 'transparent',
-                        flexWrap: 'nowrap',
+                        // flexWrap: 'nowrap',
                         width: '100%',
                       }}>
                       <Text
                         style={{
                           fontSize: 18,
-                          fontFamily: focused
-                            ? Fonts.Assistant600
-                            : Fonts.Assistant300,
+                          fontFamily: Fonts.Assistant300,
+                          // : Fonts.Assistant300,
                           color: focused
                             ? Colors.primarycolor
                             : Colors.textcolor,
