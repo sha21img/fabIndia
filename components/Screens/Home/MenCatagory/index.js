@@ -5,6 +5,7 @@ import {
   ImageBackground,
   ScrollView,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
 import {image} from '../../../../assets/images';
@@ -24,6 +25,7 @@ import {Colors} from '../../../../assets/Colors';
 import SummerGalary from '../../../Common/SummerGalary';
 import OfferCard from '../../../Common/OfferCard';
 import CommonCarousel from '../../../Common/CommonCarousel';
+import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 
 const getOfferTitleHeading = () => {
   return (
@@ -223,74 +225,117 @@ const MenCatagory = () => {
       }
     }
   };
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    if (!isLoading) {
+      const timeoutId = setTimeout(() => setIsLoading(true), 3000);
+      return () => clearTimeout(timeoutId);
+    } else {
+      const timeoutId = setTimeout(() => setIsLoading(false), 3000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isLoading]);
   return (
     <ScrollView
       contentContainerStyle={{backgroundColor: Colors.backgroundColor}}>
-      <View style={Styles.imagecontainer}>
-        {imageData.map((item, i) => {
-          return (
-            <ImageBackground
-              key={Math.random() * 6776}
-              resizeMode="cover"
-              style={Styles.backgroundimg}
-              source={item.image}>
-              <View
-                style={[
-                  Styles.txtbox,
-                  {top: i < 3 ? 15 : null, bottom: i >= 3 ? 15 : null},
-                ]}>
-                <Text style={Styles.imagetxt}>{item.title}</Text>
-              </View>
-            </ImageBackground>
-          );
-        })}
-        <View
-          style={{
-            width: 160,
-            height: 160,
-            backgroundColor: 'rgba(144, 50, 51, 0.8)',
-            position: 'absolute',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: 'auto',
-            borderRadius: 100,
-            top: 142,
-          }}>
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: '300',
-              fontFamily: Fonts.AssistantRegular,
-              color: '#FFFFFF',
-              lineHeight: 18,
-              textAlign: 'center',
-            }}>
-            A day in the life of a
-          </Text>
+      <SkeletonContent
+        containerStyle={{
+          flex: 1,
+          height: 400,
+          marginVertical: 20,
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+        animationDirection="horizontalLeft"
+        isLoading={isLoading}
+        layout={[
+          // long line
+          {height: 20, width: '100%'},
+          // short line
+          {
+            width: 150,
+            height: 150,
+            // position: 'absolute',
+            // left: Dimensions.get('window').width + 100,
+            // top: 100,
+            borderColor: 'red',
+            borderRadius: 75,
+            zIndex: 12,
+          },
+          {height: 20, width: '100%'},
+
+          // ...
+        ]}
+        // ...
+      >
+        <View style={Styles.imagecontainer}>
+          {imageData.map((item, i) => {
+            return (
+              <ImageBackground
+                key={Math.random() * 6776}
+                resizeMode="cover"
+                style={Styles.backgroundimg}
+                source={item.image}>
+                <View
+                  style={[
+                    Styles.txtbox,
+                    {top: i < 3 ? 15 : null, bottom: i >= 3 ? 15 : null},
+                  ]}>
+                  <Text style={Styles.imagetxt}>{item.title}</Text>
+                </View>
+              </ImageBackground>
+            );
+          })}
           <View
             style={{
-              flexDirection: 'row',
-              paddingVertical: 6,
-              alignItems: 'flex-end',
+              width: 160,
+              height: 160,
+              backgroundColor: 'rgba(144, 50, 51, 0.8)',
+              position: 'absolute',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: 'auto',
+              borderRadius: 100,
+              top: 142,
             }}>
-            <Image
-              source={image.whitelogo}
-              style={{height: 20, width: 67}}
-              resizeMode="contain"
-            />
             <Text
               style={{
+                fontSize: 14,
+                fontWeight: '300',
+                fontFamily: Fonts.AssistantRegular,
                 color: '#FFFFFF',
-                marginLeft: 3,
-                fontSize: 18,
-                fontWeight: '400',
-                fontFamily: Fonts.PlayfairDisplayRegular,
+                lineHeight: 18,
+                textAlign: 'center',
               }}>
-              man
+              A day in the life of a
             </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                paddingVertical: 6,
+                alignItems: 'flex-end',
+              }}>
+              <Image
+                source={image.whitelogo}
+                style={{height: 20, width: 67}}
+                resizeMode="contain"
+              />
+              <Text
+                style={{
+                  color: '#FFFFFF',
+                  marginLeft: 3,
+                  fontSize: 18,
+                  fontWeight: '400',
+                  fontFamily: Fonts.PlayfairDisplayRegular,
+                }}>
+                man
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
+      </SkeletonContent>
+
       <NewHighlights title="Ethnic Wear" data={WomenHighlightData} />
       <NewHighlights title="Western Wear" data={WomenHighlightData} />
       <NewHighlights title="Accessories" data={WomenHighlightData} />
