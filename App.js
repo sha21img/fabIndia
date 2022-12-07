@@ -19,6 +19,8 @@ import CartPage from './components/Screens/Checkout/CartPage';
 import ErrorScreen from './components/Screens/ErrorScreen';
 import YourWishlist from './components/Screens/YourWishlist';
 import StoreLocator from './components/Screens/StoreLocator';
+import SearchLocator from './components/Screens/StoreLocator/SearchLocator';
+import StoreMainDetails from './components/Screens/StoreLocator/StoreMainDetails';
 import AboutUsMenu from './components/Screens/AboutUsMenu';
 import EmptyCart from './components/Screens/Checkout/EmptyCart';
 import PDP_Compare from './components/Screens/PDP_Compare';
@@ -247,7 +249,7 @@ export default function App(props) {
               header: props => (
                 <Header
                   leftIcon={leftIcon(props)}
-                  title="Your Wishlist"
+                  title="Store Locator"
                   rightIcon={rightIcon}
                   customStyle={{
                     backgroundColor: '#F8F6F5',
@@ -257,6 +259,41 @@ export default function App(props) {
               ),
             }}
           />
+           <Stack.Screen
+            name="SearchLocator"
+            component={SearchLocator}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Search results"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                    marginBottom: 4,
+                  }}
+                />
+              ),
+            }}
+          />
+            <Stack.Screen
+            name="StoreMainDetails"
+            component={StoreMainDetails}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Store details"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                    marginBottom: 4,
+                  }}
+                />
+              ),
+            }}
+          />
+          
         </Stack.Navigator>
       </NavigationContainer>
     );

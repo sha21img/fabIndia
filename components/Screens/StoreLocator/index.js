@@ -1,27 +1,54 @@
-import {View, Text, ImageBackground} from 'react-native';
-import React from 'react';
+import {View, Text, ImageBackground, ScrollView} from 'react-native';
+import React, {useState} from 'react';
 import {image} from '../../../assets/images';
 import Fonts from '../../../assets/fonts';
 import CommonTopTab from '../../Common/CommonTopTab';
 import {StoreLocateTab} from '../../../constant';
+import InputText from '../../Common/InputText';
+import {TextInput} from 'react-native-paper';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Feather from 'react-native-vector-icons/Feather';
+import Styles from './style';
 export default function StoreLocator() {
   const CardCompo = item => {
+    const [city, setCity] = useState('');
     return (
-      <View style={{backgroundColor: 'red'}}>
-        <Text>djds,jdweud.fd,w</Text>
+      <View
+        style={Styles.mainView}>
+        <View style={{}}>
+          <InputText
+            theme={{roundness: 60}}
+            customStyle={Styles.input}
+            value={city}
+            label="Search for city"
+            onChangeText={pass => setCity(pass)}
+            right={
+              <TextInput.Icon
+                name={() => (
+                  <Feather name={'search'} color={'#903233'} size={20} />
+                )}
+              />
+            }
+          />
+        </View>
+
+        <View style={Styles.locView}>
+          <Entypo name={'location-pin'} color={'#903233'} size={25} />
+          <Text style={Styles.loctxt}>Use your current location</Text>
+        </View>
       </View>
     );
   };
   const PaymentPage = () => {
     return (
       <View>
-        <Text>ghdsdhwdhehd</Text>
+        <Text>jfdfbhdh</Text>
       </View>
     );
   };
   const screenObj = {
-    'India': CardCompo,
-    'International': PaymentPage,
+    India: CardCompo,
+    International: PaymentPage,
   };
   const dataMap = StoreLocateTab.map(item => ({
     title: item,
@@ -29,68 +56,36 @@ export default function StoreLocator() {
   }));
 
   return (
-    <View>
+    <ScrollView
+      contentContainerStyle={Styles.container}>
       <ImageBackground
         resizeMode="stretch"
         key={Math.random() * 1099900}
-        style={{
-          height: 310,
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+        style={Styles.imgback}
         source={image.fabshow}>
         <View
-          style={{
-            backgroundColor: 'rgba(144, 50, 51, 0.54)',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '30%',
-            width: '70%',
-          }}>
+          style={Styles.blurbox}>
           <Text
-            style={{
-              color: '#fff',
-              textAlign: 'center',
-              width: '90%',
-              fontSize: 18,
-              lineHeight: 24,
-              fontFamily: Fonts.Assistant700,
-            }}>
+            style={Styles.blurtxt}>
             Continue your fab experience at a store near you
           </Text>
         </View>
       </ImageBackground>
       <View
-        style={{
-          height: 92,
-          backgroundColor: '#F3ECE8',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+        style={Styles.secondDiv}>
         <Text
-          style={{
-            textAlign: 'center',
-            fontSize: 16,
-            fontFamily: Fonts.Assistant600,
-            marginVertical: 12,
-            marginHorizontal: 15,
-          }}>
+          style={Styles.secondtxt}>
           Some of our stores will remain temporarily closed as per the
           government regulations during lockdown.
         </Text>
       </View>
       <View style={{padding: 15, backgroundColor: 'white'}}>
         <Text
-          style={{
-            fontSize: 18,
-            fontFamily: Fonts.Assistant600,
-            color: '#4A4A4A',
-          }}>
+          style={Styles.nearest}>
           Find your nearest store
         </Text>
       </View>
-        <CommonTopTab data={dataMap} />
-    </View>
+      <CommonTopTab data={dataMap} />
+    </ScrollView>
   );
 }

@@ -258,7 +258,7 @@ export const LandingPageL1Men = [
   'Section5', // Ethnic wear
   'Section6', // women toptab
   'Section7', //Women Indian Banner
-  // 'Section8', //Gallery grid
+  'Section8', //Gallery grid
   // 'Section9', //empty
   'Section10', //Banner
   'Section11', //Western Wears
@@ -333,7 +333,7 @@ export const LandingPageL1Kids = [
   'Section5', // Shop by category
   'Section6', // Kids toptab
   'Section7', // Kids bright banner
-  // 'Section8', // Gallery grid
+  'Section8', // Gallery grid
   // 'Section9', // empty
   'Section10', // Banner 50% off
   'Section11', // Top sellers
