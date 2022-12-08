@@ -17,6 +17,8 @@ import CommonButton from '../../../Common/CommonButton';
 import MyAddresses from '../../MyAccount/MyAddresses';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Payment from '../Payment';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const customStyles = {
   stepIndicatorSize: 30,
@@ -52,6 +54,11 @@ export default function CartList(props) {
   const [showEmi, setShowEmi] = useState(false);
   const [currentPosition, setCurrentPosition] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [totalquantity,setTotalquantity] = useState(null)
+  const [totalPrice,setTotalPrice] = useState(null)
+
+
+  const {cartdetails} = props
   useEffect(() => {
     // setCurrentPosition(1);
   }, []);
@@ -67,12 +74,48 @@ export default function CartList(props) {
   const SizeQClick = () => {
     setShowSizeQ(true);
   };
-  const RemoveClick = () => {
-    setShowRemove(true);
+  const RemoveClick = async(data) => {
+    const value = await AsyncStorage.getItem('cartID');
+    console.log("valuevaluevaluevaluevaluevaluevaluevaluevaluevalue",value)
+    console.log("dataaaaaaaaaaaaaaaaaa00000000000000000000",data.entryNumber)
+    const response = await axios.delete(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${value}/entries/${data.entryNumber}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer deo4mFuPyvLg_84XL2FJfe2tRMg`,
+      
+        },
+      },
+    );
+    console.log(
+      'RemoveClickRemoveClickRemoveClickRemoveClickRemoveClickRemoveClickRemoveClickRemoveClick',
+      response.data,
+    );
+
   };
   const EmiClick = () => {
     setShowEmi(true);
   };
+  useEffect(() => {
+    setupData();
+  }, []);
+
+  const setupData = () => {
+    console.log('dataaaaaaaaaaaa', cartdetails);
+    let quantity = cartdetails.orderEntries.reduce((n, {quantity}) => n + quantity, 0);
+    console.log('quantityquantity',quantity)
+    setTotalquantity(quantity)
+    let sum = 0;
+
+    cartdetails.orderEntries.forEach(value => {
+      sum += value.totalPrice.value
+    });
+    
+    console.log('sum',sum);
+    setTotalPrice(sum)
+};
+
   return (
     <>
       <ScrollView
@@ -101,7 +144,7 @@ export default function CartList(props) {
           <>
             <View style={styles.cartDetailContainer}>
               <View style={styles.cartDetail}>
-                <Text style={styles.itemtext}>6 items</Text>
+                <Text style={styles.itemtext}>{totalquantity} items</Text>
                 <TouchableOpacity onPress={() => orderValueDetail()}>
                   <Text style={styles.itemTextDesc}>
                     View Order value details
@@ -109,12 +152,12 @@ export default function CartList(props) {
                 </TouchableOpacity>
               </View>
               <View style={styles.cartDetail1}>
-                <Text style={styles.totalAmount}>Total: ₹1,19,800</Text>
+                <Text style={styles.totalAmount}>Total: ₹{totalPrice}</Text>
                 <Text style={styles.saveAmount}>You save ₹19,000!</Text>
               </View>
             </View>
             <CartCard
-              data={[0, 0, 0]}
+              data={cartdetails}
               SizeQClick={SizeQClick}
               monogramClick={monogramClick}
               RemoveClick={RemoveClick}

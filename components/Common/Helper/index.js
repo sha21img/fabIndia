@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // const BaseURL =
 //   'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/occ/v2/';
 const ComponentBaseURL = 'https://apisap.fabindia.com/occ/v2/';
@@ -73,5 +74,18 @@ const axiosPostData = async (url, formData) => {
       // } else if (err.response.status !== 200) {
       // }
     });
+};
+const getCartID = async () => {
+  const response = await axios.post(
+    `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer deo4mFuPyvLg_84XL2FJfe2tRMg`,
+      },
+    },
+  );
+  await AsyncStorage.setItem('cartID', response.data?.code)
+  
 };
 export {postData, getData, getComponentData};

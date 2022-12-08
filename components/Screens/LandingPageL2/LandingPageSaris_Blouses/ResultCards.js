@@ -5,6 +5,7 @@ import Card1 from '../../../Common/Card1';
 import {getComponentData, postData} from '../../../Common/Helper';
 import axios from 'axios';
 import SortBox from './SortBox';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ResultCards(props) {
   const [page, setPage] = useState(0);
@@ -59,6 +60,8 @@ export default function ResultCards(props) {
     }
   };
   const addWishlist = async data => {
+    const value = await AsyncStorage.getItem('cartID');
+    console.log("valuevaluevaluevaluevaluevaluevaluevaluevaluevalue",value)
     // console.log('addWishlist', data.code);
     // const response = await axios.post(
     //   // 'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR',
@@ -75,7 +78,7 @@ export default function ResultCards(props) {
       },
     };
     const response = await postData(
-      `fabindiab2c/users/current/carts/08176807/entries?lang=en&curr=INR`,
+      `fabindiab2c/users/current/carts/${value}/entries?lang=en&curr=INR`,
       body,
     );
     console.log('responseppppppppppp', response);

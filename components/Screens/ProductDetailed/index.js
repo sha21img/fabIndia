@@ -19,6 +19,8 @@ import {StoreDetails} from '../../../constant';
 import Customize from './Customize';
 import axios from 'axios';
 import {postData} from '../../Common/Helper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const width = Dimensions.get('window').width;
 
 export default function ProductDetailed(props) {
@@ -32,6 +34,9 @@ export default function ProductDetailed(props) {
   );
 
   const getproductDetailedData = async () => {
+    const value = await AsyncStorage.getItem('cartID')
+    setCartID(value)
+
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}`,
     );
@@ -40,25 +45,24 @@ export default function ProductDetailed(props) {
   };
   useEffect(() => {
     getproductDetailedData();
-    getCartID();
   }, []);
 
-  const getCartID = async () => {
-    const response = await axios.post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer deo4mFuPyvLg_84XL2FJfe2tRMg`,
-        },
-      },
-    );
-    console.log(
-      'getCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartID',
-      response.data,
-    );
-    setCartID(response.data?.code);
-  };
+  // const getCartID = async () => {
+  //   const response = await axios.post(
+  //     `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts`,
+  //     {},
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer deo4mFuPyvLg_84XL2FJfe2tRMg`,
+  //       },
+  //     },
+  //   );
+  //   console.log(
+  //     'getCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartID',
+  //     response.data,
+  //   );
+  //   setCartID(response.data?.code);
+  // };
 
   const WomenCarouselData = {
     banners:
@@ -113,7 +117,7 @@ export default function ProductDetailed(props) {
     //   `fabindiab2c/users/current/carts/${cartID}/entries?lang=en&curr=INR`,
     //   body,
     // );
-
+console.log('cartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartID',cartID)
     const response = await axios.post(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${cartID}/entries?lang=en&curr=INR`,
       {
