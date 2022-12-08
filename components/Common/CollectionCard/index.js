@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {ImageBackground, ScrollView} from 'react-native';
+import {ImageBackground, ScrollView, TouchableOpacity} from 'react-native';
 import {getComponentData} from '../Helper';
 import {Styles} from './style';
 
-const CollectionCard = ({data = {}}) => {
+const CollectionCard = props => {
+  const {data = {}} = props;
   const [collectionCardData, setCollectionCardData] = useState([]);
   useEffect(() => {
     getCollectionsIds();
@@ -28,15 +29,33 @@ const CollectionCard = ({data = {}}) => {
           backgroundColor: 'white',
         }}>
         {collectionCardData.map(item => {
+          const newCode = item.urlLink;
+          let splitURL = newCode.split('/');
+          splitURL = splitURL[splitURL.length - 1];
+          console.log(
+            'splitURLsplitURLsplitURLsplit...URLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURL',
+            item.title,
+          );
+
           return (
-            <ImageBackground
-              style={Styles.container}
-              source={{
-                uri: `https://apisap.fabindia.com/${item?.media?.url}`,
-              }}
-              // source={item.image}
-            >
-              {/* <LinearGradient
+            <TouchableOpacity
+              onPress={
+                // () => console.log('splitURL', splitURL)
+                () =>
+                  props.navigation.navigate('LandingPageSaris_Blouses', {
+                    // code: splitURL,
+                    code: splitURL.split('?')[0],
+                    title: item.title,
+                  })
+              }>
+              <ImageBackground
+                style={Styles.container}
+                source={{
+                  uri: `https://apisap.fabindia.com/${item?.media?.url}`,
+                }}
+                // source={item.image}
+              >
+                {/* <LinearGradient
         colors={[item.color, 'transparent']}
         start={{x: 0.5, y: 0.5}}
         style={{
@@ -52,7 +71,8 @@ const CollectionCard = ({data = {}}) => {
       <TouchableOpacity style={Styles.exploreNowBox}>
         <Text style={Styles.exploreNowText}>Shop now</Text>
       </TouchableOpacity> */}
-            </ImageBackground>
+              </ImageBackground>
+            </TouchableOpacity>
           );
         })}
       </ScrollView>

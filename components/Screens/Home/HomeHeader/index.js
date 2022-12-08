@@ -18,12 +18,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function HomeHeader(props) {
   const [show, setShow] = useState(false);
   const navigation = useNavigation();
-  const {homeheader = false, searchVisible = true} = props;
+  // const {homeheader = false, searchVisible = true} = props;
+  const {homeheader = false, searchVisible = true, headertext = ''} = props;
+
   const [cartdetails, setCartDetails] = useState(null);
   const [totalquantity, setTotalquantity] = useState(0);
-
-
-  
 
   useEffect(() => {
     getCartDetails();
@@ -31,7 +30,7 @@ export default function HomeHeader(props) {
 
   const getCartDetails = async () => {
     const value = await AsyncStorage.getItem('cartID');
-    console.log("valuevaluevaluevaluevaluevaluevaluevaluevaluevalue",value)
+    console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${value}/entries?lang=en&curr=INR`,
       {},
@@ -45,10 +44,13 @@ export default function HomeHeader(props) {
       'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
       response.data,
     );
-    let finalvalue = response?.data?.orderEntries?.reduce((n, {quantity}) => n + quantity, 0);
-    console.log('quantityquantity',finalvalue)
+    let finalvalue = response?.data?.orderEntries?.reduce(
+      (n, {quantity}) => n + quantity,
+      0,
+    );
+    console.log('quantityquantity', finalvalue);
     setCartDetails(response.data);
-    setTotalquantity(finalvalue)
+    setTotalquantity(finalvalue);
   };
   // const getProductSearchData = async () => {
   //   const response = await axios.get(
@@ -85,13 +87,14 @@ export default function HomeHeader(props) {
           </View>
         ) : (
           <TouchableOpacity
-            style={{paddingHorizontal: 5}}
+            style={{paddingHorizontal: 5, flexDirection: 'row'}}
             onPress={() => props.navigation.goBack()}>
             <SimpleLineIcons
               name="arrow-left"
               color={Colors.primarycolor}
               size={20}
             />
+            <Text style={{paddingLeft: 10}}>{headertext}</Text>
           </TouchableOpacity>
         )}
 
@@ -131,36 +134,36 @@ export default function HomeHeader(props) {
             {/* <Text style={Styles.currencyIcon}>₹</Text>
           <Text style={Styles.currencyText}>INR</Text> */}
           </TouchableOpacity>
-          <TouchableOpacity style={Styles.cartContainer}
-            onPress={()=>{
-          navigation.navigate("CartPage")
-        }}
-          >
+          <TouchableOpacity
+            style={Styles.cartContainer}
+            onPress={() => {
+              props.navigation.navigate('CartPage');
+            }}>
             <EvilIcons name="cart" size={30} color={Colors.primarycolor} />
             {totalquantity > 0 ? (
-                  <View
-                    style={{     
-                      position: 'absolute',
-                      backgroundColor: 'red',
-                      width: 16,
-                      height: 16,
-                      borderRadius: 15 / 2,
-                      right: 0,
-                      top: -10,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Text
-                      style={{
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: "#FFFFFF",
-                        fontSize: 8,
-                      }}>
-                      {totalquantity}
-                    </Text>
-                  </View>
-                ) : null}
+              <View
+                style={{
+                  position: 'absolute',
+                  backgroundColor: 'red',
+                  width: 16,
+                  height: 16,
+                  borderRadius: 15 / 2,
+                  right: 0,
+                  top: -10,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#FFFFFF',
+                    fontSize: 8,
+                  }}>
+                  {totalquantity}
+                </Text>
+              </View>
+            ) : null}
           </TouchableOpacity>
         </View>
       </View>

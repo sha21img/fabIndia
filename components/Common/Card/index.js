@@ -13,8 +13,6 @@ export default function Card(props) {
     offer = null,
   } = props;
 
-  console.log('props.,mgfdtyuiop', props);
-
   const defaultViewCustomStyles = {
     width: 192,
     elevation: 1,

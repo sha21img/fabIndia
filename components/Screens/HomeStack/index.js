@@ -70,7 +70,10 @@ export default function HomeStack() {
         component={WomenCategory}
         options={{
           header: props => (
-            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+            <HomeHeader
+              customViewStyle={{backgroundColor: '#FFFFFF'}}
+              {...props}
+            />
           ),
         }}
       />
@@ -158,7 +161,10 @@ export default function HomeStack() {
         // component={() => <Text>lkjh</Text>}
         options={{
           header: props => (
-            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+            <HomeHeader
+              customViewStyle={{backgroundColor: '#FFFFFF'}}
+              {...props}
+            />
           ),
         }}
       />
@@ -167,7 +173,10 @@ export default function HomeStack() {
         component={KidsCatagory}
         options={{
           header: props => (
-            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+            <HomeHeader
+              customViewStyle={{backgroundColor: '#FFFFFF'}}
+              {...props}
+            />
           ),
         }}
       />
@@ -366,10 +375,11 @@ export default function HomeStack() {
         name="LandingPageSaris_Blouses"
         component={LandingPageSaris_Blouses}
         options={{
-          header: props => (
-            // <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
-            <HomeHeader props={props} />
-          ),
+          headerShown: false,
+          // header: props => (
+          //   // <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+          //   <HomeHeader {...props} />
+          // ),
         }}
         // options={{
         //   header: props => (

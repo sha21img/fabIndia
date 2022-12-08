@@ -16,17 +16,21 @@ import Footer from './Footer';
 import Art_Artist from './Art_Artist';
 import CommonTopTab from '../../Common/CommonTopTab';
 import {StoreDetails} from '../../../constant';
+import {SliderBox} from 'react-native-image-slider-box';
 import Customize from './Customize';
 import axios from 'axios';
 import {postData} from '../../Common/Helper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {Colors} from '../../../assets/Colors';
 const width = Dimensions.get('window').width;
 
 export default function ProductDetailed(props) {
   const [productdetail, setProductDetail] = useState({});
   const [cartID, setCartID] = useState(null);
   const [cartSuccess, setCartSuccess] = useState(null);
+  const [productImage, setProductImage] = React.useState([]);
+
   const {productId} = props.route.params;
   console.log(
     'productIdproductIdproductIdproductIdproductIdproductIdproductId',
@@ -42,6 +46,18 @@ export default function ProductDetailed(props) {
     );
     console.log('response.data04733333333333333333', response.data);
     setProductDetail(response.data);
+    console.log(
+      'productdetail.variantMatrix[0].',
+      response.data?.variantMatrix[0]?.variantOption?.variantOptionQualifiers[0]
+        ?.image?.url,
+    );
+    const newImage = response.data?.variantMatrix.map(item => {
+      return (
+        'https://apisap.fabindia.com/' +
+        item.variantOption?.variantOptionQualifiers[0]?.image?.url
+      );
+    });
+    setProductImage(newImage);
   };
   useEffect(() => {
     getproductDetailedData();
@@ -138,6 +154,7 @@ console.log('cartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDc
     );
     setCartSuccess(response.data);
   };
+
   return (
     <>
       {productdetail && (
@@ -151,14 +168,23 @@ console.log('cartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDc
         inactiveDotColor="#F3ECE8"
         dotColor={Colors.primarycolor}
       /> */}
-          <CommonCarousel
+          <SliderBox
+            resizeMode="stretch"
+            autoplay={true}
+            circleLoop={true}
+            sliderBoxHeight={381}
+            images={productImage}
+            inactiveDotColor="#F3ECE8"
+            dotColor={Colors.primarycolor}
+          />
+          {/* <CommonCarousel
             data={WomenCarouselData}
             width={width}
             height={380}
             customStyle={{
               backgroundColor: '#F6F6F6',
             }}
-          />
+          /> */}
           <Details productdetail={productdetail} productId={productId} />
           <Size_Color
             customStyle={{marginTop: 20}}

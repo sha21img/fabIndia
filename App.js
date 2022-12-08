@@ -136,6 +136,7 @@ export default function App(props) {
             options={{
               header: props => (
                 <HomeHeader
+                  {...props}
                   searchVisible={false}
                   customViewStyle={{backgroundColor: '#FFFFFF'}}
                   // leftIcon={leftIcon(props)}

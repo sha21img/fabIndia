@@ -46,6 +46,7 @@ export default function NewHighlights(props) {
         onPress={() =>
           props.navigation.navigate('LandingPageSaris_Blouses', {
             code: splitURL,
+            title: item.item.title,
           })
         }
         key={Math.random() * 987}

@@ -8,7 +8,6 @@ import {WomenTabdata} from '../../../../constant';
 import {getComponentData} from '../../../Common/Helper';
 
 const ABC = props => {
-  console.log('prop////s', props);
   return (
     <ScrollView
       contentContainerStyle={{

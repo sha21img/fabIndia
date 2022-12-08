@@ -16,10 +16,11 @@ import SortBox from './SortBox';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Fonts from '../../../../assets/fonts';
 import Filter from '../../../Common/Filter';
+import HomeHeader from '../../Home/HomeHeader';
 
 export default function LandingPageSaris_Blouses(props) {
-  const {code} = props.route.params;
-  console.log('LandingPageSaris', props.route.params.code);
+  const {code, title} = props.route.params;
+  console.log('productDetailproductDetailproductDetailproductDetail', title);
   const [modalVisible, setModalVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [sortValue, setSortValue] = useState('');
@@ -28,6 +29,7 @@ export default function LandingPageSaris_Blouses(props) {
   // openFilter = () => setModalVisible(true);
   return (
     <>
+      <HomeHeader {...props} headertext={title} />
       <View
       // contentContainerStyle={{
       //   backgroundColor: Colors.backgroundColor,

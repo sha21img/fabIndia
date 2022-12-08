@@ -1,13 +1,28 @@
-import {View, Text, Image, Dimensions, ActivityIndicator} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  Dimensions,
+  ActivityIndicator,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {getComponentData} from '../Helper';
 import {image} from '../../../assets/images';
 import {Colors} from '../../../assets/Colors';
 
 const width = Dimensions.get('window').width;
-export default function SingleBanner({data = {}, customStyle = {}}) {
+export default function SingleBanner(props) {
+  const {data = {}, customStyle = {}} = props;
   const [bannerData, setBannerData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const newCode = data.urlLink;
+  console.log(
+    'women category data////////////////////////////////////////////////',
+    bannerData,
+  );
+  // let splitURL = newCode.split('/');
+  // splitURL = splitURL[splitURL.length - 1];
   useEffect(() => {
     getBannerIds();
   }, []);
@@ -33,7 +48,14 @@ export default function SingleBanner({data = {}, customStyle = {}}) {
   return (
     <>
       {isLoading && (
-        <View style={[defaultStyle, customStyle]}>
+        <TouchableOpacity
+          style={[defaultStyle, customStyle]}
+          onPress={() =>
+            props.navigation.navigate('LandingPageSaris_Blouses', {
+              code: 'wedding-women-saris-blouses',
+              title: bannerData.title,
+            })
+          }>
           <Image
             resizeMode="stretch"
             //   source={image.ArtistImg1}
@@ -42,7 +64,7 @@ export default function SingleBanner({data = {}, customStyle = {}}) {
             }}
             style={{height: 213, width: width}}
           />
-        </View>
+        </TouchableOpacity>
       )}
     </>
   );
