@@ -14,11 +14,16 @@ export default function Header({
   customViewStyle = {},
   headtext = '',
   count = '',
+  title = '',
 }) {
   const navigation = useNavigation();
   return (
     <View style={[Styles.container, customViewStyle]}>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}>
         <TouchableOpacity
           style={{paddingHorizontal: 5}}
           onPress={() => navigation.goBack()}>
@@ -28,7 +33,7 @@ export default function Header({
             size={20}
           />
         </TouchableOpacity>
-        <View style={{paddingLeft: 10}}>
+        {/* <View style={{paddingLeft: 10}}>
           <Text
             style={{
               fontSize: 16,
@@ -47,27 +52,28 @@ export default function Header({
               {count} items
             </Text>
           )}
-        </View>
+        </View> */}
       </View>
-      <View style={Styles.detailContainer}>
+      <Text
+        style={{
+          fontSize: 18,
+          fontFamily: Fonts.PlayfairDisplay500,
+          color: Colors.primarycolor,
+        }}>
+        {title}
+      </Text>
+      <View></View>
+      {/* <View style={Styles.detailContainer}>
         <TouchableOpacity style={Styles.locationContainer}>
           <Ionicons name="share-social" color={Colors.primarycolor} size={25} />
-
-          {/* <Ionicons name="location-sharp" color={'#792C27'} size={20} />
-          <Text numberOfLines={1} style={Styles.locationText}>
-            Powai, Mumbai
-          </Text> */}
         </TouchableOpacity>
         <TouchableOpacity style={Styles.currencyContainer}>
           <EvilIcons name="heart" color={Colors.primarycolor} size={30} />
-
-          {/* <Text style={Styles.currencyIcon}>₹</Text>
-          <Text style={Styles.currencyText}>INR</Text> */}
         </TouchableOpacity>
         <TouchableOpacity style={Styles.cartContainer}>
           <EvilIcons name="cart" size={30} color={Colors.primarycolor} />
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 }

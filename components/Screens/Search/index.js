@@ -17,6 +17,7 @@ import {useDebounce} from '../../../constant';
 import axios from 'axios';
 import Fonts from '../../../assets/fonts';
 import NoResultFound from './NoResultFound';
+import SearchResult from './SearchResult';
 
 const data = [
   {name: 'Cotton sari'},
@@ -79,8 +80,17 @@ export default function Search(props) {
                 onPress={() =>
                   props.navigation.navigate('ProductDetailed', {
                     productId: item.code,
+                    // filterProduct: filterProduct,
+                    // ...props,
                   })
                 }
+                // onPress={() =>
+                //   props.navigation.navigate('SearchResult', {
+                //     productId: item.code,
+                //     filterProduct: filterProduct,
+                //     ...props,
+                //   })
+                // }
                 style={{
                   paddingVertical: 15,
                   borderBottomWidth: 1,

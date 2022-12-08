@@ -17,7 +17,7 @@ import axios from 'axios';
 export default function HomeHeader(props) {
   const [show, setShow] = useState(false);
   const navigation = useNavigation();
-  const {homeheader = false} = props;
+  const {homeheader = false, searchVisible = true} = props;
   // const getProductSearchData = async () => {
   //   const response = await axios.get(
   //     `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=${text}&pageSize=5&lang=en&curr=INR`,
@@ -64,21 +64,31 @@ export default function HomeHeader(props) {
         )}
 
         <View style={Styles.detailContainer}>
-          <TouchableOpacity
-            style={Styles.locationContainer}
-            onPress={() => {
-              console.log('jiji'), props.navigation.navigate('Search');
-            }}>
-            <EvilIcons
-              name="search"
+          {searchVisible ? (
+            <TouchableOpacity
+              style={Styles.locationContainer}
+              onPress={() => {
+                console.log('jiji'),
+                  props.navigation.navigate('InitialSearch', {
+                    screen: 'Search',
+                  });
+              }}>
+              <EvilIcons
+                name="search"
+                color={Colors.primarycolor}
+                size={30}
+                // onPress={() => {
+                //   setShow(!show);
+                // }}
+              />
+            </TouchableOpacity>
+          ) : (
+            <Ionicons
+              name="share-social"
               color={Colors.primarycolor}
-              size={30}
-              // onPress={() => {
-              //   setShow(!show);
-              // }}
+              size={25}
             />
-          </TouchableOpacity>
-
+          )}
           {/* <Ionicons name="location-sharp" color={'#792C27'} size={20} />
           <Text numberOfLines={1} style={Styles.locationText}>
             Powai, Mumbai
