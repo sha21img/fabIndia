@@ -51,11 +51,21 @@ export default function OfferTab(props) {
           // data={carouselData}
           keyExtractor={(item, index) => index}
           renderItem={({item, index}) => {
-            console.log('item.media.url', item.media.url);
+            const newCode = item.urlLink;
+            console.log(
+              'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
+              item,
+            );
+            let splitURL = newCode.split('/');
+            splitURL = splitURL[splitURL.length - 1];
+            console.log('splitURL', splitURL);
             return (
               <TouchableOpacity
                 onPress={() =>
-                  props.navigation.navigate('LandingPageSaris_Blouses')
+                  props.navigation.navigate('LandingPageSaris_Blouses', {
+                    code: splitURL.split('?')[0],
+                    title: item.title,
+                  })
                 }
                 style={{
                   marginRight: 10,

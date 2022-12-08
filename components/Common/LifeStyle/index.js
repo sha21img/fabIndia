@@ -6,6 +6,7 @@ import {
   ScrollView,
   Text,
   View,
+  TouchableOpacity,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../../assets/Colors';
@@ -15,12 +16,13 @@ import {Styles} from './styles';
 import React, {useEffect, useState} from 'react';
 import {getComponentData} from '../Helper';
 
-export default function LifeStyle({
-  data = {},
-  title = null,
-  backgroundColor = '',
-  customViewStyle = {},
-}) {
+export default function LifeStyle(props) {
+  const {
+    data = {},
+    title = null,
+    backgroundColor = '',
+    customViewStyle = {},
+  } = props;
   const [categoryData, setCategoryData] = React.useState([]);
   const [page, setPage] = useState(0);
   const [array, setArray] = useState([]);
@@ -58,27 +60,39 @@ export default function LifeStyle({
   };
 
   const cards = (item, index) => {
-    console.log('item-=-=-=-=--=-', index);
+    const newCode = item.urlLink;
+    console.log('item for product', newCode);
+    let splitURL = newCode.split('/');
+    splitURL = splitURL[splitURL.length - 1];
+    console.log('splitURL', splitURL);
     return (
-      <ImageBackground
-        key={Math.random() * 1099900}
-        resizeMode="cover"
-        source={{
-          uri: `https://apisap.fabindia.com/${item.media.url}`,
-        }}
-        style={[
-          Styles.card,
-          {
-            marginTop: index % 2 != 0 ? 30 : 10,
-            height: 250,
-          },
-        ]}>
-        {/* <LinearGradient
+      <TouchableOpacity
+        onPress={() =>
+          props.navigation.navigate('LandingPageSaris_Blouses', {
+            code: splitURL,
+            title: item.title,
+          })
+        }>
+        <ImageBackground
+          key={Math.random() * 1099900}
+          resizeMode="cover"
+          source={{
+            uri: `https://apisap.fabindia.com/${item.media.url}`,
+          }}
+          style={[
+            Styles.card,
+            {
+              marginTop: index % 2 != 0 ? 30 : 10,
+              height: 250,
+            },
+          ]}>
+          {/* <LinearGradient
           colors={['transparent', '#66553B']}
           style={Styles.cardBox}>
           <Text style={Styles.boxText}>{item.title}</Text>
         </LinearGradient> */}
-      </ImageBackground>
+        </ImageBackground>
+      </TouchableOpacity>
     );
   };
   return (

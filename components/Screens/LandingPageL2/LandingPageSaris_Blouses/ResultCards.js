@@ -10,6 +10,7 @@ export default function ResultCards(props) {
   const [page, setPage] = useState(0);
   const [dataMain, setdataMain] = useState([]);
   const [filterProducts, setFilterProducts] = useState([]);
+  const [productCount, setProductCount] = useState(0);
   const {code, sortValue, openSort} = props;
   console.log(
     'code+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
@@ -23,6 +24,7 @@ export default function ResultCards(props) {
     );
     // fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}`);
     setdataMain(response.data);
+    setProductCount(response.data.pagination.totalResults);
     setFilterProducts(response.data.products);
     console.log('response.data.products', response.data);
     // console.log(
@@ -97,6 +99,7 @@ export default function ResultCards(props) {
           <SortBox
             openSort={openSort}
             dataMain={filterProducts}
+            productCount={productCount}
             //  openFilter={openFilter}
           />
         )}
