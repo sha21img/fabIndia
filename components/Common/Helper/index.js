@@ -4,6 +4,7 @@ import axios from 'axios';
 //   'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/occ/v2/';
 const ComponentBaseURL = 'https://apisap.fabindia.com/occ/v2/';
 const BaseURL = 'https://apisap.fabindia.com/occ/v2/';
+const AuthAuthor = 'bearer nCVKPnrYg-ZgHMn0djWh1YSFCX0';
 export const imageURL = 'https://apisap.fabindia.com/';
 const postData = async (url, body) => {
   const Token = 'bearer ElhKLe-VvjSmB_TEwcjzHZUyubU';
@@ -55,23 +56,21 @@ const getComponentData = async path => {
     console.error(e);
   }
 };
-const axiosPostData = async (url, formData) => {
-  // const Token = localStorage.getItem('token');
-  return axios
-    .post(`${BaseURL}/${url}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `${Token}`,
-      },
-    })
-    .then(res => {
-      return res;
-    })
-    .catch(err => {
-      console.log(err);
-      // if (err.response.status === 401) {
-      // } else if (err.response.status !== 200) {
-      // }
-    });
+const UnAuthPostData = async (url, formData) => {
+  const response = await fetch(`${BaseURL}${url}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'bearer vubr1nFAcx5g3rrAbyPt1gQW9Pk',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(formData),
+  });
+  try {
+    const result2 = await response.json();
+    return result2;
+  } catch (e) {
+    console.log(e);
+  }
 };
-export {postData, getData, getComponentData};
+export {postData, getData, getComponentData, UnAuthPostData};
