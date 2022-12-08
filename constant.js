@@ -1,6 +1,16 @@
 import ImageColors from 'react-native-image-colors';
+import React, {useEffect, useState} from 'react';
 import {image} from './assets/images';
-
+export const useDebounce = value => {
+  const [dbValue, setDbvalue] = useState();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDbvalue(dbValue);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [value]);
+  return dbValue;
+};
 export const getColor = async (uri = image.ArtistImg1) => {
   const result = await ImageColors.getColors(uri, {
     fallback: '#228B22',

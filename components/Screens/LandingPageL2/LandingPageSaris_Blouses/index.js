@@ -18,30 +18,32 @@ import Fonts from '../../../../assets/fonts';
 import Filter from '../../../Common/Filter';
 
 export default function LandingPageSaris_Blouses(props) {
-  // console.log('LandingPageSaris', route.params.code);
+  const {code} = props.route.params;
+  console.log('LandingPageSaris', props.route.params.code);
   const [modalVisible, setModalVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [sortValue, setSortValue] = useState('');
 
-  openSort = () => setModalVisible(true);
+  const openSort = () => setModalVisible(true);
   // openFilter = () => setModalVisible(true);
   return (
     <>
-      <ScrollView
-        contentContainerStyle={{
-          backgroundColor: Colors.backgroundColor,
-          flexGrow: 1,
-          paddingBottom: 20,
-        }}>
+      <View
+      // contentContainerStyle={{
+      //   backgroundColor: Colors.backgroundColor,
+      //   flexGrow: 1,
+      //   paddingBottom: 20,
+      // }}
+      >
         {/* <TopBanner /> */}
-        <SortBox
-          openSort={openSort}
-          //  openFilter={openFilter}
-        />
+
         <ResultCards
-          data={[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+          code={code}
           {...props}
+          sortValue={sortValue}
+          openSort={openSort}
         />
-      </ScrollView>
+      </View>
       <Modal
         animationType="slide"
         transparent={true}
@@ -67,18 +69,25 @@ export default function LandingPageSaris_Blouses(props) {
                 </TouchableOpacity>
               </View>
 
-              {[0, 0, 0, 0, 0].map(item => {
+              {[
+                {title: `What's New`, value: 'creationtime-desc'},
+                {title: `Price: Low to High`, value: 'price-asc'},
+                {title: `Price: High to Low`, value: 'price-desc'},
+                {title: `Bestseller`, value: 'productCountBestSeller-desc'},
+              ].map(item => {
                 return (
                   <>
                     <View style={styles.titleBox}>
                       <CheckBox
                         checkBoxColor={Colors.primarycolor}
                         onClick={() => {
-                          setIsChecked(!isChecked);
+                          // setIsChecked(!isChecked);
+                          setSortValue(item.value);
+                          setModalVisible(!modalVisible);
                         }}
-                        isChecked={isChecked}
+                        isChecked={sortValue == item.value ? true : false}
                       />
-                      <Text style={styles.title}>New to old</Text>
+                      <Text style={styles.title}>{item.title}</Text>
                     </View>
                   </>
                 );

@@ -18,11 +18,13 @@ export default function TopSwiper(props) {
     const bannerId = data.banners;
     getCarauselData(bannerId);
   };
+  let code;
   const getCarauselData = async bannerId => {
     const splitBannerId = bannerId.split(' ').join(',');
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
+    console.log('response.component[0]', response);
     // setCarouselData(response.component);
     let images = [];
     for (let i = 0; i < response.component.length; i++) {
@@ -57,6 +59,15 @@ export default function TopSwiper(props) {
   return (
     <View style={customStyle}>
       <SliderBox
+        // onCurrentImagePressed={() => {
+        //   // const newCode = item.item.urlLink;
+        //   // let splitURL = newCode.split('/');
+        //   // splitURL = splitURL[splitURL.length - 1];
+        //   navigation.navigate('LandingPageSaris_Blouses', {
+        //     // code: 'women-saris-blouses',
+        //     code: 'sale',
+        //   });
+        // }}
         autoplay={true}
         circleLoop={true}
         sliderBoxHeight={212}

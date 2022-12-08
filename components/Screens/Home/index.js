@@ -657,6 +657,7 @@ export default function Dashbord(props) {
       case 'FabResponsiveBannerCarouselComponent':
         return (
           <CommonCarousel
+            {...props}
             data={param}
             width={width}
             height={200}
@@ -705,98 +706,41 @@ export default function Dashbord(props) {
   React.useEffect(() => {
     getInitialData();
   }, []);
-  const screenObj = {
-    Saris: CardCompo,
-    Tunics: CardCompo,
-    Kurtas: CardCompo,
-    Dresses: CardCompo,
-    'Tops Shirts': CardCompo,
-    Pants: CardCompo,
-  };
-  const dataMap = WomenTabdata.map(item => ({
-    name: item,
-    screen: screenObj[item],
-  }));
-  // Tab 2
-  const screenObj1 = {
-    Shirts: CardCompo,
-    Kurtas: CardCompo,
-    FaceMasks: CardCompo,
-    NehruJacketsBlazers: CardCompo,
-    Pants: CardCompo,
-  };
-  const dataMap1 = MenTabdata.map(item => ({
-    name: item,
-    screen: screenObj1[item],
-  }));
-  // Tab 3
-  const screenObj2 = {
-    Women: OfferLongCardList,
-    Men: OfferLongCardList,
-    Kids: OfferLongCardList,
-    HomeLinen: OfferLongCardList,
-    HomeDecor: OfferLongCardList,
-  };
-  const dataMap2 = OfferTabData.map(item => ({
-    name: item,
-    screen: screenObj2[item],
-  }));
-  // Tab 4
-  const screenObj3 = {
-    HomeLinen: SimpleCardList,
-    Furniture: SimpleCardList,
-    HomeDecor: SimpleCardList,
-  };
-  const dataMap3 = HomeTabdata.map(item => ({
-    name: item,
-    screen: screenObj3[item],
-  }));
-  // Tab 5
-  const screenObj4 = {
-    WeekendGetaway: PointDetailCardList,
-    Brunchdate: PointDetailCardList,
-    WorkfromHome: PointDetailCardList,
-    Pants: PointDetailCardList,
-  };
-  const dataMap4 = LifeTabdata.map(item => ({
-    name: item,
-    screen: screenObj4[item],
-  }));
 
-  const handleClick = data => {
-    setActive(data);
-  };
-  const getTitle = (title, heading) => {
-    return (
-      <View
-        style={[
-          {position: 'absolute', top: '37%', left: '4%', zIndex: 10},
-          hasSpaces(heading) ? {width: width / 3} : {width: null},
-        ]}>
-        <Text
-          style={{
-            fontSize: 14,
-            color: '#4A4A4A',
-            fontFamily: Fonts.Assistant300,
-          }}>
-          {title}
-        </Text>
-        <Text
-          style={{
-            color: '#4A4A4A',
-            fontSize: 24,
-            fontFamily: Fonts.PlayfairDisplay700,
-          }}>
-          {heading}
-        </Text>
-      </View>
-    );
-  };
+  // const handleClick = data => {
+  //   setActive(data);
+  // };
+  // const getTitle = (title, heading) => {
+  //   return (
+  //     <View
+  //       style={[
+  //         {position: 'absolute', top: '37%', left: '4%', zIndex: 10},
+  //         hasSpaces(heading) ? {width: width / 3} : {width: null},
+  //       ]}>
+  //       <Text
+  //         style={{
+  //           fontSize: 14,
+  //           color: '#4A4A4A',
+  //           fontFamily: Fonts.Assistant300,
+  //         }}>
+  //         {title}
+  //       </Text>
+  //       <Text
+  //         style={{
+  //           color: '#4A4A4A',
+  //           fontSize: 24,
+  //           fontFamily: Fonts.PlayfairDisplay700,
+  //         }}>
+  //         {heading}
+  //       </Text>
+  //     </View>
+  //   );
+  // };
   return (
     <>
       <FlatList
         contentContainerStyle={{flexGrow: 1, backgroundColor: '#FFFFFF'}}
-        ListHeaderComponent={() => <HomeHeader props={props} />}
+        ListHeaderComponent={() => <HomeHeader {...props} homeheader={true} />}
         data={filteredComp}
         keyExtractor={(item, index) => index}
         renderItem={item => checkSwitch(item.item)}

@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Colors} from '../../../../assets/Colors';
 import Fonts from '../../../../assets/fonts';
 export const Styles = StyleSheet.create({
   mainContainer: {
@@ -26,7 +27,8 @@ export const Styles = StyleSheet.create({
   catagoryText: {
     textAlign: 'center',
     fontFamily: Fonts.Assistant500,
-    fontSize: 18,
+    fontSize: 12,
     paddingTop: 2,
+    color: Colors.textcolor,
   },
 });
