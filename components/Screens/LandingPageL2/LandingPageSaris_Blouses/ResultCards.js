@@ -14,6 +14,7 @@ export default function ResultCards(props) {
   console.log(
     'code+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
     code,
+    sortValue,
   );
   const {data = []} = props;
   const getProductData = async () => {
@@ -23,10 +24,11 @@ export default function ResultCards(props) {
     // fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}`);
     setdataMain(response.data);
     setFilterProducts(response.data.products);
-    console.log(
-      'response.data.products',
-      response.data.products[0].variantOptions[0].variantOptionQualifiers,
-    );
+    console.log('response.data.products', response.data);
+    // console.log(
+    //   'response.data.products',
+    //   response.data.products[0].variantOptions[0].variantOptionQualifiers,
+    // );
 
     if (filterProducts.length) {
       setFilterProducts([...filterProducts, ...response.data.products]);
