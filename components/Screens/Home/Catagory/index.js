@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  ImageBackground,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Styles} from './styles';
@@ -28,27 +29,52 @@ export default function Catagory({data}) {
     const response = await getComponentData(
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${bannerId}&lang=en&curr=INR`,
     );
-    setPage(page + 1);
     setCategoryDataArray(response);
     if (categoryData.length) {
-      setCategoryData(prev => [...prev, ...response.component]);
+      setCategoryData(prev => [...categoryData, ...response.component]);
     } else {
       setCategoryData(response.component);
     }
   };
   useEffect(() => {
     getBannerIds();
-  }, []);
+  }, [page]);
   const endReach = () => {
     if (categoryDataArray?.pagination?.totalPages > page) {
-      getBannerIds();
+      setPage(page + 1);
+
+      // getBannerIds();
     }
   };
   const navigation = useNavigation();
   const catagory = item => {
     return (
       <>
-        <View style={Styles.mainContainer}>
+        <ImageBackground
+          onPress={() => navigation.navigate(item.item.name)}
+          resizeMode="cover"
+          source={image.HomeDecor3}
+          style={{
+            height: 70,
+            width: 70,
+            overflow: 'hidden',
+            backgroundColor: 'rgba(144, 50, 51, 0.5)',
+            marginRight: 15,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 50,
+          }}>
+          {/* <TouchableOpacity style={Styles.catagory}> */}
+          <Text
+            style={[
+              Styles.catagoryText,
+              //  {color: item.item.textColor}
+            ]}>
+            {item.item.name}
+          </Text>
+          {/* </TouchableOpacity> */}
+        </ImageBackground>
+        {/* <View style={Styles.mainContainer}>
           <TouchableOpacity
             onPress={() => navigation.navigate(item.item.name)}
             style={Styles.catagory}>
@@ -57,7 +83,7 @@ export default function Catagory({data}) {
           <Text style={[Styles.catagoryText, {color: item.item.textColor}]}>
             {item.item.name}
           </Text>
-        </View>
+        </View> */}
       </>
     );
   };
