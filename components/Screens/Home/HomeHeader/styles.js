@@ -7,6 +7,7 @@ export const Styles = StyleSheet.create({
     padding: 15,
     alignItems: 'center',
     justifyContent: 'space-between',
+    position: 'relative',
   },
   logo: {
     backgroundColor: 'green',

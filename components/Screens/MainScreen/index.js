@@ -276,17 +276,18 @@ export default function MainScreen(props) {
       />
       <Tab.Screen
         name="Search"
+        {...props}
         component={Search}
         options={{
           tabBarLabel: 'Search',
           tabBarActiveTintColor: Colors.primarycolor,
-          tabBarIcon: ({focused}) => (
-            <Ionicons
-              name="ios-search-outline"
-              color={focused ? Colors.primarycolor : Colors.inactiveicon}
-              size={25}
-            />
-          ),
+          // tabBarIcon: ({focused}) => (
+          //   <Ionicons
+          //     name="ios-search-outline"
+          //     color={focused ? Colors.primarycolor : Colors.inactiveicon}
+          //     size={25}
+          //   />
+          // ),
         }}
       />
       <Tab.Screen
