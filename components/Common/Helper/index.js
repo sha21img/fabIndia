@@ -61,7 +61,7 @@ const UnAuthPostData = async (url, formData) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'bearer vubr1nFAcx5g3rrAbyPt1gQW9Pk',
+      Authorization: 'bearer ElhKLe-VvjSmB_TEwcjzHZUyubU',
       Accept: 'application/json',
     },
     body: JSON.stringify(formData),

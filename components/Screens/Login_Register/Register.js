@@ -18,6 +18,9 @@ import InputText from '../../Common/InputText';
 import CommonButton from '../../Common/CommonButton';
 import Fonts from '../../../assets/fonts';
 import {UnAuthPostData, postData} from '../../Common/Helper';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import Feather from 'react-native-vector-icons/Feather';
+
 const faqs = [
   {
     id: '2',
@@ -67,12 +70,14 @@ const Register = props => {
     confPass: '',
   });
   const [mobilePrefix, setMobilePrefix] = useState('60');
-  const [gender, SetGender] = useState({code: 'MALE'});
+  const [gender, SetGender] = useState('');
   const [generate, setgenerate] = useState(false);
   const [transactionId, settransactionId] = useState('');
   const [Otp, setOtp] = useState('');
   const [isCheckedSignup, setIsCheckedSignup] = useState(false);
   const [isAgree, setisAgree] = useState(false);
+  const [DOB, setDOB] = useState('');
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const googleIcon = {
     uri: 'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
   };
@@ -89,9 +94,9 @@ const Register = props => {
       contactNumberCode: `+${mobilePrefix}`,
       contactNumber: phoneNumber,
       countryIsoCode: '',
-      dateOfBirth: '',
+      dateOfBirth: DOB,
       firstName: text['First name'],
-      gender: {code: 'MALE'},
+      gender: {code: gender},
       lastName: text['Last name'],
       password: text.newPass,
       titleCode: '',
@@ -104,12 +109,37 @@ const Register = props => {
       params,
     );
     console.log(res);
+    props.navigation.navigate('RegisterSuccess');
     if (res.status) {
       // settransactionId(res?.data?.transactionId);
       // setgenerate(true);
     }
   };
+  const showDatePicker = () => {
+    console.log('yes');
+    setDatePickerVisibility(true);
+  };
 
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = date => {
+    let Newdate = new Date(date);
+    console.warn('A date has been picked: ', date);
+    setDOB(
+      `${
+        `${Newdate.getDate()}`.length == 1
+          ? `0${Newdate.getDate()}`
+          : Newdate.getDate()
+      }/${
+        `${Newdate.getMonth()}`.length == 1
+          ? `0${Newdate.getMonth()}`
+          : Newdate.getMonth()
+      }/${Newdate.getFullYear()}`,
+    );
+    hideDatePicker();
+  };
   const GenerateOtp = async () => {
     let params = {
       isLogin: false,
@@ -147,7 +177,7 @@ const Register = props => {
     }
   };
 
-  // console.log(text, phoneNumber, mobilePrefix);
+  console.log('DOB', DOB);
   return (
     <SafeAreaView style={Styles.container}>
       <View style={Styles.bodyContainer}>
@@ -248,6 +278,7 @@ const Register = props => {
                 customViewStyle={{
                   backgroundColor:
                     phoneNumber.length == 10 ? Colors.primarycolor : '#BDBDBD',
+                  marginVertical: 10,
                 }}
               />
             ) : (
@@ -268,24 +299,28 @@ const Register = props => {
                 activeUnderlineColor=" #979797"
                 customStyle={Styles.textinput}
                 label="Email address"
-                value={text}
-                onChangeText={text => setText(text)}
+                value={text.email}
+                onChangeText={text => setText(prev => ({...prev, email: text}))}
               />
               <InputText
                 underlineColor="#EDEDED"
                 activeUnderlineColor=" #979797"
                 customStyle={Styles.textinput}
                 label="New password"
-                value={text}
-                onChangeText={text => setText(text)}
+                value={text.newPass}
+                onChangeText={text =>
+                  setText(prev => ({...prev, newPass: text}))
+                }
               />
               <InputText
                 underlineColor="#EDEDED"
                 activeUnderlineColor=" #979797"
                 customStyle={Styles.textinput}
                 label="Confirm password"
-                value={text}
-                onChangeText={text => setText(text)}
+                value={text.confPass}
+                onChangeText={text =>
+                  setText(prev => ({...prev, confPass: text}))
+                }
               />
               <View
                 style={{
@@ -301,11 +336,13 @@ const Register = props => {
                     alignItems: 'center',
                   }}>
                   <TouchableOpacity
-                    activeOpacity={1}
+                    // activeOpacity={1}
                     onPress={() => {
-                      gender.code != 'MALE'
-                        ? SetGender({code: 'MALE'})
-                        : SetGender({code: ''});
+                      if (gender == 'MALE') {
+                        SetGender('');
+                      } else {
+                        SetGender('MALE');
+                      }
                     }}
                     style={{
                       height: 30,
@@ -314,7 +351,7 @@ const Register = props => {
                       borderWidth: 2,
                       borderColor: '#d3d6db',
                       backgroundColor:
-                        gender.code == 'MALE' ? Colors.primarycolor : '',
+                        gender == 'MALE' ? Colors.primarycolor : 'white',
                     }}></TouchableOpacity>
                   <Text style={{marginLeft: 10}}>Male</Text>
                 </View>
@@ -326,9 +363,11 @@ const Register = props => {
                   }}>
                   <TouchableOpacity
                     onPress={() => {
-                      gender.code != 'FEMALE'
-                        ? SetGender({code: 'MALE'})
-                        : SetGender({code: ''});
+                      if (gender == 'FEMALE') {
+                        SetGender('');
+                      } else {
+                        SetGender('FEMALE');
+                      }
                     }}
                     activeOpacity={1}
                     style={{
@@ -338,9 +377,37 @@ const Register = props => {
                       borderWidth: 2,
                       borderColor: '#d3d6db',
                       backgroundColor:
-                        gender.code == 'FEMALE' ? Colors.primarycolor : '',
+                        gender == 'FEMALE' ? Colors.primarycolor : 'white',
                     }}></TouchableOpacity>
                   <Text style={{marginLeft: 10}}>Female</Text>
+                </View>
+              </View>
+              <View
+                style={{
+                  marginTop: 20,
+                  paddingVertical: 10,
+                  borderBottomWidth: 1,
+                }}>
+                <Text style={{fontsize: 12}}>Date of birth</Text>
+                <View
+                  style={[
+                    {
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    },
+                  ]}>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                    }}>
+                    {!!DOB ? DOB : 'dd-mm-yyyy'}
+                  </Text>
+                  <Feather
+                    name="calendar"
+                    color={Colors.primarycolor}
+                    size={20}
+                    onPress={showDatePicker}
+                  />
                 </View>
               </View>
             </View>
@@ -379,6 +446,15 @@ const Register = props => {
               </View>
               <View style={Styles.horizontalLine} />
             </View>
+
+            {/* <InputText
+              underlineColor="#EDEDED"
+              activeUnderlineColor=" #979797"
+              customStyle={Styles.textinput}
+              label="Date of birth"
+              // value={text.newPass}
+              // onChangeText={text => setText(prev => ({...prev, newPass: text}))}
+            /> */}
             <View style={Styles.iconContainer}>
               <TouchableOpacity onPress={() => facebookLoginHandler()}>
                 <Image source={facebookIcon} style={Styles.facebookIcon} />
@@ -400,6 +476,12 @@ const Register = props => {
           </View>
         </ScrollView>
       </View>
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="date"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+      />
     </SafeAreaView>
   );
 };
