@@ -6,25 +6,27 @@ import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
 import {Styles} from './styles';
 
-export default function SearchResult() {
+export default function SearchResult(props) {
+  const {filterProduct} = props.route.params;
   return (
     <>
       <View style={Styles.headingbox}>
-        <View style={{width: '70%'}}>
+        {/* <View style={{width: '70%'}}>
           <Text style={Styles.productcounttxt}>1000 products</Text>
         </View>
         <View style={Styles.rightheaderbox}>
           <Text style={Styles.rightheadertxt}>Sort</Text>
           <View style={{borderWidth: 0.3, borderColor: '#828282'}}></View>
           <Text style={Styles.rightheadertxt}>Filter</Text>
-        </View>
+        </View> */}
       </View>
       <ScrollView contentContainerStyle={Styles.cardcontainer}>
-        {[0, 1, 3, 4, 5, 6].map(item => (
+        {filterProduct?.map(item => (
           <Card1
+            {...props}
             item={item}
             customViewStyle={{width: '48%', marginTop: 10}}
-            key={Math.random(100)}
+            // key={Math.random(100)}
           />
         ))}
       </ScrollView>
