@@ -19,7 +19,7 @@ import axios from 'axios';
 
 import {dataDetectorType} from 'deprecated-react-native-prop-types/DeprecatedTextPropTypes';
 
-export default function Size_Color({customStyle, productdetail}) {
+export default function Size_Color({customStyle, productdetail, productId}) {
   const [filterData, setFilterData] = useState([]);
   const [count, setCount] = useState(0);
   const [pinCode, setPinCode] = useState(null);
@@ -30,6 +30,7 @@ export default function Size_Color({customStyle, productdetail}) {
   const [Stock, setStock] = useState(0);
   const [color, setColor] = useState('blue');
   const [modalVisible, setModalVisible] = useState(false);
+  // const freeSize = productdetail?.baseOptions[0]?.options[0]?.variantOptionQualifiers[1]?.value;
   const SizeHeader = [
     {value: 'Size'},
     {value: 'Bust'},
@@ -87,7 +88,7 @@ export default function Size_Color({customStyle, productdetail}) {
     setFilterData(arrayData);
   };
 
-  console.log(size, 'hhhhhhhhhhhh');
+  console.log(filterData, 'hhhhhhhhhhhh');
 
   const StockSubmit = item => {
     let sum = 0;
@@ -98,21 +99,21 @@ export default function Size_Color({customStyle, productdetail}) {
     setSize(item);
   };
 
-  const CounterQuantity = task => {
-    if (task == 'Minus') {
-      if (count == 0) {
-        setCount(0);
-      } else {
-        setCount(count - 1);
-      }
-    } else {
-      setCount(count + 1);
-    }
-  };
+  // const CounterQuantity = task => {
+  //   if (task == 'Minus') {
+  //     if (count == 0) {
+  //       setCount(0);
+  //     } else {
+  //       setCount(count - 1);
+  //     }
+  //   } else {
+  //     setCount(count + 1);
+  //   }
+  // };
   const checkPin = async () => {
     if (pinCode != null) {
       const response = await axios.get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/pincodeService/productcatalogs/fabindia-b2cProductCatalog/versions/Online/product?pincode=${pinCode}&productCode=10698822&lang=en&curr=INR`,
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/pincodeService/productcatalogs/fabindia-b2cProductCatalog/versions/Online/product?pincode=${pinCode}&productCode=${productId}&lang=en&curr=INR`,
       );
       console.log(
         'response.dat response.data response.data response.data response.data33333333333',
@@ -131,7 +132,7 @@ export default function Size_Color({customStyle, productdetail}) {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={Styles.btnBox}>
         {filterData.map((item, index) => {
-          console.log(size, '/////?');
+          console.log(item, '///llllllll//?');
           return (
             <>
               <TouchableOpacity
@@ -155,10 +156,13 @@ export default function Size_Color({customStyle, productdetail}) {
       <Text style={Styles.leftTxt}>
         {size.length || Object.keys(size).length ? ` Only ${Stock}  Left` : ''}
       </Text>
-      <TouchableOpacity onPress={() => openSize()} style={Styles.chartBox}>
-        <FontAwesome5 name="ruler" color={'#903233'} size={15} />
-        <Text style={Styles.chartText}>View size chart</Text>
-      </TouchableOpacity>
+      {filterData[0]?.size != 'Free Size' ? (
+        <TouchableOpacity onPress={() => openSize()} style={Styles.chartBox}>
+          <FontAwesome5 name="ruler" color={'#903233'} size={15} />
+          <Text style={Styles.chartText}>View size chart</Text>
+        </TouchableOpacity>
+      ) : null}
+
       <View style={Styles.ColorBox}>
         <Text style={Styles.ColorTxt}>Colour</Text>
         <View style={Styles.colorContainer}>
