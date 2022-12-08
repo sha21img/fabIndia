@@ -24,7 +24,9 @@ export default function Login_Register(props) {
 
   const facebookLoginHandler = () => {};
   const googleLoginHandler = () => {};
-  const loginWithMobileHandler = () => {};
+  const loginWithMobileHandler = () => {
+    props.navigation.navigate('LoginMobile');
+  };
   const loginWithEmailHandler = () => {};
   const resisterHandler = () => {
     props.navigation.navigate('Register');

@@ -5,13 +5,34 @@ import CommonButton from '../../Common/CommonButton';
 import Fonts from '../../../assets/fonts';
 import CountryPicker from 'rn-country-picker';
 import {TextInput} from 'react-native-paper';
+import {UnAuthPostData} from '../../Common/Helper';
 
-export default function LoginMobile() {
+export default function LoginMobile(props) {
   const [mobilePrefix, setMobilePrefix] = useState('60');
   const [phoneNumber, setPhoneNumber] = useState('');
 
   const _selectedValue = index => {
     setMobilePrefix(index);
+  };
+
+  const handleOTP = async () => {
+    let param = {
+      isLogin: true,
+      isSignUp: false,
+      mobileDailCode: `+${mobilePrefix}`,
+      mobileNumber: phoneNumber,
+    };
+    let res = await UnAuthPostData(
+      `fabindiab2c/otp/generate?lang=en&curr=INR`,
+      param,
+    );
+    console.log(res);
+    props.navigation.navigate('Otp', {
+      transactionId: '',
+      // transactionId: res?,
+      mobilePrefix: mobilePrefix,
+      phoneNumber: phoneNumber,
+    });
   };
   return (
     <>
@@ -53,10 +74,13 @@ export default function LoginMobile() {
       </ScrollView>
       <View style={styles.btnBox}>
         <CommonButton
+          disable={phoneNumber.length != 10}
           backgroundColor="#BDBDBD"
-          txt="Log in"
+          txt="Send OTP"
+          handleClick={handleOTP}
           customViewStyle={{
-            backgroundColor: Colors.primarycolor,
+            backgroundColor:
+              phoneNumber.length == 10 ? Colors.primarycolor : '#BDBDBD',
           }}
         />
       </View>
