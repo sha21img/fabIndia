@@ -37,6 +37,7 @@ import Header1 from '../../Common/Header1';
 import AboutUsMenu from '../AboutUsMenu';
 import YourWishlist from '../YourWishlist';
 import InteriorCatagory from '../../Common/InteriorCatagory';
+import HomeHeader from '../Home/HomeHeader';
 
 const Stack = createNativeStackNavigator();
 
@@ -366,7 +367,8 @@ export default function HomeStack() {
         component={LandingPageSaris_Blouses}
         options={{
           header: props => (
-            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+            // <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+            <HomeHeader props={props} />
           ),
         }}
         // options={{

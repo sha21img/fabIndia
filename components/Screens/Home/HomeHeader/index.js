@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -9,43 +9,86 @@ import Fonts from '../../../../assets/fonts';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import InputText from '../../../Common/InputText';
+import debounce from 'lodash.debounce';
 
 import {Colors} from '../../../../assets/Colors';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 export default function HomeHeader(props) {
-  const [text, setText] = React.useState('');
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
   const navigation = useNavigation();
+  const {homeheader = false, searchVisible = true} = props;
+  // const getProductSearchData = async () => {
+  //   const response = await axios.get(
+  //     `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=${text}&pageSize=5&lang=en&curr=INR`,
+  //   );
+  //   console.log('response for search', response.data.products);
+  //   setFilterProduct(response.data.products);
+  // };
+  // useEffect(() => {
+  //   if (!!text && text.length > 3) {
+  //     getProductSearchData();
+  //   } else {
+  //     setFilterProduct([]);
+  //   }
+  // }, [text]);
+  // console.log('filterProductfilterProduct', filterProduct);
   return (
     <>
       <View style={Styles.container}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            // backgroundColor: 'red',
-          }}>
-          <SimpleLineIcons
-            name="menu"
-            color={Colors.primarycolor}
-            size={20}
-            onPress={() => navigation.openDrawer()}
-          />
-          <Image source={image.color_logo} style={Styles.imagestyle} />
-        </View>
-
-        <View style={Styles.detailContainer}>
-          <TouchableOpacity style={Styles.locationContainer}>
-            <EvilIcons
-              name="search"
+        {homeheader ? (
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              // backgroundColor: 'red',
+            }}>
+            <SimpleLineIcons
+              name="menu"
               color={Colors.primarycolor}
-              size={30}
-              onPress={() => {
-                setShow(!show);
-              }}
+              size={20}
+              onPress={() => props.navigation.openDrawer()}
+            />
+            <Image source={image.color_logo} style={Styles.imagestyle} />
+          </View>
+        ) : (
+          <TouchableOpacity
+            style={{paddingHorizontal: 5}}
+            onPress={() => props.navigation.goBack()}>
+            <SimpleLineIcons
+              name="arrow-left"
+              color={Colors.primarycolor}
+              size={20}
             />
           </TouchableOpacity>
+        )}
 
+        <View style={Styles.detailContainer}>
+          {searchVisible ? (
+            <TouchableOpacity
+              style={Styles.locationContainer}
+              onPress={() => {
+                console.log('jiji'),
+                  props.navigation.navigate('InitialSearch', {
+                    screen: 'Search',
+                  });
+              }}>
+              <EvilIcons
+                name="search"
+                color={Colors.primarycolor}
+                size={30}
+                // onPress={() => {
+                //   setShow(!show);
+                // }}
+              />
+            </TouchableOpacity>
+          ) : (
+            <Ionicons
+              name="share-social"
+              color={Colors.primarycolor}
+              size={25}
+            />
+          )}
           {/* <Ionicons name="location-sharp" color={'#792C27'} size={20} />
           <Text numberOfLines={1} style={Styles.locationText}>
             Powai, Mumbai
@@ -56,40 +99,42 @@ export default function HomeHeader(props) {
             {/* <Text style={Styles.currencyIcon}>₹</Text>
           <Text style={Styles.currencyText}>INR</Text> */}
           </TouchableOpacity>
-          <TouchableOpacity style={Styles.cartContainer}>
+          <TouchableOpacity style={Styles.cartContainer}
+            onPress={()=>{
+          navigation.navigate("CartPage")
+        }}
+          >
             <EvilIcons name="cart" size={30} color={Colors.primarycolor} />
           </TouchableOpacity>
         </View>
       </View>
-      {show ? (
+      {/* {show ? (
         <>
           <View
             style={{
               position: 'absolute',
-              top: 16,
               left: '10%',
-              width: '72%',
+              width: '80%',
+              zIndex: 999,
+              alignSelf: 'center',
+              backgroundColor: 'white',
+              elevation: 5,
+              paddingHorizontal: 20,
+              borderRadius: 40,
             }}>
-            <TextInput
-              placeholder="Search here..."
-              onChangeText={text => setText(text)}
-              value={text}
-              style={{
-                backgroundColor: 'white',
-                paddingVertical: 6,
-                borderRadius: 50,
-                paddingHorizontal: 25,
-                elevation: 5,
-              }}
-            />
             <View
-              style={
-                {
-                  position: 'absolute',
-                  right: 5,
-                  top: 5,
-                }
-              }>
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <TextInput
+                placeholder="Search here..."
+                onChangeText={text => setText(text)}
+                value={debouncedText}
+                style={{
+                  width: '95%',
+                }}
+              />
               <FontAwesome
                 name="close"
                 color={Colors.primarycolor}
@@ -99,9 +144,27 @@ export default function HomeHeader(props) {
                 }}
               />
             </View>
+            {filterProduct.length > 0 ? (
+              filterProduct?.map(item => {
+                return (
+                  <TouchableOpacity
+                    onPress={() =>
+                      props.navigation.navigate('ProductDetailed', {
+                        productId: item.code,
+                      })
+                    }
+                    style={{paddingBottom: 10, paddingHorizontal: 15}}>
+                    <Text>{item.name}</Text>
+                    <Text>{item.price.formattedValue}</Text>
+                  </TouchableOpacity>
+                );
+              })
+            ) : filterProduct.length ? (
+              <Text>No Product Found</Text>
+            ) : null}
           </View>
         </>
-      ) : null}
+      ) : null} */}
     </>
   );
 }

@@ -9,6 +9,8 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 export default function Card1(props) {
   const {customViewStyle = {}, item, handleClick = null} = props;
+
+  console.log('item.code', item.code);
   const defaultViewCustomStyles = {
     width: '48%',
     elevation: 1,
@@ -26,7 +28,11 @@ export default function Card1(props) {
     <>
       <TouchableOpacity
         style={[defaultViewCustomStyles, customViewStyle]}
-        onPress={() => props.navigation.navigate('ProductDetailed')}>
+        onPress={() =>
+          props.navigation.navigate('ProductDetailed', {
+            productId: item.code,
+          })
+        }>
         <Image
           source={{
             uri: `https://apisap.fabindia.com${item.variantOptions[0].images[0].url}`,

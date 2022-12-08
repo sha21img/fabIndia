@@ -27,6 +27,7 @@ import PDP_Compare from './components/Screens/PDP_Compare';
 import ProductDetailed from './components/Screens/ProductDetailed';
 import Header1 from './components/Common/Header1';
 import OrderConfirmation from './components/Screens/OrderConfirmation';
+import HomeHeader from './components/Screens/Home/HomeHeader';
 
 const Stack = createNativeStackNavigator();
 
@@ -134,7 +135,8 @@ export default function App(props) {
             component={ProductDetailed}
             options={{
               header: props => (
-                <Header
+                <HomeHeader
+                  searchVisible={false}
                   customViewStyle={{backgroundColor: '#FFFFFF'}}
                   // leftIcon={leftIcon(props)}
                   // title="Cotton Viscose Printed Short..."
@@ -259,7 +261,7 @@ export default function App(props) {
               ),
             }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="SearchLocator"
             component={SearchLocator}
             options={{
@@ -276,7 +278,7 @@ export default function App(props) {
               ),
             }}
           />
-            <Stack.Screen
+          <Stack.Screen
             name="StoreMainDetails"
             component={StoreMainDetails}
             options={{
@@ -293,7 +295,6 @@ export default function App(props) {
               ),
             }}
           />
-          
         </Stack.Navigator>
       </NavigationContainer>
     );

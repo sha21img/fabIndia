@@ -17,40 +17,79 @@ import Card1 from '../../Common/Card1';
 import SimpleCard from '../../Common/SimpleCard';
 import PointDetailCard from '../../Common/PointDetailCard';
 
-export default function Details({customStyle}) {
+export default function Details({customStyle, productdetail}) {
   const [modalVisible, setModalVisible] = useState(false);
-
+  const discountPrice =
+    100 -
+    (productdetail.priceAfterDiscount?.value / productdetail?.price?.value) *
+      100;
+  console.log('discountPrice'.discountPrice);
   openCompare = () => setModalVisible(true);
+
   return (
     <View style={[Styles.cardDetailContainer, customStyle]}>
-      <Text style={Styles.singleproducttitle}>
-        Cotton Viscose Blue Hand Block Print Short Kurta
-      </Text>
-      <View style={Styles.titleContainer}>
-        <View style={Styles.titleHeader}>
-          <View style={Styles.titleIcon}></View>
-          <Text style={Styles.titleText}>Sustainable</Text>
-        </View>
-        <View style={Styles.titleHeader}>
-          <View style={Styles.titleIcon}></View>
-          <Text style={Styles.titleText}>Sustainable</Text>
-        </View>
+      <Text style={Styles.singleproducttitle}>{productdetail.name}</Text>
+      <View style={{paddingVertical: 10}}>
+        <Text
+          style={{
+            fontSize: 16,
+            lineHeight: 22,
+            fontFamily: Fonts.Assistant400,
+            color: Colors.textcolor,
+          }}>
+          SKU:{productdetail.code}
+        </Text>
       </View>
+      {/* <View style={Styles.titleContainer}>
+        <View style={Styles.titleHeader}>
+          <View style={Styles.titleIcon}></View>
+          <Text style={Styles.titleText}>Sustainable</Text>
+        </View>
+        <View style={Styles.titleHeader}>
+          <View style={Styles.titleIcon}></View>
+          <Text style={Styles.titleText}>Sustainable</Text>
+        </View>
+      </View> */}
       <View style={Styles.txtbox}>
-        <Text style={Styles.singleproductamountSign}>₹</Text>
-        <Text style={Styles.singleproductamount}>800</Text>
-        <Text style={Styles.priceofftxt}>₹ 1,000</Text>
-        <Text style={Styles.offertxt}>20% off</Text>
+        <Text
+          style={{
+            fontSize: 18,
+            fontFamily: Fonts.Assistant600,
+            color: Colors.textcolor,
+            marginRight: 2,
+          }}>
+          M.R.P{' '}
+        </Text>
+        <Text style={Styles.singleproductamount}>
+          ₹{productdetail?.priceAfterDiscount?.value}
+        </Text>
+        <Text style={Styles.priceofftxt}>
+          {productdetail?.price?.formattedValue}
+        </Text>
+        <Text style={Styles.offertxt}>{discountPrice}% off</Text>
       </View>
-      <Text style={Styles.oos}>Out of stock</Text>
-      <View style={Styles.btnBox}>
+      <Text
+        style={[
+          Styles.oos,
+          {
+            color:
+              productdetail?.stock?.stockLevelStatus == 'outOfStock'
+                ? '#DA5959'
+                : 'green',
+          },
+        ]}>
+        {productdetail?.stock?.stockLevelStatus == 'outOfStock'
+          ? 'Out of stock'
+          : 'In Stock'}
+      </Text>
+      {/* <View style={Styles.btnBox}>
         <TouchableOpacity style={Styles.btn} onPress={() => openCompare()}>
           <Text style={Styles.btnText}>Compare</Text>
         </TouchableOpacity>
         <TouchableOpacity style={Styles.btn}>
           <Text style={Styles.btnText}>View in AR</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -190,7 +229,7 @@ const Styles = StyleSheet.create({
   },
   oos: {
     fontFamily: Fonts.Assistant700,
-    color: '#DA5959',
+
     fontSize: 16,
     lineHeight: 22,
     paddingVertical: 5,

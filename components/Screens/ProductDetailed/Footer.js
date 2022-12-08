@@ -12,7 +12,7 @@ import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import Entypo from 'react-native-vector-icons/Entypo';
 
-export default function Footer({oos}) {
+export default function Footer({oos,handleClick=null}) {
   const [modalVisible, setModalVisible] = useState(false);
   openStock = () => setModalVisible(true);
   return (
@@ -26,7 +26,8 @@ export default function Footer({oos}) {
           />
         </TouchableOpacity>
         {oos ? (
-          <TouchableOpacity style={Styles.cartBox}>
+          <TouchableOpacity style={Styles.cartBox} 
+          onPress={()=>handleClick()}>
             <Text style={Styles.cartText}>Add to cart</Text>
           </TouchableOpacity>
         ) : (
