@@ -44,6 +44,11 @@ export const WomenTabdata = [
   'Tops Shirts',
   'Pants',
 ];
+export const StoreDetails = [
+  'Description',
+  'Specification',
+  'Additional Details',
+];
 export const AboutUsTab = [
   'About us',
   'Our vision & mission',
