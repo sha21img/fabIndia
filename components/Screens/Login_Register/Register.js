@@ -67,6 +67,7 @@ const Register = props => {
     confPass: '',
   });
   const [mobilePrefix, setMobilePrefix] = useState('60');
+  const [gender, SetGender] = useState({code: 'MALE'});
   const [generate, setgenerate] = useState(false);
   const [transactionId, settransactionId] = useState('');
   const [Otp, setOtp] = useState('');
@@ -122,7 +123,7 @@ const Register = props => {
       params,
     );
     console.log(res);
-    if (res.status) {
+    if (!!res) {
       settransactionId(res?.data?.transactionId);
       setgenerate(true);
     }
@@ -141,8 +142,8 @@ const Register = props => {
       params,
     );
     console.log(res);
-    if (res.status) {
-      setgenerate(true);
+    if (!!res) {
+      setgenerate(false);
     }
   };
 
@@ -172,9 +173,10 @@ const Register = props => {
             {generate ? (
               <View style={{marginVertical: 10}}>
                 <Text style={{textAlign: 'center', color: '#222'}}>
-                  Verify with OTP Send to{' '}
+                  Verify with OTP Send to
                   {`${phoneNumber[0]}${phoneNumber[1]}******${phoneNumber[8]}${phoneNumber[9]}`}
                 </Text>
+
                 <TextInput
                   value={Otp}
                   activeOutlineColor="white"
@@ -194,6 +196,14 @@ const Register = props => {
                   }}
                   placeholder="Enter 4-digit OTP"
                 />
+                <Text
+                  style={{
+                    color: Colors.primarycolor,
+                    textAlign: 'center',
+                    marginVertical: 10,
+                  }}>
+                  Resend OTP
+                </Text>
               </View>
             ) : (
               <View style={Styles.pickerbox}>
@@ -277,6 +287,62 @@ const Register = props => {
                 value={text}
                 onChangeText={text => setText(text)}
               />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    width: '50%',
+                    alignItems: 'center',
+                  }}>
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    onPress={() => {
+                      gender.code != 'MALE'
+                        ? SetGender({code: 'MALE'})
+                        : SetGender({code: ''});
+                    }}
+                    style={{
+                      height: 30,
+                      width: 30,
+                      borderRadius: 50,
+                      borderWidth: 2,
+                      borderColor: '#d3d6db',
+                      backgroundColor:
+                        gender.code == 'MALE' ? Colors.primarycolor : '',
+                    }}></TouchableOpacity>
+                  <Text style={{marginLeft: 10}}>Male</Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    width: '50%',
+                    alignItems: 'center',
+                  }}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      gender.code != 'FEMALE'
+                        ? SetGender({code: 'MALE'})
+                        : SetGender({code: ''});
+                    }}
+                    activeOpacity={1}
+                    style={{
+                      height: 30,
+                      width: 30,
+                      borderRadius: 50,
+                      borderWidth: 2,
+                      borderColor: '#d3d6db',
+                      backgroundColor:
+                        gender.code == 'FEMALE' ? Colors.primarycolor : '',
+                    }}></TouchableOpacity>
+                  <Text style={{marginLeft: 10}}>Female</Text>
+                </View>
+              </View>
             </View>
             <View style={[Styles.defaultaddressbox]}>
               <CheckBox
@@ -301,8 +367,8 @@ const Register = props => {
                 isChecked={isAgree}
               />
               <Text style={{paddingHorizontal: 7, width: '85%'}}>
-                By registering you agree to{' '}
-                <Text style={{color: Colors.primarycolor}}>T&C</Text> and{' '}
+                By registering you agree to
+                <Text style={{color: Colors.primarycolor}}>T&C</Text> and
                 <Text style={{color: Colors.primarycolor}}>Privacy Policy</Text>
               </Text>
             </View>
