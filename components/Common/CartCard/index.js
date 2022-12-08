@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {image} from '../../../assets/images';
 import Styles from './styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -20,7 +20,21 @@ export default function CartCard({
   RemoveClick = '',
   CustomClick = '',
 }) {
-  const cardListRender = () => {
+  const [quantity,setQuantity] = useState(null)
+  useEffect(() => {
+    setupData();
+  }, []);
+
+
+  const setupData = () => {
+    console.log('dataaaaaaaaaaaa', data);
+    let quantity = data.orderEntries.reduce((n, {quantity}) => n + quantity, 0);
+    console.log('quantityquantity',quantity)
+    setQuantity(quantity)
+  };
+
+  const cardListRender = item => {
+    console.log('itemitemitemitemitemitem', item);
     return (
       <>
         <View style={Styles.mainContainer}>
@@ -32,6 +46,7 @@ export default function CartCard({
               </Text>
             </View>
           ) : null}
+
           <View style={Styles.cartContainer}>
             <Image
               source={image.womenCard1}
@@ -39,7 +54,7 @@ export default function CartCard({
               resizeMode="cover"
             />
             <View style={Styles.detailContainer}>
-              <Text style={Styles.title}>jia Cotton Towel Set of 2</Text>
+              <Text style={Styles.title}>{item?.item?.product?.name}</Text>
               <View style={Styles.colorBox}>
                 <Text style={Styles.colorText}>Color - </Text>
                 <View
@@ -67,15 +82,15 @@ export default function CartCard({
                 <TouchableOpacity
                   style={Styles.quantityContainer}
                   onPress={() => SizeQClick()}>
-                  <Text style={Styles.QuantityText}>Quantity</Text>
+                  <Text style={Styles.QuantityText}>Quantity {item?.item?.quantity}</Text>
                   <MaterialIcons name="keyboard-arrow-down" size={20} />
                 </TouchableOpacity>
               </View>
               <View style={Styles.currencyContainer}>
-                <Text style={Styles.curr}>₹ 2500</Text>
-                <Text style={Styles.curr1}>₹ 3,000</Text>
+                <Text style={Styles.curr}>₹ {item?.item?.product?.priceAfterDiscount?.value}</Text>
+                <Text style={Styles.curr1}>₹ {item?.item?.product?.price?.value}</Text>
               </View>
-              <Text style={Styles.saveText}>You save ₹500!</Text>
+              <Text style={Styles.saveText}>You save ₹{item?.item?.product?.totalDiscount?.value}!</Text>
               <TouchableOpacity onPress={() => monogramClick()}>
                 <Text style={Styles.typeText}>Monogrammed</Text>
               </TouchableOpacity>
@@ -87,8 +102,9 @@ export default function CartCard({
               </TouchableOpacity> */}
             </View>
           </View>
+
           <View style={Styles.btnContainer}>
-            <TouchableOpacity onPress={() => RemoveClick()} style={Styles.btn}>
+            <TouchableOpacity onPress={() => RemoveClick(item?.item)} style={Styles.btn}>
               <Text style={Styles.btnText}>Remove</Text>
             </TouchableOpacity>
             <View style={Styles.divider}></View>
@@ -102,7 +118,7 @@ export default function CartCard({
   };
   return (
     <FlatList
-      data={data}
+      data={data.orderEntries}
       showsVerticalScrollIndicator={false}
       keyExtractor={(item, index) => index}
       renderItem={cardListRender}
