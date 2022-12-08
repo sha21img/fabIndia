@@ -7,9 +7,11 @@ export default function CommonButton({
   customViewStyle = {},
   btntxtColor = '#FFFFFF',
   handleClick = null,
+  disable=false
 }) {
   return (
     <TouchableOpacity
+      disabled={disable}
       style={[Styles.appButtonContainer, customViewStyle]}
       onPress={handleClick}>
       <Text style={[Styles.appButtonText, { color: btntxtColor }]}>{txt}</Text>
