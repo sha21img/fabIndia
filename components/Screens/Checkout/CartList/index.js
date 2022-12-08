@@ -50,7 +50,7 @@ export default function CartList(props) {
   const [showSizeQ, setShowSizeQ] = useState(false);
   const [showRemove, setShowRemove] = useState(false);
   const [showEmi, setShowEmi] = useState(false);
-  const [currentPosition, setCurrentPosition] = useState(2);
+  const [currentPosition, setCurrentPosition] = useState(0);
   const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     // setCurrentPosition(1);

@@ -36,7 +36,7 @@ export default function CommonCarousel(props) {
   //     <View key={Math.random() * 987} style={Styles.imageBox}>
   //       <Image
   //         style={Styles.image}
-  //         source={{uri: `${imageURL}${item.media.url}`}}
+  //          source={{uri:`${imageURL}${item.media.url}`}}
   //       />
   //       <Text style={Styles.imageText}>{item.title}</Text>
   //     </View>
@@ -48,11 +48,16 @@ export default function CommonCarousel(props) {
 
   const renderItem = ({item}) => {
     const mediaurl1 = item.media.url || item.media.mobile.url;
+    const newCode = item.urlLink;
+    // console.log('item for product', newCode);
+    let splitURL = newCode.split('/');
+    splitURL = splitURL[splitURL.length - 1];
+    // console.log('splitURL', splitURL);
     return (
       <TouchableOpacity
         onPress={() =>
           props.navigation.navigate('LandingPageSaris_Blouses', {
-            code: 'women-saris-blouses',
+            code: splitURL,
           })
         }>
         <ImageBackground

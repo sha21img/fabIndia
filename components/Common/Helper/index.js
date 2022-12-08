@@ -7,7 +7,7 @@ const BaseURL = 'https://apisap.fabindia.com/occ/v2/';
 const AuthAuthor = 'bearer nCVKPnrYg-ZgHMn0djWh1YSFCX0';
 export const imageURL = 'https://apisap.fabindia.com/';
 const postData = async (url, body) => {
-  const Token = localStorage.getItem('token');
+  const Token = 'bearer ElhKLe-VvjSmB_TEwcjzHZUyubU';
   const response = await fetch(`${BaseURL}/${url}`, {
     method: 'POST',
     headers: {

@@ -27,11 +27,14 @@ import {useNavigation} from '@react-navigation/native';
 import {image} from '../../../assets/images';
 import Accordian from '../../Common/Accordian';
 import {data} from '../../../constant';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LinearGradient from 'react-native-linear-gradient';
+import SearchResult from '../Search/SearchResult';
 
 // import WomenCategory from '../Home/WomenCategory';
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 
 const CategorySection = props => {
   return (
@@ -213,6 +216,26 @@ const DrawerComponent = () => {
     </>
   );
 };
+const InitialSearch = () => {
+  return (
+    <Stack.Navigator initialRouteName="Search">
+      <Stack.Screen
+        name="Search"
+        component={Search}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SearchResult"
+        component={SearchResult}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 export default function MainScreen(props) {
   // console.log(props);
   return (
@@ -275,8 +298,9 @@ export default function MainScreen(props) {
         }}
       />
       <Tab.Screen
-        name="Search"
-        component={Search}
+        name="InitialSearch"
+        {...props}
+        component={InitialSearch}
         options={{
           tabBarLabel: 'Search',
           tabBarActiveTintColor: Colors.primarycolor,
