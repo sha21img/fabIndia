@@ -100,7 +100,7 @@ const WomenHighlightData = [
   {image: image.womenCard1, title: 'Tunics'},
   {image: image.womenCard1, title: 'Tops'},
 ];
-const MenCatagory = () => {
+const MenCatagory = props => {
   const [active, setActive] = React.useState('Bestsellers');
   const [imgActive1, setImgActive1] = React.useState(0);
   const [sectionsData, setSectionsData] = React.useState([]);
@@ -322,6 +322,7 @@ const MenCatagory = () => {
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights
+            {...props}
             customStyle={{marginVertical: 10}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={param}
@@ -330,6 +331,7 @@ const MenCatagory = () => {
       case 'FabOffersGridBannerCarouselComponent':
         return (
           <LifeStyle
+            {...props}
             // data={LifeStyleData}
             data={param}
             // title={GetLifeStyleTitle}
@@ -343,8 +345,18 @@ const MenCatagory = () => {
           // <CommonCarousel data={param} width={width / 1.07} height={330} />
         );
       case 'SimpleResponsiveBannerComponent':
+        const newCode = param.urlLink;
+        let splitURL = newCode.split('/');
+        splitURL = splitURL[splitURL.length - 1];
         return (
-          <View style={{marginTop: 20}}>
+          <TouchableOpacity
+            style={{marginTop: 20}}
+            onPress={() =>
+              props.navigation.navigate('LandingPageSaris_Blouses', {
+                code: splitURL.split('?')[0],
+                title: param.title,
+              })
+            }>
             <Image
               resizeMode="stretch"
               source={{
@@ -352,21 +364,20 @@ const MenCatagory = () => {
               }}
               style={{height: 300, width: width}}
             />
-          </View>
+          </TouchableOpacity>
         );
 
       // section8 grid
       case 'FabBannerResponsiveTableComponent':
-        return (
-       <CommonImageGrid/>
-        );
+        return <CommonImageGrid {...props} data={param} />;
       //section 9 empty
       case 'FabResponsiveBannerCarouselComponent':
-        return <SingleBanner data={param} />;
+        return <SingleBanner data={param} {...props} />;
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
           <CommonCarousel
+            {...props}
             data={param}
             width={width / 1.07}
             height={200}
@@ -386,7 +397,7 @@ const MenCatagory = () => {
               }}>
               Collections
             </Text>
-            <CollectionCard data={param} />
+            <CollectionCard data={param} {...props} />
           </>
         );
       // CollectionCard

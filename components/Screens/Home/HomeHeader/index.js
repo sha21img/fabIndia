@@ -17,7 +17,7 @@ import axios from 'axios';
 export default function HomeHeader(props) {
   const [show, setShow] = useState(false);
   const navigation = useNavigation();
-  const {homeheader = false, searchVisible = true} = props;
+  const {homeheader = false, searchVisible = true, headertext = ''} = props;
   // const getProductSearchData = async () => {
   //   const response = await axios.get(
   //     `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=${text}&pageSize=5&lang=en&curr=INR`,
@@ -53,13 +53,14 @@ export default function HomeHeader(props) {
           </View>
         ) : (
           <TouchableOpacity
-            style={{paddingHorizontal: 5}}
+            style={{paddingHorizontal: 5, flexDirection: 'row'}}
             onPress={() => props.navigation.goBack()}>
             <SimpleLineIcons
               name="arrow-left"
               color={Colors.primarycolor}
               size={20}
             />
+            <Text style={{paddingLeft: 10}}>{headertext}</Text>
           </TouchableOpacity>
         )}
 
@@ -99,11 +100,11 @@ export default function HomeHeader(props) {
             {/* <Text style={Styles.currencyIcon}>₹</Text>
           <Text style={Styles.currencyText}>INR</Text> */}
           </TouchableOpacity>
-          <TouchableOpacity style={Styles.cartContainer}
-            onPress={()=>{
-          navigation.navigate("CartPage")
-        }}
-          >
+          <TouchableOpacity
+            style={Styles.cartContainer}
+            onPress={() => {
+              props.navigation.navigate('CartPage');
+            }}>
             <EvilIcons name="cart" size={30} color={Colors.primarycolor} />
           </TouchableOpacity>
         </View>

@@ -58,6 +58,7 @@ export default function CommonCarousel(props) {
         onPress={() =>
           props.navigation.navigate('LandingPageSaris_Blouses', {
             code: splitURL,
+            title: item.title,
           })
         }>
         <ImageBackground

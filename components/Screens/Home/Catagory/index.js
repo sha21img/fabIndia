@@ -49,9 +49,8 @@ export default function Catagory({data}) {
   const navigation = useNavigation();
   const catagory = item => {
     return (
-      <>
+      <TouchableOpacity onPress={() => navigation.navigate(item.item.name)}>
         <ImageBackground
-          onPress={() => navigation.navigate(item.item.name)}
           resizeMode="cover"
           source={image.HomeDecor3}
           style={{
@@ -84,7 +83,7 @@ export default function Catagory({data}) {
             {item.item.name}
           </Text>
         </View> */}
-      </>
+      </TouchableOpacity>
     );
   };
   return (

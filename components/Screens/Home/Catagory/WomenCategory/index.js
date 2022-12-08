@@ -42,7 +42,7 @@ import WomenTab from '../../Tabs.js/WomenTab';
 import {Styles} from './style';
 const width = Dimensions.get('window').width;
 
-const WomenCategory = () => {
+const WomenCategory = props => {
   const [imgActive1, setImgActive1] = React.useState(0);
   const [active, setActive] = React.useState('');
 
@@ -436,10 +436,11 @@ const WomenCategory = () => {
   const checkSwitch = param => {
     switch (param?.typeCode) {
       case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper data={param} />;
+        return <TopSwiper data={param} {...props} />;
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights
+            {...props}
             customStyle={{marginVertical: 10}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={param}
@@ -448,6 +449,7 @@ const WomenCategory = () => {
       case 'FabOffersGridBannerCarouselComponent':
         return (
           <LifeStyle
+            {...props}
             customViewStyle={{marginVertical: 20}}
             // data={LifeStyleData}
             data={param}
@@ -462,32 +464,42 @@ const WomenCategory = () => {
           // <CommonCarousel data={param} width={width / 1.07} height={330} />
         );
       case 'SimpleResponsiveBannerComponent':
+        const newCode = param.urlLink;
+        let splitURL = newCode.split('/');
+        splitURL = splitURL[splitURL.length - 1];
         return (
-          <View style={{marginTop: 20}}>
-            <Image
-              resizeMode="stretch"
-              source={{
-                uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
-              }}
-              style={{height: 213, width: width}}
-            />
-          </View>
+          <>
+            <TouchableOpacity
+              style={{marginTop: 20}}
+              onPress={() =>
+                props.navigation.navigate('LandingPageSaris_Blouses', {
+                  code: splitURL.split('?')[0],
+                  title: param.title,
+                })
+              }>
+              <Image
+                resizeMode="stretch"
+                source={{
+                  uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
+                }}
+                style={{height: 213, width: width}}
+              />
+            </TouchableOpacity>
+          </>
         );
       // section8 grid
       case 'FabBannerResponsiveTableComponent':
-        return (
-       <CommonImageGrid/>
-        );
-      case 'FabBannerResponsiveTableComponent':
-
-        return <CategoryGrid data={param} />;
+        return <CommonImageGrid {...props} data={param} />;
+      // case 'FabBannerResponsiveTableComponent':
+      //   return <CategoryGrid data={param} {...props} />;
       //section 9 empty
       case 'FabResponsiveBannerCarouselComponent':
-        return <SingleBanner data={param} />;
+        return <SingleBanner data={param} {...props} />;
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
           <CommonCarousel
+            {...props}
             data={param}
             width={width / 1.07}
             height={200}
@@ -507,7 +519,7 @@ const WomenCategory = () => {
               }}>
               Collections
             </Text>
-            <CollectionCard data={param} />
+            <CollectionCard data={param} {...props} />
           </>
         );
       // CollectionCard

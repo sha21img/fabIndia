@@ -3,7 +3,11 @@ import React from 'react';
 import Fonts from '../../../../assets/fonts';
 import {Colors} from '../../../../assets/Colors';
 
-export default function SortBox({openSort = null, dataMain = 0}) {
+export default function SortBox({
+  openSort = null,
+  dataMain = 0,
+  productCount = 0,
+}) {
   return (
     <View
       style={{
@@ -20,7 +24,7 @@ export default function SortBox({openSort = null, dataMain = 0}) {
             fontSize: 14,
             color: '#979797',
           }}>
-          {dataMain.length}
+          {productCount}
         </Text>
         <Text
           style={{
