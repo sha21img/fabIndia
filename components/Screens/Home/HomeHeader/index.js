@@ -89,7 +89,11 @@ export default function HomeHeader(props) {
             {/* <Text style={Styles.currencyIcon}>₹</Text>
           <Text style={Styles.currencyText}>INR</Text> */}
           </TouchableOpacity>
-          <TouchableOpacity style={Styles.cartContainer}>
+          <TouchableOpacity style={Styles.cartContainer}
+            onPress={()=>{
+          navigation.navigate("CartPage")
+        }}
+          >
             <EvilIcons name="cart" size={30} color={Colors.primarycolor} />
           </TouchableOpacity>
         </View>

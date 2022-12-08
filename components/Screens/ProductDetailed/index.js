@@ -18,36 +18,47 @@ import CommonTopTab from '../../Common/CommonTopTab';
 import {StoreDetails} from '../../../constant';
 import Customize from './Customize';
 import axios from 'axios';
+import {postData} from '../../Common/Helper';
 const width = Dimensions.get('window').width;
 
-export default function ProductDetailed() {
+export default function ProductDetailed(props) {
   const [productdetail, setProductDetail] = useState({});
   const [cartID, setCartID] = useState(null);
   const [cartSuccess, setCartSuccess] = useState(null);
-
+  const {productId} = props.route.params;
+  console.log(
+    'productIdproductIdproductIdproductIdproductIdproductIdproductId',
+    productId,
+  );
 
   const getproductDetailedData = async () => {
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/10659376`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}`,
     );
     console.log('response.data04733333333333333333', response.data);
     setProductDetail(response.data);
   };
   useEffect(() => {
     getproductDetailedData();
-    getCartID()
+    getCartID();
   }, []);
 
-const getCartID = async() =>{
-  const response = await axios.post(
-    `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts`,{},{
-      headers: {
-        'Authorization': `Bearer deo4mFuPyvLg_84XL2FJfe2tRMg` 
-      }}
-  );
-  console.log('getCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartID', response.data);
-  setCartID(response.data?.code)
-}
+  const getCartID = async () => {
+    const response = await axios.post(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer deo4mFuPyvLg_84XL2FJfe2tRMg`,
+        },
+      },
+    );
+    console.log(
+      'getCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartID',
+      response.data,
+    );
+    setCartID(response.data?.code);
+  };
 
   const WomenCarouselData = {
     banners:
@@ -84,29 +95,45 @@ const getCartID = async() =>{
   const screenObj = {
     Description: DetailsData,
     Specification: DetailsData,
-    'Additional Details' : DetailsData,
+    'Additional Details': DetailsData,
   };
   const dataMap = StoreDetails.map(item => ({
     title: item,
     card: screenObj[item],
   }));
 
-  const AddtoCart = async() => {
-    const response = await axios.post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${cartID}/entries?lang=en&curr=INR`,{
+  const AddtoCart = async () => {
+    // const body = {
+    //   quantity: 1,
+    //   product: {
+    //     code: productId,
+    //   },
+    // };
+    // const response = await postData(
+    //   `fabindiab2c/users/current/carts/${cartID}/entries?lang=en&curr=INR`,
+    //   body,
+    // );
 
-        quantity:1,
+    const response = await axios.post(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${cartID}/entries?lang=en&curr=INR`,
+      {
+        quantity: 1,
         product: {
-          "code": "10659376"
-      }
-      },{
+          code: productId,
+        },
+      },
+      {
         headers: {
-          'Authorization': `Bearer deo4mFuPyvLg_84XL2FJfe2tRMg` 
-        }}
+          Authorization: `Bearer deo4mFuPyvLg_84XL2FJfe2tRMg`,
+        },
+      },
     );
-    console.log('AddtoCartAddtoCartAddtoCartAddtoCartAddtoCartAddtoCartAddtoCartAddtoCartAddtoCart', response.data);
-    setCartSuccess(response.data)
-  }
+    console.log(
+      'AddtoCartAddtoCartAddtoCartAddtoCartAddtoCartAddtoCartAddtoCartAddtoCartAddtoCart',
+      response.data,
+    );
+    setCartSuccess(response.data);
+  };
   return (
     <>
       {productdetail && (
@@ -128,8 +155,12 @@ const getCartID = async() =>{
               backgroundColor: '#F6F6F6',
             }}
           />
-          <Details productdetail={productdetail} />
-          <Size_Color customStyle={{marginTop: 20}}  productdetail={productdetail} />
+          <Details productdetail={productdetail} productId={productId} />
+          <Size_Color
+            customStyle={{marginTop: 20}}
+            productdetail={productdetail}
+            productId={productId}
+          />
           {/* <Customize
             heading="Get your linen monogrammed!"
             description="Add a personal touch to your bath linen with a
@@ -163,7 +194,7 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
           /> */}
         </ScrollView>
       )}
-      <Footer oos={true} handleClick={AddtoCart}/>
+      <Footer oos={true} handleClick={AddtoCart} />
     </>
   );
 }
