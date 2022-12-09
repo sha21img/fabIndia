@@ -63,7 +63,7 @@ export default function ResultCards(props) {
   };
   const addWishlist = async data => {
     const value = await AsyncStorage.getItem('cartID');
-    console.log("valuevaluevaluevaluevaluevaluevaluevaluevaluevalue",value)
+    console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
     // console.log('addWishlist', data.code);
     // const response = await axios.post(
     //   // 'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR',
@@ -111,6 +111,7 @@ export default function ResultCards(props) {
           paddingHorizontal: 15,
           flexGrow: 1,
           backgroundColor: '#FFFFFF',
+          paddingBottom: 20,
         }}
         numColumns={2}
         data={filterProducts}

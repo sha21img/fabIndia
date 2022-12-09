@@ -75,7 +75,6 @@ const UnAuthPostData = async (url, formData) => {
   }
 };
 const getCartID = async () => {
-  console.log('getCardID');
   const response = await axios.post(
     `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts`,
     {},
@@ -85,6 +84,11 @@ const getCartID = async () => {
       },
     },
   );
+  console.log(
+    'getCardID+++++++++++++++++++++++++++++++++++++++++++++++?????????????????????????????????????????????????????????',
+    response.data,
+  );
+
   await AsyncStorage.setItem('cartID', JSON.stringify(response.data?.code));
 };
 export {postData, getData, getComponentData, UnAuthPostData, getCartID};
