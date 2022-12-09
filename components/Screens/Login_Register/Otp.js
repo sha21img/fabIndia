@@ -30,7 +30,7 @@ export default function Otp(props) {
     getCartID();
     console.log('looooooooooo');
 
-    props.navigation.navigate('MyAccount');
+    props.navigation.navigate('MyAccounts');
   };
   return (
     <>

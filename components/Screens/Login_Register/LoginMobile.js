@@ -8,7 +8,7 @@ import {TextInput} from 'react-native-paper';
 import {UnAuthPostData} from '../../Common/Helper';
 
 export default function LoginMobile(props) {
-  const [mobilePrefix, setMobilePrefix] = useState('60');
+  const [mobilePrefix, setMobilePrefix] = useState('91');
   const [phoneNumber, setPhoneNumber] = useState('');
 
   const _selectedValue = index => {
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     color: 'black',
     height: 40,
     backgroundColor: 'white',
+    width: '100%',
   },
   pickercontainer: {
     width: 75,

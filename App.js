@@ -32,12 +32,13 @@ import HomeHeader from './components/Screens/Home/HomeHeader';
 const Stack = createNativeStackNavigator();
 
 export default function App(props) {
-  const [netInfo, setNetInfo] = useState('');
+  const [netInfo, setNetInfo] = useState(true);
+
   useEffect(() => {
-    SplashScreen.hide();
     const unsubscribe = NetInfo.addEventListener(state => {
       setNetInfo(state.isConnected);
     });
+    SplashScreen.hide();
     return () => {
       unsubscribe();
     };

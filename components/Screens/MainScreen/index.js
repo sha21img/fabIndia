@@ -320,18 +320,18 @@ export default function MainScreen(props) {
           tabBarLabel: 'Account',
           tabBarActiveTintColor: Colors.primarycolor,
           tabBarIcon: ({focused}) => (
-            <TouchableOpacity
-              onPress={() =>
-                props.navigation.navigate('MyAccount', {
-                  screen: 'Login_Register',
-                })
-              }>
-              <MaterialCommunityIcons
-                name="account-outline"
-                color={focused ? Colors.primarycolor : Colors.inactiveicon}
-                size={25}
-              />
-            </TouchableOpacity>
+            // <TouchableOpacity
+            //   onPress={() =>
+            //     props.navigation.navigate('MyAccount', {
+            //       screen: 'Login_Register',
+            //     })
+            //   }>
+            <MaterialCommunityIcons
+              name="account-outline"
+              color={focused ? Colors.primarycolor : Colors.inactiveicon}
+              size={25}
+            />
+            // </TouchableOpacity>
           ),
           headerShown: false,
         }}

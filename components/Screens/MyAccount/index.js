@@ -218,7 +218,7 @@ const MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Login_Register">
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
@@ -236,6 +236,24 @@ const MyAccount = props => {
             ),
           }}
         />
+        <Stack.Screen
+          name="Login_Register"
+          component={Login_Register}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Account"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+
         <Stack.Screen
           name="ErrorScreen"
           component={ErrorScreen}
@@ -616,23 +634,7 @@ const MyAccount = props => {
             ),
           }}
         />
-        <Stack.Screen
-          name="Login_Register"
-          component={Login_Register}
-          options={{
-            header: props => (
-              <Header
-                leftIcon={leftIcon}
-                title="My Account"
-                rightIcon={rightIcon}
-                customStyle={{
-                  backgroundColor: '#F8F6F5',
-                  marginBottom: 4,
-                }}
-              />
-            ),
-          }}
-        />
+
         <Stack.Screen
           name="RegisterSuccess"
           component={RegisterSuccess}
