@@ -20,6 +20,7 @@ import {SliderBox} from 'react-native-image-slider-box';
 import Customize from './Customize';
 import axios from 'axios';
 import {postData} from '../../Common/Helper';
+import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {Colors} from '../../../assets/Colors';
@@ -31,7 +32,7 @@ export default function ProductDetailed(props) {
   const [cartSuccess, setCartSuccess] = useState(null);
   const [productImage, setProductImage] = React.useState([]);
 
-  const {productId} = props.route.params;
+  const {productId} = props?.route?.params;
   console.log(
     'productIdproductIdproductIdproductIdproductIdproductIdproductId',
     productId,
@@ -144,7 +145,7 @@ console.log('cartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDc
       },
       {
         headers: {
-          Authorization: `Bearer deo4mFuPyvLg_84XL2FJfe2tRMg`,
+          Authorization: `Bearer wR50iP-l8bXyINCqKDIUECr7hzw`,
         },
       },
     );
@@ -152,8 +153,22 @@ console.log('cartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDc
       'AddtoCartAddtoCartAddtoCartAddtoCartAddtoCartAddtoCartAddtoCartAddtoCartAddtoCart',
       response.data,
     );
-    setCartSuccess(response.data);
+
+    if(response.data){
+      setCartSuccess(response.data);
+      showToast()
+    }
+    
+  
   };
+
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Hello',
+      text2: 'Added in Cart 👋'
+    });
+  }
 
   return (
     <>
