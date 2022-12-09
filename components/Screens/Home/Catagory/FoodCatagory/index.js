@@ -1,4 +1,10 @@
-import {Text, FlatList, Dimensions, Image} from 'react-native';
+import {
+  Text,
+  FlatList,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState} from 'react';
 import {Colors} from '../../../../../assets/Colors';
 import Fonts from '../../../../../assets/fonts';
@@ -14,7 +20,7 @@ import NewHighlights from '../../../../Common/NewHighlights';
 import CommonTitleTab from '../../../../Common/CommonTitleTab';
 const width = Dimensions.get('window').width;
 
-export default function FoodCatagory() {
+export default function FoodCatagory(props) {
   const [filteredComp, setFilteredComp] = useState([]);
 
   const getInitialData = async () => {
@@ -44,6 +50,7 @@ export default function FoodCatagory() {
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights
+            {...props}
             customStyle={{marginVertical: 10}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={param}
@@ -52,6 +59,7 @@ export default function FoodCatagory() {
       case 'FabOffersGridBannerCarouselComponent':
         return (
           <LifeStyle
+            {...props}
             // data={LifeStyleData}
             data={param}
             // title={GetLifeStyleTitle}
@@ -67,23 +75,36 @@ export default function FoodCatagory() {
           // <CommonCarousel data={param} width={width / 1.07} height={330} />
         );
       case 'SimpleResponsiveBannerComponent':
+        console.log('Food category', param);
+        const newCode = param.urlLink;
+        let splitURL = newCode.split('/');
+        splitURL = splitURL[splitURL.length - 1];
         return (
+          // <TouchableOpacity
+          //   onPress={() =>
+          //     props.navigation.navigate('LandingPageSaris_Blouses', {
+          //       code: splitURL.split('?')[0],
+          //       title: param.media.mobile.altText,
+          //     })
+          //   }>
           <Image
             resizeMode="stretch"
             source={{
               uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
             }}
-            style={{height: 300, width: width}}
+            style={{height: 238, width: width}}
           />
+          // </TouchableOpacity>
         );
       // section8 grid
       //section 9 empty
       case 'FabResponsiveBannerCarouselComponent':
-        return <SingleBanner data={param} />;
+        return <SingleBanner data={param} {...props} />;
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
           <CommonCarousel
+            {...props}
             data={param}
             width={width / 1.07}
             height={200}
@@ -103,7 +124,7 @@ export default function FoodCatagory() {
               }}>
               Collections
             </Text>
-            <CollectionCard data={param} />
+            <CollectionCard data={param} {...props} />
           </>
         );
       // CollectionCard

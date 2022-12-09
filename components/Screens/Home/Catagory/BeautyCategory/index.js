@@ -26,7 +26,7 @@ import NewHighlights from '../../../../Common/NewHighlights';
 import CommonTitleTab from '../../../../Common/CommonTitleTab';
 const width = Dimensions.get('window').width;
 
-export default function BeautyCategory() {
+export default function BeautyCategory(props) {
   const [active, setActive] = React.useState('Bestsellers');
   const [dashboardData, setDashboardData] = React.useState([]);
 
@@ -320,6 +320,7 @@ export default function BeautyCategory() {
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights
+            {...props}
             customStyle={{marginVertical: 10}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={param}
@@ -334,14 +335,28 @@ export default function BeautyCategory() {
 
       //7
       case 'SimpleResponsiveBannerComponent':
+        const newCode = param.urlLink;
+        let splitURL = newCode.split('/');
+        splitURL = splitURL[splitURL.length - 1];
+        // let splitURL = newCode.split('=')[1];
+        // console.log('Adding', splitURL);
+
         return (
-          <Image
-            resizeMode="stretch"
-            source={{
-              uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
-            }}
-            style={{height: 300, width: width}}
-          />
+          <TouchableOpacity
+            onPress={() =>
+              props.navigation.navigate('LandingPageSaris_Blouses', {
+                code: splitURL,
+                title: 'hhi',
+              })
+            }>
+            <Image
+              resizeMode="stretch"
+              source={{
+                uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
+              }}
+              style={{height: 296, width: width}}
+            />
+          </TouchableOpacity>
         );
 
       //8,9,10 empty

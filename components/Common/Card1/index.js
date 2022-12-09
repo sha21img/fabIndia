@@ -10,7 +10,6 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 export default function Card1(props) {
   const {customViewStyle = {}, item, handleClick = null} = props;
 
-  console.log('variantOptions[0].images[0].url.code', item.variantOptions[0].images[0].url);
   const defaultViewCustomStyles = {
     width: '48%',
     elevation: 1,
@@ -18,11 +17,6 @@ export default function Card1(props) {
   };
   // console.log('item', item.variantOptions[0].variantOptionQualifiers[0].value);
   // console.log('item', item.name);
-  const freeSize = item.variantOptions[0].variantOptionQualifiers[0].value;
-  console.log(
-    'freeSize',
-    item.variantOptions[0].variantOptionQualifiers[0].value,
-  );
 
   return (
     <>
