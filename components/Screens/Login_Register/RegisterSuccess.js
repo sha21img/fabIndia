@@ -6,7 +6,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fonts from '../../../assets/fonts';
 import {image} from '../../../assets/images';
 
-export default function RegisterSuccess() {
+export default function RegisterSuccess(props) {
   return (
     <>
       <View style={Styles.mainContainer}>
@@ -27,9 +27,9 @@ export default function RegisterSuccess() {
           <Text style={Styles.title}>Thank you for registering with us!</Text>
         </View>
         <CommonButton
-          backgroundColor="green"
           txt="Start shopping now!"
           customViewStyle={Styles.btn}
+          handleClick={() => props.navigation.navigate('Login_Register')}
         />
       </View>
     </>

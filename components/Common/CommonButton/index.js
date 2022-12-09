@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Fonts from '../../../assets/fonts';
 
@@ -7,14 +7,14 @@ export default function CommonButton({
   customViewStyle = {},
   btntxtColor = '#FFFFFF',
   handleClick = null,
-  disable=false
+  disable = false,
 }) {
   return (
     <TouchableOpacity
       disabled={disable}
       style={[Styles.appButtonContainer, customViewStyle]}
       onPress={handleClick}>
-      <Text style={[Styles.appButtonText, { color: btntxtColor }]}>{txt}</Text>
+      <Text style={[Styles.appButtonText, {color: btntxtColor}]}>{txt}</Text>
     </TouchableOpacity>
   );
 }

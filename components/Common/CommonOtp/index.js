@@ -6,7 +6,13 @@ import OTPInputView from '@twotalltotems/react-native-otp-input';
 import CommonButton from '../CommonButton';
 import {Styles} from './style';
 
-export default function CommonOtp({btntext = ''}) {
+export default function CommonOtp({
+  btntext = '',
+  setOtp = null,
+  otp = '',
+  handleOTP = null,
+  disable,
+}) {
   return (
     <>
       <ScrollView contentContainerStyle={Styles.container}>
@@ -23,6 +29,7 @@ export default function CommonOtp({btntext = ''}) {
             codeInputFieldStyle={Styles.otp}
             onCodeFilled={code => {
               console.log(`Code is ${code}, you are good to go!`);
+              setOtp(code);
             }}
           />
           <TouchableOpacity>
@@ -32,10 +39,12 @@ export default function CommonOtp({btntext = ''}) {
       </ScrollView>
       <View style={Styles.btnBox}>
         <CommonButton
+          disable={disable}
+          handleClick={handleOTP}
           backgroundColor="#BDBDBD"
           txt={btntext}
           customViewStyle={{
-            backgroundColor: Colors.primarycolor,
+            backgroundColor: disable ? '#BDBDBD' : Colors.primarycolor,
           }}
         />
       </View>

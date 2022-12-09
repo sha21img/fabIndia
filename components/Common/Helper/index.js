@@ -62,7 +62,7 @@ const UnAuthPostData = async (url, formData) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'bearer vubr1nFAcx5g3rrAbyPt1gQW9Pk',
+      Authorization: 'bearer ElhKLe-VvjSmB_TEwcjzHZUyubU',
       Accept: 'application/json',
     },
     body: JSON.stringify(formData),
@@ -75,6 +75,7 @@ const UnAuthPostData = async (url, formData) => {
   }
 };
 const getCartID = async () => {
+  console.log('getCardID');
   const response = await axios.post(
     `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts`,
     {},
@@ -84,7 +85,6 @@ const getCartID = async () => {
       },
     },
   );
-  await AsyncStorage.setItem('cartID', response.data?.code)
-  
+  await AsyncStorage.setItem('cartID', JSON.stringify(response.data?.code));
 };
-export {postData, getData, getComponentData, UnAuthPostData};
+export {postData, getData, getComponentData, UnAuthPostData, getCartID};

@@ -39,8 +39,8 @@ export default function ProductDetailed(props) {
   );
 
   const getproductDetailedData = async () => {
-    const value = await AsyncStorage.getItem('cartID')
-    setCartID(value)
+    const value = await AsyncStorage.getItem('cartID');
+    setCartID(value);
 
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}`,
@@ -134,7 +134,10 @@ export default function ProductDetailed(props) {
     //   `fabindiab2c/users/current/carts/${cartID}/entries?lang=en&curr=INR`,
     //   body,
     // );
-console.log('cartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartID',cartID)
+    console.log(
+      'cartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartID',
+      cartID,
+    );
     const response = await axios.post(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${cartID}/entries?lang=en&curr=INR`,
       {
