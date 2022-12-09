@@ -52,7 +52,7 @@ export default function Catagory({data}) {
       <TouchableOpacity onPress={() => navigation.navigate(item.item.name)}>
         <ImageBackground
           resizeMode="cover"
-          source={image.HomeDecor3}
+          source={image.homedecortable}
           style={{
             height: 70,
             width: 70,
