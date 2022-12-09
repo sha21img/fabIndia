@@ -34,8 +34,8 @@ export default function Footer({oos, handleClick = null, disabled = false}) {
                 backgroundColor: !disabled ? Colors.primarycolor : 'grey',
               },
             ]}
-            disabled={true}
-            onPress={() => disabled && handleClick()}>
+            disabled={disabled}
+            onPress={() =>{handleClick(),console.log('ki')}}>
             <Text style={Styles.cartText}>Add to cart</Text>
           </TouchableOpacity>
         ) : (
