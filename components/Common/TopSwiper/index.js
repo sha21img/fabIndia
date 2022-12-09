@@ -14,6 +14,7 @@ export default function TopSwiper(props) {
   const navigation = useNavigation();
   const {customStyle = {}, data = {}} = props;
   const [carouselData, setCarouselData] = React.useState([]);
+  const [filterCarouselData, setFilterCarouselData] = React.useState([]);
   const getCarauselIds = async () => {
     const bannerId = data.banners;
     getCarauselData(bannerId);
@@ -25,7 +26,7 @@ export default function TopSwiper(props) {
       `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
     console.log('response.component[0]', response);
-    // setCarouselData(response.component);
+    setFilterCarouselData(response.component);
     let images = [];
     for (let i = 0; i < response.component.length; i++) {
       const item = response.component[i];
@@ -59,15 +60,19 @@ export default function TopSwiper(props) {
   return (
     <View style={customStyle}>
       <SliderBox
-        // onCurrentImagePressed={() => {
-        //   // const newCode = item.item.urlLink;
-        //   // let splitURL = newCode.split('/');
-        //   // splitURL = splitURL[splitURL.length - 1];
-        //   navigation.navigate('LandingPageSaris_Blouses', {
-        //     // code: 'women-saris-blouses',
-        //     code: 'sale',
-        //   });
-        // }}
+        onCurrentImagePressed={curr => {
+          const filteredArray = filterCarouselData.find((item, index) => {
+            return curr == index;
+          });
+          console.log('filteredArray', filteredArray);
+          // const newCode = item.item.urlLink;
+          // let splitURL = newCode.split('/');
+          // splitURL = splitURL[splitURL.length - 1];
+          // navigation.navigate('LandingPageSaris_Blouses', {
+          // code: 'women-saris-blouses',
+          //   code: 'sale',
+          // });
+        }}
         autoplay={true}
         circleLoop={true}
         sliderBoxHeight={212}

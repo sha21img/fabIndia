@@ -53,7 +53,7 @@ export default function SingleBanner(props) {
           onPress={() =>
             props.navigation.navigate('LandingPageSaris_Blouses', {
               code: 'wedding-women-saris-blouses',
-              title: bannerData.title,
+              title: bannerData.media.mobile.altText,
             })
           }>
           <Image
