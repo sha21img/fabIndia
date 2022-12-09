@@ -8,7 +8,7 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Entypo from 'react-native-vector-icons/Entypo';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
@@ -20,7 +20,7 @@ import Home from '../Home';
 import Menu from '../Menu';
 import Search from '../Search';
 import HomeStack from '../HomeStack';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyAccount from '../MyAccount';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {useNavigation} from '@react-navigation/native';
@@ -238,6 +238,8 @@ const InitialSearch = () => {
 };
 export default function MainScreen(props) {
   // console.log(props);
+  const [auth, setAuth] = useState();
+
   return (
     <Tab.Navigator
       initialRouteName="DrawerComponent"

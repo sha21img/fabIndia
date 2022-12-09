@@ -6,9 +6,18 @@ import Fonts from '../../../assets/fonts';
 import CountryPicker from 'rn-country-picker';
 import {TextInput} from 'react-native-paper';
 import InputText from '../../Common/InputText';
+import {UnAuthPostData} from '../../Common/Helper';
 
 export default function ResetPassword() {
   const [text, setText] = useState('');
+  const handleSubmit = async () => {
+    const body = {userId: text};
+    const res = await UnAuthPostData(
+      'fabindiab2c/forgottenpasswordtokens?lang=en&curr=INR',
+      body,
+    );
+    console.log(res);
+  };
 
   return (
     <>
@@ -26,8 +35,12 @@ export default function ResetPassword() {
           backgroundColor="#BDBDBD"
           txt="Log in"
           customViewStyle={{
-            backgroundColor: Colors.primarycolor,
+            backgroundColor: !text
+              ? Colors.inAactivecolor
+              : Colors.primarycolor,
           }}
+          disable={!text}
+          handleClick={handleSubmit}
         />
       </View>
     </>
