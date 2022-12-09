@@ -321,10 +321,11 @@ export default function MainScreen(props) {
           tabBarActiveTintColor: Colors.primarycolor,
           tabBarIcon: ({focused}) => (
             <TouchableOpacity
-            // onPress={() =>
-            //   props.navigation.navigate('MyAccounts', {screen: 'MyAccount'})
-            // }
-            >
+              onPress={() =>
+                props.navigation.navigate('MyAccount', {
+                  screen: 'Login_Register',
+                })
+              }>
               <MaterialCommunityIcons
                 name="account-outline"
                 color={focused ? Colors.primarycolor : Colors.inactiveicon}

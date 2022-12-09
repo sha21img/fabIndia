@@ -11,7 +11,7 @@ import {Colors} from '../../../assets/Colors';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import Fonts from '../../../assets/fonts';
 import CommonOtp from '../../Common/CommonOtp';
-import {UnAuthPostData} from '../../Common/Helper';
+import {getCartID, UnAuthPostData} from '../../Common/Helper';
 
 export default function Otp(props) {
   const {transactionId, mobilePrefix, phoneNumber} = props;
@@ -23,13 +23,14 @@ export default function Otp(props) {
       otp: otp,
       transactionId: transactionId,
     };
-    let res = await UnAuthPostData(
-      'fabindiab2c/otp/validate?lang=en&curr=INR',
-      params,
-    );
-    // console.log(res);
+    // let res = await UnAuthPostData(
+    //   'fabindiab2c/otp/validate?lang=en&curr=INR',
+    //   params,
+    // );
+    getCartID();
+    console.log('looooooooooo');
 
-    props.navigation.navigate('MainScreen');
+    props.navigation.navigate('MyAccount');
   };
   return (
     <>

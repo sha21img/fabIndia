@@ -16,17 +16,18 @@ export default function LoginMobile(props) {
   };
 
   const handleOTP = async () => {
+    console.log('handle otp');
     let param = {
       isLogin: true,
       isSignUp: false,
       mobileDailCode: `+${mobilePrefix}`,
       mobileNumber: phoneNumber,
     };
-    let res = await UnAuthPostData(
-      `fabindiab2c/otp/generate?lang=en&curr=INR`,
-      param,
-    );
-    console.log(res);
+    // let res = await UnAuthPostData(
+    //   `fabindiab2c/otp/generate?lang=en&curr=INR`,
+    //   param,
+    // );
+    console.log('kooooooooooooooooo');
     props.navigation.navigate('Otp', {
       transactionId: '',
       // transactionId: res?,
