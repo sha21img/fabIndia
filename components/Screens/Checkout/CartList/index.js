@@ -54,11 +54,10 @@ export default function CartList(props) {
   const [showEmi, setShowEmi] = useState(false);
   const [currentPosition, setCurrentPosition] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [totalquantity,setTotalquantity] = useState(null)
-  const [totalPrice,setTotalPrice] = useState(null)
+  const [totalquantity, setTotalquantity] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(null);
 
-
-  const {cartdetails} = props
+  const {cartdetails} = props;
   useEffect(() => {
     // setCurrentPosition(1);
   }, []);
@@ -74,17 +73,16 @@ export default function CartList(props) {
   const SizeQClick = () => {
     setShowSizeQ(true);
   };
-  const RemoveClick = async(data) => {
+  const RemoveClick = async data => {
     const value = await AsyncStorage.getItem('cartID');
-    console.log("valuevaluevaluevaluevaluevaluevaluevaluevaluevalue",value)
-    console.log("dataaaaaaaaaaaaaaaaaa00000000000000000000",data.entryNumber)
+    console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
+    console.log('dataaaaaaaaaaaaaaaaaa00000000000000000000', data.entryNumber);
     const response = await axios.delete(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${value}/entries/${data.entryNumber}`,
-      {},
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751/entries/${data.entryNumber}`,
+      // {},
       {
         headers: {
-          Authorization: `Bearer deo4mFuPyvLg_84XL2FJfe2tRMg`,
-      
+          Authorization: `Bearer SqhPMInSnKoBK5sH76aH9ECVg_o`,
         },
       },
     );
@@ -92,7 +90,6 @@ export default function CartList(props) {
       'RemoveClickRemoveClickRemoveClickRemoveClickRemoveClickRemoveClickRemoveClickRemoveClick',
       response.data,
     );
-
   };
   const EmiClick = () => {
     setShowEmi(true);
@@ -103,18 +100,21 @@ export default function CartList(props) {
 
   const setupData = () => {
     console.log('dataaaaaaaaaaaa', cartdetails);
-    let quantity = cartdetails.orderEntries.reduce((n, {quantity}) => n + quantity, 0);
-    console.log('quantityquantity',quantity)
-    setTotalquantity(quantity)
+    let quantity = cartdetails.orderEntries.reduce(
+      (n, {quantity}) => n + quantity,
+      0,
+    );
+    console.log('quantityquantity', quantity);
+    setTotalquantity(quantity);
     let sum = 0;
 
     cartdetails.orderEntries.forEach(value => {
-      sum += value.totalPrice.value
+      sum += value.totalPrice.value;
     });
-    
-    console.log('sum',sum);
-    setTotalPrice(sum)
-};
+
+    console.log('sum', sum);
+    setTotalPrice(sum);
+  };
 
   return (
     <>

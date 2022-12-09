@@ -20,6 +20,7 @@ export default function ResultCards(props) {
   );
   const {data = []} = props;
   const getProductData = async () => {
+    console.log('checky')
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
     );
@@ -73,17 +74,17 @@ export default function ResultCards(props) {
     // https://apisap.fabindia.com/occ/v2/
     // fabindiab2c/users/anonymous/carts/378a862e-301d-4
     // 1ae-b2b2-015610c56c01/entries?lang=en&curr=INR
-    const body = {
-      quantity: 1,
-      product: {
-        code: data.code,
-      },
-    };
-    const response = await postData(
-      `fabindiab2c/users/current/carts/${value}/entries?lang=en&curr=INR`,
-      body,
-    );
-    console.log('responseppppppppppp', response);
+    // const body = {
+    //   quantity: 1,
+    //   product: {
+    //     code: data.code,
+    //   },
+    // };
+    // const response = await postData(
+    //   `fabindiab2c/users/current/carts/${value}/entries?lang=en&curr=INR`,
+    //   body,
+    // );
+    // console.log('responseppppppppppp', response);
   };
   const getCardData = item => {
     return (

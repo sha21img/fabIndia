@@ -12,7 +12,8 @@ import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import Entypo from 'react-native-vector-icons/Entypo';
 
-export default function Footer({oos,handleClick=null}) {
+export default function Footer({oos, handleClick = null, disabled = false}) {
+  console.log('disabled',disabled)
   const [modalVisible, setModalVisible] = useState(false);
   openStock = () => setModalVisible(true);
   return (
@@ -26,8 +27,15 @@ export default function Footer({oos,handleClick=null}) {
           />
         </TouchableOpacity>
         {oos ? (
-          <TouchableOpacity style={Styles.cartBox} 
-          onPress={()=>handleClick()}>
+          <TouchableOpacity
+            style={[
+              Styles.cartBox,
+              {
+                backgroundColor: !disabled ? Colors.primarycolor : 'grey',
+              },
+            ]}
+            disabled={true}
+            onPress={() => disabled && handleClick()}>
             <Text style={Styles.cartText}>Add to cart</Text>
           </TouchableOpacity>
         ) : (
@@ -109,7 +117,6 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   cartBox: {
-    backgroundColor: Colors.primarycolor,
     padding: 12,
     width: '85%',
     borderRadius: 50,
