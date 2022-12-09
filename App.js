@@ -1,117 +1,313 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import SplashScreen from 'react-native-splash-screen';
+import {View, Text, TouchableOpacity, LogBox} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import FabulousCardDetails from './components/Screens/FabulousCardDetails';
+import MainScreen from './components/Screens/MainScreen';
+import NetInfo from '@react-native-community/netinfo';
+import Header from './components/Common/Header';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+// import {useNavigation} from '@react-navigation/native';
+import Filter from './components/Common/Filter';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Fonts from './assets/fonts';
+import {Colors} from './assets/Colors';
+import MyAddresses from './components/Screens/MyAccount/MyAddresses';
+import EditAddress from './components/Screens/MyAccount/MyAddresses/EditAddress';
+import CartPage from './components/Screens/Checkout/CartPage';
+import ErrorScreen from './components/Screens/ErrorScreen';
+import YourWishlist from './components/Screens/YourWishlist';
+import StoreLocator from './components/Screens/StoreLocator';
+import SearchLocator from './components/Screens/StoreLocator/SearchLocator';
+import StoreMainDetails from './components/Screens/StoreLocator/StoreMainDetails';
+import AboutUsMenu from './components/Screens/AboutUsMenu';
+import EmptyCart from './components/Screens/Checkout/EmptyCart';
+import PDP_Compare from './components/Screens/PDP_Compare';
+import ProductDetailed from './components/Screens/ProductDetailed';
+import Header1 from './components/Common/Header1';
+import OrderConfirmation from './components/Screens/OrderConfirmation';
+import HomeHeader from './components/Screens/Home/HomeHeader';
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const Stack = createNativeStackNavigator();
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+export default function App(props) {
+  const [netInfo, setNetInfo] = useState(true);
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setNetInfo(state.isConnected);
+    });
+    SplashScreen.hide();
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+  const getNetInfo = () => {
+    // To get the network state once
+    NetInfo.fetch().then(state => {
+      setNetInfo(state.isConnected);
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+      // alert(
+      //   `Connection type: ${state.type}
+      //   Is connected?: ${state.isConnected}
+      //   IP Address: ${state.details.ipAddress}`,
+      // );
+    });
   };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+  useEffect(() => {
+    LogBox.ignoreAllLogs();
+  }, []);
+  const leftIcon = props => {
+    return (
+      <TouchableOpacity onPress={() => props.navigation.goBack()}>
+        <SimpleLineIcons
+          name="arrow-left"
+          color={Colors.primarycolor}
+          size={20}
+        />
+      </TouchableOpacity>
+    );
+  };
+  const rightIcon = (
+    <TouchableOpacity>
+      <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
+    </TouchableOpacity>
   );
-};
+  const rightText = (
+    <TouchableOpacity>
+      <Text
+        style={{
+          fontFamily: Fonts.Assistant400,
+          fontSize: 16,
+          color: '#979797',
+        }}>
+        Clear all
+      </Text>
+    </TouchableOpacity>
+  );
+  if (netInfo) {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="MainScreen">
+          <Stack.Screen
+            name="MainScreen"
+            component={MainScreen}
+            options={{headerShown: false}}
+          />
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+          <Stack.Screen
+            name="FabulousCardDetails"
+            component={FabulousCardDetails}
+            options={{
+              header: props => {
+                return (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="FabulousCardDetails"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                    }}
+                  />
+                );
+              },
+            }}
+          />
+          <Stack.Screen
+            name="PDP_Compare"
+            component={PDP_Compare}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="PDP_Compare"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
 
-export default App;
+          <Stack.Screen
+            name="ProductDetailed"
+            component={ProductDetailed}
+            options={{
+              header: props => (
+                <HomeHeader
+                  {...props}
+                  searchVisible={false}
+                  customViewStyle={{backgroundColor: '#FFFFFF'}}
+                  // leftIcon={leftIcon(props)}
+                  // title="Cotton Viscose Printed Short..."
+                  // rightIcon={rightIcon}
+                  // customStyle={{
+                  //   backgroundColor: '#F8F6F5',
+                  // }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="Filter"
+            component={Filter}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Filter By"
+                  rightIcon={rightText}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+
+          <Stack.Screen
+            name="MyAddresses"
+            component={MyAddresses}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Address"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="OrderConfirmation"
+            component={OrderConfirmation}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Order Confirmation"
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="EmptyCart"
+            component={EmptyCart}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Your Shopping cart"
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="CartPage"
+            component={CartPage}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Your Shopping cart"
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="Address"
+            component={EditAddress}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Address"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                    marginBottom: 4,
+                  }}
+                />
+              ),
+            }}
+          />
+
+          <Stack.Screen
+            name="StoreLocator"
+            component={StoreLocator}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Store Locator"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                    marginBottom: 4,
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="SearchLocator"
+            component={SearchLocator}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Search results"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                    marginBottom: 4,
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="StoreMainDetails"
+            component={StoreMainDetails}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Store details"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                    marginBottom: 4,
+                  }}
+                />
+              ),
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  } else {
+    return (
+      <>
+        <Text>No Coneected Network</Text>
+        <TouchableOpacity onPress={() => getNetInfo()}>
+          <Text>Try to connect</Text>
+        </TouchableOpacity>
+      </>
+    );
+  }
+}
