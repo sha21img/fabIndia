@@ -20,9 +20,8 @@ import {SliderBox} from 'react-native-image-slider-box';
 import Customize from './Customize';
 import axios from 'axios';
 import {postData} from '../../Common/Helper';
-import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Toast from 'react-native-simple-toast';
 import {Colors} from '../../../assets/Colors';
 const width = Dimensions.get('window').width;
 
@@ -31,12 +30,9 @@ export default function ProductDetailed(props) {
   const [cartID, setCartID] = useState(null);
   const [cartSuccess, setCartSuccess] = useState(null);
   const [productImage, setProductImage] = React.useState([]);
+  const [productID, setProductID] = useState(null);
 
   const {productId} = props?.route?.params;
-  console.log(
-    'productIdproductIdproductIdproductIdproductIdproductIdproductId',
-    productId,
-  );
 
   const getproductDetailedData = async () => {
     const value = await AsyncStorage.getItem('cartID');
@@ -122,7 +118,10 @@ export default function ProductDetailed(props) {
     title: item,
     card: screenObj[item],
   }));
-
+  const getColorProductId = data => {
+    console.log('data5555555555555555555555555555555555555555555555', data);
+    setProductID(data);
+  };
   const AddtoCart = async () => {
     // const body = {
     //   quantity: 1,
@@ -135,20 +134,20 @@ export default function ProductDetailed(props) {
     //   body,
     // );
     console.log(
-      'cartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartIDcartID',
-      cartID,
+      'productIDproductIDproductIDproductIDproductIDproductIDproductIDproductIDproductIDproductIDproductIDr',
+      productID,
     );
     const response = await axios.post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${cartID}/entries?lang=en&curr=INR`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751/entries?lang=en&curr=INR`,
       {
         quantity: 1,
         product: {
-          code: productId,
+          code: productID,
         },
       },
       {
         headers: {
-          Authorization: `Bearer wR50iP-l8bXyINCqKDIUECr7hzw`,
+          Authorization: `Bearer SqhPMInSnKoBK5sH76aH9ECVg_o`,
         },
       },
     );
@@ -157,21 +156,9 @@ export default function ProductDetailed(props) {
       response.data,
     );
 
-    if(response.data){
-      setCartSuccess(response.data);
-      showToast()
-    }
-    
-  
+    setCartSuccess(response.data);
+    Toast.showWithGravity('Added to Your Cart', Toast.LONG, Toast.TOP);
   };
-
-  const showToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Hello',
-      text2: 'Added in Cart 👋'
-    });
-  }
 
   return (
     <>
@@ -208,6 +195,7 @@ export default function ProductDetailed(props) {
             customStyle={{marginTop: 20}}
             productdetail={productdetail}
             productId={productId}
+            getColorProductId={getColorProductId}
           />
           {/* <Customize
             heading="Get your linen monogrammed!"
@@ -242,7 +230,11 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
           /> */}
         </ScrollView>
       )}
-      <Footer oos={true} handleClick={AddtoCart} />
+      <Footer
+        oos={true}
+        handleClick={AddtoCart}
+        disabled={!!productID ? false : true}
+      />
     </>
   );
 }
