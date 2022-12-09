@@ -148,11 +148,11 @@ const Register = props => {
       mobileNumber: phoneNumber,
     };
     console.log(params);
-    const res = await UnAuthPostData(
+    const response = await UnAuthPostData(
       'fabindiab2c/otp/generate?lang=en&curr=INR',
       params,
     );
-    console.log(res);
+    console.log('res for regitser', response);
     if (!!res) {
       settransactionId(res?.data?.transactionId);
       setgenerate(true);

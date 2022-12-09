@@ -30,22 +30,15 @@ export default function LandingPageSaris_Blouses(props) {
   return (
     <>
       <HomeHeader {...props} headertext={title} />
-      <View
-      // contentContainerStyle={{
-      //   backgroundColor: Colors.backgroundColor,
-      //   flexGrow: 1,
-      //   paddingBottom: 20,
-      // }}
-      >
-        {/* <TopBanner /> */}
 
-        <ResultCards
-          code={code}
-          {...props}
-          sortValue={sortValue}
-          openSort={openSort}
-        />
-      </View>
+      {/* <TopBanner /> */}
+
+      <ResultCards
+        code={code}
+        {...props}
+        sortValue={sortValue}
+        openSort={openSort}
+      />
       <Modal
         animationType="slide"
         transparent={true}
