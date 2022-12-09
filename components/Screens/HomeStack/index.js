@@ -100,7 +100,10 @@ export default function HomeStack() {
         component={FurnitureCategory}
         options={{
           header: props => (
-            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+            <HomeHeader
+              customViewStyle={{backgroundColor: '#FFFFFF'}}
+              {...props}
+            />
           ),
         }}
       />
@@ -185,7 +188,10 @@ export default function HomeStack() {
         component={HomeCatagory}
         options={{
           header: props => (
-            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+            <HomeHeader
+              customViewStyle={{backgroundColor: '#FFFFFF'}}
+              {...props}
+            />
           ),
         }}
       />
@@ -203,7 +209,10 @@ export default function HomeStack() {
         component={GiftingCatagory}
         options={{
           header: props => (
-            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+            <HomeHeader
+              customViewStyle={{backgroundColor: '#FFFFFF'}}
+              {...props}
+            />
           ),
         }}
       />
@@ -212,7 +221,10 @@ export default function HomeStack() {
         component={FoodCatagory}
         options={{
           header: props => (
-            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+            <HomeHeader
+              customViewStyle={{backgroundColor: '#FFFFFF'}}
+              {...props}
+            />
           ),
         }}
       />
@@ -239,7 +251,10 @@ export default function HomeStack() {
         component={BeautyCategory}
         options={{
           header: props => (
-            <Header1 customViewStyle={{backgroundColor: '#FFFFFF'}} />
+            <HomeHeader
+              customViewStyle={{backgroundColor: '#FFFFFF'}}
+              {...props}
+            />
           ),
         }}
       />

@@ -35,7 +35,7 @@ import SingleBanner from '../../../../Common/SingleBanner';
 import CollectionCard from '../../../../Common/CollectionCard';
 const width = Dimensions.get('window').width;
 
-const FurnitureCategory = () => {
+const FurnitureCategory = props => {
   const [active, setActive] = React.useState();
   const [active1, setActive1] = React.useState();
   const [sectionData, setSectionData] = React.useState([]);
@@ -72,6 +72,7 @@ const FurnitureCategory = () => {
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights
+            {...props}
             customStyle={{marginTop: 30}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={param}
@@ -81,6 +82,7 @@ const FurnitureCategory = () => {
       case 'FabOffersGridBannerCarouselComponent':
         return (
           <LifeStyle
+            {...props}
             // data={LifeStyleData}
             data={param}
             // title={GetLifeStyleTitle}
@@ -108,14 +110,19 @@ const FurnitureCategory = () => {
       //   );
       //10
       case 'FabResponsiveBannerCarouselComponent':
-        return <SingleBanner data={param} />;
+        return <SingleBanner data={param} {...props} />;
       //11,12 empty
 
       //  13
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel data={param} width={width / 1.07} height={200} />
+          <CommonCarousel
+            data={param}
+            width={width / 1.07}
+            height={200}
+            {...props}
+          />
         );
       // 14
       case 'FabBannerL1ResponsiveCarouselComponent':
@@ -131,7 +138,7 @@ const FurnitureCategory = () => {
               }}>
               Collections
             </Text>
-            <CollectionCard data={param} />
+            <CollectionCard data={param} {...props} />
           </>
         );
       // CollectionCard

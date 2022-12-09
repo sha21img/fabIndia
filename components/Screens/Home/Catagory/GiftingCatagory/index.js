@@ -10,7 +10,7 @@ import Carousel from './Carousel';
 import ClassicsCards from './ClassicsCards';
 import TopBanner from './TopBanner';
 
-const GiftingCatagory = () => {
+const GiftingCatagory = props => {
   const [dashboardData, setDashboardData] = React.useState([]);
   const [filteredComp, setFilteredComp] = useState([]);
   const getInitialData = async () => {
@@ -37,9 +37,15 @@ const GiftingCatagory = () => {
   const checkSwitch = param => {
     switch (param?.typeCode) {
       case 'FabResponsiveBannerCarouselComponent':
-        return <TopBanner data={param} />;
+        return <TopBanner data={param} {...props} />;
       case 'FabBannerResponsiveCarouselComponent':
-        return <Carousel data={param} customStyles={{marginVertical: 10}} />;
+        return (
+          <Carousel
+            data={param}
+            customStyles={{marginVertical: 10}}
+            {...props}
+          />
+        );
       case 'FabProductCarouselComponent':
         return (
           <ClassicsCards data={param} customStyles={{marginVertical: 10}} />

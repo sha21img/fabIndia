@@ -16,15 +16,19 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {imageURL} from '../../Common/Helper';
 import axios from 'axios';
-
 import {dataDetectorType} from 'deprecated-react-native-prop-types/DeprecatedTextPropTypes';
 
-export default function Size_Color({customStyle, productdetail, productId}) {
+export default function Size_Color({
+  customStyle,
+  productdetail,
+  productId,
+  getColorProductId = null,
+}) {
   const [filterData, setFilterData] = useState([]);
   const [count, setCount] = useState(0);
   const [pinCode, setPinCode] = useState(null);
   const [pinStatus, setPinStatus] = useState(null);
-
+  const [finalData, setfinalData] = useState(null);
   const [size, setSize] = useState([]);
   const [measure, setMeasure] = useState('inches');
   const [Stock, setStock] = useState(0);
@@ -44,9 +48,19 @@ export default function Size_Color({customStyle, productdetail, productId}) {
   useEffect(() => {
     if (Object.keys(productdetail).length) {
       console.log('sdfghjk');
+      // vicky();
       sizefilter();
     }
   }, [productdetail]);
+  // const vicky = () => {
+  //   let array = [];
+  //   const filterArray = productdetail.baseOptions[0].options.map(item => {
+  //     const aa = item.variantOptionQualifiers.map(it => {
+  //       return {[it.value]: it.value};
+  //     });
+  //     console.log("aaaaaaaa",aa)
+  //   });
+  // };
   const sizefilter = () => {
     let arrayData = [];
     productdetail?.baseOptions &&
@@ -63,6 +77,7 @@ export default function Size_Color({customStyle, productdetail, productId}) {
                 colorCode: el.variantOptionQualifiers[0].value,
                 image: el.variantOptionQualifiers[0].swatchColorImageUrl,
                 stock: el.stock.stockLevel,
+                productCode: el.code,
                 size: el.variantOptionQualifiers[1].value,
               });
               item.color = col;
@@ -77,6 +92,7 @@ export default function Size_Color({customStyle, productdetail, productId}) {
                 image: el.variantOptionQualifiers[0].swatchColorImageUrl,
                 stock: el.stock.stockLevel,
                 size: el.variantOptionQualifiers[1].value,
+                productCode: el.code,
               },
             ],
           };
@@ -84,11 +100,10 @@ export default function Size_Color({customStyle, productdetail, productId}) {
         }
         // arrayData.push({size:el[1].value, color:})
       });
-
+    setfinalData(arrayData[0]);
     setFilterData(arrayData);
+    console.log(arrayData, 'arrayDataarrayData');
   };
-
-  console.log(filterData, 'hhhhhhhhhhhh');
 
   const StockSubmit = item => {
     let sum = 0;
@@ -97,6 +112,7 @@ export default function Size_Color({customStyle, productdetail, productId}) {
     });
     setStock(sum);
     setSize(item);
+    setfinalData(item);
   };
 
   // const CounterQuantity = task => {
@@ -136,7 +152,9 @@ export default function Size_Color({customStyle, productdetail, productId}) {
           return (
             <>
               <TouchableOpacity
-                onPress={() => StockSubmit(item)}
+                onPress={() => {
+                  StockSubmit(item);
+                }}
                 style={
                   item.size == size.size ? Styles.activeBtn : Styles.inActiveBtn
                 }>
@@ -154,7 +172,11 @@ export default function Size_Color({customStyle, productdetail, productId}) {
         })}
       </ScrollView>
       <Text style={Styles.leftTxt}>
-        {size.length || Object.keys(size).length ? ` Only ${Stock}  Left` : ''}
+        {Stock < 6
+          ? size.length || Object.keys(size).length
+            ? ` Only ${Stock}  Left`
+            : ''
+          : null}
       </Text>
       {filterData[0]?.size != 'Free Size' ? (
         <TouchableOpacity onPress={() => openSize()} style={Styles.chartBox}>
@@ -166,14 +188,21 @@ export default function Size_Color({customStyle, productdetail, productId}) {
       <View style={Styles.ColorBox}>
         <Text style={Styles.ColorTxt}>Colour</Text>
         <View style={Styles.colorContainer}>
-          {size.color?.map(item => {
+          {finalData?.color?.map(item => {
             console.log(
               'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
               item,
             );
             return (
               <TouchableOpacity
-                onPress={() => setColor(item)}
+                onPress={() => {
+                  console.log(
+                    'itemitemitemitemitemitemitemitemitemitem000000000',
+                    item,
+                  );
+                  getColorProductId(item.productCode);
+                  setColor(item);
+                }}
                 style={
                   item == color
                     ? Styles.colorOutlineActive

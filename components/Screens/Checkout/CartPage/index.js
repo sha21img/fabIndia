@@ -16,11 +16,11 @@ export default function CartPage(props) {
     const value = await AsyncStorage.getItem('cartID');
     console.log("valuevaluevaluevaluevaluevaluevaluevaluevaluevalue",value)
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${value}/entries?lang=en&curr=INR`,
-      {},
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751/entries?lang=en&curr=INR`,
+      // {},
       {
         headers: {
-          Authorization: `Bearer deo4mFuPyvLg_84XL2FJfe2tRMg`,
+          Authorization: `Bearer SqhPMInSnKoBK5sH76aH9ECVg_o`,
         },
       },
     );

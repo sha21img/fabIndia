@@ -81,7 +81,7 @@ const getCartID = async () => {
     {},
     {
       headers: {
-        Authorization: `Bearer deo4mFuPyvLg_84XL2FJfe2tRMg`,
+        Authorization: `Bearer wR50iP-l8bXyINCqKDIUECr7hzw`,
       },
     },
   );
