@@ -22,13 +22,18 @@ export default function TopBanner({data, customStyles}) {
   useEffect(() => {
     getCarauselIds();
   }, []);
+  console.log('carouselDataplkmpokjoij', carouselData);
   return (
-    <ImageBackground
-      source={{
-        uri: `https://apisap.fabindia.com${carouselData?.media?.desktop?.url}`,
-      }}
-      resizeMode="stretch"
-      style={[Styles.imageContainer, customStyles]}></ImageBackground>
+    <>
+      {carouselData && (
+        <ImageBackground
+          source={{
+            uri: `https://apisap.fabindia.com${carouselData?.media?.desktop?.url}`,
+          }}
+          resizeMode="stretch"
+          style={[Styles.imageContainer, customStyles]}></ImageBackground>
+      )}
+    </>
   );
 }
 export const Styles = StyleSheet.create({

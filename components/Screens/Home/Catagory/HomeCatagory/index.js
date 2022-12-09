@@ -39,7 +39,7 @@ import CollectionCard from '../../../../Common/CollectionCard';
 import NewHighlights from '../../../../Common/NewHighlights';
 const width = Dimensions.get('window').width;
 
-export default function HomeCatagory() {
+export default function HomeCatagory(props) {
   const [active, setActive] = React.useState('Bestsellers');
   const [Ids, setIds] = React.useState([]);
   const [sectionData, setSectionData] = React.useState([]);
@@ -336,6 +336,7 @@ export default function HomeCatagory() {
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights
+            {...props}
             customStyle={{marginVertical: 10}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={param}
@@ -344,6 +345,7 @@ export default function HomeCatagory() {
       case 'FabOffersGridBannerCarouselComponent':
         return (
           <LifeStyle
+            {...props}
             // data={LifeStyleData}
             data={param}
             // title={GetLifeStyleTitle}
@@ -358,25 +360,40 @@ export default function HomeCatagory() {
           // <CommonCarousel data={param} width={width / 1.07} height={330} />
         );
       case 'SimpleResponsiveBannerComponent':
+        const newCode = param.urlLink;
+        let splitURL = newCode.split('/');
+        splitURL = splitURL[splitURL.length - 1];
         return (
-          <View style={{marginTop: 20}}>
+          <TouchableOpacity
+            style={{marginTop: 20}}
+            onPress={() =>
+              props.navigation.navigate('LandingPageSaris_Blouses', {
+                code: splitURL.split('?')[0],
+                title: param.title,
+              })
+            }>
             <Image
               resizeMode="stretch"
               source={{
                 uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
               }}
-              style={{height: 300, width: width}}
+              style={{height: 294, width: width}}
             />
-          </View>
+          </TouchableOpacity>
         );
       // section8 grid
       //section 9 empty
       case 'FabResponsiveBannerCarouselComponent':
-        return <SingleBanner data={param} />;
+        return <SingleBanner data={param} {...props} />;
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel data={param} width={width / 1.07} height={200} />
+          <CommonCarousel
+            data={param}
+            width={width / 1.07}
+            height={200}
+            {...props}
+          />
         );
       case 'FabBannerL1ResponsiveCarouselComponent':
         return (
@@ -391,7 +408,7 @@ export default function HomeCatagory() {
               }}>
               Collections
             </Text>
-            <CollectionCard data={param} />
+            <CollectionCard data={param} {...props} />
           </>
         );
       // CollectionCard
