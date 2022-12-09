@@ -4,11 +4,17 @@ import CommonCarousel from '../../../../Common/CommonCarousel';
 import Fonts from '../../../../../assets/fonts';
 const width = Dimensions.get('window').width;
 
-export default function Carousel({data, customStyles}) {
+export default function Carousel(props) {
+  const {data = {}, customStyles} = props;
   return (
     <View style={customStyles}>
       <Text style={Styles.heading}>{data.headline}</Text>
-      <CommonCarousel data={data} width={width / 1.07} height={200} />
+      <CommonCarousel
+        data={data}
+        width={width / 1.07}
+        height={200}
+        {...props}
+      />
     </View>
   );
 }
