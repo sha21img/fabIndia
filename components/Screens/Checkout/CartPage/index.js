@@ -31,7 +31,7 @@ export default function CartPage(props) {
     setCartDetails(response.data);
   };
   return cartdetails?.orderEntries?.length ? (
-    <CartList {...props} cartdetails={cartdetails} />
+    <CartList {...props} cartdetails={cartdetails} getCartDetails={getCartDetails} />
   ) : (
     <EmptyCart />
   );

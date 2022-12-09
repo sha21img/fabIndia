@@ -106,6 +106,7 @@ export default function Size_Color({
   };
 
   const StockSubmit = item => {
+    console.log("itemmmmmmmashishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",item)
     let sum = 0;
     item.color.map(el => {
       sum = sum + el.stock;
@@ -188,9 +189,11 @@ export default function Size_Color({
       <View style={Styles.ColorBox}>
         <Text style={Styles.ColorTxt}>Colour</Text>
         <View style={Styles.colorContainer}>
-          {finalData?.color?.map(item => {
+          {
+            
+            finalData?.color?.map(item => {
             console.log(
-              'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
+              'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck',
               item,
             );
             return (

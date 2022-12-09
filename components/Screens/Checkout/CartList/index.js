@@ -56,8 +56,10 @@ export default function CartList(props) {
   const [quantity, setQuantity] = useState(1);
   const [totalquantity, setTotalquantity] = useState(null);
   const [totalPrice, setTotalPrice] = useState(null);
-
-  const {cartdetails} = props;
+  const [entrynum, setEntrynum] = useState(null);
+ const [maxstock,setMaxstock]= useState(null)
+  
+  const {cartdetails, getCartDetails} = props;
   useEffect(() => {
     // setCurrentPosition(1);
   }, []);
@@ -70,8 +72,12 @@ export default function CartList(props) {
   const CustomClick = () => {
     setShowCustom(true);
   };
-  const SizeQClick = () => {
+  const SizeQClick = data => {
     setShowSizeQ(true);
+    console.log('dataaa quantityyyyyy7777777777777777777777777', data?.product?.stock?.stockLevel);
+    setMaxstock(data?.product?.stock?.stockLevel)
+    setEntrynum(data?.entryNumber);
+    setQuantity(data?.quantity);
   };
   const RemoveClick = async data => {
     const value = await AsyncStorage.getItem('cartID');
@@ -86,6 +92,7 @@ export default function CartList(props) {
         },
       },
     );
+    getCartDetails();
     console.log(
       'RemoveClickRemoveClickRemoveClickRemoveClickRemoveClickRemoveClickRemoveClickRemoveClick',
       response.data,
@@ -96,7 +103,7 @@ export default function CartList(props) {
   };
   useEffect(() => {
     setupData();
-  }, []);
+  }, [cartdetails]);
 
   const setupData = () => {
     console.log('dataaaaaaaaaaaa', cartdetails);
@@ -116,6 +123,26 @@ export default function CartList(props) {
     setTotalPrice(sum);
   };
 
+  const updateQuantity = async () => {
+    const response = await axios.patch(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751/entries/${entrynum}`,
+      {
+        quantity: quantity,
+      },
+      {
+        headers: {
+          Authorization: `Bearer SqhPMInSnKoBK5sH76aH9ECVg_o`,
+        },
+      },
+    );
+    console.log(
+      'updateQuantityupdateQuantityupdateQuantityupdateQuantityupdateQuantityupdateQuantity',
+      response.data,
+      );
+      getCartDetails();
+    setShowSizeQ(false);
+
+  };
   return (
     <>
       <ScrollView
@@ -319,7 +346,7 @@ export default function CartList(props) {
             <Text style={styles.sizeText}>Select quantity</Text>
             <View style={styles.quantityContainer}>
               <TouchableOpacity
-                onPress={() => setQuantity(quantity - 1)}
+                onPress={() =>  quantity > 1? setQuantity(quantity - 1) : null}
                 style={styles.signBox}>
                 <Text style={styles.sign}>-</Text>
               </TouchableOpacity>
@@ -327,11 +354,20 @@ export default function CartList(props) {
                 <Text style={styles.quantityText}>{quantity}</Text>
               </View>
               <TouchableOpacity
-                onPress={() => setQuantity(quantity + 1)}
+                onPress={() => quantity < maxstock ? setQuantity(quantity + 1) : null}
                 style={styles.signBox}>
                 <Text style={styles.sign}>+</Text>
               </TouchableOpacity>
             </View>
+            <CommonButton
+              txt="Update"
+              customViewStyle={{
+                backgroundColor: Colors.primarycolor,
+                borderWidth: 1,
+                marginVertical: 8,
+              }}
+              handleClick={updateQuantity}
+            />
           </View>
         </View>
       </Modal>
