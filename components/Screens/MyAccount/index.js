@@ -218,7 +218,7 @@ const MyAccount = props => {
   );
   return (
     <>
-      <Stack.Navigator initialRouteName="Login_Register">
+      <Stack.Navigator>
         <Stack.Screen
           name="MyAccounts"
           component={MyAccounts}
