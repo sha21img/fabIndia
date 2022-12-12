@@ -11,6 +11,8 @@ import {Colors} from '../../../assets/Colors';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import Fonts from '../../../assets/fonts';
 import CommonOtp from '../../Common/CommonOtp';
+import Toast from 'react-native-simple-toast';
+
 import {getCartID, UnAuthPostData} from '../../Common/Helper';
 
 export default function Otp(props) {
@@ -28,7 +30,6 @@ export default function Otp(props) {
     //   params,
     // );
     getCartID();
-    console.log('looooooooooo');
 
     props.navigation.navigate('MyAccounts');
   };
@@ -41,6 +42,9 @@ export default function Otp(props) {
         otp={otp}
         handleOTP={handleOTP}
         disable={otp.length != 4}
+        handleResend={() => {
+          Toast.showWithGravity('otp sent !', Toast.LONG, Toast.TOP);
+        }}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {image} from '../../../assets/images';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -48,6 +48,8 @@ import OrderCancelled from './MyOrder/OrderCancelled';
 import OrderStatus from './MyOrder/OrderStatus';
 import ReturnStatus from './MyOrder/ReturnStatus';
 import ErrorScreen from '../ErrorScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {deleteAsyncStorage, getAsyncStorage} from '../../Common/Helper';
 const Stack = createNativeStackNavigator();
 const pages = [
   {
@@ -102,6 +104,19 @@ const pages = [
   },
 ];
 const MyAccounts = props => {
+  const [auth, setAuth] = useState();
+  const token = async () => {
+    try {
+      const val = await AsyncStorage.getItem('token');
+      setAuth(val);
+    } catch (error) {
+      console.log('#getSavedValue', error);
+    }
+  };
+  useEffect(() => {
+    token();
+  });
+
   return (
     <>
       <ScrollView style={{backgroundColor: '#ffffff'}}>
@@ -157,16 +172,21 @@ const MyAccounts = props => {
                 }}>
                 tanyasingh@gmail.com
               </Text>
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontFamily: Fonts.Assistant400,
-                  lineHeight: 14,
-                  color: Colors.primarycolor,
-                  marginTop: 12,
+              <TouchableOpacity
+                onPress={() => {
+                  props.navigation.navigate('ChangePassword');
                 }}>
-                Change password
-              </Text>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontFamily: Fonts.Assistant400,
+                    lineHeight: 14,
+                    color: Colors.primarycolor,
+                    marginTop: 12,
+                  }}>
+                  Change password
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -199,11 +219,57 @@ const MyAccounts = props => {
             </TouchableOpacity>
           );
         })}
+
+        <TouchableOpacity
+          onPress={async () => {
+            const res = await AsyncStorage.getItem('token');
+
+            deleteAsyncStorage('token');
+            props.navigation.navigate('MyAccount', {
+              screen: 'Login_Register',
+            });
+          }}
+          key={Math.random() * 10000}
+          style={{
+            padding: 20,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            borderBottomWidth: 2,
+            borderBottomColor: '#EDEDED',
+            alignItems: 'center',
+          }}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Image source={image.DelAccount} />
+            <Text
+              style={{
+                marginLeft: 23,
+                fontFamily: Fonts.Assistant400,
+                fontSize: 14,
+                color: Colors.textcolor,
+              }}>
+              Logout
+            </Text>
+          </View>
+          <Image source={image.rightArrow} />
+        </TouchableOpacity>
       </ScrollView>
     </>
   );
 };
 const MyAccount = props => {
+  const [auth, setAuth] = useState();
+  const token = async () => {
+    try {
+      const val = await AsyncStorage.getItem('token');
+      setAuth(val);
+    } catch (error) {
+      console.log('#getSavedValue', error);
+    }
+  };
+  useEffect(() => {
+    token();
+  });
+
   const leftIcon = (
     <TouchableOpacity onPress={() => props.navigation.goBack()}>
       <SimpleLineIcons
@@ -216,43 +282,87 @@ const MyAccount = props => {
   const rightIcon = (
     <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
   );
+
   return (
     <>
-      <Stack.Navigator initialRouteName="Login_Register">
-        <Stack.Screen
-          name="MyAccounts"
-          component={MyAccounts}
-          options={{
-            header: props => (
-              <Header
-                leftIcon={leftIcon}
-                title="My Profile"
-                rightIcon={rightIcon}
-                customStyle={{
-                  backgroundColor: '#F8F6F5',
-                  marginBottom: 4,
-                }}
-              />
-            ),
-          }}
-        />
-        <Stack.Screen
-          name="Login_Register"
-          component={Login_Register}
-          options={{
-            header: props => (
-              <Header
-                leftIcon={leftIcon}
-                title="My Account"
-                rightIcon={rightIcon}
-                customStyle={{
-                  backgroundColor: '#F8F6F5',
-                  marginBottom: 4,
-                }}
-              />
-            ),
-          }}
-        />
+      <Stack.Navigator
+        initialRouteName={auth !== null ? 'MyAccounts' : 'Login_Register'}>
+        {auth !== null ? (
+          <>
+            <Stack.Screen
+              name="MyAccounts"
+              component={MyAccounts}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon}
+                    title="My Profile"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                      marginBottom: 4,
+                    }}
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="Login_Register"
+              component={Login_Register}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon}
+                    title="My Account"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                      marginBottom: 4,
+                    }}
+                  />
+                ),
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Login_Register"
+              component={Login_Register}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon}
+                    title="My Account"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                      marginBottom: 4,
+                    }}
+                  />
+                ),
+              }}
+            />
+
+            <Stack.Screen
+              name="MyAccounts"
+              component={MyAccounts}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon}
+                    title="My Profile"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                      marginBottom: 4,
+                    }}
+                  />
+                ),
+              }}
+            />
+          </>
+        )}
 
         <Stack.Screen
           name="ErrorScreen"
