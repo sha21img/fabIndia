@@ -467,7 +467,6 @@ const Register = props => {
           }}
         />
       </View>
-      {/* </View> */}
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"
@@ -475,14 +474,12 @@ const Register = props => {
         onCancel={hideDatePicker}
       />
     </>
-    //
-    // </KeyboardAvoidingView>
   );
 };
 
 const Styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
   },
   mainView: {
     flexGrow: 1,

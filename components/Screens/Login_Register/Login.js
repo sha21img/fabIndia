@@ -88,7 +88,7 @@ export default function Login(props) {
         />
         <TouchableOpacity
           style={styles.readText}
-          onPress={() => {
+          onPress={() => { 
             props.navigation.navigate('MyAccount', {
               screen: 'ResetPassword',
             });

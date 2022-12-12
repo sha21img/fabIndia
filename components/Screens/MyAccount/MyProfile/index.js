@@ -8,40 +8,58 @@ import {
   Alert,
   ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Fonts from '../../../../assets/fonts';
 import {Colors} from '../../../../assets/Colors';
 import InputText from '../../../Common/InputText';
 import CommonButton from '../../../Common/CommonButton';
-
-const MyProfile = () => {
+import {patchComponentData} from '../../../Common/Helper';
+import Toast from 'react-native-simple-toast';
+const MyProfile = props => {
+  const isCheck = props.route.params?.isCheck ?? false;
   const [text, setText] = React.useState('');
   const [editUser, setEditUser] = useState({
     name: '',
-    mobile: '',
+    mobile: '9999999999',
     email: '',
   });
-
+  useEffect(() => {
+    if (isCheck == true) {
+      updateProfileHandler();
+    }
+  }, []);
+  const checkUpdateProfile = () => {
+    if (editUser.mobile != 9999999999) {
+      props.navigation.navigate('ChangeMobileNumber');
+    } else {
+      updateProfileHandler();
+    }
+  };
   const updateProfileHandler = () => {
-    Alert.alert(
-      ` Name: ${editUser.name}  Mobile: ${editUser.mobile}  Email: ${editUser.email}`,
+    const body = {
+      contactNumber: editUser.mobile,
+      contactNumberCode: '+91',
+      country: {isocode: 'IN'},
+      dateOfBirth: '29/11/2022',
+      firstName: editUser.name,
+      gender: {code: 'MALE'},
+      lastName: 'Prajapati',
+      transactionId: '',
+      uid: editUser.email,
+    };
+    const res = patchComponentData(
+      'fabindiab2c/users/current/password?lang=en&curr=INR',
+      body,
+    );
+    console.log(res, 'resresresresresres');
+    Toast.showWithGravity(
+      'Profile updated successfully',
+      Toast.LONG,
+      Toast.TOP,
     );
   };
   console.log('user', editUser);
-  const faqs = [
-    {
-      id: '1',
-      name: 'Name',
-    },
-    {
-      id: '2',
-      name: 'Mobile number',
-    },
-    {
-      id: '3',
-      name: 'Email address',
-    },
-  ];
+
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
@@ -83,21 +101,45 @@ const MyProfile = () => {
         <ScrollView
           contentContainerStyle={styles.fields}
           showsVerticalScrollIndicato={false}>
-          {faqs.map((faq, index) => (
-            <InputText
-              customStyle={{
-                borderRadius: 1,
-                fontSize: 14,
-                marginTop: 30,
-                backgroundColor: '#FFFFFF',
-              }}
-              label={faq.name}
-              value={text}
-              onChangeText={text => setText(text)}
-            />
-          ))}
+          <InputText
+            customStyle={{
+              borderRadius: 1,
+              fontSize: 14,
+              marginTop: 30,
+              backgroundColor: '#FFFFFF',
+            }}
+            label="Name"
+            value={editUser.name}
+            onChangeText={text => setEditUser({...editUser, name: text})}
+          />
+          <InputText
+            customStyle={{
+              borderRadius: 1,
+              fontSize: 14,
+              marginTop: 30,
+              backgroundColor: '#FFFFFF',
+            }}
+            label="Mobile number"
+            value={editUser.mobile}
+            onChangeText={text => setEditUser({...editUser, mobile: text})}
+          />
+          <InputText
+            customStyle={{
+              borderRadius: 1,
+              fontSize: 14,
+              marginTop: 30,
+              backgroundColor: '#FFFFFF',
+            }}
+            label="Email address"
+            value={editUser.email}
+            onChangeText={text => setEditUser({...editUser, email: text})}
+          />
 
-          <TouchableOpacity style={{paddingTop: 10}}>
+          <TouchableOpacity
+            style={{paddingTop: 10}}
+            onPress={() => {
+              props.navigation.navigate('ChangePassword');
+            }}>
             <Text
               style={{
                 color: '#903233',
@@ -122,6 +164,7 @@ const MyProfile = () => {
           customViewStyle={{
             backgroundColor: Colors.primarycolor,
           }}
+          handleClick={checkUpdateProfile}
         />
       </View>
     </>

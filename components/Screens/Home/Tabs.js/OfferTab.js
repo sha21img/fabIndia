@@ -52,10 +52,6 @@ export default function OfferTab(props) {
           keyExtractor={(item, index) => index}
           renderItem={({item, index}) => {
             const newCode = item.urlLink;
-            console.log(
-              'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
-              item,
-            );
             let splitURL = newCode.split('/');
             splitURL = splitURL[splitURL.length - 1];
             console.log('splitURL', splitURL);

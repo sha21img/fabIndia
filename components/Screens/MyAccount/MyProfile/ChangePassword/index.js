@@ -20,7 +20,7 @@ import Fonts from '../../../../../assets/fonts';
 import {UnAuthPostData} from '../../../../Common/Helper';
 import Toast from 'react-native-simple-toast';
 
-export default function ChangePassword() {
+export default function ChangePassword(props) {
   const icon = {
     uri: 'https://img.icons8.com/ios-glyphs/512/visible.png',
   };
@@ -58,6 +58,10 @@ export default function ChangePassword() {
   };
 
   useEffect(() => {
+    console.log(
+      password.oldPass && !!(password.newPass == password.confirmPass),
+      'adfasdfasdf',
+    );
     if (password.newPass === password.confirmPass) {
       setPasswordNotMatch(false);
       setDesable(false);
@@ -78,7 +82,7 @@ export default function ChangePassword() {
       'fabindiab2c/users/current/password?lang=en&curr=INR',
       body,
     );
-    console.log(res);
+    console.log(res, "resresresresresres");
     Toast.showWithGravity(
       'Password Changed Succesfully',
       Toast.LONG,
@@ -114,7 +118,12 @@ export default function ChangePassword() {
           }
         />
         <View>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              props.navigation.navigate('MyAccount', {
+                screen: 'ResetPassword',
+              });
+            }}>
             <Text style={Styles.forgottxt}>Forgot password</Text>
           </TouchableOpacity>
         </View>
@@ -174,12 +183,23 @@ export default function ChangePassword() {
           txt="Change password"
           customViewStyle={{
             backgroundColor:
-              !passwordNotMatch || !password.oldPass
-                ? Colors.inAactivecolor
-                : Colors.primarycolor,
+              password.oldPass.length > 0 &&
+              (password.newPass !== '' || password.confirmPass !== '') &&
+              password.newPass == password.confirmPass
+                ? Colors.primarycolor
+                : Colors.inAactivecolor,
+            // password.oldPass && !!(password.newPass == password.confirmPass)
+            //   ? Colors.primarycolor
+            //   : Colors.inAactivecolor,
           }}
           handleClick={handleChangePassword}
-          disable={!passwordNotMatch || !password.oldPass}
+          disable={
+            !(
+              password.oldPass.length > 0 &&
+              (password.newPass !== '' || password.confirmPass !== '') &&
+              password.newPass == password.confirmPass
+            )
+          }
         />
       </View>
     </>

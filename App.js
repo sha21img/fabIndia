@@ -28,6 +28,7 @@ import ProductDetailed from './components/Screens/ProductDetailed';
 import Header1 from './components/Common/Header1';
 import OrderConfirmation from './components/Screens/OrderConfirmation';
 import HomeHeader from './components/Screens/Home/HomeHeader';
+import axios from 'axios';
 
 const Stack = createNativeStackNavigator();
 
@@ -74,6 +75,32 @@ export default function App(props) {
       <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
     </TouchableOpacity>
   );
+  const generatTokenWithout = async () => {
+    const response = await axios.get(
+      'https://apisap.fabindiahome.com/authorizationserver/oauth/token',
+      {
+        // client_id: 'mobile_android',
+        // client_secret: 'secret',
+        // grant_type: 'client_credentials',
+      },
+    );
+    console.log('response-=-=-=-=-=-response', response);
+  };
+  // const generatTokenWith = async () => {
+  //   const response = await axios.get(
+  //     'https://apisap.fabindiahome.com/authorizationserver/oauth/token',
+  //     {
+  //       // client_id: 'mobile_android',
+  //       // client_secret: 'secret',
+  //       // grant_type: 'client_credentials',
+  //     },
+  //   );
+  //   console.log('response-=-=-=-=-=-response', response);
+  // };
+  useEffect(() => {
+    generatTokenWithout();
+    // generatTokenWith();
+  }, []);
   const rightText = (
     <TouchableOpacity>
       <Text

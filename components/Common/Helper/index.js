@@ -59,6 +59,22 @@ const getComponentData = async path => {
     console.error(e);
   }
 };
+const patchComponentData = async path => {
+  // const Token = localStorage.getItem('token');
+  const response = await fetch(`${BaseURL}/${path}`, {
+    method: 'PATCH',
+    // mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  try {
+    const result2 = await response.json();
+    return result2;
+  } catch (e) {
+    console.error(e);
+  }
+};
 const UnAuthPostData = async (url, formData) => {
   const response = await fetch(`${BaseURL1}${url}`, {
     method: 'POST',
@@ -132,4 +148,5 @@ export {
   postDataAuth,
   getAsyncStorage,
   deleteAsyncStorage,
+  patchComponentData,
 };
