@@ -20,7 +20,7 @@ export default function TitleCard({data}) {
   };
   const getCarauselData = async bannerId => {
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${bannerId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${bannerId}&lang=en&curr=INR`,
     );
     setCarouselData(response.component);
   };

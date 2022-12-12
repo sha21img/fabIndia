@@ -35,7 +35,7 @@ export default function BeautyCategory(props) {
   const [Ids, setIds] = React.useState([]);
   const getInitialData = async () => {
     const response = await getData(
-      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fpersonal-care&lang=en&curr=INR',
+      'cms/pages?pageType=ContentPage&pageLabelOrId=%2Fpersonal-care&lang=en&curr=INR',
     );
     setSectionsData(response?.contentSlots?.contentSlot);
 

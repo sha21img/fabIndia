@@ -105,10 +105,7 @@ const Register = props => {
       uid: text.email,
     };
     console.log(params);
-    const res = await UnAuthPostData(
-      'fabindiab2c/users?lang=en&curr=INR',
-      params,
-    );
+    const res = await UnAuthPostData('users?lang=en&curr=INR', params);
     console.log(res);
     props.navigation.navigate('RegisterSuccess');
     if (res.status) {
@@ -150,7 +147,7 @@ const Register = props => {
     };
     console.log(params);
     const response = await UnAuthPostData(
-      'fabindiab2c/otp/generate?lang=en&curr=INR',
+      'otp/generate?lang=en&curr=INR',
       params,
     );
     console.log('res for regitser', response);
@@ -168,10 +165,7 @@ const Register = props => {
       mobileNumber: phoneNumber,
     };
     console.log(params);
-    const res = await UnAuthPostData(
-      'fabindiab2c/otp/validate?lang=en&curr=INR',
-      params,
-    );
+    const res = await UnAuthPostData('otp/validate?lang=en&curr=INR', params);
     console.log(res);
     if (!!res) {
       setgenerate(false);

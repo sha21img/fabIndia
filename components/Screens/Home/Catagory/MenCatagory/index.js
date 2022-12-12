@@ -109,7 +109,7 @@ const MenCatagory = props => {
   const [Ids, setIds] = React.useState([]);
   const getInitialData = async () => {
     const response = await getData(
-      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fmen&lang=en&curr=INR',
+      'cms/pages?pageType=ContentPage&pageLabelOrId=%2Fmen&lang=en&curr=INR',
     );
     console.log('Men Catagory response', response);
     setSectionsData(response?.contentSlots?.contentSlot);

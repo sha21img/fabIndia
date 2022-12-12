@@ -96,7 +96,7 @@ const KidsCatagory = props => {
   const [filteredComp, setFilteredComp] = React.useState([]);
   const getInitialData = async () => {
     const response = await getData(
-      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fkids&lang=en&curr=INR',
+      'cms/pages?pageType=ContentPage&pageLabelOrId=%2Fkids&lang=en&curr=INR',
     );
     setDashboardData(response.contentSlots.contentSlot);
     getSections(response?.contentSlots?.contentSlot);

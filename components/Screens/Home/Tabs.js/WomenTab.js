@@ -45,7 +45,7 @@ export default function WomenTab(props) {
     setActive(data.title);
     const splitBannerId = data.components.split(' ').join(',');
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
     // console.log('ALALALALLAALALL', response.component);
     setToptabLabelData(response.component);
@@ -56,7 +56,7 @@ export default function WomenTab(props) {
     const splitBannerId = bannerId.split(' ').join(',');
     // console.log('response', splitBannerId);
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
     // console.log('responseresponse', response);
     setChipData(response.component);

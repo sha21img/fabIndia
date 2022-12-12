@@ -27,7 +27,7 @@ export default function Catagory({data}) {
   };
   const getCategoryData = async bannerId => {
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${bannerId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${bannerId}&lang=en&curr=INR`,
     );
     setCategoryDataArray(response);
     if (categoryData.length) {

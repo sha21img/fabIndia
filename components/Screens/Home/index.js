@@ -619,7 +619,7 @@ export default function Dashbord(props) {
   const [filteredComp, setFilteredComp] = React.useState([]);
   const [Ids, setIds] = React.useState([]);
   const getInitialData = async () => {
-    const response = await getData('fabindiab2c/cms/pages?lang=en&curr=INR');
+    const response = await getData('cms/pages?lang=en&curr=INR');
     setDashboardData(response.contentSlots.contentSlot);
     getSections(response.contentSlots.contentSlot);
   };

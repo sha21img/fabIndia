@@ -25,7 +25,7 @@ export default function FoodCatagory(props) {
 
   const getInitialData = async () => {
     const response = await getData(
-      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2FFood&lang=en&curr=INR',
+      'cms/pages?pageType=ContentPage&pageLabelOrId=%2FFood&lang=en&curr=INR',
     );
     getSections(response?.contentSlots?.contentSlot);
   };
