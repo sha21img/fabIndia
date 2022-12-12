@@ -35,7 +35,7 @@ export default function BeautyCategory(props) {
   const [Ids, setIds] = React.useState([]);
   const getInitialData = async () => {
     const response = await getData(
-      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fpersonal-care&lang=en&curr=INR',
+      'cms/pages?pageType=ContentPage&pageLabelOrId=%2Fpersonal-care&lang=en&curr=INR',
     );
     setSectionsData(response?.contentSlots?.contentSlot);
 
@@ -315,7 +315,7 @@ export default function BeautyCategory(props) {
     switch (param?.typeCode) {
       //1
       case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper data={param} />;
+        return <TopSwiper data={param} {...props} />;
       //  2,3,4
       case 'FabBannerCarouselComponent':
         return (
@@ -338,16 +338,23 @@ export default function BeautyCategory(props) {
         const newCode = param.urlLink;
         let splitURL = newCode.split('/');
         splitURL = splitURL[splitURL.length - 1];
+        let a = splitURL.split('?');
+        console.log('paramparamparamparamparamparam', param);
+        const newId = {
+          code: a[a.length - 1].includes('query') ? a[1] : a[0],
+          status: a[a.length - 1].includes('query'),
+          title: param.title,
+          // title: filteredObj.title || filteredObj.media.mobile.altText,
+        };
+
+        console.log('split...................', splitURL.split('?')[1]);
         // let splitURL = newCode.split('=')[1];
         // console.log('Adding', splitURL);
 
         return (
           <TouchableOpacity
             onPress={() =>
-              props.navigation.navigate('LandingPageSaris_Blouses', {
-                code: splitURL,
-                title: 'hhi',
-              })
+              props.navigation.navigate('LandingPageSaris_Blouses', newId)
             }>
             <Image
               resizeMode="stretch"

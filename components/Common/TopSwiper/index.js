@@ -23,7 +23,7 @@ export default function TopSwiper(props) {
   const getCarauselData = async bannerId => {
     const splitBannerId = bannerId.split(' ').join(',');
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
     console.log('response.component[0]', response);
     setFilterCarouselData(response.component);
@@ -61,11 +61,30 @@ export default function TopSwiper(props) {
     <View style={customStyle}>
       <SliderBox
         onCurrentImagePressed={curr => {
-          const filteredArray = filterCarouselData.find((item, index) => {
+          const filteredObj = filterCarouselData.find((item, index) => {
             return curr == index;
           });
-          console.log('filteredArray', filteredArray);
-          // const newCode = item.item.urlLink;
+          const newCode = filteredObj.urlLink;
+          console.log('newCodnewCodenewCodee', newCode);
+          let splitURL = newCode.split('/');
+
+          splitURL = splitURL[splitURL.length - 1];
+          let a = splitURL.split('?');
+          // console.log('filteredObjfilteredObjfilteredObj', filteredObj);
+          const newId = {
+            code: a[a.length - 1].includes('query') ? a[1] : a[0],
+            status: a[a.length - 1].includes('query'),
+            title: filteredObj.title || filteredObj.media.mobile.altText,
+          };
+          console.log(
+            'filteredObj.titlefilteredObj.filteredObj.filteredObj.title',
+            newId,
+          );
+
+          if (newId.code == '/login/register') {
+          } else {
+            navigation.navigate('LandingPageSaris_Blouses', newId);
+          }
           // let splitURL = newCode.split('/');
           // splitURL = splitURL[splitURL.length - 1];
           // navigation.navigate('LandingPageSaris_Blouses', {
@@ -73,7 +92,7 @@ export default function TopSwiper(props) {
           //   code: 'sale',
           // });
         }}
-        autoplay={true}
+        // autoplay={true}
         circleLoop={true}
         sliderBoxHeight={212}
         images={carouselData}

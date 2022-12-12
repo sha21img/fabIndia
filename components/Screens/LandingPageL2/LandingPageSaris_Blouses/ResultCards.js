@@ -12,7 +12,7 @@ export default function ResultCards(props) {
   const [dataMain, setdataMain] = useState([]);
   const [filterProducts, setFilterProducts] = useState([]);
   const [productCount, setProductCount] = useState(0);
-  const {code, sortValue, openSort} = props;
+  const {code, sortValue, openSort, status} = props;
   console.log(
     'code+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
     code,
@@ -20,15 +20,34 @@ export default function ResultCards(props) {
   );
   const {data = []} = props;
   const getProductData = async () => {
-    console.log('checky');
+    // console.log('checky');
+    // let link = `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?${
+    //   status ? `${code}` : `query=:relevance:allCategories:${code}`
+    // }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`;
+
+    // const query = status ? code : `query=:relevance:allCategories:${code}`;
+    // console.log('queryqueryqueryqueryquery', query);  // console.log(
+    //   'linklinklinklinklinklinklinklink',
+    //   `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&${
+    //     status ? `${code}` : `query=:relevance:allCategories:${code}`
+    //   }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+    // );
+    const fields =
+      'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
+
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&${
+        status ? `${code}` : `query=:relevance:allCategories:${code}`
+      }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
     );
     // fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}`);
     setdataMain(response.data);
     setProductCount(response.data.pagination.totalResults);
     setFilterProducts(response.data.products);
-    console.log('response.data.products', response.data);
+    console.log(
+      'response.data.products==========================================================',
+      response.data.products,
+    );
     // console.log(
     //   'response.data.products',
     //   response.data.products[0].variantOptions[0].variantOptionQualifiers,
@@ -41,8 +60,13 @@ export default function ResultCards(props) {
     }
   };
   const getSortProductData = async () => {
+    const fields =
+      'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
+
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&${
+        status ? `${code}` : `query=:relevance:allCategories:${code}`
+      }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
     );
     setdataMain(response.data);
     setFilterProducts(response.data.products);

@@ -15,7 +15,7 @@ const GiftingCatagory = props => {
   const [filteredComp, setFilteredComp] = useState([]);
   const getInitialData = async () => {
     const response = await getData(
-      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fgifting&lang=en&curr=INR',
+      'cms/pages?pageType=ContentPage&pageLabelOrId=%2Fgifting&lang=en&curr=INR',
     );
     setDashboardData(response?.contentSlots?.contentSlot);
     getSections(response?.contentSlots?.contentSlot);

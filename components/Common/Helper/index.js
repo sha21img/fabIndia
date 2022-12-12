@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //   'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/occ/v2/';
 const ComponentBaseURL = 'https://apisap.fabindia.com/occ/v2/';
 const BaseURL = 'https://apisap.fabindia.com/occ/v2/';
+const BaseURL1 = 'https://apisap.fabindia.com/occ/v2/fabindiab2c/';
 const AuthBaseUrl = 'https://apisap.fabindia.com/authorizationserver/';
 const AuthAuthor = 'bearer nCVKPnrYg-ZgHMn0djWh1YSFCX0';
 export const imageURL = 'https://apisap.fabindia.com/';
@@ -28,7 +29,7 @@ const postData = async (url, body) => {
 };
 const getData = async path => {
   // const Token = localStorage.getItem('token');
-  const response = await fetch(`${BaseURL}/${path}`, {
+  const response = await fetch(`${BaseURL1}/${path}`, {
     method: 'GET',
     // mode: 'cors',
     headers: {
@@ -44,7 +45,7 @@ const getData = async path => {
 };
 const getComponentData = async path => {
   // const Token = localStorage.getItem('token');
-  const response = await fetch(`${BaseURL}/${path}`, {
+  const response = await fetch(`${BaseURL1}/${path}`, {
     method: 'GET',
     // mode: 'cors',
     headers: {
@@ -75,7 +76,7 @@ const patchComponentData = async path => {
   }
 };
 const UnAuthPostData = async (url, formData) => {
-  const response = await fetch(`${BaseURL}${url}`, {
+  const response = await fetch(`${BaseURL1}${url}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

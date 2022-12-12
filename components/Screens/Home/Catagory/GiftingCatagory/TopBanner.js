@@ -15,7 +15,7 @@ export default function TopBanner({data, customStyles}) {
     const splitBannerId = bannerId.split(' ').join(',');
     console.log('asdfasdfasdfs', splitBannerId);
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
     setCarouselData(response?.component[0]);
   };
