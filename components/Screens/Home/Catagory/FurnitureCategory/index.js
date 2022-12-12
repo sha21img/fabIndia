@@ -44,7 +44,7 @@ const FurnitureCategory = props => {
 
   const getInitialData = async () => {
     const response = await getData(
-      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Ffurniture&lang=en&curr=INR',
+      'cms/pages?pageType=ContentPage&pageLabelOrId=%2Ffurniture&lang=en&curr=INR',
     );
     setSectionData(response?.contentSlots?.contentSlot);
     getSections(response?.contentSlots?.contentSlot);
@@ -67,7 +67,7 @@ const FurnitureCategory = props => {
     switch (param?.typeCode) {
       //1
       case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper data={param} />;
+        return <TopSwiper data={param} {...props} />;
       //2,3,4
       case 'FabBannerCarouselComponent':
         return (

@@ -19,7 +19,7 @@ export default function CommonTitleTab({data = {}}) {
     const splitBannerId = data.components.split(' ').join(',');
     console.log('ASdfasdfsdf-=-=-', data.components);
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
     // console.log('ALALALALLAALALL', response.component);
     setToptabLabelData(response.component);
@@ -28,7 +28,7 @@ export default function CommonTitleTab({data = {}}) {
   const getBannerCount = async bannerId => {
     const splitBannerId = bannerId.split(' ').join(',');
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
     setChipData(response.component);
     getTabData(response.component[0]);

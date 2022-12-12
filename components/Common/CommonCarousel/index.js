@@ -27,7 +27,7 @@ export default function CommonCarousel(props) {
   const getNewHighlightData = async bannerId => {
     const splitBannerId = bannerId?.split(' ').join(',');
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
     setNewHighlights(response?.component);
   };

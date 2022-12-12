@@ -49,7 +49,7 @@ const WomenCategory = props => {
   const [filteredComp, setFilteredComp] = React.useState([]);
   const getInitialData = async () => {
     const response = await getData(
-      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Fwomen&lang=en&curr=INR',
+      'cms/pages?pageType=ContentPage&pageLabelOrId=%2Fwomen&lang=en&curr=INR',
     );
     getSections(response?.contentSlots?.contentSlot);
   };
