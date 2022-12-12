@@ -13,8 +13,10 @@ import Fonts from '../../../../assets/fonts';
 import {Colors} from '../../../../assets/Colors';
 import InputText from '../../../Common/InputText';
 import CommonButton from '../../../Common/CommonButton';
+import {patchComponentData} from '../../../Common/Helper';
+import Toast from 'react-native-simple-toast';
 
-const MyProfile = () => {
+const MyProfile = props => {
   const [text, setText] = React.useState('');
   const [editUser, setEditUser] = useState({
     name: '',
@@ -23,9 +25,27 @@ const MyProfile = () => {
   });
 
   const updateProfileHandler = () => {
-    Alert.alert(
-      ` Name: ${editUser.name}  Mobile: ${editUser.mobile}  Email: ${editUser.email}`,
+    const body = {
+      contactNumber: '8562806969',
+      contactNumberCode: '+91',
+      country: {isocode: 'IN'},
+      dateOfBirth: '29/11/2022',
+      firstName: 'Asjjjjj',
+      gender: {code: 'MALE'},
+      lastName: 'Prajapati',
+      transactionId: '',
+      uid: 'asishprajapati.img@gmail.com',
+    };
+    const res = patchComponentData(
+      'fabindiab2c/users/current/password?lang=en&curr=INR',
+      body,
     );
+    console.log(res, 'resresresresresres');
+    Toast.showWithGravity('Update Profile Succesfully', Toast.LONG, Toast.TOP);
+
+    // Alert.alert(
+    //   ` Name: ${editUser.name}  Mobile: ${editUser.mobile}  Email: ${editUser.email}`,
+    // );
   };
   console.log('user', editUser);
   const faqs = [
@@ -97,7 +117,11 @@ const MyProfile = () => {
             />
           ))}
 
-          <TouchableOpacity style={{paddingTop: 10}}>
+          <TouchableOpacity
+            style={{paddingTop: 10}}
+            onPress={() => {
+              props.navigation.navigate('ChangePassword');
+            }}>
             <Text
               style={{
                 color: '#903233',
@@ -122,6 +146,7 @@ const MyProfile = () => {
           customViewStyle={{
             backgroundColor: Colors.primarycolor,
           }}
+          handleClick={updateProfileHandler}
         />
       </View>
     </>
