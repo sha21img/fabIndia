@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  ScrollView,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
@@ -12,11 +13,16 @@ import React, {useState} from 'react';
 import InputText from '../../Common/InputText';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
+import {postDataAuth} from '../../Common/Helper';
+import CommonButton from '../../Common/CommonButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-simple-toast';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-export default function Login() {
-  const [text, setText] = React.useState('');
+export default function Login(props) {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   const [hideOldPass, setHideOldPass] = useState(true);
   const googleIcon = {
@@ -32,35 +38,61 @@ export default function Login() {
   const toggleOldHide = () => {
     setHideOldPass(!hideOldPass);
   };
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append('grant_type', 'password');
+    formData.append('client_id', 'mobile_android');
+    formData.append('client_secret', 'secret');
+    formData.append('username', email);
+    formData.append('password', password);
+    if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(email)) {
+      await AsyncStorage.setItem('token', 'dummytoken');
+      props.navigation.navigate('MyAccount', {
+        screen: 'MyAccounts',
+      });
+      const response = await postDataAuth('oauth/token', formData);
+    } else {
+      Toast.showWithGravity('Invalid Email', Toast.LONG, Toast.TOP);
+    }
+  };
+
   return (
     <>
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Text style={styles.titleText}>Log in with email address</Text>
         <InputText
           label={'Email address'}
-          onChangeText={text => setText(text)}
-          value={text}
+          onChangeText={text => setEmail(text)}
+          value={email}
           customStyle={{marginTop: 10}}
         />
         <InputText
           label={'Password'}
-          onChangeText={text => setText(text)}
+          onChangeText={text => setPassword(text)}
           customStyle={{marginTop: 10}}
-          value={text}
+          value={password}
+          secureTextEntry={hideOldPass}
           right={
             <TextInput.Icon
               name={() => (
                 <Feather
                   name="eye-off"
-                  color={Colors.primarycolor}
+                  color={hideOldPass ? Colors.primarycolor : Colors.textcolor}
                   size={20}
-                  onPress={() => {}}
+                  onPress={toggleOldHide}
                 />
               )}
             />
           }
         />
-        <TouchableOpacity style={styles.readText}>
+        <TouchableOpacity
+          style={styles.readText}
+          onPress={() => {
+            props.navigation.navigate('MyAccount', {
+              screen: 'ResetPassword',
+            });
+          }}>
           <Text style={styles.forgetText}>Forgot password</Text>
         </TouchableOpacity>
         <View style={styles.horizontalContainer}>
@@ -78,14 +110,25 @@ export default function Login() {
             <Image source={googleIcon} style={styles.googleIcon} />
           </TouchableOpacity>
         </View>
+      </ScrollView>
+      <View style={styles.btncontainer}>
+        <CommonButton
+          handleClick={handleSubmit}
+          backgroundColor="#BDBDBD"
+          txt="Login"
+          customViewStyle={{
+            backgroundColor:
+              !password || !email ? Colors.inAactivecolor : Colors.primarycolor,
+          }}
+          disable={!password || !email}
+        />
       </View>
     </>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    width: width,
-    height: height,
+    flexGrow: 1,
     padding: 15,
     backgroundColor: '#ffffff',
   },
@@ -136,5 +179,10 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 1,
     backgroundColor: '#BDBDBD',
+  },
+  btncontainer: {
+    padding: 12,
+    backgroundColor: '#FDFDFD',
+    elevation: 5,
   },
 });

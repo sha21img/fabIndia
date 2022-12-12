@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const ComponentBaseURL = 'https://apisap.fabindia.com/occ/v2/';
 const BaseURL = 'https://apisap.fabindia.com/occ/v2/';
 const BaseURL1 = 'https://apisap.fabindia.com/occ/v2/fabindiab2c/';
+const AuthBaseUrl = 'https://apisap.fabindia.com/authorizationserver/';
 const AuthAuthor = 'bearer nCVKPnrYg-ZgHMn0djWh1YSFCX0';
 export const imageURL = 'https://apisap.fabindia.com/';
 const postData = async (url, body) => {
@@ -92,4 +93,43 @@ const getCartID = async () => {
 
   await AsyncStorage.setItem('cartID', JSON.stringify(response.data?.code));
 };
-export {postData, getData, getComponentData, UnAuthPostData, getCartID};
+
+const postDataAuth = async (url, formData) => {
+  const response = await axios({
+    method: 'post',
+    url: `${AuthBaseUrl}/${url}`,
+    data: formData,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Referer: 'https://www.fabindia.com/',
+      Accept: 'application/json, text/plain, */*',
+      // Accept: 'multipart/form-data',
+    },
+  });
+  console.log(response.data);
+  try {
+    const result1 = await response.data;
+    return result1;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const getAsyncStorage = async key => {
+  const res = await AsyncStorage.getItem(key);
+  return res;
+};
+
+const deleteAsyncStorage = async key => {
+  const res = await AsyncStorage.removeItem(key);
+};
+export {
+  postData,
+  getData,
+  getComponentData,
+  UnAuthPostData,
+  getCartID,
+  postDataAuth,
+  getAsyncStorage,
+  deleteAsyncStorage,
+};
