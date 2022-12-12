@@ -18,7 +18,7 @@ export default function ClassicsCards({data, customStyles}) {
   const getCarauselData = async bannerId => {
     const splitBannerId = bannerId.split(' ').join(',');
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
     console.log('response.sata', response);
     // setPage(page + 1);

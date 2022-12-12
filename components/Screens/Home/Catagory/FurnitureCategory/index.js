@@ -44,7 +44,7 @@ const FurnitureCategory = props => {
 
   const getInitialData = async () => {
     const response = await getData(
-      'fabindiab2c/cms/pages?pageType=ContentPage&pageLabelOrId=%2Ffurniture&lang=en&curr=INR',
+      'cms/pages?pageType=ContentPage&pageLabelOrId=%2Ffurniture&lang=en&curr=INR',
     );
     setSectionData(response?.contentSlots?.contentSlot);
     getSections(response?.contentSlots?.contentSlot);

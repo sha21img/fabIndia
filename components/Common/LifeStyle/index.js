@@ -35,7 +35,7 @@ export default function LifeStyle(props) {
   };
   const getCategoryData = async bannerId => {
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${bannerId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${bannerId}&lang=en&curr=INR`,
     );
     console.log(
       'responsesdfghjhgfdsaf1111111111111111111111111111111response',

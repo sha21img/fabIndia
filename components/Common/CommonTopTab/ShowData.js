@@ -17,7 +17,7 @@ export default function ShowData({item}) {
 
     const response = await getComponentData(
       // `fabindiab2c/products/${splitTabId}`,
-      `fabindiab2c/products/10725164`,
+      `products/10725164`,
     );
     // console.log('responseresponseresponse', response);
   };

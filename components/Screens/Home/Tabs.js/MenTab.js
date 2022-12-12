@@ -21,7 +21,7 @@ export default function MenTab({data = [], position}) {
     const filterSlotId = filterArray[0].components.component[0].uid;
     // console.log('commontabuid', filterSlotId);
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${filterSlotId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${filterSlotId}&lang=en&curr=INR`,
     );
     const bannerId = response.component[0].tabs;
     // console.log('commontabbannerId', bannerId);
@@ -31,7 +31,7 @@ export default function MenTab({data = [], position}) {
     setActive(data.title);
     const splitBannerId = data.components.split(' ').join(',');
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
     // console.log('ALALALALLAALALL', data);
     setToptabLabelData(response.component);
@@ -39,7 +39,7 @@ export default function MenTab({data = [], position}) {
   const getBannerCount = async bannerId => {
     const splitBannerId = bannerId.split(' ').join(',');
     const response = await getComponentData(
-      `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
     // console.log('response', response.component);
     setChipData(response.component);
