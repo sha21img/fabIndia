@@ -15,9 +15,16 @@ export default function Card1(props) {
     elevation: 1,
     backgroundColor: '#FFFFFF',
   };
-  // console.log('item', item.variantOptions[0].variantOptionQualifiers[0].value);
+  // console.log(
+  //   'item]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
+  //   item,
+  // );
   // console.log('item', item.name);
+  const imageUrl = !!item?.variantOptions
+    ? item?.variantOptions[0]?.images[0]?.url
+    : item?.images[0].url;
 
+  console.log('imageUrlimageUrlimageUrl', item?.images[0]?.url);
   return (
     <>
       <TouchableOpacity
@@ -29,7 +36,7 @@ export default function Card1(props) {
         }>
         <Image
           source={{
-            uri: `https://apisap.fabindia.com${item.variantOptions[0].images[0].url}`,
+            uri: `https://apisap.fabindia.com${imageUrl}`,
           }}
           style={Styles.imagedimension}
           resizeMode="cover"

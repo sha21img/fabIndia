@@ -19,7 +19,7 @@ import Filter from '../../../Common/Filter';
 import HomeHeader from '../../Home/HomeHeader';
 
 export default function LandingPageSaris_Blouses(props) {
-  const {code, title} = props.route.params;
+  const {code, title, status} = props.route.params;
   console.log('productDetailproductDetailproductDetailproductDetail', title);
   const [modalVisible, setModalVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -34,6 +34,7 @@ export default function LandingPageSaris_Blouses(props) {
       {/* <TopBanner /> */}
 
       <ResultCards
+        status={status}
         code={code}
         {...props}
         sortValue={sortValue}

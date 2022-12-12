@@ -53,7 +53,10 @@ export default function HomeHeader(props) {
     setTotalquantity(finalvalue);
   };
 
-  console.log('totalquantitytotalquantitytotalquantitytotalquantitytotalquantitytotalquantitytotalquantity',totalquantity)
+  console.log(
+    'totalquantitytotalquantitytotalquantitytotalquantitytotalquantitytotalquantitytotalquantity',
+    totalquantity,
+  );
   // const getProductSearchData = async () => {
   //   const response = await axios.get(
   //     `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=${text}&pageSize=5&lang=en&curr=INR`,
@@ -77,7 +80,6 @@ export default function HomeHeader(props) {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              // backgroundColor: 'red',
             }}>
             <SimpleLineIcons
               name="menu"
@@ -88,16 +90,21 @@ export default function HomeHeader(props) {
             <Image source={image.color_logo} style={Styles.imagestyle} />
           </View>
         ) : (
-          <TouchableOpacity
-            style={{paddingHorizontal: 5, flexDirection: 'row'}}
-            onPress={() => props.navigation.goBack()}>
-            <SimpleLineIcons
-              name="arrow-left"
-              color={Colors.primarycolor}
-              size={20}
-            />
-            <Text style={{paddingLeft: 10}}>{headertext}</Text>
-          </TouchableOpacity>
+          <>
+            <TouchableOpacity
+              style={{
+                paddingHorizontal: 5,
+                flexDirection: 'row',
+              }}
+              onPress={() => props.navigation.goBack()}>
+              <SimpleLineIcons
+                name="arrow-left"
+                color={Colors.primarycolor}
+                size={20}
+              />
+            </TouchableOpacity>
+            <Text style={{paddingLeft: 10, width: '50%'}}>{headertext}</Text>
+          </>
         )}
 
         <View style={Styles.detailContainer}>
