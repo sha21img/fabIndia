@@ -19,6 +19,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Payment from '../Payment';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CheckAddress from '../../MyAccount/MyAddresses/CheckAddress';
 
 const customStyles = {
   stepIndicatorSize: 30,
@@ -46,19 +47,20 @@ const customStyles = {
 
 const labels = ['Cart', 'Address', 'Payment'];
 export default function CartList(props) {
+  const newCurrPosition = props?.route?.params?.currPosition;
   const [showOrderDetail, setShowOrderDetail] = useState(false);
   const [modalShowMono, setModalShowMono] = useState(false);
   const [showCustom, setShowCustom] = useState(false);
   const [showSizeQ, setShowSizeQ] = useState(false);
   const [showRemove, setShowRemove] = useState(false);
   const [showEmi, setShowEmi] = useState(false);
-  const [currentPosition, setCurrentPosition] = useState(0);
+  const [currentPosition, setCurrentPosition] = useState(newCurrPosition || 0);
   const [quantity, setQuantity] = useState(1);
   const [totalquantity, setTotalquantity] = useState(null);
   const [totalPrice, setTotalPrice] = useState(null);
   const [entrynum, setEntrynum] = useState(null);
- const [maxstock,setMaxstock]= useState(null)
-  
+  const [maxstock, setMaxstock] = useState(null);
+
   const {cartdetails, getCartDetails} = props;
   useEffect(() => {
     // setCurrentPosition(1);
@@ -74,8 +76,11 @@ export default function CartList(props) {
   };
   const SizeQClick = data => {
     setShowSizeQ(true);
-    console.log('dataaa quantityyyyyy7777777777777777777777777', data?.product?.stock?.stockLevel);
-    setMaxstock(data?.product?.stock?.stockLevel)
+    console.log(
+      'dataaa quantityyyyyy7777777777777777777777777',
+      data?.product?.stock?.stockLevel,
+    );
+    setMaxstock(data?.product?.stock?.stockLevel);
     setEntrynum(data?.entryNumber);
     setQuantity(data?.quantity);
   };
@@ -84,11 +89,11 @@ export default function CartList(props) {
     console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
     console.log('dataaaaaaaaaaaaaaaaaa00000000000000000000', data.entryNumber);
     const response = await axios.delete(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751/entries/${data.entryNumber}`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08309533/entries/${data.entryNumber}`,
       // {},
       {
         headers: {
-          Authorization: `Bearer SqhPMInSnKoBK5sH76aH9ECVg_o`,
+          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
         },
       },
     );
@@ -125,23 +130,22 @@ export default function CartList(props) {
 
   const updateQuantity = async () => {
     const response = await axios.patch(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751/entries/${entrynum}`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08309533/entries/${entrynum}`,
       {
         quantity: quantity,
       },
       {
         headers: {
-          Authorization: `Bearer SqhPMInSnKoBK5sH76aH9ECVg_o`,
+          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
         },
       },
     );
     console.log(
       'updateQuantityupdateQuantityupdateQuantityupdateQuantityupdateQuantityupdateQuantity',
       response.data,
-      );
-      getCartDetails();
+    );
+    getCartDetails();
     setShowSizeQ(false);
-
   };
   return (
     <>
@@ -193,7 +197,7 @@ export default function CartList(props) {
             />
           </>
         ) : currentPosition == 1 ? (
-          <MyAddresses {...props} />
+          <CheckAddress {...props} />
         ) : currentPosition == 2 ? (
           <Payment />
         ) : null}
@@ -346,7 +350,9 @@ export default function CartList(props) {
             <Text style={styles.sizeText}>Select quantity</Text>
             <View style={styles.quantityContainer}>
               <TouchableOpacity
-                onPress={() =>  quantity > 1? setQuantity(quantity - 1) : null}
+                onPress={() =>
+                  quantity > 1 ? setQuantity(quantity - 1) : null
+                }
                 style={styles.signBox}>
                 <Text style={styles.sign}>-</Text>
               </TouchableOpacity>
@@ -354,7 +360,9 @@ export default function CartList(props) {
                 <Text style={styles.quantityText}>{quantity}</Text>
               </View>
               <TouchableOpacity
-                onPress={() => quantity < maxstock ? setQuantity(quantity + 1) : null}
+                onPress={() =>
+                  quantity < maxstock ? setQuantity(quantity + 1) : null
+                }
                 style={styles.signBox}>
                 <Text style={styles.sign}>+</Text>
               </TouchableOpacity>

@@ -7,7 +7,7 @@ import {Colors} from '../../../../assets/Colors';
 import CommonButton from '../../../Common/CommonButton';
 import Fonts from '../../../../assets/fonts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import axios from 'axios';
 const faqs = [
   {
     id: '1',
@@ -20,11 +20,29 @@ const faqs = [
   },
 ];
 const MyAddresses = props => {
+  const {checkaddress,getCheckAddress} = props;
   const [show, setShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
-  const handleClick = () => {
-    console.log('hihi');
+  const [peritem,setPeritem] = useState(null)
+  const handleClick = async(id) => {
+    console.log('hihi',id);
+    const response = await axios.delete(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses/${id}`,
+      // {},
+      {
+        headers: {
+          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+        },
+      },
+    );
+    console.log(
+      'handleClickhandleClickhandleClickhandleClickhandleClickhandleClickhandleClick',
+      response.data,
+    );
+    getCheckAddress()
+    setModalShow(false)
   };
+
   return (
     <>
       <ScrollView
@@ -33,7 +51,7 @@ const MyAddresses = props => {
         showsVerticalScrollIndicator={false}>
         <Text style={Styles.headingtxt}>Saved Addresses</Text>
         <View style={Styles.body}>
-          {faqs.map((faq, index) => (
+          {checkaddress?.addresses?.map((faq, index) => (
             <>
               <View
                 style={[
@@ -47,7 +65,9 @@ const MyAddresses = props => {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                   }}>
-                  <Text style={Styles.mainDivText}>Home(Default)</Text>
+                  <Text style={Styles.mainDivText}>
+                    Home{faq.defaultAddress ? '(Default)' : null}
+                  </Text>
                   <TouchableOpacity
                     onPress={() =>
                       setShow(prev => (prev != faq.id ? faq.id : ''))
@@ -65,16 +85,25 @@ const MyAddresses = props => {
                       onPress={() => props.navigation.navigate('Address')}>
                       <Text style={Styles.edittxt}>Edit</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setModalShow(true)}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setModalShow(true);
+
+                        setPeritem(faq);
+                      }}>
                       <Text style={Styles.deletetxt}>Delete</Text>
                     </TouchableOpacity>
                   </View>
                 ) : null}
-                <Text style={Styles.titletxt}>Tara Orchard</Text>
-                <Text style={Styles.titletxt}>102 FI Tara Orchard Avenue</Text>
-                <Text style={Styles.titletxt}>Hirananadani Gardens</Text>
-                <Text style={Styles.titletxt}>Powal Mumbai 400076</Text>
-                <Text style={Styles.titletxt}>Mobile - 9900000000</Text>
+                <Text style={Styles.titletxt}>
+                  {faq.firstName} {faq.lastName}
+                </Text>
+                <Text style={Styles.titletxt}>{faq.line1}</Text>
+                <Text style={Styles.titletxt}>{faq.line2}</Text>
+                <Text style={Styles.titletxt}>
+                  {faq.town} {faq.postalCode}
+                </Text>
+                <Text style={Styles.titletxt}>Mobile - {faq.phone}</Text>
               </View>
             </>
           ))}
@@ -112,7 +141,18 @@ const MyAddresses = props => {
         swipeDirection={['down']}
         transparent={true}>
         <View style={Styles.modalcontainer}>
-          <View style={Styles.modalbox}>
+          <View
+            style={{
+              position: 'absolute',
+              backgroundColor: 'white',
+              elevation: 5,
+              borderRadius: 4,
+              paddingHorizontal: 15,
+              paddingVertical: 10,
+              width: '100%',
+              // right: '9%',
+              top: '35%',
+            }}>
             <View style={Styles.headbox}>
               <Text style={Styles.headtxt}>
                 You are about to remove address!
@@ -148,7 +188,7 @@ const MyAddresses = props => {
                   fontFamily: Fonts.Assistant700,
                   color: Colors.textcolor,
                 }}>
-                Office
+               {peritem?.firstName} {peritem?.lastName}
               </Text>
               <Text
                 style={{
@@ -156,8 +196,7 @@ const MyAddresses = props => {
                   fontFamily: Fonts.Assistant400,
                   color: Colors.textcolor,
                 }}>
-                Purvi Nargund, 3, Lok Everest Orchard Avenue, Hiranandani
-                Gardens, Powai, Mumbai 400076
+               {peritem?.line1} {peritem?.line2} {peritem?.town} {peritem?.postalCode}
               </Text>
             </View>
             <View
@@ -183,7 +222,7 @@ const MyAddresses = props => {
                   backgroundColor: Colors.primarycolor,
                   width: '47%',
                 }}
-                handleClick={handleClick}
+                handleClick={() =>handleClick(peritem?.id)}
               />
             </View>
 

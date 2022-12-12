@@ -138,7 +138,7 @@ export default function ProductDetailed(props) {
       productID,
     );
     const response = await axios.post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751/entries?lang=en&curr=INR`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08309533/entries?lang=en&curr=INR`,
       {
         quantity: 1,
         product: {
@@ -147,7 +147,7 @@ export default function ProductDetailed(props) {
       },
       {
         headers: {
-          Authorization: `Bearer SqhPMInSnKoBK5sH76aH9ECVg_o`,
+          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
         },
       },
     );

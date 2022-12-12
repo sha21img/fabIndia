@@ -77,6 +77,7 @@ const Styles = StyleSheet.create({
     paddingVertical: 10,
     width: '35%',
     right: '9%',
+    zIndex:1,
     top: '35%',
   },
   headbox: {
