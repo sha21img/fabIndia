@@ -29,7 +29,7 @@ export default function Otp(props) {
     //   'fabindiab2c/otp/validate?lang=en&curr=INR',
     //   params,
     // );
-    getCartID();
+    // getCartID();
 
     props.navigation.navigate('MyAccounts');
   };
