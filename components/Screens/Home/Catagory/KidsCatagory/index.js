@@ -338,7 +338,7 @@ const KidsCatagory = props => {
   const checkSwitch = param => {
     switch (param?.typeCode) {
       case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper data={param} />;
+        return <TopSwiper data={param} {...props} />;
       case 'FabBannerCarouselComponent':
         return (
           <NewHighlights

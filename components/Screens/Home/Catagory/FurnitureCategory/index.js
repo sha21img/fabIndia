@@ -67,7 +67,7 @@ const FurnitureCategory = props => {
     switch (param?.typeCode) {
       //1
       case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper data={param} />;
+        return <TopSwiper data={param} {...props} />;
       //2,3,4
       case 'FabBannerCarouselComponent':
         return (

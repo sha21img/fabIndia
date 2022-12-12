@@ -17,10 +17,10 @@ export default function SingleBanner(props) {
   const [bannerData, setBannerData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const newCode = data.urlLink;
-  console.log(
-    'women category data////////////////////////////////////////////////',
-    bannerData,
-  );
+  // console.log(
+  //   'women category data////////////////////////////////////////////////',
+  //   bannerData,
+  // );
   // let splitURL = newCode.split('/');
   // splitURL = splitURL[splitURL.length - 1];
   useEffect(() => {
@@ -50,12 +50,23 @@ export default function SingleBanner(props) {
       {isLoading && (
         <TouchableOpacity
           style={[defaultStyle, customStyle]}
-          onPress={() =>
-            props.navigation.navigate('LandingPageSaris_Blouses', {
-              code: 'wedding-women-saris-blouses',
-              title: bannerData.media.mobile.altText,
-            })
-          }>
+          onPress={() => {
+            const newCode = bannerData.urlLink;
+            let splitURL = newCode.split('/');
+            splitURL = splitURL[splitURL.length - 1];
+            console.log(
+              'singl eanner splitURL//////////////////////====?????????????????????????????????????????????????????????',
+              splitURL,
+            );
+            if (splitURL == 'interior-design') {
+              console.log('ijih');
+            } else {
+              props.navigation.navigate('LandingPageSaris_Blouses', {
+                code: splitURL,
+                title: bannerData.media.mobile.altText,
+              });
+            }
+          }}>
           <Image
             resizeMode="stretch"
             //   source={image.ArtistImg1}

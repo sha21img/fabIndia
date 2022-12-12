@@ -79,6 +79,14 @@ export default function FoodCatagory(props) {
         const newCode = param.urlLink;
         let splitURL = newCode.split('/');
         splitURL = splitURL[splitURL.length - 1];
+        let a = splitURL.split('?');
+        console.log('paramparamparamparamparamparam', param);
+        const newId = {
+          code: a[a.length - 1].includes('query') ? a[1] : a[0],
+          status: a[a.length - 1].includes('query'),
+          title: param.title,
+          // title: filteredObj.title || filteredObj.media.mobile.altText,
+        };
         return (
           // <TouchableOpacity
           //   onPress={() =>
@@ -87,14 +95,18 @@ export default function FoodCatagory(props) {
           //       title: param.media.mobile.altText,
           //     })
           //   }>
-          <Image
-            resizeMode="stretch"
-            source={{
-              uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
-            }}
-            style={{height: 238, width: width}}
-          />
-          // </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              props.navigation.navigate('LandingPageSaris_Blouses', newId)
+            }>
+            <Image
+              resizeMode="stretch"
+              source={{
+                uri: `https://apisap.fabindia.com/${param.media.mobile.url}`,
+              }}
+              style={{height: 238, width: width}}
+            />
+          </TouchableOpacity>
         );
       // section8 grid
       //section 9 empty
