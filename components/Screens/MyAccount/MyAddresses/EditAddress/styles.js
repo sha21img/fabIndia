@@ -35,6 +35,8 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 12,
     borderBottomColor: '#EDEDED',
+    marginTop:10,
+    marginBottom:10
   },
   pickertitle: {
     justifyContent: 'center',
@@ -65,9 +67,14 @@ const Styles = StyleSheet.create({
   textinput: {
     borderRadius: 1,
     fontSize: 14,
-    marginBottom: 20,
+    marginBottom: 10,
     backgroundColor: '#FFFFFF',
-    paddingHorizontal: 0,
+    paddingHorizontal: 5,
+    marginHorizontal:5,
+    marginTop:10,
+    fontFamily:Fonts.Assistant800
+
+
   },
   textinput1: {
     height: 40,
@@ -81,14 +88,14 @@ const Styles = StyleSheet.create({
   addresstxt: {
     fontSize: 18,
     color: Colors.textcolor,
-    marginTop: 10,
+    marginTop: 20,
     fontFamily: Fonts.Assistant600,
     // paddingHorizontal: 10,
   },
   dropdown: {
     height: 50,
     borderRadius: 8,
-    marginTop: 20,
+    marginTop: 10,
     paddingHorizontal: 10,
     backgroundColor: 'white',
     marginBottom: 10,

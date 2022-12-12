@@ -28,6 +28,7 @@ import ProductDetailed from './components/Screens/ProductDetailed';
 import Header1 from './components/Common/Header1';
 import OrderConfirmation from './components/Screens/OrderConfirmation';
 import HomeHeader from './components/Screens/Home/HomeHeader';
+import CheckAddress from './components/Screens/MyAccount/MyAddresses/CheckAddress';
 
 const Stack = createNativeStackNavigator();
 
@@ -170,6 +171,22 @@ export default function App(props) {
           <Stack.Screen
             name="MyAddresses"
             component={MyAddresses}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Address"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="CheckAddress"
+            component={CheckAddress}
             options={{
               header: props => (
                 <Header

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Image,
@@ -15,8 +15,12 @@ import {Colors} from '../../../../../assets/Colors';
 import CommonButton from '../../../../Common/CommonButton';
 import InputText from '../../../../Common/InputText';
 import CheckBox from 'react-native-check-box';
+import axios from 'axios';
 
 import Styles from './styles';
+import Fonts from '../../../../../assets/fonts';
+import {cos} from 'react-native-reanimated';
+import {useNavigation} from '@react-navigation/native';
 const faqs = [
   {
     id: '1',
@@ -31,46 +35,207 @@ const faqs = [
     name: 'Last name',
   },
 ];
-const data = [
-  {label: 'Andhra Pradesh'},
-  {label: 'Arunachal Pradesh'},
-  {label: 'Bihar'},
-  {label: 'Chhattisgarh'},
-  {label: 'Goa'},
-  {label: 'Gujarat'},
-  {label: 'Haryana'},
-  {label: 'Himachal Pradesh'},
-  {label: 'Jharkhand'},
-  {label: 'Karnataka'},
-  {label: 'Kerala'},
-  {label: 'Madhya Pradesh'},
-  {label: 'Maharashtra'},
-  {label: 'Manipur'},
-  {label: 'Meghalaya'},
-  {label: 'Mizoram'},
-  {label: 'Nagaland'},
-  {label: 'Odisha'},
-  {label: 'Punjab'},
-  {label: 'Rajasthan'},
-  {label: 'Tamil Nadu'},
-  {label: 'Telangana'},
-  {label: 'Tripura'},
-  {label: 'Uttar Pradesh'},
-  {label: 'Uttarakhand'},
-  {label: 'West Bengal'},
-];
+
 const EditAddress = props => {
   const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [text, setText] = React.useState('');
-  const [mobilePrefix, setMobilePrefix] = useState('60');
+  const [nickName, SetNickName] = useState(null);
+  const [firstname, SetFirstname] = useState(null);
+  const [email, SetEmail] = useState(null);
+
+  const [lastname, SetLastname] = useState(null);
+
+  const [pincode, SetPinCode] = useState(null);
+  const [mobilePrefix, setMobilePrefix] = useState('91');
   const [isFocus, setIsFocus] = useState(false);
-  const [State, setState] = useState('');
+  const [State, setState] = useState(null);
+  const [region, setRegion] = useState(null);
+
   const [isChecked, setIsChecked] = useState(false);
+  const [validation, setvalidation] = useState({
+    firstname: '',
+    pincode: '',
+    phoneNumber: '',
+    addressfirst: '',
+    email: '',
+  });
+  const [validerror, setValidError] = useState(false);
+  const [city, setCity] = useState(null);
+  const [country, setCountry] = useState(null);
+  const [countryData, setCountryData] = useState([]);
+  const [stateData, setStateData] = useState([]);
+  const [error, setError] = useState(false);
+
+  const [addressfirst, setaddressfirst] = useState(null);
+  const [addresssecond, setaddresssecond] = useState(null);
+  const navigation = useNavigation();
+  useEffect(() => {
+    getCountrydata();
+  }, []);
+
+  const getCountrydata = async () => {
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/countries?fields=DEFAULT&type=SHIPPING`,
+      // {},
+      {
+        headers: {
+          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+        },
+      },
+    );
+    console.log(
+      'getCountrygetCountryCountrygetCountrygetCountrygetCountrygetCountryecheckpincode',
+      response.data,
+    );
+    const newArrayOfObj = response.data?.countries.map(
+      ({name: label, ...rest}) => ({
+        label,
+        ...rest,
+      }),
+    );
+    console.log(
+      'newArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObj',
+      newArrayOfObj,
+    );
+    setCountryData(newArrayOfObj);
+  };
 
   const _selectedValue = index => {
     setMobilePrefix(index);
   };
+
+  const SubmitAddress = async () => {
+    console.log('fhrifhdf');
+    const body = {
+      cellphone: phoneNumber,
+      city: {
+        isocode: 'CN-11-1, CN-11-2, CN-11-3',
+        name: city,
+      },
+      cityDistrict: {
+        isocode: 'string',
+        name: city,
+      },
+      companyName: 'string',
+      contactNumberCode: mobilePrefix,
+      country: {
+        isocode: country.isocode,
+        name: country.label,
+      },
+      defaultAddress: true,
+      district: city,
+      email: email,
+      firstName: firstname,
+      formattedAddress: '',
+      id: '',
+      lastName: lastname,
+      line1: addressfirst,
+      line2: addresssecond,
+      nickName: nickName,
+      phone: phoneNumber,
+      postalCode: pincode,
+      region: region,
+      shippingAddress: true,
+      title: '',
+      titleCode: '',
+      town: city,
+      visibleInAddressBook: true,
+    };
+
+    console.log('bodybodybodybodybodybodybodybodybodybodybodybodybody', body);
+    const response = await axios.post(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses`,
+      body,
+      {
+        headers: {
+          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+        },
+      },
+    );
+    console.log(
+      'SubmitAddressSubmitAddressSubmitAddressSubmitAddressSubmitAddressSubmitAddressSubmitAddress',
+      response.data,
+    );
+    if (response.data) {
+      console.log('llllllllllllllllllll',props.navigation)
+      props.navigation.navigate('CartPage', {
+        currPosition: 1,
+      });
+    }
+  };
+
+  const checkpincode = async data => {
+    SetPinCode(data);
+    console.log('dataaaaaaa');
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/pincodeService/pincodeDetails?pincode=${data}&lang=en&curr=INR`,
+      // {},
+      {
+        headers: {
+          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+        },
+      },
+    );
+    console.log(
+      'checkpincodecheckpincodecheckpincodecheckpincodecheckpincode',
+      response.data,
+    );
+    // if()
+    if (Object.keys(response.data).length) {
+      let filter = countryData.filter(el => {
+        return el.isocode == response.data?.region?.countryIso;
+      });
+
+      const state = await getStates(filter[0].isocode);
+      console.log(
+        'statestatestatestatestatestatestatestatestatestatestatestatestatestatestatestate',
+        state,
+      );
+      setCountry(filter[0]);
+      setError(false);
+
+      setCity(response.data.city);
+      setRegion(response.data.region);
+      setState(response.data.region.name);
+    } else {
+      setCity(null);
+      setRegion(null);
+      setState(null);
+      setCountry(null);
+      setError(true);
+    }
+  };
+
+  const getStates = async code => {
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/countries/${code}/regions?fields=DEFAULT`,
+      // {},
+      {
+        headers: {
+          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+        },
+      },
+    );
+    console.log(
+      'getStatesgetStatesgetStatesgetStatesgetStatesgetStatesgetStates',
+      response.data,
+    );
+    const newArrayOfObj = response.data?.regions.map(
+      ({name: label, ...rest}) => ({
+        label,
+        ...rest,
+      }),
+    );
+    console.log(
+      'newArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObj',
+      newArrayOfObj,
+    );
+    setStateData(newArrayOfObj);
+  };
+
+  // const seterrorText = () =>{
+  //   if()
+  // }
   return (
     <SafeAreaView style={Styles.container}>
       <View style={Styles.bodyContainer}>
@@ -80,14 +245,49 @@ const EditAddress = props => {
           <View style={Styles.secondDiv}>
             <Text style={Styles.contacttxt}>Contact details</Text>
 
-            {faqs.map((faq, index) => (
-              <InputText
-                customStyle={Styles.textinput}
-                label={faq.name}
-                value={text}
-                onChangeText={text => setText(text)}
-              />
-            ))}
+            {/* {faqs.map((faq, index) => ( */}
+            <InputText
+              customStyle={Styles.textinput}
+              label="Address nickname"
+              value={nickName}
+              onChangeText={text => SetNickName(text)}
+            />
+            <InputText
+              customStyle={Styles.textinput}
+              label="First name*"
+              value={firstname}
+              onChangeText={text => SetFirstname(text)}
+              onBlur={() => {
+                !!firstname
+                  ? setvalidation(prev => ({...prev, firstname: ''}))
+                  : setvalidation(prev => ({
+                      ...prev,
+                      firstname: 'This field is required',
+                    }));
+              }}
+            />
+            <Text style={{color: 'red'}}>{validation.firstname}</Text>
+            <InputText
+              customStyle={Styles.textinput}
+              label="Last name"
+              value={lastname}
+              onChangeText={text => SetLastname(text)}
+            />
+            <InputText
+              customStyle={Styles.textinput}
+              label="Email"
+              value={email}
+              onChangeText={text => SetEmail(text)}
+              onBlur={() => {
+                !!email
+                  ? setvalidation(prev => ({...prev, email: ''}))
+                  : setvalidation(prev => ({
+                      ...prev,
+                      email: 'This field is required',
+                    }));
+              }}
+            />
+            <Text style={{color: 'red'}}>{validation.email}</Text>
             <View style={Styles.pickerbox}>
               <CountryPicker
                 disable={false}
@@ -111,54 +311,87 @@ const EditAddress = props => {
                   underlineColor="white"
                   style={Styles.textinput1}
                   value={phoneNumber}
-                  placeholder="phone number"
+                  placeholder="Your Mobile Number*"
                   onChangeText={value =>
                     value.length <= 10 ? setPhoneNumber(value) : false
                   }
                   placeholderTextColor="grey"
                   keyboardType={'number-pad'}
                   disableFullscreenUI={true}
+                  onBlur={() => {
+                    !!phoneNumber
+                      ? setvalidation(prev => ({...prev, phoneNumber: ''}))
+                      : setvalidation(prev => ({
+                          ...prev,
+                          phoneNumber: 'This field is required',
+                        }));
+                  }}
                 />
               </View>
             </View>
+            <Text style={{color: 'red'}}>{validation.phoneNumber}</Text>
 
             <View>
               <View>
                 <Text style={Styles.addresstxt}>Address</Text>
               </View>
+              <InputText
+                customStyle={Styles.textinput}
+                label="Pincode*"
+                value={pincode}
+                onChangeText={text =>
+                  text.length < 7
+                    ? text.length == 6
+                      ? checkpincode(text)
+                      : SetPinCode(text)
+                    : null
+                }
+                onBlur={() => {
+                  !!pincode
+                    ? setvalidation(prev => ({...prev, pincode: ''}))
+                    : setvalidation(prev => ({
+                        ...prev,
+                        pincode: 'This field is required',
+                      }));
+                }}
+              />
+              <Text style={{color: 'red'}}>{validation.pincode}</Text>
+              {error ? (
+                <Text
+                  style={{
+                    color: 'red',
+                    fontSize: 14,
+                    fontFamily: Fonts.Assistant500,
+                  }}>
+                  pincode not found
+                </Text>
+              ) : null}
               <Dropdown
                 style={Styles.dropdown}
                 placeholderStyle={{fontSize: 14}}
-                selectedTextStyle={{fontSize: 14}}
+                selectedTextStyle={{
+                  fontSize: 14,
+                  fontFamily: Fonts.Assistant800,
+                }}
                 inputSearchStyle={{height: 40, fontSize: 14}}
                 iconStyle={{width: 20, height: 20}}
-                data={data}
+                data={countryData}
                 search
                 maxHeight={300}
                 labelField="label"
                 valueField="label"
-                placeholder={!isFocus ? 'Country' : '...'}
+                placeholder={!isFocus ? 'Country*' : '...'}
                 searchPlaceholder="Search..."
-                value={State}
+                value={country?.label}
                 onFocus={() => setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
                 onChange={item => {
-                  setState(item.label);
+                  setCountry(item.label);
+                  getStates(item.isocode);
                   setIsFocus(false);
                 }}
               />
-              <InputText
-                customStyle={Styles.textinput}
-                label="Pincode"
-                value={text}
-                onChangeText={text => setText(text)}
-              />
-              <InputText
-                customStyle={Styles.textinput}
-                label="Country"
-                value={text}
-                onChangeText={text => setText(text)}
-              />
+              {/* 
               <Dropdown
                 style={Styles.dropdown}
                 placeholderStyle={{fontSize: 14}}
@@ -172,26 +405,44 @@ const EditAddress = props => {
                 valueField="label"
                 placeholder={!isFocus ? 'City' : '...'}
                 searchPlaceholder="Search..."
-                value={State}
+                value={city}
                 onFocus={() => setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
                 onChange={item => {
-                  setState(item.label);
+                  setCity(item.label);
                   setIsFocus(false);
                 }}
+              /> */}
+              <InputText
+                customStyle={Styles.textinput}
+                label="City*"
+                value={city}
+                onChangeText={text => setCity(text)}
+                onBlur={() => {
+                  !!city
+                    ? setvalidation(prev => ({...prev, city: ''}))
+                    : setvalidation(prev => ({
+                        ...prev,
+                        city: 'This field is required',
+                      }));
+                }}
               />
+              <Text style={{color: 'red'}}>{validation.city}</Text>
               <Dropdown
                 style={Styles.dropdown}
                 placeholderStyle={{fontSize: 14}}
-                selectedTextStyle={{fontSize: 14}}
+                selectedTextStyle={{
+                  fontSize: 14,
+                  fontFamily: Fonts.Assistant800,
+                }}
                 inputSearchStyle={{height: 40, fontSize: 14}}
                 iconStyle={{width: 20, height: 20}}
-                data={data}
+                data={stateData}
                 search
                 maxHeight={300}
                 labelField="label"
                 valueField="label"
-                placeholder={!isFocus ? 'State' : '...'}
+                placeholder={!isFocus ? 'State*' : '...'}
                 searchPlaceholder="Search..."
                 value={State}
                 onFocus={() => setIsFocus(true)}
@@ -204,15 +455,24 @@ const EditAddress = props => {
 
               <InputText
                 customStyle={Styles.textinput}
-                label="Address Line 1"
-                value={text}
-                onChangeText={text => setText(text)}
+                label="Address Line 1*"
+                value={addressfirst}
+                onChangeText={text => setaddressfirst(text)}
+                onBlur={() => {
+                  !!addressfirst
+                    ? setvalidation(prev => ({...prev, addressfirst: ''}))
+                    : setvalidation(prev => ({
+                        ...prev,
+                        addressfirst: 'This field is required',
+                      }));
+                }}
               />
+              <Text style={{color: 'red'}}>{validation.addressfirst}</Text>
               <InputText
                 customStyle={Styles.textinput}
                 label="Address Line 2 (optional)"
-                value={text}
-                onChangeText={text => setText(text)}
+                value={addresssecond}
+                onChangeText={text => setaddresssecond(text)}
               />
               <View style={Styles.defaultaddressbox}>
                 <CheckBox
@@ -231,10 +491,34 @@ const EditAddress = props => {
         </ScrollView>
         <View style={Styles.btncontainer}>
           <CommonButton
+            disable={
+              !(
+                !!firstname &&
+                !!phoneNumber &&
+                !!pincode &&
+                !!country?.label &&
+                !!city &&
+                !!State &&
+                !!addressfirst &&
+                !!email
+              )
+            }
             backgroundColor="#BDBDBD"
+            handleClick={SubmitAddress}
             txt="Save address"
             customViewStyle={{
-              backgroundColor: Colors.primarycolor,
+              backgroundColor: !(
+                !!firstname &&
+                !!phoneNumber &&
+                !!pincode &&
+                !!country?.label &&
+                !!city &&
+                !!State &&
+                !!addressfirst &&
+                !!email
+              )
+                ? '#BDBDBD'
+                : Colors.primarycolor,
             }}
           />
         </View>
