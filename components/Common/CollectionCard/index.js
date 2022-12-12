@@ -32,9 +32,11 @@ const CollectionCard = props => {
           const newCode = item.urlLink;
           let splitURL = newCode.split('/');
           splitURL = splitURL[splitURL.length - 1];
+
+          const title = item.title || item.name;
           console.log(
             'splitURLsplitURLsplitURLsplit...URLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURL',
-            item.title,
+            title,
           );
 
           return (
@@ -45,7 +47,7 @@ const CollectionCard = props => {
                   props.navigation.navigate('LandingPageSaris_Blouses', {
                     // code: splitURL,
                     code: splitURL.split('?')[0],
-                    title: item.title,
+                    title: title,
                   })
               }>
               <ImageBackground

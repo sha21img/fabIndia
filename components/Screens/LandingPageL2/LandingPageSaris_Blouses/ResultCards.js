@@ -20,7 +20,7 @@ export default function ResultCards(props) {
   );
   const {data = []} = props;
   const getProductData = async () => {
-    console.log('checky')
+    console.log('checky');
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
     );
@@ -88,12 +88,14 @@ export default function ResultCards(props) {
   };
   const getCardData = item => {
     return (
-      <Card1
-        handleClick={addWishlist}
-        customViewStyle={{marginVertical: 7}}
-        {...props}
-        item={item.item}
-      />
+      <>
+        <Card1
+          handleClick={addWishlist}
+          customViewStyle={{marginVertical: 7}}
+          {...props}
+          item={item.item}
+        />
+      </>
     );
   };
   return (
