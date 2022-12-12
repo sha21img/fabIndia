@@ -7,22 +7,32 @@ import CountryPicker from 'rn-country-picker';
 import {TextInput} from 'react-native-paper';
 import InputText from '../../Common/InputText';
 import {UnAuthPostData} from '../../Common/Helper';
-
-export default function ResetPassword() {
+import Toast from 'react-native-simple-toast';
+export default function ResetPassword(props) {
   const [text, setText] = useState('');
   const handleSubmit = async () => {
     const body = {userId: text};
-    const res = await UnAuthPostData(
-      'fabindiab2c/forgottenpasswordtokens?lang=en&curr=INR',
-      body,
-    );
-    console.log(res);
+    if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(text)) {
+      const res = await UnAuthPostData(
+        'fabindiab2c/forgottenpasswordtokens?lang=en&curr=INR',
+        body,
+      );
+      console.log(res);
+      Toast.showWithGravity(
+        'reset link send to your email',
+        Toast.LONG,
+        Toast.TOP,
+      );
+      props.navigation.goBack();
+    } else {
+      Toast.showWithGravity('Invalid Email', Toast.LONG, Toast.TOP);
+    }
   };
 
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.heading}>Log in with mobile number</Text>
+        <Text style={styles.heading}>Reset Password</Text>
         <InputText
           label={'Email address'}
           onChangeText={text => setText(text)}
@@ -33,7 +43,7 @@ export default function ResetPassword() {
       <View style={styles.btnBox}>
         <CommonButton
           backgroundColor="#BDBDBD"
-          txt="Log in"
+          txt="Send request"
           customViewStyle={{
             backgroundColor: !text
               ? Colors.inAactivecolor

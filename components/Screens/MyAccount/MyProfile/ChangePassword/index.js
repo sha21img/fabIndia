@@ -17,6 +17,8 @@ import {Colors} from '../../../../../assets/Colors';
 import {Styles} from './style';
 import CommonButton from '../../../../Common/CommonButton';
 import Fonts from '../../../../../assets/fonts';
+import {UnAuthPostData} from '../../../../Common/Helper';
+import Toast from 'react-native-simple-toast';
 
 export default function ChangePassword() {
   const icon = {
@@ -66,6 +68,23 @@ export default function ChangePassword() {
   }, [password.confirmPass]);
 
   console.log('user', password.newPass.length, password.confirmPass.length);
+
+  const handleChangePassword = () => {
+    const body = {
+      old: password.oldPass,
+      new: password.newPass,
+    };
+    const res = UnAuthPostData(
+      'fabindiab2c/users/current/password?lang=en&curr=INR',
+      body,
+    );
+    console.log(res);
+    Toast.showWithGravity(
+      'Password Changed Succesfully',
+      Toast.LONG,
+      Toast.TOP,
+    );
+  };
 
   return (
     <>
@@ -154,8 +173,13 @@ export default function ChangePassword() {
           backgroundColor="#BDBDBD"
           txt="Change password"
           customViewStyle={{
-            backgroundColor: !desable ? '#BDBDBD' : Colors.primarycolor,
+            backgroundColor:
+              !passwordNotMatch || !password.oldPass
+                ? Colors.inAactivecolor
+                : Colors.primarycolor,
           }}
+          handleClick={handleChangePassword}
+          disable={!passwordNotMatch || !password.oldPass}
         />
       </View>
     </>

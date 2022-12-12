@@ -12,6 +12,7 @@ export default function CommonOtp({
   otp = '',
   handleOTP = null,
   disable,
+  handleResend,
 }) {
   return (
     <>
@@ -32,7 +33,7 @@ export default function CommonOtp({
               setOtp(code);
             }}
           />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleResend}>
             <Text style={Styles.readText}>Resend code</Text>
           </TouchableOpacity>
         </View>

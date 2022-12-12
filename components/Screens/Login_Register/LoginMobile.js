@@ -27,7 +27,7 @@ export default function LoginMobile(props) {
     //   `fabindiab2c/otp/generate?lang=en&curr=INR`,
     //   param,
     // );
-    console.log('kooooooooooooooooo');
+
     props.navigation.navigate('Otp', {
       transactionId: '',
       // transactionId: res?,

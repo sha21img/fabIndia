@@ -172,16 +172,21 @@ const MyAccounts = props => {
                 }}>
                 tanyasingh@gmail.com
               </Text>
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontFamily: Fonts.Assistant400,
-                  lineHeight: 14,
-                  color: Colors.primarycolor,
-                  marginTop: 12,
+              <TouchableOpacity
+                onPress={() => {
+                  props.navigation.navigate('ChangePassword');
                 }}>
-                Change password
-              </Text>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontFamily: Fonts.Assistant400,
+                    lineHeight: 14,
+                    color: Colors.primarycolor,
+                    marginTop: 12,
+                  }}>
+                  Change password
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -214,40 +219,39 @@ const MyAccounts = props => {
             </TouchableOpacity>
           );
         })}
-        {auth !== null && (
-          <TouchableOpacity
-            onPress={async () => {
-              const res = await AsyncStorage.getItem('token');
 
-              deleteAsyncStorage('token');
-              props.navigation.navigate('MyAccount', {
-                screen: 'Login_Register',
-              });
-            }}
-            key={Math.random() * 10000}
-            style={{
-              padding: 20,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              borderBottomWidth: 2,
-              borderBottomColor: '#EDEDED',
-              alignItems: 'center',
-            }}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Image source={image.DelAccount} />
-              <Text
-                style={{
-                  marginLeft: 23,
-                  fontFamily: Fonts.Assistant400,
-                  fontSize: 14,
-                  color: Colors.textcolor,
-                }}>
-                Logout
-              </Text>
-            </View>
-            <Image source={image.rightArrow} />
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity
+          onPress={async () => {
+            const res = await AsyncStorage.getItem('token');
+
+            deleteAsyncStorage('token');
+            props.navigation.navigate('MyAccount', {
+              screen: 'Login_Register',
+            });
+          }}
+          key={Math.random() * 10000}
+          style={{
+            padding: 20,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            borderBottomWidth: 2,
+            borderBottomColor: '#EDEDED',
+            alignItems: 'center',
+          }}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Image source={image.DelAccount} />
+            <Text
+              style={{
+                marginLeft: 23,
+                fontFamily: Fonts.Assistant400,
+                fontSize: 14,
+                color: Colors.textcolor,
+              }}>
+              Logout
+            </Text>
+          </View>
+          <Image source={image.rightArrow} />
+        </TouchableOpacity>
       </ScrollView>
     </>
   );

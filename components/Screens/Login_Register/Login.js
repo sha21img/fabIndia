@@ -16,6 +16,7 @@ import Fonts from '../../../assets/fonts';
 import {postDataAuth} from '../../Common/Helper';
 import CommonButton from '../../Common/CommonButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-simple-toast';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
@@ -45,11 +46,15 @@ export default function Login(props) {
     formData.append('client_secret', 'secret');
     formData.append('username', email);
     formData.append('password', password);
-    await AsyncStorage.setItem('token', 'dummytoken');
-    props.navigation.navigate('MyAccount', {
-      screen: 'MyAccounts',
-    });
-    const response = await postDataAuth('oauth/token', formData);
+    if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(email)) {
+      await AsyncStorage.setItem('token', 'dummytoken');
+      props.navigation.navigate('MyAccount', {
+        screen: 'MyAccounts',
+      });
+      const response = await postDataAuth('oauth/token', formData);
+    } else {
+      Toast.showWithGravity('Invalid Email', Toast.LONG, Toast.TOP);
+    }
   };
 
   return (
@@ -123,8 +128,7 @@ export default function Login(props) {
 }
 const styles = StyleSheet.create({
   container: {
-    width: width,
-    height: height,
+    flexGrow: 1,
     padding: 15,
     backgroundColor: '#ffffff',
   },
