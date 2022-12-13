@@ -85,7 +85,7 @@ const pages = [
   {
     icon: image.GiftCard,
     name: 'Gift Cards',
-    routes: '',
+    routes: 'GiftCard',
   },
   {
     icon: image.ContactUs,
