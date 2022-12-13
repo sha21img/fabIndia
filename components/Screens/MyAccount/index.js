@@ -85,7 +85,7 @@ const pages = [
   {
     icon: image.GiftCard,
     name: 'Gift Cards',
-    routes: '',
+    routes: 'GiftCard',
   },
   {
     icon: image.ContactUs,
@@ -530,6 +530,7 @@ const MyAccount = props => {
                   backgroundColor: '#F8F6F5',
                   marginBottom: 4,
                 }}
+                {...props}
               />
             ),
           }}

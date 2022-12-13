@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -6,31 +7,143 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Colors} from '../../../../../assets/Colors';
-import Fonts from '../../../../../assets/fonts';
+import { Colors } from '../../../../../assets/Colors';
 import CommonButton from '../../../../Common/CommonButton';
 import InputText from '../../../../Common/InputText';
-import {Styles} from './styles';
+import { Styles } from './styles';
+import Toast from 'react-native-simple-toast';
 
-function SendGiftCard() {
-  const amounts = ['₹ 1000', '₹ 3000', '₹ 5000', 'Other'];
-
-  const [clickId, setClickId] = useState();
+function SendGiftCard(props) {
+  const { walletInfo } = props;
   const [userDetail, setUserDetail] = useState({
     email: '',
     confirmemail: '',
-    amount: '',
+    amount: 0,
+    to: '',
+    from: '',
+    message: '',
   });
+  const [giftCardDesigns, setGiftCardDesigns] = useState([]);
+  const [productDesignCode, setProductDesignCode] = useState('');
+  const [giftCardAmount, setGiftCardAmount] = useState([]);
+  const [productAmountCode, setProductAmountCode] = useState('');
+  const [cardAmount, setCardAmount] = useState(0);
 
-  const [isActive, setIsActive] = useState(false);
-  const handleClick = (item, key) => {
-    setIsActive(current => !current);
-    setClickId(key);
-    console.log(item.target);
-    console.log('key index: ', key);
-    console.log();
+  const getGiftCardProducts = async () => {
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/getGiftCardProducts?lang=en&curr=INR`,
+      {
+        headers: {
+          Authorization: `Bearer Q7S3XVxcpvLEtJDh1r8sKykMIf4`,
+        },
+      },
+    );
+    // console.log('giftCardProducts==>', JSON.stringify(response.data));
+    if (response && response.status === 200) {
+      setGiftCardAmount(response.data.products)
+      setProductAmountCode(response.data.products[1]?.code)
+      setCardAmount(response.data.products[1]?.price.formattedValue)
+    }
+  };
+
+  const getGiftCardDesigns = async () => {
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/getGiftCardDesigns?fields=FULL&lang=en&curr=INR`,
+      {
+        headers: {
+          Authorization: `Bearer Q7S3XVxcpvLEtJDh1r8sKykMIf4`,
+        },
+      },
+    );
+    // console.log('giftCardDesigns==>', JSON.stringify(response.data));
+    if (response && response.status === 200) {
+      setProductDesignCode(response.data.products[0]?.code)
+      setGiftCardDesigns(response.data.products)
+    }
+  };
+
+  useEffect(() => {
+    getGiftCardProducts();
+    getGiftCardDesigns();
+  }, []);
+
+  const sendGiftCard = async () => {
+    if (userDetail.email == '') {
+      Toast.show('Please enter Recipient email', Toast.LONG);
+    }
+    else if (userDetail.confirmemail == '') {
+      Toast.show('Please enter Confirm Recipient email', Toast.LONG);
+    }
+    else if (userDetail.confirmemail != userDetail.email) {
+      Toast.show('Email ID not Matching', Toast.LONG);
+    }
+    else if (userDetail.to == '') {
+      Toast.show('Please enter Recipient Name', Toast.LONG);
+    }
+    else if (userDetail.from == '') {
+      Toast.show('Please enter From', Toast.LONG);
+    }
+    else {
+      const response = await axios.post(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751/entries/configurator/textfield?fields=FULL&lang=en&curr=INR`,
+        {
+          "configurationInfos": [
+            {
+              "configurationLabel": "Recipient Email",
+              "configurationValue": userDetail.confirmemail,
+              "configuratorType": "TEXTFIELD",
+              "status": "SUCCESS"
+            },
+            {
+              "configurationLabel": "Amount",
+              "configurationValue": cardAmount,
+              "configuratorType": "TEXTFIELD",
+              "status": "SUCCESS"
+            },
+            {
+              "configurationLabel": "To",
+              "configurationValue": userDetail.to,
+              "configuratorType": "TEXTFIELD",
+              "status": "SUCCESS"
+            },
+            {
+              "configurationLabel": "From",
+              "configurationValue": userDetail.from,
+              "configuratorType": "TEXTFIELD",
+              "status": "SUCCESS"
+            },
+            {
+              "configurationLabel": "Personal message",
+              "configurationValue": userDetail.message,
+              "configuratorType": "TEXTFIELD",
+              "status": "SUCCESS"
+            }
+          ],
+          "product": {
+            "code": productAmountCode
+          },
+          "quantity": 1,
+          "fabProductPrice": userDetail.amount,
+          "fabProductDesign": {
+            "code": productDesignCode
+          },
+          "userId": "current",
+          "cartId": "08266751"
+        },
+        {
+          headers: {
+            Authorization: `Bearer Q7S3XVxcpvLEtJDh1r8sKykMIf4`,
+          },
+        },
+      );
+      // console.log('sendGiftCard==>', JSON.stringify(response.data));
+      if (response && response.status === 200) {
+        props.navigation.navigate('CartPage');
+      }
+    }
   };
 
   return (
@@ -38,23 +151,52 @@ function SendGiftCard() {
       <View style={Styles.headerView}>
         <Icon name="wallet-giftcard" size={34} color={Colors.primarycolor} />
         <Text style={Styles.balanceTxt}> Your total balance:</Text>
-        <Text style={Styles.amountTxt}> ₹ 0</Text>
+        <Text style={Styles.amountTxt}> ₹ {walletInfo?.totalBalance}</Text>
       </View>
       <View>
+
+        <View style={Styles.enterDeatilsView}>
+          <Text style={Styles.enterDetailsTxt}>Pick a Design</Text>
+        </View>
+
+        <View style={{ paddingHorizontal: 15, marginTop: 20 }}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}>
+            {giftCardDesigns.map((item) => {
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => setProductDesignCode(item.code)}>
+                  <View style={{ marginHorizontal: 8 }}>
+                    <Image
+                      resizeMode="stretch"
+                      source={{
+                        uri: `https://apisap.fabindia.com/${item?.images[0]?.url}`,
+                      }}
+                      style={{ width: 200, height: 100, borderColor: Colors.primarycolor, borderWidth: productDesignCode == item.code ? 2 : 0, borderRadius: 8 }}
+                    />
+                  </View>
+                </TouchableOpacity>
+              )
+            })}
+          </ScrollView>
+        </View>
+
         <View style={Styles.enterDeatilsView}>
           <Text style={Styles.enterDetailsTxt}>Enter Details</Text>
         </View>
 
         <InputText
           label={'Recipient email'}
-          onChangeText={text => setUserDetail({...userDetail, email: text})}
+          onChangeText={text => setUserDetail({ ...userDetail, email: text })}
           value={userDetail.email}
           customStyle={Styles.textinput}
         />
         <InputText
           label={'Confirm recipient email'}
           onChangeText={text =>
-            setUserDetail({...userDetail, confirmemail: text})
+            setUserDetail({ ...userDetail, confirmemail: text })
           }
           value={userDetail.confirmemail}
           customStyle={Styles.textinput}
@@ -64,48 +206,66 @@ function SendGiftCard() {
 
         <View style={Styles.amountTxtView}>
           <View style={Styles.amountTxtInnerView}>
-            {amounts.map((amount, key) => (
-              <View
-                style={[key === clickId ? Styles.buttonActive : Styles.button]}>
-                <TouchableOpacity
-                  onPress={item => handleClick(item, key)}
-                  key={key}>
-                  <Text
-                    style={[
-                      key === clickId
-                        ? Styles.activeAmountTxt
-                        : Styles.amountTxt,
-                    ]}>
-                    {amount}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            ))}
+            {giftCardAmount.map((item) => {
+              return (
+                item.price.value != '0.0' ?
+                  <View style={[item.code == productAmountCode ? Styles.buttonActive : Styles.button]}>
+                    <TouchableOpacity
+                      key={item.code}
+                      activeOpacity={0.8}
+                      onPress={() => {
+                        setProductAmountCode(item.code)
+                        setCardAmount(item.price.formattedValue)
+                        setUserDetail({ ...userDetail, amount: 0 })
+                      }}>
+                      <Text
+                        style={[
+                          item.code == productAmountCode
+                            ? Styles.activeAmountTxt
+                            : Styles.amountTxt,
+                        ]}>
+                        {item?.price?.formattedValue}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  : null
+              )
+            })}
           </View>
+
           <InputText
             label={'Enter other amount'}
-            onChangeText={text => setUserDetail({...userDetail, amount: text})}
             value={userDetail.amount}
-            customStyle={[Styles.textinput, {backgroundColor: '#FAFAFA'}]}
+            keyboardType={'numeric'}
+            customStyle={[Styles.textinput, { backgroundColor: '#FAFAFA' }]}
+            onChangeText={text => {
+              if (text == 0) {
+                setProductAmountCode(giftCardAmount[1]?.code)
+                setCardAmount(giftCardAmount[1].price.formattedValue)
+              }
+              setProductAmountCode(giftCardAmount[0]?.code)
+              setCardAmount(text)
+              setUserDetail({ ...userDetail, amount: text })
+            }}
           />
         </View>
         <InputText
-          label={'To'}
-          onChangeText={text => setUserDetail({...userDetail, amount: text})}
-          value={userDetail.amount}
+          label={'Recipient Name'}
+          onChangeText={text => setUserDetail({ ...userDetail, to: text })}
+          value={userDetail.to}
           customStyle={Styles.textinput}
         />
         <InputText
           label={'From'}
-          onChangeText={text => setUserDetail({...userDetail, amount: text})}
-          value={userDetail.amount}
+          onChangeText={text => setUserDetail({ ...userDetail, from: text })}
+          value={userDetail.from}
           customStyle={Styles.textinput}
         />
         <InputText
           placeholder="Add a personal message"
           placeholderTextColor="#979797"
-          onChangeText={text => setUserDetail({...userDetail, amount: text})}
-          value={userDetail.amount}
+          onChangeText={text => setUserDetail({ ...userDetail, message: text })}
+          value={userDetail.message}
           numberOfLines={4}
           multiline={true}
           underlineColor="transparent"
@@ -116,6 +276,7 @@ function SendGiftCard() {
           backgroundColor="#BDBDBD"
           txt="Send gift card"
           customViewStyle={Styles.commonbtn}
+          handleClick={sendGiftCard}
         />
 
         <View style={Styles.bottombox}>
