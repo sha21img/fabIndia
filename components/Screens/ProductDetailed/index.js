@@ -112,8 +112,7 @@ export default function ProductDetailed(props) {
   };
   const screenObj = {
     Description: DetailsData,
-    Specification: DetailsData,
-    'Additional Details': DetailsData,
+    Specification: DetailsData
   };
   const dataMap = StoreDetails.map(item => ({
     title: item,
@@ -139,7 +138,7 @@ export default function ProductDetailed(props) {
       productID,
     );
     const response = await axios.post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08309533/entries?lang=en&curr=INR`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/entries?lang=en&curr=INR`,
       {
         quantity: 1,
         product: {
@@ -148,7 +147,7 @@ export default function ProductDetailed(props) {
       },
       {
         headers: {
-          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
         },
       },
     );
@@ -302,7 +301,10 @@ monogram. Ideal as a gift for a loved one, or
 an addition to your home."
             btnText="Add a monogram"
           /> */}
+          <View style={{paddingHorizontal:5}}>
+
           <CommonTopTab data={dataMap} />
+          </View>
           {/* <Popular
             heading="Style it right!"
             description="This cotton kurta is super comfortable, breathable

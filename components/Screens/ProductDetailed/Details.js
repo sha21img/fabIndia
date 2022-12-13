@@ -66,9 +66,10 @@ export default function Details({customStyle, productdetail}) {
         <Text style={Styles.priceofftxt}>
           {productdetail?.price?.formattedValue}
         </Text>
-        <Text style={Styles.offertxt}>{discountPrice}% off</Text>
+        <Text style={Styles.offertxt}>{discountPrice?.toFixed(0)}% off</Text>
       </View>
-      <Text
+      {
+        productdetail?.stock?.stockLevelStatus == 'outOfStock' ? <Text
         style={[
           Styles.oos,
           {
@@ -80,8 +81,10 @@ export default function Details({customStyle, productdetail}) {
         ]}>
         {productdetail?.stock?.stockLevelStatus == 'outOfStock'
           ? 'Out of stock'
-          : 'In Stock'}
-      </Text>
+          : null}
+      </Text>:null
+      }
+      
       {/* <View style={Styles.btnBox}>
         <TouchableOpacity style={Styles.btn} onPress={() => openCompare()}>
           <Text style={Styles.btnText}>Compare</Text>

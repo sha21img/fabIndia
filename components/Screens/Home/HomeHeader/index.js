@@ -10,7 +10,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import InputText from '../../../Common/InputText';
 import debounce from 'lodash.debounce';
-
+import Share from 'react-native-share';
 import {Colors} from '../../../../assets/Colors';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
@@ -32,11 +32,11 @@ export default function HomeHeader(props) {
     const value = await AsyncStorage.getItem('cartID');
     console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08309533/entries?lang=en&curr=INR`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/entries?lang=en&curr=INR`,
       // {},
       {
         headers: {
-          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
         },
       },
     );
@@ -53,10 +53,7 @@ export default function HomeHeader(props) {
     setTotalquantity(finalvalue);
   };
 
-  console.log(
-    'totalquantitytotalquantitytotalquantitytotalquantitytotalquantitytotalquantitytotalquantity',
-    totalquantity,
-  );
+
   // const getProductSearchData = async () => {
   //   const response = await axios.get(
   //     `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=${text}&pageSize=5&lang=en&curr=INR`,
@@ -72,6 +69,17 @@ export default function HomeHeader(props) {
   //   }
   // }, [text]);
   // console.log('filterProductfilterProduct', filterProduct);
+  const shareAll = () => {
+    Share.open({
+      message: `helloooooo`,
+    })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        err && console.log(err);
+      });
+  };
   return (
     <>
       <View style={Styles.container}>
@@ -127,11 +135,18 @@ export default function HomeHeader(props) {
               />
             </TouchableOpacity>
           ) : (
-            <Ionicons
-              name="share-social"
-              color={Colors.primarycolor}
-              size={25}
-            />
+            <TouchableOpacity 
+            activeOpacity={0.8}
+            onPress={()=>{
+              shareAll()
+            }}
+            >
+              <Ionicons
+                name="share-social"
+                color={Colors.primarycolor}
+                size={25}
+              />
+            </TouchableOpacity>
           )}
           {/* <Ionicons name="location-sharp" color={'#792C27'} size={20} />
           <Text numberOfLines={1} style={Styles.locationText}>
