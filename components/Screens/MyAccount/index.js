@@ -530,6 +530,7 @@ const MyAccount = props => {
                   backgroundColor: '#F8F6F5',
                   marginBottom: 4,
                 }}
+                {...props}
               />
             ),
           }}

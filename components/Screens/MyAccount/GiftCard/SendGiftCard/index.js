@@ -139,10 +139,9 @@ function SendGiftCard(props) {
           },
         },
       );
-      console.log('sendGiftCard==>', JSON.stringify(response.data));
+      // console.log('sendGiftCard==>', JSON.stringify(response.data));
       if (response && response.status === 200) {
-        // Navigation.navigate()
-        // TODO jume to cart page
+        props.navigation.navigate('CartPage');
       }
     }
   };

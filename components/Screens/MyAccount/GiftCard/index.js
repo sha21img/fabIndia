@@ -8,7 +8,7 @@ import axios from 'axios';
 import { giftCardTabs } from '../../../../constant';
 import Card from '../../../Common/Card';
 
-export default function GiftCard() {
+export default function GiftCard(props) {
 
   const [walletInfo, setWalletInfo] = useState({ "totalBalance": "0.0", "walletNumber": "0" });
 
@@ -38,9 +38,9 @@ export default function GiftCard() {
   // };
 
   const screenObj = {
-    'My Gift Card': () => <MyGiftCard walletInfo={walletInfo} />,
-    'Add Gift Card': () => <AddGiftCard walletInfo={walletInfo} />,
-    'Send Gift Card': () => <SendGiftCard walletInfo={walletInfo} />
+    'My Gift Card': () => <MyGiftCard walletInfo={walletInfo} {...props} />,
+    'Add Gift Card': () => <AddGiftCard walletInfo={walletInfo} {...props} />,
+    'Send Gift Card': () => <SendGiftCard walletInfo={walletInfo} {...props} />
   };
 
 
