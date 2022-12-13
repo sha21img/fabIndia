@@ -6,20 +6,9 @@ import Card from '../../../Common/Card';
 import {Colors} from '../../../../assets/Colors';
 import {WomenTabdata} from '../../../../constant';
 import {getComponentData} from '../../../Common/Helper';
+import axios from 'axios';
+import CardProducts from './CardProducts';
 
-const ABC = props => {
-  return (
-    <ScrollView
-      contentContainerStyle={{
-        flexDirection: 'row',
-        paddingHorizontal: 15,
-        backgroundColor: '#FFFFFF',
-      }}>
-      <Card {...props} />
-      <Card {...props} />
-    </ScrollView>
-  );
-};
 export default function WomenTab(props) {
   const {data = {}} = props;
   const [active, setActive] = React.useState('');
@@ -68,52 +57,52 @@ export default function WomenTab(props) {
     getTabCount();
   }, []);
   const cardsObj = {
-    Jewellery: ABC,
-    'Saris & Blouses': ABC,
-    'Stoles & Sarongs': ABC,
-    'Women Ethnic': ABC,
-    'Women Western': ABC,
-    'Men Footwear': ABC,
-    'Men Ethnic': ABC,
-    'Men Western': ABC,
-    Boys: ABC,
-    'Infant Girls': ABC,
-    Girls: ABC,
-    'Infant Boys': ABC,
-    'Home & Living': ABC,
-    Furniture: ABC,
-    Dupattas: ABC,
-    'Churidars & Salwars': ABC,
-    Kurtas: ABC,
-    'Tops, Shirts & Tunics': ABC,
-    'Dresses & Jumpsuits': ABC,
-    'Pants & Palazzos': ABC,
-    Sleepwear: ABC,
-    Trousers: ABC,
-    Shirts: ABC,
-    'Girls Western Wear': ABC,
-    'Boys Ethnic Wear': ABC,
-    'Girls Ethnic Wear': ABC,
-    'Boys Western Wear': ABC,
-    'Infant Boys': ABC,
-    'Boys Kurta': ABC,
-    'Girls Ethnic Sets': ABC,
-    'Girls Dresses & Jumpsuits': ABC,
-    'Boys Shirt & Short Kurta': ABC,
-    'Infant Girls Sets': ABC,
-    'Bed Linen': ABC,
-    Bath: ABC,
-    'Kids Linen': ABC,
-    Curtain: ABC,
-    'Kitchen & Dining': ABC,
-    'Home Decor': ABC,
-    'Wall Decor': ABC,
-    Cushions: ABC,
-    'Floor Convering': ABC,
-    Bedroom: ABC,
-    Living: ABC,
-    Dining: ABC,
-    'Bar Furniture': ABC,
+    Jewellery: CardProducts,
+    'Saris & Blouses': CardProducts,
+    'Stoles & Sarongs': CardProducts,
+    'Women Ethnic': CardProducts,
+    'Women Western': CardProducts,
+    'Men Footwear': CardProducts,
+    'Men Ethnic': CardProducts,
+    'Men Western': CardProducts,
+    Boys: CardProducts,
+    'Infant Girls': CardProducts,
+    Girls: CardProducts,
+    'Infant Boys': CardProducts,
+    'Home & Living': CardProducts,
+    Furniture: CardProducts,
+    Dupattas: CardProducts,
+    'Churidars & Salwars': CardProducts,
+    Kurtas: CardProducts,
+    'Tops, Shirts & Tunics': CardProducts,
+    'Dresses & Jumpsuits': CardProducts,
+    'Pants & Palazzos': CardProducts,
+    Sleepwear: CardProducts,
+    Trousers: CardProducts,
+    Shirts: CardProducts,
+    'Girls Western Wear': CardProducts,
+    'Boys Ethnic Wear': CardProducts,
+    'Girls Ethnic Wear': CardProducts,
+    'Boys Western Wear': CardProducts,
+    'Infant Boys': CardProducts,
+    'Boys Kurta': CardProducts,
+    'Girls Ethnic Sets': CardProducts,
+    'Girls Dresses & Jumpsuits': CardProducts,
+    'Boys Shirt & Short Kurta': CardProducts,
+    'Infant Girls Sets': CardProducts,
+    'Bed Linen': CardProducts,
+    Bath: CardProducts,
+    'Kids Linen': CardProducts,
+    Curtain: CardProducts,
+    'Kitchen & Dining': CardProducts,
+    'Home Decor': CardProducts,
+    'Wall Decor': CardProducts,
+    Cushions: CardProducts,
+    'Floor Convering': CardProducts,
+    Bedroom: CardProducts,
+    Living: CardProducts,
+    Dining: CardProducts,
+    'Bar Furniture': CardProducts,
   };
   // console.log('oiuyf', toptabLabelData);
   return (

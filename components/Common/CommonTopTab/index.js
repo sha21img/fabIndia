@@ -9,11 +9,12 @@ import ShowData from './ShowData';
 const Tab = createMaterialTopTabNavigator();
 
 export default function CommonTopTab(props) {
-  console.log('props.....', props);
+  // console.log('props.....', props);
   const {data = [], Card} = props;
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
+        swipeEnabled={false}
         screenOptions={{
           tabBarIndicatorStyle: {
             backgroundColor: 'transparent',

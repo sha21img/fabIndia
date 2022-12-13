@@ -23,7 +23,7 @@ export default function OfferTab(props) {
     getOfferCount();
   }, []);
   const ABC = (props, data) => {
-    console.log('props.data', props.data);
+    // console.log('props.data', props.data);
     const [bannerData, setBannerData] = useState([]);
     const getBannerData = async () => {
       const splitBannerId = data.banners.split(' ').join(',');
@@ -57,6 +57,7 @@ export default function OfferTab(props) {
             console.log('splitURL', splitURL);
             return (
               <TouchableOpacity
+                activeOpacity={0.8}
                 onPress={() =>
                   props.navigation.navigate('LandingPageSaris_Blouses', {
                     code: splitURL.split('?')[0],

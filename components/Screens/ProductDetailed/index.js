@@ -31,6 +31,7 @@ export default function ProductDetailed(props) {
   const [cartSuccess, setCartSuccess] = useState(null);
   const [productImage, setProductImage] = React.useState([]);
   const [productID, setProductID] = useState(null);
+  const [wishlistproductCode, setWishlistproductCode] = useState([]);
 
   const {productId} = props?.route?.params;
 
@@ -159,6 +160,103 @@ export default function ProductDetailed(props) {
     setCartSuccess(response.data);
     Toast.showWithGravity('Added to Your Cart', Toast.LONG, Toast.TOP);
   };
+  useEffect(() => {
+    getCartDetails();
+  }, []);
+  const getCartDetails = async () => {
+    const value = await AsyncStorage.getItem('cartID');
+    console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
+    const aa =
+      'DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue, value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)';
+    await axios
+      .get(
+        'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR',
+        // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=${aa}&lang=en&curr=INR`,
+        // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/?fileds=${aa}?lang=en&curr=INR`,
+        // {},
+        {
+          headers: {
+            Authorization: `Bearer S01JlKH43k-AVTnjfq_Wb8L9Jps`,
+          },
+        },
+      )
+      .then(response => {
+        console.log(
+          'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
+          response.data.name,
+        );
+        if (response.data.name.includes('wishlist')) {
+          const res = response.data.entries.find((item, index) => {
+            return {code: item.product.baseOptions[0].selected.code};
+          });
+
+          const filterProductId = response.data.entries.map(item => {
+            return {
+              code: item.product.baseOptions[0].selected.code,
+              item: item,
+            };
+          });
+          console.log(
+            'respppppppppppppppppppppppppppppppppppppppppppppppppppp',
+            filterProductId,
+          );
+          setWishlistproductCode(filterProductId);
+        }
+      })
+      .catch(error => {
+        console.log('error for get crt detail', error);
+      });
+  };
+  const addWishlist = async data => {
+    const isAddWishlist = wishlistproductCode.find((item, index) => {
+      return item.code == data.code;
+    });
+    if (isAddWishlist) {
+      await axios
+        .delete(
+          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
+          // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
+          // {quantity: 0, product: {code: isAddWishlist.code}},
+          {
+            headers: {
+              Authorization: `Bearer S01JlKH43k-AVTnjfq_Wb8L9Jps`,
+            },
+          },
+        )
+        .then(response => {
+          console.log(
+            'response.data deletetetetetetettetetet to wishlist',
+            response.data,
+          );
+          getCartDetails();
+        })
+        .catch(error => {
+          console.log('error for remove000 wishlist', error);
+        });
+    } else {
+      const value = await AsyncStorage.getItem('cartID');
+      console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
+      console.log('addWishlist', data.code);
+      await axios
+        .post(
+          'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR',
+          // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
+          {quantity: 1, product: {code: data.code}},
+          {
+            headers: {
+              Authorization: `Bearer S01JlKH43k-AVTnjfq_Wb8L9Jps`,
+            },
+          },
+        )
+        .then(response => {
+          console.log('response.data add to wishlist', response.data);
+          getCartDetails();
+        })
+        .catch(error => {
+          console.log('error for add wishlist', error);
+        });
+    }
+  };
 
   return (
     <>
@@ -233,7 +331,10 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
       <Footer
         oos={true}
         handleClick={AddtoCart}
+        handleWishListAdd={addWishlist}
         disabled={!!productID ? false : true}
+        productdetail={productdetail}
+        wishlistproductCode={wishlistproductCode}
       />
     </>
   );

@@ -459,7 +459,7 @@ const WomenCategory = props => {
         );
       case 'FabCMSTabContainer':
         return (
-          <WomenTab data={param} />
+          <WomenTab data={param} {...props} />
 
           // <CommonCarousel data={param} width={width / 1.07} height={330} />
         );
@@ -471,6 +471,7 @@ const WomenCategory = props => {
           <>
             <TouchableOpacity
               style={{marginTop: 20}}
+              activeOpacity={0.8}
               onPress={() =>
                 props.navigation.navigate('LandingPageSaris_Blouses', {
                   code: splitURL.split('?')[0],

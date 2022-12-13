@@ -5,10 +5,12 @@ import Fonts from '../../../../../assets/fonts';
 import {getComponentData} from '../../../../Common/Helper';
 import Card from '../../../../Common/Card';
 import Card1 from '../../../../Common/Card1';
+import axios from 'axios';
 const width = Dimensions.get('window').width;
 
 export default function ClassicsCards({data, customStyles}) {
   const [carouselData, setCarouselData] = React.useState([]);
+  const [productData, setproductData] = React.useState([]);
   const [dataArray, setDataArray] = useState([]);
   const [page, setPage] = useState(0);
   const getCarauselIds = async () => {
@@ -16,11 +18,25 @@ export default function ClassicsCards({data, customStyles}) {
     getCarauselData(bannerId);
   };
   const getCarauselData = async bannerId => {
-    const splitBannerId = bannerId.split(' ').join(',');
-    const response = await getComponentData(
-      `cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+    // const splitBannerId = bannerId.split(' ').join(',');
+    console.log('bannerIdbannerId.sa', bannerId.split(' '));
+    const params = {
+      productCodes: bannerId.split(' '),
+    };
+    const response = await axios.post(
+      'https://apisap.fabindia.com/occ/v2/fabindiab2c/plpContent/searchProducts?fields=products(name,code,price(FULL),images(FULL),totalDiscount,priceAfterDiscount(FULL),newArrival,sale,stock)&lang=en&curr=INR',
+      params,
     );
-    console.log('response.sata', response);
+    console.log(
+      'response.data]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
+      response.data.products,
+    );
+    setproductData(response.data.products);
+
+    // const response = await getComponentData(
+    //   `cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+    // );
+    // console.log('response.sata', response);
     // setPage(page + 1);
     // setDataArray(response);
     // if (carouselData.length) {
@@ -31,8 +47,11 @@ export default function ClassicsCards({data, customStyles}) {
     // setCarouselData(response.component);
   };
   const imageCard = item => {
+    console.log('item for classic card', item);
     return (
+      // <></>
       <Card
+        items={item.item}
         customViewStyle={{marginRight: 15}}
         originalprice="1,000"
         offer="20"
@@ -53,7 +72,7 @@ export default function ClassicsCards({data, customStyles}) {
       <View style={{paddingHorizontal: 15}}>
         <FlatList
           horizontal
-          data={[0, 0, 0]}
+          data={productData}
           onEndReached={endReach}
           showsHorizontalScrollIndicator={false}
           onEndReachedThreshold={0.1}

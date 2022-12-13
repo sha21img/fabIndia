@@ -49,7 +49,8 @@ const CollectionCard = props => {
                     code: splitURL.split('?')[0],
                     title: title,
                   })
-              }>
+              }
+              activeOpacity={0.8}>
               <ImageBackground
                 style={Styles.container}
                 source={{
