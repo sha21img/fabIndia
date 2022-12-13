@@ -30,6 +30,7 @@ import OrderConfirmation from './components/Screens/OrderConfirmation';
 import HomeHeader from './components/Screens/Home/HomeHeader';
 import CheckAddress from './components/Screens/MyAccount/MyAddresses/CheckAddress';
 import axios from 'axios';
+import CartList from './components/Screens/Checkout/CartList';
 
 const Stack = createNativeStackNavigator();
 
@@ -245,6 +246,22 @@ export default function App(props) {
           <Stack.Screen
             name="EmptyCart"
             component={EmptyCart}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon(props)}
+                  title="Your Shopping cart"
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                  }}
+                />
+              ),
+            }}
+          />
+          
+          <Stack.Screen
+            name="CartList"
+            component={CartList}
             options={{
               header: props => (
                 <Header

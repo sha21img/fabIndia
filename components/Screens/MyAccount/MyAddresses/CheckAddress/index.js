@@ -6,11 +6,12 @@ import MyAddresses from '../index'
 import EditAddress from '../EditAddress';
 
 export default function CheckAddress(props) {
+
   const [checkaddress, setcheckAddress] = useState([]);
 
   useEffect(() => {
     getCheckAddress();
-  }, []);
+  }, [props]);
   const getCheckAddress = async() =>{
     const value = await AsyncStorage.getItem('cartID');
     console.log("valuevaluevaluevaluevaluevaluevaluevaluevaluevalue",value)
@@ -19,7 +20,7 @@ export default function CheckAddress(props) {
       // {},
       {
         headers: {
-          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
         },
       },
     );
@@ -32,7 +33,7 @@ export default function CheckAddress(props) {
 
  
   return checkaddress?.addresses?.length ? (
-    <MyAddresses {...props} checkaddress={checkaddress} getCheckAddress={getCheckAddress} />
+    <MyAddresses {...props} checkaddress={checkaddress} getCheckAddress={getCheckAddress} amount ={props?.totalPrice} totalquantity = {props?.totalquantity}/>
   ) : (
     <EditAddress {...props}/>
   );

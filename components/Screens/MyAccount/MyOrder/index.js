@@ -6,42 +6,20 @@ import Fonts from '../../../../assets/fonts';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {useNavigation} from '@react-navigation/native';
 import {Styles} from './styles';
-const data = [
-  {
-    date: '10 May 2021',
-    leftitems: 5,
-    price: '12,450.00',
-    orderid: 'FAB-6457325',
-    status: 'In progress',
-    route: 'OrderInProgress',
-  },
-  {
-    date: '10 May 2021',
-    leftitems: 5,
-    price: '12,450.00',
-    orderid: 'FAB-6457325',
-    status: 'Delivered',
-    route: 'OrderDelivered',
-  },
-  {
-    date: '10 May 2021',
-    leftitems: 5,
-    price: '12,450.00',
-    orderid: 'FAB-6457325',
-    status: 'Cancelled',
-    route: 'OrderCancelled',
-  },
-];
+import axios from 'axios';
+import moment from 'moment';
+
 export default function MyOrder() {
   const navigation = useNavigation();
   const [gender, setGender] = React.useState([
-    {label: 'Past month ', value: 'Past month'},
-    {label: 'Past 6 months', value: 'Past 6 months'},
+    {label: 'Past month ', value: 30},
+    {label: 'Past 6 months', value: 180},
     {label: 'Last 1 year', value: 'Last 1 year'},
     {label: '2020', value: '2020'},
   ]);
+  const [dayrange,setRange] = useState(null)
   const [genderOpen, setGenderOpen] = useState(false);
-  const [genderValue, setGenderValue] = useState(null);
+  const [genderValue, setGenderValue] = useState('30');
 
   const [companyOpen, setCompanyOpen] = React.useState(false);
   const [company, setComapny] = useState([
@@ -50,9 +28,33 @@ export default function MyOrder() {
     {label: 'UET', value: 'uet'},
   ]);
   const [loading, setLoading] = React.useState(false);
+  const [orders,setOrders] = useState([])
   const onGenderOpen = React.useCallback(() => {
     setCompanyOpen(false);
   }, []);
+
+  useEffect(()=>{
+    getOrders()
+   },[dayrange])
+   
+   const getOrders = async() =>{
+     const response = await axios.get(
+       `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders?currentPage=0&days=30&fields=DEFAULT&pageSize=20`,
+       {
+         headers: {
+           Authorization: `Bearer BgbHv0oLxnQtxhw3cxbphBb0FRc`,
+         },
+       },
+     );
+     console.log(
+       'getOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrders',
+       response.data,
+     );
+     setOrders(response.data.orders)
+     console.log("moment(`${date} ${startDate}",moment(response.data.orders[0].placed).format("MMM-DD-YYYY"))
+     
+   }
+   console.log("setGendersetGendersetGender",setGenderValue)
   return (
     <>
       <DropDownPicker
@@ -71,12 +73,12 @@ export default function MyOrder() {
         setItems={setGender}
         placeholder="Select date range "
         onOpen={onGenderOpen}
-        onChangeValue={item => console.log('hihih', item)}
+        onChangeValue={item => {setRange(item)}}
         zIndex={3000}
         zIndexInverse={1000}
       />
       <ScrollView contentContainerStyle={Styles.container}>
-        {data.map(item => {
+        {orders.map(item => {
           return (
             <TouchableOpacity
               onPress={() =>
@@ -84,7 +86,7 @@ export default function MyOrder() {
               }
               style={Styles.mainbox}>
               <View style={Styles.innertopbox}>
-                <Text style={Styles.datetxt}>{item.date}</Text>
+                <Text style={Styles.datetxt}>{moment(item?.placed).format("MMM-DD-YYYY")}</Text>
                 <SimpleLineIcons
                   name="arrow-right"
                   color={Colors.textcolor}
@@ -92,14 +94,14 @@ export default function MyOrder() {
                 />
               </View>
               <View style={Styles.middlebox}>
-                <Text style={Styles.itemtxt}>{item.leftitems} items</Text>
-                <Text style={Styles.pricetxt}>₹{item.price}</Text>
-                <Text style={Styles.orderidtxt}>Order ID:{item.orderid}</Text>
+                <Text style={Styles.itemtxt}>{item.totalItems} items</Text>
+                <Text style={Styles.pricetxt}>{item?.total?.formattedValue}</Text>
+                <Text style={Styles.orderidtxt}>Order ID: {item.code}</Text>
               </View>
 
               <View style={Styles.endbox}>
                 <View style={Styles.progressbox}></View>
-                <Text style={Styles.statustxt}>{item.status}</Text>
+                <Text style={Styles.statustxt}>{item.statusDisplay}</Text>
               </View>
             </TouchableOpacity>
           );

@@ -27,7 +27,7 @@ export default function CommonTopTab(props) {
           },
         }}>
         {data.map((item, index) => {
-          console.log(item);
+          console.log("item.detail=============================================================================",item.detail);
           return (
             !!item?.title && (
               <Tab.Screen
@@ -62,7 +62,11 @@ export default function CommonTopTab(props) {
                 // component={item.screen}
                 // component={Common}
                 component={() =>
-                  item?.card ? item?.card(props, item) : <Text>hello</Text>
+                  item?.card ? (
+                    item?.card(props, item, item.detail)
+                  ) : (
+                    <Text>hello</Text>
+                  )
                 }
               />
               /* {() => (item?.card ? item?.card(item) : <Text>hello</Text>)} */
