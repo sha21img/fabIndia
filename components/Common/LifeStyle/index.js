@@ -67,6 +67,7 @@ export default function LifeStyle(props) {
     console.log('splitURL', splitURL);
     return (
       <TouchableOpacity
+        activeOpacity={0.8}
         onPress={() =>
           props.navigation.navigate('LandingPageSaris_Blouses', {
             code: splitURL,

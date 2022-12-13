@@ -245,13 +245,13 @@ export default function MainScreen(props) {
       initialRouteName="DrawerComponent"
       screenOptions={{
         tabBarStyle: {
-          height: 70,
-          paddingTop: 10,
+          paddingTop: 5,
+          paddingBottom: 5,
         },
         tabBarLabelStyle: {
           fontSize: 12,
           textAlign: 'center',
-          paddingBottom: 10,
+          // paddingBottom: 5,
         },
 
         headerShown: false,
@@ -275,7 +275,7 @@ export default function MainScreen(props) {
               }}>
               <Entypo
                 name="home"
-                size={25}
+                size={20}
                 color={focused ? Colors.primarycolor : Colors.inactiveicon}
               />
             </TouchableOpacity>
@@ -294,7 +294,7 @@ export default function MainScreen(props) {
             <SimpleLineIcons
               name="menu"
               color={focused ? Colors.primarycolor : Colors.inactiveicon}
-              size={25}
+              size={20}
             />
           ),
         }}
@@ -310,7 +310,7 @@ export default function MainScreen(props) {
             <Ionicons
               name="ios-search-outline"
               color={focused ? Colors.primarycolor : Colors.inactiveicon}
-              size={25}
+              size={20}
             />
           ),
         }}
@@ -331,7 +331,7 @@ export default function MainScreen(props) {
             <MaterialCommunityIcons
               name="account-outline"
               color={focused ? Colors.primarycolor : Colors.inactiveicon}
-              size={25}
+              size={20}
             />
             // </TouchableOpacity>
           ),

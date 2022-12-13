@@ -70,7 +70,7 @@ export default function FoodCatagory(props) {
         return <CommonTitleTab data={param} />;
       case 'FabCMSTabContainer':
         return (
-          <WomenTab data={param} />
+          <WomenTab data={param} {...props} />
 
           // <CommonCarousel data={param} width={width / 1.07} height={330} />
         );
@@ -96,6 +96,7 @@ export default function FoodCatagory(props) {
           //     })
           //   }>
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={() =>
               props.navigation.navigate('LandingPageSaris_Blouses', newId)
             }>

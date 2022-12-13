@@ -5,7 +5,8 @@ import Chip from '../Chip';
 import CommonTopTab from '../CommonTopTab';
 import TitleCard from './TitleCard';
 
-export default function CommonTitleTab({data = {}}) {
+export default function CommonTitleTab(props) {
+  const {data = {}} = props;
   const [active, setActive] = useState('');
   const [chipData, setChipData] = useState([]);
   const [toptabLabelData, setToptabLabelData] = useState([]);
@@ -27,6 +28,8 @@ export default function CommonTitleTab({data = {}}) {
 
   const getBannerCount = async bannerId => {
     const splitBannerId = bannerId.split(' ').join(',');
+
+    console.log('splitBannerId', splitBannerId);
     const response = await getComponentData(
       `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );

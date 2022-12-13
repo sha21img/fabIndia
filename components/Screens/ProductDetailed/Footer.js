@@ -12,19 +12,50 @@ import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import Entypo from 'react-native-vector-icons/Entypo';
 
-export default function Footer({oos, handleClick = null, disabled = false}) {
-  console.log('disabled',disabled)
+export default function Footer({
+  oos,
+  handleClick = null,
+  disabled = false,
+  handleWishListAdd = null,
+  productdetail = {},
+  wishlistproductCode = [],
+}) {
+  console.log(
+    'disabled',
+    wishlistproductCode.find(items => {
+      return items.code == productdetail.code;
+    }),
+  );
   const [modalVisible, setModalVisible] = useState(false);
+  var isVisible = wishlistproductCode.find(items => {
+    return items.code == productdetail.code;
+  });
   openStock = () => setModalVisible(true);
   return (
     <>
       <View style={Styles.container}>
-        <TouchableOpacity style={Styles.heartBox}>
-          <MaterialCommunityIcons
-            name="cards-heart-outline"
-            color={Colors.primarycolor}
-            size={26}
-          />
+        <TouchableOpacity
+          style={Styles.heartBox}
+          onPress={() => {
+            console.log(
+              'isVisible.........................................................',
+              isVisible,
+            );
+            handleWishListAdd(productdetail);
+          }}>
+          {!!isVisible?.code ? (
+            <MaterialCommunityIcons
+              name="cards-heart"
+              color={Colors.primarycolor}
+              size={26}
+            />
+          ) : (
+            <MaterialCommunityIcons
+              name="cards-heart-outline"
+              color={Colors.primarycolor}
+              size={26}
+            />
+          )}
         </TouchableOpacity>
         {oos ? (
           <TouchableOpacity
@@ -35,7 +66,9 @@ export default function Footer({oos, handleClick = null, disabled = false}) {
               },
             ]}
             disabled={disabled}
-            onPress={() =>{handleClick(),console.log('ki')}}>
+            onPress={() => {
+              handleClick(), console.log('ki');
+            }}>
             <Text style={Styles.cartText}>Add to cart</Text>
           </TouchableOpacity>
         ) : (

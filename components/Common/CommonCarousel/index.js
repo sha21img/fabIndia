@@ -60,7 +60,8 @@ export default function CommonCarousel(props) {
             code: splitURL,
             title: item.title,
           })
-        }>
+        }
+        activeOpacity={0.8}>
         <ImageBackground
           resizeMode="stretch"
           key={Math.random() * 1099900}
