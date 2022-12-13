@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -10,25 +11,45 @@ import {
   ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {image} from '../../../../../assets/images';
-import {Styles} from './styles';
+import { image } from '../../../../../assets/images';
+import { Styles } from './styles';
 
-function MygiftCard() {
+function MygiftCard(props) {
+  const { walletInfo } = props;
   const [modalVisible, setModalVisible] = useState(false);
+  const [walletHistory, setWalletHistory] = useState([]);
+
+  const getWalletHistory = async () => {
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/wallethistory?lang=en&curr=INR`,
+      {
+        headers: {
+          Authorization: `Bearer ylVZ3kqCymE7j_N0dX6vwe9iylk`,
+        },
+      },
+    );
+    // console.log('walletHistory==>', JSON.stringify(response.data));
+    if (response && response.status === 200) {
+      setWalletHistory(response.data.walletTransactions)
+    }
+  };
+
+  useEffect(() => {
+    // getWalletHistory();
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={Styles.container}>
-      {/* <View style={Styles.imagebox}> */}
       <Image style={Styles.stretch} source={image.fabgiftcard} />
-      {/* </View> */}
       <View
         style={[
           Styles.txtContainer,
-          {borderBottomWidth: 1, borderBottomColor: '#EDEDED', marginTop: 13},
+          { borderBottomWidth: 1, borderBottomColor: '#EDEDED', marginTop: 13 },
         ]}>
         <Text style={Styles.totalBalanceTxt}>Total Balance:</Text>
         <View>
           <Text style={Styles.amountTxt}>
-            <Text style={Styles.priceicon}>₹</Text> 0
+            <Text style={Styles.priceicon}>₹ </Text>{walletInfo?.totalBalance}
           </Text>
         </View>
       </View>
@@ -36,7 +57,7 @@ function MygiftCard() {
       <View style={Styles.txtContainer}>
         <Text style={Styles.cardTxt}>Card Number:</Text>
         <View>
-          <Text style={Styles.amountTxt}>4990 7456 9779 7467</Text>
+          <Text style={Styles.amountTxt}>{walletInfo?.walletNumber}</Text>
         </View>
       </View>
       <TouchableOpacity
@@ -44,12 +65,12 @@ function MygiftCard() {
         onPress={() => setModalVisible(true)}>
         <Text style={Styles.viewhistorytext}>View History</Text>
       </TouchableOpacity>
+
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
         <View style={Styles.modalShadow}>
@@ -60,37 +81,30 @@ function MygiftCard() {
                 <Icon name="close-circle-outline" size={25} color="gray" />
               </Pressable>
             </View>
+
             <View style={Styles.transactionView}>
               <Text style={Styles.modalTextTwo}>Transaction</Text>
               <Text style={Styles.modalTextTwo}>Credit</Text>
               <Text style={Styles.modalTextTwo}>Debit</Text>
               <Text style={Styles.modalTextTwo}>Status</Text>
             </View>
-            <View style={Styles.walletCreateViewOne}>
-              <View style={Styles.boxDimension}>
-                <Text style={Styles.wallettext}>Wallet create</Text>
-                <View style={{marginTop: 5}}>
-                  <Text style={Styles.modalTextThree}>FabIndia</Text>
-                  <Text style={Styles.modalTextThree}>2021-08-05T18:24:58</Text>
-                </View>
-              </View>
-              <Text style={Styles.wallettext}>+ ₹ 1500</Text>
-              <Text style={Styles.wallettext}>-</Text>
-              <Text style={Styles.wallettext}>Success</Text>
-            </View>
-            <View style={Styles.walletCreateViewOne}>
-              <View style={Styles.boxDimension}>
-                <Text style={Styles.wallettext}>Wallet create</Text>
-                <View style={{marginTop: 5}}>
-                  <Text style={Styles.modalTextThree}>FabIndia</Text>
-                  <Text style={Styles.modalTextThree}>2021-08-05T18:24:58</Text>
-                </View>
-              </View>
 
-              <Text style={Styles.wallettext}>+ ₹ 1500</Text>
-              <Text style={Styles.wallettext}>-</Text>
-              <Text style={Styles.wallettext}>Success</Text>
-            </View>
+            {walletHistory?.map((item) => {
+              return (
+                <View style={Styles.walletCreateViewOne}>
+                  <View style={Styles.boxDimension}>
+                    <Text style={Styles.wallettext}>{item.transactionType}</Text>
+                    <View style={{ marginTop: 5 }}>
+                      <Text style={Styles.modalTextThree}>{item.merchantName}</Text>
+                      <Text style={Styles.modalTextThree}>{item.transactionPostDate}</Text>
+                    </View>
+                  </View>
+                  <Text style={Styles.wallettext}>+ ₹ {item.amount}</Text>
+                  <Text style={Styles.wallettext}>-</Text>
+                  <Text style={Styles.wallettext}>{item.transactionStatus}</Text>
+                </View>
+              )
+            })}
           </View>
         </View>
       </Modal>

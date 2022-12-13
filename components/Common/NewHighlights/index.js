@@ -49,6 +49,7 @@ export default function NewHighlights(props) {
             title: item.item.title,
           })
         }
+        activeOpacity={0.8}
         key={Math.random() * 987}
         style={Styles.imageBox}>
         <Image

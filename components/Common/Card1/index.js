@@ -6,25 +6,37 @@ import {Styles} from './styles';
 import imageURL from '../../Common/Helper';
 import {Colors} from '../../../assets/Colors';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Toast from 'react-native-simple-toast';
 
 export default function Card1(props) {
-  const {customViewStyle = {}, item, handleClick = null} = props;
+  const {
+    customViewStyle = {},
+    item,
+    handleClick = null,
+    wishlistproductCode = [],
+  } = props;
 
   const defaultViewCustomStyles = {
     width: '48%',
     elevation: 1,
     backgroundColor: '#FFFFFF',
   };
+  console.log(
+    'item]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
+    wishlistproductCode,
+  );
   // console.log(
-  //   'item]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
-  //   item,
+  //   'item?????????????????????????????????????????????????????????????????',
+  //   wishlistproductCode.find(items => {
+  //     return items.code == item.code;
+  //   }),
   // );
   // console.log('item', item.name);
   const imageUrl = !!item?.variantOptions
     ? item?.variantOptions[0]?.images[0]?.url
     : item?.images[0].url;
 
-  console.log('imageUrlimageUrlimageUrl', item?.images[0]?.url);
+  // console.log('imageUrlimageUrlimageUrl', item?.images[0]?.url);
   return (
     <>
       <TouchableOpacity
@@ -33,7 +45,8 @@ export default function Card1(props) {
           props.navigation.navigate('ProductDetailed', {
             productId: item.code,
           })
-        }>
+        }
+        activeOpacity={0.8}>
         <Image
           source={{
             uri: `https://apisap.fabindia.com${imageUrl}`,
@@ -92,13 +105,29 @@ export default function Card1(props) {
           </View>
         )}
         <TouchableOpacity
-          onPress={() => handleClick(item)}
+          onPress={() => {
+            if (item.stock.stockLevelStatus == 'inStock') {
+              Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+            } else {
+              handleClick(item);
+            }
+          }}
           style={{
             position: 'absolute',
             top: 20,
             right: 10,
           }}>
-          <EvilIcons name="heart" size={25} color={Colors.primarycolor} />
+          <EvilIcons
+            name="heart"
+            size={25}
+            color={
+              wishlistproductCode.find(items => {
+                return items.code == item.code;
+              })
+                ? Colors.primarycolor
+                : Colors.textcolor
+            }
+          />
         </TouchableOpacity>
         {/* <Text>{item.variantOptions[0].variantOptionQualifiers[0].value}</Text> */}
       </TouchableOpacity>

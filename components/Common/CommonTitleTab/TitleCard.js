@@ -9,33 +9,46 @@ import {
 import React, {useEffect} from 'react';
 import {image} from '../../../assets/images';
 import {getComponentData} from '../Helper';
+import axios from 'axios';
+import Card from '../Card';
 const width = Dimensions.get('window').width;
 
-export default function TitleCard({data}) {
+export default function TitleCard(props) {
+  const {data} = props;
   const [carouselData, setCarouselData] = React.useState([]);
   const getCarauselIds = async () => {
+    console.log('data for personal category', data);
     const bannerId = data[0].productCodes;
-    const splitBannerId = bannerId.split(' ').join(',');
+    const splitBannerId = bannerId.split(' ');
     getCarauselData(splitBannerId);
   };
   const getCarauselData = async bannerId => {
-    const response = await getComponentData(
-      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${bannerId}&lang=en&curr=INR`,
+    console.log('personal category', bannerId);
+    const params = {
+      productCodes: bannerId,
+    };
+    const response = await axios.post(
+      'https://apisap.fabindia.com/occ/v2/fabindiab2c/plpContent/searchProducts?fields=products(name,code,price(FULL),images(FULL),totalDiscount,priceAfterDiscount(FULL),newArrival,sale,stock)&lang=en&curr=INR',
+      params,
     );
-    setCarouselData(response.component);
+    console.log('response for personal category', response.data.products);
+    setCarouselData(response.data.products);
   };
   useEffect(() => {
     getCarauselIds();
   }, []);
-  const titleCard = () => {
+  const titleCard = item => {
+    // console.log('itemitemitemitem', item);
     return (
-      <View style={Styles.cardContainer}>
-        <Image source={image.SarisBanner} style={Styles.imgDim} />
-        <View style={Styles.titleBox}>
-          <Text style={Styles.title}>Khata Metha Amla Candied -100g</Text>
-          <Text style={Styles.title}>MRP </Text>
-        </View>
-      </View>
+      // <></>
+      <Card {...props} items={item.item} />
+      // <View style={Styles.cardContainer}>
+      //   <Image source={image.SarisBanner} style={Styles.imgDim} />
+      //   <View style={Styles.titleBox}>
+      //     <Text style={Styles.title}>Khata Metha Amla Candied -100g</Text>
+      //     <Text style={Styles.title}>MRP </Text>
+      //   </View>
+      // </View>
     );
   };
   return (
@@ -44,7 +57,7 @@ export default function TitleCard({data}) {
         horizontal
         style={Styles.cardListContainer}
         showsHorizontalScrollIndicator={false}
-        data={[0, 0, 0]}
+        data={carouselData}
         // data={carouselData}
         keyExtractor={(item, index) => index}
         renderItem={titleCard}
