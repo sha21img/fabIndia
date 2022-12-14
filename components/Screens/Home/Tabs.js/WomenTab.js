@@ -36,7 +36,6 @@ export default function WomenTab(props) {
     const response = await getComponentData(
       `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    // console.log('ALALALALLAALALL', response.component);
     setToptabLabelData(response.component);
     //2
   };
@@ -49,6 +48,7 @@ export default function WomenTab(props) {
     );
     // console.log('responseresponse', response);
     setChipData(response.component);
+    console.log('ALALALALLAALALL', response.component);
 
     getTabData(response.component[0]);
     // setCarouselData(response.data.component);
@@ -60,6 +60,7 @@ export default function WomenTab(props) {
     Jewellery: CardProducts,
     'Saris & Blouses': CardProducts,
     'Stoles & Sarongs': CardProducts,
+    'Stoles & Scraves': CardProducts,
     'Women Ethnic': CardProducts,
     'Women Western': CardProducts,
     'Men Footwear': CardProducts,
@@ -73,8 +74,10 @@ export default function WomenTab(props) {
     Furniture: CardProducts,
     Dupattas: CardProducts,
     'Churidars & Salwars': CardProducts,
+    'Churidars & Pyjamas': CardProducts,
     Kurtas: CardProducts,
     'Tops, Shirts & Tunics': CardProducts,
+    'Nehru Jackets': CardProducts,
     'Dresses & Jumpsuits': CardProducts,
     'Pants & Palazzos': CardProducts,
     Sleepwear: CardProducts,
@@ -84,7 +87,6 @@ export default function WomenTab(props) {
     'Boys Ethnic Wear': CardProducts,
     'Girls Ethnic Wear': CardProducts,
     'Boys Western Wear': CardProducts,
-    'Infant Boys': CardProducts,
     'Boys Kurta': CardProducts,
     'Girls Ethnic Sets': CardProducts,
     'Girls Dresses & Jumpsuits': CardProducts,
@@ -97,12 +99,16 @@ export default function WomenTab(props) {
     'Kitchen & Dining': CardProducts,
     'Home Decor': CardProducts,
     'Wall Decor': CardProducts,
-    Cushions: CardProducts,
+    Cushion: CardProducts,
+    Cushios: CardProducts,
     'Floor Convering': CardProducts,
+    'Floor Coverings': CardProducts,
     Bedroom: CardProducts,
     Living: CardProducts,
     Dining: CardProducts,
     'Bar Furniture': CardProducts,
+    'Lamp & Shades': CardProducts,
+    'Stationary & Tags': CardProducts,
   };
   // console.log('oiuyf', toptabLabelData);
   return (

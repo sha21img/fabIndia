@@ -15,44 +15,73 @@ import {Colors} from '../../../../assets/Colors';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch, useSelector} from 'react-redux';
+import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
+
 export default function HomeHeader(props) {
   const [show, setShow] = useState(false);
+  const {cartReducer} = useSelector(state => state);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  console.log(
+    '....................................................',
+    cartReducer,
+  );
   // const {homeheader = false, searchVisible = true} = props;
   const {homeheader = false, searchVisible = true, headertext = ''} = props;
 
   const [cartdetails, setCartDetails] = useState(null);
   const [totalquantity, setTotalquantity] = useState(0);
+  const [wishlistQuantity, setWishlistQuantity] = useState(0);
+  const [wishlistproduct, setWishlistproduct] = useState([]);
 
   useEffect(() => {
     getCartDetails();
   }, [totalquantity]);
 
   const getCartDetails = async () => {
-    const value = await AsyncStorage.getItem('cartID');
-    console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/entries?lang=en&curr=INR`,
+      'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR',
+      // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
       // {},
       {
         headers: {
-          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
+          Authorization: `bearer 2LUFsc7CwqiHcQ_ni3ak3IPG3as`,
         },
       },
     );
-    console.log(
-      'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
-      response.data,
-    );
+    // console.log(
+    //   'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
+    //   response.data,
+    // );
     let finalvalue = response?.data?.orderEntries?.reduce(
       (n, {quantity}) => n + quantity,
       0,
     );
-    console.log('quantityquantity', finalvalue);
-    setCartDetails(response.data);
-    setTotalquantity(finalvalue);
-  };
 
+    dispatch(cartDetail({data: response.data, quantity: finalvalue}));
+    // console.log('quantityquantity', response.data);
+    // setCartDetails(response.data);
+    // setTotalquantity(finalvalue);
+    // setWishlistQuantity(response.data.entries.length);
+    if (response.data.name.includes('wishlist')) {
+      const filterProduct = response.data.entries.map(item => {
+        return {
+          code: item.product.baseOptions[0].selected.code,
+          item: item,
+        };
+      });
+      dispatch(
+        wishlistDetail({
+          data: filterProduct,
+          quantity: response.data.entries.length,
+        }),
+      );
+
+      // console.log('filterProduct', filterProduct);
+      // setWishlistproduct(filterProduct);
+    }
+  };
 
   // const getProductSearchData = async () => {
   //   const response = await axios.get(
@@ -79,6 +108,64 @@ export default function HomeHeader(props) {
       .catch(err => {
         err && console.log(err);
       });
+  };
+  const addWishlist = async data => {
+    const isAddWishlist = cartReducer.WishListDetail.wishListData.find(
+      (item, index) => {
+        // console.log('item,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,', item);
+        console.log('itemppppp', data.product.code);
+        return item.code == data.product.code;
+      },
+    );
+    console.log(
+      'adddddd ========================== in wishlist product',
+      isAddWishlist.item.entryNumber,
+    );
+    // if (isAddWishlist) {
+    await axios
+      .delete(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
+        // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
+        // {quantity: 0, product: {code: isAddWishlist.code}},
+        {
+          headers: {
+            Authorization: `bearer 2LUFsc7CwqiHcQ_ni3ak3IPG3as`,
+          },
+        },
+      )
+      .then(response => {
+        console.log(
+          'response.data deletetetetetetettetetet to wishlist',
+          response.data,
+        );
+        getCartDetails();
+      })
+      .catch(error => {
+        console.log('error for remove000 wishlist', error);
+      });
+    // } else {
+    //   const value = await AsyncStorage.getItem('cartID');
+    //   console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
+    //   console.log('addWishlist', data.code);
+    //   await axios
+    //     .post(
+    //       'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR',
+    //       // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
+    //       {quantity: 1, product: {code: data.code}},
+    //       {
+    //         headers: {
+    //           Authorization: `bearer 2LUFsc7CwqiHcQ_ni3ak3IPG3as`,
+    //         },
+    //       },
+    //     )
+    //     .then(response => {
+    //       console.log('response.data add to wishlist', response.data);
+    //       getCartDetails();
+    //     })
+    //     .catch(error => {
+    //       console.log('error for add wishlist', error);
+    //     });
+    // }
   };
   return (
     <>
@@ -135,12 +222,11 @@ export default function HomeHeader(props) {
               />
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity 
-            activeOpacity={0.8}
-            onPress={()=>{
-              shareAll()
-            }}
-            >
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                shareAll();
+              }}>
               <Ionicons
                 name="share-social"
                 color={Colors.primarycolor}
@@ -152,8 +238,39 @@ export default function HomeHeader(props) {
           <Text numberOfLines={1} style={Styles.locationText}>
             Powai, Mumbai
           </Text> */}
-          <TouchableOpacity style={Styles.currencyContainer}>
+          <TouchableOpacity
+            style={Styles.currencyContainer}
+            onPress={() =>
+              props.navigation.navigate('YourWishlist', {
+                // wishlistproduct: wishlistproduct,
+                handleClick: addWishlist,
+              })
+            }>
             <EvilIcons name="heart" color={Colors.primarycolor} size={30} />
+            {cartReducer.WishListDetail.wishlistQuantity > 0 ? (
+              <View
+                style={{
+                  position: 'absolute',
+                  backgroundColor: 'red',
+                  width: 16,
+                  height: 16,
+                  borderRadius: 15 / 2,
+                  right: 0,
+                  top: -10,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#FFFFFF',
+                    fontSize: 8,
+                  }}>
+                  {cartReducer.WishListDetail.wishlistQuantity}
+                </Text>
+              </View>
+            ) : null}
 
             {/* <Text style={Styles.currencyIcon}>₹</Text>
           <Text style={Styles.currencyText}>INR</Text> */}

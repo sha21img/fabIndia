@@ -6,8 +6,13 @@ import {getComponentData, postData} from '../../../Common/Helper';
 import axios from 'axios';
 import SortBox from './SortBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch, useSelector} from 'react-redux';
+import {wishlistDetail} from '../../../Common/Helper/Redux/actions';
 
 export default function ResultCards(props) {
+  const {cartReducer} = useSelector(state => state);
+  const dispatch = useDispatch();
+
   const [page, setPage] = useState(0);
   const [dataMain, setdataMain] = useState([]);
   const [filterProducts, setFilterProducts] = useState([]);
@@ -79,7 +84,7 @@ export default function ResultCards(props) {
     getProductData();
     // https://apisap.fabindia.com/occ/v2/fabindiab2c/
     // products/search?query=:relevance:allCategories:new-women-accessories&pageSize=10&lang=en&curr=INR&currentPage
-  }, [page, wishlistproductCode]);
+  }, [page]);
   const endReach = () => {
     if (dataMain?.pagination?.totalPages > page) {
       setPage(page + 1);
@@ -88,6 +93,11 @@ export default function ResultCards(props) {
     }
   };
   useEffect(() => {
+    //  dispatch(
+    //     wishlistDetail({
+    //       data: filterProduct,
+    //       quantity: response.data.entries.length,
+    //     }),
     getCartDetails();
   }, []);
   const getCartDetails = async () => {
@@ -103,14 +113,14 @@ export default function ResultCards(props) {
         // {},
         {
           headers: {
-            Authorization: `Bearer S01JlKH43k-AVTnjfq_Wb8L9Jps`,
+            Authorization: `bearer 2LUFsc7CwqiHcQ_ni3ak3IPG3as`,
           },
         },
       )
       .then(response => {
         console.log(
           'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
-          response.data.name,
+          response.data,
         );
         if (response.data.name.includes('wishlist')) {
           const filterProductId = response.data.entries.map(item => {
@@ -119,7 +129,13 @@ export default function ResultCards(props) {
               item: item,
             };
           });
-          setWishlistproductCode(filterProductId);
+          dispatch(
+            wishlistDetail({
+              data: filterProductId,
+              quantity: response.data.entries.length,
+            }),
+          );
+          // setWishlistproductCode(filterProductId);
         }
       })
       .catch(error => {
@@ -127,9 +143,11 @@ export default function ResultCards(props) {
       });
   };
   const addWishlist = async data => {
-    const isAddWishlist = wishlistproductCode.find((item, index) => {
-      return item.code == data.code;
-    });
+    const isAddWishlist = cartReducer.WishListDetail.wishListData.find(
+      (item, index) => {
+        return item.code == data.code;
+      },
+    );
     console.log('adddddd ==========================', isAddWishlist);
     if (isAddWishlist) {
       await axios
@@ -139,7 +157,7 @@ export default function ResultCards(props) {
           // {quantity: 0, product: {code: isAddWishlist.code}},
           {
             headers: {
-              Authorization: `Bearer S01JlKH43k-AVTnjfq_Wb8L9Jps`,
+              Authorization: `bearer 2LUFsc7CwqiHcQ_ni3ak3IPG3as`,
             },
           },
         )
@@ -148,6 +166,7 @@ export default function ResultCards(props) {
             'response.data deletetetetetetettetetet to wishlist',
             response.data,
           );
+
           getCartDetails();
         })
         .catch(error => {
@@ -164,7 +183,7 @@ export default function ResultCards(props) {
           {quantity: 1, product: {code: data.code}},
           {
             headers: {
-              Authorization: `Bearer S01JlKH43k-AVTnjfq_Wb8L9Jps`,
+              Authorization: `bearer 2LUFsc7CwqiHcQ_ni3ak3IPG3as`,
             },
           },
         )
@@ -197,7 +216,7 @@ export default function ResultCards(props) {
     return (
       <>
         <Card1
-          wishlistproductCode={wishlistproductCode}
+          // wishlistproductCode={wishlistproductCode}
           handleClick={addWishlist}
           customViewStyle={{marginVertical: 7}}
           {...props}

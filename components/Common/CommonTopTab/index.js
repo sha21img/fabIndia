@@ -22,13 +22,17 @@ export default function CommonTopTab(props) {
           },
           tabBarScrollEnabled: true,
           tabBarStyle: {
-            height: 40,
+            // height: 40,
             backgroundColor: Colors.backgroundColor,
             shadowColor: 'white',
+            marginLeft: 10,
           },
         }}>
         {data.map((item, index) => {
-          console.log("item.detail=============================================================================",item.detail);
+          console.log(
+            'item.detail=============================================================================',
+            item.title,
+          );
           return (
             !!item?.title && (
               <Tab.Screen
@@ -46,6 +50,7 @@ export default function CommonTopTab(props) {
                           ? Colors.primarycolor
                           : 'transparent',
                         width: '100%',
+                        paddingVertical: 3,
                       }}>
                       <Text
                         style={{

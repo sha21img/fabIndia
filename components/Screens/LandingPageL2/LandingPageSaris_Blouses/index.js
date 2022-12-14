@@ -20,7 +20,11 @@ import HomeHeader from '../../Home/HomeHeader';
 
 export default function LandingPageSaris_Blouses(props) {
   const {code, title, status} = props.route.params;
-  console.log('productDetailproductDetailproductDetailproductDetail', title);
+  console.log(
+    'productDetailproductDetailproductDetailproductDetail',
+    title,
+    code,
+  );
   const [modalVisible, setModalVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [sortValue, setSortValue] = useState('');

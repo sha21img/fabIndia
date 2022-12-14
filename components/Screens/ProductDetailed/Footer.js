@@ -11,6 +11,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import Entypo from 'react-native-vector-icons/Entypo';
+import {useDispatch, useSelector} from 'react-redux';
 
 export default function Footer({
   oos,
@@ -20,14 +21,17 @@ export default function Footer({
   productdetail = {},
   wishlistproductCode = [],
 }) {
+  const {cartReducer} = useSelector(state => state);
+  const dispatch = useDispatch();
+
   console.log(
     'disabled',
-    wishlistproductCode.find(items => {
+    cartReducer.WishListDetail.wishListData.find(items => {
       return items.code == productdetail.code;
     }),
   );
   const [modalVisible, setModalVisible] = useState(false);
-  var isVisible = wishlistproductCode.find(items => {
+  var isVisible = cartReducer.WishListDetail.wishListData.find(items => {
     return items.code == productdetail.code;
   });
   openStock = () => setModalVisible(true);

@@ -23,10 +23,10 @@ const CardProducts = (props, item) => {
       'https://apisap.fabindia.com/occ/v2/fabindiab2c/plpContent/searchProducts?fields=products(name,code,price(FULL),images(FULL),totalDiscount,priceAfterDiscount(FULL),newArrival,sale,stock)&lang=en&curr=INR',
       params,
     );
-    console.log(
-      'response.data]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
-      response.data.products,
-    );
+    // console.log(
+    //   'response.data]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
+    //   response.data.products,
+    // );
     setproductData(response.data.products);
   };
   React.useEffect(() => {
@@ -45,7 +45,8 @@ const CardProducts = (props, item) => {
       horizontal
       contentContainerStyle={{
         flexDirection: 'row',
-        paddingHorizontal: 15,
+        paddingHorizontal: 20,
+        paddingVertical: 5,
         backgroundColor: '#FFFFFF',
         flexGrow: 1,
       }}>
