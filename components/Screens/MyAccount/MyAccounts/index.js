@@ -84,7 +84,6 @@ const MyAccounts = props => {
       })
       .then(res => {
         setUserProfileData(res);
-        console.log('this si profile data', res);
       });
   };
   useEffect(() => {

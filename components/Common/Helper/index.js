@@ -101,19 +101,44 @@ const UnAuthPostData = async (url, data) => {
   }
 };
 const getCartID = async () => {
+  const get = await AsyncStorage.getItem('generatToken');
+  const getToken = JSON.parse(get);
   const response = await axios.post(
     `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts`,
     {},
     {
       headers: {
-        Authorization: `Bearer wR50iP-l8bXyINCqKDIUECr7hzw`,
+        Authorization: `${getToken.token_type} ${getToken.access_token}`,
       },
     },
   );
-
-  await AsyncStorage.setItem('cartID', JSON.stringify(response.data?.code));
+  if (response.status == 201) {
+    await AsyncStorage.setItem('cartID', JSON.stringify(response.data?.code));
+  }
 };
 
+const getWishID = async () => {
+  const get = await AsyncStorage.getItem('generatToken');
+  const getToken = JSON.parse(get);
+  console.log('getToken-=as-fd=-asd=f-=sdaf-', getToken);
+  const response = await axios.get(
+    `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts?fields=carts(DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,entries(totalPrice(formattedValue),product(images(FULL),stock(FULL),variantOptions(FULL),variantMatrix,priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,DEFAULT),user,saveTime,name,description)&lang=en&curr=INR`,
+    {
+      headers: {
+        Authorization: `${getToken.token_type} ${getToken.access_token}`,
+      },
+    },
+  );
+  if (response.status == 200) {
+    console.log('response of wishlist for code', response.data);
+    const data = response.data.carts;
+    const filter = data.filter(item => {
+      return item.name;
+    });
+    console.log('this si filter', filter[0].code);
+    await AsyncStorage.setItem('WishlistID', JSON.stringify(response.data));
+  }
+};
 const postDataAuth = async (url, formData) => {
   const response = await axios({
     method: 'post',
@@ -153,4 +178,5 @@ export {
   getAsyncStorage,
   deleteAsyncStorage,
   patchComponentData,
+  getWishID,
 };

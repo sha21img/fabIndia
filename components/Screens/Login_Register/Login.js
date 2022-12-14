@@ -14,7 +14,7 @@ import InputText from '../../Common/InputText';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import axios from 'axios';
-import {postDataAuth} from '../../Common/Helper';
+import {getCartID, getWishID, postDataAuth} from '../../Common/Helper';
 import CommonButton from '../../Common/CommonButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
@@ -68,7 +68,6 @@ export default function Login(props) {
           return res.json();
         })
         .then(function (res1) {
-          console.log('response==> email-=-=-', res1);
           if (res1.error) {
             Toast.showWithGravity(
               'Enter correct Details',
@@ -80,6 +79,8 @@ export default function Login(props) {
             props.navigation.navigate('MyAccount', {
               screen: 'MyAccounts',
             });
+            getCartID();
+            getWishID();
           }
         });
     } else {
