@@ -115,7 +115,48 @@ export default function ProductDetailed(props) {
   const WomenCarouselText = () => {
     return <></>;
   };
-  const DetailsData = item => {
+  const DetailsData1 = (props, item, productDetail) => {
+    console.log(
+      'productDetail,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ppppppppppppppppppppppppppppppppppp',
+      productDetail,
+    );
+    return (
+      <ScrollView
+        contentContainerStyle={{
+          paddingHorizontal: 15,
+          backgroundColor: 'white',
+        }}>
+        {productDetail.classifications[0].features.map((item, index) => {
+          console.log(
+            'item===========================================================================',
+            item,
+          );
+          return (
+            <View
+              style={{
+                paddingVertical: 10,
+                borderTopWidth: 1,
+                borderTopColor: 'grey',
+                flexDirection: 'row',
+                backgroundColor: '#FFFFFF',
+                marginVertical: 10,
+                borderBottomWidth:
+                  productDetail.classifications[0].features[
+                    productDetail.classifications[0].features.length - 1
+                  ] == item
+                    ? 1
+                    : null,
+                borderBottomColor: 'grey',
+              }}>
+              <Text style={{width: '40%'}}>{item.name}</Text>
+              <Text style={{width: '60%'}}>{item.featureValues[0].value}</Text>
+            </View>
+          );
+        })}
+      </ScrollView>
+    );
+  };
+  const DetailsData = (props, item, productDetail) => {
     return (
       <>
         <View style={{padding: 15, backgroundColor: 'white'}}>
@@ -133,9 +174,10 @@ export default function ProductDetailed(props) {
   };
   const screenObj = {
     Description: DetailsData,
-    Specification: DetailsData,
+    Specification: DetailsData1,
   };
   const dataMap = StoreDetails.map(item => ({
+    detail: productdetail,
     title: item,
     card: screenObj[item],
   }));
