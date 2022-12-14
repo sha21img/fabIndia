@@ -179,4 +179,5 @@ export const image = {
   outlook: require('./outlook.png'),
   hike: require('./hike.png'),
   saree: require('./saree.png'),
+  close: require('./close.png'),
 };
