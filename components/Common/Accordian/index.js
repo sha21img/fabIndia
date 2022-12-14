@@ -67,6 +67,7 @@ const NewAccordion = props => {
             console.log('hih'),
               navigation.navigate('LandingPageSaris_Blousess');
           }}
+          activeOpacity={0.8}
           style={Styles.activebox}
           key={Math.random() * 1099900}>
           <Text

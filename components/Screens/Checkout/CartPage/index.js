@@ -10,17 +10,17 @@ export default function CartPage(props) {
 
   useEffect(() => {
     getCartDetails();
-  }, []);
+  }, [props]);
 
   const getCartDetails = async () => {
     const value = await AsyncStorage.getItem('cartID');
     console.log("valuevaluevaluevaluevaluevaluevaluevaluevaluevalue",value)
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08309533/entries?lang=en&curr=INR`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/entries?lang=en&curr=INR`,
       // {},
       {
         headers: {
-          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
         },
       },
     );

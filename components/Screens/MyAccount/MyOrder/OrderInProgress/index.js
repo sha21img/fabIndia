@@ -33,7 +33,8 @@ const customStyles = {
   labelSize: 13,
   currentStepLabelColor: '#979797',
 };
-const PaymentPage = () => {
+const PaymentPage = (data, item) => {
+  console.log('dattt', item.detail.deliveryAddress);
   return (
     <ScrollView
       contentContainerStyle={{
@@ -63,7 +64,7 @@ const PaymentPage = () => {
               color: '#979797',
               lineHeight: 18,
             }}>
-            Home
+            {item.detail?.deliveryAddress?.firstName}
           </Text>
           <Text
             style={{
@@ -72,8 +73,26 @@ const PaymentPage = () => {
               color: Colors.textcolor,
               lineHeight: 18,
             }}>
-            402, El Tara, Orchard Avenue, Hiranandani Gardens, Powai, Mumbai
-            400076
+            {item.detail?.deliveryAddress?.line1}{' '}
+            {item.detail?.deliveryAddress?.line2}
+          </Text>
+          <Text
+            style={{
+              fontFamily: Fonts.Assistant700,
+              fontSize: 14,
+              color: Colors.textcolor,
+              lineHeight: 18,
+            }}>
+            {item.detail?.deliveryAddress?.town}
+          </Text>
+          <Text
+            style={{
+              fontFamily: Fonts.Assistant700,
+              fontSize: 14,
+              color: Colors.textcolor,
+              lineHeight: 18,
+            }}>
+            {item.detail?.deliveryAddress?.postalCode}
           </Text>
         </View>
       </View>
@@ -200,7 +219,8 @@ const PaymentPage = () => {
     </ScrollView>
   );
 };
-export default function OrderInProgress() {
+export default function OrderInProgress({orderDetails}) {
+  console.log('orderDetailsorderDetailsorderDetails', orderDetails);
   const [currentPosition, setCurrentPosition] = useState(0);
   const CardCompo = item => {
     return (
@@ -278,6 +298,7 @@ export default function OrderInProgress() {
   const dataMap = ProductOrderdata.map(item => ({
     title: item,
     card: screenObj[item],
+    detail: orderDetails,
   }));
   return (
     <ScrollView

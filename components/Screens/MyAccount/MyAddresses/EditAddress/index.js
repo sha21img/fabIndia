@@ -37,21 +37,37 @@ const faqs = [
 ];
 
 const EditAddress = props => {
+
+  let editflag = props?.route?.params?.editData;
   const [show, setShow] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [nickName, SetNickName] = useState(null);
-  const [firstname, SetFirstname] = useState(null);
-  const [email, SetEmail] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState(
+    !!editflag ? editflag?.phone : '',
+  );
+  const [nickName, SetNickName] = useState(
+    !!editflag ? editflag?.nickName : null,
+  );
+  const [firstname, SetFirstname] = useState(
+    !!editflag ? editflag?.firstName : null,
+  );
+  const [email, SetEmail] = useState(!!editflag ? editflag?.email : null);
 
-  const [lastname, SetLastname] = useState(null);
+  const [lastname, SetLastname] = useState(
+    !!editflag ? editflag?.lastName : null,
+  );
 
-  const [pincode, SetPinCode] = useState(null);
-  const [mobilePrefix, setMobilePrefix] = useState('91');
+  const [pincode, SetPinCode] = useState(
+    !!editflag ? editflag?.postalCode : null,
+  );
+  const [mobilePrefix, setMobilePrefix] = useState(
+    !!editflag ? editflag?.contactNumberCode : '91',
+  );
   const [isFocus, setIsFocus] = useState(false);
   const [State, setState] = useState(null);
   const [region, setRegion] = useState(null);
 
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(
+    !!editflag ? editflag?.defaultAddress : false,
+  );
   const [validation, setvalidation] = useState({
     firstname: '',
     pincode: '',
@@ -66,9 +82,14 @@ const EditAddress = props => {
   const [stateData, setStateData] = useState([]);
   const [error, setError] = useState(false);
 
-  const [addressfirst, setaddressfirst] = useState(null);
-  const [addresssecond, setaddresssecond] = useState(null);
+  const [addressfirst, setaddressfirst] = useState(
+    !!editflag ? editflag?.line1 : null,
+  );
+  const [addresssecond, setaddresssecond] = useState(
+    !!editflag ? editflag?.line2 : null,
+  );
   const navigation = useNavigation();
+
   useEffect(() => {
     getCountrydata();
   }, []);
@@ -79,7 +100,7 @@ const EditAddress = props => {
       // {},
       {
         headers: {
-          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
         },
       },
     );
@@ -98,6 +119,9 @@ const EditAddress = props => {
       newArrayOfObj,
     );
     setCountryData(newArrayOfObj);
+    if (!!editflag) {
+      checkpincode(editflag.postalCode, newArrayOfObj);
+    }
   };
 
   const _selectedValue = index => {
@@ -143,28 +167,50 @@ const EditAddress = props => {
     };
 
     console.log('bodybodybodybodybodybodybodybodybodybodybodybodybody', body);
-    const response = await axios.post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses`,
-      body,
-      {
-        headers: {
-          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+    if (!!editflag) {
+      const response = await axios.patch(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses/${editflag.id}`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
+          },
         },
-      },
-    );
-    console.log(
-      'SubmitAddressSubmitAddressSubmitAddressSubmitAddressSubmitAddressSubmitAddressSubmitAddress',
-      response.data,
-    );
-    if (response.data) {
-      console.log('llllllllllllllllllll',props.navigation)
-      props.navigation.navigate('CartPage', {
-        currPosition: 1,
-      });
+      );
+      console.log(
+        'editttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt',
+        response.data,
+      );
+      
+        console.log('llllllllllllllllllll', props.navigation.navigate);
+        props.navigation.navigate('CartPage', {
+          currPosition: 1,
+        });
+      
+    } else {
+      const response = await axios.post(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
+          },
+        },
+      );
+      console.log(
+        'SubmitAddressSubmitAddressSubmitAddressSubmitAddressSubmitAddressSubmitAddressSubmitAddress',
+        response.data,
+      );
+      if (response.data) {
+        console.log('llllllllllllllllllll', props.navigation.navigate);
+        props.navigation.navigate('CartPage', {
+          currPosition: 1,
+        });
+      }
     }
   };
 
-  const checkpincode = async data => {
+  const checkpincode = async (data, newArrayOfObj) => {
     SetPinCode(data);
     console.log('dataaaaaaa');
     const response = await axios.get(
@@ -172,7 +218,7 @@ const EditAddress = props => {
       // {},
       {
         headers: {
-          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
         },
       },
     );
@@ -180,9 +226,14 @@ const EditAddress = props => {
       'checkpincodecheckpincodecheckpincodecheckpincodecheckpincode',
       response.data,
     );
+    console.log(
+      'checkpincodecheckpincodecheckpincodecheckpincodecheckpincode',
+      countryData,
+    );
     // if()
     if (Object.keys(response.data).length) {
-      let filter = countryData.filter(el => {
+      let finalcountryData = !!editflag ? newArrayOfObj : countryData;
+      let filter = finalcountryData.filter(el => {
         return el.isocode == response.data?.region?.countryIso;
       });
 
@@ -212,7 +263,7 @@ const EditAddress = props => {
       // {},
       {
         headers: {
-          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
         },
       },
     );

@@ -46,8 +46,7 @@ export const WomenTabdata = [
 ];
 export const StoreDetails = [
   'Description',
-  'Specification',
-  'Additional Details',
+  'Specification'
 ];
 export const AboutUsTab = [
   'About us',
@@ -215,6 +214,7 @@ export const HomeDecorTableData2 = [
 ];
 
 export const CollectionWomenData = ['Dupattas', 'Kurtas', 'Saris', 'Lehengas'];
+export const giftCardTabs = ['My Gift Card', 'Add Gift Card', 'Send Gift Card'];
 
 export const HomePageSection = [
   'Section2', //category

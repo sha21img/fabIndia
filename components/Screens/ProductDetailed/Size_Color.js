@@ -106,7 +106,10 @@ export default function Size_Color({
   };
 
   const StockSubmit = item => {
-    console.log("itemmmmmmmashishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",item)
+    console.log(
+      'itemmmmmmmashishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
+      item,
+    );
     let sum = 0;
     item.color.map(el => {
       sum = sum + el.stock;
@@ -143,55 +146,10 @@ export default function Size_Color({
 
   return (
     <View style={[Styles.container, customStyle]}>
-      <Text style={Styles.sizeTxt}>Size</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={Styles.btnBox}>
-        {filterData.map((item, index) => {
-          console.log(item, '///llllllll//?');
-          return (
-            <>
-              <TouchableOpacity
-                onPress={() => {
-                  StockSubmit(item);
-                }}
-                style={
-                  item.size == size.size ? Styles.activeBtn : Styles.inActiveBtn
-                }>
-                <Text
-                  style={
-                    item.size == size.size
-                      ? Styles.activeBtnText
-                      : Styles.inActiveBtnText
-                  }>
-                  {item.size}
-                </Text>
-              </TouchableOpacity>
-            </>
-          );
-        })}
-      </ScrollView>
-      <Text style={Styles.leftTxt}>
-        {Stock < 6
-          ? size.length || Object.keys(size).length
-            ? ` Only ${Stock}  Left`
-            : ''
-          : null}
-      </Text>
-      {filterData[0]?.size != 'Free Size' ? (
-        <TouchableOpacity onPress={() => openSize()} style={Styles.chartBox}>
-          <FontAwesome5 name="ruler" color={'#903233'} size={15} />
-          <Text style={Styles.chartText}>View size chart</Text>
-        </TouchableOpacity>
-      ) : null}
-
       <View style={Styles.ColorBox}>
         <Text style={Styles.ColorTxt}>Colour</Text>
         <View style={Styles.colorContainer}>
-          {
-            
-            finalData?.color?.map(item => {
+          {finalData?.color?.map(item => {
             console.log(
               'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck',
               item,
@@ -265,48 +223,91 @@ export default function Size_Color({
             <Text>+</Text>
           </TouchableOpacity>
         </View> */}
-        <View style={{marginTop: 20}}>
-          <View>
-            <Text>Check Delivery service availabilty</Text>
-          </View>
-          <View style={{flexDirection: 'row', marginTop: 5}}>
-            <TextInput
-              placeholder="Enter Pincode"
-              onChangeText={text => (text.length < 7 ? setPinCode(text) : null)}
-              value={pinCode}
-              style={{
-                backgroundColor: 'white',
-                paddingVertical: 6,
-                paddingHorizontal: 10,
-                borderWidth: 1,
-                width: '47%',
-                borderColor: 'lightgrey',
-              }}
-            />
-            <TouchableOpacity
-              onPress={() => {
-                checkPin();
-              }}
-              style={{
-                paddingVertical: 5,
-                paddingHorizontal: 20,
-                borderWidth: 1,
-                borderColor: '#903233',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'lightgrey',
-              }}>
-              <Text style={{color: '#903233'}}>Check</Text>
-            </TouchableOpacity>
-          </View>
-          <Text style={{color: pinStatus ? '#5dac06' : '#db0002'}}>
-            {pinStatus != null
-              ? pinStatus
-                ? 'Service is available'
-                : 'This item cannot be delivered at the provided pincode'
-              : null}
-          </Text>
+      </View>
+      <Text style={Styles.sizeTxt}>Size</Text>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={Styles.btnBox}>
+        {filterData.map((item, index) => {
+          console.log(item, '///llllllll//?');
+          return (
+            <>
+              <TouchableOpacity
+                onPress={() => {
+                  StockSubmit(item);
+                }}
+                style={
+                  item.size == size.size ? Styles.activeBtn : Styles.inActiveBtn
+                }>
+                <Text
+                  style={
+                    item.size == size.size
+                      ? Styles.activeBtnText
+                      : Styles.inActiveBtnText
+                  }>
+                  {item.size}
+                </Text>
+              </TouchableOpacity>
+            </>
+          );
+        })}
+      </ScrollView>
+      <Text style={Styles.leftTxt}>
+        {Stock < 6
+          ? size.length || Object.keys(size).length
+            ? ` Only ${Stock}  Left`
+            : ''
+          : null}
+      </Text>
+      {filterData[0]?.size != 'Free Size' ? (
+        <TouchableOpacity onPress={() => openSize()} style={Styles.chartBox}>
+          <FontAwesome5 name="ruler" color={'#903233'} size={15} />
+          <Text style={Styles.chartText}>View size chart</Text>
+        </TouchableOpacity>
+      ) : null}
+
+      <View style={{marginTop: 20, marginHorizontal: 15}}>
+        <View>
+          <Text>Check Delivery service availabilty</Text>
         </View>
+        <View style={{flexDirection: 'row', marginTop: 5}}>
+          <TextInput
+            placeholder="Enter Pincode"
+            onChangeText={text => (text.length < 7 ? setPinCode(text) : null)}
+            value={pinCode}
+            style={{
+              backgroundColor: 'white',
+              paddingVertical: 6,
+              paddingHorizontal: 10,
+              borderWidth: 1,
+              width: '47%',
+              borderColor: 'lightgrey',
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              checkPin();
+            }}
+            style={{
+              paddingVertical: 5,
+              paddingHorizontal: 20,
+              borderWidth: 1,
+              borderColor: '#903233',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'lightgrey',
+            }}>
+            <Text style={{color: '#903233'}}>Check</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={{color: pinStatus ? '#5dac06' : '#db0002'}}>
+          {pinStatus != null
+            ? pinStatus
+              ? 'Service is available'
+              : 'This item cannot be delivered at the provided pincode'
+            : null}
+        </Text>
       </View>
       <Modal
         animationType="slide"

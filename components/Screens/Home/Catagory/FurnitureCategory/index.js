@@ -93,7 +93,7 @@ const FurnitureCategory = props => {
       //6
       case 'FabCMSTabContainer':
         return (
-          <WomenTab data={param} />
+          <WomenTab data={param} {...props} />
 
           // <CommonCarousel data={param} width={width / 1.07} height={330} />
         );

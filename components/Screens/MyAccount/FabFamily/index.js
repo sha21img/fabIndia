@@ -9,6 +9,7 @@ import {image} from '../../../../assets/images';
 import LinearGradient from 'react-native-linear-gradient';
 import CommonTopTab from '../../../Common/CommonTopTab';
 import {FabFamilyTabData} from '../../../../constant';
+import { WebView } from 'react-native-webview';
 
 export default function FabFamily() {
   const screenObj = {
@@ -23,7 +24,12 @@ export default function FabFamily() {
   }));
   return (
     <>
-      <ImageBackground
+      <WebView
+        originWhitelist={['*']}
+        style={{ backgroundColor: '#fff' }}
+        source={{ uri: 'https://www.fabfamily.fabindia.com/abouttheprogram' }}
+      />
+      {/* <ImageBackground
         resizeMode="cover"
         source={image.fabfamily}
         style={{
@@ -42,7 +48,7 @@ export default function FabFamily() {
           style={{position: 'absolute', right: 0, bottom: 0}}
         />
       </ImageBackground>
-      <CommonTopTab data={dataMap} />
+      <CommonTopTab data={dataMap} /> */}
 
       {/* <AlreadyMember /> */}
       {/* <ReferFriend /> */}

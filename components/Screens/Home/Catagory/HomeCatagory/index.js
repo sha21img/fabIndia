@@ -355,7 +355,7 @@ export default function HomeCatagory(props) {
         );
       case 'FabCMSTabContainer':
         return (
-          <WomenTab data={param} />
+          <WomenTab data={param} {...props} />
 
           // <CommonCarousel data={param} width={width / 1.07} height={330} />
         );
@@ -365,6 +365,7 @@ export default function HomeCatagory(props) {
         splitURL = splitURL[splitURL.length - 1];
         return (
           <TouchableOpacity
+            activeOpacity={0.8}
             style={{marginTop: 20}}
             onPress={() =>
               props.navigation.navigate('LandingPageSaris_Blouses', {

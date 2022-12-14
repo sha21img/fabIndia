@@ -331,7 +331,7 @@ export default function BeautyCategory(props) {
       //6
       case 'FabCMSTabContainer':
         //   return <WomenTab data={param} />;
-        return <CommonTitleTab data={param} />;
+        return <CommonTitleTab data={param} {...props} />;
 
       //7
       case 'SimpleResponsiveBannerComponent':
@@ -353,6 +353,7 @@ export default function BeautyCategory(props) {
 
         return (
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={() =>
               props.navigation.navigate('LandingPageSaris_Blouses', newId)
             }>

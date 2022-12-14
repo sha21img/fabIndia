@@ -740,7 +740,7 @@ export default function Dashbord(props) {
     <>
       <FlatList
         contentContainerStyle={{flexGrow: 1, backgroundColor: '#FFFFFF'}}
-        ListHeaderComponent={() => <HomeHeader {...props} homeheader={true} />}
+        // ListHeaderComponent={() => }
         data={filteredComp}
         keyExtractor={(item, index) => index}
         renderItem={item => checkSwitch(item.item)}

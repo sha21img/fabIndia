@@ -15,7 +15,7 @@ export const Styles = StyleSheet.create({
   chipTextActive: {
     paddingVertical: 7,
     paddingHorizontal: 10,
-    fontSize: 18,
+    fontSize: 16,
     color: '#FFFFFF',
     fontFamily: Fonts.Assistant400,
   },
@@ -29,7 +29,7 @@ export const Styles = StyleSheet.create({
   chipTextInactive: {
     paddingVertical: 7,
     paddingHorizontal: 10,
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: Fonts.Assistant400,
     color: Colors.textcolor,
   },

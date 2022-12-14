@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, ScrollView, Text, TouchableOpacity, Modal} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -8,6 +8,7 @@ import CommonButton from '../../../Common/CommonButton';
 import Fonts from '../../../../assets/fonts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
+import RazorpayCheckout from 'react-native-razorpay';
 const faqs = [
   {
     id: '1',
@@ -20,18 +21,24 @@ const faqs = [
   },
 ];
 const MyAddresses = props => {
-  const {checkaddress,getCheckAddress} = props;
+  const {checkaddress, getCheckAddress, amount,totalquantity} = props;
   const [show, setShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
-  const [peritem,setPeritem] = useState(null)
-  const handleClick = async(id) => {
-    console.log('hihi',id);
+  const [peritem, setPeritem] = useState(null);
+  const [selected, setSelected] = useState('');
+
+useEffect(()=>{
+
+},[])
+
+  const handleClick = async id => {
+    console.log('hihi', id);
     const response = await axios.delete(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses/${id}`,
       // {},
       {
         headers: {
-          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
         },
       },
     );
@@ -39,10 +46,65 @@ const MyAddresses = props => {
       'handleClickhandleClickhandleClickhandleClickhandleClickhandleClickhandleClick',
       response.data,
     );
-    getCheckAddress()
-    setModalShow(false)
+    getCheckAddress();
+    setModalShow(false);
   };
 
+  const setDeliveryAddress = async id => {
+    console.log(
+      'ididididididididididididididididididididididididididididididid',
+      id,
+    );
+    const response = await axios.put(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/addresses/delivery?addressId=${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
+        },
+      },
+    );
+    console.log(
+      'handleClickhandleClickhandleClickhandleClickhandleClickhandleClickhandleClick',
+      response.data,
+    );
+  };
+  const openCheckout = () => {
+    console.log(
+      'selectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselected',
+      selected,
+    );
+    var options = {
+      description: 'Payment for Fab india',
+      image: 'https://i.imgur.com/3g7nmJC.png',
+      currency: 'INR',
+      key: 'rzp_test_T70CWf6iJpuekL',
+      amount: amount * 100,
+      name: 'FAB India',
+      orderId: 'order_test_121',
+      prefill: {
+        email: selected.email,
+        contact: selected.phone,
+        name: selected.firstName,
+      },
+      theme: {color: Colors.primarycolor},
+    };
+    RazorpayCheckout.open(options)
+      .then(data => {
+        // handle success
+        console.log('Razorpay==>', JSON.stringify(data));
+        props.navigation.navigate('OrderConfirmation', {
+          amount: amount,
+          addressData: selected,
+        });
+        // alert(`Success: ${data.razorpay_payment_id}`);
+      })
+      .catch(error => {
+        // handle failure
+        console.log('error==>', JSON.stringify(error));
+        // alert(`Error: ${error.code} | ${error.description}`);
+      });
+  };
   return (
     <>
       <ScrollView
@@ -53,11 +115,18 @@ const MyAddresses = props => {
         <View style={Styles.body}>
           {checkaddress?.addresses?.map((faq, index) => (
             <>
-              <View
+              <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={() => {
+                  setDeliveryAddress(faq.id);
+                  setSelected(prev => (prev == faq ? '' : faq));
+                }}
                 style={[
                   Styles.txtbox,
                   {
                     marginBottom: faq.length - 1 == index ? 0 : 15,
+                    borderColor: selected.id == faq.id ? 'red' : '#ababab',
+                    borderWidth: 1,
                   },
                 ]}>
                 <View
@@ -82,7 +151,10 @@ const MyAddresses = props => {
                 {show == faq.id ? (
                   <View style={Styles.modalbox}>
                     <TouchableOpacity
-                      onPress={() => props.navigation.navigate('Address')}>
+                      onPress={() => {
+                        props.navigation.navigate('Address', {editData: faq});
+                        setShow(false);
+                      }}>
                       <Text style={Styles.edittxt}>Edit</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -90,6 +162,7 @@ const MyAddresses = props => {
                         setModalShow(true);
 
                         setPeritem(faq);
+                        setShow(false);
                       }}>
                       <Text style={Styles.deletetxt}>Delete</Text>
                     </TouchableOpacity>
@@ -104,7 +177,7 @@ const MyAddresses = props => {
                   {faq.town} {faq.postalCode}
                 </Text>
                 <Text style={Styles.titletxt}>Mobile - {faq.phone}</Text>
-              </View>
+              </TouchableOpacity>
             </>
           ))}
         </View>
@@ -118,6 +191,67 @@ const MyAddresses = props => {
           />
           <Text style={Styles.addbtntxt}>Add a new Addresses</Text>
         </TouchableOpacity>
+        <View style={{marginVertical: 5, marginHorizontal: 15}}>
+          <View
+            style={{borderBottomWidth: 1, paddingTop: 15, paddingBottom: 20}}>
+            <Text style={{fontFamily: Fonts.Assistant700, fontSize: 18}}>
+              {' '}
+              ORDER SUMMARY
+            </Text>
+          </View>
+          <Text
+            style={{
+              marginTop: 15,
+              fontFamily: Fonts.Assistant400,
+              fontSize: 17,
+              color: 'black',
+            }}>
+            Price Details ({totalquantity} items)
+          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginVertical: 18,
+            }}>
+            <Text>Total MRP</Text>
+            <Text>24,980</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginVertical: 10,
+            }}>
+            <Text>discount on MRP</Text>
+            <Text>-8,393</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              borderBottomWidth: 1,
+              paddingTop: 15,
+              paddingBottom: 28,
+              marginBottom: 15,
+            }}>
+            <Text>Delivery Charges</Text>
+            <Text>0</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginVertical: 15,
+            }}>
+            <Text>Amount Payable</Text>
+            <Text>₹{amount}</Text>
+          </View>
+        </View>
       </ScrollView>
 
       <View
@@ -130,8 +264,10 @@ const MyAddresses = props => {
           backgroundColor="#BDBDBD"
           txt="Continue"
           customViewStyle={{
-            backgroundColor: Colors.primarycolor,
+            backgroundColor: !!selected ? Colors.primarycolor : '#BDBDBD',
           }}
+          handleClick={openCheckout}
+          disable={!!!selected}
         />
       </View>
 
@@ -188,7 +324,7 @@ const MyAddresses = props => {
                   fontFamily: Fonts.Assistant700,
                   color: Colors.textcolor,
                 }}>
-               {peritem?.firstName} {peritem?.lastName}
+                {peritem?.firstName} {peritem?.lastName}
               </Text>
               <Text
                 style={{
@@ -196,7 +332,8 @@ const MyAddresses = props => {
                   fontFamily: Fonts.Assistant400,
                   color: Colors.textcolor,
                 }}>
-               {peritem?.line1} {peritem?.line2} {peritem?.town} {peritem?.postalCode}
+                {peritem?.line1} {peritem?.line2} {peritem?.town}{' '}
+                {peritem?.postalCode}
               </Text>
             </View>
             <View
@@ -222,7 +359,7 @@ const MyAddresses = props => {
                   backgroundColor: Colors.primarycolor,
                   width: '47%',
                 }}
-                handleClick={() =>handleClick(peritem?.id)}
+                handleClick={() => handleClick(peritem?.id)}
               />
             </View>
 

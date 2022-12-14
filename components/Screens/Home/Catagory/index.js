@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
+  Dimensions,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Styles} from './styles';
@@ -19,6 +20,7 @@ export default function Catagory({data}) {
   const [categoryData, setCategoryData] = useState([]);
   const [categoryDataArray, setCategoryDataArray] = useState([]);
   const [page, setPage] = useState(0);
+  const width = Dimensions.get('window').width;
 
   const getBannerIds = () => {
     const bannerId = data.cmsLinks;
@@ -30,6 +32,8 @@ export default function Catagory({data}) {
       `cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${bannerId}&lang=en&curr=INR`,
     );
     setCategoryDataArray(response);
+
+    console.log('response for category uaing pagination', response);
     if (categoryData.length) {
       setCategoryData(prev => [...categoryData, ...response.component]);
     } else {
@@ -49,8 +53,10 @@ export default function Catagory({data}) {
   const navigation = useNavigation();
   const catagory = item => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate(item.item.name)}>
-        <ImageBackground
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate(item.item.name)}>
+        {/* <ImageBackground
           resizeMode="cover"
           source={image.homedecortable}
           style={{
@@ -63,17 +69,14 @@ export default function Catagory({data}) {
             alignItems: 'center',
             borderRadius: 50,
           }}>
-          {/* <TouchableOpacity style={Styles.catagory}> */}
           <Text
             style={[
               Styles.catagoryText,
-              //  {color: item.item.textColor}
             ]}>
             {item.item.name}
           </Text>
-          {/* </TouchableOpacity> */}
-        </ImageBackground>
-        {/* <View style={Styles.mainContainer}>
+        </ImageBackground> */}
+        <View style={Styles.mainContainer}>
           <TouchableOpacity
             onPress={() => navigation.navigate(item.item.name)}
             style={Styles.catagory}>
@@ -82,21 +85,27 @@ export default function Catagory({data}) {
           <Text style={[Styles.catagoryText, {color: item.item.textColor}]}>
             {item.item.name}
           </Text>
-        </View> */}
+        </View>
       </TouchableOpacity>
     );
   };
   return (
-    <View style={Styles.container}>
-      <FlatList
-        horizontal
-        data={categoryData}
-        onEndReached={endReach}
-        showsHorizontalScrollIndicator={false}
-        onEndReachedThreshold={0.1}
-        keyExtractor={(item, index) => index}
-        renderItem={catagory}
-      />
-    </View>
+    // <View style={Styles.container}>
+    <FlatList
+      contentContainerStyle={{
+        flexGrow: 1,
+        paddingHorizontal: 5,
+        paddingVertical: 7,
+      }}
+      data={categoryData}
+      horizontal
+      onEndReached={endReach}
+      showsHorizontalScrollIndicator={false}
+      onEndReachedThreshold={0.1}
+      keyExtractor={(item, index) => index}
+      renderItem={catagory}
+      // contentContainerStyle={{width: width}}
+    />
+    // </View>
   );
 }

@@ -48,6 +48,7 @@ const customStyles = {
 const labels = ['Cart', 'Address', 'Payment'];
 export default function CartList(props) {
   const newCurrPosition = props?.route?.params?.currPosition;
+  console.log('newCurrPosition', newCurrPosition);
   const [showOrderDetail, setShowOrderDetail] = useState(false);
   const [modalShowMono, setModalShowMono] = useState(false);
   const [showCustom, setShowCustom] = useState(false);
@@ -63,7 +64,8 @@ export default function CartList(props) {
 
   const {cartdetails, getCartDetails} = props;
   useEffect(() => {
-    // setCurrentPosition(1);
+    let newCurrpos=newCurrPosition ||0
+    setCurrentPosition(newCurrpos);
   }, []);
   const orderValueDetail = () => {
     setShowOrderDetail(true);
@@ -84,16 +86,20 @@ export default function CartList(props) {
     setEntrynum(data?.entryNumber);
     setQuantity(data?.quantity);
   };
+  console.log(
+    'currentPositibbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbon',
+    currentPosition,
+  );
   const RemoveClick = async data => {
     const value = await AsyncStorage.getItem('cartID');
     console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
     console.log('dataaaaaaaaaaaaaaaaaa00000000000000000000', data.entryNumber);
     const response = await axios.delete(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08309533/entries/${data.entryNumber}`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/entries/${data.entryNumber}`,
       // {},
       {
         headers: {
-          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+          Authorization: `bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
         },
       },
     );
@@ -130,13 +136,13 @@ export default function CartList(props) {
 
   const updateQuantity = async () => {
     const response = await axios.patch(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08309533/entries/${entrynum}`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/entries/${entrynum}`,
       {
         quantity: quantity,
       },
       {
         headers: {
-          Authorization: `Bearer fNsWvkyoau2Gxvq3yd05f-hHmhs`,
+          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
         },
       },
     );
@@ -197,7 +203,7 @@ export default function CartList(props) {
             />
           </>
         ) : currentPosition == 1 ? (
-          <CheckAddress {...props} />
+          <CheckAddress {...props} totalPrice={totalPrice} totalquantity={totalquantity} />
         ) : currentPosition == 2 ? (
           <Payment />
         ) : null}

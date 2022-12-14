@@ -60,9 +60,11 @@ export default function HomeStack() {
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
+        options={{
+          header: props => <HomeHeader {...props} homeheader={true} />,
+        }}
         name="Home"
         component={Home}
-        options={{headerShown: false}}
       />
 
       <Stack.Screen
