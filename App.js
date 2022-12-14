@@ -30,13 +30,13 @@ import OrderConfirmation from './components/Screens/OrderConfirmation';
 import HomeHeader from './components/Screens/Home/HomeHeader';
 import CheckAddress from './components/Screens/MyAccount/MyAddresses/CheckAddress';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import CartList from './components/Screens/Checkout/CartList';
 
 const Stack = createNativeStackNavigator();
 
 export default function App(props) {
   const [netInfo, setNetInfo] = useState(true);
-
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
       setNetInfo(state.isConnected);
@@ -78,30 +78,31 @@ export default function App(props) {
     </TouchableOpacity>
   );
   const generatTokenWithout = async () => {
-    const response = await axios.get(
-      'https://apisap.fabindiahome.com/authorizationserver/oauth/token',
-      {
-        // client_id: 'mobile_android',
-        // client_secret: 'secret',
-        // grant_type: 'client_credentials',
-      },
-    );
-    console.log('response-=-=-=-=-=-response', response);
+    await axios
+      .post(
+        `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+      )
+      .then(
+        response => {
+          console.log('response-=-=-=-=-=-generatTokenWithout', response.data);
+          AsyncStorage.setItem('generatToken', JSON.stringify(response.data));
+        },
+        error => {
+          console.log('response-=-=-=-=-=-error', error);
+        },
+      );
   };
-  // const generatTokenWith = async () => {
-  //   const response = await axios.get(
-  //     'https://apisap.fabindiahome.com/authorizationserver/oauth/token',
-  //     {
-  //       // client_id: 'mobile_android',
-  //       // client_secret: 'secret',
-  //       // grant_type: 'client_credentials',
-  //     },
-  //   );
-  //   console.log('response-=-=-=-=-=-response', response);
-  // };
+  const checkToken = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    console.log('asdfasdfasdfasdf', JSON.parse(get));
+    if (getToken == null) {
+      generatTokenWithout();
+    }
+    // }
+  };
   useEffect(() => {
-    generatTokenWithout();
-    // generatTokenWith();
+    checkToken();
   }, []);
   const rightText = (
     <TouchableOpacity>
@@ -258,7 +259,7 @@ export default function App(props) {
               ),
             }}
           />
-          
+
           <Stack.Screen
             name="CartList"
             component={CartList}

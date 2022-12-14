@@ -6,29 +6,77 @@ import Fonts from '../../../assets/fonts';
 import CountryPicker from 'rn-country-picker';
 import {TextInput} from 'react-native-paper';
 import InputText from '../../Common/InputText';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UnAuthPostData} from '../../Common/Helper';
 import Toast from 'react-native-simple-toast';
+import axios from 'axios';
+
 export default function ResetPassword(props) {
   const [text, setText] = useState('');
+  const generatTokenWithout = async () => {
+    await axios
+      .post(
+        `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+      )
+      .then(
+        response => {
+          console.log('response-=-=-=-=-=-generatTokenWithout', response.data);
+          AsyncStorage.setItem('generatToken', JSON.stringify(response.data));
+        },
+        error => {
+          console.log('response-=-=-=-=-=-error', error);
+        },
+      );
+  };
+  const resetPassword = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const details = {
+      userId: text,
+    };
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
+    fetch(
+      'https://apisap.fabindia.com/occ/v2/fabindiab2c/forgottenpasswordtokens?lang=en&curr=INR',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        },
+        body: formBody,
+      },
+    ).then(function (res) {
+      if (res.ok == true) {
+        console.log(res);
+        Toast.showWithGravity(
+          'Reset link send to your email',
+          Toast.LONG,
+          Toast.TOP,
+        );
+        props.navigation.goBack();
+      } else {
+        Toast.showWithGravity('Problem', Toast.LONG, Toast.TOP);
+      }
+    });
+  };
   const handleSubmit = async () => {
-    const body = {userId: text};
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    if (getToken == null) {
+      await generatTokenWithout();
+    }
     if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(text)) {
-      const res = await UnAuthPostData(
-        'fabindiab2c/forgottenpasswordtokens?lang=en&curr=INR',
-        body,
-      );
-      console.log(res);
-      Toast.showWithGravity(
-        'reset link send to your email',
-        Toast.LONG,
-        Toast.TOP,
-      );
-      props.navigation.goBack();
+      resetPassword();
     } else {
       Toast.showWithGravity('Invalid Email', Toast.LONG, Toast.TOP);
     }
   };
-
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
