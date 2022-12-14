@@ -7,6 +7,7 @@ import {Colors} from '../../../../assets/Colors';
 import CommonButton from '../../../Common/CommonButton';
 import Fonts from '../../../../assets/fonts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import RazorpayCheckout from 'react-native-razorpay';
 const faqs = [
@@ -21,24 +22,23 @@ const faqs = [
   },
 ];
 const MyAddresses = props => {
-  const {checkaddress, getCheckAddress, amount,totalquantity} = props;
+  const {checkaddress, getCheckAddress, amount, totalquantity} = props;
   const [show, setShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [peritem, setPeritem] = useState(null);
   const [selected, setSelected] = useState('');
 
-useEffect(()=>{
-
-},[])
+  useEffect(() => {}, []);
 
   const handleClick = async id => {
-    console.log('hihi', id);
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
     const response = await axios.delete(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses/${id}`,
       // {},
       {
         headers: {
-          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
       },
     );
@@ -51,13 +51,16 @@ useEffect(()=>{
   };
 
   const setDeliveryAddress = async id => {
-  
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const getCartID = await AsyncStorage.getItem('cartID');
+    console.log('this us cart id', getCartID);
     const response = await axios.put(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/addresses/delivery?addressId=${id}`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/addresses/delivery?addressId=${id}`,
       {},
       {
         headers: {
-          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
       },
     );
@@ -66,7 +69,7 @@ useEffect(()=>{
       response.data,
     );
   };
-  const openCheckout = (data) => {
+  const openCheckout = data => {
     console.log(
       'selectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselected',
       selected,
@@ -102,13 +105,17 @@ useEffect(()=>{
         // alert(`Error: ${error.code} | ${error.description}`);
       });
   };
-  const getOrderID = async() =>{
+  const getOrderID = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const getCartID = await AsyncStorage.getItem('cartID');
+    console.log('this us cart id', getCartID);
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/payment/razorpay/orderid/request?lang=en&curr=INR`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/razorpay/orderid/request?lang=en&curr=INR`,
       // {},
       {
         headers: {
-          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
       },
     );
@@ -116,16 +123,20 @@ useEffect(()=>{
       'handleClickhandleClickhandleClickhandleClickhandleClickhandleClickhandleClick',
       response.data,
     );
-     await paymentModes()
-    openCheckout(response.data)
-  }
-  const paymentModes = async() =>{
+    await paymentModes();
+    openCheckout(response.data);
+  };
+  const paymentModes = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const getCartID = await AsyncStorage.getItem('cartID');
+    console.log('this us cart id', getCartID);
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/paymentModes?fields=DEFAULT`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/paymentModes?fields=DEFAULT`,
       // {},
       {
         headers: {
-          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
       },
     );
@@ -133,7 +144,7 @@ useEffect(()=>{
       'paymentModespaymentModespaymentModespaymentModespaymentModespaymentModespaymentModes',
       response.data,
     );
-  }
+  };
   return (
     <>
       <ScrollView

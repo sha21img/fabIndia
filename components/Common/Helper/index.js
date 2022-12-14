@@ -11,7 +11,9 @@ const AuthAuthor = 'bearer nCVKPnrYg-ZgHMn0djWh1YSFCX0';
 
 export const imageURL = 'https://apisap.fabindia.com/';
 const postData = async (url, body) => {
-  const Token = 'bearer ElhKLe-VvjSmB_TEwcjzHZUyubU';
+  const get = await AsyncStorage.getItem('generatToken');
+  const getToken = JSON.parse(get);
+  const Token = `${getToken.token_type} ${getToken.access_token}`;
   const response = await fetch(`${BaseURL}/${url}`, {
     method: 'POST',
     headers: {
@@ -113,7 +115,8 @@ const getCartID = async () => {
     },
   );
   if (response.status == 201) {
-    await AsyncStorage.setItem('cartID', JSON.stringify(response.data?.code));
+    console.log('this si filter-=-=-=', response.data?.code);
+    await AsyncStorage.setItem('cartID', response.data?.code);
   }
 };
 
@@ -136,7 +139,7 @@ const getWishID = async () => {
       return item.name;
     });
     console.log('this si filter', filter[0].code);
-    await AsyncStorage.setItem('WishlistID', JSON.stringify(response.data));
+    await AsyncStorage.setItem('WishlistID', filter[0].code);
   }
 };
 const postDataAuth = async (url, formData) => {

@@ -30,20 +30,20 @@ const pages = [
     name: 'FabFamily',
     routes: 'FabFamily',
   },
-  {
-    icon: image.savedCard,
-    name: 'Saved Cards',
-    routes: '',
-  },
-  {
-    icon: image.pendingPayment,
-    name: 'Pending Payments',
-    routes: '',
-  },
+  // {
+  //   icon: image.savedCard,
+  //   name: 'Saved Cards',
+  //   routes: '',
+  // },
+  // {
+  //   icon: image.pendingPayment,
+  //   name: 'Pending Payments',
+  //   routes: '',
+  // },
   {
     icon: image.GiftCard,
     name: 'Gift Cards',
-    routes: '',
+    routes: 'GiftCard',
   },
   {
     icon: image.ContactUs,
@@ -53,12 +53,12 @@ const pages = [
   {
     icon: image.UnSubscribe,
     name: 'Unsubscribe',
-    routes: '',
+    routes: 'Unsubscribe',
   },
   {
     icon: image.DelAccount,
     name: 'Delete my Account',
-    routes: '',
+    routes: 'DeleteMyAccount',
   },
 ];
 const MyAccounts = props => {

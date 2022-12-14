@@ -23,10 +23,6 @@ export default function HomeHeader(props) {
   const {cartReducer} = useSelector(state => state);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  console.log(
-    '....................................................',
-    cartReducer,
-  );
   // const {homeheader = false, searchVisible = true} = props;
   const {homeheader = false, searchVisible = true, headertext = ''} = props;
 
@@ -40,13 +36,17 @@ export default function HomeHeader(props) {
   }, [totalquantity]);
 
   const getCartDetails = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const getCartID = await AsyncStorage.getItem('cartID');
+    console.log('this us cart id', getCartID);
     const response = await axios.get(
-      'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR',
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
       // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
       // {},
       {
         headers: {
-          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
       },
     );
@@ -112,24 +112,22 @@ export default function HomeHeader(props) {
   const addWishlist = async data => {
     const isAddWishlist = cartReducer.WishListDetail.wishListData.find(
       (item, index) => {
-        // console.log('item,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,', item);
-        console.log('itemppppp', data.product.code);
         return item.code == data.product.code;
       },
     );
-    console.log(
-      'adddddd ========================== in wishlist product',
-      isAddWishlist.item.entryNumber,
-    );
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const getWishlistID = await AsyncStorage.getItem('WishlistID');
+    console.log('this us cart id', getWishlistID);
     // if (isAddWishlist) {
     await axios
       .delete(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
         // {quantity: 0, product: {code: isAddWishlist.code}},
         {
           headers: {
-            Authorization: `bearer 2LUFsc7CwqiHcQ_ni3ak3IPG3as`,
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
           },
         },
       )
