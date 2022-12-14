@@ -34,7 +34,7 @@ const customStyles = {
   currentStepLabelColor: '#979797',
 };
 const PaymentPage = (data, item) => {
-  console.log('dattt', item.detail.deliveryAddress);
+  console.log('dattt', item.detail);
   return (
     <ScrollView
       contentContainerStyle={{
@@ -107,14 +107,7 @@ const PaymentPage = (data, item) => {
           }}>
           Payment Details
         </Text>
-        {[
-          {name: 'Cotton Silk Block Printed Sari', price: '800'},
-          {name: 'Cotton Silk Block Printed Sari', price: '800'},
-          {name: 'Cotton Silk Block Printed Sari', price: '800'},
-          {name: 'Regis Wingback Chair', price: '7000'},
-          {name: 'Cotton Silk Block Printed Sari', price: '3,500'},
-          {name: 'Cotton Silk Block Printed Sari', price: '3,500'},
-        ].map(item => {
+        {item.detail?.entries.map(item => {
           return (
             <>
               <View
@@ -129,7 +122,7 @@ const PaymentPage = (data, item) => {
                     fontSize: 14,
                     color: Colors.textcolor,
                   }}>
-                  {item.name}
+                  {item?.product?.name}
                 </Text>
                 <Text
                   style={{
@@ -137,13 +130,13 @@ const PaymentPage = (data, item) => {
                     fontSize: 14,
                     color: Colors.textcolor,
                   }}>
-                  ₹{item.price}
+                  ₹{item?.product?.priceAfterDiscount?.value}
                 </Text>
               </View>
             </>
           );
         })}
-        <View
+        {/* <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -166,7 +159,7 @@ const PaymentPage = (data, item) => {
             }}>
             - ₹ 500
           </Text>
-        </View>
+        </View> */}
         <View
           style={{
             flexDirection: 'row',
@@ -188,7 +181,7 @@ const PaymentPage = (data, item) => {
               fontSize: 14,
               color: Colors.textcolor,
             }}>
-            ₹ 99
+            {item.detail?.deliveryCost?.formattedValue}
           </Text>
         </View>
         <View
@@ -212,16 +205,16 @@ const PaymentPage = (data, item) => {
               fontSize: 14,
               color: Colors.textcolor,
             }}>
-            ₹ 12,490
+            {item.detail?.subTotal?.formattedValue}
           </Text>
         </View>
       </View>
     </ScrollView>
   );
 };
-export default function OrderInProgress({orderDetails}) {
-  console.log('orderDetailsorderDetailsorderDetails', orderDetails);
+export default function OrderInProgress({orderDetails,getorderDetails}) {
   const [currentPosition, setCurrentPosition] = useState(0);
+  // const [orderDetailsstate,setorderDetailsstate] = useState(orderDetails)
   const CardCompo = item => {
     return (
       <ScrollView
@@ -230,21 +223,21 @@ export default function OrderInProgress({orderDetails}) {
           flexGrow: 1,
           paddingHorizontal: 15,
         }}>
-        {[0, 0, 0].map(item => {
+        <Text
+          style={{
+            paddingVertical: 15,
+            fontFamily: Fonts.Assistant400,
+            fontSize: 14,
+            color: '#979797',
+            lineHeight: 18,
+          }}>
+         {orderDetails?.totalItems} items ordered
+        </Text>
+        {orderDetails?.entries?.map(item => {
           return (
             <>
-              <View>
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontFamily: Fonts.Assistant400,
-                    fontSize: 14,
-                    color: '#979797',
-                    lineHeight: 18,
-                  }}>
-                  5 items ordered
-                </Text>
-                <Text
+              <View style={{paddingVertical:10}}>
+                {/* <Text
                   style={{
                     paddingTop: 10,
                     fontFamily: Fonts.Assistant600,
@@ -260,30 +253,8 @@ export default function OrderInProgress({orderDetails}) {
                     labels={labels}
                     stepCount={3}
                   />
-                </View>
-
-                <OrderProductLongCard
-                  data={[
-                    {
-                      title: 'Cotton Silk Block Printed Sari Product Name',
-                      size: 'M',
-                      quantity: '1',
-                      price: '800',
-                    },
-                    {
-                      title: 'Cotton Silk Block Printed Sari Product Name',
-                      size: 'M',
-                      quantity: '1',
-                      price: '800',
-                    },
-                    {
-                      title: 'Cotton Silk Block Printed Sari Product Name',
-                      size: 'M',
-                      quantity: '1',
-                      price: '800',
-                    },
-                  ]}
-                />
+                </View> */}
+                <OrderProductLongCard data={item}  orderID={orderDetails.code} status ={orderDetails?.statusDisplay} getorderDetails={getorderDetails} />
               </View>
             </>
           );

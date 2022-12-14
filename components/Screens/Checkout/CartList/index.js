@@ -99,7 +99,7 @@ export default function CartList(props) {
       // {},
       {
         headers: {
-          Authorization: `bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
+          Authorization: `bearer Kr88U059DepONJpbaPbBSDg_jeY`,
         },
       },
     );
@@ -142,7 +142,7 @@ export default function CartList(props) {
       },
       {
         headers: {
-          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
+          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
         },
       },
     );
