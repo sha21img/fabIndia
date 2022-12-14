@@ -67,7 +67,7 @@ const MyAddresses = props => {
       response.data,
     );
   };
-  const openCheckout = (data,UDID) => {
+  const openCheckout = (data, UDID) => {
     console.log(
       'selectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselected',
       selected,
@@ -94,7 +94,7 @@ const MyAddresses = props => {
         props.navigation.navigate('OrderConfirmation', {
           amount: amount,
           addressData: selected,
-          UDID:UDID
+          UDID: UDID,
         });
         // alert(`Success: ${data.razorpay_payment_id}`);
       })
@@ -122,11 +122,15 @@ const MyAddresses = props => {
       'handleClickhandleClickhandleClickhandleClickhandleClickhandleClickhandleClick',
       response.data,
     );
-     await paymentModes()
-     const UDID =  await getUDID()
-    openCheckout(response.data,UDID)
-  }
-  const paymentModes = async() =>{
+    await paymentModes();
+    const UDID = await getUDID();
+    openCheckout(response.data, UDID);
+  };
+  const paymentModes = async () => {
+    const getCartID = await AsyncStorage.getItem('cartID');
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/paymentModes?fields=DEFAULT`,
       // {},
@@ -139,25 +143,28 @@ const MyAddresses = props => {
     console.log(
       'paymentModespaymentModespaymentModespaymentModespaymentModespaymentModespaymentModes',
       response.data,
-      );
-      
-  }
-  const getUDID = async() =>{
+    );
+  };
+  const getUDID = async () => {
+    const getCartID = await AsyncStorage.getItem('cartID');
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/payment/razorpay/callback/url?lang=en&curr=INR`
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/razorpay/callback/url?lang=en&curr=INR`,
       // {},
-      // {
-      //   headers: {
-      //     Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
-      //   },
-      // },
+      {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+        },
+      },
     );
     console.log(
       'getUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDID',
       response.data,
     );
-    return response.data
-  }
+    return response.data;
+  };
   return (
     <>
       <ScrollView

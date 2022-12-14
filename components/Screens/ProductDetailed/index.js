@@ -55,10 +55,10 @@ export default function ProductDetailed(props) {
     );
     console.log('response.data04733333333333333333', response.data);
     setProductDetail(response.data);
-    if(response.data?.baseOptions?.length > 0 ){
-      setShowAdd(false)
-    }else{
-      setShowAdd(true)
+    if (response.data?.baseOptions?.length > 0) {
+      setShowAdd(false);
+    } else {
+      setShowAdd(true);
     }
     // console.log(
     //   'productdetail.variantMatrix[0].',
@@ -125,34 +125,34 @@ export default function ProductDetailed(props) {
         contentContainerStyle={{
           paddingHorizontal: 15,
           backgroundColor: 'white',
+          flexGrow:1
         }}>
-        {productDetail.classifications[0].features.map((item, index) => {
-          console.log(
-            'item===========================================================================',
-            item,
-          );
-          return (
-            <View
-              style={{
-                paddingVertical: 10,
-                borderTopWidth: 1,
-                borderTopColor: 'grey',
-                flexDirection: 'row',
-                backgroundColor: '#FFFFFF',
-                marginVertical: 10,
-                borderBottomWidth:
-                  productDetail.classifications[0].features[
-                    productDetail.classifications[0].features.length - 1
-                  ] == item
-                    ? 1
-                    : null,
-                borderBottomColor: 'grey',
-              }}>
-              <Text style={{width: '40%'}}>{item.name}</Text>
-              <Text style={{width: '60%'}}>{item.featureValues[0].value}</Text>
-            </View>
-          );
-        })}
+        {!!productDetail.classifications &&
+          productDetail.classifications[0].features.map((item, index) => {
+            return (
+              <View
+                style={{
+                  paddingVertical: 10,
+                  borderTopWidth: 1,
+                  borderTopColor: 'grey',
+                  flexDirection: 'row',
+                  backgroundColor: '#FFFFFF',
+                  marginVertical: 10,
+                  borderBottomWidth:
+                    productDetail.classifications[0].features[
+                      productDetail.classifications[0].features.length - 1
+                    ] == item
+                      ? 1
+                      : null,
+                  borderBottomColor: 'grey',
+                }}>
+                <Text style={{width: '40%'}}>{item.name}</Text>
+                <Text style={{width: '60%'}}>
+                  {item.featureValues[0].value}
+                </Text>
+              </View>
+            );
+          })}
       </ScrollView>
     );
   };
@@ -184,7 +184,7 @@ export default function ProductDetailed(props) {
   const getColorProductId = data => {
     console.log('data5555555555555555555555555555555555555555555555', data);
     setProductID(data);
-    setShowAdd(true)
+    setShowAdd(true);
   };
   const AddtoCart = async () => {
     // const body = {

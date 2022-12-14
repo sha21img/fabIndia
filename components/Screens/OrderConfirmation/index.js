@@ -6,6 +6,7 @@ import {image} from '../../../assets/images';
 import axios from 'axios';
 const OrderConfirmation = props => {
   const {amount, addressData, UDID} = props.route.params;
+  console.log('UD///ID',UDID)
 const [details,setDetails] = useState(null)
   useEffect(() => {
     const final = UDID.split('/');
@@ -14,6 +15,7 @@ const [details,setDetails] = useState(null)
   }, []);
 
   const getorderconfirmDetails = async id => {
+    console.log('jijhiojiojhp',id)
     const response = await axios.post(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/fetch?id=${id}&lang=en&curr=INR`
       // {},
