@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Styles} from './styles';
 import axios from 'axios';
 import moment from 'moment';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function MyOrder() {
   const navigation = useNavigation();
   const [gender, setGender] = React.useState([
@@ -17,7 +17,7 @@ export default function MyOrder() {
     {label: 'Last 1 year', value: 'Last 1 year'},
     {label: '2020', value: '2020'},
   ]);
-  const [dayrange,setRange] = useState(30)
+  const [dayrange, setRange] = useState(30);
   const [genderOpen, setGenderOpen] = useState(false);
   const [genderValue, setGenderValue] = useState('30');
 
@@ -28,32 +28,33 @@ export default function MyOrder() {
     {label: 'UET', value: 'uet'},
   ]);
   const [loading, setLoading] = React.useState(false);
-  const [orders,setOrders] = useState([])
+  const [orders, setOrders] = useState([]);
   const onGenderOpen = React.useCallback(() => {
     setCompanyOpen(false);
   }, []);
 
-  useEffect(()=>{
-    getOrders()
-   },[dayrange])
-   
-   const getOrders = async() =>{
-     const response = await axios.get(
-       `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
-       {
-         headers: {
-           Authorization: `Bearer w8d9P7MvO0KxVoW2m8XVI8Xf4oM`,
-         },
-       },
-     );
-     console.log(
-       'getOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrders',
-       response.data,
-     );
-     setOrders(response.data.orders)
-     
-   }
-   console.log("setGendersetGendersetGender",setGenderValue)
+  useEffect(() => {
+    getOrders();
+  }, [dayrange]);
+
+  const getOrders = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const response = await axios.get(
+      `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
+      {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+        },
+      },
+    );
+    console.log(
+      'getOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrders',
+      response.data,
+    );
+    setOrders(response.data.orders);
+  };
+  console.log('setGendersetGendersetGender', setGenderValue);
   return (
     <>
       <DropDownPicker
@@ -72,21 +73,28 @@ export default function MyOrder() {
         setItems={setGender}
         placeholder="Select date range "
         onOpen={onGenderOpen}
-        onChangeValue={item => {setRange(item)}}
+        onChangeValue={item => {
+          setRange(item);
+        }}
         zIndex={3000}
         zIndexInverse={1000}
       />
       <ScrollView contentContainerStyle={Styles.container}>
         {orders.map(item => {
-          console.log("item.codeitem.code",item.code)
+          console.log('item.codeitem.code', item.code);
           return (
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('OrderStatus', {screen: item.status,orderID:item.code})
+                navigation.navigate('OrderStatus', {
+                  screen: item.status,
+                  orderID: item.code,
+                })
               }
               style={Styles.mainbox}>
               <View style={Styles.innertopbox}>
-                <Text style={Styles.datetxt}>{moment(item?.placed).format("MMM-DD-YYYY")}</Text>
+                <Text style={Styles.datetxt}>
+                  {moment(item?.placed).format('MMM-DD-YYYY')}
+                </Text>
                 <SimpleLineIcons
                   name="arrow-right"
                   color={Colors.textcolor}
@@ -95,7 +103,9 @@ export default function MyOrder() {
               </View>
               <View style={Styles.middlebox}>
                 <Text style={Styles.itemtxt}>{item.totalItems} items</Text>
-                <Text style={Styles.pricetxt}>{item?.total?.formattedValue}</Text>
+                <Text style={Styles.pricetxt}>
+                  {item?.total?.formattedValue}
+                </Text>
                 <Text style={Styles.orderidtxt}>Order ID: {item.code}</Text>
               </View>
 
