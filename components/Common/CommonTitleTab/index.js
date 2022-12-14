@@ -11,10 +11,10 @@ export default function CommonTitleTab(props) {
   const [chipData, setChipData] = useState([]);
   const [toptabLabelData, setToptabLabelData] = useState([]);
 
-  const getTabCount = async () => {
-    const bannerId = data.tabs;
-    getBannerCount(bannerId);
-  };
+  // const getTabCount = async () => {
+  //   const bannerId = data.tabs;
+  //   getBannerCount(bannerId);
+  // };
   const getTabData = async data => {
     setActive(data.title);
     const splitBannerId = data.components.split(' ').join(',');
@@ -22,7 +22,7 @@ export default function CommonTitleTab(props) {
     const response = await getComponentData(
       `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    // console.log('ALALALALLAALALL', response.component);
+    console.log('ALALALALLAALALL111', response.component);
     setToptabLabelData(response.component);
   };
 
@@ -33,11 +33,14 @@ export default function CommonTitleTab(props) {
     const response = await getComponentData(
       `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
+    console.log('getBannerCountgetBannerCount', response.component[0]);
+
     setChipData(response.component);
     getTabData(response.component[0]);
   };
   useEffect(() => {
-    getTabCount();
+    // getTabCount();
+    getBannerCount(data.tabs);
   }, []);
   return (
     <>
@@ -50,15 +53,13 @@ export default function CommonTitleTab(props) {
         }}>
         {chipData.map((item, index) => {
           return (
-            <Chip
-              title={item.title}
-              handleClick={() => getTabData(item)}
-              active={active}
-            />
+            <Chip title={item.title} handleClick={getTabData} active={active} />
           );
         })}
       </View>
-      {toptabLabelData.length > 0 && <TitleCard data={toptabLabelData} />}
+      {toptabLabelData.length > 0 && (
+        <TitleCard data1={toptabLabelData} {...props} />
+      )}
     </>
   );
 }

@@ -14,10 +14,18 @@ import {Colors} from '../../../assets/Colors';
 import Styles from './style';
 import WishListCard from '../../Common/WishListCard';
 import CommonButton from '../../Common/CommonButton';
-export default function YourWishlist() {
+import {useSelector} from 'react-redux';
+export default function YourWishlist(props) {
+  const {cartReducer} = useSelector(state => state);
+
+  const {handleClick = null} = props.route.params;
   return (
     <>
-      {true ? (
+      {cartReducer.WishListDetail.wishListData.length > 0 ? (
+        <>
+          <WishListCard handleClick={handleClick} />
+        </>
+      ) : (
         <>
           <View style={Styles.secondDiv}>
             <View style={Styles.ImageView}>
@@ -43,14 +51,15 @@ export default function YourWishlist() {
             <CommonButton
               backgroundColor="#BDBDBD"
               txt="Start shopping"
+              handleClick={() => {
+                props.navigation.navigate('Home');
+              }}
               customViewStyle={{
                 backgroundColor: Colors.primarycolor,
               }}
             />
           </View>
         </>
-      ) : (
-        <WishListCard />
       )}
     </>
   );

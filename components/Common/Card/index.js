@@ -13,6 +13,10 @@ export default function Card(props) {
     offer = null,
   } = props;
 
+  // console.log(
+  //   'items wwwwwwwwwwwwwwwwwwwwwwwoooooooooooooooooooooommmmmmmmmmmmmmmmeeeeeeeeeeeeeeeeennnnnnnnnnnnn',
+  //   items.code,
+  // );
   // console.log('items    atattatatata dataadatadatra', items);
 
   const defaultViewCustomStyles = {
@@ -46,7 +50,9 @@ export default function Card(props) {
             {items.name}
           </Text>
           <View style={Styles.amountbox}>
-            <Text style={Styles.amounttxt}>{items?.price?.formattedValue}</Text>
+            <Text style={Styles.amounttxt}>
+              M.R.P. {items?.price?.formattedValue}
+            </Text>
             {/* <Text style={Styles.amountoff}>
               {originalprice ? `₹${originalprice}` : null}
             </Text>

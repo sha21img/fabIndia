@@ -6,7 +6,10 @@ import {Styles} from './styles';
 import imageURL from '../../Common/Helper';
 import {Colors} from '../../../assets/Colors';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import Toast from 'react-native-simple-toast';
+import {useSelector} from 'react-redux';
 
 export default function Card1(props) {
   const {
@@ -15,7 +18,7 @@ export default function Card1(props) {
     handleClick = null,
     wishlistproductCode = [],
   } = props;
-
+  const {cartReducer} = useSelector(state => state);
   const defaultViewCustomStyles = {
     width: '48%',
     elevation: 1,
@@ -25,12 +28,13 @@ export default function Card1(props) {
     'item]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
     wishlistproductCode,
   );
-  // console.log(
-  //   'item?????????????????????????????????????????????????????????????????',
-  //   wishlistproductCode.find(items => {
-  //     return items.code == item.code;
-  //   }),
-  // );
+  const isAvtive = cartReducer.WishListDetail.wishListData.find(items => {
+    return items.code == item.code;
+  });
+  console.log(
+    'item?????????????????????????????????????????????????????????????????',
+    isAvtive,
+  );
   // console.log('item', item.name);
   const imageUrl = !!item?.variantOptions
     ? item?.variantOptions[0]?.images[0]?.url
@@ -55,7 +59,9 @@ export default function Card1(props) {
           resizeMode="cover"
         />
         <View style={Styles.headingbox}>
-          <Text style={Styles.headingtxt}>{item.name}</Text>
+          <Text numberOfLines={1} style={Styles.headingtxt}>
+            {item.name}
+          </Text>
           <View style={Styles.pricebox}>
             <Text style={Styles.mrptxt}>M.R.P.</Text>
             <Text style={Styles.amounttxt}>
@@ -117,17 +123,33 @@ export default function Card1(props) {
             top: 20,
             right: 10,
           }}>
-          <EvilIcons
-            name="heart"
-            size={25}
-            color={
-              wishlistproductCode.find(items => {
-                return items.code == item.code;
-              })
-                ? Colors.primarycolor
-                : Colors.textcolor
-            }
-          />
+          {isAvtive ? (
+            <AntDesign
+              name="heart"
+              size={20}
+              color={Colors.primarycolor}
+              // color={
+              //   wishlistproductCode.find(items => {
+              //     return items.code == item.code;
+              //   })
+              //     ? Colors.primarycolor
+              //     : Colors.textcolor
+              // }
+            />
+          ) : (
+            <EvilIcons
+              name="heart"
+              size={25}
+              color={Colors.primarycolor}
+              // color={
+              //   wishlistproductCode.find(items => {
+              //     return items.code == item.code;
+              //   })
+              //     ? Colors.primarycolor
+              //     : Colors.textcolor
+              // }
+            />
+          )}
         </TouchableOpacity>
         {/* <Text>{item.variantOptions[0].variantOptionQualifiers[0].value}</Text> */}
       </TouchableOpacity>
