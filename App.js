@@ -323,7 +323,7 @@ export default function App(props) {
               }}
             />
 
-            <Stack.Screen
+            {/* <Stack.Screen
               name="CartList"
               component={CartList}
               options={{
@@ -337,7 +337,7 @@ export default function App(props) {
                   />
                 ),
               }}
-            />
+            /> */}
             <Stack.Screen
               name="CartPage"
               component={CartPage}
@@ -386,7 +386,7 @@ export default function App(props) {
                 ),
               }}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
               name="CartPage"
               component={CartPage}
               options={{
@@ -400,8 +400,8 @@ export default function App(props) {
                   />
                 ),
               }}
-            />
-            <Stack.Screen
+            /> */}
+            {/* <Stack.Screen
               name="Address"
               component={EditAddress}
               options={{
@@ -417,7 +417,7 @@ export default function App(props) {
                   />
                 ),
               }}
-            />
+            /> */}
 
             <Stack.Screen
               name="StoreLocator"

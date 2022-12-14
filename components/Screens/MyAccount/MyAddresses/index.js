@@ -27,9 +27,7 @@ const MyAddresses = props => {
   const [peritem, setPeritem] = useState(null);
   const [selected, setSelected] = useState('');
 
-useEffect(()=>{
 
-},[])
 
   const handleClick = async id => {
     console.log('hihi', id);
@@ -66,7 +64,7 @@ useEffect(()=>{
       response.data,
     );
   };
-  const openCheckout = (data) => {
+  const openCheckout = (data,UDID) => {
     console.log(
       'selectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselected',
       selected,
@@ -93,6 +91,7 @@ useEffect(()=>{
         props.navigation.navigate('OrderConfirmation', {
           amount: amount,
           addressData: selected,
+          UDID:UDID
         });
         // alert(`Success: ${data.razorpay_payment_id}`);
       })
@@ -117,7 +116,8 @@ useEffect(()=>{
       response.data,
     );
      await paymentModes()
-    openCheckout(response.data)
+     const UDID =  await getUDID()
+    openCheckout(response.data,UDID)
   }
   const paymentModes = async() =>{
     const response = await axios.get(
@@ -132,7 +132,24 @@ useEffect(()=>{
     console.log(
       'paymentModespaymentModespaymentModespaymentModespaymentModespaymentModespaymentModes',
       response.data,
+      );
+      
+  }
+  const getUDID = async() =>{
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/payment/razorpay/callback/url?lang=en&curr=INR`
+      // {},
+      // {
+      //   headers: {
+      //     Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
+      //   },
+      // },
     );
+    console.log(
+      'getUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDID',
+      response.data,
+    );
+    return response.data
   }
   return (
     <>
