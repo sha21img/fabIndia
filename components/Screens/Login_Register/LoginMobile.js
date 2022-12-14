@@ -1,18 +1,36 @@
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Colors} from '../../../assets/Colors';
 import CommonButton from '../../Common/CommonButton';
 import Fonts from '../../../assets/fonts';
 import CountryPicker from 'rn-country-picker';
 import {TextInput} from 'react-native-paper';
 import {UnAuthPostData} from '../../Common/Helper';
-
+import Toast from 'react-native-simple-toast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 export default function LoginMobile(props) {
   const [mobilePrefix, setMobilePrefix] = useState('91');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [token, setToken] = useState('');
 
   const _selectedValue = index => {
     setMobilePrefix(index);
+  };
+  const generatTokenWithout = async () => {
+    await axios
+      .post(
+        `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+      )
+      .then(
+        response => {
+          console.log('response-=-=-=-=-=-generatTokenWithout', response.data);
+          AsyncStorage.setItem('generatToken', JSON.stringify(response.data));
+        },
+        error => {
+          console.log('response-=-=-=-=-=-error', error);
+        },
+      );
   };
 
   const handleOTP = async () => {
@@ -23,18 +41,27 @@ export default function LoginMobile(props) {
       mobileDailCode: `+${mobilePrefix}`,
       mobileNumber: phoneNumber,
     };
-    // let res = await UnAuthPostData(
-    //   `fabindiab2c/otp/generate?lang=en&curr=INR`,
-    //   param,
-    // );
-
-    props.navigation.navigate('Otp', {
-      transactionId: '',
-      // transactionId: res?,
-      mobilePrefix: mobilePrefix,
-      phoneNumber: phoneNumber,
-    });
+    let res = await UnAuthPostData(`otp/generate?lang=en&curr=INR`, param);
+    if (res.transactionId) {
+      props.navigation.navigate('Otp', {
+        transactionId: res.transactionId,
+        mobilePrefix: mobilePrefix,
+        phoneNumber: phoneNumber,
+      });
+    } else {
+      Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
+    }
   };
+  const checkToken = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    if (getToken == null) {
+      await generatTokenWithout();
+    }
+  };
+  useEffect(() => {
+    checkToken();
+  }, []);
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>

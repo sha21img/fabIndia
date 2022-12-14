@@ -9,10 +9,11 @@ import {
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import InputText from '../../Common/InputText';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
+import axios from 'axios';
 import {postDataAuth} from '../../Common/Helper';
 import CommonButton from '../../Common/CommonButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -40,22 +41,76 @@ export default function Login(props) {
   };
 
   const handleSubmit = async () => {
-    const formData = new FormData();
-    formData.append('grant_type', 'password');
-    formData.append('client_id', 'mobile_android');
-    formData.append('client_secret', 'secret');
-    formData.append('username', email);
-    formData.append('password', password);
     if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(email)) {
-      await AsyncStorage.setItem('token', 'dummytoken');
-      props.navigation.navigate('MyAccount', {
-        screen: 'MyAccounts',
-      });
-      const response = await postDataAuth('oauth/token', formData);
+      var details = {
+        grant_type: 'password',
+        scope: '',
+        client_id: 'mobile_android',
+        client_secret: 'secret',
+        username: email,
+        password: password,
+      };
+      var formBody = [];
+      for (var property in details) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(details[property]);
+        formBody.push(encodedKey + '=' + encodedValue);
+      }
+      formBody = formBody.join('&');
+      fetch('https://apisap.fabindia.com/authorizationserver/oauth/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        },
+        body: formBody,
+      })
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (res1) {
+          console.log('response==> email-=-=-', res1);
+          if (res1.error) {
+            Toast.showWithGravity(
+              'Enter correct Details',
+              Toast.LONG,
+              Toast.TOP,
+            );
+          } else {
+            AsyncStorage.setItem('generatToken', JSON.stringify(res1));
+            props.navigation.navigate('MyAccount', {
+              screen: 'MyAccounts',
+            });
+          }
+        });
     } else {
       Toast.showWithGravity('Invalid Email', Toast.LONG, Toast.TOP);
     }
   };
+  const generatTokenWithout = async () => {
+    await axios
+      .post(
+        `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+      )
+      .then(
+        response => {
+          console.log('response-=-=-=-=-=-generatTokenWithout', response.data);
+          AsyncStorage.setItem('generatToken', JSON.stringify(response.data));
+        },
+        error => {
+          console.log('response-=-=-=-=-=-error', error);
+        },
+      );
+  };
+  const checkToken = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    if (getToken == null) {
+      await generatTokenWithout();
+    }
+  };
+  useEffect(() => {
+    checkToken();
+  }, []);
 
   return (
     <>
@@ -88,7 +143,7 @@ export default function Login(props) {
         />
         <TouchableOpacity
           style={styles.readText}
-          onPress={() => { 
+          onPress={() => {
             props.navigation.navigate('MyAccount', {
               screen: 'ResetPassword',
             });

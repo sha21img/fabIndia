@@ -8,6 +8,7 @@ const BaseURL = 'https://apisap.fabindia.com/occ/v2/';
 const BaseURL1 = 'https://apisap.fabindia.com/occ/v2/fabindiab2c/';
 const AuthBaseUrl = 'https://apisap.fabindia.com/authorizationserver/';
 const AuthAuthor = 'bearer nCVKPnrYg-ZgHMn0djWh1YSFCX0';
+
 export const imageURL = 'https://apisap.fabindia.com/';
 const postData = async (url, body) => {
   const Token = 'bearer ElhKLe-VvjSmB_TEwcjzHZUyubU';
@@ -60,11 +61,14 @@ const getComponentData = async path => {
   }
 };
 const patchComponentData = async path => {
+  const get = await AsyncStorage.getItem('generatToken');
+  const getToken = JSON.parse(get);
   // const Token = localStorage.getItem('token');
   const response = await fetch(`${BaseURL}/${path}`, {
     method: 'PATCH',
     // mode: 'cors',
     headers: {
+      Authorization: `${getToken.token_type} ${getToken.access_token}`,
       'Content-Type': 'application/json',
     },
   });
@@ -75,15 +79,19 @@ const patchComponentData = async path => {
     console.error(e);
   }
 };
-const UnAuthPostData = async (url, formData) => {
+
+const UnAuthPostData = async (url, data) => {
+  const get = await AsyncStorage.getItem('generatToken');
+  const getToken = JSON.parse(get);
+
   const response = await fetch(`${BaseURL1}${url}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'bearer ElhKLe-VvjSmB_TEwcjzHZUyubU',
+      Authorization: `${getToken.token_type} ${getToken.access_token}`,
       Accept: 'application/json',
     },
-    body: JSON.stringify(formData),
+    body: JSON.stringify(data),
   });
   try {
     const result2 = await response.json();
@@ -102,10 +110,6 @@ const getCartID = async () => {
       },
     },
   );
-  console.log(
-    'getCardID+++++++++++++++++++++++++++++++++++++++++++++++?????????????????????????????????????????????????????????',
-    response.data,
-  );
 
   await AsyncStorage.setItem('cartID', JSON.stringify(response.data?.code));
 };
@@ -122,7 +126,7 @@ const postDataAuth = async (url, formData) => {
       // Accept: 'multipart/form-data',
     },
   });
-  console.log(response.data);
+  console.log(response.data, 'postDataAuth');
   try {
     const result1 = await response.data;
     return result1;

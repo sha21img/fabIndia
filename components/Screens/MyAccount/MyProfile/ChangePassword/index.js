@@ -18,6 +18,7 @@ import {Styles} from './style';
 import CommonButton from '../../../../Common/CommonButton';
 import Fonts from '../../../../../assets/fonts';
 import {UnAuthPostData} from '../../../../Common/Helper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 
 export default function ChangePassword(props) {
@@ -73,21 +74,42 @@ export default function ChangePassword(props) {
 
   console.log('user', password.newPass.length, password.confirmPass.length);
 
-  const handleChangePassword = () => {
-    const body = {
+  const handleChangePassword = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    var details = {
       old: password.oldPass,
       new: password.newPass,
     };
-    const res = UnAuthPostData(
-      'fabindiab2c/users/current/password?lang=en&curr=INR',
-      body,
-    );
-    console.log(res, "resresresresresres");
-    Toast.showWithGravity(
-      'Password Changed Succesfully',
-      Toast.LONG,
-      Toast.TOP,
-    );
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
+    fetch(
+      'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/password?lang=en&curr=INR',
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        },
+        body: formBody,
+      },
+    ).then(res => {
+      if (res.ok) {
+        console.log(res, 'resresresresresres');
+      }
+      return res.json();
+    }).then;
+
+    // Toast.showWithGravity(
+    //   'Password Changed Succesfully',
+    //   Toast.LONG,
+    //   Toast.TOP,
+    // );
   };
 
   return (

@@ -31,6 +31,7 @@ import HomeHeader from './components/Screens/Home/HomeHeader';
 import CheckAddress from './components/Screens/MyAccount/MyAddresses/CheckAddress';
 import axios from 'axios';
 import {Provider, useDispatch} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import CartList from './components/Screens/Checkout/CartList';
 import configureStore from './components/Common/Helper/Redux/store';
 
@@ -80,15 +81,28 @@ export default function App(props) {
     </TouchableOpacity>
   );
   const generatTokenWithout = async () => {
-    const response = await axios.get(
-      'https://apisap.fabindiahome.com/authorizationserver/oauth/token',
-      {
-        // client_id: 'mobile_android',
-        // client_secret: 'secret',
-        // grant_type: 'client_credentials',
-      },
-    );
-    console.log('response-=-=-=-=-=-response', response);
+    await axios
+      .post(
+        `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+      )
+      .then(
+        response => {
+          console.log('response-=-=-=-=-=-generatTokenWithout', response.data);
+          AsyncStorage.setItem('generatToken', JSON.stringify(response.data));
+        },
+        error => {
+          console.log('response-=-=-=-=-=-error', error);
+        },
+      );
+  };
+  const checkToken = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    console.log('asdfasdfasdfasdf', JSON.parse(get));
+    if (getToken == null) {
+      generatTokenWithout();
+    }
+    // }
   };
   const getCartDetails = async () => {
     const value = await AsyncStorage.getItem('cartID');
@@ -149,8 +163,7 @@ export default function App(props) {
   //   console.log('response-=-=-=-=-=-response', response);
   // };
   useEffect(() => {
-    generatTokenWithout();
-    // generatTokenWith();
+    checkToken();
   }, []);
   const rightText = (
     <TouchableOpacity>
@@ -304,6 +317,54 @@ export default function App(props) {
                     title="Your Shopping cart"
                     customStyle={{
                       backgroundColor: '#F8F6F5',
+                    }}
+                  />
+                ),
+              }}
+            />
+
+            <Stack.Screen
+              name="CartList"
+              component={CartList}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Your Shopping cart"
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                    }}
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="CartPage"
+              component={CartPage}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Your Shopping cart"
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                    }}
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="Address"
+              component={EditAddress}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Address"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                      marginBottom: 4,
                     }}
                   />
                 ),

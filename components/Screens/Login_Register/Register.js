@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Image,
@@ -21,6 +21,9 @@ import Fonts from '../../../assets/fonts';
 import {UnAuthPostData, postData} from '../../Common/Helper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Feather from 'react-native-vector-icons/Feather';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import Toast from 'react-native-simple-toast';
 
 const faqs = [
   {
@@ -32,34 +35,6 @@ const faqs = [
     name: 'Last name',
   },
 ];
-const data = [
-  {label: 'Andhra Pradesh'},
-  {label: 'Arunachal Pradesh'},
-  {label: 'Bihar'},
-  {label: 'Chhattisgarh'},
-  {label: 'Goa'},
-  {label: 'Gujarat'},
-  {label: 'Haryana'},
-  {label: 'Himachal Pradesh'},
-  {label: 'Jharkhand'},
-  {label: 'Karnataka'},
-  {label: 'Kerala'},
-  {label: 'Madhya Pradesh'},
-  {label: 'Maharashtra'},
-  {label: 'Manipur'},
-  {label: 'Meghalaya'},
-  {label: 'Mizoram'},
-  {label: 'Nagaland'},
-  {label: 'Odisha'},
-  {label: 'Punjab'},
-  {label: 'Rajasthan'},
-  {label: 'Tamil Nadu'},
-  {label: 'Telangana'},
-  {label: 'Tripura'},
-  {label: 'Uttar Pradesh'},
-  {label: 'Uttarakhand'},
-  {label: 'West Bengal'},
-];
 const Register = props => {
   const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -70,7 +45,7 @@ const Register = props => {
     newPass: '',
     confPass: '',
   });
-  const [mobilePrefix, setMobilePrefix] = useState('60');
+  const [mobilePrefix, setMobilePrefix] = useState('91');
   const [gender, SetGender] = useState('');
   const [generate, setgenerate] = useState(false);
   const [transactionId, settransactionId] = useState('');
@@ -88,7 +63,21 @@ const Register = props => {
   const _selectedValue = index => {
     setMobilePrefix(index);
   };
-
+  const generatTokenWithout = async () => {
+    await axios
+      .post(
+        `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+      )
+      .then(
+        response => {
+          console.log('response-=-=-=-=-=-generatTokenWithout', response.data);
+          AsyncStorage.setItem('generatToken', JSON.stringify(response.data));
+        },
+        error => {
+          console.log('response-=-=-=-=-=-error', error);
+        },
+      );
+  };
   const HandleRegister = async () => {
     let params = {
       consents: '',
@@ -104,15 +93,28 @@ const Register = props => {
       transactionId: transactionId,
       uid: text.email,
     };
-    console.log(params);
-    const res = await UnAuthPostData('users?lang=en&curr=INR', params);
-    console.log(res);
-    props.navigation.navigate('RegisterSuccess');
-    if (res.status) {
-      // settransactionId(res?.data?.transactionId);
-      // setgenerate(true);
+    console.log(params, 'register all data==params');
+    const res = await UnAuthPostData('users?lang=en&curr=INR', params).then(
+      res => {
+        if (res?.errors) {
+          Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
+        } else {
+          props.navigation.navigate('RegisterSuccess');
+          console.log(res);
+        }
+      },
+    );
+  };
+  const checkToken = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    if (getToken == null) {
+      await generatTokenWithout();
     }
   };
+  useEffect(() => {
+    checkToken();
+  });
   const showDatePicker = () => {
     console.log('yes');
     setDatePickerVisibility(true);
@@ -146,15 +148,16 @@ const Register = props => {
       mobileNumber: phoneNumber,
     };
     console.log(params);
-    const response = await UnAuthPostData(
-      'otp/generate?lang=en&curr=INR',
-      params,
-    );
-    console.log('res for regitser', response);
-    if (!!res) {
-      settransactionId(res?.data?.transactionId);
-      setgenerate(true);
-    }
+    await UnAuthPostData('otp/generate?lang=en&curr=INR', params).then(res => {
+      console.log('res for regitser number sent', res);
+      if (res.transactionId) {
+        Toast.showWithGravity('OTP Sent !', Toast.LONG, Toast.TOP);
+        settransactionId(res?.transactionId);
+        setgenerate(true);
+      } else {
+        Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
+      }
+    });
   };
 
   const VerifyOTP = async () => {
@@ -165,14 +168,18 @@ const Register = props => {
       mobileNumber: phoneNumber,
     };
     console.log(params);
-    const res = await UnAuthPostData('otp/validate?lang=en&curr=INR', params);
-    console.log(res);
-    if (!!res) {
-      setgenerate(false);
-    }
+    const res = await UnAuthPostData(
+      'otp/validate?lang=en&curr=INR',
+      params,
+    ).then(res => {
+      if (res?.errors) {
+        Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
+      } else {
+        Toast.showWithGravity('Done', Toast.LONG, Toast.TOP);
+        setgenerate(false);
+      }
+    });
   };
-
-  console.log('DOB', DOB);
   return (
     <>
       <ScrollView
@@ -220,14 +227,16 @@ const Register = props => {
                 }}
                 placeholder="Enter 4-digit OTP"
               />
-              <Text
-                style={{
-                  color: Colors.primarycolor,
-                  textAlign: 'center',
-                  marginVertical: 10,
-                }}>
-                Resend OTP
-              </Text>
+              <TouchableOpacity onPress={() => GenerateOtp()}>
+                <Text
+                  style={{
+                    color: Colors.primarycolor,
+                    textAlign: 'center',
+                    marginVertical: 10,
+                  }}>
+                  Resend OTP
+                </Text>
+              </TouchableOpacity>
             </View>
           ) : (
             <View style={Styles.pickerbox}>
@@ -266,12 +275,12 @@ const Register = props => {
           )}
           {generate ? (
             <CommonButton
-              disable={phoneNumber.length != 10}
+              disable={Otp.length != 4}
               handleClick={VerifyOTP}
               txt="Confirm OTP"
               customViewStyle={{
                 backgroundColor:
-                  phoneNumber.length == 10 ? Colors.primarycolor : '#BDBDBD',
+                  Otp.length == 4 ? Colors.primarycolor : '#BDBDBD',
                 marginVertical: 10,
               }}
             />
