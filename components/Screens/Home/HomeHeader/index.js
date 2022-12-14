@@ -46,7 +46,7 @@ export default function HomeHeader(props) {
       // {},
       {
         headers: {
-          Authorization: `bearer 2LUFsc7CwqiHcQ_ni3ak3IPG3as`,
+          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
         },
       },
     );

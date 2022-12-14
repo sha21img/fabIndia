@@ -161,7 +161,7 @@ export default function ProductDetailed(props) {
       },
       {
         headers: {
-          Authorization: `Bearer W0hBU03OuX1wkL0vAyA4Zlnpo4Q`,
+          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
         },
       },
     );

@@ -38,7 +38,7 @@ useEffect(()=>{
       // {},
       {
         headers: {
-          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
+          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
         },
       },
     );
@@ -51,16 +51,13 @@ useEffect(()=>{
   };
 
   const setDeliveryAddress = async id => {
-    console.log(
-      'ididididididididididididididididididididididididididididididid',
-      id,
-    );
+  
     const response = await axios.put(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/addresses/delivery?addressId=${id}`,
       {},
       {
         headers: {
-          Authorization: `Bearer KEib58GZ2gb1Fxogc-FSSkZ-fqM`,
+          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
         },
       },
     );
@@ -69,7 +66,7 @@ useEffect(()=>{
       response.data,
     );
   };
-  const openCheckout = () => {
+  const openCheckout = (data) => {
     console.log(
       'selectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselected',
       selected,
@@ -81,7 +78,7 @@ useEffect(()=>{
       key: 'rzp_test_T70CWf6iJpuekL',
       amount: amount * 100,
       name: 'FAB India',
-      orderId: 'order_test_121',
+      orderId: data.orderId,
       prefill: {
         email: selected.email,
         contact: selected.phone,
@@ -105,6 +102,38 @@ useEffect(()=>{
         // alert(`Error: ${error.code} | ${error.description}`);
       });
   };
+  const getOrderID = async() =>{
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/payment/razorpay/orderid/request?lang=en&curr=INR`,
+      // {},
+      {
+        headers: {
+          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
+        },
+      },
+    );
+    console.log(
+      'handleClickhandleClickhandleClickhandleClickhandleClickhandleClickhandleClick',
+      response.data,
+    );
+     await paymentModes()
+    openCheckout(response.data)
+  }
+  const paymentModes = async() =>{
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/paymentModes?fields=DEFAULT`,
+      // {},
+      {
+        headers: {
+          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
+        },
+      },
+    );
+    console.log(
+      'paymentModespaymentModespaymentModespaymentModespaymentModespaymentModespaymentModes',
+      response.data,
+    );
+  }
   return (
     <>
       <ScrollView
@@ -266,7 +295,7 @@ useEffect(()=>{
           customViewStyle={{
             backgroundColor: !!selected ? Colors.primarycolor : '#BDBDBD',
           }}
-          handleClick={openCheckout}
+          handleClick={getOrderID}
           disable={!!!selected}
         />
       </View>

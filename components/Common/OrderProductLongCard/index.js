@@ -1,12 +1,129 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Modal,
+  TextInput,
+} from 'react-native';
+import React, {useState} from 'react';
 import {image} from '../../../assets/images';
 import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import RadioButtonRN from 'radio-buttons-react-native';
+import CommonButton from '../CommonButton';
+import axios from 'axios';
+export default function OrderProductLongCard({
+  data = {},
+  status,
+  orderID,
+  getorderDetails,
+  handliClick = null,
+}) {
+  const [showmodal, setshowmodal] = useState(false);
+  const [comment, setComment] = useState(null);
+  const [radio, setRadio] = useState(null);
+  const [statusshow, setStatushow] = useState(data?.status?.name || null);
+  const [returnshow, setreturnshow] = useState(false);
+  const [exchangeshow, setexchangeshow] = useState(false);
 
-export default function OrderProductLongCard({data = [], handliClick = null}) {
-  return data.map(item => {
-    return (
+  const radiodata = [
+    {
+      label: 'Delay in Delivery',
+      index: 0,
+      reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+    },
+    {
+      label: 'Duplicate Order Placed',
+      index: 1,
+      reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+    },
+    {
+      label: 'Incorrect size/style/color ordered',
+      index: 2,
+      reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+    },
+    {
+      label: 'Found Better Price on other website/store',
+      index: 3,
+      reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+    },
+    {
+      label: 'Product not required anymore (change of mind)',
+      index: 4,
+      reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+    },
+    {
+      label: 'Others (Please specify)',
+      index: 5,
+      reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+    },
+  ];
+  const cancelorder = async () => {
+    console.log('orderIDorderIDorderIDorderID', data?.entryNumber);
+    const response = await axios.post(
+      `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/cancellation?lang=en&curr=INR`,
+      {
+        cancellationRequestEntryInputs: [
+          {
+            orderEntryNumber: data?.entryNumber,
+            quantity: 1,
+            reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+            reasonDescription: comment,
+          },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer w8d9P7MvO0KxVoW2m8XVI8Xf4oM`,
+        },
+      },
+    );
+    console.log(
+      'responseresponseresponseresponseresponseresponseresponse',
+      response.data,
+    );
+    getorderDetails();
+  };
+
+  const exchangeorder = async () => {
+    console.log('orderIDorderIDorderIDorderID', data?.entryNumber);
+    const response = await axios.post(
+      `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orderReturns?fields=DEFAULT`,
+      {
+        orderCode: data?.product?.code,
+        returnRequestEntryInputs: [
+          {
+            orderEntryNumber: data?.entryNumber,
+            quantity: 1,
+            reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+            reasonDescription: comment,
+          },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer w8d9P7MvO0KxVoW2m8XVI8Xf4oM`,
+        },
+      },
+    );
+    console.log(
+      'responseresponseresponseresponseresponseresponseresponse',
+      response.data,
+    );
+    getorderDetails();
+  };
+
+  // console.log('statusstatusstatusstatus', status);
+  // console.log(
+  //   'data?.status?.namedata?.status?.namedata?.status?.namedata?.status?.name',
+  //   data?.status?.name,
+  // );
+
+  // console.logg("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",data)
+  return (
+    <>
       <View
         style={{
           backgroundColor: '#FFFFFF',
@@ -35,7 +152,7 @@ export default function OrderProductLongCard({data = [], handliClick = null}) {
                 lineHeight: 18,
                 color: Colors.textcolor,
               }}>
-              {item.title}
+              {data?.product?.name}
             </Text>
             <View style={{flexDirection: 'row', paddingVertical: 5}}>
               <Text
@@ -46,7 +163,11 @@ export default function OrderProductLongCard({data = [], handliClick = null}) {
                   lineHeight: 18,
                   color: Colors.textcolor,
                 }}>
-                Size {item.size}
+                Size{' '}
+                {
+                  data?.product?.baseOptions[0]?.selected
+                    ?.variantOptionQualifiers[1].value
+                }
               </Text>
               <Text
                 style={{
@@ -56,7 +177,7 @@ export default function OrderProductLongCard({data = [], handliClick = null}) {
                   lineHeight: 18,
                   color: Colors.textcolor,
                 }}>
-                Qty {item.quantity}
+                Qty {data?.quantity}
               </Text>
             </View>
             <Text
@@ -67,101 +188,409 @@ export default function OrderProductLongCard({data = [], handliClick = null}) {
                 lineHeight: 19,
                 color: Colors.textcolor,
               }}>
-              ₹ {item.price}
+              {data?.totalPrice?.formattedValue}
             </Text>
 
-            <View style={{flexDirection: 'row', paddingTop: 10}}>
-              <View
-                style={{
-                  height: 15,
-                  width: 15,
-                  borderRadius: 100,
-                  borderWidth: 1,
-                  borderColor: '#FAA859',
-                  marginRight: 5,
-                }}></View>
+            <View
+              style={{
+                flexDirection: 'row',
+                paddingTop: 10,
+                alignItems: 'center',
+              }}>
               <View>
                 <Text
                   style={{
-                    color: '#FAA859',
+                    color: 'red',
                     fontSize: 14,
                     fontFamily: Fonts.Assistant700,
                     lineHeight: 18,
                   }}>
-                  In progress
+                  {!!statusshow ? statusshow : null}
                 </Text>
-                <Text>Arriving by Friday, 14 May</Text>
+                {/* <Text>Arriving by Friday, 14 May</Text> */}
               </View>
             </View>
           </View>
         </View>
-        <View
-          style={{
-            paddingVertical: 10,
-            alignItems: 'center',
-            backgroundColor: '#FAFAFA',
-            flexDirection: 'row',
-          }}>
-          <TouchableOpacity
-            onPress={() => handliClick('Return')}
+
+        {!!data?.status?.name == 'Cancelled' ? null : status == 'processing' ? (
+          <View
             style={{
-              width: '50%',
+              paddingVertical: 15,
               alignItems: 'center',
-              borderRightWidth: 1,
-              borderRightColor: '#BDBDBD',
+              backgroundColor: '#FAFAFA',
             }}>
-            <Text
-              style={{
-                fontFamily: Fonts.Assistant600,
-                fontSize: 14,
-                lineHeight: 18,
-                color: Colors.textcolor,
-              }}>
-              Return
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{width: '50%', alignItems: 'center'}}
-            onPress={() => handliClick('Exchange')}>
-            <Text
-              style={{
-                fontFamily: Fonts.Assistant600,
-                fontSize: 14,
-                lineHeight: 18,
-                color: Colors.textcolor,
-              }}>
-              Exchange
-            </Text>
-          </TouchableOpacity>
-          {/* <Text
+            <TouchableOpacity
+              onPress={() => {
+                setshowmodal(true);
+              }}
+              style={{alignItems: 'center', justifyContent: 'center'}}>
+              <Text
+                style={{
+                  fontFamily: Fonts.Assistant600,
+                  fontSize: 14,
+                  lineHeight: 18,
+                  color: Colors.textcolor,
+                }}>
+                Cancel
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View
             style={{
-              fontFamily: Fonts.Assistant600,
-              fontSize: 14,
-              lineHeight: 18,
-              color: Colors.textcolor,
+              paddingVertical: 10,
+              alignItems: 'center',
+              backgroundColor: '#FAFAFA',
+              flexDirection: 'row',
             }}>
-            Cancel
-          </Text> */}
-        </View>
-        <View
-          style={{
-            paddingVertical: 10,
-            alignItems: 'center',
-            backgroundColor: '#FAFAFA',
-          }}>
-          <View style={{alignItems: 'center', justifyContent: 'center'}}>
-            <Text
+            <TouchableOpacity
+              onPress={() => setreturnshow(true)}
               style={{
-                fontFamily: Fonts.Assistant600,
-                fontSize: 14,
-                lineHeight: 18,
-                color: Colors.textcolor,
+                width: '50%',
+                alignItems: 'center',
+                borderRightWidth: 1,
+                borderRightColor: '#BDBDBD',
               }}>
-              Cancel
-            </Text>
+              <Text
+                style={{
+                  fontFamily: Fonts.Assistant600,
+                  fontSize: 14,
+                  lineHeight: 18,
+                  color: Colors.textcolor,
+                }}>
+                Return
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{width: '50%', alignItems: 'center'}}
+              onPress={() => setexchangeshow(true)}>
+              <Text
+                style={{
+                  fontFamily: Fonts.Assistant600,
+                  fontSize: 14,
+                  lineHeight: 18,
+                  color: Colors.textcolor,
+                }}>
+                Exchange
+              </Text>
+            </TouchableOpacity>
+            {/* <Text
+        style={{
+          fontFamily: Fonts.Assistant600,
+          fontSize: 14,
+          lineHeight: 18,
+          color: Colors.textcolor,
+        }}>
+        Cancel
+      </Text> */}
+          </View>
+        )}
+      </View>
+
+      {/* cancel */}
+      <Modal
+        visible={showmodal}
+        animationType="slide"
+        swipeDirection={['down']}
+        transparent={true}>
+        <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}>
+          <View
+            style={{
+              backgroundColor: 'white',
+              elevation: 5,
+              borderTopRightRadius: 15,
+              borderTopLeftRadius: 15,
+              paddingHorizontal: 15,
+              paddingVertical: 10,
+              marginTop: 'auto',
+              width: '100%',
+              height: '80%',
+            }}>
+            <View style={{margin: 10}}>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontFamily: Fonts.Assistant700, fontSize: 16}}>
+                  You are about to cancel this item!
+                </Text>
+                <TouchableOpacity onPress={() => setshowmodal(false)}>
+                  <Ionicons name="close-circle-outline" size={24} />
+                </TouchableOpacity>
+              </View>
+              <Text
+                style={{
+                  paddingVertical: 15,
+                  fontFamily: Fonts.Assistant400,
+                  fontSize: 14,
+                }}>
+                Are you sure you want to cancel the item{' '}
+                <Text style={{fontFamily: Fonts.Assistant700, fontSize: 14}}>
+                  {data?.product?.name}?
+                </Text>
+              </Text>
+              <Text>
+                {' '}
+                If yes, do let us know why so we can serve you better the next
+                time!
+              </Text>
+
+              <View style={{paddingVertical: 18}}>
+                <TextInput
+                  numberOfLines={3}
+                  placeholder="Write your Comment"
+                  multiline
+                  onChangeText={text => {
+                    setComment(text);
+                  }}
+                  value={comment}
+                  style={{
+                    borderWidth: 1,
+                    borderColor: '#979797',
+                    borderRadius: 4,
+                    marginHorizontal: 15,
+                    paddingHorizontal: 15,
+                    textAlignVertical: 'top',
+                  }}
+                />
+              </View>
+              <Text
+                style={{
+                  paddingVertical: 15,
+                  fontFamily: Fonts.Assistant400,
+                  fontSize: 14,
+                }}>
+                {' '}
+                Reason for cancellation
+              </Text>
+              <RadioButtonRN
+                animationTypes={['zoomIn']}
+                circleSize={17}
+                box={false}
+                data={radiodata}
+                activeColor={Colors.primarycolor}
+                selectedBtn={e => {
+                  console.log('e', e);
+                  setRadio(e);
+                }}
+                style={{marginVertical: 9}}
+              />
+              <CommonButton
+                backgroundColor="#BDBDBD"
+                txt="Submit"
+                customViewStyle={{
+                  backgroundColor:
+                    !!comment && !!radio ? Colors.primarycolor : 'lightgrey',
+                  marginTop: 20,
+                }}
+                disable={!(!!comment && !!radio)}
+                handleClick={cancelorder}
+              />
+            </View>
           </View>
         </View>
-      </View>
-    );
-  });
+      </Modal>
+      {/* return */}
+      <Modal
+        visible={returnshow}
+        animationType="slide"
+        swipeDirection={['down']}
+        transparent={true}>
+        <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}>
+          <View
+            style={{
+              backgroundColor: 'white',
+              elevation: 5,
+              borderTopRightRadius: 15,
+              borderTopLeftRadius: 15,
+              paddingHorizontal: 15,
+              paddingVertical: 10,
+              marginTop: 'auto',
+              width: '100%',
+              height: '80%',
+            }}>
+            <View style={{margin: 10}}>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontFamily: Fonts.Assistant700, fontSize: 16}}>
+                  You are about to cancel this item!
+                </Text>
+                <TouchableOpacity onPress={() => setreturnshow(false)}>
+                  <Ionicons name="close-circle-outline" size={24} />
+                </TouchableOpacity>
+              </View>
+              <Text
+                style={{
+                  paddingVertical: 15,
+                  fontFamily: Fonts.Assistant400,
+                  fontSize: 14,
+                }}>
+                Are you sure you want to cancel the item{' '}
+                <Text style={{fontFamily: Fonts.Assistant700, fontSize: 14}}>
+                  {data?.product?.name}?
+                </Text>
+              </Text>
+              <Text>
+                {' '}
+                If yes, do let us know why so we can serve you better the next
+                time!
+              </Text>
+
+              <View style={{paddingVertical: 18}}>
+                <TextInput
+                  numberOfLines={3}
+                  placeholder="Write your Comment"
+                  multiline
+                  onChangeText={text => {
+                    setComment(text);
+                  }}
+                  value={comment}
+                  style={{
+                    borderWidth: 1,
+                    borderColor: '#979797',
+                    borderRadius: 4,
+                    marginHorizontal: 15,
+                    paddingHorizontal: 15,
+                    textAlignVertical: 'top',
+                  }}
+                />
+              </View>
+              <Text
+                style={{
+                  paddingVertical: 15,
+                  fontFamily: Fonts.Assistant400,
+                  fontSize: 14,
+                }}>
+                {' '}
+                Reason for cancellation
+              </Text>
+              <RadioButtonRN
+                animationTypes={['zoomIn']}
+                circleSize={17}
+                box={false}
+                data={radiodata}
+                activeColor={Colors.primarycolor}
+                selectedBtn={e => {
+                  console.log('e', e);
+                  setRadio(e);
+                }}
+                style={{marginVertical: 9}}
+              />
+              <CommonButton
+                backgroundColor="#BDBDBD"
+                txt="Submit"
+                customViewStyle={{
+                  backgroundColor:
+                    !!comment && !!radio ? Colors.primarycolor : 'lightgrey',
+                  marginTop: 20,
+                }}
+                disable={!(!!comment && !!radio)}
+                handleClick={cancelorder}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
+      {/* exchange */}
+      <Modal
+        visible={exchangeshow}
+        animationType="slide"
+        swipeDirection={['down']}
+        transparent={true}>
+        <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}>
+          <View
+            style={{
+              backgroundColor: 'white',
+              elevation: 5,
+              borderTopRightRadius: 15,
+              borderTopLeftRadius: 15,
+              paddingHorizontal: 15,
+              paddingVertical: 10,
+              marginTop: 'auto',
+              width: '100%',
+              height: '80%',
+            }}>
+            <View style={{margin: 10}}>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontFamily: Fonts.Assistant700, fontSize: 16}}>
+                  You are about to cancel this item!
+                </Text>
+                <TouchableOpacity onPress={() => setexchangeshow(false)}>
+                  <Ionicons name="close-circle-outline" size={24} />
+                </TouchableOpacity>
+              </View>
+              <Text
+                style={{
+                  paddingVertical: 15,
+                  fontFamily: Fonts.Assistant400,
+                  fontSize: 14,
+                }}>
+                Are you sure you want to cancel the item{' '}
+                <Text style={{fontFamily: Fonts.Assistant700, fontSize: 14}}>
+                  {data?.product?.name}?
+                </Text>
+              </Text>
+              <Text>
+                {' '}
+                If yes, do let us know why so we can serve you better the next
+                time!
+              </Text>
+
+              <View style={{paddingVertical: 18}}>
+                <TextInput
+                  numberOfLines={3}
+                  placeholder="Write your Comment"
+                  multiline
+                  onChangeText={text => {
+                    setComment(text);
+                  }}
+                  value={comment}
+                  style={{
+                    borderWidth: 1,
+                    borderColor: '#979797',
+                    borderRadius: 4,
+                    marginHorizontal: 15,
+                    paddingHorizontal: 15,
+                    textAlignVertical: 'top',
+                  }}
+                />
+              </View>
+              <Text
+                style={{
+                  paddingVertical: 15,
+                  fontFamily: Fonts.Assistant400,
+                  fontSize: 14,
+                }}>
+                {' '}
+                Reason for cancellation
+              </Text>
+              <RadioButtonRN
+                animationTypes={['zoomIn']}
+                circleSize={17}
+                box={false}
+                data={radiodata}
+                activeColor={Colors.primarycolor}
+                selectedBtn={e => {
+                  console.log('e', e);
+                  setRadio(e);
+                }}
+                style={{marginVertical: 9}}
+              />
+              <CommonButton
+                backgroundColor="#BDBDBD"
+                txt="Submit"
+                customViewStyle={{
+                  backgroundColor:
+                    !!comment && !!radio ? Colors.primarycolor : 'lightgrey',
+                  marginTop: 20,
+                }}
+                disable={!(!!comment && !!radio)}
+                handleClick={exchangeorder}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
+    </>
+  );
 }

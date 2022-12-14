@@ -17,7 +17,7 @@ export default function MyOrder() {
     {label: 'Last 1 year', value: 'Last 1 year'},
     {label: '2020', value: '2020'},
   ]);
-  const [dayrange,setRange] = useState(null)
+  const [dayrange,setRange] = useState(30)
   const [genderOpen, setGenderOpen] = useState(false);
   const [genderValue, setGenderValue] = useState('30');
 
@@ -39,10 +39,10 @@ export default function MyOrder() {
    
    const getOrders = async() =>{
      const response = await axios.get(
-       `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders?currentPage=0&days=30&fields=DEFAULT&pageSize=20`,
+       `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
        {
          headers: {
-           Authorization: `Bearer BgbHv0oLxnQtxhw3cxbphBb0FRc`,
+           Authorization: `Bearer w8d9P7MvO0KxVoW2m8XVI8Xf4oM`,
          },
        },
      );
@@ -51,7 +51,6 @@ export default function MyOrder() {
        response.data,
      );
      setOrders(response.data.orders)
-     console.log("moment(`${date} ${startDate}",moment(response.data.orders[0].placed).format("MMM-DD-YYYY"))
      
    }
    console.log("setGendersetGendersetGender",setGenderValue)
@@ -79,10 +78,11 @@ export default function MyOrder() {
       />
       <ScrollView contentContainerStyle={Styles.container}>
         {orders.map(item => {
+          console.log("item.codeitem.code",item.code)
           return (
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('OrderStatus', {screen: item.status})
+                navigation.navigate('OrderStatus', {screen: item.status,orderID:item.code})
               }
               style={Styles.mainbox}>
               <View style={Styles.innertopbox}>
