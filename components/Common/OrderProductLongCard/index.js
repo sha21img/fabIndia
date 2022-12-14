@@ -11,6 +11,7 @@ import {image} from '../../../assets/images';
 import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import RadioButtonRN from 'radio-buttons-react-native';
 import CommonButton from '../CommonButton';
 import axios from 'axios';
@@ -61,6 +62,8 @@ export default function OrderProductLongCard({
     },
   ];
   const cancelorder = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
     console.log('orderIDorderIDorderIDorderID', data?.entryNumber);
     const response = await axios.post(
       `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/cancellation?lang=en&curr=INR`,
@@ -76,7 +79,7 @@ export default function OrderProductLongCard({
       },
       {
         headers: {
-          Authorization: `Bearer w8d9P7MvO0KxVoW2m8XVI8Xf4oM`,
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
       },
     );
@@ -88,6 +91,8 @@ export default function OrderProductLongCard({
   };
 
   const exchangeorder = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
     console.log('orderIDorderIDorderIDorderID', data?.entryNumber);
     const response = await axios.post(
       `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orderReturns?fields=DEFAULT`,
@@ -104,7 +109,7 @@ export default function OrderProductLongCard({
       },
       {
         headers: {
-          Authorization: `Bearer w8d9P7MvO0KxVoW2m8XVI8Xf4oM`,
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
       },
     );

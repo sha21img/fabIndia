@@ -12,10 +12,6 @@ const CardProducts = (props, item) => {
     return data.productCodes;
   };
   const getproductData = async productCodes => {
-    // console.log(
-    //   'props for top tabs--------------------------------------------------------............................................................................................................',
-    //   productCodes,
-    // );
     const params = {
       productCodes: productCodes,
     };
