@@ -28,7 +28,7 @@ export default function CartCard({
 
   const setupData = () => {
     console.log('dataaaaaaaaaaaa', data);
-    let quantity = data.orderEntries.reduce((n, {quantity}) => n + quantity, 0);
+    let quantity = data.entries.reduce((n, { quantity }) => n + quantity, 0);
     console.log('quantityquantity', quantity);
     setQuantity(quantity);
   };
@@ -53,9 +53,9 @@ export default function CartCard({
 
           <View style={Styles.cartContainer}>
             <Image
-              source={image.womenCard1}
-              style={Styles.imagedimension}
               resizeMode="cover"
+              style={Styles.imagedimension}
+              source={{ uri: `https://apisap.fabindia.com/${item.item?.product?.images[0]?.url}` }}
             />
             <View style={Styles.detailContainer}>
               <Text style={Styles.title}>{item?.item?.product?.name}</Text>
@@ -65,7 +65,7 @@ export default function CartCard({
                   {
                     item.item?.product?.baseOptions[0]?.selected
                       ?.variantOptionQualifiers[0]?.value
-                  }
+                  }{' '}
                 </Text>
                 {/* <View
                   style={{
@@ -118,16 +118,16 @@ export default function CartCard({
                 <Text style={Styles.curr}>
                   ₹ {item?.item?.product?.priceAfterDiscount?.value}
                 </Text>
-                <Text style={Styles.curr1}>
+                <Text style={[Styles.curr1, { textDecorationLine: 'line-through' }]}>
                   ₹ {item?.item?.product?.price?.value}
                 </Text>
               </View>
               <Text style={Styles.saveText}>
                 You save ₹{item?.item?.product?.totalDiscount?.value}!
               </Text>
-              <TouchableOpacity onPress={() => monogramClick()}>
+              {/* <TouchableOpacity onPress={() => monogramClick()}>
                 <Text style={Styles.typeText}>Monogrammed</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               {/* <TouchableOpacity onPress={() => CustomClick()}>
                 <Text style={Styles.typeText}>Customized</Text>
               </TouchableOpacity>
@@ -154,7 +154,7 @@ export default function CartCard({
   };
   return (
     <FlatList
-      data={data.orderEntries}
+      data={data.entries}
       showsVerticalScrollIndicator={false}
       keyExtractor={(item, index) => index}
       renderItem={cardListRender}

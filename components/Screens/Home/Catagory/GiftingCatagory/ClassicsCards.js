@@ -8,7 +8,8 @@ import Card1 from '../../../../Common/Card1';
 import axios from 'axios';
 const width = Dimensions.get('window').width;
 
-export default function ClassicsCards({data, customStyles}) {
+export default function ClassicsCards(props) {
+  const {data, customStyles} = props;
   const [carouselData, setCarouselData] = React.useState([]);
   const [productData, setproductData] = React.useState([]);
   const [dataArray, setDataArray] = useState([]);
@@ -27,10 +28,10 @@ export default function ClassicsCards({data, customStyles}) {
       'https://apisap.fabindia.com/occ/v2/fabindiab2c/plpContent/searchProducts?fields=products(name,code,price(FULL),images(FULL),totalDiscount,priceAfterDiscount(FULL),newArrival,sale,stock)&lang=en&curr=INR',
       params,
     );
-    console.log(
-      'response.data]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
-      response.data.products,
-    );
+    // console.log(
+    //   'response.data]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
+    //   response.data.products,
+    // );
     setproductData(response.data.products);
 
     // const response = await getComponentData(
@@ -50,12 +51,7 @@ export default function ClassicsCards({data, customStyles}) {
     console.log('item for classic card', item);
     return (
       // <></>
-      <Card
-        items={item.item}
-        customViewStyle={{marginRight: 15}}
-        originalprice="1,000"
-        offer="20"
-      />
+      <Card {...props} items={item.item} />
     );
   };
   useEffect(() => {

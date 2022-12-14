@@ -45,7 +45,7 @@ export default function NewHighlights(props) {
       <TouchableOpacity
         onPress={() =>
           props.navigation.navigate('LandingPageSaris_Blouses', {
-            code: splitURL,
+            code: splitURL.split('?')[0],
             title: item.item.title,
           })
         }

@@ -67,7 +67,7 @@ export default function FoodCatagory(props) {
           />
         );
       case 'FabTitleCMSTabContainer':
-        return <CommonTitleTab data={param} />;
+        return <CommonTitleTab data={param} {...props} />;
       case 'FabCMSTabContainer':
         return (
           <WomenTab data={param} {...props} />

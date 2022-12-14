@@ -38,6 +38,7 @@ import AboutUsMenu from '../AboutUsMenu';
 import YourWishlist from '../YourWishlist';
 import InteriorCatagory from '../../Common/InteriorCatagory';
 import HomeHeader from '../Home/HomeHeader';
+import WishListCard from '../../Common/WishListCard';
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +66,13 @@ export default function HomeStack() {
         }}
         name="Home"
         component={Home}
+      />
+      <Stack.Screen
+        options={{
+          header: props => <HomeHeader {...props} homeheader={true} />,
+        }}
+        name="YourWishlist"
+        component={YourWishlist}
       />
 
       <Stack.Screen
@@ -126,7 +134,7 @@ export default function HomeStack() {
           ),
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="YourWishlist"
         component={YourWishlist}
         options={{
@@ -142,7 +150,7 @@ export default function HomeStack() {
             />
           ),
         }}
-      />
+      /> */}
       <Stack.Screen
         name="NewArrivals"
         component={NewArrivals}

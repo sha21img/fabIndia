@@ -684,8 +684,8 @@ export default function Dashbord(props) {
         return <Interior data={param} {...props} />;
       case 'YoutubeVideoComponent':
         return <Art_Artist />;
-      case 'FabTitleBannerCarouselComponent':
-        return <Legacy data={param} />;
+      // case 'FabTitleBannerCarouselComponent':
+      //   return <Legacy data={param} />;
       // case 'CMSFlexComponent':
       //   return;
       default:

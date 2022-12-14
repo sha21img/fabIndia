@@ -5,6 +5,7 @@ import {
   Image,
   Modal,
   TouchableOpacity,
+  Keyboard,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import CartCard from '../../../Common/CartCard';
@@ -20,6 +21,8 @@ import Payment from '../Payment';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckAddress from '../../MyAccount/MyAddresses/CheckAddress';
+import InputText from '../../../Common/InputText';
+import Toast from 'react-native-simple-toast';
 
 const customStyles = {
   stepIndicatorSize: 30,
@@ -61,6 +64,7 @@ export default function CartList(props) {
   const [totalPrice, setTotalPrice] = useState(null);
   const [entrynum, setEntrynum] = useState(null);
   const [maxstock, setMaxstock] = useState(null);
+  const [couponCode, setCouponCode] = useState('');
 
   const {cartdetails, getCartDetails} = props;
   useEffect(() => {
@@ -76,6 +80,54 @@ export default function CartList(props) {
   const CustomClick = () => {
     setShowCustom(true);
   };
+
+  const deleteCouponCode = async (code) => {
+    Keyboard.dismiss()
+    const response = await axios.delete(
+      // https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/carts/08008002/vouchers/S1_Percentage_discount_coupon?lang=en&curr=INR
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751/vouchers/${code}?lang=en&curr=INR`,
+      {
+        headers: {
+          Authorization: `bearer W0hBU03OuX1wkL0vAyA4Zlnpo4Q`,
+        },
+      },
+    );
+    getCartDetails();
+    console.log('checkCouponCode===>', JSON.stringify(response.data));
+    if (response && response.status == 200) {
+      setCouponCode('')
+      if (response.data?.vouchers.length > 0) {
+        // success
+      }
+      else {
+        Toast.show('Invalid code', Toast.LONG);
+      }
+    }
+  }
+
+  const checkCouponCode = async () => {
+    Keyboard.dismiss()
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751/vouchers?voucherId=${couponCode}&lang=en&curr=INR`,
+      {
+        headers: {
+          Authorization: `bearer W0hBU03OuX1wkL0vAyA4Zlnpo4Q`,
+        },
+      },
+    );
+    getCartDetails();
+    // console.log('checkCouponCode===>', JSON.stringify(response.data));
+    if (response && response.status == 200) {
+      setCouponCode('')
+      if (response.data?.vouchers.length > 0) {
+        // success
+      }
+      else {
+        Toast.show('Invalid code provided', Toast.LONG);
+      }
+    }
+  }
+
   const SizeQClick = data => {
     setShowSizeQ(true);
     console.log(
@@ -95,7 +147,7 @@ export default function CartList(props) {
     console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
     console.log('dataaaaaaaaaaaaaaaaaa00000000000000000000', data.entryNumber);
     const response = await axios.delete(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/entries/${data.entryNumber}`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751/entries/${data.entryNumber}`,
       // {},
       {
         headers: {
@@ -118,7 +170,7 @@ export default function CartList(props) {
 
   const setupData = () => {
     console.log('dataaaaaaaaaaaa', cartdetails);
-    let quantity = cartdetails.orderEntries.reduce(
+    let quantity = cartdetails.entries.reduce(
       (n, {quantity}) => n + quantity,
       0,
     );
@@ -126,7 +178,7 @@ export default function CartList(props) {
     setTotalquantity(quantity);
     let sum = 0;
 
-    cartdetails.orderEntries.forEach(value => {
+    cartdetails.entries.forEach(value => {
       sum += value.totalPrice.value;
     });
 
@@ -136,7 +188,7 @@ export default function CartList(props) {
 
   const updateQuantity = async () => {
     const response = await axios.patch(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/entries/${entrynum}`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751/entries/${entrynum}`,
       {
         quantity: quantity,
       },
@@ -181,7 +233,7 @@ export default function CartList(props) {
           <>
             <View style={styles.cartDetailContainer}>
               <View style={styles.cartDetail}>
-                <Text style={styles.itemtext}>{totalquantity} items</Text>
+                <Text style={styles.itemtext}>{cartdetails?.deliveryItemsQuantity} items</Text>
                 <TouchableOpacity onPress={() => orderValueDetail()}>
                   <Text style={styles.itemTextDesc}>
                     View Order value details
@@ -189,8 +241,8 @@ export default function CartList(props) {
                 </TouchableOpacity>
               </View>
               <View style={styles.cartDetail1}>
-                <Text style={styles.totalAmount}>Total: ₹{totalPrice}</Text>
-                <Text style={styles.saveAmount}>You save ₹19,000!</Text>
+                <Text style={styles.totalAmount}>Total: {cartdetails?.totalAmountToPay?.formattedValue}</Text>
+                <Text style={styles.saveAmount}>You save {cartdetails?.productDiscounts?.formattedValue}</Text>
               </View>
             </View>
             <CartCard
@@ -203,7 +255,7 @@ export default function CartList(props) {
             />
           </>
         ) : currentPosition == 1 ? (
-          <CheckAddress {...props} totalPrice={totalPrice} totalquantity={totalquantity} />
+          <CheckAddress {...props} totalPrice={cartdetails?.totalAmountToPay?.value} totalquantity={cartdetails?.deliveryItemsQuantity} />
         ) : currentPosition == 2 ? (
           <Payment />
         ) : null}
@@ -233,17 +285,78 @@ export default function CartList(props) {
         <View style={styles.modalcontainer}>
           <View style={styles.modalbox}>
             <View style={styles.headbox}>
-              <Text style={styles.headtxt}>Monogramming details</Text>
+              <Text style={styles.headtxt}>Order value Details</Text>
               <TouchableOpacity onPress={() => setShowOrderDetail(false)}>
                 <Ionicons name="close-circle-outline" size={24} />
               </TouchableOpacity>
             </View>
-            <Text style={styles.headText2}>You have 6 items in your cart</Text>
+
+            {cartdetails?.appliedVouchers.length == 0 ?
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 15 }}>
+                <InputText
+                  label={'Enter Coupon code'}
+                  value={couponCode}
+                  customStyle={{ flex: 1, paddingHorizontal: 0 }}
+                  onChangeText={text => setCouponCode(text)}
+                />
+
+                <TouchableOpacity
+                  disabled={couponCode == ''}
+                  onPress={() => checkCouponCode()}
+                  style={{ paddingHorizontal: 20, paddingVertical: 8, borderRadius: 20, backgroundColor: couponCode == '' ? '#bdbdbd' : Colors.primarycolor }}>
+                  <Text style={{ fontSize: 16, color: '#fff' }}>Apply</Text>
+                </TouchableOpacity>
+              </View>
+              :
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: 15, padding: 8, backgroundColor: '#F4F4F4', borderRadius: 2 }}>
+                <Text style={{ flex: 1, fontSize: 14, color: '#4A4A4A', fontWeight: 'bold' }}>{cartdetails?.appliedVouchers[0]?.voucherCode}</Text>
+
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => deleteCouponCode(cartdetails?.appliedVouchers[0]?.voucherCode)}>
+
+                  <Image source={image.close} style={{ width: 10, height: 10, marginLeft: 12, tintColor: '#4A4A4A' }} />
+                </TouchableOpacity>
+              </View>
+            }
+
+            <Text style={styles.totalAmount}>Price Detail ({cartdetails?.deliveryItemsQuantity} items)</Text>
             <View style={styles.divider} />
-            {/*  */
-            /* Table */
-            /*  */}
-            <Text>Table</Text>
+
+            <View style={[styles.cartDetailContainer, { backgroundColor: '#fff' }]}>
+              <View style={styles.cartDetail}>
+                <Text style={styles.itemtext}>Total MRP</Text>
+                <Text style={[styles.itemtext, { marginVertical: 8 }]}>Discount on MRP</Text>
+                {cartdetails?.totalDiscounts?.value > 0 ?
+                  <Text style={[styles.itemtext, { marginBottom: 8 }]}>You saved</Text>
+                  : null
+                }
+                <Text style={styles.itemtext}>Delivery Charges</Text>
+              </View>
+
+              <View style={styles.cartDetail1}>
+                <Text style={styles.itemtext}>{cartdetails?.subTotalWithoutDiscount?.formattedValue}</Text>
+                <Text style={[styles.saveAmount, { marginVertical: 8 }]}>- {cartdetails?.productDiscounts?.formattedValue}</Text>
+                {cartdetails?.totalDiscounts?.value > 0 ?
+                  <Text style={[styles.saveAmount, { marginBottom: 8 }]}>- {cartdetails?.totalDiscounts?.formattedValue}</Text>
+                  : null
+                }
+                <Text style={styles.itemtext}>{cartdetails?.deliveryCost?.formattedValue}</Text>
+              </View>
+            </View>
+
+            <View style={styles.divider} />
+
+            <View style={[styles.cartDetailContainer, { backgroundColor: '#fff', marginVertical: 8 }]}>
+              <View style={styles.cartDetail}>
+                <Text style={styles.totalAmount}>Amount payable</Text>
+              </View>
+
+              <View style={styles.cartDetail1}>
+                <Text style={styles.totalAmount}>{cartdetails?.totalAmountToPay?.formattedValue}</Text>
+              </View>
+            </View>
+
           </View>
         </View>
       </Modal>

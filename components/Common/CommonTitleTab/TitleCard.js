@@ -14,11 +14,12 @@ import Card from '../Card';
 const width = Dimensions.get('window').width;
 
 export default function TitleCard(props) {
-  const {data} = props;
+  const {data1} = props;
+  console.log('datasssss', data1);
   const [carouselData, setCarouselData] = React.useState([]);
   const getCarauselIds = async () => {
-    console.log('data for personal category', data);
-    const bannerId = data[0].productCodes;
+    console.log('data for personal category', data1);
+    const bannerId = data1[0].productCodes;
     const splitBannerId = bannerId.split(' ');
     getCarauselData(splitBannerId);
   };
@@ -55,7 +56,7 @@ export default function TitleCard(props) {
     <>
       <FlatList
         horizontal
-        style={Styles.cardListContainer}
+        contentContainerStyle={Styles.cardListContainer}
         showsHorizontalScrollIndicator={false}
         data={carouselData}
         // data={carouselData}

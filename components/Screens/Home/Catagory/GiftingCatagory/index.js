@@ -48,7 +48,11 @@ const GiftingCatagory = props => {
         );
       case 'FabProductCarouselComponent':
         return (
-          <ClassicsCards data={param} customStyles={{marginVertical: 10}} />
+          <ClassicsCards
+            data={param}
+            customStyles={{marginVertical: 10}}
+            {...props}
+          />
         );
       default:
         return;

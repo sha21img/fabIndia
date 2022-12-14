@@ -6,7 +6,8 @@ import CommonButton from '../../../Common/CommonButton';
 import {Colors} from '../../../../assets/Colors';
 import Fonts from '../../../../assets/fonts';
 
-export default function EmptyCart() {
+export default function EmptyCart(props) {
+  console.log('props..............', props);
   return (
     <View style={Styles.mainContainer}>
       <View style={Styles.ImageView}>
@@ -38,6 +39,9 @@ export default function EmptyCart() {
           }}
         />
         <CommonButton
+          handleClick={() => {
+            props.navigation.navigate('Home');
+          }}
           txt="Start shopping"
           customViewStyle={{
             backgroundColor: Colors.primarycolor,

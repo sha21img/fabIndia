@@ -23,38 +23,52 @@ import {postData} from '../../Common/Helper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 import {Colors} from '../../../assets/Colors';
+import {useDispatch, useSelector} from 'react-redux';
+import {wishlistDetail} from '../../Common/Helper/Redux/actions';
 const width = Dimensions.get('window').width;
 
 export default function ProductDetailed(props) {
+  const {productId} = props?.route?.params;
+
   const [productdetail, setProductDetail] = useState({});
   const [cartID, setCartID] = useState(null);
   const [cartSuccess, setCartSuccess] = useState(null);
   const [productImage, setProductImage] = React.useState([]);
-  const [productID, setProductID] = useState(null);
+  const [productID, setProductID] = useState(productId);
   const [wishlistproductCode, setWishlistproductCode] = useState([]);
-
-  const {productId} = props?.route?.params;
-
+  const dispatch = useDispatch();
+  const {cartReducer} = useSelector(state => state);
+  useEffect(() => {
+    setProductID(productId);
+  }, []);
   const getproductDetailedData = async () => {
     const value = await AsyncStorage.getItem('cartID');
     setCartID(value);
 
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}?fields=code,configurable,configuratorType,name,summary,optionId,stock(DEFAULT),price(formattedValue,value,DEFAULT),images(galleryIndex,FULL),baseProduct,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantMatrix(FULL),sizeChart,averageRating,description,canonicalUrl,availableForPickup,url,numberOfReviews,manufacturer,categories(FULL),priceRange,multidimensional,tags,baseOptions,additionalDetails,DEFAULT,classifications,variantOptions,variantType&lang=en&curr=INR`,
+      // ` https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}?fields=code,configurable,configuratorType,name,summary,optionId,stock(DEFAULT),price(formattedValue,value,DEFAULT),images(galleryIndex,FULL),baseProduct,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantMatrix(FULL),sizeChart,averageRating,description,canonicalUrl,availableForPickup,url,numberOfReviews,manufacturer,categories(FULL),priceRange,multidimensional,tags,baseOptions,additionalDetails,DEFAULT,classifications,variantOptions,variantType&lang=en&curr=INR`,
+      // `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}?fields=name,purchasable,baseOptions(DEFAULT),baseProduct,variantOptions(DEFAULT),variantType&lang=en&curr=INR`,
+      // `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}`,
     );
     console.log('response.data04733333333333333333', response.data);
     setProductDetail(response.data);
-    console.log(
-      'productdetail.variantMatrix[0].',
-      response.data?.variantMatrix[0]?.variantOption?.variantOptionQualifiers[0]
-        ?.image?.url,
-    );
-    const newImage = response.data?.variantMatrix.map(item => {
-      return (
-        'https://apisap.fabindia.com/' +
-        item.variantOption?.variantOptionQualifiers[0]?.image?.url
-      );
-    });
+    // console.log(
+    //   'productdetail.variantMatrix[0].',
+    //   response.data?.variantMatrix[0]?.variantOption?.variantOptionQualifiers[0]
+    //     ?.image?.url,
+    // );
+    const newImage = [];
+    //
+    const image = 'https://apisap.fabindia.com/' + response.data.images[0].url;
+    console.log(image, 'asosssssh');
+    newImage.push(image);
+    // const newImage = response.data?.variantMatrix.map(item => {
+    //   return (
+    //     'https://apisap.fabindia.com/' +
+    //     item.variantOption?.variantOptionQualifiers[0]?.image?.url
+    //   );
+    // });
     setProductImage(newImage);
   };
   useEffect(() => {
@@ -112,7 +126,7 @@ export default function ProductDetailed(props) {
   };
   const screenObj = {
     Description: DetailsData,
-    Specification: DetailsData
+    Specification: DetailsData,
   };
   const dataMap = StoreDetails.map(item => ({
     title: item,
@@ -138,7 +152,7 @@ export default function ProductDetailed(props) {
       productID,
     );
     const response = await axios.post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08336188/entries?lang=en&curr=INR`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751/entries?lang=en&curr=INR`,
       {
         quantity: 1,
         product: {
@@ -169,13 +183,13 @@ export default function ProductDetailed(props) {
       'DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue, value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)';
     await axios
       .get(
-        'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR',
+        'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08266751?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR',
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=${aa}&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/?fileds=${aa}?lang=en&curr=INR`,
         // {},
         {
           headers: {
-            Authorization: `Bearer S01JlKH43k-AVTnjfq_Wb8L9Jps`,
+            Authorization: `Bearer W0hBU03OuX1wkL0vAyA4Zlnpo4Q`,
           },
         },
       )
@@ -195,11 +209,17 @@ export default function ProductDetailed(props) {
               item: item,
             };
           });
+          dispatch(
+            wishlistDetail({
+              data: filterProductId,
+              quantity: response.data.entries.length,
+            }),
+          );
           console.log(
             'respppppppppppppppppppppppppppppppppppppppppppppppppppp',
             filterProductId,
           );
-          setWishlistproductCode(filterProductId);
+          // setWishlistproductCode(filterProductId);
         }
       })
       .catch(error => {
@@ -207,10 +227,16 @@ export default function ProductDetailed(props) {
       });
   };
   const addWishlist = async data => {
-    const isAddWishlist = wishlistproductCode.find((item, index) => {
-      return item.code == data.code;
-    });
-    if (isAddWishlist) {
+    const isAddWishlist = cartReducer.WishListDetail.wishListData.find(
+      (item, index) => {
+        return item.code == data.code;
+      },
+    );
+    console.log(
+      'isAddWishlistisAddWishlistisAddWishlistisAddWishlistisAddWishlist',
+      isAddWishlist,
+    );
+    if (!!isAddWishlist) {
       await axios
         .delete(
           `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
@@ -218,7 +244,7 @@ export default function ProductDetailed(props) {
           // {quantity: 0, product: {code: isAddWishlist.code}},
           {
             headers: {
-              Authorization: `Bearer S01JlKH43k-AVTnjfq_Wb8L9Jps`,
+              Authorization: `bearer 2LUFsc7CwqiHcQ_ni3ak3IPG3as`,
             },
           },
         )
@@ -233,9 +259,6 @@ export default function ProductDetailed(props) {
           console.log('error for remove000 wishlist', error);
         });
     } else {
-      const value = await AsyncStorage.getItem('cartID');
-      console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
-      console.log('addWishlist', data.code);
       await axios
         .post(
           'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR',
@@ -243,7 +266,7 @@ export default function ProductDetailed(props) {
           {quantity: 1, product: {code: data.code}},
           {
             headers: {
-              Authorization: `Bearer S01JlKH43k-AVTnjfq_Wb8L9Jps`,
+              Authorization: `bearer 2LUFsc7CwqiHcQ_ni3ak3IPG3as`,
             },
           },
         )
@@ -288,12 +311,14 @@ export default function ProductDetailed(props) {
             }}
           /> */}
           <Details productdetail={productdetail} productId={productId} />
-          <Size_Color
-            customStyle={{marginTop: 20}}
-            productdetail={productdetail}
-            productId={productId}
-            getColorProductId={getColorProductId}
-          />
+          {productdetail?.baseOptions?.length > 0 && (
+            <Size_Color
+              customStyle={{marginTop: 20}}
+              productdetail={productdetail}
+              productId={productId}
+              getColorProductId={getColorProductId}
+            />
+          )}
           {/* <Customize
             heading="Get your linen monogrammed!"
             description="Add a personal touch to your bath linen with a
@@ -301,9 +326,8 @@ monogram. Ideal as a gift for a loved one, or
 an addition to your home."
             btnText="Add a monogram"
           /> */}
-          <View style={{paddingHorizontal:5}}>
-
-          <CommonTopTab data={dataMap} />
+          <View style={{paddingHorizontal: 5}}>
+            <CommonTopTab data={dataMap} />
           </View>
           {/* <Popular
             heading="Style it right!"
@@ -336,7 +360,7 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
         handleWishListAdd={addWishlist}
         disabled={!!productID ? false : true}
         productdetail={productdetail}
-        wishlistproductCode={wishlistproductCode}
+        // wishlistproductCode={wishlistproductCode}
       />
     </>
   );

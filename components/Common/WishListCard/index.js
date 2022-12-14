@@ -3,7 +3,11 @@ import React from 'react';
 import Fonts from '../../../assets/fonts';
 import Card3 from '../Card3';
 import {Styles} from './style';
-export default function WishListCard() {
+import {useSelector} from 'react-redux';
+export default function WishListCard(props) {
+  const {cartReducer} = useSelector(state => state);
+
+  const {handleClick} = props;
   return (
     <>
       <ScrollView
@@ -20,8 +24,14 @@ export default function WishListCard() {
         </View>
 
         <View style={Styles.mainView}>
-          {[0, 0, 0, 0, 0, 0].map(item => {
-            return <Card3 customViewStyle={{marginBottom: 15}} />;
+          {cartReducer?.WishListDetail?.wishListData?.map(item => {
+            return (
+              <Card3
+                customViewStyle={{marginBottom: 15}}
+                item={item.item}
+                handleClick={handleClick}
+              />
+            );
           })}
         </View>
       </ScrollView>
