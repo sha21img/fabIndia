@@ -34,8 +34,6 @@ export default function Login_Register(props) {
     props.navigation.navigate('Register');
   };
   return (
-    // <></>
-    // <Otp />
     <ImageBackground
       source={largeimage}
       resizeMode="cover"
