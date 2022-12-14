@@ -1,10 +1,30 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import {image} from '../../../assets/images';
+import axios from 'axios';
+const OrderConfirmation = props => {
+  const {amount, addressData, UDID} = props.route.params;
+const [details,setDetails] = useState(null)
+  useEffect(() => {
+    const final = UDID.split('/');
+    let id = final[final.length - 2];
+    getorderconfirmDetails(id);
+  }, []);
 
-const OrderConfirmation = () => {
+  const getorderconfirmDetails = async id => {
+    const response = await axios.post(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/fetch?id=${id}&lang=en&curr=INR`
+      // {},
+    );
+    console.log(
+      'getorderconfirmDetailsgetorderconfirmDetailsgetorderconfirmDetailsgetorderconfirmDetailsgetorderconfirmDetails',
+      response.data,
+    );
+    setDetails(response.data)
+  };
+
   return (
     <ScrollView>
       <View
@@ -71,7 +91,7 @@ const OrderConfirmation = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={{margin:15}}>
+      <View style={{margin: 15}}>
         <Text>
           Visit the place where your products are made Take a tour of the
           Fabindia village!

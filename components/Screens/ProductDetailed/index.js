@@ -32,6 +32,8 @@ export default function ProductDetailed(props) {
 
   const [productdetail, setProductDetail] = useState({});
   const [cartID, setCartID] = useState(null);
+  const [showAdd, setShowAdd] = useState(false);
+
   const [cartSuccess, setCartSuccess] = useState(null);
   const [productImage, setProductImage] = React.useState([]);
   const [productID, setProductID] = useState(productId);
@@ -53,6 +55,11 @@ export default function ProductDetailed(props) {
     );
     console.log('response.data04733333333333333333', response.data);
     setProductDetail(response.data);
+    if(response.data?.baseOptions?.length > 0 ){
+      setShowAdd(false)
+    }else{
+      setShowAdd(true)
+    }
     // console.log(
     //   'productdetail.variantMatrix[0].',
     //   response.data?.variantMatrix[0]?.variantOption?.variantOptionQualifiers[0]
@@ -135,6 +142,7 @@ export default function ProductDetailed(props) {
   const getColorProductId = data => {
     console.log('data5555555555555555555555555555555555555555555555', data);
     setProductID(data);
+    setShowAdd(true)
   };
   const AddtoCart = async () => {
     // const body = {
@@ -360,7 +368,7 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
         oos={true}
         handleClick={AddtoCart}
         handleWishListAdd={addWishlist}
-        disabled={!!productID ? false : true}
+        disabled={!!showAdd ? false : true}
         productdetail={productdetail}
         // wishlistproductCode={wishlistproductCode}
       />
