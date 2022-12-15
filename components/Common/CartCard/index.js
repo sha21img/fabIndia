@@ -166,11 +166,13 @@ export default function CartCard(props) {
               style={Styles.btn}
               onPress={async () => {
                 const token = await AsyncStorage.getItem('generatToken');
+                const getToken = JSON.parse(token);
+
                 console.log(
                   'tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111',
-                  token.isCheck,
+                  getToken.isCheck,
                 );
-                if (token.isCheck) {
+                if (getToken.isCheck) {
                   console.log('shsihsihshsihhhh');
                   if (item.item.product.stock.stockLevelStatus == 'inStock') {
                     handleClick(item.item);

@@ -50,11 +50,12 @@ export default function Footer(props) {
           style={Styles.heartBox}
           onPress={async () => {
             const token = await AsyncStorage.getItem('generatToken');
+            const getToken= JSON.parse(token)
             console.log(
               'tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111',
-              token.isCheck,
+              getToken.isCheck,
             );
-            if (token.isCheck) {
+            if (getToken.isCheck) {
               console.log('shsihsihshsihhhh');
               if (productdetail?.stock?.stockLevelStatus == 'inStock') {
                 // handleClick(item);

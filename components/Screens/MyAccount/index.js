@@ -58,9 +58,11 @@ const MyAccount = props => {
   const loginCheck = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    getToken?.ischeck
-      ? setCheck(getToken.ischeck)
-      : setCheck(!getToken.ischeck);
+    // getToken?.ischeck
+    //   ?
+    // setCheck(getToken.ischeck)
+    // :
+    setCheck(getToken.ischeck);
   };
   useEffect(() => {
     loginCheck();
