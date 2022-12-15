@@ -10,6 +10,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import Toast from 'react-native-simple-toast';
 import {useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Card1(props) {
   const {
@@ -111,11 +112,31 @@ export default function Card1(props) {
           </View>
         )}
         <TouchableOpacity
-          onPress={() => {
-            if (item.stock.stockLevelStatus == 'lowStock') {
-              Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+          onPress={async () => {
+            const token = await AsyncStorage.getItem('generatToken');
+            console.log(
+              'tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111',
+              token.isCheck,
+            );
+
+            if (token.isCheck) {
+              console.log('shsihsihshsihhhh');
+              if (item.stock.stockLevelStatus == 'inStock') {
+                handleClick(item);
+              } else {
+                Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+              }
             } else {
-              handleClick(item);
+              console.log('glglglglglltltlhhh');
+              Toast.showWithGravity(
+                'Please Login First',
+                Toast.LONG,
+                Toast.TOP,
+              );
+
+              props.navigation.navigate('MyAccount', {
+                screen: 'Login_Register',
+              });
             }
           }}
           style={{
