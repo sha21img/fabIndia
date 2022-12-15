@@ -26,7 +26,7 @@ export default function Card1(props) {
   };
   console.log(
     'item]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
-    wishlistproductCode,
+    item.stock.stockLevelStatus,
   );
   const isAvtive = cartReducer.WishListDetail.wishListData.find(items => {
     return items.code == item.code;
@@ -112,7 +112,7 @@ export default function Card1(props) {
         )}
         <TouchableOpacity
           onPress={() => {
-            if (item.stock.stockLevelStatus == 'inStock') {
+            if (item.stock.stockLevelStatus == 'lowStock') {
               Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
             } else {
               handleClick(item);

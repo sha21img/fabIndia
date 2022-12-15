@@ -41,10 +41,6 @@ export default function Footer({
         <TouchableOpacity
           style={Styles.heartBox}
           onPress={() => {
-            console.log(
-              'isVisible.........................................................',
-              isVisible,
-            );
             handleWishListAdd(productdetail);
           }}>
           {!!isVisible?.code ? (

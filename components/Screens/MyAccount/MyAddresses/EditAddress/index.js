@@ -16,7 +16,7 @@ import CommonButton from '../../../../Common/CommonButton';
 import InputText from '../../../../Common/InputText';
 import CheckBox from 'react-native-check-box';
 import axios from 'axios';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Styles from './styles';
 import Fonts from '../../../../../assets/fonts';
 import {cos} from 'react-native-reanimated';
@@ -37,7 +37,6 @@ const faqs = [
 ];
 
 const EditAddress = props => {
-
   let editflag = props?.route?.params?.editData;
   const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState(
@@ -95,12 +94,14 @@ const EditAddress = props => {
   }, []);
 
   const getCountrydata = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/countries?fields=DEFAULT&type=SHIPPING`,
       // {},
       {
         headers: {
-          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
       },
     );
@@ -129,7 +130,8 @@ const EditAddress = props => {
   };
 
   const SubmitAddress = async () => {
-    console.log('fhrifhdf');
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
     const body = {
       cellphone: phoneNumber,
       city: {
@@ -165,44 +167,30 @@ const EditAddress = props => {
       town: city,
       visibleInAddressBook: true,
     };
-
-    console.log('bodybodybodybodybodybodybodybodybodybodybodybodybody', body);
     if (!!editflag) {
       const response = await axios.patch(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses/${editflag.id}`,
         body,
         {
           headers: {
-            Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
           },
         },
       );
-      console.log(
-        'editttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt',
-        response.data,
-      );
-      
-        console.log('llllllllllllllllllll', props.navigation.navigate);
-        props.navigation.navigate('CartPage', {
-          currPosition: 1,
-        });
-      
+      props.navigation.navigate('CartPage', {
+        currPosition: 1,
+      });
     } else {
       const response = await axios.post(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses`,
         body,
         {
           headers: {
-            Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
           },
         },
       );
-      console.log(
-        'SubmitAddressSubmitAddressSubmitAddressSubmitAddressSubmitAddressSubmitAddressSubmitAddress',
-        response.data,
-      );
       if (response.data) {
-        console.log('llllllllllllllllllll', props.navigation.navigate);
         props.navigation.navigate('CartPage', {
           currPosition: 1,
         });
@@ -211,14 +199,15 @@ const EditAddress = props => {
   };
 
   const checkpincode = async (data, newArrayOfObj) => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
     SetPinCode(data);
-    console.log('dataaaaaaa');
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/pincodeService/pincodeDetails?pincode=${data}&lang=en&curr=INR`,
       // {},
       {
         headers: {
-          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
       },
     );
@@ -258,12 +247,14 @@ const EditAddress = props => {
   };
 
   const getStates = async code => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/countries/${code}/regions?fields=DEFAULT`,
       // {},
       {
         headers: {
-          Authorization: `Bearer Kr88U059DepONJpbaPbBSDg_jeY`,
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
       },
     );

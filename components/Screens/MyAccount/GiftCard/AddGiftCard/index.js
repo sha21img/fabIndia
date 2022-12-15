@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,19 +9,20 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import { image } from '../../../../../assets/images';
+import {image} from '../../../../../assets/images';
 import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Feather';
 import GiftIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Styles } from './styles';
+import {Styles} from './styles';
 import InputText from '../../../../Common/InputText';
-import { Colors } from '../../../../../assets/Colors';
+import {Colors} from '../../../../../assets/Colors';
 import CommonButton from '../../../../Common/CommonButton';
 import axios from 'axios';
 import Toast from 'react-native-simple-toast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function AddGiftCard(props) {
-  const { walletInfo } = props;
+  const {walletInfo} = props;
   const [cardPin, setCardPin] = useState('');
   const [cardNo, setCardNo] = useState('');
   const [toggle, setToggle] = useState(true);
@@ -29,28 +30,28 @@ function AddGiftCard(props) {
   const [seePassword, setSeePassword] = useState(true);
 
   const addGiftCard = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
     if (cardNo == '') {
       Toast.show('Please enter Gift Card Number', Toast.LONG);
-    }
-    else if (cardPin == '') {
+    } else if (cardPin == '') {
       Toast.show('Please enter Gift Card Pin', Toast.LONG);
-    }
-    else {
+    } else {
       const response = await axios.post(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addGiftCard?lang=en&curr=INR`,
         {
-          "cardNumber": cardNo,
-          "cardPin": cardPin
+          cardNumber: cardNo,
+          cardPin: cardPin,
         },
         {
           headers: {
-            Authorization: `Bearer ylVZ3kqCymE7j_N0dX6vwe9iylk`,
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
           },
         },
       );
       console.log('addGiftCard==>', JSON.stringify(response.data));
       if (response && response.status === 200) {
-        Toast.show(response.data.responseMessage, Toast.LONG)
+        Toast.show(response.data.responseMessage, Toast.LONG);
       }
     }
   };

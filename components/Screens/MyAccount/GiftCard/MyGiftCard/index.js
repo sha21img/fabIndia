@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -11,26 +11,28 @@ import {
   ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { image } from '../../../../../assets/images';
-import { Styles } from './styles';
-
+import {image} from '../../../../../assets/images';
+import {Styles} from './styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 function MygiftCard(props) {
-  const { walletInfo } = props;
+  const {walletInfo} = props;
   const [modalVisible, setModalVisible] = useState(false);
   const [walletHistory, setWalletHistory] = useState([]);
 
   const getWalletHistory = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/wallethistory?lang=en&curr=INR`,
       {
         headers: {
-          Authorization: `Bearer ylVZ3kqCymE7j_N0dX6vwe9iylk`,
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
       },
     );
     // console.log('walletHistory==>', JSON.stringify(response.data));
     if (response && response.status === 200) {
-      setWalletHistory(response.data.walletTransactions)
+      setWalletHistory(response.data.walletTransactions);
     }
   };
 
@@ -44,12 +46,13 @@ function MygiftCard(props) {
       <View
         style={[
           Styles.txtContainer,
-          { borderBottomWidth: 1, borderBottomColor: '#EDEDED', marginTop: 13 },
+          {borderBottomWidth: 1, borderBottomColor: '#EDEDED', marginTop: 13},
         ]}>
         <Text style={Styles.totalBalanceTxt}>Total Balance:</Text>
         <View>
           <Text style={Styles.amountTxt}>
-            <Text style={Styles.priceicon}>₹ </Text>{walletInfo?.totalBalance}
+            <Text style={Styles.priceicon}>₹ </Text>
+            {walletInfo?.totalBalance}
           </Text>
         </View>
       </View>
@@ -89,21 +92,29 @@ function MygiftCard(props) {
               <Text style={Styles.modalTextTwo}>Status</Text>
             </View>
 
-            {walletHistory?.map((item) => {
+            {walletHistory?.map(item => {
               return (
                 <View style={Styles.walletCreateViewOne}>
                   <View style={Styles.boxDimension}>
-                    <Text style={Styles.wallettext}>{item.transactionType}</Text>
-                    <View style={{ marginTop: 5 }}>
-                      <Text style={Styles.modalTextThree}>{item.merchantName}</Text>
-                      <Text style={Styles.modalTextThree}>{item.transactionPostDate}</Text>
+                    <Text style={Styles.wallettext}>
+                      {item.transactionType}
+                    </Text>
+                    <View style={{marginTop: 5}}>
+                      <Text style={Styles.modalTextThree}>
+                        {item.merchantName}
+                      </Text>
+                      <Text style={Styles.modalTextThree}>
+                        {item.transactionPostDate}
+                      </Text>
                     </View>
                   </View>
                   <Text style={Styles.wallettext}>+ ₹ {item.amount}</Text>
                   <Text style={Styles.wallettext}>-</Text>
-                  <Text style={Styles.wallettext}>{item.transactionStatus}</Text>
+                  <Text style={Styles.wallettext}>
+                    {item.transactionStatus}
+                  </Text>
                 </View>
-              )
+              );
             })}
           </View>
         </View>

@@ -107,19 +107,21 @@ export default function App(props) {
   const getCartDetails = async () => {
     const value = await AsyncStorage.getItem('cartID');
     console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
+    const get = await AsyncStorage.getItem('generatToken');
+    const getCartID = await AsyncStorage.getItem('cartID');
+    console.log('this us cart id', getCartID);
+    const getToken = JSON.parse(get);
     const response = await axios
       .get(
-        'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR',
-        // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
-        // {},
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
         {
           headers: {
-            Authorization: `bearer 2LUFsc7CwqiHcQ_ni3ak3IPG3as`,
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
           },
         },
       )
       .then(response => {
-        consoel.log(
+        console.log(
           'get initial cart detail ..................................',
           response.data,
         );
@@ -322,8 +324,7 @@ export default function App(props) {
                 ),
               }}
             />
-
-            {/* <Stack.Screen
+            <Stack.Screen
               name="CartList"
               component={CartList}
               options={{
@@ -337,8 +338,8 @@ export default function App(props) {
                   />
                 ),
               }}
-            /> */}
-            <Stack.Screen
+            />
+             <Stack.Screen
               name="CartPage"
               component={CartPage}
               options={{
@@ -352,7 +353,7 @@ export default function App(props) {
                   />
                 ),
               }}
-            />
+            /> 
             <Stack.Screen
               name="Address"
               component={EditAddress}
@@ -369,55 +370,7 @@ export default function App(props) {
                   />
                 ),
               }}
-            />
-
-            <Stack.Screen
-              name="CartList"
-              component={CartList}
-              options={{
-                header: props => (
-                  <Header
-                    leftIcon={leftIcon(props)}
-                    title="Your Shopping cart"
-                    customStyle={{
-                      backgroundColor: '#F8F6F5',
-                    }}
-                  />
-                ),
-              }}
-            />
-            {/* <Stack.Screen
-              name="CartPage"
-              component={CartPage}
-              options={{
-                header: props => (
-                  <Header
-                    leftIcon={leftIcon(props)}
-                    title="Your Shopping cart"
-                    customStyle={{
-                      backgroundColor: '#F8F6F5',
-                    }}
-                  />
-                ),
-              }}
-            /> */}
-            {/* <Stack.Screen
-              name="Address"
-              component={EditAddress}
-              options={{
-                header: props => (
-                  <Header
-                    leftIcon={leftIcon(props)}
-                    title="Address"
-                    rightIcon={rightIcon}
-                    customStyle={{
-                      backgroundColor: '#F8F6F5',
-                      marginBottom: 4,
-                    }}
-                  />
-                ),
-              }}
-            /> */}
+            /> 
 
             <Stack.Screen
               name="StoreLocator"
