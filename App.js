@@ -102,59 +102,59 @@ export default function App(props) {
     const getToken = JSON.parse(get);
     console.log('asdfasdfasdfasdf', JSON.parse(get));
     if (getToken == null) {
-      generatTokenWithout();
+      await generatTokenWithout();
+      // await getCartDetails();
     }
     // }
   };
-  const getCartDetails = async () => {
-    const value = await AsyncStorage.getItem('cartID');
-    console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
-    const get = await AsyncStorage.getItem('generatToken');
-    const getCartID = await AsyncStorage.getItem('cartID');
-    console.log('this us cart id', getCartID);
-    const getToken = JSON.parse(get);
-    const response = await axios
-      .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-          },
-        },
-      )
-      .then(response => {
-        console.log(
-          'get initial cart detail ..................................',
-          response.data,
-        );
-      });
-    // console.log(
-    //   'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
-    //   response.data,
-    // );
-    let finalvalue = response?.data?.orderEntries?.reduce(
-      (n, {quantity}) => n + quantity,
-      0,
-    );
-    // console.log('quantityquantity', response.data);
-    // setCartDetails(response.data);
-    // setTotalquantity(finalvalue);
-    // setWishlistQuantity(response.data.entries.length);
-    // if (response.data.name.includes('wishlist')) {
-    //   const filterProduct = response.data.entries.map(item => {
-    //     return {
-    //       code: item.product.baseOptions[0].selected.code,
-    //       item: item,
-    //     };
-    //   });
-    //   // console.log('filterProduct', filterProduct);
-    //   setWishlistproduct(filterProduct);
-    // }
-  };
-  useEffect(() => {
-    getCartDetails();
-    getCartID();
-  }, []);
+  // const getCartDetails = async () => {
+  //   const value = await AsyncStorage.getItem('cartID');
+  //   console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
+  //   const get = await AsyncStorage.getItem('generatToken');
+  //   const getCartID = await AsyncStorage.getItem('cartID');
+  //   console.log('this us cart id', getCartID);
+  //   const getToken = JSON.parse(get);
+  //   const response = await axios
+  //     .get(
+  //       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+  //       {
+  //         headers: {
+  //           Authorization: `${getToken.token_type} ${getToken.access_token}`,
+  //         },
+  //       },
+  //     )
+  //     .then(response => {
+  //       console.log(
+  //         'get initial cart detail ..................................',
+  //         response.data,
+  //       );
+  //     });
+  //   // console.log(
+  //   //   'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
+  //   //   response.data,
+  //   // );
+  //   let finalvalue = response?.data?.orderEntries?.reduce(
+  //     (n, {quantity}) => n + quantity,
+  //     0,
+  //   );
+  //   // console.log('quantityquantity', response.data);
+  //   // setCartDetails(response.data);
+  //   // setTotalquantity(finalvalue);
+  //   // setWishlistQuantity(response.data.entries.length);
+  //   // if (response.data.name.includes('wishlist')) {
+  //   //   const filterProduct = response.data.entries.map(item => {
+  //   //     return {
+  //   //       code: item.product.baseOptions[0].selected.code,
+  //   //       item: item,
+  //   //     };
+  //   //   });
+  //   //   // console.log('filterProduct', filterProduct);
+  //   //   setWishlistproduct(filterProduct);
+  //   // }
+  // };
+  // useEffect(() => {
+  //   getCartID();
+  // }, []);
 
   // const generatTokenWith = async () => {
   //   const response = await axios.get(
@@ -169,6 +169,7 @@ export default function App(props) {
   // };
   useEffect(() => {
     checkToken();
+    getCartID();
   }, []);
   const rightText = (
     <TouchableOpacity>

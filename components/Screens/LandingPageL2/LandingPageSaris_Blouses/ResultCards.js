@@ -158,7 +158,7 @@ export default function ResultCards(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
-    console.log('this us cart id', getToken);
+    console.log('this us cart idfor add wi', getToken);
     if (isAddWishlist) {
       await axios
         .delete(
@@ -185,7 +185,7 @@ export default function ResultCards(props) {
     } else {
       const value = await AsyncStorage.getItem('cartID');
       console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
-      console.log('addWishlist', data.code,getWishlistID);
+      console.log('addWishlist', data.code, getWishlistID);
       await axios
         .post(
           `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries?lang=en&curr=INR`,

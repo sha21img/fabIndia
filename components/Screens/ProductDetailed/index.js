@@ -159,7 +159,7 @@ export default function ProductDetailed(props) {
   const DetailsData = (props, item, productDetail) => {
     return (
       <>
-        <View style={{padding: 15, backgroundColor: 'white'}}>
+        <View style={{padding: 15, backgroundColor: 'white', flexGrow: 1 }}>
           <Text
             style={{
               fontFamily: Fonts.Assistant400,
