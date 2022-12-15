@@ -187,6 +187,7 @@ export default function ProductDetailed(props) {
     setShowAdd(true);
   };
   const AddtoCart = async () => {
+    console.log("asdfasdfasdfasdfasdfasdfasdf")
     // const body = {
     //   quantity: 1,
     //   product: {
@@ -200,9 +201,11 @@ export default function ProductDetailed(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    console.log('this us cart id', getCartID);
+    const type = getToken.isCheck ? 'current' : 'anonymous';
+    console.log('this -s=df-=sdf-=sd-f=ds-f=-', type);
+    console.log('this -s=df-=sdf-=sd-f=ds-f=-', getCartID);
     const response = await axios.post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/entries?lang=en&curr=INR`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries?lang=en&curr=INR`,
       {
         quantity: 1,
         product: {
