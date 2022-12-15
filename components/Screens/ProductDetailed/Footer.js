@@ -71,7 +71,12 @@ export default function Footer({
             ]}
             disabled={disabled}
             onPress={() => {
-              handleClick(), console.log('ki');
+              if (item.stock.stockLevelStatus == 'inStock') {
+                Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+              } else {
+                handleClick() 
+              }
+              
             }}>
             <Text style={Styles.cartText}>Add to cart</Text>
           </TouchableOpacity>
