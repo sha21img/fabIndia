@@ -41,7 +41,7 @@ export default function MyOrder() {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const response = await axios.get(
-      `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
       {
         headers: {
           Authorization: `${getToken.token_type} ${getToken.access_token}`,
