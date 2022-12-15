@@ -8,23 +8,23 @@ import {Colors} from '../../../../assets/Colors';
 import Profile from './Profile';
 import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
-
+import axios from 'axios';
 const pages = [
   {
     icon: image.document,
     name: 'My Orders',
     routes: 'MyOrder',
   },
-  {
-    icon: image.location,
-    name: 'My Addresses',
-    routes: 'MyAddresses',
-  },
-  {
-    icon: image.headphone,
-    name: 'Customer Care',
-    routes: 'CustomerCare',
-  },
+  // {
+  //   icon: image.location,
+  //   name: 'My Addresses',
+  //   routes: 'MyAddresses',
+  // },
+  // {
+  //   icon: image.headphone,
+  //   name: 'Customer Care',
+  //   routes: 'CustomerCare',
+  // },
   {
     icon: image.ribbon,
     name: 'FabFamily',
@@ -45,11 +45,11 @@ const pages = [
     name: 'Gift Cards',
     routes: 'GiftCard',
   },
-  {
-    icon: image.ContactUs,
-    name: 'Contact us',
-    routes: 'ContactUs',
-  },
+  // {
+  //   icon: image.ContactUs,
+  //   name: 'Contact us',
+  //   routes: 'ContactUs',
+  // },
   {
     icon: image.UnSubscribe,
     name: 'Unsubscribe',
@@ -89,6 +89,30 @@ const MyAccounts = props => {
   useEffect(() => {
     getProfiledata();
   }, [focus]);
+  const generatTokenWithout = async () => {
+    await axios
+      .post(
+        `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+      )
+      .then(
+        response => {
+          const tokenGenerate = {...response.data, isCheck: false};
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+        },
+        error => {
+          console.log('response-=-=-=-=-=-error', error);
+        },
+      );
+  };
+  const logout = async () => {
+    const res = await AsyncStorage.removeItem('generatToken');
+    console.log('delete', res);
+    props.navigation.navigate('MyAccount', {
+      screen: 'Login_Register',
+    });
+    await generatTokenWithout();
+  };
 
   return (
     <>
@@ -124,13 +148,7 @@ const MyAccounts = props => {
           );
         })}
         <TouchableOpacity
-          onPress={async () => {
-            const res = await AsyncStorage.removeItem('generatToken');
-            console.log('delete', res);
-            props.navigation.navigate('MyAccount', {
-              screen: 'Login_Register',
-            });
-          }}
+          onPress={()=>logout()}
           key={Math.random() * 10000}
           style={{
             padding: 20,

@@ -267,6 +267,7 @@ export default function CartList(props) {
               </View>
             </View>
             <CartCard
+              {...props}
               data={cartdetails}
               SizeQClick={SizeQClick}
               monogramClick={monogramClick}

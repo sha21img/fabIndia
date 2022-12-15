@@ -159,7 +159,7 @@ export default function ProductDetailed(props) {
   const DetailsData = (props, item, productDetail) => {
     return (
       <>
-        <View style={{padding: 15, backgroundColor: 'white'}}>
+        <View style={{padding: 15, backgroundColor: 'white', flexGrow: 1 }}>
           <Text
             style={{
               fontFamily: Fonts.Assistant400,
@@ -407,6 +407,7 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
         </ScrollView>
       )}
       <Footer
+        {...props}
         oos={true}
         handleClick={AddtoCart}
         handleWishListAdd={addWishlist}

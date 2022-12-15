@@ -54,19 +54,19 @@ import MyAccounts from './MyAccounts';
 const Stack = createNativeStackNavigator();
 
 const MyAccount = props => {
-  const [auth, setAuth] = useState();
-  const token = async () => {
-    try {
-      const get = await AsyncStorage.getItem('generatToken');
-      const getToken = JSON.parse(get);
-      setAuth(getToken);
-    } catch (error) {
-      console.log('#getSavedValue', error);
-    }
+  const [check, setCheck] = useState(false);
+  const loginCheck = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    // getToken?.ischeck
+    //   ?
+    // setCheck(getToken.ischeck)
+    // :
+    setCheck(getToken.ischeck);
   };
   useEffect(() => {
-    token();
-  });
+    loginCheck();
+  }, []);
 
   const leftIcon = (
     <TouchableOpacity onPress={() => props.navigation.goBack()}>
@@ -84,8 +84,8 @@ const MyAccount = props => {
   return (
     <>
       <Stack.Navigator
-        initialRouteName={auth !== null ? 'MyAccounts' : 'Login_Register'}>
-        {auth !== null ? (
+        initialRouteName={check ? 'MyAccounts' : 'Login_Register'}>
+        {check ? (
           <>
             <Stack.Screen
               name="MyAccounts"
@@ -340,7 +340,7 @@ const MyAccount = props => {
             header: props => (
               <Header
                 leftIcon={leftIcon}
-                title="Delete my account"
+                title="Unsubscribe"
                 rightIcon={rightIcon}
                 customStyle={{
                   backgroundColor: '#F8F6F5',
