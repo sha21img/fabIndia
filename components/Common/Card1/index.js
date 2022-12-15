@@ -1,5 +1,5 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Fonts from '../../../assets/fonts';
 import {image} from '../../../assets/images';
 import {Styles} from './styles';
@@ -42,6 +42,34 @@ export default function Card1(props) {
     : item?.images[0].url;
 
   // console.log('imageUrlimageUrlimageUrl', item?.images[0]?.url);
+  const check = async () => {
+    const token = await AsyncStorage.getItem('generatToken');
+    console.log('token 2348723489 token', token.isCheck);
+  };
+  useEffect(() => {
+    check();
+  }, []);
+  const getAdd = async () => {
+    const token = await AsyncStorage.getItem('generatToken');
+    const getToken= JSON.parse(token)
+    console.log('tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111', getToken.isCheck);
+
+    if (getToken?.isCheck) {
+      console.log('shsihsihshsihhhh');
+      if (item.stock.stockLevelStatus == 'inStock') {
+        handleClick(item);
+      } else {
+        Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+      }
+    } else {
+      console.log('glglglglglltltlhhh');
+      Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
+
+      props.navigation.navigate('MyAccount', {
+        screen: 'Login_Register',
+      });
+    }
+  };
   return (
     <>
       <TouchableOpacity
@@ -112,33 +140,7 @@ export default function Card1(props) {
           </View>
         )}
         <TouchableOpacity
-          onPress={async () => {
-            const token = await AsyncStorage.getItem('generatToken');
-            console.log(
-              'tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111',
-              token.isCheck,
-            );
-
-            if (token.isCheck) {
-              console.log('shsihsihshsihhhh');
-              if (item.stock.stockLevelStatus == 'inStock') {
-                handleClick(item);
-              } else {
-                Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
-              }
-            } else {
-              console.log('glglglglglltltlhhh');
-              Toast.showWithGravity(
-                'Please Login First',
-                Toast.LONG,
-                Toast.TOP,
-              );
-
-              props.navigation.navigate('MyAccount', {
-                screen: 'Login_Register',
-              });
-            }
-          }}
+          onPress={() => getAdd(item)}
           style={{
             position: 'absolute',
             top: 20,
