@@ -57,21 +57,21 @@ export default function Login_Register(props) {
           onPress={() => resisterHandler()}>
           <Text style={Styles.registerText}>Register</Text>
         </TouchableOpacity>
-        <View style={Styles.horizontalContainer}>
+        {/* <View style={Styles.horizontalContainer}>
           <View style={Styles.horizontalLine} />
           <View>
             <Text style={Styles.orText}>or</Text>
           </View>
           <View style={Styles.iconContainer} />
-        </View>
-        <View style={Styles.socialIconContainer}>
+        </View> */}
+        {/* <View style={Styles.socialIconContainer}>
           <TouchableOpacity onPress={() => facebookLoginHandler()}>
             <Image source={facebookIcon} style={Styles.facebookIcon} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => googleLoginHandler()}>
             <Image source={googleIcon} style={Styles.googleIcon} />
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     </ImageBackground>
   );
