@@ -346,7 +346,7 @@ export default function ProductDetailed(props) {
         dotColor={Colors.primarycolor}
       /> */}
           <SliderBox
-            resizeMode="stretch"
+            resizeMode="contain"
             autoplay={true}
             circleLoop={true}
             sliderBoxHeight={381}
