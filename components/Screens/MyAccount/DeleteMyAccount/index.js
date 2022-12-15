@@ -15,9 +15,9 @@ function DeleteMyAccount() {
       <Text style={Styles.deleteTxtOne}>
         if you're experiencing an issue with your account,payment or
         device,please give us the opportunity to assist you.We're here to help
-        and will be sorry to see you go.{'\n'}
+        and will be sorry to see you go.{'\n'}{'\n'}
       </Text>
-      <Text style={Styles.deleteTxtOne}>To delete your account{'\n'}</Text>
+      <Text style={Styles.deleteTxtOne}>To delete your account</Text>
       <Text style={Styles.deleteTxtOne}>
         Write to us at{' '}
         <Text style={[Styles.deleteTxtOne, {color: Colors.primarycolor}]}>
