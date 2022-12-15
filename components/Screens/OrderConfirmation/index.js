@@ -15,14 +15,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const OrderConfirmation = props => {
   const [showmodal, setshowmodal] = useState(false);
-  const {amount, addressData, UDID} = props?.route?.params;
-  console.log('UD///ID',UDID)
-  const [details, setDetails] = useState(null);
-  useEffect(() => {
-    const final = UDID.split('/');
-    let id = final[final.length - 2];
-    getorderconfirmDetails(id);
-  }, []);
+  // const {amount, addressData, UDID} = props?.route?.params;
+  // console.log('UD///ID',UDID)
+  // const [details, setDetails] = useState(null);
+  // useEffect(() => {
+  //   const final = UDID.split('/');
+  //   let id = final[final.length - 2];
+  //   getorderconfirmDetails(id);
+  // }, []);
 
   const getorderconfirmDetails = async id => {
     console.log('jijhiojiojhp', id);
