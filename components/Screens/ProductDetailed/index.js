@@ -24,7 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 import {Colors} from '../../../assets/Colors';
 import {useDispatch, useSelector} from 'react-redux';
-import {wishlistDetail} from '../../Common/Helper/Redux/actions';
+import {cartDetail, wishlistDetail} from '../../Common/Helper/Redux/actions';
 const width = Dimensions.get('window').width;
 
 export default function ProductDetailed(props) {
@@ -159,7 +159,7 @@ export default function ProductDetailed(props) {
   const DetailsData = (props, item, productDetail) => {
     return (
       <>
-        <View style={{padding: 15, backgroundColor: 'white', flexGrow: 1 }}>
+        <View style={{padding: 15, backgroundColor: 'white', flexGrow: 1}}>
           <Text
             style={{
               fontFamily: Fonts.Assistant400,
@@ -218,9 +218,36 @@ export default function ProductDetailed(props) {
         },
       },
     );
+    getCartDetials1();
 
     setCartSuccess(response.data);
     Toast.showWithGravity('Added to Your Cart', Toast.LONG, Toast.TOP);
+  };
+  const getCartDetials1 = async () => {
+    const value = await AsyncStorage.getItem('cartID');
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const getCartID = await AsyncStorage.getItem('cartID');
+    console.log('this us cart id', getCartID);
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+      {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+        },
+      },
+    );
+    console.log(
+      'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
+      JSON.stringify(response.data),
+    );
+    dispatch(
+      cartDetail({
+        data: response.data,
+        quantity: response.data.entries.length,
+      }),
+    );
+    // setCartDetails(response.data);
   };
   useEffect(() => {
     getCartDetails();
