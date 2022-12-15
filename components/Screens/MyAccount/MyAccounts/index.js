@@ -15,16 +15,16 @@ const pages = [
     name: 'My Orders',
     routes: 'MyOrder',
   },
-  {
-    icon: image.location,
-    name: 'My Addresses',
-    routes: 'MyAddresses',
-  },
-  {
-    icon: image.headphone,
-    name: 'Customer Care',
-    routes: 'CustomerCare',
-  },
+  // {
+  //   icon: image.location,
+  //   name: 'My Addresses',
+  //   routes: 'MyAddresses',
+  // },
+  // {
+  //   icon: image.headphone,
+  //   name: 'Customer Care',
+  //   routes: 'CustomerCare',
+  // },
   {
     icon: image.ribbon,
     name: 'FabFamily',
@@ -45,11 +45,11 @@ const pages = [
     name: 'Gift Cards',
     routes: 'GiftCard',
   },
-  {
-    icon: image.ContactUs,
-    name: 'Contact us',
-    routes: 'ContactUs',
-  },
+  // {
+  //   icon: image.ContactUs,
+  //   name: 'Contact us',
+  //   routes: 'ContactUs',
+  // },
   {
     icon: image.UnSubscribe,
     name: 'Unsubscribe',

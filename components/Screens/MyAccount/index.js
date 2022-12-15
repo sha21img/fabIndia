@@ -338,7 +338,7 @@ const MyAccount = props => {
             header: props => (
               <Header
                 leftIcon={leftIcon}
-                title="Delete my account"
+                title="Unsubscribe"
                 rightIcon={rightIcon}
                 customStyle={{
                   backgroundColor: '#F8F6F5',
