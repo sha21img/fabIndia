@@ -106,11 +106,11 @@ const DrawerContent = () => {
       icon: <Ionicons name="ios-logo-dropbox" size={20} />,
       route: '',
     },
-    {
-      name: 'New Arrivals',
-      icon: <Ionicons name="ios-logo-dropbox" size={20} />,
-      route: '',
-    },
+    // {
+    //   name: 'New Arrivals',
+    //   icon: <Ionicons name="ios-logo-dropbox" size={20} />,
+    //   route: '',
+    // },
     {
       name: 'Sale Services',
       icon: <Ionicons name="ios-logo-dropbox" size={20} />,
@@ -124,9 +124,9 @@ const DrawerContent = () => {
   ];
   return (
     <ScrollView style={{flex: 1}}>
-      <ImageBackground blurRadius={3} source={image.Banner2}>
+      {/* <ImageBackground blurRadius={3} source={image.Banner2}> */}
         <LinearGradient
-          colors={['transparent', 'black']}
+          colors={['transparent', Colors.primarycolor]}
           style={{
             height: 150,
             justifyContent: 'center',
@@ -153,7 +153,7 @@ const DrawerContent = () => {
             <Ionicons name="md-chevron-forward-sharp" color="#fff" size={20} />
           </View>
         </LinearGradient>
-      </ImageBackground>
+      {/* </ImageBackground> */}
       {drawerContent.map(item => {
         return (
           <TouchableOpacity
@@ -181,16 +181,16 @@ const DrawerContent = () => {
       </TouchableOpacity> */}
       <View>
         <TouchableOpacity style={{paddingVertical: 10, paddingHorizontal: 35}}>
-          <Text style={{color: Colors.textcolor, marginLeft: 15}}>FAQs</Text>
+          <Text style={{color: Colors.textcolor, marginLeft: 15, fontSize: 11 }}>FAQs</Text>
         </TouchableOpacity>
         <TouchableOpacity style={{paddingVertical: 10, paddingHorizontal: 35}}>
-          <Text style={{color: Colors.textcolor, marginLeft: 15}}>
+          <Text style={{color: Colors.textcolor, marginLeft: 15, fontSize: 11 }}>
             CONTACT US
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{paddingVertical: 10, paddingHorizontal: 35}}>
+        {/* <TouchableOpacity style={{paddingVertical: 10, paddingHorizontal: 35}}>
           <Text style={{color: Colors.textcolor, marginLeft: 15}}>LEGALS</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </ScrollView>
   );
@@ -286,13 +286,13 @@ export default function MainScreen(props) {
         name="CategorySection"
         component={CategorySection}
         options={{
-          tabBarLabel: 'Menu',
+          tabBarLabel: 'Category',
           headerShown: false,
           tabBarActiveTintColor: Colors.primarycolor,
 
           tabBarIcon: ({focused}) => (
-            <SimpleLineIcons
-              name="menu"
+            <Ionicons
+              name="ios-grid-outline"
               color={focused ? Colors.primarycolor : Colors.inactiveicon}
               size={20}
             />
