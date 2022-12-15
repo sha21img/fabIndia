@@ -9,22 +9,22 @@ function Unsubscribe() {
   return (
     <ScrollView style={Styles.container}>
       <Text style={Styles.unsubscribeTxtOne}>
-        We hate goodbyes - but if you have change of heart, we'll always be
+        We hate goodbyes-but if you have change of heart, we'll always be
         there.{'\n'}
       </Text>
       <Text style={Styles.unsubscribeTxtOne}>
-        To opt out / unsubscribe{'\n'}
+        To opt out / unsubscribe
       </Text>
       <Text style={[Styles.unsubscribeTxtOne]}>
         write to us at{' '}
         <Text style={[Styles.unsubscribeTxtOne, {color: Colors.primarycolor}]}>
-          support@fabindia.net{'\n'}
+          fabfamily@fabindia.net{'\n'}
         </Text>
       </Text>
       <Text style={Styles.unsubscribeTxtOne}>
         or call us on{' '}
         <Text style={[Styles.unsubscribeTxtOne, {color: Colors.primarycolor}]}>
-          +91 8010488888
+          1800-100-1212
         </Text>
       </Text>
     </ScrollView>
