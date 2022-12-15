@@ -12,15 +12,18 @@ import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
-export default function Footer({
-  oos,
-  handleClick = null,
-  disabled = false,
-  handleWishListAdd = null,
-  productdetail = {},
-  wishlistproductCode = [],
-}) {
+
+export default function Footer(props) {
+  const {
+    oos,
+    handleClick = null,
+    disabled = false,
+    handleWishListAdd = null,
+    productdetail = {},
+    wishlistproductCode = [],
+  } = props;
   const {cartReducer} = useSelector(state => state);
   const dispatch = useDispatch();
 
@@ -35,13 +38,42 @@ export default function Footer({
     return items.code == productdetail.code;
   });
   openStock = () => setModalVisible(true);
+
+  console.log(
+    'prprprprprprp1111111111111111111111111111111rprp',
+    productdetail?.stock?.stockLevelStatus,
+  );
   return (
     <>
       <View style={Styles.container}>
         <TouchableOpacity
           style={Styles.heartBox}
-          onPress={() => {
-            handleWishListAdd(productdetail);
+          onPress={async () => {
+            const token = await AsyncStorage.getItem('generatToken');
+            console.log(
+              'tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111',
+              token.isCheck,
+            );
+            if (token.isCheck) {
+              console.log('shsihsihshsihhhh');
+              if (productdetail?.stock?.stockLevelStatus == 'inStock') {
+                // handleClick(item);
+                handleWishListAdd(productdetail);
+              } else {
+                Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+              }
+            } else {
+              console.log('glglglglglltltlhhh');
+              Toast.showWithGravity(
+                'Please Login First',
+                Toast.LONG,
+                Toast.TOP,
+              );
+
+              props.navigation.navigate('MyAccount', {
+                screen: 'Login_Register',
+              });
+            }
           }}>
           {!!isVisible?.code ? (
             <MaterialCommunityIcons
@@ -70,9 +102,8 @@ export default function Footer({
               if (productdetail?.stock?.stockLevelStatus != 'inStock') {
                 Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
               } else {
-                handleClick() 
+                handleClick();
               }
-              
             }}>
             <Text style={Styles.cartText}>Add to cart</Text>
           </TouchableOpacity>

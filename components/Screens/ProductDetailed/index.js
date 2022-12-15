@@ -407,6 +407,7 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
         </ScrollView>
       )}
       <Footer
+        {...props}
         oos={true}
         handleClick={AddtoCart}
         handleWishListAdd={addWishlist}

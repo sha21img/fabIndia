@@ -15,16 +15,18 @@ import Styles from './styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {imageURL} from '../Helper';
 import Toast from 'react-native-simple-toast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function CartCard({
-  data = [],
-  monogramClick = '',
-  SizeQClick = '',
-  EmiClick = '',
-  RemoveClick = '',
-  CustomClick = '',
-  handleClick = null,
-}) {
+export default function CartCard(props) {
+  const {
+    data = [],
+    monogramClick = '',
+    SizeQClick = '',
+    EmiClick = '',
+    RemoveClick = '',
+    CustomClick = '',
+    handleClick = null,
+  } = props;
   const [quantity, setQuantity] = useState(null);
   const {cartReducer} = useSelector(state => state);
 
@@ -162,14 +164,42 @@ export default function CartCard({
             <View style={Styles.divider}></View>
             <TouchableOpacity
               style={Styles.btn}
-              onPress={() => {
-                item.item.product.stock.stockLevelStatus == 'inStock'
-                  ? handleClick(item.item)
-                  : Toast.showWithGravity(
+              onPress={async () => {
+                const token = await AsyncStorage.getItem('generatToken');
+                console.log(
+                  'tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111',
+                  token.isCheck,
+                );
+                if (token.isCheck) {
+                  console.log('shsihsihshsihhhh');
+                  if (item.item.product.stock.stockLevelStatus == 'inStock') {
+                    handleClick(item.item);
+                  } else {
+                    Toast.showWithGravity(
                       'No item left !',
                       Toast.LONG,
                       Toast.TOP,
                     );
+                  }
+                } else {
+                  console.log('glglglglglltltlhhh');
+                  Toast.showWithGravity(
+                    'Please Login First',
+                    Toast.LONG,
+                    Toast.TOP,
+                  );
+
+                  props.navigation.navigate('MyAccount', {
+                    screen: 'Login_Register',
+                  });
+                }
+                // item.item.product.stock.stockLevelStatus == 'inStock'
+                //   ? handleClick(item.item)
+                //   : Toast.showWithGravity(
+                //       'No item left !',
+                //       Toast.LONG,
+                //       Toast.TOP,
+                //     );
               }}>
               <Text style={Styles.btnText}>
                 {isActive ? 'Remove from wishlist' : 'Add to wishlist'}
