@@ -8,10 +8,13 @@ import {
   FlatList,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
+
 import {image} from '../../../assets/images';
 import Styles from './styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {imageURL} from '../Helper';
+import Toast from 'react-native-simple-toast';
 
 export default function CartCard({
   data = [],
@@ -20,15 +23,18 @@ export default function CartCard({
   EmiClick = '',
   RemoveClick = '',
   CustomClick = '',
+  handleClick = null,
 }) {
   const [quantity, setQuantity] = useState(null);
+  const {cartReducer} = useSelector(state => state);
+
   useEffect(() => {
     setupData();
   }, []);
 
   const setupData = () => {
     console.log('dataaaaaaaaaaaa', data);
-    let quantity = data.entries.reduce((n, { quantity }) => n + quantity, 0);
+    let quantity = data.entries.reduce((n, {quantity}) => n + quantity, 0);
     console.log('quantityquantity', quantity);
     setQuantity(quantity);
   };
@@ -38,6 +44,13 @@ export default function CartCard({
       'cartcardperitemmmmmm',
       item.item?.product?.baseOptions[0]?.selected?.variantOptionQualifiers[0]
         ?.value,
+    );
+    const isActive = cartReducer.WishListDetail.wishListData.find(items => {
+      return items.code == item.item.product.code;
+    });
+    console.log(
+      'uytretyuiuoipouhjaaaaaaaaaaaaaaaa',
+      item.item.product.stock.stockLevelStatus,
     );
     return (
       <>
@@ -55,7 +68,9 @@ export default function CartCard({
             <Image
               resizeMode="cover"
               style={Styles.imagedimension}
-              source={{ uri: `https://apisap.fabindia.com/${item.item?.product?.images[0]?.url}` }}
+              source={{
+                uri: `https://apisap.fabindia.com/${item.item?.product?.images[0]?.url}`,
+              }}
             />
             <View style={Styles.detailContainer}>
               <Text style={Styles.title}>{item?.item?.product?.name}</Text>
@@ -118,7 +133,8 @@ export default function CartCard({
                 <Text style={Styles.curr}>
                   ₹ {item?.item?.product?.priceAfterDiscount?.value}
                 </Text>
-                <Text style={[Styles.curr1, { textDecorationLine: 'line-through' }]}>
+                <Text
+                  style={[Styles.curr1, {textDecorationLine: 'line-through'}]}>
                   ₹ {item?.item?.product?.price?.value}
                 </Text>
               </View>
@@ -144,8 +160,20 @@ export default function CartCard({
               <Text style={Styles.btnText}>Remove</Text>
             </TouchableOpacity>
             <View style={Styles.divider}></View>
-            <TouchableOpacity style={Styles.btn}>
-              <Text style={Styles.btnText}>Add to wishlist</Text>
+            <TouchableOpacity
+              style={Styles.btn}
+              onPress={() => {
+                item.item.product.stock.stockLevelStatus == 'inStock'
+                  ? handleClick(item.item)
+                  : Toast.showWithGravity(
+                      'No item left !',
+                      Toast.LONG,
+                      Toast.TOP,
+                    );
+              }}>
+              <Text style={Styles.btnText}>
+                {isActive ? 'Remove from wishlist' : 'Add to wishlist'}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

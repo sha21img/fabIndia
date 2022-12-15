@@ -66,7 +66,7 @@ export default function CartList(props) {
   const [maxstock, setMaxstock] = useState(null);
   const [couponCode, setCouponCode] = useState('');
 
-  const {cartdetails, getCartDetails} = props;
+  const {cartdetails, getCartDetails, handleClick} = props;
   useEffect(() => {
     let newCurrpos = newCurrPosition || 0;
     setCurrentPosition(newCurrpos);
@@ -148,6 +148,9 @@ export default function CartList(props) {
     'currentPositibbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbon',
     currentPosition,
   );
+  const addWishlist = async () => {
+    console.log('add wishlist');
+  };
   const RemoveClick = async data => {
     const value = await AsyncStorage.getItem('cartID');
     const get = await AsyncStorage.getItem('generatToken');
@@ -270,6 +273,7 @@ export default function CartList(props) {
               RemoveClick={RemoveClick}
               EmiClick={EmiClick}
               CustomClick={CustomClick}
+              handleClick={handleClick}
             />
           </>
         ) : currentPosition == 1 ? (

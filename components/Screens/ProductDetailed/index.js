@@ -125,7 +125,7 @@ export default function ProductDetailed(props) {
         contentContainerStyle={{
           paddingHorizontal: 15,
           backgroundColor: 'white',
-          flexGrow:1
+          flexGrow: 1,
         }}>
         {!!productDetail.classifications &&
           productDetail.classifications[0].features.map((item, index) => {
