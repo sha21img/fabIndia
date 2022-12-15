@@ -105,19 +105,31 @@ const UnAuthPostData = async (url, data) => {
 const getCartID = async () => {
   const get = await AsyncStorage.getItem('generatToken');
   const getToken = JSON.parse(get);
-  const response = await axios.post(
-    `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts`,
-    {},
-    {
-      headers: {
-        Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
-      },
-    },
+  console.log(
+    'ashihshhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
+    getToken.isCheck,
   );
-  if (response.status == 201) {
-    console.log('this si filter-=-=-=', response.data?.code);
-    await AsyncStorage.setItem('cartID', response.data?.code);
-  }
+  const type = getToken.isCheck ? 'current' : 'anonymous';
+  await axios
+    .post(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts`,
+      {},
+      {
+        headers: {
+          Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
+        },
+      },
+    )
+    .then(async response => {
+      console.log('response.dataashishhhhcartid', response.data);
+      if (response.status == 201) {
+        console.log('this si filter-=-=-=', response.data?.code);
+        await AsyncStorage.setItem('cartID', response.data?.code);
+      }
+    })
+    .catch(err => {
+      console.log('inininiiniinin', err);
+    });
 };
 
 const getWishID = async () => {

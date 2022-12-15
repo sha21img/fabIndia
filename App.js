@@ -34,7 +34,7 @@ import {Provider, useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CartList from './components/Screens/Checkout/CartList';
 import configureStore from './components/Common/Helper/Redux/store';
-import { getCartID } from './components/Common/Helper';
+import {getCartID} from './components/Common/Helper';
 
 const Stack = createNativeStackNavigator();
 
@@ -166,9 +166,17 @@ export default function App(props) {
   //   );
   //   console.log('response-=-=-=-=-=-response', response);
   // };
+  const getInitialCartId = async () => {
+    const cartId = await AsyncStorage.getItem('cartID');
+    console.log(
+      'cartIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartId',
+      cartId,
+    );
+    !cartId && getCartID();
+  };
   useEffect(() => {
     checkToken();
-    getCartID();
+    // getInitialCartId();
   }, []);
   const rightText = (
     <TouchableOpacity>
@@ -342,7 +350,7 @@ export default function App(props) {
                 ),
               }}
             />
-             <Stack.Screen
+            <Stack.Screen
               name="CartPage"
               component={CartPage}
               options={{
@@ -356,7 +364,7 @@ export default function App(props) {
                   />
                 ),
               }}
-            /> 
+            />
             <Stack.Screen
               name="Address"
               component={EditAddress}
@@ -373,7 +381,7 @@ export default function App(props) {
                   />
                 ),
               }}
-            /> 
+            />
 
             <Stack.Screen
               name="StoreLocator"

@@ -40,10 +40,11 @@ import SimpleCard from '../../Common/SimpleCard';
 import Fonts from '../../../assets/fonts';
 import TopSwiper from '../../Common/TopSwiper';
 import axios from 'axios';
-import {getData} from '../../Common/Helper';
+import {getCartID, getData} from '../../Common/Helper';
 import WomenTab from './Tabs.js/WomenTab';
 import MenTab from './Tabs.js/MenTab';
 import OfferTab from './Tabs.js/OfferTab';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const width = Dimensions.get('window').width;
 
 const categoryData = [
@@ -692,6 +693,17 @@ export default function Dashbord(props) {
         return;
     }
   };
+  const getInitialCartID = async () => {
+    const cartId = await AsyncStorage.getItem('cartID');
+    console.log(
+      'cartIdca11rtIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartId',
+      cartId,
+    );
+    cartId == null && getCartID();
+  };
+  React.useEffect(() => {
+    getInitialCartID();
+  }, []);
 
   const getSections = data => {
     var dataa = [];
