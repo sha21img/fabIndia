@@ -169,7 +169,7 @@ export default function CartPage(props) {
   //     cartdetails={cartdetails}
   //     getCartDetails={getCartDetails}
   //   />
-  return cartdetails?.entries?.length ? (
+  return cartReducer.CartDetail.cartData.length > 0 ? (
     <CartList
       {...props}
       cartdetails={cartdetails}
