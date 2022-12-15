@@ -68,6 +68,8 @@ export default function Login(props) {
           return res.json();
         })
         .then(function (res1) {
+          const tokenGenerate = {...res1, isCheck: true};
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           if (res1.error) {
             Toast.showWithGravity(
               'Enter correct Details',
@@ -75,11 +77,11 @@ export default function Login(props) {
               Toast.TOP,
             );
           } else {
-            AsyncStorage.setItem('generatToken', JSON.stringify(res1));
+            AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
             props.navigation.navigate('MyAccount', {
               screen: 'MyAccounts',
             });
-            getCartID();
+            // getCartID();
             getWishID();
           }
         });
@@ -94,8 +96,9 @@ export default function Login(props) {
       )
       .then(
         response => {
-          console.log('response-=-=-=-=-=-generatTokenWithout', response.data);
-          AsyncStorage.setItem('generatToken', JSON.stringify(response.data));
+          const tokenGenerate = {...response.data, isCheck: false};
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
         },
         error => {
           console.log('response-=-=-=-=-=-error', error);
