@@ -279,7 +279,7 @@ export default function HomeHeader(props) {
               props.navigation.navigate('CartPage');
             }}>
             <EvilIcons name="cart" size={30} color={Colors.primarycolor} />
-            {totalquantity > 0 ? (
+            {cartReducer.CartDetail.cartQuantity > 0 ? (
               <View
                 style={{
                   position: 'absolute',
@@ -299,7 +299,7 @@ export default function HomeHeader(props) {
                     color: '#FFFFFF',
                     fontSize: 8,
                   }}>
-                  {totalquantity}
+                  {cartReducer.CartDetail.cartQuantity}
                 </Text>
               </View>
             ) : null}
