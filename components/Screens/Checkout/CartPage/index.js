@@ -4,7 +4,7 @@ import CartList from '../CartList';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch, useSelector} from 'react-redux';
-import {wishlistDetail} from '../../../Common/Helper/Redux/actions';
+import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
 
 export default function CartPage(props) {
   const {cartReducer} = useSelector(state => state);
@@ -39,6 +39,12 @@ export default function CartPage(props) {
     console.log(
       'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
       JSON.stringify(response.data),
+    );
+    dispatch(
+      cartDetail({
+        data: response.data,
+        quantity: response.data.entries.length,
+      }),
     );
     setCartDetails(response.data);
   };
