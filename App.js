@@ -34,7 +34,6 @@ import {Provider, useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CartList from './components/Screens/Checkout/CartList';
 import configureStore from './components/Common/Helper/Redux/store';
-import {getCartID} from './components/Common/Helper';
 
 const Stack = createNativeStackNavigator();
 
@@ -88,9 +87,8 @@ export default function App(props) {
       )
       .then(
         response => {
-          const tokenGenerate = {...response.data, isCheck: false};
-          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
-          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          console.log('response-=-=-=-=-=-generatTokenWithout', response.data);
+          AsyncStorage.setItem('generatToken', JSON.stringify(response.data));
         },
         error => {
           console.log('response-=-=-=-=-=-error', error);
@@ -153,7 +151,6 @@ export default function App(props) {
   };
   useEffect(() => {
     getCartDetails();
-    getCartID();
   }, []);
 
   // const generatTokenWith = async () => {
@@ -342,7 +339,7 @@ export default function App(props) {
                 ),
               }}
             />
-            <Stack.Screen
+             <Stack.Screen
               name="CartPage"
               component={CartPage}
               options={{
@@ -356,7 +353,7 @@ export default function App(props) {
                   />
                 ),
               }}
-            />
+            /> 
             <Stack.Screen
               name="Address"
               component={EditAddress}
@@ -373,7 +370,7 @@ export default function App(props) {
                   />
                 ),
               }}
-            />
+            /> 
 
             <Stack.Screen
               name="StoreLocator"
