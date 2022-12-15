@@ -36,7 +36,8 @@ export default function Profile(props) {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Image source={image.defaultProfile} />
+          {/* <Image source={image.defaultProfile} /> */}
+          <Text style={{ fontSize: 45, color: '#CDCDCD' }}>{userProfileData?.name?.match(/\b(\w)/g).join('')}</Text>
         </View>
         <View>
           <Text

@@ -42,7 +42,7 @@ export default function Size_Color({
     {value: 'Waist'},
     {value: 'Length'},
   ];
-  console.log('productdetail..........', productdetail.baseOptions);
+  // console.log('productdetail..........', productdetail.baseOptions);
 
   openSize = () => setModalVisible(true);
   useEffect(() => {
