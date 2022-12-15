@@ -13,7 +13,7 @@ export const imageURL = 'https://apisap.fabindia.com/';
 const postData = async (url, body) => {
   const get = await AsyncStorage.getItem('generatToken');
   const getToken = JSON.parse(get);
-  const Token = `${getToken.token_type} ${getToken.access_token}`;
+  const Token = `${getToken?.token_type} ${getToken?.access_token}`;
   const response = await fetch(`${BaseURL}/${url}`, {
     method: 'POST',
     headers: {
@@ -70,7 +70,7 @@ const patchComponentData = async path => {
     method: 'PATCH',
     // mode: 'cors',
     headers: {
-      Authorization: `${getToken.token_type} ${getToken.access_token}`,
+      Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
       'Content-Type': 'application/json',
     },
   });
@@ -90,7 +90,7 @@ const UnAuthPostData = async (url, data) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `${getToken.token_type} ${getToken.access_token}`,
+      Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
       Accept: 'application/json',
     },
     body: JSON.stringify(data),
@@ -110,7 +110,7 @@ const getCartID = async () => {
     {},
     {
       headers: {
-        Authorization: `${getToken.token_type} ${getToken.access_token}`,
+        Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
       },
     },
   );
@@ -128,7 +128,7 @@ const getWishID = async () => {
     `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts?fields=carts(DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,entries(totalPrice(formattedValue),product(images(FULL),stock(FULL),variantOptions(FULL),variantMatrix,priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,DEFAULT),user,saveTime,name,description)&lang=en&curr=INR`,
     {
       headers: {
-        Authorization: `${getToken.token_type} ${getToken.access_token}`,
+        Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
       },
     },
   );

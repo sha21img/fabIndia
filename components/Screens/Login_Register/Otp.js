@@ -67,15 +67,19 @@ export default function Otp(props) {
         return res.json();
       })
       .then(function (res1) {
-        console.log('response==>', res1);
+        console.log('response==>-=-=-=', res1);
         const tokenGenerate = {...res1, isCheck: true};
-        console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
-        AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-        props.navigation.navigate('MyAccount', {
-          screen: 'MyAccounts',
-        });
-        // getCartID();
-        getWishID();
+        if (res1.error) {
+          Toast.showWithGravity(res1.error_description, Toast.LONG, Toast.TOP);
+        } else {
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          props.navigation.navigate('MyAccount', {
+            screen: 'MyAccounts',
+          });
+          // getCartID();
+          getWishID();
+        }
       });
   };
   const handleResend = async () => {
