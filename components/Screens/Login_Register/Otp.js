@@ -13,7 +13,12 @@ import Fonts from '../../../assets/fonts';
 import CommonOtp from '../../Common/CommonOtp';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getCartID, getWishID, postDataAuth, UnAuthPostData} from '../../Common/Helper';
+import {
+  getCartID,
+  getWishID,
+  postDataAuth,
+  UnAuthPostData,
+} from '../../Common/Helper';
 import axios from 'axios';
 
 export default function Otp(props) {
@@ -32,7 +37,6 @@ export default function Otp(props) {
         saveToken();
       })
       .catch(err => {});
-    // getCartID();
   };
   const saveToken = async () => {
     var details = {
@@ -64,11 +68,13 @@ export default function Otp(props) {
       })
       .then(function (res1) {
         console.log('response==>', res1);
-        AsyncStorage.setItem('generatToken', JSON.stringify(res1));
+        const tokenGenerate = {...res1, isCheck: true};
+        console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+        AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
         props.navigation.navigate('MyAccount', {
           screen: 'MyAccounts',
         });
-        getCartID();
+        // getCartID();
         getWishID();
       });
   };

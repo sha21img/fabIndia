@@ -20,8 +20,9 @@ export default function ResetPassword(props) {
       )
       .then(
         response => {
-          console.log('response-=-=-=-=-=-generatTokenWithout', response.data);
-          AsyncStorage.setItem('generatToken', JSON.stringify(response.data));
+          const tokenGenerate = {...response.data, isCheck: false};
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
         },
         error => {
           console.log('response-=-=-=-=-=-error', error);
