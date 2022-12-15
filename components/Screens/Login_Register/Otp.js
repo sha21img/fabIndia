@@ -20,6 +20,7 @@ import {
   UnAuthPostData,
 } from '../../Common/Helper';
 import axios from 'axios';
+import { CommonActions } from '@react-navigation/native';
 
 export default function Otp(props) {
   const {transactionId, mobilePrefix, phoneNumber} = props.route.params;
@@ -74,10 +75,15 @@ export default function Otp(props) {
         } else {
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          props.navigation.navigate('MyAccount', {
-            screen: 'MyAccounts',
-          });
-          // getCartID();
+          // props.navigation.navigate('MyAccount', {
+          //   screen: 'MyAccounts',
+          // });
+          props.navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: 'MyAccounts' }]
+            })
+          );          // getCartID();
           getWishID();
         }
       });
