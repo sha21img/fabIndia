@@ -70,13 +70,17 @@ const MyAddresses = props => {
   const openCheckout = (data, UDID) => {
     console.log(
       'selectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselected',
-      selected,
+      data.orderId,
+    );
+    console.log(
+      'selectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselected',
+      UDID,
     );
     var options = {
       description: 'Payment for Fab india',
       image: 'https://i.imgur.com/3g7nmJC.png',
       currency: 'INR',
-      callback_url:UDID,
+      // callback_url: UDID,
       key: 'rzp_test_T70CWf6iJpuekL',
       amount: amount * 100,
       name: 'FAB India',

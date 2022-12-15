@@ -187,7 +187,7 @@ export default function ProductDetailed(props) {
     setShowAdd(true);
   };
   const AddtoCart = async () => {
-    console.log("asdfasdfasdfasdfasdfasdfasdf")
+    console.log('asdfasdfasdfasdfasdfasdfasdf');
     // const body = {
     //   quantity: 1,
     //   product: {
@@ -204,24 +204,33 @@ export default function ProductDetailed(props) {
     const type = getToken.isCheck ? 'current' : 'anonymous';
     console.log('this -s=df-=sdf-=sd-f=ds-f=-', type);
     console.log('this -s=df-=sdf-=sd-f=ds-f=-', getCartID);
-    const response = await axios.post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries?lang=en&curr=INR`,
-      {
-        quantity: 1,
-        product: {
-          code: productID,
+    await axios
+      .post(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries?lang=en&curr=INR`,
+        {
+          quantity: 1,
+          product: {
+            code: productID,
+          },
         },
-      },
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    getCartDetials1();
+      )
+      .then(response => {
+        getCartDetials1();
 
-    setCartSuccess(response.data);
-    Toast.showWithGravity('Added to Your Cart', Toast.LONG, Toast.TOP);
+        setCartSuccess(response.data);
+        Toast.showWithGravity('Added to Your Cart', Toast.LONG, Toast.TOP);
+      })
+      .catch(error => {
+        console.log(
+          'add to cart )))))))))))))))))))))))))))))))))))))))))))))))))',
+          error,
+        );
+      });
   };
   const getCartDetials1 = async () => {
     const value = await AsyncStorage.getItem('cartID');
