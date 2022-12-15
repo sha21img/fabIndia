@@ -66,7 +66,7 @@ export default function OrderProductLongCard({
     const getToken = JSON.parse(get);
     console.log('orderIDorderIDorderIDorderID', data?.entryNumber);
     const response = await axios.post(
-      `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/cancellation?lang=en&curr=INR`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/cancellation?lang=en&curr=INR`,
       {
         cancellationRequestEntryInputs: [
           {
@@ -95,7 +95,7 @@ export default function OrderProductLongCard({
     const getToken = JSON.parse(get);
     console.log('orderIDorderIDorderIDorderID', data?.entryNumber);
     const response = await axios.post(
-      `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orderReturns?fields=DEFAULT`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orderReturns?fields=DEFAULT`,
       {
         orderCode: data?.product?.code,
         returnRequestEntryInputs: [

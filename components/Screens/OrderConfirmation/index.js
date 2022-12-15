@@ -1,13 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  Modal,
+} from 'react-native';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import {image} from '../../../assets/images';
 import axios from 'axios';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 const OrderConfirmation = props => {
-  const {amount, addressData, UDID} = props.route.params;
+  const [showmodal, setshowmodal] = useState(false);
+  const {amount, addressData, UDID} = props?.route?.params;
   console.log('UD///ID',UDID)
-const [details,setDetails] = useState(null)
+  const [details, setDetails] = useState(null);
   useEffect(() => {
     const final = UDID.split('/');
     let id = final[final.length - 2];
@@ -15,16 +25,16 @@ const [details,setDetails] = useState(null)
   }, []);
 
   const getorderconfirmDetails = async id => {
-    console.log('jijhiojiojhp',id)
+    console.log('jijhiojiojhp', id);
     const response = await axios.post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/fetch?id=${id}&lang=en&curr=INR`
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/fetch?id=${id}&lang=en&curr=INR`,
       // {},
     );
     console.log(
       'getorderconfirmDetailsgetorderconfirmDetailsgetorderconfirmDetailsgetorderconfirmDetailsgetorderconfirmDetails',
       response.data,
     );
-    setDetails(response.data)
+    setDetails(response.data);
   };
 
   return (
@@ -82,7 +92,10 @@ const [details,setDetails] = useState(null)
           <Text style={{fontFamily: Fonts.Assistant700}}>‘My orders’</Text>
           within 48 hours of placing the order
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setshowmodal(true);
+          }}>
           <Text
             style={{
               textAlign: 'center',
@@ -99,6 +112,52 @@ const [details,setDetails] = useState(null)
           Fabindia village!
         </Text>
       </View>
+      {/*  */}
+      <Modal
+        visible={showmodal}
+        animationType="slide"
+        swipeDirection={['down']}
+        transparent={true}>
+        <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}>
+          <View
+            style={{
+              backgroundColor: 'white',
+              elevation: 5,
+              borderTopRightRadius: 15,
+              borderTopLeftRadius: 15,
+              paddingHorizontal: 15,
+              paddingVertical: 10,
+              marginTop: 'auto',
+              width: '100%',
+              height: '80%',
+            }}>
+            <View style={{margin: 10}}>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontFamily: Fonts.Assistant700, fontSize: 16}}>
+                  Your order details
+                </Text>
+                <TouchableOpacity onPress={() => setshowmodal(false)}>
+                  <Ionicons name="close-circle-outline" size={24} />
+                </TouchableOpacity>
+              </View>
+              <View style={{flexDirection:'row',alignItems:'center',paddingVertical:15}}>
+                <TouchableOpacity onPress={() => setshowmodal(false)}>
+                  <Ionicons name="close-circle-outline" size={24} />
+                </TouchableOpacity>
+                <View style={{paddingHorizontal:15,}}>
+                  <Text>6 items</Text>
+                  <Text>1,14,800</Text>
+                </View>
+                <View style={{borderLeftWidth:1,paddingHorizontal:10}}>
+
+                <Text>You saved 24,000</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };

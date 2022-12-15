@@ -12,7 +12,7 @@ import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {useDispatch, useSelector} from 'react-redux';
-
+import Toast from 'react-native-simple-toast';
 export default function Footer({
   oos,
   handleClick = null,
@@ -67,7 +67,12 @@ export default function Footer({
             ]}
             disabled={disabled}
             onPress={() => {
-              handleClick(), console.log('ki');
+              if (productdetail?.stock?.stockLevelStatus != 'inStock') {
+                Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+              } else {
+                handleClick() 
+              }
+              
             }}>
             <Text style={Styles.cartText}>Add to cart</Text>
           </TouchableOpacity>
