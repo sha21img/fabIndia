@@ -83,7 +83,8 @@ export default function Otp(props) {
               index: 0,
               routes: [{ name: 'MyAccounts' }]
             })
-          );          // getCartID();
+          );          
+          getCartID();
           getWishID();
         }
       });

@@ -45,6 +45,7 @@ import WomenTab from './Tabs.js/WomenTab';
 import MenTab from './Tabs.js/MenTab';
 import OfferTab from './Tabs.js/OfferTab';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 const width = Dimensions.get('window').width;
 
 const categoryData = [
@@ -695,15 +696,15 @@ export default function Dashbord(props) {
   };
   const getInitialCartID = async () => {
     const cartId = await AsyncStorage.getItem('cartID');
-    console.log(
-      'cartIdca11rtIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartId',
-      cartId,
-    );
+    console.log('cartId==>', cartId);
     cartId == null && getCartID();
   };
-  React.useEffect(() => {
-    getInitialCartID();
-  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getInitialCartID()
+    }, [])
+  );
 
   const getSections = data => {
     var dataa = [];

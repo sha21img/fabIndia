@@ -1,13 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import EmptyCart from '../EmptyCart';
 import CartList from '../CartList';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch, useSelector} from 'react-redux';
-import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartDetail, wishlistDetail } from '../../../Common/Helper/Redux/actions';
+import { useFocusEffect } from '@react-navigation/native';
+import { getCartID } from '../../../Common/Helper';
 
 export default function CartPage(props) {
-  const {cartReducer} = useSelector(state => state);
+  const { cartReducer } = useSelector(state => state);
   console.log(
     'cartReducer.WishListDetail.wishListData',
     cartReducer.WishListDetail.wishListData,
@@ -21,6 +23,18 @@ export default function CartPage(props) {
     getCartDetails();
     getWishListDetail();
   }, [props]);
+
+  const getInitialCartID = async () => {
+    const cartId = await AsyncStorage.getItem('cartID');
+    console.log('cartId==>', cartId);
+    cartId == null && getCartID();
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getInitialCartID()
+    }, [])
+  );
 
   const getCartDetails = async () => {
     const value = await AsyncStorage.getItem('cartID');
@@ -147,7 +161,7 @@ export default function CartPage(props) {
         .post(
           `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries?lang=en&curr=INR`,
           // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
-          {quantity: 1, product: {code: data.product.code}},
+          { quantity: 1, product: { code: data.product.code } },
           {
             headers: {
               Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -170,10 +184,11 @@ export default function CartPage(props) {
   //     cartdetails={cartdetails}
   //     getCartDetails={getCartDetails}
   //   />
-  return cartReducer.CartDetail.cartData.length > 0 ? (
+  // console.log('CartDetail==>', JSON.stringify(cartdetails))
+  return cartReducer.CartDetail.cartData.entries.length > 0 ? (
     <CartList
       {...props}
-      cartdetails={cartdetails}
+      cartdetails={cartReducer.CartDetail.cartData}
       getCartDetails={getCartDetails}
       handleClick={addWishlist}
     />

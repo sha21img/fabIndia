@@ -123,7 +123,7 @@ const getCartID = async () => {
     .then(async response => {
       console.log('response.dataashishhhhcartid', response.data);
       if (response.status == 201) {
-        console.log('this si filter-=-=-=', response.data?.code);
+        console.log('this si Cart Id', response.data?.code);
         await AsyncStorage.setItem('cartID', response.data?.code);
       }
     })

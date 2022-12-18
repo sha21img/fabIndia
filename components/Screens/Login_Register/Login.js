@@ -88,7 +88,7 @@ export default function Login(props) {
                 routes: [{ name: 'MyAccounts' }]
               })
             );
-            // getCartID();
+            getCartID();
             getWishID();
           }
         });
