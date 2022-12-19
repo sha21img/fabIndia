@@ -22,7 +22,9 @@ export default function Size_Color({
   customStyle,
   productdetail,
   productId,
+  imageUrlCheck,
   getColorProductId = null,
+  getImageData = null,
 }) {
   const [filterData, setFilterData] = useState([]);
   const [count, setCount] = useState(0);
@@ -32,7 +34,9 @@ export default function Size_Color({
   const [size, setSize] = useState([]);
   const [measure, setMeasure] = useState('inches');
   const [Stock, setStock] = useState(0);
-  const [color, setColor] = useState('blue');
+  const [color, setColor] = useState({
+    productCode: imageUrlCheck?.code,
+  });
   const [modalVisible, setModalVisible] = useState(false);
   // const freeSize = productdetail?.baseOptions[0]?.options[0]?.variantOptionQualifiers[1]?.value;
   const SizeHeader = [
@@ -52,6 +56,11 @@ export default function Size_Color({
       sizefilter();
     }
   }, [productdetail]);
+
+  useEffect(() => {
+    getColorProductId(imageUrlCheck?.code);
+    // setColor({code: imageUrlCheck?.code});
+  }, []);
   // const vicky = () => {
   //   let array = [];
   //   const filterArray = productdetail.baseOptions[0].options.map(item => {
@@ -144,28 +153,36 @@ export default function Size_Color({
     }
   };
 
+  // const getonPress = item => {
+  //   console.log('itemitemitemitem', item);
+  //   setColor(item);
+  //   // getColorProductId(item.productCode);
+  //   // getImageData(item.image);
+  // };
   return (
     <View style={[Styles.container, customStyle]}>
       <View style={Styles.ColorBox}>
         <Text style={Styles.ColorTxt}>Colour</Text>
         <View style={Styles.colorContainer}>
           {finalData?.color?.map(item => {
-            console.log(
-              'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck',
-              item,
-            );
             return (
               <TouchableOpacity
-                onPress={() => {
+                onPress={async () => {
                   console.log(
-                    'itemitemitemitemitemitemitemitemitemitem000000000',
-                    item,
+                    'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck888888888888888888888888888',
+                    item.productCode,
                   );
-                  getColorProductId(item.productCode);
+                  console.log(
+                    'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck666666666666666666',
+                    color?.code,
+                  );
                   setColor(item);
+                  getColorProductId(item.productCode);
+                  getImageData(item.productCode);
+                  // getonPress(item);
                 }}
                 style={
-                  item == color
+                  item.productCode == color?.productCode
                     ? Styles.colorOutlineActive
                     : Styles.colorOutlineInActive
                 }>

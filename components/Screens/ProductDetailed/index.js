@@ -29,7 +29,7 @@ import { useFocusEffect } from '@react-navigation/native';
 const width = Dimensions.get('window').width;
 
 export default function ProductDetailed(props) {
-  const {productId} = props?.route?.params;
+  const {productId,imageUrlCheck} = props?.route?.params;
 
   const [productdetail, setProductDetail] = useState({});
   const [cartID, setCartID] = useState(null);
@@ -75,23 +75,13 @@ export default function ProductDetailed(props) {
     } else {
       setShowAdd(true);
     }
-    // console.log(
-    //   'productdetail.variantMatrix[0].',
-    //   response.data?.variantMatrix[0]?.variantOption?.variantOptionQualifiers[0]
-    //     ?.image?.url,
-    // );
-    const newImage = [];
-    //
-    const image = 'https://apisap.fabindia.com/' + response.data.images[0].url;
-    console.log(image, 'asosssssh');
-    newImage.push(image);
-    // const newImage = response.data?.variantMatrix.map(item => {
-    //   return (
-    //     'https://apisap.fabindia.com/' +
-    //     item.variantOption?.variantOptionQualifiers[0]?.image?.url
-    //   );
-    // });
-    setProductImage(newImage);
+    let images = [];
+    for (let i = 0; i < response.data.images.length; i++) {
+      const item = response.data.images[i];
+      images.push('https://apisap.fabindia.com/' + item.url);
+    }
+   
+    setProductImage(images);
   };
   useEffect(() => {
     getproductDetailedData();
@@ -201,13 +191,54 @@ export default function ProductDetailed(props) {
     setProductID(data);
     setShowAdd(true);
   };
+  const getImageData = data => {
+    console.log("getImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageData",data)
+    getgetImageDataproductDetailed(data)
+  //   const newImage = [];
+  // console.log("datadatadatasetProductImagesetProductImagesetProductImagesetProductImage",data)
+  //   const image = 'https://apisap.fabindia.com/' + data;
+  //   newImage.push(image)
+  //   console.log("imageimageimageimageimageimageimageimageimageimageimageimageimage",image)
+  //   setProductImage(newImage);   
+  };
+  const getgetImageDataproductDetailed = async (Id) => {
+    const value = await AsyncStorage.getItem('cartID');
+    setCartID(value);
+
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${Id}?fields=code,configurable,configuratorType,name,summary,optionId,stock(DEFAULT),price(formattedValue,value,DEFAULT),images(galleryIndex,FULL),baseProduct,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantMatrix(FULL),sizeChart,averageRating,description,canonicalUrl,availableForPickup,url,numberOfReviews,manufacturer,categories(FULL),priceRange,multidimensional,tags,baseOptions,additionalDetails,DEFAULT,classifications,variantOptions,variantType&lang=en&curr=INR`,
+      // ` https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}?fields=code,configurable,configuratorType,name,summary,optionId,stock(DEFAULT),price(formattedValue,value,DEFAULT),images(galleryIndex,FULL),baseProduct,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantMatrix(FULL),sizeChart,averageRating,description,canonicalUrl,availableForPickup,url,numberOfReviews,manufacturer,categories(FULL),priceRange,multidimensional,tags,baseOptions,additionalDetails,DEFAULT,classifications,variantOptions,variantType&lang=en&curr=INR`,
+      // `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}?fields=name,purchasable,baseOptions(DEFAULT),baseProduct,variantOptions(DEFAULT),variantType&lang=en&curr=INR`,
+      // `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}`,
+    );
+
+    // console.log(
+    //   'productdetail.variantMatrix[0].',
+    //   response.data?.variantMatrix[0]?.variantOption?.variantOptionQualifiers[0]
+    //     ?.image?.url,
+    // );
+    let images = [];
+    for (let i = 0; i < response.data.images.length; i++) {
+      const item = response.data.images[i];
+      images.push('https://apisap.fabindia.com/' + item.url);
+    }
+    // const newImage = response.data?.variantMatrix.map(item => {
+    //   return (
+    //     'https://apisap.fabindia.com/' +
+    //     item.variantOption?.variantOptionQualifiers[0]?.image?.url
+    //   );
+    // });
+    setProductImage(images);
+  };
   const AddtoCart = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     const type = getToken.isCheck ? 'current' : 'anonymous';
     console.log('login type', type);
+    console.log('cart id', getToken);
     console.log('cart id', getCartID);
+
     await axios
       .post(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries?lang=en&curr=INR`,
@@ -377,6 +408,7 @@ export default function ProductDetailed(props) {
     }
   };
 
+  console.log("productIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductId",productId)
   return (
     <>
       {productdetail && (
@@ -413,7 +445,9 @@ export default function ProductDetailed(props) {
               customStyle={{marginTop: 20}}
               productdetail={productdetail}
               productId={productId}
+              imageUrlCheck={imageUrlCheck}
               getColorProductId={getColorProductId}
+              getImageData={getImageData}
             />
           )}
           {/* <Customize

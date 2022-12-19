@@ -70,6 +70,7 @@ export default function Card1(props) {
       });
     }
   };
+  console.log("imageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeCheckkkkkkkkkkkkkkkkkkkk",imageUrl)
   return (
     <>
       <TouchableOpacity
@@ -77,6 +78,7 @@ export default function Card1(props) {
         onPress={() =>
           props.navigation.navigate('ProductDetailed', {
             productId: item.code,
+            imageUrlCheck:item
           })
         }
         activeOpacity={0.8}>
