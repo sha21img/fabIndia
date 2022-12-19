@@ -19,7 +19,7 @@ import Filter from '../../../Common/Filter';
 import HomeHeader from '../../Home/HomeHeader';
 
 export default function LandingPageSaris_Blouses(props) {
-  const {code, title, status} = props.route.params;
+  const {code, title, status, isSearch} = props.route.params;
   console.log(
     'productDetailproductDetailproductDetailproductDetail',
     title,
@@ -38,7 +38,9 @@ export default function LandingPageSaris_Blouses(props) {
       {/* <TopBanner /> */}
 
       <ResultCards
+        isSearch={isSearch}
         status={status}
+        title={title}
         code={code}
         {...props}
         sortValue={sortValue}

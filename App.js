@@ -174,10 +174,10 @@ export default function App(props) {
     );
     !cartId && getCartID();
   };
-  useEffect(() => {
-    checkToken();
-    // getInitialCartId();
-  }, []);
+  // useEffect(() => {
+  //   checkToken();
+  //   // getInitialCartId();
+  // }, []);
   const rightText = (
     <TouchableOpacity>
       <Text
