@@ -18,7 +18,7 @@ export default function ResultCards(props) {
   const [filterProducts, setFilterProducts] = useState([]);
   const [wishlistproductCode, setWishlistproductCode] = useState([]);
   const [productCount, setProductCount] = useState(0);
-  const {code, sortValue, openSort, status} = props;
+  const {code, sortValue, openSort, status, title, isSearch} = props;
   console.log(
     'code+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
     code,
@@ -26,61 +26,66 @@ export default function ResultCards(props) {
   );
   const {data = []} = props;
   const getProductData = async () => {
-    // console.log('checky');
-    // let link = `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?${
-    //   status ? `${code}` : `query=:relevance:allCategories:${code}`
-    // }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`;
-
-    // const query = status ? code : `query=:relevance:allCategories:${code}`;
-    // console.log('queryqueryqueryqueryquery', query);  // console.log(
-    //   'linklinklinklinklinklinklinklink',
-    //   `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&${
-    //     status ? `${code}` : `query=:relevance:allCategories:${code}`
-    //   }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-    // );
     const fields =
       'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
-
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&${
-        status ? `${code}` : `query=:relevance:allCategories:${code}`
-      }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-    );
+    var response;
+    if (!!isSearch) {
+      console.log('Searchoiouytrewsdrfghjkopoiuytrdsedxcfvbh');
+      response = await axios.get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&query=${title}
+        &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+      );
+    } else {
+      console.log('wergthyui.l,kmjnhbsgmpokijuhgvfcdxsza');
+      response = await axios.get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&${
+          status ? `${code}` : `query=:relevance:allCategories:${code}`
+        }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+      );
+    }
     // fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}`);
     setdataMain(response.data);
     setProductCount(response.data.pagination.totalResults);
     setFilterProducts(response.data.products);
-    // console.log(
-    //   'response.data.products==========================================================',
-    //   response.data.products,
-    // );
-    // console.log(
-    //   'response.data.products',
-    //   response.data.products[0].variantOptions[0].variantOptionQualifiers,
-    // );
-
     if (filterProducts.length) {
       setFilterProducts([...filterProducts, ...response.data.products]);
     } else {
       setFilterProducts(response.data.products);
     }
   };
+
   const getSortProductData = async () => {
     const fields =
       'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
 
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&${
-        status ? `${code}` : `query=:relevance:allCategories:${code}`
-      }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-    );
+    var response;
+    if (!!isSearch) {
+      response = await axios.get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&query=${title}
+        &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+      );
+    } else {
+      response = await axios.get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&${
+          status ? `${code}` : `query=:relevance:allCategories:${code}`
+        }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+      );
+    }
     setdataMain(response.data);
     setFilterProducts(response.data.products);
   };
   useEffect(() => {
     !!sortValue && getSortProductData();
   }, [sortValue]);
+  const isWishlisted = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    if (getToken.isCheck) {
+      getCartDetails();
+    }
+  };
   useEffect(() => {
+    isWishlisted();
     getProductData();
     // https://apisap.fabindia.com/occ/v2/fabindiab2c/
     // products/search?query=:relevance:allCategories:new-women-accessories&pageSize=10&lang=en&curr=INR&currentPage
@@ -92,14 +97,7 @@ export default function ResultCards(props) {
       // getProductData();
     }
   };
-  useEffect(() => {
-    //  dispatch(
-    //     wishlistDetail({
-    //       data: filterProduct,
-    //       quantity: response.data.entries.length,
-    //     }),
-    getCartDetails();
-  }, []);
+  useEffect(() => {}, []);
   const getCartDetails = async () => {
     const value = await AsyncStorage.getItem('cartID');
     const get = await AsyncStorage.getItem('generatToken');

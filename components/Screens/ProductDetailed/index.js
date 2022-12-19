@@ -19,13 +19,12 @@ import {StoreDetails} from '../../../constant';
 import {SliderBox} from 'react-native-image-slider-box';
 import Customize from './Customize';
 import axios from 'axios';
-import {getCartID, postData} from '../../Common/Helper';
+import {postData} from '../../Common/Helper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 import {Colors} from '../../../assets/Colors';
 import {useDispatch, useSelector} from 'react-redux';
 import {cartDetail, wishlistDetail} from '../../Common/Helper/Redux/actions';
-import { useFocusEffect } from '@react-navigation/native';
 const width = Dimensions.get('window').width;
 
 export default function ProductDetailed(props) {
@@ -44,20 +43,6 @@ export default function ProductDetailed(props) {
   useEffect(() => {
     setProductID(productId);
   }, []);
-
-  const getInitialCartID = async () => {
-    const cartId = await AsyncStorage.getItem('cartID');
-    console.log('cartId==>', cartId);
-    cartId == null && getCartID();
-  };
-
-  useFocusEffect(
-    React.useCallback(() => {
-      getInitialCartID()
-    }, [])
-  );
-
-
   const getproductDetailedData = async () => {
     const value = await AsyncStorage.getItem('cartID');
     setCartID(value);
@@ -202,12 +187,24 @@ export default function ProductDetailed(props) {
     setShowAdd(true);
   };
   const AddtoCart = async () => {
+    console.log('asdfasdfasdfasdfasdfasdfasdf');
+    // const body = {
+    //   quantity: 1,
+    //   product: {
+    //     code: productId,
+    //   },
+    // };
+    // const response = await postData(
+    //   `fabindiab2c/users/current/carts/${cartID}/entries?lang=en&curr=INR`,
+    //   body,
+    // );
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     const type = getToken.isCheck ? 'current' : 'anonymous';
-    console.log('login type', type);
-    console.log('cart id', getCartID);
+    console.log('this -s=df-=sdf-=sd-f=ds-f=-', getToken);
+    console.log('this -s=df-=sdf-=sd-f=ds-f=-', getCartID);
+    console.log('thistypetype', type);
     await axios
       .post(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries?lang=en&curr=INR`,
@@ -232,9 +229,8 @@ export default function ProductDetailed(props) {
       .catch(error => {
         console.log(
           'add to cart )))))))))))))))))))))))))))))))))))))))))))))))))',
-          JSON.stringify(error.response),
+          error,
         );
-        Toast.showWithGravity(error.response.data.errors[0].message, Toast.LONG, Toast.TOP);
       });
   };
   const getCartDetials1 = async () => {
@@ -242,10 +238,9 @@ export default function ProductDetailed(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    const type = getToken.isCheck ? 'current' : 'anonymous';
-    console.log('this us cart id', getCartID);
+    console.log('this us cart id1', getCartID);
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
       {
         headers: {
           Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -264,14 +259,21 @@ export default function ProductDetailed(props) {
     );
     // setCartDetails(response.data);
   };
+  const isWishlisted = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    if (getToken.isCheck) {
+      getCartDetails();
+    }
+  };
   useEffect(() => {
-    getCartDetails();
+    isWishlisted();
   }, []);
   const getCartDetails = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    console.log('this us cart id', getCartID);
+    console.log('this us cart id q', getCartID);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
 
     const value = await AsyncStorage.getItem('cartID');
@@ -391,7 +393,7 @@ export default function ProductDetailed(props) {
         dotColor={Colors.primarycolor}
       /> */}
           <SliderBox
-            resizeMode="contain"
+            resizeMode="stretch"
             autoplay={true}
             circleLoop={true}
             sliderBoxHeight={381}

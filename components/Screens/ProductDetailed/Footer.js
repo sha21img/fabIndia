@@ -43,38 +43,34 @@ export default function Footer(props) {
     'prprprprprprp1111111111111111111111111111111rprp',
     productdetail?.stock?.stockLevelStatus,
   );
+  const isAddWishlist = async () => {
+    const token = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(token);
+    console.log('tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111', getToken.isCheck);
+    if (getToken.isCheck) {
+      console.log('shsihsihshsihhhh');
+      if (productdetail?.stock?.stockLevelStatus == 'inStock') {
+        // handleClick(item);
+        handleWishListAdd(productdetail);
+      } else {
+        Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+      }
+    } else {
+      console.log('glglglglglltltlhhh');
+      Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
+
+      props.navigation.navigate('MyAccount', {
+        screen: 'Login_Register',
+      });
+    }
+  };
   return (
     <>
       <View style={Styles.container}>
         <TouchableOpacity
           style={Styles.heartBox}
-          onPress={async () => {
-            const token = await AsyncStorage.getItem('generatToken');
-            const getToken= JSON.parse(token)
-            console.log(
-              'tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111',
-              getToken.isCheck,
-            );
-            if (getToken.isCheck) {
-              console.log('shsihsihshsihhhh');
-              if (productdetail?.stock?.stockLevelStatus == 'inStock') {
-                // handleClick(item);
-                handleWishListAdd(productdetail);
-              } else {
-                Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
-              }
-            } else {
-              console.log('glglglglglltltlhhh');
-              Toast.showWithGravity(
-                'Please Login First',
-                Toast.LONG,
-                Toast.TOP,
-              );
-
-              props.navigation.navigate('MyAccount', {
-                screen: 'Login_Register',
-              });
-            }
+          onPress={() => {
+            isAddWishlist();
           }}>
           {!!isVisible?.code ? (
             <MaterialCommunityIcons
@@ -103,7 +99,7 @@ export default function Footer(props) {
               // if (productdetail?.stock?.stockLevelStatus != 'inStock') {
               //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
               // } else {
-                handleClick();
+              handleClick();
               // }
             }}>
             <Text style={Styles.cartText}>Add to cart</Text>
