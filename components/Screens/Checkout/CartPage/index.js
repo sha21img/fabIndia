@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import EmptyCart from '../EmptyCart';
 import CartList from '../CartList';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useDispatch, useSelector } from 'react-redux';
-import { cartDetail, wishlistDetail } from '../../../Common/Helper/Redux/actions';
-import { useFocusEffect } from '@react-navigation/native';
-import { getCartID } from '../../../Common/Helper';
+import {useDispatch, useSelector} from 'react-redux';
+import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
+import {useFocusEffect} from '@react-navigation/native';
+import {getCartID} from '../../../Common/Helper';
 
 export default function CartPage(props) {
-  const { cartReducer } = useSelector(state => state);
+  const {cartReducer} = useSelector(state => state);
   console.log(
     'cartReducer.WishListDetail.wishListData',
     cartReducer.WishListDetail.wishListData,
@@ -32,8 +32,8 @@ export default function CartPage(props) {
 
   useFocusEffect(
     React.useCallback(() => {
-      getInitialCartID()
-    }, [])
+      getInitialCartID();
+    }, []),
   );
 
   const getCartDetails = async () => {
@@ -42,7 +42,7 @@ export default function CartPage(props) {
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     const type = getToken.isCheck ? 'current' : 'anonymous';
-    console.log('this us cart id', getToken);
+    console.log('this us cart id a', getToken);
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
       {
@@ -123,7 +123,7 @@ export default function CartPage(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
-    console.log('this us cart id', getToken);
+    console.log('this us cart id c', getToken);
     if (isAddWishlist) {
       console.log(
         'ifffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
@@ -161,7 +161,7 @@ export default function CartPage(props) {
         .post(
           `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries?lang=en&curr=INR`,
           // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
-          { quantity: 1, product: { code: data.product.code } },
+          {quantity: 1, product: {code: data.product.code}},
           {
             headers: {
               Authorization: `${getToken.token_type} ${getToken.access_token}`,

@@ -45,7 +45,7 @@ import WomenTab from './Tabs.js/WomenTab';
 import MenTab from './Tabs.js/MenTab';
 import OfferTab from './Tabs.js/OfferTab';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 const width = Dimensions.get('window').width;
 
 const categoryData = [
@@ -699,11 +699,44 @@ export default function Dashbord(props) {
     console.log('cartId==>', cartId);
     cartId == null && getCartID();
   };
+  const generatTokenWithout = async () => {
+    await axios
+      .post(
+        `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+      )
+      .then(
+        response => {
+          console.log(
+            'response-=-=-=-=-=-generatTokenWithoutaa',
+            response.data,
+          );
+          AsyncStorage.setItem(
+            'generatToken',
+            JSON.stringify({...response.data, isCheck: false}),
+          );
+        },
+        error => {
+          console.log('response-=-=-=-=-=-error', error);
+        },
+      );
+  };
+  const checkToken = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    console.log('asdfasdfasdfasdf', JSON.parse(get));
+    if (getToken == null) {
+      await generatTokenWithout();
+      await getInitialCartID();
+
+      // await getCartDetails();
+    }
+    // }
+  };
 
   useFocusEffect(
     React.useCallback(() => {
-      getInitialCartID()
-    }, [])
+      checkToken();
+    }, []),
   );
 
   const getSections = data => {

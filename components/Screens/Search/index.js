@@ -74,40 +74,66 @@ export default function Search(props) {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={Styles.scrollcontainer}>
         {filterProduct.length > 0 ? (
-          filterProduct?.map(item => {
-            return (
-              <TouchableOpacity
-                onPress={() =>
-                  props.navigation.navigate('ProductDetailed', {
-                    productId: item.code,
-                    // filterProduct: filterProduct,
-                    // ...props,
-                  })
-                }
-                // onPress={() =>
-                //   props.navigation.navigate('SearchResult', {
-                //     productId: item.code,
-                //     filterProduct: filterProduct,
-                //     ...props,
-                //   })
-                // }
+          <>
+            <TouchableOpacity
+              onPress={() =>
+                props.navigation.navigate('LandingPageSaris_Blouses', {
+                  ...props,
+                  isSearch: true,
+                  title: text,
+                })
+              }
+              style={{
+                paddingVertical: 15,
+                borderBottomWidth: 1,
+                borderBottomColor: '#EDEDED',
+              }}>
+              <Text
                 style={{
-                  paddingVertical: 15,
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#EDEDED',
+                  fontSize: 14,
+                  fontFamily: Fonts.Assistant400,
+                  color: Colors.textcolor,
                 }}>
-                <Text
+                {text}
+              </Text>
+            </TouchableOpacity>
+            {filterProduct?.map(item => {
+              console.log('item........', item);
+              return (
+                <TouchableOpacity
+                  onPress={() =>
+                    props.navigation.navigate('ProductDetailed', {
+                      productId: item.code,
+                      // filterProduct: filterProduct,
+                      // ...props,
+                    })
+                  }
+                  // onPress={() =>
+                  //   props.navigation.navigate('SearchResult', {
+                  //     productId: item.code,
+                  //     filterProduct: filterProduct,
+                  //     ...props,
+                  //   })
+                  // }
                   style={{
-                    fontSize: 14,
-                    fontFamily: Fonts.Assistant400,
-                    color: Colors.textcolor,
+                    paddingVertical: 10,
+                    borderBottomWidth: 1,
+                    borderBottomColor: '#EDEDED',
                   }}>
-                  {item.name}
-                </Text>
-                {/* <Text>{item.price.formattedValue}</Text> */}
-              </TouchableOpacity>
-            );
-          })
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontFamily: Fonts.Assistant400,
+                      color: Colors.textcolor,
+                    }}>
+                    {item.name}
+                  </Text>
+                  <Text>{item.price.formattedValue}</Text>
+                  {/* <Text>{item.price.formattedValue}</Text> */}
+                </TouchableOpacity>
+              );
+            })}
+          </>
         ) : filterProduct.length == 0 && text !== '' ? (
           <NoResultFound />
         ) : null}
