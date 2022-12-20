@@ -51,7 +51,7 @@ export default function CategorySection(props) {
       //   // justifyContent: 'space-around',
       //   paddingHorizontal: 15,
       // }}
-      data={listData}
+      data={data}
       keyExtractor={item => console.log('this is for key')}
       renderItem={({item, index}) => (
         <Accordian
