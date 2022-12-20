@@ -32,14 +32,81 @@ export default function HomeHeader(props) {
   } = props;
 
   const [cartdetails, setCartDetails] = useState(null);
-  const [totalquantity, setTotalquantity] = useState(0);
   const [wishlistQuantity, setWishlistQuantity] = useState(0);
   const [wishlistproduct, setWishlistproduct] = useState([]);
 
-  useEffect(() => {
+  // const getProductSearchData = async () => {
+  //   const response = await axios.get(
+  //     `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=${text}&pageSize=5&lang=en&curr=INR`,
+  //   );
+  //   console.log('response for search', response.data.products);
+  //   setFilterProduct(response.data.products);
+  // };
+  // useEffect(() => {
+  //   if (!!text && text.length > 3) {
+  //     getProductSearchData();
+  //   } else {
+  //     setFilterProduct([]);
+  //   }
+  // }, [text]);
+  // console.log('filterProductfilterProduct', filterProduct);
+  console.log(
+    'cartReducer.WishListDetail.wishlistQuantitycartReducer.WishListDetail.wishlistQuantity',
+    cartReducer.WishListDetail.wishlistQuantity,
+  );
+  React.useEffect(() => {
     getCartDetails();
-  }, [totalquantity]);
+    getWishListDetail();
+  }, []);
+  const getWishListDetail = async () => {
+    const value = await AsyncStorage.getItem('cartID');
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const getCartID = await AsyncStorage.getItem('cartID');
+    console.log('this us cart iooooooooooooooood11', getCartID);
+    const getWishlistID = await AsyncStorage.getItem('WishlistID');
 
+    const aa =
+      'DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue, value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)';
+    await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+        // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=${aa}&lang=en&curr=INR`,
+        // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/?fileds=${aa}?lang=en&curr=INR`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      )
+      .then(response => {
+        console.log(
+          'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
+          response.data.name,
+        );
+        if (!!response?.data?.name) {
+          if (response?.data?.name?.includes('wishlist')) {
+            const filterProductId = response.data.entries.map(item => {
+              return {
+                code: item.product.baseOptions[0].selected.code,
+                item: item,
+              };
+            });
+            dispatch(
+              wishlistDetail({
+                data: filterProductId,
+                quantity: response.data.entries.length,
+              }),
+            );
+            // setWishlistproductCode(filterProductId);
+          }
+        }
+      })
+      .catch(error => {
+        console.log('error for get crt detail', error);
+      });
+  };
   const getCartDetails = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
@@ -60,51 +127,15 @@ export default function HomeHeader(props) {
       'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
       response.data,
     );
+    let finalvalue = response?.data?.deliveryItemsQuantity;
+
     // let finalvalue = response?.data?.orderEntries?.reduce(
     //   (n, {quantity}) => n + quantity,
     //   0,
     // );
-    let finalvalue = response?.data?.deliveryItemsQuantity
 
     dispatch(cartDetail({data: response.data, quantity: finalvalue}));
-    // console.log('quantityquantity', response.data);
-    // setCartDetails(response.data);
-    // setTotalquantity(finalvalue);
-    // setWishlistQuantity(response.data.entries.length);
-    if (response.data.name.includes('wishlist')) {
-      const filterProduct = response.data.entries.map(item => {
-        return {
-          code: item.product.baseOptions[0].selected.code,
-          item: item,
-        };
-      });
-      dispatch(
-        wishlistDetail({
-          data: filterProduct,
-          quantity: response.data.entries.length,
-        }),
-      );
-
-      // console.log('filterProduct', filterProduct);
-      // setWishlistproduct(filterProduct);
-    }
   };
-
-  // const getProductSearchData = async () => {
-  //   const response = await axios.get(
-  //     `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=${text}&pageSize=5&lang=en&curr=INR`,
-  //   );
-  //   console.log('response for search', response.data.products);
-  //   setFilterProduct(response.data.products);
-  // };
-  // useEffect(() => {
-  //   if (!!text && text.length > 3) {
-  //     getProductSearchData();
-  //   } else {
-  //     setFilterProduct([]);
-  //   }
-  // }, [text]);
-  // console.log('filterProductfilterProduct', filterProduct);
   const shareAll = () => {
     Share.open({
       message: `Check this Out https://www.fabindia.com/cotton-silk-chanderi-sari-10648138 on Fabindia`,
@@ -116,62 +147,7 @@ export default function HomeHeader(props) {
         err && console.log(err);
       });
   };
-  const addWishlist = async data => {
-    const isAddWishlist = cartReducer.WishListDetail.wishListData.find(
-      (item, index) => {
-        return item.code == data.product.code;
-      },
-    );
-    const get = await AsyncStorage.getItem('generatToken');
-    const getToken = JSON.parse(get);
-    const getWishlistID = await AsyncStorage.getItem('WishlistID');
-    console.log('this us cart id', getWishlistID);
-    // if (isAddWishlist) {
-    await axios
-      .delete(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
-        // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
-        // {quantity: 0, product: {code: isAddWishlist.code}},
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-          },
-        },
-      )
-      .then(response => {
-        console.log(
-          'response.data deletetetetetetettetetet to wishlist',
-          response.data,
-        );
-        getCartDetails();
-      })
-      .catch(error => {
-        console.log('error for remove000 wishlist', error);
-      });
-    // } else {
-    //   const value = await AsyncStorage.getItem('cartID');
-    //   console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
-    //   console.log('addWishlist', data.code);
-    //   await axios
-    //     .post(
-    //       'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR',
-    //       // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
-    //       {quantity: 1, product: {code: data.code}},
-    //       {
-    //         headers: {
-    //           Authorization: `bearer 2LUFsc7CwqiHcQ_ni3ak3IPG3as`,
-    //         },
-    //       },
-    //     )
-    //     .then(response => {
-    //       console.log('response.data add to wishlist', response.data);
-    //       getCartDetails();
-    //     })
-    //     .catch(error => {
-    //       console.log('error for add wishlist', error);
-    //     });
-    // }
-  };
+
   return (
     <>
       <View style={Styles.container}>
@@ -256,12 +232,7 @@ export default function HomeHeader(props) {
           </Text> */}
           <TouchableOpacity
             style={Styles.currencyContainer}
-            onPress={() =>
-              props.navigation.navigate('YourWishlist', {
-                // wishlistproduct: wishlistproduct,
-                handleClick: addWishlist,
-              })
-            }>
+            onPress={() => props.navigation.navigate('YourWishlist')}>
             <EvilIcons name="heart" color={Colors.primarycolor} size={30} />
             {cartReducer.WishListDetail.wishlistQuantity > 0 ? (
               <View
