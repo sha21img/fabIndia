@@ -124,7 +124,11 @@ const getCartID = async () => {
       console.log('response.dataashishhhhcartid', response.data);
       if (response.status == 201) {
         console.log('this si Cart Id', response.data?.code);
-        await AsyncStorage.setItem('cartID', response.data?.code);
+        if (type == 'anonymous') {
+          await AsyncStorage.setItem('cartID', response.data?.guid);
+        } else {
+          await AsyncStorage.setItem('cartID', response.data?.code);
+        }
       }
     })
     .catch(err => {

@@ -28,12 +28,12 @@ import {cartDetail, wishlistDetail} from '../../Common/Helper/Redux/actions';
 const width = Dimensions.get('window').width;
 
 export default function ProductDetailed(props) {
-  const {productId,imageUrlCheck} = props?.route?.params;
+  const {productId, imageUrlCheck} = props?.route?.params;
 
   const [productdetail, setProductDetail] = useState({});
   const [cartID, setCartID] = useState(null);
   const [showAdd, setShowAdd] = useState(false);
-
+  const [quantity, setQuantity] = useState(null);
   const [cartSuccess, setCartSuccess] = useState(null);
   const [productImage, setProductImage] = React.useState([]);
   const [productID, setProductID] = useState(productId);
@@ -65,7 +65,7 @@ export default function ProductDetailed(props) {
       const item = response.data.images[i];
       images.push('https://apisap.fabindia.com/' + item.url);
     }
-   
+
     setProductImage(images);
   };
   useEffect(() => {
@@ -127,7 +127,7 @@ export default function ProductDetailed(props) {
                   borderTopColor: 'grey',
                   flexDirection: 'row',
                   backgroundColor: '#FFFFFF',
-                  marginVertical: 10,
+                  // marginVertical: 10,
                   borderBottomWidth:
                     productDetail.classifications[0].features[
                       productDetail.classifications[0].features.length - 1
@@ -164,7 +164,7 @@ export default function ProductDetailed(props) {
   };
   const screenObj = {
     Description: DetailsData,
-    Specification: DetailsData1,
+    Specifications: DetailsData1,
   };
   const dataMap = StoreDetails.map(item => ({
     detail: productdetail,
@@ -177,16 +177,19 @@ export default function ProductDetailed(props) {
     setShowAdd(true);
   };
   const getImageData = data => {
-    console.log("getImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageData",data)
-    getgetImageDataproductDetailed(data)
-  //   const newImage = [];
-  // console.log("datadatadatasetProductImagesetProductImagesetProductImagesetProductImage",data)
-  //   const image = 'https://apisap.fabindia.com/' + data;
-  //   newImage.push(image)
-  //   console.log("imageimageimageimageimageimageimageimageimageimageimageimageimage",image)
-  //   setProductImage(newImage);   
+    console.log(
+      'getImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageData',
+      data,
+    );
+    getgetImageDataproductDetailed(data);
+    //   const newImage = [];
+    // console.log("datadatadatasetProductImagesetProductImagesetProductImagesetProductImage",data)
+    //   const image = 'https://apisap.fabindia.com/' + data;
+    //   newImage.push(image)
+    //   console.log("imageimageimageimageimageimageimageimageimageimageimageimageimage",image)
+    //   setProductImage(newImage);
   };
-  const getgetImageDataproductDetailed = async (Id) => {
+  const getgetImageDataproductDetailed = async Id => {
     const value = await AsyncStorage.getItem('cartID');
     setCartID(value);
 
@@ -216,7 +219,7 @@ export default function ProductDetailed(props) {
     setProductImage(images);
   };
   const AddtoCart = async () => {
-    console.log('asdfasdfasdfasdfasdfasdfasdf');
+    console.log('asdfasdfasdfasdfasdfasdfasdf', productID);
     // const body = {
     //   quantity: 1,
     //   product: {
@@ -238,7 +241,7 @@ export default function ProductDetailed(props) {
       .post(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries?lang=en&curr=INR`,
         {
-          quantity: 1,
+          quantity: quantity,
           product: {
             code: productID,
           },
@@ -254,6 +257,7 @@ export default function ProductDetailed(props) {
 
         setCartSuccess(response.data);
         Toast.showWithGravity('Added to Your Cart', Toast.LONG, Toast.TOP);
+        setQuantity(null)
       })
       .catch(error => {
         console.log(
@@ -408,7 +412,13 @@ export default function ProductDetailed(props) {
     }
   };
 
-  console.log("productIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductIdproductId",productId)
+  const sendCount = count => {
+    console.log(
+      'countttttttttttttttttttttttttttttttttttttttttt00000000000000088888888888888888',
+      count,
+    );
+    setQuantity(count);
+  };
   return (
     <>
       {productdetail && (
@@ -448,6 +458,7 @@ export default function ProductDetailed(props) {
               imageUrlCheck={imageUrlCheck}
               getColorProductId={getColorProductId}
               getImageData={getImageData}
+              sendCount={sendCount}
             />
           )}
           {/* <Customize

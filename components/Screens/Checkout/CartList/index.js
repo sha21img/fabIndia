@@ -157,8 +157,9 @@ export default function CartList(props) {
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     console.log('this us cart id', getCartID);
+    const type = getToken.isCheck ? 'current' : 'anonymous';
     const response = await axios.delete(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/entries/${data.entryNumber}`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries/${data.entryNumber}`,
       // {},
       {
         headers: {
