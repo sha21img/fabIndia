@@ -77,10 +77,7 @@ export default function Card1(props) {
       });
     }
   };
-  console.log(
-    'imageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeCheckkkkkkkkkkkkkkkkkkkk',
-    imageUrl,
-  );
+
   return (
     <>
       <TouchableOpacity

@@ -27,6 +27,10 @@ export default function Size_Color({
   getColorProductId = null,
   getImageData = null,
 }) {
+  console.log(
+    'imageUrlCheck?.codeimageUrlCheck?.codeimageUrlCheck?.code000000p============================================================',
+    productdetail.baseOptions[0].selected
+  );
   const [filterData, setFilterData] = useState([]);
   const [count, setCount] = useState(1);
   const [pinCode, setPinCode] = useState(null);
@@ -38,7 +42,9 @@ export default function Size_Color({
   const [color, setColor] = useState({
     productCode: imageUrlCheck?.code,
     stock: 10,
+    color:productdetail.baseOptions[0].selected.variantOptionQualifiers[0].value
   });
+  console.log(color,'............................')
   const [modalVisible, setModalVisible] = useState(false);
   // const freeSize = productdetail?.baseOptions[0]?.options[0]?.variantOptionQualifiers[1]?.value;
   const SizeHeader = [
@@ -61,7 +67,9 @@ export default function Size_Color({
 
   useEffect(() => {
     getColorProductId(imageUrlCheck?.code);
-    // setColor({code: imageUrlCheck?.code});
+    // setColor(prev => {
+    //   return {...prev, productCode: imageUrlCheck?.code};
+    // });
   }, []);
   // const vicky = () => {
   //   let array = [];
@@ -97,6 +105,7 @@ export default function Size_Color({
         } else {
           let a = {
             size: el.variantOptionQualifiers[1]?.value,
+            productCode: el.code,
             color: [
               {
                 colorCode: el.variantOptionQualifiers[0]?.value,
@@ -113,7 +122,7 @@ export default function Size_Color({
       });
     setfinalData(arrayData[0]);
     setFilterData(arrayData);
-    console.log(arrayData, 'arrayDataarrayData');
+    console.log(arrayData, 'arrayDataarrayDataooooooooooooo9999999999999999999');
   };
 
   const StockSubmit = item => {
@@ -127,10 +136,22 @@ export default function Size_Color({
     });
     setStock(sum);
     setSize(item);
+    if(item.color.filter((el)=>(el.productCode == item.productCode))[0].stock==0){
+      setCount(0)
+    }else{
+      setCount(1)
+    }
+    let a = {productCode: item?.productCode,
+      stock: item.color.filter((el)=>(el.productCode == item.productCode))[0].stock,
+      color: item.color.filter((el)=>(el.productCode == item.productCode))[0].colorCode}
+    setColor(a)
+    getColorProductId(item.productCode)
+    getImageData(item.productCode)
     setfinalData(item);
   };
 
   const CounterQuantity = task => {
+    console.log("color.stockcolor.stock",color.stock)
     let countData = count;
     if (task == 'Minus') {
       if (countData != 1) {
@@ -170,21 +191,29 @@ export default function Size_Color({
         <Text style={Styles.ColorTxt}>Colour</Text>
         <View style={Styles.colorContainer}>
           {finalData?.color?.map(item => {
+            console.log(
+              'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck8--------------8888',
+              item
+            );
             return (
               <TouchableOpacity
                 onPress={async () => {
                   console.log(
                     'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck888888888888888888888888888',
-                    item,
+                    item.productCode,
+                  );
+                  console.log(
+                    'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck6666666666666666666666666666',
+                    color?.productCode,
                   );
 
                   setColor(item);
                   getColorProductId(item.productCode);
                   getImageData(item.productCode);
-                  // getonPress(item);
+                  getonPress(item);
                 }}
                 style={
-                  item.productCode == color?.productCode
+                  item.productCode == color?.productCode || color.color==item.colorCode
                     ? Styles.colorOutlineActive
                     : Styles.colorOutlineInActive
                 }>
@@ -198,7 +227,12 @@ export default function Size_Color({
           })}
         </View>
       </View>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between',alignItems:'center'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
         <Text style={Styles.sizeTxt}>Size</Text>
         {filterData[0]?.size != 'Free Size' ? (
           <TouchableOpacity onPress={() => openSize()} style={Styles.chartBox}>
@@ -212,7 +246,8 @@ export default function Size_Color({
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={Styles.btnBox}>
         {filterData.map((item, index) => {
-          console.log(item, '///llllllll//?');
+          console.log( item, '///llllllll/0000000000000000000000/?');
+          
           return (
             <>
               <TouchableOpacity
@@ -220,7 +255,7 @@ export default function Size_Color({
                   StockSubmit(item);
                 }}
                 style={
-                  item.size == size.size ? Styles.activeBtn : Styles.inActiveBtn
+                 ( item.size == size.size ||   item.color.filter(el=>el.productCode == color?.productCode).length)  ? Styles.activeBtn : Styles.inActiveBtn
                 }>
                 <Text
                   style={
@@ -551,12 +586,12 @@ const Styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     minWidth: 70,
-    backgroundColor:'white',
+    backgroundColor: 'white',
     padding: 7,
     marginRight: 10,
     borderRadius: 50,
-    borderWidth:1,
-    borderColor:Colors.primarycolor
+    borderWidth: 1,
+    borderColor: Colors.primarycolor,
   },
   activeBtnText: {
     color: Colors.textcolor,
@@ -569,8 +604,8 @@ const Styles = StyleSheet.create({
     marginRight: 10,
     padding: 7,
     borderRadius: 50,
-    borderWidth:1,
-    borderColor:'lightgrey'
+    borderWidth: 1,
+    borderColor: 'lightgrey',
   },
   inActiveBtnText: {
     color: Colors.textcolor,

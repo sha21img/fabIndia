@@ -2,6 +2,7 @@ import {
   View,
   Text,
   ScrollView,
+  FlatList,
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
@@ -25,6 +26,8 @@ import Toast from 'react-native-simple-toast';
 import {Colors} from '../../../assets/Colors';
 import {useDispatch, useSelector} from 'react-redux';
 import {cartDetail, wishlistDetail} from '../../Common/Helper/Redux/actions';
+import Card from '../../Common/Card';
+import Card4 from '../../Common/Card4';
 const width = Dimensions.get('window').width;
 
 export default function ProductDetailed(props) {
@@ -37,6 +40,8 @@ export default function ProductDetailed(props) {
   const [cartSuccess, setCartSuccess] = useState(null);
   const [productImage, setProductImage] = React.useState([]);
   const [productID, setProductID] = useState(productId);
+  const [commonproduct, setCommonproduct] = useState([]);
+
   const [wishlistproductCode, setWishlistproductCode] = useState([]);
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
@@ -53,7 +58,7 @@ export default function ProductDetailed(props) {
       // `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}?fields=name,purchasable,baseOptions(DEFAULT),baseProduct,variantOptions(DEFAULT),variantType&lang=en&curr=INR`,
       // `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}`,
     );
-    console.log('response.data04733333333333333333', response.data);
+    // console.log('response.data04733333333333333333', response.data);
     setProductDetail(response.data);
     if (response.data?.baseOptions?.length > 0) {
       setShowAdd(false);
@@ -68,8 +73,23 @@ export default function ProductDetailed(props) {
 
     setProductImage(images);
   };
+
+  const bestSellers = async () => {
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/bestSeller/bestSellerProducts?fields=products(FULL)&productCode=${productId}&lang=en&curr=INR`,
+      // ` https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}?fields=code,configurable,configuratorType,name,summary,optionId,stock(DEFAULT),price(formattedValue,value,DEFAULT),images(galleryIndex,FULL),baseProduct,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantMatrix(FULL),sizeChart,averageRating,description,canonicalUrl,availableForPickup,url,numberOfReviews,manufacturer,categories(FULL),priceRange,multidimensional,tags,baseOptions,additionalDetails,DEFAULT,classifications,variantOptions,variantType&lang=en&curr=INR`,
+      // `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}?fields=name,purchasable,baseOptions(DEFAULT),baseProduct,variantOptions(DEFAULT),variantType&lang=en&curr=INR`,
+      // `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}`,
+    );
+    console.log(
+      'bestSellersbestSellersbestSellersbestSellers',
+      response.data?.result?.products,
+    );
+    setCommonproduct(response.data);
+  };
   useEffect(() => {
     getproductDetailedData();
+    bestSellers();
   }, []);
 
   // const getCartID = async () => {
@@ -106,10 +126,6 @@ export default function ProductDetailed(props) {
     return <></>;
   };
   const DetailsData1 = (props, item, productDetail) => {
-    console.log(
-      'productDetail,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ppppppppppppppppppppppppppppppppppp',
-      productDetail,
-    );
     return (
       <ScrollView
         contentContainerStyle={{
@@ -172,15 +188,10 @@ export default function ProductDetailed(props) {
     card: screenObj[item],
   }));
   const getColorProductId = data => {
-    console.log('data5555555555555555555555555555555555555555555555', data);
     setProductID(data);
     setShowAdd(true);
   };
   const getImageData = data => {
-    console.log(
-      'getImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageDatagetImageData',
-      data,
-    );
     getgetImageDataproductDetailed(data);
     //   const newImage = [];
     // console.log("datadatadatasetProductImagesetProductImagesetProductImagesetProductImage",data)
@@ -234,9 +245,7 @@ export default function ProductDetailed(props) {
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     const type = getToken.isCheck ? 'current' : 'anonymous';
-    console.log('this -s=df-=sdf-=sd-f=ds-f=-', getToken);
-    console.log('this -s=df-=sdf-=sd-f=ds-f=-', getCartID);
-    console.log('thistypetype', type);
+
     await axios
       .post(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries?lang=en&curr=INR`,
@@ -257,7 +266,7 @@ export default function ProductDetailed(props) {
 
         setCartSuccess(response.data);
         Toast.showWithGravity('Added to Your Cart', Toast.LONG, Toast.TOP);
-        setQuantity(null)
+        setQuantity(null);
       })
       .catch(error => {
         console.log(
@@ -271,7 +280,6 @@ export default function ProductDetailed(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    console.log('this us cart id1', getCartID);
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
       {
@@ -280,10 +288,7 @@ export default function ProductDetailed(props) {
         },
       },
     );
-    console.log(
-      'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
-      JSON.stringify(response.data),
-    );
+
     dispatch(
       cartDetail({
         data: response.data,
@@ -306,11 +311,9 @@ export default function ProductDetailed(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    console.log('this us cart id q', getCartID);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
 
     const value = await AsyncStorage.getItem('cartID');
-    console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
     const aa =
       'DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue, value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)';
     await axios
@@ -326,10 +329,6 @@ export default function ProductDetailed(props) {
         },
       )
       .then(response => {
-        console.log(
-          'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
-          response.data.name,
-        );
         if (response.data.name.includes('wishlist')) {
           const res = response.data.entries.find((item, index) => {
             return {code: item.product.baseOptions[0].selected.code};
@@ -347,10 +346,7 @@ export default function ProductDetailed(props) {
               quantity: response.data.entries.length,
             }),
           );
-          console.log(
-            'respppppppppppppppppppppppppppppppppppppppppppppppppppp',
-            filterProductId,
-          );
+
           // setWishlistproductCode(filterProductId);
         }
       })
@@ -381,10 +377,6 @@ export default function ProductDetailed(props) {
           },
         )
         .then(response => {
-          console.log(
-            'response.data deletetetetetetettetetet to wishlist',
-            response.data,
-          );
           getCartDetails();
         })
         .catch(error => {
@@ -403,7 +395,6 @@ export default function ProductDetailed(props) {
           },
         )
         .then(response => {
-          console.log('response.data add to wishlist', response.data);
           getCartDetails();
         })
         .catch(error => {
@@ -494,6 +485,27 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
             heading="More in Hand Block Print Short Kurtas"
             data={[0, 0, 0, 0]}
           /> */}
+          <View style={{marginTop: 30, marginHorizontal: 15}}>
+            <Text
+              style={{
+                paddingBottom: 10,
+                fontFamily: Fonts.PlayfairDisplay900Italic,
+                fontSize: 20,
+              }}>
+              More in {commonproduct?.categoryData?.name}{' '}
+            </Text>
+
+            <FlatList
+              data={commonproduct?.result?.products}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item, index) => index}
+              renderItem={({item}) => {
+                // console.log("itemsitems",items)
+                return <Card4 items={item} {...props} />;
+              }}
+            />
+          </View>
         </ScrollView>
       )}
       <Footer
