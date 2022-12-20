@@ -22,19 +22,19 @@ export default function CartPage(props) {
   useEffect(() => {
     getCartDetails();
     getWishListDetail();
-  }, [props]);
+  }, []);
 
-  const getInitialCartID = async () => {
-    const cartId = await AsyncStorage.getItem('cartID');
-    console.log('cartId==>', cartId);
-    cartId == null && getCartID();
-  };
+  // const getInitialCartID = async () => {
+  //   const cartId = await AsyncStorage.getItem('cartID');
+  //   console.log('cartId==>', cartId);
+  //   cartId == null && getCartID();
+  // };
 
-  useFocusEffect(
-    React.useCallback(() => {
-      getInitialCartID();
-    }, []),
-  );
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     getInitialCartID();
+  //   }, []),
+  // );
 
   const getCartDetails = async () => {
     const value = await AsyncStorage.getItem('cartID');
@@ -52,16 +52,22 @@ export default function CartPage(props) {
       },
     );
     console.log(
-      'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
-      JSON.stringify(response.data),
+      'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
+      response.data,
     );
+
+    let finalvalue = response?.data?.entries?.reduce(
+      (n, {quantity}) => n + quantity,
+      0,
+    );
+    console.log('finalvalue', finalvalue);
     dispatch(
       cartDetail({
         data: response.data,
-        quantity: response.data.entries.length,
+        quantity: finalvalue,
       }),
     );
-    setCartDetails(response.data);
+    // setCartDetails(response.data);
   };
   const getWishListDetail = async () => {
     const value = await AsyncStorage.getItem('cartID');

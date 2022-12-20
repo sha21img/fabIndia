@@ -62,12 +62,12 @@ export default function Card1(props) {
     console.log('tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111', getToken.isCheck);
 
     if (getToken?.isCheck) {
-      // console.log('shsihsihshsihhhh');
-      // if (item.stock.stockLevelStatus == 'inStock') {
-      handleClick(item);
-      // } else {
-      //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
-      // }
+      console.log('shsihsihshsihhhh');
+      if (item.stock.stockLevelStatus == 'inStock') {
+        handleClick(item);
+      } else {
+        Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+      }
     } else {
       console.log('glglglglglltltlhhh');
       Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
@@ -77,7 +77,7 @@ export default function Card1(props) {
       });
     }
   };
-  console.log("imageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeCheckkkkkkkkkkkkkkkkkkkk",item)
+
   return (
     <>
       <TouchableOpacity
@@ -85,7 +85,7 @@ export default function Card1(props) {
         onPress={() =>
           props.navigation.navigate('ProductDetailed', {
             productId: item.code,
-            imageUrlCheck:item
+            imageUrlCheck: item,
           })
         }
         activeOpacity={0.8}>
