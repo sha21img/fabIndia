@@ -81,6 +81,7 @@ const MyAddresses = props => {
       image: 'https://i.imgur.com/3g7nmJC.png',
       currency: 'INR',
       // callback_url: UDID,
+      // redirect: true,
       key: 'rzp_test_T70CWf6iJpuekL',
       amount: amount * 100,
       name: 'FAB India',
@@ -92,6 +93,7 @@ const MyAddresses = props => {
       },
       theme: {color: Colors.primarycolor},
     };
+    console.log("optionsoptionsoptions", JSON.stringify(options))
     RazorpayCheckout.open(options)
       .then(data => {
         // handle success

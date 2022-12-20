@@ -46,7 +46,7 @@ export const WomenTabdata = [
 ];
 export const StoreDetails = [
   'Description',
-  'Specification'
+  'Specifications'
 ];
 export const AboutUsTab = [
   'About us',
