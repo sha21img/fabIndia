@@ -24,6 +24,8 @@ export default function LandingPageSaris_Blouses(props) {
     'productDetailproductDetailproductDetailproductDetail',
     title,
     code,
+    status,
+    isSearch
   );
 
   // openFilter = () => setModalVisible(true);
