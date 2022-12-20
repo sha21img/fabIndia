@@ -186,6 +186,47 @@ export default function Card3(props) {
     //     });
     // }
   };
+  const AddtoCart = async item => {
+    console.log('add to cart in wihslist page', item.product.code);
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const getCartID = await AsyncStorage.getItem('cartID');
+    const type = getToken.isCheck ? 'current' : 'anonymous';
+    console.log('this -s=df-=sdf-=sd-f=ds-f=-', getToken);
+    console.log('this -s=df-=sdf-=sd-f=ds-f=-', getCartID);
+    console.log('thistypetype', type);
+    await axios
+      .post(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries?lang=en&curr=INR`,
+        {
+          quantity: item.quantity,
+          product: {
+            code: item.product.code,
+          },
+        },
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      )
+      .then(response => {
+        console.log('responssse', response.data);
+        getCartDetails();
+        dispatch(
+          cartDetail({
+            data: response.data,
+            quantity: response.data.entries.length,
+          }),
+        );
+      })
+      .catch(error => {
+        console.log(
+          'add to cart )))))))))))))))))))))))))))))))))))))))))))))))))',
+          error,
+        );
+      });
+  };
   return (
     <>
       <View style={[defaultViewCustomStyles, customViewStyle]}>
@@ -213,11 +254,13 @@ export default function Card3(props) {
             </Text>
           </View>
         </View>
-        <View style={Styles.actions}>
-          <Text style={Styles.actionstxt}>Remove</Text>
-          <View style={Styles.dash}></View>
+        <TouchableOpacity
+          style={Styles.actions}
+          onPress={() => AddtoCart(item)}>
+          {/* <Text style={Styles.actionstxt}>Remove</Text>
+          <View style={Styles.dash}></View> */}
           <Text style={Styles.actionstxt}>Add to cart</Text>
-        </View>
+        </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => {

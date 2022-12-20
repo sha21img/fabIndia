@@ -35,21 +35,6 @@ export default function HomeHeader(props) {
   const [wishlistQuantity, setWishlistQuantity] = useState(0);
   const [wishlistproduct, setWishlistproduct] = useState([]);
 
-  // const getProductSearchData = async () => {
-  //   const response = await axios.get(
-  //     `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=${text}&pageSize=5&lang=en&curr=INR`,
-  //   );
-  //   console.log('response for search', response.data.products);
-  //   setFilterProduct(response.data.products);
-  // };
-  // useEffect(() => {
-  //   if (!!text && text.length > 3) {
-  //     getProductSearchData();
-  //   } else {
-  //     setFilterProduct([]);
-  //   }
-  // }, [text]);
-  // console.log('filterProductfilterProduct', filterProduct);
   console.log(
     'cartReducer.WishListDetail.wishlistQuantitycartReducer.WishListDetail.wishlistQuantity',
     cartReducer.WishListDetail.wishlistQuantity,
