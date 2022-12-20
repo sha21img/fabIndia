@@ -1,4 +1,12 @@
-import {View, Text, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  Modal,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Card from '../../../Common/Card';
 import Card1 from '../../../Common/Card1';
@@ -8,6 +16,11 @@ import SortBox from './SortBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch, useSelector} from 'react-redux';
 import {wishlistDetail} from '../../../Common/Helper/Redux/actions';
+import HomeHeader from '../../Home/HomeHeader';
+import Filter from '../../../Common/Filter';
+import Fonts from '../../../../assets/fonts';
+import {Colors} from '../../../../assets/Colors';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 export default function ResultCards(props) {
   const {cartReducer} = useSelector(state => state);
@@ -17,8 +30,14 @@ export default function ResultCards(props) {
   const [dataMain, setdataMain] = useState([]);
   const [filterProducts, setFilterProducts] = useState([]);
   const [wishlistproductCode, setWishlistproductCode] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [filterModalVisible, setFilterModalVisible] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [sortValue, setSortValue] = useState('');
+
   const [productCount, setProductCount] = useState(0);
-  const {code, sortValue, openSort, status, title, isSearch} = props;
+  const {code, status, title, isSearch} = props;
   console.log(
     'code+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
     code,
@@ -43,9 +62,11 @@ export default function ResultCards(props) {
         }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
     }
+    console.log('1234567890', response.data.facets);
     // fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}`);
     setdataMain(response.data);
     setProductCount(response.data.pagination.totalResults);
+    setTotalCount(response.data.pagination.totalResults);
     setFilterProducts(response.data.products);
     if (filterProducts.length) {
       setFilterProducts([...filterProducts, ...response.data.products]);
@@ -53,6 +74,8 @@ export default function ResultCards(props) {
       setFilterProducts(response.data.products);
     }
   };
+  const openSort = () => setModalVisible(true);
+  const openFilter = () => setFilterModalVisible(true);
 
   const getSortProductData = async () => {
     const fields =
@@ -97,7 +120,6 @@ export default function ResultCards(props) {
       // getProductData();
     }
   };
-  useEffect(() => {}, []);
   const getCartDetails = async () => {
     const value = await AsyncStorage.getItem('cartID');
     const get = await AsyncStorage.getItem('generatToken');
@@ -123,7 +145,7 @@ export default function ResultCards(props) {
       .then(response => {
         console.log(
           'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
-          response.data,
+          response.data.name,
         );
         if (!!response?.data?.name) {
           if (response?.data?.name?.includes('wishlist')) {
@@ -235,6 +257,8 @@ export default function ResultCards(props) {
   };
   return (
     <>
+      <HomeHeader {...props} headertext={title} totalCount={totalCount} />
+
       <FlatList
         // ListHeaderComponent={() => (
         //   <SortBox
@@ -263,8 +287,139 @@ export default function ResultCards(props) {
         openSort={openSort}
         dataMain={filterProducts}
         productCount={productCount}
+        totalCount={totalCount}
+        openFilter={openFilter}
         //  openFilter={openFilter}
       />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={filterModalVisible}
+        onRequestClose={() => {
+          setFilterModalVisible(!filterModalVisible);
+        }}>
+        <Filter
+          setFilterModalVisible={setFilterModalVisible}
+          filterModalVisible={filterModalVisible}
+          data={dataMain.facets}
+        />
+        {/* <View style={styles.mainContainer}>
+          <Text>jihugy</Text>
+        </View> */}
+      </Modal>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.mainContainer}>
+          <View style={styles.centeredView}>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{flexGrow: 1}}>
+              <View style={styles.headingBox}>
+                <View style={{width: '50%'}}>
+                  <Text style={styles.heading}>SORT BY</Text>
+                </View>
+                <TouchableOpacity
+                  style={{width: '50%'}}
+                  onPress={() => setModalVisible(!modalVisible)}>
+                  {/* <Entypo
+                    name="circle-with-cross"
+                    color={Colors.primarycolor}
+                    size={24}
+                  /> */}
+                  <Text style={styles.heading}>CLOSE</Text>
+                </TouchableOpacity>
+              </View>
+
+              {[
+                {title: `What's New`, value: 'creationtime-desc'},
+                {title: `Price: Low to High`, value: 'price-asc'},
+                {title: `Price: High to Low`, value: 'price-desc'},
+                {title: `Bestseller`, value: 'productCountBestSeller-desc'},
+              ].map(item => {
+                return (
+                  <>
+                    <TouchableOpacity
+                      style={styles.titleBox}
+                      onPress={() => {
+                        setIsChecked(item.title);
+                        setSortValue(item.value);
+                        setModalVisible(!modalVisible);
+                      }}>
+                      {/* <CheckBox
+                        checkBoxColor={Colors.primarycolor}
+                        onClick={() => {
+                          // setIsChecked(!isChecked);
+                          setSortValue(item.value);
+                          setModalVisible(!modalVisible);
+                        }}
+                        isChecked={sortValue == item.value ? true : false}
+                      /> */}
+                      <Text style={styles.title}>{item.title}</Text>
+                      {isChecked == item.title && (
+                        <Entypo
+                          name="check"
+                          color={Colors.textcolor}
+                          size={24}
+                        />
+                      )}
+                    </TouchableOpacity>
+                  </>
+                );
+              })}
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
     </>
   );
 }
+const styles = StyleSheet.create({
+  mainContainer: {
+    width: '100%',
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+  },
+  centeredView: {
+    marginTop: 'auto',
+    width: '100%',
+    backgroundColor: 'white',
+  },
+  headingBox: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 0.5,
+    borderBottomColor: 'grey',
+  },
+  heading: {
+    fontSize: 20,
+    lineHeight: 24,
+    fontFamily: Fonts.Assistant600,
+    color: Colors.textcolor,
+    // width: '50%',
+    textAlign: 'center',
+  },
+  titleBox: {
+    flexDirection: 'row',
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    // borderBottomColor: '#EDEDED',
+    paddingVertical: 15,
+    justifyContent: 'space-between',
+    // borderBottomWidth: 2,
+  },
+  title: {
+    fontSize: 16,
+    lineHeight: 16,
+    fontFamily: Fonts.Assistant600,
+    color: Colors.textcolor,
+    paddingLeft: 10,
+  },
+});

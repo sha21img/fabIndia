@@ -25,16 +25,10 @@ export default function LandingPageSaris_Blouses(props) {
     title,
     code,
   );
-  const [modalVisible, setModalVisible] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
-  const [sortValue, setSortValue] = useState('');
 
-  const openSort = () => setModalVisible(true);
   // openFilter = () => setModalVisible(true);
   return (
     <>
-      <HomeHeader {...props} headertext={title} />
-
       {/* <TopBanner /> */}
 
       <ResultCards
@@ -43,61 +37,10 @@ export default function LandingPageSaris_Blouses(props) {
         title={title}
         code={code}
         {...props}
-        sortValue={sortValue}
-        openSort={openSort}
+        // setTotalCount={setTotalCount}
+        // totalCount={totalCount}
       />
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.mainContainer}>
-          <View style={styles.centeredView}>
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{flexGrow: 1}}>
-              <View style={styles.headingBox}>
-                <Text style={styles.heading}>Sort</Text>
-                <TouchableOpacity
-                  onPress={() => setModalVisible(!modalVisible)}>
-                  <Entypo
-                    name="circle-with-cross"
-                    color={Colors.primarycolor}
-                    size={24}
-                  />
-                </TouchableOpacity>
-              </View>
 
-              {[
-                {title: `What's New`, value: 'creationtime-desc'},
-                {title: `Price: Low to High`, value: 'price-asc'},
-                {title: `Price: High to Low`, value: 'price-desc'},
-                {title: `Bestseller`, value: 'productCountBestSeller-desc'},
-              ].map(item => {
-                return (
-                  <>
-                    <View style={styles.titleBox}>
-                      <CheckBox
-                        checkBoxColor={Colors.primarycolor}
-                        onClick={() => {
-                          // setIsChecked(!isChecked);
-                          setSortValue(item.value);
-                          setModalVisible(!modalVisible);
-                        }}
-                        isChecked={sortValue == item.value ? true : false}
-                      />
-                      <Text style={styles.title}>{item.title}</Text>
-                    </View>
-                  </>
-                );
-              })}
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
       {/* <Filter /> */}
     </>
   );
@@ -113,8 +56,6 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     width: '100%',
     backgroundColor: 'white',
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
   },
   headingBox: {
     flexDirection: 'row',
@@ -122,25 +63,30 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderBottomWidth: 0.5,
+    borderBottomColor: 'grey',
   },
   heading: {
     fontSize: 20,
     lineHeight: 24,
     fontFamily: Fonts.Assistant600,
     color: Colors.textcolor,
+    // width: '50%',
+    textAlign: 'center',
   },
   titleBox: {
     flexDirection: 'row',
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     alignItems: 'center',
-    borderBottomColor: '#EDEDED',
+    // borderBottomColor: '#EDEDED',
     paddingVertical: 15,
-    borderBottomWidth: 2,
+    justifyContent: 'space-between',
+    // borderBottomWidth: 2,
   },
   title: {
     fontSize: 16,
     lineHeight: 16,
-    fontFamily: Fonts.Assistant400,
+    fontFamily: Fonts.Assistant600,
     color: Colors.textcolor,
     paddingLeft: 10,
   },

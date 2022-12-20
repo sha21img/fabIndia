@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import CheckBox from 'react-native-check-box';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 const filterOption = [
@@ -29,31 +30,18 @@ const fabricOption = [{op: 'Cotton'}, {op: 'Pollster'}, {op: 'Leather'}];
 const fitOption = [{op: 'Slim Fit'}, {op: 'Regular Fit'}, {op: 'Other'}];
 const sleevesOption = [{op: 'Short'}, {op: 'Full'}, {op: 'Nea'}];
 const neckOption = [{op: 'V '}, {op: 'Round'}];
-const Filter = () => {
+const Filter = props => {
+  const {filterModalVisible, setFilterModalVisible, data = []} = props;
+  const [isCheck, setIsCheck] = useState([]);
+  console.log('kjhbvhjop', isCheck);
+
   const [isActive, setIsActive] = useState('Price');
   const [isActiveCheckBox, setIsActiveCheckBox] = useState([]);
   const [activeOption, setActiveOption] = useState(colorOption);
-
-  const handleActiveOption = op => {
-    setIsActive(op);
-    if (op === 'Price') {
-      setActiveOption(priceOption);
-    } else if (op === 'Color') {
-      setActiveOption(colorOption);
-    } else if (op === 'Size') {
-      setActiveOption(sizeOption);
-    } else if (op === 'Fabric') {
-      setActiveOption(fabricOption);
-    } else if (op === 'Fit') {
-      setActiveOption(fitOption);
-    } else if (op === 'Sleeves') {
-      setActiveOption(sleevesOption);
-    } else if (op === 'Neck') {
-      setActiveOption(neckOption);
-    } else {
-      setActiveOption(priceOption);
-    }
-  };
+  const [categoryOption, setCategoryOption] = useState(null);
+  useEffect(() => {
+    setCategoryOption(data[0].name);
+  }, []);
   const onPressCheckBox = op => {
     if (isActiveCheckBox.includes(op)) {
       let a = isActiveCheckBox.filter(el => el !== op);
@@ -63,7 +51,14 @@ const Filter = () => {
     }
     console.log('isActiveCheckBox...', isActiveCheckBox);
   };
-
+  // const aa = data
+  //   ?.find(item => {
+  //     return item.name == categoryOption;
+  //   })
+  //   ?.values.map(item => {
+  //     console.log('itemitem', item);
+  //   });
+  // console.log('aa', aa);
   return (
     <ScrollView
       contentContainerStyle={{
@@ -72,49 +67,95 @@ const Filter = () => {
         backgroundColor: 'white',
       }}>
       <ScrollView contentContainerStyle={styles.box}>
-        {filterOption.map((el, i) => {
+        {data.map((el, i) => {
           return (
             <TouchableOpacity
               style={
-                el.option.includes(isActive)
+                el.name.includes(categoryOption)
                   ? styles.activeOption
                   : styles.filterOption
               }
               key={i}
-              onPress={() => handleActiveOption(el.option)}>
-              {el.option.includes(isActive) ? (
-                <Text style={styles.activeText}>{el.option}</Text>
+              onPress={
+                () => setCategoryOption(el.name)
+                //  handleActiveOption(el.name)
+              }>
+              <Text style={styles.activeText}>{el.name}</Text>
+
+              {/* {el.option.includes(isActive) ? (
+                <Text style={styles.activeText}>{el.name}</Text>
               ) : (
-                <Text style={styles.inActiveText}>{el.option}</Text>
-              )}
+                <Text style={styles.inActiveText}>{el.name}</Text>
+              )} */}
             </TouchableOpacity>
           );
         })}
       </ScrollView>
       <View style={styles.box1}>
-        {activeOption !== [] &&
-          activeOption.map((el, i) => {
+        {data
+          ?.find(item => {
+            return item.name == categoryOption;
+          })
+          ?.values.map(item => {
+            console.log('itemitem', item);
+            console.log(
+              'isCheck[item.name] == item.name',
+              isCheck[item.name] == item.name,
+            );
             return (
-              <View key={i} style={styles.checkboxContainer}>
-                <Text
-                  style={
-                    isActiveCheckBox.includes(el.op)
-                      ? styles.selectedCheckboxIcon
-                      : styles.checkboxIcon
-                  }
-                  onPress={() => onPressCheckBox(el.op)}
+              <View style={styles.checkboxContainer}>
+                <CheckBox
+                  checkBoxColor={Colors.primarycolor}
+                  onClick={() => {
+                    // setIsCheck(prev => {
+                    //   if (isCheck.name.includes(item.name)) {
+                    //     let a = isCheck.name;
+                    //     let b = a.filter(el => el != item.name);
+                    //     return {...prev, name: b};
+                    //   } else {
+                    //     let a = isCheck.name;
+                    //     a.push(item.name);
+                    //     setIsCheck(prev => {
+                    //       return {...prev, name: a};
+                    //     });
+                    //   }
+                    //   // return {...prev, name: item.name};
+                    // });
+                    // setSortValue(item.value);
+                    // setModalVisible(!modalVisible);
+                  }}
+                  isChecked={isCheck.name.includes(item.name)}
                 />
-                <Text style={styles.checkboxText}>{el.op}</Text>
+                <Text>{item.name}</Text>
               </View>
             );
           })}
+        {/* {data.map((el, i) => {
+          return (
+            <View key={i} style={styles.checkboxContainer}>
+              <Text
+                style={
+                  isActiveCheckBox.includes(el.op)
+                    ? styles.selectedCheckboxIcon
+                    : styles.checkboxIcon
+                }
+                onPress={() => onPressCheckBox(el.op)}
+              />
+              <Text style={styles.checkboxText}>{el.op}</Text>
+            </View>
+          );
+        })} */}
       </View>
 
       <View style={styles.bottomContent}>
-        <TouchableOpacity style={styles.cancelButton}>
+        <TouchableOpacity
+          style={styles.cancelButton}
+          onPress={() => setFilterModalVisible(false)}>
           <Text style={styles.cancleTxt}>Cancel</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.applyButton}>
+        <TouchableOpacity
+          style={styles.applyButton}
+          onPress={() => setFilterModalVisible(false)}>
           <Text style={styles.applyTxt}>Apply</Text>
         </TouchableOpacity>
       </View>

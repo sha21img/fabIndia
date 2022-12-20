@@ -11,7 +11,7 @@ export const Styles = StyleSheet.create({
     paddingTop: 10,
   },
   headingtxt: {
-    fontSize: 16,
+    fontSize: 12,
     color: '#4A4A4A',
     lineHeight: 21,
     fontFamily: Fonts.Assistant400,
