@@ -1,4 +1,10 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 import React, {useEffect} from 'react';
 import Fonts from '../../../assets/fonts';
 import {image} from '../../../assets/images';
@@ -27,14 +33,18 @@ export default function Card1(props) {
   };
   console.log(
     'item]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
-    item.stock.stockLevelStatus,
+    item,
   );
   const isAvtive = cartReducer.WishListDetail.wishListData.find(items => {
     return items.code == item.code;
   });
+
+  const discountPrice =
+    100 - (item.priceAfterDiscount?.value / item?.price?.value) * 100;
+  console.log('discountPrice'.discountPrice);
   console.log(
     'item?????????????????????????????????????????????????????????????????',
-    isAvtive,
+    typeof discountPrice,
   );
   // console.log('item', item.name);
   const imageUrl = !!item?.variantOptions
@@ -51,7 +61,7 @@ export default function Card1(props) {
   }, []);
   const getAdd = async () => {
     const token = await AsyncStorage.getItem('generatToken');
-    const getToken= JSON.parse(token)
+    const getToken = JSON.parse(token);
     console.log('tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111', getToken.isCheck);
 
     if (getToken?.isCheck) {
@@ -82,25 +92,46 @@ export default function Card1(props) {
           })
         }
         activeOpacity={0.8}>
-        <Image
+        <ImageBackground
           source={{
             uri: `https://apisap.fabindia.com${imageUrl}`,
           }}
           style={Styles.imagedimension}
-          resizeMode="cover"
-        />
+          resizeMode="cover">
+          <TouchableOpacity
+            onPress={() => getAdd(item)}
+            style={{
+              marginTop: 'auto',
+              alignSelf: 'flex-end',
+              margin: 5,
+              // backgroundColor: 'red',
+            }}>
+            {isAvtive ? (
+              <AntDesign name="heart" size={20} color={Colors.primarycolor} />
+            ) : (
+              <EvilIcons name="heart" size={25} color={Colors.primarycolor} />
+            )}
+          </TouchableOpacity>
+        </ImageBackground>
         <View style={Styles.headingbox}>
           <Text numberOfLines={1} style={Styles.headingtxt}>
             {item.name}
           </Text>
           <View style={Styles.pricebox}>
-            <Text style={Styles.mrptxt}>M.R.P.</Text>
             <Text style={Styles.amounttxt}>
               ₹{item?.priceAfterDiscount?.value}
             </Text>
+            <Text style={Styles.mrptxt}>M.R.P.</Text>
+
             <Text style={Styles.priceofftxt}>
               {item?.price?.formattedValue}
             </Text>
+
+            {!!discountPrice && (
+              <Text style={Styles.offertxt}>
+                {discountPrice?.toFixed(0)}% off
+              </Text>
+            )}
           </View>
           {/* {!!freeSize && (
             <View
@@ -141,41 +172,7 @@ export default function Card1(props) {
             </Text>
           </View>
         )}
-        <TouchableOpacity
-          onPress={() => getAdd(item)}
-          style={{
-            position: 'absolute',
-            top: 20,
-            right: 10,
-          }}>
-          {isAvtive ? (
-            <AntDesign
-              name="heart"
-              size={20}
-              color={Colors.primarycolor}
-              // color={
-              //   wishlistproductCode.find(items => {
-              //     return items.code == item.code;
-              //   })
-              //     ? Colors.primarycolor
-              //     : Colors.textcolor
-              // }
-            />
-          ) : (
-            <EvilIcons
-              name="heart"
-              size={25}
-              color={Colors.primarycolor}
-              // color={
-              //   wishlistproductCode.find(items => {
-              //     return items.code == item.code;
-              //   })
-              //     ? Colors.primarycolor
-              //     : Colors.textcolor
-              // }
-            />
-          )}
-        </TouchableOpacity>
+
         {/* <Text>{item.variantOptions[0].variantOptionQualifiers[0].value}</Text> */}
       </TouchableOpacity>
     </>

@@ -24,7 +24,12 @@ export default function HomeHeader(props) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   // const {homeheader = false, searchVisible = true} = props;
-  const {homeheader = false, searchVisible = true, headertext = ''} = props;
+  const {
+    homeheader = false,
+    searchVisible = true,
+    headertext = '',
+    totalCount = 0,
+  } = props;
 
   const [cartdetails, setCartDetails] = useState(null);
   const [totalquantity, setTotalquantity] = useState(0);
@@ -198,7 +203,17 @@ export default function HomeHeader(props) {
                 size={20}
               />
             </TouchableOpacity>
-            <Text style={{paddingLeft: 10, width: '50%'}}>{headertext}</Text>
+            <View style={{flexDirection: 'column', width: '50%'}}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: Colors.textcolor,
+                  fontFamily: Fonts.Assistant500,
+                }}>
+                {headertext}
+              </Text>
+              <Text style={{fontSize: 10}}>{totalCount}items</Text>
+            </View>
           </>
         )}
 
