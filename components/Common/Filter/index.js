@@ -31,9 +31,15 @@ const fitOption = [{op: 'Slim Fit'}, {op: 'Regular Fit'}, {op: 'Other'}];
 const sleevesOption = [{op: 'Short'}, {op: 'Full'}, {op: 'Nea'}];
 const neckOption = [{op: 'V '}, {op: 'Round'}];
 const Filter = props => {
-  const {filterModalVisible, setFilterModalVisible, data = []} = props;
-  const [isCheck, setIsCheck] = useState([]);
-  console.log('kjhbvhjop', isCheck);
+  const {
+    filterModalVisible,
+    setFilterModalVisible,
+    data = [],
+    handleClick = null,
+    isCheck,
+    setIsCheck,
+  } = props;
+  console.log('kjhbvhjop', isCheck[0]?.query?.query.value);
 
   const [isActive, setIsActive] = useState('Price');
   const [isActiveCheckBox, setIsActiveCheckBox] = useState([]);
@@ -107,24 +113,23 @@ const Filter = props => {
                 <CheckBox
                   checkBoxColor={Colors.primarycolor}
                   onClick={() => {
-                    // setIsCheck(prev => {
-                    //   if (isCheck.name.includes(item.name)) {
-                    //     let a = isCheck.name;
-                    //     let b = a.filter(el => el != item.name);
-                    //     return {...prev, name: b};
-                    //   } else {
-                    //     let a = isCheck.name;
-                    //     a.push(item.name);
-                    //     setIsCheck(prev => {
-                    //       return {...prev, name: a};
-                    //     });
-                    //   }
-                    //   // return {...prev, name: item.name};
+                    handleClick(item?.query.query.value);
+
+                    // const filterArray = isCheck.filter(items => {
+                    //   return items.name == item.name;
                     // });
-                    // setSortValue(item.value);
-                    // setModalVisible(!modalVisible);
+                    // const excludedArray = isCheck.filter(items => {
+                    //   return items.name !== item.name;
+                    // });
+                    // console.log('filterArray', filterArray);
+                    // console.log('excludedArray', item.query?.query.value);
+                    // if (filterArray.length > 0) {
+                    //   setIsCheck(excludedArray);
+                    // } else {
+                    //   setIsCheck([...isCheck, item]);
+                    // }
                   }}
-                  isChecked={isCheck.name.includes(item.name)}
+                  isChecked={item.selected}
                 />
                 <Text>{item.name}</Text>
               </View>
