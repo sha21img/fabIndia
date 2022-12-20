@@ -28,7 +28,7 @@ export default function HomeHeader(props) {
     homeheader = false,
     searchVisible = true,
     headertext = '',
-    totalCount = 0,
+    totalCount = null,
   } = props;
 
   const [cartdetails, setCartDetails] = useState(null);
@@ -188,7 +188,9 @@ export default function HomeHeader(props) {
                 }}>
                 {headertext}
               </Text>
-              <Text style={{fontSize: 10}}>{totalCount}items</Text>
+              {!!totalCount && (
+                <Text style={{fontSize: 10}}>{totalCount}items</Text>
+              )}
             </View>
           </>
         )}
