@@ -31,10 +31,7 @@ export default function Card1(props) {
     elevation: 1,
     backgroundColor: '#FFFFFF',
   };
-  console.log(
-    'item]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
-    item,
-  );
+
   const isAvtive = cartReducer.WishListDetail.wishListData.find(items => {
     return items.code == item.code;
   });
@@ -42,10 +39,10 @@ export default function Card1(props) {
   const discountPrice =
     100 - (item.priceAfterDiscount?.value / item?.price?.value) * 100;
   console.log('discountPrice'.discountPrice);
-  console.log(
-    'item?????????????????????????????????????????????????????????????????',
-    typeof discountPrice,
-  );
+  // console.log(
+  //   'item?????????????????????????????????????????????????????????????????',
+  //   typeof discountPrice,
+  // );
   // console.log('item', item.name);
   const imageUrl = !!item?.variantOptions
     ? item?.variantOptions[0]?.images[0]?.url
@@ -80,7 +77,7 @@ export default function Card1(props) {
       });
     }
   };
-  console.log("imageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeCheckkkkkkkkkkkkkkkkkkkk",imageUrl)
+
   return (
     <>
       <TouchableOpacity
@@ -88,7 +85,7 @@ export default function Card1(props) {
         onPress={() =>
           props.navigation.navigate('ProductDetailed', {
             productId: item.code,
-            imageUrlCheck:item
+            imageUrlCheck: item,
           })
         }
         activeOpacity={0.8}>

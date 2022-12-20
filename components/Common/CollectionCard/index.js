@@ -29,6 +29,7 @@ const CollectionCard = props => {
           backgroundColor: 'white',
         }}>
         {collectionCardData.map(item => {
+          console.log('collection card page link', item.urlLink);
           const newCode = item.urlLink;
           let splitURL = newCode.split('/');
           splitURL = splitURL[splitURL.length - 1];

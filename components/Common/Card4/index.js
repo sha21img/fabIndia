@@ -5,7 +5,7 @@ import {image} from '../../../assets/images';
 import {Styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
 
-export default function Card(props) {
+export default function Card4(props) {
   const {
     customViewStyle = {},
     items,
@@ -23,7 +23,7 @@ export default function Card(props) {
     width: 192,
     elevation: 1,
     backgroundColor: '#FFFFFF',
-    marginRight: 10,
+    marginRight: 13,
     marginBottom: 1,
   };
 
@@ -32,7 +32,7 @@ export default function Card(props) {
       <TouchableOpacity
         style={[defaultViewCustomStyles, customViewStyle]}
         onPress={() =>
-          props.navigation.navigate('ProductDetailed', {
+          props.navigation.push('ProductDetailed', {
             productId: items.code,
             imageUrlCheck:items
           })

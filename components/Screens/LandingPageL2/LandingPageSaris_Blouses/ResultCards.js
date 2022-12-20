@@ -35,6 +35,7 @@ export default function ResultCards(props) {
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [sortValue, setSortValue] = useState('');
+  const [isCheck, setIsCheck] = useState([]);
 
   const [productCount, setProductCount] = useState(0);
   const {code, status, title, isSearch} = props;
@@ -45,15 +46,28 @@ export default function ResultCards(props) {
     sortValue,
   );
   const {data = []} = props;
-  const getProductData = async () => {
+  const getProductData = async data => {
+    console.log('datadatadatadatadatadatadatadatadatadatadatadata', data);
+    console.log(
+      'isSearchisSearchisSearchisSearchisSearchisSearchisSearch',
+      isSearch,
+    );
     const fields =
       'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
     var response;
+
     if (!!isSearch) {
       console.log('Searchoiouytrewsdrfghjkopoiuytrdsedxcfvbh');
       response = await axios.get(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&query=${title}
         &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+      );
+    } else if (data) {
+      console.log(
+        'elelelelleleleifififififiififioioyutydrsdghkiuytresafghjopoiuytrds',
+      );
+      response = await axios.get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
     } else {
       console.log('wergthyui.l,kmjnhbsgmpokijuhgvfcdxsza');
@@ -63,7 +77,7 @@ export default function ResultCards(props) {
         }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
     }
-    console.log('1234567890', response.data.facets);
+    console.log('1234567890', response.data);
     // fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}`);
     setdataMain(response.data);
     setProductCount(response.data.pagination.totalResults);
@@ -257,6 +271,9 @@ export default function ResultCards(props) {
       </>
     );
   };
+  const handleClick = data => {
+    getProductData(data);
+  };
   return (
     <>
       <HomeHeader {...props} headertext={title} totalCount={totalCount} />
@@ -304,6 +321,9 @@ export default function ResultCards(props) {
           setFilterModalVisible={setFilterModalVisible}
           filterModalVisible={filterModalVisible}
           data={dataMain.facets}
+          handleClick={handleClick}
+          setIsCheck={setIsCheck}
+          isCheck={isCheck}
         />
         {/* <View style={styles.mainContainer}>
           <Text>jihugy</Text>
