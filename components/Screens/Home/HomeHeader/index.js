@@ -127,16 +127,18 @@ export default function HomeHeader(props) {
       'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
       response.data,
     );
-    let finalvalue = response?.data?.orderEntries?.reduce(
-      (n, {quantity}) => n + quantity,
-      0,
-    );
+    let finalvalue = response?.data?.deliveryItemsQuantity;
+
+    // let finalvalue = response?.data?.orderEntries?.reduce(
+    //   (n, {quantity}) => n + quantity,
+    //   0,
+    // );
 
     dispatch(cartDetail({data: response.data, quantity: finalvalue}));
   };
   const shareAll = () => {
     Share.open({
-      message: `helloooooo`,
+      message: `Check this Out https://www.fabindia.com/cotton-silk-chanderi-sari-10648138 on Fabindia`,
     })
       .then(res => {
         console.log(res);

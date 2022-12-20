@@ -22,17 +22,23 @@ export default function Size_Color({
   customStyle,
   productdetail,
   productId,
+  sendCount,
+  imageUrlCheck,
   getColorProductId = null,
+  getImageData = null,
 }) {
   const [filterData, setFilterData] = useState([]);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [pinCode, setPinCode] = useState(null);
   const [pinStatus, setPinStatus] = useState(null);
   const [finalData, setfinalData] = useState(null);
   const [size, setSize] = useState([]);
   const [measure, setMeasure] = useState('inches');
   const [Stock, setStock] = useState(0);
-  const [color, setColor] = useState('blue');
+  const [color, setColor] = useState({
+    productCode: imageUrlCheck?.code,
+    stock: 10,
+  });
   const [modalVisible, setModalVisible] = useState(false);
   // const freeSize = productdetail?.baseOptions[0]?.options[0]?.variantOptionQualifiers[1]?.value;
   const SizeHeader = [
@@ -52,6 +58,11 @@ export default function Size_Color({
       sizefilter();
     }
   }, [productdetail]);
+
+  useEffect(() => {
+    getColorProductId(imageUrlCheck?.code);
+    // setColor({code: imageUrlCheck?.code});
+  }, []);
   // const vicky = () => {
   //   let array = [];
   //   const filterArray = productdetail.baseOptions[0].options.map(item => {
@@ -119,17 +130,20 @@ export default function Size_Color({
     setfinalData(item);
   };
 
-  // const CounterQuantity = task => {
-  //   if (task == 'Minus') {
-  //     if (count == 0) {
-  //       setCount(0);
-  //     } else {
-  //       setCount(count - 1);
-  //     }
-  //   } else {
-  //     setCount(count + 1);
-  //   }
-  // };
+  const CounterQuantity = task => {
+    let countData = count;
+    if (task == 'Minus') {
+      if (countData != 1) {
+        countData = countData - 1;
+      }
+    } else {
+      if (countData < color.stock) {
+        countData = countData + 1;
+      }
+    }
+    sendCount(countData);
+    setCount(countData);
+  };
   const checkPin = async () => {
     if (pinCode != null) {
       const response = await axios.get(
@@ -144,28 +158,33 @@ export default function Size_Color({
     }
   };
 
+  // const getonPress = item => {
+  //   console.log('itemitemitemitem', item);
+  //   setColor(item);
+  //   // getColorProductId(item.productCode);
+  //   // getImageData(item.image);
+  // };
   return (
     <View style={[Styles.container, customStyle]}>
       <View style={Styles.ColorBox}>
         <Text style={Styles.ColorTxt}>Colour</Text>
         <View style={Styles.colorContainer}>
           {finalData?.color?.map(item => {
-            console.log(
-              'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck',
-              item,
-            );
             return (
               <TouchableOpacity
-                onPress={() => {
+                onPress={async () => {
                   console.log(
-                    'itemitemitemitemitemitemitemitemitemitem000000000',
+                    'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck888888888888888888888888888',
                     item,
                   );
-                  getColorProductId(item.productCode);
+
                   setColor(item);
+                  getColorProductId(item.productCode);
+                  getImageData(item.productCode);
+                  // getonPress(item);
                 }}
                 style={
-                  item == color
+                  item.productCode == color?.productCode
                     ? Styles.colorOutlineActive
                     : Styles.colorOutlineInActive
                 }>
@@ -178,53 +197,16 @@ export default function Size_Color({
             );
           })}
         </View>
-        {/* <View style={{marginVertical: 15}}>
-          <Text>Quantity</Text>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity
-            onPress={() => {
-              CounterQuantity('Minus');
-            }}
-            style={{
-              borderWidth: 2,
-              paddingVertical: 5,
-              paddingHorizontal: 16,
-              borderTopColor: 'lightgrey',
-              borderRightColor: 'transparent',
-              borderBottomColor: 'lightgrey',
-              borderLeftColor: 'lightgrey',
-            }}>
-            <Text>-</Text>
-          </TouchableOpacity>
-          <View
-            style={{
-              borderWidth: 2,
-              paddingVertical: 5,
-              paddingHorizontal: 16,
-              borderColor: 'lightgrey',
-            }}>
-            <Text style={{fontFamily: Fonts.Assistant700}}>{count}</Text>
-          </View>
-
-          <TouchableOpacity
-            onPress={() => {
-              CounterQuantity('Plus');
-            }}
-            style={{
-              borderWidth: 2,
-              paddingVertical: 5,
-              paddingHorizontal: 16,
-              borderTopColor: 'lightgrey',
-              borderRightColor: 'lightgrey',
-              borderBottomColor: 'lightgrey',
-              borderLeftColor: 'transparent',
-            }}>
-            <Text>+</Text>
-          </TouchableOpacity>
-        </View> */}
       </View>
-      <Text style={Styles.sizeTxt}>Size</Text>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between',alignItems:'center'}}>
+        <Text style={Styles.sizeTxt}>Size</Text>
+        {filterData[0]?.size != 'Free Size' ? (
+          <TouchableOpacity onPress={() => openSize()} style={Styles.chartBox}>
+            <FontAwesome5 name="ruler" color={'#903233'} size={15} />
+            <Text style={Styles.chartText}>Size Guide</Text>
+          </TouchableOpacity>
+        ) : null}
+      </View>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -260,11 +242,58 @@ export default function Size_Color({
             : ''
           : null}
       </Text>
-      {filterData[0]?.size != 'Free Size' ? (
-        <TouchableOpacity onPress={() => openSize()} style={Styles.chartBox}>
-          <FontAwesome5 name="ruler" color={'#903233'} size={15} />
-          <Text style={Styles.chartText}>View size chart</Text>
+
+      <View style={{marginVertical: 15, marginHorizontal: 15}}>
+        <Text>Quantity</Text>
+      </View>
+      <View style={{flexDirection: 'row', marginHorizontal: 15}}>
+        <TouchableOpacity
+          onPress={() => {
+            CounterQuantity('Minus');
+          }}
+          style={{
+            borderWidth: 2,
+            paddingVertical: 5,
+            paddingHorizontal: 16,
+            borderTopColor: 'lightgrey',
+            borderRightColor: 'transparent',
+            borderBottomColor: 'lightgrey',
+            borderLeftColor: 'lightgrey',
+          }}>
+          <Text>-</Text>
         </TouchableOpacity>
+        <View
+          style={{
+            borderWidth: 2,
+            paddingVertical: 5,
+            paddingHorizontal: 16,
+            borderColor: 'lightgrey',
+          }}>
+          <Text style={{fontFamily: Fonts.Assistant700}}>{count}</Text>
+        </View>
+
+        <TouchableOpacity
+          onPress={() => {
+            CounterQuantity('Plus');
+          }}
+          style={{
+            borderWidth: 2,
+            paddingVertical: 5,
+            paddingHorizontal: 16,
+            borderTopColor: 'lightgrey',
+            borderRightColor: 'lightgrey',
+            borderBottomColor: 'lightgrey',
+            borderLeftColor: 'transparent',
+          }}>
+          <Text>+</Text>
+        </TouchableOpacity>
+      </View>
+      {color.stock < 6 ? (
+        <View style={{paddingVertical: 5, marginHorizontal: 15}}>
+          <Text style={{color: color.stock != 0 ? '#717171' : 'red'}}>
+            {color.stock != 0 ? `Only ${color.stock} left` : 'Out of Stock'}
+          </Text>
+        </View>
       ) : null}
 
       <View style={{marginTop: 20, marginHorizontal: 15}}>
@@ -516,28 +545,32 @@ const Styles = StyleSheet.create({
     fontFamily: Fonts.Assistant700,
     fontSize: 12,
     lineHeight: 16,
-    color: ' #717171',
+    color: '#717171',
   },
   activeBtn: {
     justifyContent: 'center',
     alignItems: 'center',
     minWidth: 70,
-    backgroundColor: Colors.textcolor,
+    backgroundColor:'white',
     padding: 7,
     marginRight: 10,
     borderRadius: 50,
+    borderWidth:1,
+    borderColor:Colors.primarycolor
   },
   activeBtnText: {
-    color: 'white',
+    color: Colors.textcolor,
   },
   inActiveBtn: {
     justifyContent: 'center',
     alignItems: 'center',
     minWidth: 70,
-    backgroundColor: '#E0D9D6',
+    backgroundColor: 'white',
     marginRight: 10,
     padding: 7,
     borderRadius: 50,
+    borderWidth:1,
+    borderColor:'lightgrey'
   },
   inActiveBtnText: {
     color: Colors.textcolor,
@@ -551,7 +584,7 @@ const Styles = StyleSheet.create({
   chartText: {
     color: '#903233',
     fontFamily: Fonts.Assistant400,
-    fontSize: 16,
+    fontSize: 14,
     lineHeight: 16,
     paddingHorizontal: 7,
   },
