@@ -310,6 +310,7 @@ const Register = props => {
               underlineColor="#EDEDED"
               activeUnderlineColor=" #979797"
               customStyle={Styles.textinput}
+              secureTextEntry ={true}
               label="New password"
               value={text.newPass}
               onChangeText={text => setText(prev => ({...prev, newPass: text}))}
@@ -317,6 +318,7 @@ const Register = props => {
             <InputText
               underlineColor="#EDEDED"
               activeUnderlineColor=" #979797"
+              secureTextEntry ={true}
               customStyle={Styles.textinput}
               label="Confirm password"
               value={text.confPass}

@@ -80,7 +80,7 @@ export default function Card1(props) {
       });
     }
   };
-  console.log("imageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeCheckkkkkkkkkkkkkkkkkkkk",imageUrl)
+  console.log("imageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeCheckkkkkkkkkkkkkkkkkkkk",item)
   return (
     <>
       <TouchableOpacity
