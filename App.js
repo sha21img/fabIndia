@@ -88,8 +88,9 @@ export default function App(props) {
       )
       .then(
         response => {
+          const tokenGenerate = {...response.data, isCheck: false};
           console.log('response-=-=-=-=-=-generatTokenWithout', response.data);
-          AsyncStorage.setItem('generatToken', JSON.stringify(response.data));
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
         },
         error => {
           console.log('response-=-=-=-=-=-error', error);
