@@ -31,9 +31,18 @@ const fitOption = [{op: 'Slim Fit'}, {op: 'Regular Fit'}, {op: 'Other'}];
 const sleevesOption = [{op: 'Short'}, {op: 'Full'}, {op: 'Nea'}];
 const neckOption = [{op: 'V '}, {op: 'Round'}];
 const Filter = props => {
-  const {filterModalVisible, setFilterModalVisible, data = []} = props;
-  const [isCheck, setIsCheck] = useState([]);
-  console.log('kjhbvhjop', isCheck);
+  const {
+    filterModalVisible,
+    setFilterModalVisible,
+    data = [],
+    handleClick = null,
+    isCheck,
+    setIsCheck,
+  } = props;
+  console.log(
+    'kjhbvhjopaa',
+    data.find(item => item.name == 'Color'),
+  );
 
   const [isActive, setIsActive] = useState('Price');
   const [isActiveCheckBox, setIsActiveCheckBox] = useState([]);
@@ -59,6 +68,11 @@ const Filter = props => {
   //     console.log('itemitem', item);
   //   });
   // console.log('aa', aa);
+  function capitalizeFirstLetter(string) {
+    const newString = string.toLowerCase();
+    return newString.charAt(0).toUpperCase() + newString.slice(1);
+  }
+  console.log('capitalizeFirstLetter', capitalizeFirstLetter('black'));
   return (
     <ScrollView
       contentContainerStyle={{
@@ -91,42 +105,45 @@ const Filter = props => {
           );
         })}
       </ScrollView>
-      <View style={styles.box1}>
+      <ScrollView contentContainerStyle={styles.box1}>
         {data
           ?.find(item => {
             return item.name == categoryOption;
           })
           ?.values.map(item => {
             console.log('itemitem', item);
-            console.log(
-              'isCheck[item.name] == item.name',
-              isCheck[item.name] == item.name,
-            );
+            console.log('isCheck[item.name] == item.name', item);
             return (
               <View style={styles.checkboxContainer}>
                 <CheckBox
                   checkBoxColor={Colors.primarycolor}
                   onClick={() => {
-                    // setIsCheck(prev => {
-                    //   if (isCheck.name.includes(item.name)) {
-                    //     let a = isCheck.name;
-                    //     let b = a.filter(el => el != item.name);
-                    //     return {...prev, name: b};
-                    //   } else {
-                    //     let a = isCheck.name;
-                    //     a.push(item.name);
-                    //     setIsCheck(prev => {
-                    //       return {...prev, name: a};
-                    //     });
-                    //   }
-                    //   // return {...prev, name: item.name};
-                    // });
-                    // setSortValue(item.value);
-                    // setModalVisible(!modalVisible);
+                    handleClick(item?.query.query.value);
                   }}
-                  isChecked={isCheck.name.includes(item.name)}
+                  isChecked={item.selected}
                 />
-                <Text>{item.name}</Text>
+
+                {categoryOption === 'Color' && (
+                  <View
+                    style={{
+                      backgroundColor: item.name.toLowerCase(),
+                      height: 20,
+                      width: 20,
+                      borderRadius: 50,
+                      marginHorizontal: 5,
+                    }}></View>
+                )}
+
+                <Text
+                  style={{
+                    paddingLeft: 5,
+                    fontSize: 14,
+                    color: Colors.textcolor,
+                    fontFamily: Fonts.Assistant600,
+                    color: Colors.primarycolor,
+                  }}>
+                  {item.name} {`(${item.count})`}
+                </Text>
               </View>
             );
           })}
@@ -145,7 +162,7 @@ const Filter = props => {
             </View>
           );
         })} */}
-      </View>
+      </ScrollView>
 
       <View style={styles.bottomContent}>
         <TouchableOpacity
@@ -154,9 +171,9 @@ const Filter = props => {
           <Text style={styles.cancleTxt}>Cancel</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.applyButton}
+          style={styles.cancelButton}
           onPress={() => setFilterModalVisible(false)}>
-          <Text style={styles.applyTxt}>Apply</Text>
+          <Text style={styles.cancleTxt}>Apply</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -167,10 +184,12 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: '#FAFAFA',
     flexGrow: 1,
+    paddingBottom: 20,
   },
   box1: {
-    backgroundColor: '#ffffff',
-    width: '70%',
+    width: '100%',
+    paddingBottom: 20,
+    flexGrow: 1,
   },
   filterOption: {
     padding: 20,
@@ -227,9 +246,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
-    borderBottomWidth: 0.4,
-    borderBottomColor: '#e5e5e5',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    // borderBottomWidth: 0.4,
+    // borderBottomColor: '#e5e5e5',
   },
   cancleTxt: {
     fontFamily: Fonts.Assistant400,

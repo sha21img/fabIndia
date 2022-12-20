@@ -31,10 +31,7 @@ export default function Card1(props) {
     elevation: 1,
     backgroundColor: '#FFFFFF',
   };
-  console.log(
-    'item]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
-    item,
-  );
+
   const isAvtive = cartReducer.WishListDetail.wishListData.find(items => {
     return items.code == item.code;
   });
@@ -42,10 +39,10 @@ export default function Card1(props) {
   const discountPrice =
     100 - (item.priceAfterDiscount?.value / item?.price?.value) * 100;
   console.log('discountPrice'.discountPrice);
-  console.log(
-    'item?????????????????????????????????????????????????????????????????',
-    typeof discountPrice,
-  );
+  // console.log(
+  //   'item?????????????????????????????????????????????????????????????????',
+  //   typeof discountPrice,
+  // );
   // console.log('item', item.name);
   const imageUrl = !!item?.variantOptions
     ? item?.variantOptions[0]?.images[0]?.url
@@ -65,12 +62,12 @@ export default function Card1(props) {
     console.log('tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111', getToken.isCheck);
 
     if (getToken?.isCheck) {
-      console.log('shsihsihshsihhhh');
-      if (item.stock.stockLevelStatus == 'inStock') {
-        handleClick(item);
-      } else {
-        Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
-      }
+      // console.log('shsihsihshsihhhh');
+      // if (item.stock.stockLevelStatus == 'inStock') {
+      handleClick(item);
+      // } else {
+      //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+      // }
     } else {
       console.log('glglglglglltltlhhh');
       Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);

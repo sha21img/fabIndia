@@ -18,12 +18,11 @@ import {useSelector} from 'react-redux';
 export default function YourWishlist(props) {
   const {cartReducer} = useSelector(state => state);
 
-  const {handleClick = null} = props.route.params;
   return (
     <>
       {cartReducer.WishListDetail.wishListData.length > 0 ? (
         <>
-          <WishListCard handleClick={handleClick} />
+          <WishListCard />
         </>
       ) : (
         <>

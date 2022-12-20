@@ -37,7 +37,7 @@ export default function NewHighlights(props) {
   };
   const imageCard = item => {
     const newCode = item.item.urlLink;
-    console.log('item for product', newCode);
+    console.log('item for product', item.item.urlLink);
     let splitURL = newCode.split('/');
     splitURL = splitURL[splitURL.length - 1];
     console.log('splitURL', splitURL);
