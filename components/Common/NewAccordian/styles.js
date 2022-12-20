@@ -5,22 +5,25 @@ export const Styles = StyleSheet.create({
   accordbox: {
     overflow: 'hidden',
   },
-  titlebox: {
-    paddingHorizontal: 15,
-    top: 50,
-  },
-  titletxt: {
-    fontSize: 16,
-    color: Colors.textcolor,
-  },
-  activebox: {
-    paddingBottom: 15,
+  headingBox: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    paddingTop: 10,
+    backgroundColor: '#F6F6F6',
   },
   activetxt: {
     fontSize: 14,
     fontFamily: Fonts.Assistant400,
     color: Colors.textcolor,
+  },
+  listBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    paddingTop: 10,
+    backgroundColor: '#F6F6F6',
   },
 });

@@ -41,6 +41,7 @@ export default function ResultCards(props) {
   console.log(
     'code+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
     code,
+    status,
     sortValue,
   );
   const {data = []} = props;
@@ -93,6 +94,7 @@ export default function ResultCards(props) {
           status ? `${code}` : `query=:relevance:allCategories:${code}`
         }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
+     
     }
     setdataMain(response.data);
     setFilterProducts(response.data.products);
