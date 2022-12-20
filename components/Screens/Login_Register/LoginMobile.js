@@ -12,7 +12,6 @@ import axios from 'axios';
 export default function LoginMobile(props) {
   const [mobilePrefix, setMobilePrefix] = useState('91');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [token, setToken] = useState('');
 
   const _selectedValue = index => {
     setMobilePrefix(index);

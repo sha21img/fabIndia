@@ -9,13 +9,13 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import React, { useState } from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, {useState} from 'react';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Entypo from 'react-native-vector-icons/Entypo';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Colors } from '../../../assets/Colors';
+import {Colors} from '../../../assets/Colors';
 import Carousel from 'react-native-reanimated-carousel';
 import Home from '../Home';
 import Menu from '../Menu';
@@ -23,48 +23,26 @@ import Search from '../Search';
 import HomeStack from '../HomeStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyAccount from '../MyAccount';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { useNavigation } from '@react-navigation/native';
-import { image } from '../../../assets/images';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {useNavigation} from '@react-navigation/native';
+import {image} from '../../../assets/images';
 import Accordian from '../../Common/Accordian';
-import { data } from '../../../constant';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {data} from '../../../constant';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LinearGradient from 'react-native-linear-gradient';
 import SearchResult from '../Search/SearchResult';
 import FabFamily from '../MyAccount/FabFamily';
+import CategorySection from '../CategorySection';
 
 // import WomenCategory from '../Home/WomenCategory';
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
-const CategorySection = props => {
-  return (
-    <FlatList
-      // columnWrapperStyle={{
-      //   backgroundColor: 'red',
-      //   // justifyContent: 'space-around',
-      //   paddingHorizontal: 15,
-      // }}
-      data={data}
-      keyExtractor={item => item.id.toString()}
-      renderItem={({ item, index }) => (
-        <Accordian
-          {...props}
-          title={item.title}
-          category={item.category}
-          description={item.description}
-        />
-      )}
-    />
-
-  );
-};
-
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
   return () => setValue(value => value + 1); // update state to force render
-  // An function that increment 👆🏻 the previous state like here 
+  // An function that increment 👆🏻 the previous state like here
   // is better than directly setting `value + 1`
 }
 
@@ -72,37 +50,37 @@ const DrawerContent = () => {
   const forceUpdate = useForceUpdate();
   const [drawerData, setDrawerData] = useState([
     {
-      "uid": "FabHBShopByCollectionNavNode",
-      "uuid": "eyJpdGVtSWQiOiJGYWJIQlNob3BCeUNvbGxlY3Rpb25OYXZOb2RlIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-      "entries": [],
-      "children": [
+      uid: 'FabHBShopByCollectionNavNode',
+      uuid: 'eyJpdGVtSWQiOiJGYWJIQlNob3BCeUNvbGxlY3Rpb25OYXZOb2RlIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+      entries: [],
+      children: [
         {
-          "uid": "cmsitem_00018006",
-          "uuid": "eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDE4MDA2IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-          "entries": [
+          uid: 'cmsitem_00018006',
+          uuid: 'eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDE4MDA2IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+          entries: [
             {
-              "itemId": "cmsitem_00018003",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'cmsitem_00018003',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "winter-wear",
-          "title": "Winterwear"
+          children: [],
+          code: 'winter-wear',
+          title: 'Winterwear',
         },
         {
-          "uid": "cmsitem_00008006",
-          "uuid": "eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDA4MDA2IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-          "entries": [
+          uid: 'cmsitem_00008006',
+          uuid: 'eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDA4MDA2IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+          entries: [
             {
-              "itemId": "cmsitem_00008004",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'cmsitem_00008004',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "gifting-ideas",
-          "title": "Gifting"
+          children: [],
+          code: 'gifting-ideas',
+          title: 'Gifting',
         },
         // {
         //   "uid": "cmsitem_00005014",
@@ -119,83 +97,83 @@ const DrawerContent = () => {
         //   "title": "Festive"
         // },
         {
-          "uid": "C_SummerNode",
-          "uuid": "eyJpdGVtSWQiOiJDX1N1bW1lck5vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=",
-          "entries": [
+          uid: 'C_SummerNode',
+          uuid: 'eyJpdGVtSWQiOiJDX1N1bW1lck5vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          entries: [
             {
-              "itemId": "C_SummerLink",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'C_SummerLink',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "summer",
-          "title": "Summer"
+          children: [],
+          code: 'summer',
+          title: 'Summer',
         },
         {
-          "uid": "C_IndigoNode",
-          "uuid": "eyJpdGVtSWQiOiJDX0luZGlnb05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=",
-          "entries": [
+          uid: 'C_IndigoNode',
+          uuid: 'eyJpdGVtSWQiOiJDX0luZGlnb05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          entries: [
             {
-              "itemId": "C_IndigoLink",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'C_IndigoLink',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "indigo",
-          "title": "Indigo"
+          children: [],
+          code: 'indigo',
+          title: 'Indigo',
         },
         {
-          "uid": "C_IndianSpringNode",
-          "uuid": "eyJpdGVtSWQiOiJDX0luZGlhblNwcmluZ05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=",
-          "entries": [
+          uid: 'C_IndianSpringNode',
+          uuid: 'eyJpdGVtSWQiOiJDX0luZGlhblNwcmluZ05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          entries: [
             {
-              "itemId": "C_IndianSpringLink",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'C_IndianSpringLink',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "indian-spring",
-          "title": "Indian Spring"
+          children: [],
+          code: 'indian-spring',
+          title: 'Indian Spring',
         },
         {
-          "uid": "C_EverydayLivingNode",
-          "uuid": "eyJpdGVtSWQiOiJDX0V2ZXJ5ZGF5TGl2aW5nTm9kZSIsImNhdGFsb2dJZCI6ImZhYmluZGlhLWIyY0NvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==",
-          "entries": [
+          uid: 'C_EverydayLivingNode',
+          uuid: 'eyJpdGVtSWQiOiJDX0V2ZXJ5ZGF5TGl2aW5nTm9kZSIsImNhdGFsb2dJZCI6ImZhYmluZGlhLWIyY0NvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==',
+          entries: [
             {
-              "itemId": "C_EverydayLivingLink",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'C_EverydayLivingLink',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "everyday-living",
-          "title": "Everyday Living"
-        }
+          children: [],
+          code: 'everyday-living',
+          title: 'Everyday Living',
+        },
       ],
-      "title": "Shop By Collection",
-      "selected": false,
+      title: 'Shop By Collection',
+      selected: false,
     },
     {
-      "uid": "cmsitem_00011000",
-      "uuid": "eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDExMDAwIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-      "entries": [],
-      "children": [
+      uid: 'cmsitem_00011000',
+      uuid: 'eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDExMDAwIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+      entries: [],
+      children: [
         {
-          "uid": "cmsitem_00003005",
-          "uuid": "eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDAzMDA1IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-          "entries": [
+          uid: 'cmsitem_00003005',
+          uuid: 'eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDAzMDA1IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+          entries: [
             {
-              "itemId": "cmsitem_00003003",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'cmsitem_00003003',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "nuindian",
-          "title": "NUIndian"
+          children: [],
+          code: 'nuindian',
+          title: 'NUIndian',
         },
         // {
         //   "uid": "cmsitem_00003002",
@@ -212,152 +190,152 @@ const DrawerContent = () => {
         //   "title": "FabNu"
         // },
         {
-          "uid": "cmsitem_00012002",
-          "uuid": "eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDEyMDAyIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-          "entries": [
+          uid: 'cmsitem_00012002',
+          uuid: 'eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDEyMDAyIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+          entries: [
             {
-              "itemId": "cmsitem_00012000",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'cmsitem_00012000',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "fabessentials",
-          "title": "Fabessentials"
-        }
+          children: [],
+          code: 'fabessentials',
+          title: 'Fabessentials',
+        },
       ],
-      "title": "Shop By Brand",
-      "selected": false,
+      title: 'Shop By Brand',
+      selected: false,
     },
     {
-      "uid": "FabHBSaleNode",
-      "uuid": "eyJpdGVtSWQiOiJGYWJIQlNhbGVOb2RlIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-      "entries": [],
-      "children": [
+      uid: 'FabHBSaleNode',
+      uuid: 'eyJpdGVtSWQiOiJGYWJIQlNhbGVOb2RlIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+      entries: [],
+      children: [
         {
-          "uid": "cmsitem_00016005",
-          "uuid": "eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDE2MDA1IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-          "entries": [
+          uid: 'cmsitem_00016005',
+          uuid: 'eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDE2MDA1IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+          entries: [
             {
-              "itemId": "cmsitem_00016003",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'cmsitem_00016003',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "sale",
-          "title": "All in Sale"
+          children: [],
+          code: 'sale',
+          title: 'All in Sale',
         },
         {
-          "uid": "H_S_WomensNode",
-          "uuid": "eyJpdGVtSWQiOiJIX1NfV29tZW5zTm9kZSIsImNhdGFsb2dJZCI6ImZhYmluZGlhLWIyY0NvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==",
-          "entries": [
+          uid: 'H_S_WomensNode',
+          uuid: 'eyJpdGVtSWQiOiJIX1NfV29tZW5zTm9kZSIsImNhdGFsb2dJZCI6ImZhYmluZGlhLWIyY0NvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==',
+          entries: [
             {
-              "itemId": "H_S9Link",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'H_S9Link',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "sale-women-products",
-          "title": "Women"
+          children: [],
+          code: 'sale-women-products',
+          title: 'Women',
         },
         {
-          "uid": "H_S_MensNode",
-          "uuid": "eyJpdGVtSWQiOiJIX1NfTWVuc05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=",
-          "entries": [
+          uid: 'H_S_MensNode',
+          uuid: 'eyJpdGVtSWQiOiJIX1NfTWVuc05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          entries: [
             {
-              "itemId": "H_S10Link",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'H_S10Link',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "sale-men-products",
-          "title": "Men"
+          children: [],
+          code: 'sale-men-products',
+          title: 'Men',
         },
         {
-          "uid": "H_S_kidsNode",
-          "uuid": "eyJpdGVtSWQiOiJIX1Nfa2lkc05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=",
-          "entries": [
+          uid: 'H_S_kidsNode',
+          uuid: 'eyJpdGVtSWQiOiJIX1Nfa2lkc05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          entries: [
             {
-              "itemId": "H_S13Link",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'H_S13Link',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "sale-kids-products",
-          "title": "Kids"
+          children: [],
+          code: 'sale-kids-products',
+          title: 'Kids',
         },
         {
-          "uid": "H_S_HomeLivingNode",
-          "uuid": "eyJpdGVtSWQiOiJIX1NfSG9tZUxpdmluZ05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=",
-          "entries": [
+          uid: 'H_S_HomeLivingNode',
+          uuid: 'eyJpdGVtSWQiOiJIX1NfSG9tZUxpdmluZ05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          entries: [
             {
-              "itemId": "H_S11Link",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'H_S11Link',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "sale-home-living",
-          "title": "Home & Living"
+          children: [],
+          code: 'sale-home-living',
+          title: 'Home & Living',
         },
         {
-          "uid": "H_S_BeautyNode",
-          "uuid": "eyJpdGVtSWQiOiJIX1NfQmVhdXR5Tm9kZSIsImNhdGFsb2dJZCI6ImZhYmluZGlhLWIyY0NvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==",
-          "entries": [
+          uid: 'H_S_BeautyNode',
+          uuid: 'eyJpdGVtSWQiOiJIX1NfQmVhdXR5Tm9kZSIsImNhdGFsb2dJZCI6ImZhYmluZGlhLWIyY0NvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==',
+          entries: [
             {
-              "itemId": "H_S15Link",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'H_S15Link',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "sale-personal-care",
-          "title": "Personal Care"
-        }
+          children: [],
+          code: 'sale-personal-care',
+          title: 'Personal Care',
+        },
       ],
-      "title": "Sale",
-      "selected": false,
+      title: 'Sale',
+      selected: false,
     },
   ]);
   const navigation = useNavigation();
 
   let drawerData1 = [
     {
-      "uid": "FabHBShopByCollectionNavNode",
-      "uuid": "eyJpdGVtSWQiOiJGYWJIQlNob3BCeUNvbGxlY3Rpb25OYXZOb2RlIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-      "entries": [],
-      "children": [
+      uid: 'FabHBShopByCollectionNavNode',
+      uuid: 'eyJpdGVtSWQiOiJGYWJIQlNob3BCeUNvbGxlY3Rpb25OYXZOb2RlIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+      entries: [],
+      children: [
         {
-          "uid": "cmsitem_00018006",
-          "uuid": "eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDE4MDA2IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-          "entries": [
+          uid: 'cmsitem_00018006',
+          uuid: 'eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDE4MDA2IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+          entries: [
             {
-              "itemId": "cmsitem_00018003",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'cmsitem_00018003',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "winter-wear",
-          "title": "Winterwear"
+          children: [],
+          code: 'winter-wear',
+          title: 'Winterwear',
         },
         {
-          "uid": "cmsitem_00008006",
-          "uuid": "eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDA4MDA2IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-          "entries": [
+          uid: 'cmsitem_00008006',
+          uuid: 'eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDA4MDA2IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+          entries: [
             {
-              "itemId": "cmsitem_00008004",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'cmsitem_00008004',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "gifting-ideas",
-          "title": "Gifting"
+          children: [],
+          code: 'gifting-ideas',
+          title: 'Gifting',
         },
         // {
         //   "uid": "cmsitem_00005014",
@@ -374,83 +352,83 @@ const DrawerContent = () => {
         //   "title": "Festive"
         // },
         {
-          "uid": "C_SummerNode",
-          "uuid": "eyJpdGVtSWQiOiJDX1N1bW1lck5vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=",
-          "entries": [
+          uid: 'C_SummerNode',
+          uuid: 'eyJpdGVtSWQiOiJDX1N1bW1lck5vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          entries: [
             {
-              "itemId": "C_SummerLink",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'C_SummerLink',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "summer",
-          "title": "Summer"
+          children: [],
+          code: 'summer',
+          title: 'Summer',
         },
         {
-          "uid": "C_IndigoNode",
-          "uuid": "eyJpdGVtSWQiOiJDX0luZGlnb05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=",
-          "entries": [
+          uid: 'C_IndigoNode',
+          uuid: 'eyJpdGVtSWQiOiJDX0luZGlnb05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          entries: [
             {
-              "itemId": "C_IndigoLink",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'C_IndigoLink',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "indigo",
-          "title": "Indigo"
+          children: [],
+          code: 'indigo',
+          title: 'Indigo',
         },
         {
-          "uid": "C_IndianSpringNode",
-          "uuid": "eyJpdGVtSWQiOiJDX0luZGlhblNwcmluZ05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=",
-          "entries": [
+          uid: 'C_IndianSpringNode',
+          uuid: 'eyJpdGVtSWQiOiJDX0luZGlhblNwcmluZ05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          entries: [
             {
-              "itemId": "C_IndianSpringLink",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'C_IndianSpringLink',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "indian-spring",
-          "title": "Indian Spring"
+          children: [],
+          code: 'indian-spring',
+          title: 'Indian Spring',
         },
         {
-          "uid": "C_EverydayLivingNode",
-          "uuid": "eyJpdGVtSWQiOiJDX0V2ZXJ5ZGF5TGl2aW5nTm9kZSIsImNhdGFsb2dJZCI6ImZhYmluZGlhLWIyY0NvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==",
-          "entries": [
+          uid: 'C_EverydayLivingNode',
+          uuid: 'eyJpdGVtSWQiOiJDX0V2ZXJ5ZGF5TGl2aW5nTm9kZSIsImNhdGFsb2dJZCI6ImZhYmluZGlhLWIyY0NvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==',
+          entries: [
             {
-              "itemId": "C_EverydayLivingLink",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'C_EverydayLivingLink',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "everyday-living",
-          "title": "Everyday Living"
-        }
+          children: [],
+          code: 'everyday-living',
+          title: 'Everyday Living',
+        },
       ],
-      "title": "Shop By Collection",
-      "selected": false,
+      title: 'Shop By Collection',
+      selected: false,
     },
     {
-      "uid": "cmsitem_00011000",
-      "uuid": "eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDExMDAwIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-      "entries": [],
-      "children": [
+      uid: 'cmsitem_00011000',
+      uuid: 'eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDExMDAwIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+      entries: [],
+      children: [
         {
-          "uid": "cmsitem_00003005",
-          "uuid": "eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDAzMDA1IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-          "entries": [
+          uid: 'cmsitem_00003005',
+          uuid: 'eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDAzMDA1IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+          entries: [
             {
-              "itemId": "cmsitem_00003003",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'cmsitem_00003003',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "nuindian",
-          "title": "NUIndian"
+          children: [],
+          code: 'nuindian',
+          title: 'NUIndian',
         },
         // {
         //   "uid": "cmsitem_00003002",
@@ -467,137 +445,159 @@ const DrawerContent = () => {
         //   "title": "FabNu"
         // },
         {
-          "uid": "cmsitem_00012002",
-          "uuid": "eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDEyMDAyIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-          "entries": [
+          uid: 'cmsitem_00012002',
+          uuid: 'eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDEyMDAyIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+          entries: [
             {
-              "itemId": "cmsitem_00012000",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'cmsitem_00012000',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "fabessentials",
-          "title": "Fabessentials"
-        }
+          children: [],
+          code: 'fabessentials',
+          title: 'Fabessentials',
+        },
       ],
-      "title": "Shop By Brand",
-      "selected": false,
+      title: 'Shop By Brand',
+      selected: false,
     },
     {
-      "uid": "FabHBSaleNode",
-      "uuid": "eyJpdGVtSWQiOiJGYWJIQlNhbGVOb2RlIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-      "entries": [],
-      "children": [
+      uid: 'FabHBSaleNode',
+      uuid: 'eyJpdGVtSWQiOiJGYWJIQlNhbGVOb2RlIiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+      entries: [],
+      children: [
         {
-          "uid": "cmsitem_00016005",
-          "uuid": "eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDE2MDA1IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
-          "entries": [
+          uid: 'cmsitem_00016005',
+          uuid: 'eyJpdGVtSWQiOiJjbXNpdGVtXzAwMDE2MDA1IiwiY2F0YWxvZ0lkIjoiZmFiaW5kaWEtYjJjQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+          entries: [
             {
-              "itemId": "cmsitem_00016003",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'cmsitem_00016003',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "sale",
-          "title": "All in Sale"
+          children: [],
+          code: 'sale',
+          title: 'All in Sale',
         },
         {
-          "uid": "H_S_WomensNode",
-          "uuid": "eyJpdGVtSWQiOiJIX1NfV29tZW5zTm9kZSIsImNhdGFsb2dJZCI6ImZhYmluZGlhLWIyY0NvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==",
-          "entries": [
+          uid: 'H_S_WomensNode',
+          uuid: 'eyJpdGVtSWQiOiJIX1NfV29tZW5zTm9kZSIsImNhdGFsb2dJZCI6ImZhYmluZGlhLWIyY0NvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==',
+          entries: [
             {
-              "itemId": "H_S9Link",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'H_S9Link',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "sale-women-products",
-          "title": "Women"
+          children: [],
+          code: 'sale-women-products',
+          title: 'Women',
         },
         {
-          "uid": "H_S_MensNode",
-          "uuid": "eyJpdGVtSWQiOiJIX1NfTWVuc05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=",
-          "entries": [
+          uid: 'H_S_MensNode',
+          uuid: 'eyJpdGVtSWQiOiJIX1NfTWVuc05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          entries: [
             {
-              "itemId": "H_S10Link",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'H_S10Link',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "sale-men-products",
-          "title": "Men"
+          children: [],
+          code: 'sale-men-products',
+          title: 'Men',
         },
         {
-          "uid": "H_S_kidsNode",
-          "uuid": "eyJpdGVtSWQiOiJIX1Nfa2lkc05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=",
-          "entries": [
+          uid: 'H_S_kidsNode',
+          uuid: 'eyJpdGVtSWQiOiJIX1Nfa2lkc05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          entries: [
             {
-              "itemId": "H_S13Link",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'H_S13Link',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "sale-kids-products",
-          "title": "Kids"
+          children: [],
+          code: 'sale-kids-products',
+          title: 'Kids',
         },
         {
-          "uid": "H_S_HomeLivingNode",
-          "uuid": "eyJpdGVtSWQiOiJIX1NfSG9tZUxpdmluZ05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=",
-          "entries": [
+          uid: 'H_S_HomeLivingNode',
+          uuid: 'eyJpdGVtSWQiOiJIX1NfSG9tZUxpdmluZ05vZGUiLCJjYXRhbG9nSWQiOiJmYWJpbmRpYS1iMmNDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          entries: [
             {
-              "itemId": "H_S11Link",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'H_S11Link',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "sale-home-living",
-          "title": "Home & Living"
+          children: [],
+          code: 'sale-home-living',
+          title: 'Home & Living',
         },
         {
-          "uid": "H_S_BeautyNode",
-          "uuid": "eyJpdGVtSWQiOiJIX1NfQmVhdXR5Tm9kZSIsImNhdGFsb2dJZCI6ImZhYmluZGlhLWIyY0NvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==",
-          "entries": [
+          uid: 'H_S_BeautyNode',
+          uuid: 'eyJpdGVtSWQiOiJIX1NfQmVhdXR5Tm9kZSIsImNhdGFsb2dJZCI6ImZhYmluZGlhLWIyY0NvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==',
+          entries: [
             {
-              "itemId": "H_S15Link",
-              "itemSuperType": "AbstractCMSComponent",
-              "itemType": "CMSLinkComponent"
-            }
+              itemId: 'H_S15Link',
+              itemSuperType: 'AbstractCMSComponent',
+              itemType: 'CMSLinkComponent',
+            },
           ],
-          "children": [],
-          "code": "sale-personal-care",
-          "title": "Personal Care"
-        }
+          children: [],
+          code: 'sale-personal-care',
+          title: 'Personal Care',
+        },
       ],
-      "title": "Sale",
-      "selected": false,
+      title: 'Sale',
+      selected: false,
     },
-  ]
+  ];
 
   let drawerContent = [
     {
       name: 'My Orders',
-      icon: <Image source={image.document} style={{ width: 20, height: 20, resizeMode: 'contain' }} />,
+      icon: (
+        <Image
+          source={image.document}
+          style={{width: 20, height: 20, resizeMode: 'contain'}}
+        />
+      ),
       route: 'MyOrder',
     },
     {
       name: 'Fabfamily',
-      icon: <Image source={image.ribbon} style={{ width: 20, height: 20, resizeMode: 'contain' }} />,
+      icon: (
+        <Image
+          source={image.ribbon}
+          style={{width: 20, height: 20, resizeMode: 'contain'}}
+        />
+      ),
       route: 'FabFamily',
     },
     {
       name: 'Shop By Categories',
-      icon: <Ionicons name="ios-grid-outline" size={20} color={Colors.primarycolor} />,
+      icon: (
+        <Ionicons
+          name="ios-grid-outline"
+          size={20}
+          color={Colors.primarycolor}
+        />
+      ),
       route: 'CategorySection',
     },
     {
       name: 'Collection',
-      icon: <Ionicons name="ios-logo-dropbox" size={20} color={Colors.primarycolor} />,
+      icon: (
+        <Ionicons
+          name="ios-logo-dropbox"
+          size={20}
+          color={Colors.primarycolor}
+        />
+      ),
       route: '',
     },
     // {
@@ -617,12 +617,17 @@ const DrawerContent = () => {
     // },
     {
       name: 'Gift Cards',
-      icon: <Image source={image.GiftCard} style={{ width: 20, height: 20, resizeMode: 'contain' }} />,
+      icon: (
+        <Image
+          source={image.GiftCard}
+          style={{width: 20, height: 20, resizeMode: 'contain'}}
+        />
+      ),
       route: 'GiftCard',
     },
   ];
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView style={{flex: 1}}>
       {/* <ImageBackground blurRadius={3} source={image.Banner2}> */}
       <LinearGradient
         colors={['transparent', Colors.primarycolor]}
@@ -648,7 +653,7 @@ const DrawerContent = () => {
             justifyContent: 'space-between',
             marginTop: 10,
           }}>
-          <Text style={{ color: '#fff' }}>Hello</Text>
+          <Text style={{color: '#fff'}}>Hello</Text>
           {/* <Ionicons name="md-chevron-forward-sharp" color="#fff" size={20} /> */}
         </View>
       </LinearGradient>
@@ -656,13 +661,14 @@ const DrawerContent = () => {
       {drawerContent.map(item => {
         return (
           <View>
-            {item.name != 'Collection' ?
+            {item.name != 'Collection' ? (
               <TouchableOpacity
                 onPress={() => {
-                  item.route == 'MyOrder' && navigation.navigate('MyOrder')
-                  item.route == 'FabFamily' && navigation.navigate('FabFamily')
-                  item.route == 'CategorySection' && navigation.navigate('CategorySection')
-                  item.route == 'GiftCard' && navigation.navigate('GiftCard')
+                  item.route == 'MyOrder' && navigation.navigate('MyOrder');
+                  item.route == 'FabFamily' && navigation.navigate('FabFamily');
+                  item.route == 'CategorySection' &&
+                    navigation.navigate('CategorySection');
+                  item.route == 'GiftCard' && navigation.navigate('GiftCard');
                 }}
                 style={{
                   padding: 20,
@@ -671,29 +677,28 @@ const DrawerContent = () => {
                   borderBottomWidth: 1,
                 }}>
                 {item.icon}
-                <Text style={{ color: Colors.textcolor, marginLeft: 10 }}>
+                <Text style={{color: Colors.textcolor, marginLeft: 10}}>
                   {item.name}
                 </Text>
               </TouchableOpacity>
-              :
-              drawerData.map((obj) => {
+            ) : (
+              drawerData.map(obj => {
                 return (
                   <View>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       onPress={() => {
-                        let data = drawerData
+                        let data = drawerData;
                         for (let i = 0; i < data.length; i++) {
                           const element = data[i];
                           if (element.title == obj.title) {
-                            element.selected = !element.selected
-                          }
-                          else {
-                            element.selected = false
+                            element.selected = !element.selected;
+                          } else {
+                            element.selected = false;
                           }
                         }
-                        setDrawerData(data)
-                        forceUpdate()
+                        setDrawerData(data);
+                        forceUpdate();
                       }}
                       style={{
                         padding: 20,
@@ -702,40 +707,54 @@ const DrawerContent = () => {
                         borderBottomWidth: 1,
                       }}>
                       {item.icon}
-                      <Text style={{ color: Colors.textcolor, marginLeft: 10 }}>
+                      <Text style={{color: Colors.textcolor, marginLeft: 10}}>
                         {obj.title}
                       </Text>
 
-                      <View style={{ marginLeft: 50 }}>
-                        {obj.selected ?
-                          <Ionicons name="chevron-up" size={20} color={Colors.primarycolor} />
-                          :
-                          <Ionicons name="chevron-down" size={20} color={Colors.primarycolor} />
-                        }
+                      <View style={{marginLeft: 50}}>
+                        {obj.selected ? (
+                          <Ionicons
+                            name="chevron-up"
+                            size={20}
+                            color={Colors.primarycolor}
+                          />
+                        ) : (
+                          <Ionicons
+                            name="chevron-down"
+                            size={20}
+                            color={Colors.primarycolor}
+                          />
+                        )}
                       </View>
                     </TouchableOpacity>
 
-                    {obj.children.map((item) => {
-                      return (
-                        obj.selected ?
-                          <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={() => {
-                              navigation.navigate('LandingPageSaris_Blouses', {
-                                code: item.code,
-                                title: item.title,
-                              })
-                            }}
-                            style={{ marginLeft: 60, paddingLeft: 0, padding: 15, borderBottomColor: '#ebebeb', borderBottomWidth: 1, }}
-                          >
-                            <Text style={{ fontSize: 14, color: Colors.textcolor }}>{item.title}</Text>
-                          </TouchableOpacity>
-                          : null
-                      )
+                    {obj.children.map(item => {
+                      return obj.selected ? (
+                        <TouchableOpacity
+                          activeOpacity={0.8}
+                          onPress={() => {
+                            navigation.navigate('LandingPageSaris_Blouses', {
+                              code: item.code,
+                              title: item.title,
+                            });
+                          }}
+                          style={{
+                            marginLeft: 60,
+                            paddingLeft: 0,
+                            padding: 15,
+                            borderBottomColor: '#ebebeb',
+                            borderBottomWidth: 1,
+                          }}>
+                          <Text style={{fontSize: 14, color: Colors.textcolor}}>
+                            {item.title}
+                          </Text>
+                        </TouchableOpacity>
+                      ) : null;
                     })}
                   </View>
-                )
-              })}
+                );
+              })
+            )}
           </View>
         );
       })}
@@ -745,11 +764,13 @@ const DrawerContent = () => {
         <Text style={{color:Colors.textcolor, marginLeft:10}}>Orders</Text>
       </TouchableOpacity> */}
       <View>
-        <TouchableOpacity style={{ paddingVertical: 10, paddingHorizontal: 35 }}>
-          <Text style={{ color: Colors.textcolor, marginLeft: 15, fontSize: 11 }}>FAQs</Text>
+        <TouchableOpacity style={{paddingVertical: 10, paddingHorizontal: 35}}>
+          <Text style={{color: Colors.textcolor, marginLeft: 15, fontSize: 11}}>
+            FAQs
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ paddingVertical: 10, paddingHorizontal: 35 }}>
-          <Text style={{ color: Colors.textcolor, marginLeft: 15, fontSize: 11 }}>
+        <TouchableOpacity style={{paddingVertical: 10, paddingHorizontal: 35}}>
+          <Text style={{color: Colors.textcolor, marginLeft: 15, fontSize: 11}}>
             CONTACT US
           </Text>
         </TouchableOpacity>
@@ -833,7 +854,7 @@ export default function MainScreen(props) {
         options={{
           tabBarLabel: 'Home',
           tabBarActiveTintColor: Colors.primarycolor,
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({focused}) => (
             <TouchableOpacity
               onPress={() => {
                 console.log('home'), props.navigation.navigate('Home');
@@ -855,7 +876,7 @@ export default function MainScreen(props) {
           headerShown: false,
           tabBarActiveTintColor: Colors.primarycolor,
 
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({focused}) => (
             <Ionicons
               name="ios-grid-outline"
               color={focused ? Colors.primarycolor : Colors.inactiveicon}
@@ -871,7 +892,7 @@ export default function MainScreen(props) {
         options={{
           tabBarLabel: 'Search',
           tabBarActiveTintColor: Colors.primarycolor,
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({focused}) => (
             <Ionicons
               name="ios-search-outline"
               color={focused ? Colors.primarycolor : Colors.inactiveicon}
@@ -886,7 +907,7 @@ export default function MainScreen(props) {
         options={{
           tabBarLabel: 'Account',
           tabBarActiveTintColor: Colors.primarycolor,
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({focused}) => (
             // <TouchableOpacity
             //   onPress={() =>
             //     props.navigation.navigate('MyAccount', {

@@ -54,15 +54,12 @@ import MyAccounts from './MyAccounts';
 const Stack = createNativeStackNavigator();
 
 const MyAccount = props => {
-  const [check, setCheck] = useState(false);
+  const [check, setCheck] = useState('');
   const loginCheck = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    // getToken?.ischeck
-    //   ?
-    // setCheck(getToken.ischeck)
-    // :
-    setCheck(getToken.ischeck);
+    console.log('getToken?.ischeck', getToken?.ischeck);
+    getToken?.ischeck ? setCheck('MyAccounts') : setCheck('Login_Register');
   };
   useEffect(() => {
     loginCheck();
@@ -83,85 +80,41 @@ const MyAccount = props => {
 
   return (
     <>
-      <Stack.Navigator
-        initialRouteName={check ? 'MyAccounts' : 'Login_Register'}>
-        {check ? (
-          <>
-            <Stack.Screen
-              name="MyAccounts"
-              component={MyAccounts}
-              options={{
-                header: props => (
-                  <Header
-                    leftIcon={leftIcon}
-                    title="My Profile"
-                    rightIcon={rightIcon}
-                    customStyle={{
-                      backgroundColor: '#F8F6F5',
-                      marginBottom: 4,
-                    }}
-                  />
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="Login_Register"
-              component={Login_Register}
-              options={{
-                header: props => (
-                  <Header
-                    leftIcon={leftIcon}
-                    title="My Account"
-                    rightIcon={rightIcon}
-                    customStyle={{
-                      backgroundColor: '#F8F6F5',
-                      marginBottom: 4,
-                    }}
-                  />
-                ),
-              }}
-            />
-          </>
-        ) : (
-          <>
-            <Stack.Screen
-              name="Login_Register"
-              component={Login_Register}
-              options={{
-                header: props => (
-                  <Header
-                    leftIcon={leftIcon}
-                    title="My Account"
-                    rightIcon={rightIcon}
-                    customStyle={{
-                      backgroundColor: '#F8F6F5',
-                      marginBottom: 4,
-                    }}
-                  />
-                ),
-              }}
-            />
-
-            <Stack.Screen
-              name="MyAccounts"
-              component={MyAccounts}
-              options={{
-                header: props => (
-                  <Header
-                    leftIcon={leftIcon}
-                    title="My Profile"
-                    rightIcon={rightIcon}
-                    customStyle={{
-                      backgroundColor: '#F8F6F5',
-                      marginBottom: 4,
-                    }}
-                  />
-                ),
-              }}
-            />
-          </>
-        )}
-
+      <Stack.Navigator initialRouteName={check}>
+        <Stack.Screen
+          name="MyAccounts"
+          component={MyAccounts}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Profile"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Login_Register"
+          component={Login_Register}
+          options={{
+            header: props => (
+              <Header
+                leftIcon={leftIcon}
+                title="My Account"
+                rightIcon={rightIcon}
+                customStyle={{
+                  backgroundColor: '#F8F6F5',
+                  marginBottom: 4,
+                }}
+              />
+            ),
+          }}
+        />
         <Stack.Screen
           name="ErrorScreen"
           component={ErrorScreen}
