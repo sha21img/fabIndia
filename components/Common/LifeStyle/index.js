@@ -61,7 +61,7 @@ export default function LifeStyle(props) {
 
   const cards = (item, index) => {
     const newCode = item.urlLink;
-    console.log('item for product', newCode);
+    // console.log('item for product', newCode);
     let splitURL = newCode.split('/');
     splitURL = splitURL[splitURL.length - 1];
     console.log('splitURL', splitURL);
