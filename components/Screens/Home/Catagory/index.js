@@ -52,11 +52,27 @@ export default function Catagory({data}) {
   };
   const navigation = useNavigation();
   const catagory = item => {
+    console.log('item for categoryu', item);
     return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => navigation.navigate(item.item.name)}>
-        {/* <ImageBackground
+      <>
+        <View style={Styles.mainContainer}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() =>
+              navigation.navigate(item.item.name, {title: item.item.name})
+            }
+            style={Styles.catagory}>
+            <Image source={image.ArtistImg3} style={Styles.imgDim}></Image>
+          </TouchableOpacity>
+          <Text style={[Styles.catagoryText, {color: item.item.textColor}]}>
+            {item.item.name}
+          </Text>
+        </View>
+      </>
+      // <TouchableOpacity
+      //   activeOpacity={0.8}
+      //   onPress={() => navigation.navigate(item.item.name)}>
+      /* <ImageBackground
           resizeMode="cover"
           source={image.homedecortable}
           style={{
@@ -75,18 +91,9 @@ export default function Catagory({data}) {
             ]}>
             {item.item.name}
           </Text>
-        </ImageBackground> */}
-        <View style={Styles.mainContainer}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate(item.item.name)}
-            style={Styles.catagory}>
-            <Image source={image.ArtistImg3} style={Styles.imgDim}></Image>
-          </TouchableOpacity>
-          <Text style={[Styles.catagoryText, {color: item.item.textColor}]}>
-            {item.item.name}
-          </Text>
-        </View>
-      </TouchableOpacity>
+        </ImageBackground> */
+
+      // </TouchableOpacity>
     );
   };
   return (

@@ -41,6 +41,7 @@ import SingleBanner from '../../../../Common/SingleBanner';
 import WomenTab from '../../Tabs.js/WomenTab';
 import LifeStyle from '../../../../Common/LifeStyle';
 import CommonImageGrid from '../../../../Common/CommonImageGrid';
+import HomeHeader from '../../HomeHeader';
 const width = Dimensions.get('window').width;
 
 const WomenHighlightData = [
@@ -89,6 +90,8 @@ const OfferData = [
   },
 ];
 const KidsCatagory = props => {
+  const {title} = props.route.params;
+
   const [active, setActive] = React.useState('Bestsellers');
   const [imgActive1, setImgActive1] = React.useState(0);
   const [dashboardData, setDashboardData] = React.useState([]);
@@ -434,6 +437,12 @@ const KidsCatagory = props => {
   };
   return (
     <>
+      <HomeHeader
+        customViewStyle={{backgroundColor: '#FFFFFF'}}
+        {...props}
+        headertext={title}
+      />
+
       <FlatList
         contentContainerStyle={{
           backgroundColor: Colors.backgroundColor,

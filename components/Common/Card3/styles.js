@@ -12,7 +12,7 @@ export const Styles = StyleSheet.create({
     flex: 1,
   },
   headingtxt: {
-    fontSize: 16,
+    fontSize: 12,
     color: '#4A4A4A',
     lineHeight: 21,
     fontFamily: Fonts.Assistant400,
@@ -21,7 +21,7 @@ export const Styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingBottom: 10,
   },
   mrptxt: {
     paddingRight: 5,
