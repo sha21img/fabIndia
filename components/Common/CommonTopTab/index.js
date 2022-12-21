@@ -29,10 +29,6 @@ export default function CommonTopTab(props) {
           },
         }}>
         {data.map((item, index) => {
-          console.log(
-            'item.detail=============================================================================',
-            item.title,
-          );
           return (
             !!item?.title && (
               <Tab.Screen
