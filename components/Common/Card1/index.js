@@ -67,11 +67,11 @@ export default function Card1(props) {
 
     if (getToken?.isCheck) {
       console.log('shsihsihshsihhhh');
-      if (item.stock.stockLevelStatus == 'inStock') {
-        handleClick(item);
-      } else {
-        Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
-      }
+      // if (item.stock.stockLevelStatus == 'inStock') {
+      handleClick(item);
+      // } else {
+      //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+      // }
     } else {
       console.log('glglglglglltltlhhh');
       Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
@@ -87,7 +87,7 @@ export default function Card1(props) {
       <TouchableOpacity
         style={[defaultViewCustomStyles, customViewStyle]}
         onPress={() => {
-          dispatch(Sharedataadd(item))
+          dispatch(Sharedataadd(item));
           props.navigation.navigate('ProductDetailed', {
             productId: item.code,
             imageUrlCheck: item,

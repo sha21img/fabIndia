@@ -19,14 +19,18 @@ export default function WishListCard(props) {
         <Text style={Styles.txt1}>
           It's never too late to add to your cart!
         </Text>
-        <View style={{backgroundColor: '#F6F6F6', paddingHorizontal: 15}}>
+        {/* <View style={{backgroundColor: '#F6F6F6', paddingHorizontal: 15}}>
           <Text style={Styles.txt2}>6 products</Text>
-        </View>
+        </View> */}
 
         <View style={Styles.mainView}>
           {cartReducer?.WishListDetail?.wishListData?.map(item => {
             return (
-              <Card3 customViewStyle={{marginBottom: 15}} item={item.item} />
+              <Card3
+                customViewStyle={{marginBottom: 15}}
+                item={item.item}
+                {...props}
+              />
             );
           })}
         </View>

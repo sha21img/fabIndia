@@ -108,7 +108,6 @@ export default function ResultCards(props) {
           status ? `${code}` : `query=:relevance:allCategories:${code}`
         }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
-     
     }
     setdataMain(response.data);
     setFilterProducts(response.data.products);
@@ -237,8 +236,12 @@ export default function ResultCards(props) {
           console.log('response.data add to wishlist', response.data);
           getCartDetails();
         })
-        .catch(error => {
-          console.log('error for add wishlist', error);
+        .catch(errors => {
+          Toast.showWithGravity(
+            errors?.response?.data?.errors[0]?.message,
+            Toast.LONG,
+            Toast.TOP,
+          );
         });
     }
 

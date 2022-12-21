@@ -67,13 +67,6 @@ export default function HomeStack() {
         name="Home"
         component={Home}
       />
-      <Stack.Screen
-        options={{
-          header: props => <HomeHeader {...props} homeheader={true} />,
-        }}
-        name="YourWishlist"
-        component={YourWishlist}
-      />
 
       <Stack.Screen
         name="Women"

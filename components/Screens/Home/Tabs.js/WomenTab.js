@@ -102,7 +102,7 @@ export default function WomenTab(props) {
     'Home Decor': CardProducts,
     'Wall Decor': CardProducts,
     Cushion: CardProducts,
-    Cushios: CardProducts,
+    Cushions: CardProducts,
     'Floor Convering': CardProducts,
     'Floor Coverings': CardProducts,
     Bedroom: CardProducts,

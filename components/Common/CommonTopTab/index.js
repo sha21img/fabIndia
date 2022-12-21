@@ -38,6 +38,7 @@ export default function CommonTopTab(props) {
                   tabBarItemStyle: {
                     width: 'auto',
                   },
+                  unmountOnBlur: true,
                   tabBarLabel: ({focused}) => (
                     <View
                       style={{
@@ -69,8 +70,9 @@ export default function CommonTopTab(props) {
                   ) : (
                     <Text>hello</Text>
                   )
-                }
-              />
+                }>
+                {/* {() => item?.card(props, item, item.detail)} */}
+              </Tab.Screen>
               /* {() => (item?.card ? item?.card(item) : <Text>hello</Text>)} */
             )
           );
