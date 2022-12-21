@@ -86,9 +86,9 @@ const DrawerContent = () => {
     const token = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(token);
     if (getToken.isCheck) {
-      navigation.navigate('FabFamily');
+      navigation.navigate('MyAccount', {screen: 'FabFamily'});
     } else {
-      navigation.navigate('FabFamily');
+      navigation.navigate('MyAccount', {screen: 'FabFamily'});
     }
   };
   const shownData = data => {
@@ -378,18 +378,18 @@ export default function MainScreen(props) {
           tabBarLabel: 'Account',
           tabBarActiveTintColor: Colors.primarycolor,
           tabBarIcon: ({focused}) => (
-            // <TouchableOpacity
-            //   onPress={() =>
-            //     props.navigation.navigate('MyAccount', {
-            //       screen: 'Login_Register',
-            //     })
-            //   }>
-            <MaterialCommunityIcons
-              name="account-outline"
-              color={focused ? Colors.primarycolor : Colors.inactiveicon}
-              size={20}
-            />
-            // </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                props.navigation.navigate('MyAccount', {
+                  screen: 'MyAccounts',
+                })
+              }>
+              <MaterialCommunityIcons
+                name="account-outline"
+                color={focused ? Colors.primarycolor : Colors.inactiveicon}
+                size={20}
+              />
+            </TouchableOpacity>
           ),
           headerShown: false,
         }}

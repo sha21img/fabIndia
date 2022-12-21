@@ -20,6 +20,7 @@ const width = Dimensions.get('window').width;
 
 export default function AccordianMenu(props) {
   const {data} = props;
+  const navigation = useNavigation();
   console.log('this is a data first accourdion', data);
   const toggleAnimation = {
     duration: 300,
@@ -50,13 +51,29 @@ export default function AccordianMenu(props) {
     inputRange: [0, 1],
     outputRange: ['0deg', '180deg'],
   });
+  const checkNavigation = () => {
+    if (data.title == 'Gift Cards') {
+      navigation.navigate('MyAccount', {screen: 'GiftCard'});
+    } else if (data.title == 'FAQs') {
+      navigation.navigate('MyAccount', {screen: 'FAQ'});
+    } else if (data.title == 'Contact Us') {
+      navigation.navigate('MyAccount', {screen: 'ContactUs'});
+    }
+  };
+
+  //   navigation.dispatch(
+  //     CommonActions.reset({
+  //       index: 0,
+  //       routes: [{ name: 'GiftCard' }]
+  //     })
+  //   );
   return (
     <>
       <View key={Math.random() * 1099900} style={{overflow: 'hidden'}}>
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => {
-            data.children.length > 0 ? toggleListItem() : null;
+            data.children.length > 0 ? toggleListItem() : checkNavigation();
           }}
           style={{
             padding: 20,
