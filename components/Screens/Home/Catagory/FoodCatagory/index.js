@@ -18,9 +18,12 @@ import WomenTab from '../../Tabs.js/WomenTab';
 import LifeStyle from '../../../../Common/LifeStyle';
 import NewHighlights from '../../../../Common/NewHighlights';
 import CommonTitleTab from '../../../../Common/CommonTitleTab';
+import HomeHeader from '../../HomeHeader';
 const width = Dimensions.get('window').width;
 
 export default function FoodCatagory(props) {
+  const {title} = props.route.params;
+
   const [filteredComp, setFilteredComp] = useState([]);
 
   const getInitialData = async () => {
@@ -148,16 +151,23 @@ export default function FoodCatagory(props) {
     }
   };
   return (
-    <FlatList
-      contentContainerStyle={{
-        backgroundColor: Colors.backgroundColor,
-        paddingBottom: 20,
-        flexGrow: 1,
-      }}
-      data={filteredComp}
-      keyExtractor={(item, index) => index}
-      renderItem={item => checkSwitch(item.item)}
-    />
+    <>
+      <HomeHeader
+        customViewStyle={{backgroundColor: '#FFFFFF'}}
+        {...props}
+        headertext={title}
+      />
+      <FlatList
+        contentContainerStyle={{
+          backgroundColor: Colors.backgroundColor,
+          paddingBottom: 20,
+          flexGrow: 1,
+        }}
+        data={filteredComp}
+        keyExtractor={(item, index) => index}
+        renderItem={item => checkSwitch(item.item)}
+      />
+    </>
   );
 }
 

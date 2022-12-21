@@ -24,9 +24,12 @@ import {getData} from '../../../../Common/Helper';
 import WomenTab from '../../Tabs.js/WomenTab';
 import NewHighlights from '../../../../Common/NewHighlights';
 import CommonTitleTab from '../../../../Common/CommonTitleTab';
+import HomeHeader from '../../HomeHeader';
 const width = Dimensions.get('window').width;
 
 export default function BeautyCategory(props) {
+  const {title} = props.route.params;
+
   const [active, setActive] = React.useState('Bestsellers');
   const [dashboardData, setDashboardData] = React.useState([]);
 
@@ -375,17 +378,25 @@ export default function BeautyCategory(props) {
     }
   };
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        backgroundColor: Colors.backgroundColor,
-        paddingBottom: 20,
-        flexGrow: 1,
-      }}>
-      {filteredComp.map(item => {
-        return checkSwitch(item);
-      })}
-    </ScrollView>
+    <>
+      <HomeHeader
+        customViewStyle={{backgroundColor: '#FFFFFF'}}
+        {...props}
+        headertext={title}
+      />
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          backgroundColor: Colors.backgroundColor,
+          paddingBottom: 20,
+          flexGrow: 1,
+        }}>
+        {filteredComp.map(item => {
+          return checkSwitch(item);
+        })}
+      </ScrollView>
+    </>
   );
 }
 

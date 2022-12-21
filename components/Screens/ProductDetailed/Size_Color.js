@@ -29,7 +29,7 @@ export default function Size_Color({
 }) {
   console.log(
     'imageUrlCheck?.codeimageUrlCheck?.codeimageUrlCheck?.code000000p============================================================',
-    productdetail.baseOptions[0].selected
+    productdetail.baseOptions[0].selected,
   );
   const [filterData, setFilterData] = useState([]);
   const [count, setCount] = useState(1);
@@ -42,9 +42,10 @@ export default function Size_Color({
   const [color, setColor] = useState({
     productCode: imageUrlCheck?.code,
     stock: 10,
-    color:productdetail.baseOptions[0].selected.variantOptionQualifiers[0].value
+    color:
+      productdetail.baseOptions[0].selected.variantOptionQualifiers[0].value,
   });
-  console.log(color,'............................')
+  console.log(color, '............................');
   const [modalVisible, setModalVisible] = useState(false);
   // const freeSize = productdetail?.baseOptions[0]?.options[0]?.variantOptionQualifiers[1]?.value;
   const SizeHeader = [
@@ -122,7 +123,10 @@ export default function Size_Color({
       });
     setfinalData(arrayData[0]);
     setFilterData(arrayData);
-    console.log(arrayData, 'arrayDataarrayDataooooooooooooo9999999999999999999');
+    console.log(
+      arrayData,
+      'arrayDataarrayDataooooooooooooo9999999999999999999',
+    );
   };
 
   const StockSubmit = item => {
@@ -136,22 +140,28 @@ export default function Size_Color({
     });
     setStock(sum);
     setSize(item);
-    if(item.color.filter((el)=>(el.productCode == item.productCode))[0].stock==0){
-      setCount(0)
-    }else{
-      setCount(1)
+    if (
+      item.color.filter(el => el.productCode == item.productCode)[0].stock == 0
+    ) {
+      setCount(0);
+    } else {
+      setCount(1);
     }
-    let a = {productCode: item?.productCode,
-      stock: item.color.filter((el)=>(el.productCode == item.productCode))[0].stock,
-      color: item.color.filter((el)=>(el.productCode == item.productCode))[0].colorCode}
-    setColor(a)
-    getColorProductId(item.productCode)
-    getImageData(item.productCode)
+    let a = {
+      productCode: item?.productCode,
+      stock: item.color.filter(el => el.productCode == item.productCode)[0]
+        .stock,
+      color: item.color.filter(el => el.productCode == item.productCode)[0]
+        .colorCode,
+    };
+    setColor(a);
+    getColorProductId(item.productCode);
+    getImageData(item.productCode);
     setfinalData(item);
   };
 
   const CounterQuantity = task => {
-    console.log("color.stockcolor.stock",color.stock)
+    console.log('color.stockcolor.stock', color.stock);
     let countData = count;
     if (task == 'Minus') {
       if (countData != 1) {
@@ -193,7 +203,7 @@ export default function Size_Color({
           {finalData?.color?.map(item => {
             console.log(
               'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck8--------------8888',
-              item
+              item,
             );
             return (
               <TouchableOpacity
@@ -210,10 +220,10 @@ export default function Size_Color({
                   setColor(item);
                   getColorProductId(item.productCode);
                   getImageData(item.productCode);
-                  getonPress(item);
                 }}
                 style={
-                  item.productCode == color?.productCode || color.color==item.colorCode
+                  item.productCode == color?.productCode ||
+                  color.color == item.colorCode
                     ? Styles.colorOutlineActive
                     : Styles.colorOutlineInActive
                 }>
@@ -246,8 +256,8 @@ export default function Size_Color({
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={Styles.btnBox}>
         {filterData.map((item, index) => {
-          console.log( item, '///llllllll/0000000000000000000000/?');
-          
+          console.log(item, '///llllllll/0000000000000000000000/?');
+
           return (
             <>
               <TouchableOpacity
@@ -255,7 +265,11 @@ export default function Size_Color({
                   StockSubmit(item);
                 }}
                 style={
-                 ( item.size == size.size ||   item.color.filter(el=>el.productCode == color?.productCode).length)  ? Styles.activeBtn : Styles.inActiveBtn
+                  item.size == size.size ||
+                  item.color.filter(el => el.productCode == color?.productCode)
+                    .length
+                    ? Styles.activeBtn
+                    : Styles.inActiveBtn
                 }>
                 <Text
                   style={

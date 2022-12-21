@@ -33,9 +33,12 @@ import LifeStyle from '../../../../Common/LifeStyle';
 import WomenTab from '../../Tabs.js/WomenTab';
 import SingleBanner from '../../../../Common/SingleBanner';
 import CollectionCard from '../../../../Common/CollectionCard';
+import HomeHeader from '../../HomeHeader';
 const width = Dimensions.get('window').width;
 
 const FurnitureCategory = props => {
+  const {title} = props.route.params;
+
   const [active, setActive] = React.useState();
   const [active1, setActive1] = React.useState();
   const [sectionData, setSectionData] = React.useState([]);
@@ -492,16 +495,24 @@ const FurnitureCategory = props => {
     );
   };
   return (
-    <ScrollView
-      style={{
-        backgroundColor: Colors.backgroundColor,
-        paddingBottom: 20,
-        flexGrow: 1,
-      }}>
-      {filteredComp.map(item => {
-        return checkSwitch(item);
-      })}
-    </ScrollView>
+    <>
+      <HomeHeader
+        customViewStyle={{backgroundColor: '#FFFFFF'}}
+        {...props}
+        headertext={title}
+      />
+
+      <ScrollView
+        contentContainerStyle={{
+          backgroundColor: Colors.backgroundColor,
+          paddingBottom: 20,
+          flexGrow: 1,
+        }}>
+        {filteredComp.map(item => {
+          return checkSwitch(item);
+        })}
+      </ScrollView>
+    </>
   );
 };
 
