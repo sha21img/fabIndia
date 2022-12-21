@@ -78,23 +78,23 @@ export default function ProductDetailed(props) {
       setShowAdd(true);
     }
     let images = [];
+    let zoomImage = [];
     for (let i = 0; i < response.data.images.length; i++) {
       const item = response.data.images[i];
       if (item.format == 'product' && item.imageType == 'GALLERY')
         images.push('https://apisap.fabindia.com/' + item.url);
+      zoomImage.push({url: 'https://apisap.fabindia.com/' + item.url});
     }
 
-    // 
-    let zoomImage = [];
-    for (let i = 0; i < response.data.images.length; i++) {
-      const item = response.data.images[i];
-      zoomImage.push({url:'https://apisap.fabindia.com/' + item.url});
-    }
+    //
 
-console.log("zoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImage",zoomImage)
+    console.log(
+      'zoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImage',
+      zoomImage,
+    );
     setProductImage(images);
- 
-    setZoomImage(zoomImage)
+
+    setZoomImage(zoomImage);
   };
 
   const bestSellers = async () => {
@@ -567,12 +567,14 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
       />
       <Modal
         animationType="slide"
-        transparent={true}
+        transparent={false}
+        
         visible={modalVisible}
+        style={{backgroundColor:'white'}}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
-        <View style={{width: '100%', flex: 1, backgroundColor: 'white'}}>
+        <View style={{width: '100%', flex: 1, backgroundColor: 'red'}}>
           <View
             style={{
               // marginTop: 'auto',
@@ -580,8 +582,18 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
               height: '100%',
               backgroundColor: 'white',
             }}>
-            <TouchableOpacity
-              style={{margin: 30}}
+        
+            <ImageViewer
+            backgroundColor='white'
+            // useNativeDriver
+              imageUrls={zoomImage}
+              // renderIndicator={() => null}
+              render={()=>{
+                return <View style={{backgroundColor:'red'}} ></View>
+              }}
+            />
+                <TouchableOpacity
+              style={{margin: 30,position:'absolute',top:0}}
               onPress={() => {
                 setModalVisible(false);
               }}>
@@ -591,18 +603,6 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
                 color={Colors.textcolor}
               />
             </TouchableOpacity>
-            {/* <View style={{ height: 600, width: '100%'}}> */}
-              <ImageViewer
-                style={{
-                  // flex: 1,
-                  // backgroundColor: 'red',
-                  height: 600,
-                  width: '100%',
-                }}
-                imageUrls={zoomImage}
-                renderIndicator={() => null}
-              />
-            {/* </View> */}
           </View>
         </View>
       </Modal>
