@@ -29,7 +29,7 @@ import ContactUs from './ContactUs';
 import CustomerCare from './CustomerCare';
 import CustomerCareStatus from './CustomerCare/CustomerCareStatus';
 import TrackRequest from './CustomerCare/TrackRequest';
-
+import FAQ from './FAQ';
 import ResetPassword from '../Login_Register/ResetPassword';
 import DeleteMyAccount from './DeleteMyAccount';
 import Unsubscribe from './Unsubscribe';
@@ -245,6 +245,23 @@ const MyAccount = props => {
                 <Header
                   leftIcon={leftIcon}
                   title="FabFamily"
+                  rightIcon={rightIcon}
+                  customStyle={{
+                    backgroundColor: '#F8F6F5',
+                    marginBottom: 4,
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="FAQ"
+            component={FAQ}
+            options={{
+              header: props => (
+                <Header
+                  leftIcon={leftIcon}
+                  title="FAQs"
                   rightIcon={rightIcon}
                   customStyle={{
                     backgroundColor: '#F8F6F5',

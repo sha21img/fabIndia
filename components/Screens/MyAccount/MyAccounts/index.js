@@ -148,7 +148,7 @@ const MyAccounts = props => {
           );
         })}
         <TouchableOpacity
-          onPress={()=>logout()}
+          onPress={() => logout()}
           key={Math.random() * 10000}
           style={{
             padding: 20,

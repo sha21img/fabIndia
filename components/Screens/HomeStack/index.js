@@ -39,6 +39,7 @@ import YourWishlist from '../YourWishlist';
 import InteriorCatagory from '../../Common/InteriorCatagory';
 import HomeHeader from '../Home/HomeHeader';
 import WishListCard from '../../Common/WishListCard';
+import CategorySection from '../CategorySection';
 
 const Stack = createNativeStackNavigator();
 

@@ -19,7 +19,6 @@ export default function CategorySection(props) {
         item.title == 'Food'
       );
     });
-    console.log('paramas-=-s=-=s-', filtered);
     setListData(filtered);
   };
   const categoryList = async () => {
