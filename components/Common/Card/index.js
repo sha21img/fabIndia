@@ -34,7 +34,7 @@ export default function Card(props) {
         onPress={() =>
           props.navigation.navigate('ProductDetailed', {
             productId: items.code,
-            imageUrlCheck:items
+            imageUrlCheck: items,
           })
         }
         activeOpacity={0.8}>
@@ -44,7 +44,7 @@ export default function Card(props) {
           }}
           // source={{uri: item.images[0].url}}
           style={{height: 243, width: 192}}
-          resizeMode="contain"
+          resizeMode="cover"
         />
         <View style={Styles.headingbox}>
           <Text numberOfLines={1} style={Styles.headingtxt}>

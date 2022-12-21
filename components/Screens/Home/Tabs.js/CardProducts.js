@@ -25,6 +25,7 @@ const CardProducts = (props, item) => {
     // );
     setproductData(response.data.products);
   };
+
   React.useEffect(() => {
     const productCodes = item.productCodes.split(' ');
     // const a = newData;

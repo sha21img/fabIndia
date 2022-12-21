@@ -22,7 +22,7 @@ export default function YourWishlist(props) {
     <>
       {cartReducer.WishListDetail.wishListData.length > 0 ? (
         <>
-          <WishListCard />
+          <WishListCard {...props} />
         </>
       ) : (
         <>

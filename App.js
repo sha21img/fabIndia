@@ -258,6 +258,13 @@ export default function App(props) {
               }}
             />
             <Stack.Screen
+              options={{
+                header: props => <HomeHeader {...props} homeheader={true} />,
+              }}
+              name="YourWishlist"
+              component={YourWishlist}
+            />
+            <Stack.Screen
               name="Filter"
               component={Filter}
               options={{

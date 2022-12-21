@@ -10,7 +10,11 @@ import {Colors} from '../../../assets/Colors';
 import Toast from 'react-native-simple-toast';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {cartDetail, wishlistDetail} from '../Helper/Redux/actions';
+import {
+  cartDetail,
+  Sharedataadd,
+  wishlistDetail,
+} from '../Helper/Redux/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 export default function Card3(props) {
@@ -187,7 +191,10 @@ export default function Card3(props) {
     // }
   };
   const AddtoCart = async item => {
-    console.log('add to cart in wihslist page', item.product.code);
+    console.log(
+      'add to cart in wihslist page',
+      item.product.stock.stockLevelStatus,
+    );
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
@@ -246,23 +253,33 @@ export default function Card3(props) {
             getWishListDetail();
           });
       })
-      .catch(error => {
-        console.log(
-          'add to cart )))))))))))))))))))))))))))))))))))))))))))))))))',
-          error,
+      .catch(errors => {
+        Toast.showWithGravity(
+          errors?.response?.data?.errors[0]?.message,
+          Toast.LONG,
+          Toast.TOP,
         );
       });
   };
   return (
     <>
       <View style={[defaultViewCustomStyles, customViewStyle]}>
-        <Image
-          source={{
-            uri: `https://apisap.fabindia.com${item.product.images[0].url}`,
-          }}
-          style={Styles.imagedimension}
-          resizeMode="cover"
-        />
+        <TouchableOpacity
+          onPress={() => {
+            dispatch(Sharedataadd(item));
+            props.navigation.navigate('ProductDetailed', {
+              productId: item.product.code,
+              imageUrlCheck: item,
+            });
+          }}>
+          <Image
+            source={{
+              uri: `https://apisap.fabindia.com${item.product.images[0].url}`,
+            }}
+            style={Styles.imagedimension}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
         <View style={Styles.headingbox}>
           <Text numberOfLines={1} style={Styles.headingtxt}>
             {item.product.name}
@@ -282,7 +299,13 @@ export default function Card3(props) {
         </View>
         <TouchableOpacity
           style={Styles.actions}
-          onPress={() => AddtoCart(item)}>
+          onPress={() => {
+            // if (item.product.stock.stockLevelStatus == 'inStock') {
+            AddtoCart(item);
+            // } else {
+            //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+            // }
+          }}>
           {/* <Text style={Styles.actionstxt}>Remove</Text>
           <View style={Styles.dash}></View> */}
           <Text style={Styles.actionstxt}>Add to cart</Text>
