@@ -25,7 +25,7 @@ export default function CommonTopTab(props) {
             // height: 40,
             backgroundColor: Colors.backgroundColor,
             shadowColor: 'white',
-            marginLeft: 10,
+            marginLeft: 15,
           },
         }}>
         {data.map((item, index) => {
@@ -54,7 +54,7 @@ export default function CommonTopTab(props) {
                       }}>
                       <Text
                         style={{
-                          fontSize: 18,
+                          fontSize: 16,
                           fontFamily: Fonts.Assistant300,
                           color: focused
                             ? Colors.primarycolor

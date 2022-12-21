@@ -225,7 +225,7 @@ export default function HomeHeader(props) {
               <View
                 style={{
                   position: 'absolute',
-                  backgroundColor: 'red',
+                  backgroundColor: Colors.primarycolor,
                   width: 16,
                   height: 16,
                   borderRadius: 15 / 2,
@@ -259,7 +259,7 @@ export default function HomeHeader(props) {
               <View
                 style={{
                   position: 'absolute',
-                  backgroundColor: 'red',
+                  backgroundColor: Colors.primarycolor,
                   width: 16,
                   height: 16,
                   borderRadius: 15 / 2,

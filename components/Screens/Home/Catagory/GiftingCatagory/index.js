@@ -6,11 +6,14 @@ import {
   LandingPageL1Women,
 } from '../../../../../constant';
 import {getData} from '../../../../Common/Helper';
+import HomeHeader from '../../HomeHeader';
 import Carousel from './Carousel';
 import ClassicsCards from './ClassicsCards';
 import TopBanner from './TopBanner';
 
 const GiftingCatagory = props => {
+  const {title} = props.route.params;
+
   const [dashboardData, setDashboardData] = React.useState([]);
   const [filteredComp, setFilteredComp] = useState([]);
   const getInitialData = async () => {
@@ -60,24 +63,24 @@ const GiftingCatagory = props => {
   };
 
   return (
-    // <ScrollView
-    //   showsVerticalScrollIndicator={false}
-    //   contentContainerStyle={{
-    //     backgroundColor: Colors.backgroundColor,
-    //     paddingBottom: 20,
-    //     flexGrow: 1,
-    //   }}>
-    <FlatList
-      contentContainerStyle={{
-        backgroundColor: Colors.backgroundColor,
-        paddingBottom: 20,
-        flexGrow: 1,
-      }}
-      data={filteredComp}
-      keyExtractor={(item, index) => index}
-      renderItem={item => checkSwitch(item.item)}
-    />
-    // </ScrollView>
+    <>
+      <HomeHeader
+        customViewStyle={{backgroundColor: '#FFFFFF'}}
+        {...props}
+        headertext={title}
+      />
+
+      <FlatList
+        contentContainerStyle={{
+          backgroundColor: Colors.backgroundColor,
+          paddingBottom: 20,
+          flexGrow: 1,
+        }}
+        data={filteredComp}
+        keyExtractor={(item, index) => index}
+        renderItem={item => checkSwitch(item.item)}
+      />
+    </>
   );
 };
 export default GiftingCatagory;

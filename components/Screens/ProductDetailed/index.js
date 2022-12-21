@@ -237,7 +237,7 @@ export default function ProductDetailed(props) {
     setProductImage(images);
   };
   const AddtoCart = async () => {
-    console.log('asdfasdfasdfasdfasdfasdfasdf', productID);
+    console.log('asdfasdfasdfasdfasdfasdfasdf', quantity);
     // const body = {
     //   quantity: 1,
     //   product: {
@@ -432,6 +432,9 @@ export default function ProductDetailed(props) {
         dotColor={Colors.primarycolor}
       /> */}
           <SliderBox
+            onCurrentImagePressed={curr => {
+              console.log('curr', curr);
+            }}
             resizeMode="stretch"
             autoplay={true}
             circleLoop={true}

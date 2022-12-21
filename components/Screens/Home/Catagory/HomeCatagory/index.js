@@ -37,9 +37,12 @@ import WomenTab from '../../Tabs.js/WomenTab';
 import SingleBanner from '../../../../Common/SingleBanner';
 import CollectionCard from '../../../../Common/CollectionCard';
 import NewHighlights from '../../../../Common/NewHighlights';
+import HomeHeader from '../../HomeHeader';
 const width = Dimensions.get('window').width;
 
 export default function HomeCatagory(props) {
+  const {title} = props.route.params;
+
   const [active, setActive] = React.useState('Bestsellers');
   const [Ids, setIds] = React.useState([]);
   const [sectionData, setSectionData] = React.useState([]);
@@ -420,17 +423,25 @@ export default function HomeCatagory(props) {
     }
   };
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        backgroundColor: Colors.backgroundColor,
-        paddingBottom: 20,
-        flexGrow: 1,
-      }}>
-      {filteredComp.map(item => {
-        return checkSwitch(item);
-      })}
-    </ScrollView>
+    <>
+      <HomeHeader
+        customViewStyle={{backgroundColor: '#FFFFFF'}}
+        {...props}
+        headerText={title}
+      />
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          backgroundColor: Colors.backgroundColor,
+          paddingBottom: 20,
+          flexGrow: 1,
+        }}>
+        {filteredComp.map(item => {
+          return checkSwitch(item);
+        })}
+      </ScrollView>
+    </>
   );
 }
 

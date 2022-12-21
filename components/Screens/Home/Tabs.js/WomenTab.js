@@ -36,13 +36,15 @@ export default function WomenTab(props) {
     const response = await getComponentData(
       `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
+
+    console.log('response.component', response.component);
     setToptabLabelData(response.component);
     //2
   };
 
   const getBannerCount = async bannerId => {
     const splitBannerId = bannerId.split(' ').join(',');
-    // console.log('response', splitBannerId);
+    console.log('response', splitBannerId);
     const response = await getComponentData(
       `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
@@ -60,12 +62,12 @@ export default function WomenTab(props) {
     Jewellery: CardProducts,
     'Saris & Blouses': CardProducts,
     'Stoles & Sarongs': CardProducts,
-    'Stoles & Scraves': CardProducts,
+    'Stoles & Scarves': CardProducts,
     'Women Ethnic': CardProducts,
     'Women Western': CardProducts,
-    'Men Footwear': CardProducts,
     'Men Ethnic': CardProducts,
     'Men Western': CardProducts,
+    'Men Footwear': CardProducts,
     Boys: CardProducts,
     'Infant Girls': CardProducts,
     Girls: CardProducts,

@@ -559,7 +559,7 @@ const DrawerContent = () => {
 
   let drawerContent = [
     {
-      name: 'My Orders',
+      name: 'Orders',
       icon: (
         <Image
           source={image.document}
@@ -684,7 +684,7 @@ const DrawerContent = () => {
             ) : (
               drawerData.map(obj => {
                 return (
-                  <View>
+                  <>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       onPress={() => {
@@ -701,17 +701,24 @@ const DrawerContent = () => {
                         forceUpdate();
                       }}
                       style={{
-                        padding: 20,
+                        paddingVertical: 20,
                         flexDirection: 'row',
                         borderBottomColor: '#ebebeb',
                         borderBottomWidth: 1,
+                        width: '100%',
+                        justifyContent: 'space-between',
+                        paddingHorizontal: 20,
                       }}>
-                      {item.icon}
-                      <Text style={{color: Colors.textcolor, marginLeft: 10}}>
-                        {obj.title}
-                      </Text>
-
-                      <View style={{marginLeft: 50}}>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                        }}>
+                        {item.icon}
+                        <Text style={{color: Colors.textcolor, marginLeft: 10}}>
+                          {obj.title}
+                        </Text>
+                      </View>
+                      <View>
                         {obj.selected ? (
                           <Ionicons
                             name="chevron-up"
@@ -751,7 +758,7 @@ const DrawerContent = () => {
                         </TouchableOpacity>
                       ) : null;
                     })}
-                  </View>
+                  </>
                 );
               })
             )}
@@ -872,7 +879,7 @@ export default function MainScreen(props) {
         name="CategorySection"
         component={CategorySection}
         options={{
-          tabBarLabel: 'Category',
+          tabBarLabel: 'Categories',
           headerShown: false,
           tabBarActiveTintColor: Colors.primarycolor,
 

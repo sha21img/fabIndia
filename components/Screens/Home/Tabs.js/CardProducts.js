@@ -42,7 +42,7 @@ const CardProducts = (props, item) => {
       contentContainerStyle={{
         flexDirection: 'row',
         paddingHorizontal: 20,
-        paddingVertical: 5,
+        // paddingVertical: 5,
         backgroundColor: '#FFFFFF',
         flexGrow: 1,
       }}>

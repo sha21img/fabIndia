@@ -79,12 +79,14 @@ export default function HomeStack() {
         name="Women"
         component={WomenCategory}
         options={{
-          header: props => (
-            <HomeHeader
-              customViewStyle={{backgroundColor: '#FFFFFF'}}
-              {...props}
-            />
-          ),
+          headerShown: false,
+
+          // header: props => (
+          //   <HomeHeader
+          //     customViewStyle={{backgroundColor: '#FFFFFF'}}
+          //     {...props}
+          //   />
+          // ),
         }}
       />
       <Stack.Screen
@@ -109,12 +111,7 @@ export default function HomeStack() {
         name="Furniture"
         component={FurnitureCategory}
         options={{
-          header: props => (
-            <HomeHeader
-              customViewStyle={{backgroundColor: '#FFFFFF'}}
-              {...props}
-            />
-          ),
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -173,36 +170,28 @@ export default function HomeStack() {
         component={MenCatagory}
         // component={() => <Text>lkjh</Text>}
         options={{
-          header: props => (
-            <HomeHeader
-              customViewStyle={{backgroundColor: '#FFFFFF'}}
-              {...props}
-            />
-          ),
+          headerShown: false,
+
+          // header: props => (
+          //   <HomeHeader
+          //     customViewStyle={{backgroundColor: '#FFFFFF'}}
+          //     {...props}
+          //   />
+          // ),
         }}
       />
       <Stack.Screen
         name="Kids"
         component={KidsCatagory}
         options={{
-          header: props => (
-            <HomeHeader
-              customViewStyle={{backgroundColor: '#FFFFFF'}}
-              {...props}
-            />
-          ),
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="Home & Living"
         component={HomeCatagory}
         options={{
-          header: props => (
-            <HomeHeader
-              customViewStyle={{backgroundColor: '#FFFFFF'}}
-              {...props}
-            />
-          ),
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -218,24 +207,14 @@ export default function HomeStack() {
         name="Gifting"
         component={GiftingCatagory}
         options={{
-          header: props => (
-            <HomeHeader
-              customViewStyle={{backgroundColor: '#FFFFFF'}}
-              {...props}
-            />
-          ),
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="Food"
         component={FoodCatagory}
         options={{
-          header: props => (
-            <HomeHeader
-              customViewStyle={{backgroundColor: '#FFFFFF'}}
-              {...props}
-            />
-          ),
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -260,12 +239,7 @@ export default function HomeStack() {
         name="Personal Care"
         component={BeautyCategory}
         options={{
-          header: props => (
-            <HomeHeader
-              customViewStyle={{backgroundColor: '#FFFFFF'}}
-              {...props}
-            />
-          ),
+          headerShown: false,
         }}
       />
       <Stack.Screen
