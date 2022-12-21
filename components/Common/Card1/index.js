@@ -13,11 +13,14 @@ import imageURL from '../../Common/Helper';
 import {Colors} from '../../../assets/Colors';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-
 import Toast from 'react-native-simple-toast';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {
+  cartDetail,
+  Sharedataadd,
+  wishlistDetail,
+} from '../../Common/Helper/Redux/actions';
 export default function Card1(props) {
   const {
     customViewStyle = {},
@@ -25,6 +28,7 @@ export default function Card1(props) {
     handleClick = null,
     wishlistproductCode = [],
   } = props;
+  const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
   const defaultViewCustomStyles = {
     width: '48%',
@@ -63,11 +67,11 @@ export default function Card1(props) {
 
     if (getToken?.isCheck) {
       console.log('shsihsihshsihhhh');
-      if (item.stock.stockLevelStatus == 'inStock') {
-        handleClick(item);
-      } else {
-        Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
-      }
+      // if (item.stock.stockLevelStatus == 'inStock') {
+      handleClick(item);
+      // } else {
+      //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+      // }
     } else {
       console.log('glglglglglltltlhhh');
       Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
@@ -82,12 +86,13 @@ export default function Card1(props) {
     <>
       <TouchableOpacity
         style={[defaultViewCustomStyles, customViewStyle]}
-        onPress={() =>
+        onPress={() => {
+          dispatch(Sharedataadd(item));
           props.navigation.navigate('ProductDetailed', {
             productId: item.code,
             imageUrlCheck: item,
-          })
-        }
+          });
+        }}
         activeOpacity={0.8}>
         <ImageBackground
           source={{

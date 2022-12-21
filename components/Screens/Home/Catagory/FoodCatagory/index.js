@@ -18,9 +18,12 @@ import WomenTab from '../../Tabs.js/WomenTab';
 import LifeStyle from '../../../../Common/LifeStyle';
 import NewHighlights from '../../../../Common/NewHighlights';
 import CommonTitleTab from '../../../../Common/CommonTitleTab';
+import HomeHeader from '../../HomeHeader';
 const width = Dimensions.get('window').width;
 
 export default function FoodCatagory(props) {
+  const {title} = props.route.params;
+
   const [filteredComp, setFilteredComp] = useState([]);
 
   const getInitialData = async () => {
@@ -148,128 +151,22 @@ export default function FoodCatagory(props) {
     }
   };
   return (
-    <FlatList
-      contentContainerStyle={{
-        backgroundColor: Colors.backgroundColor,
-        paddingBottom: 20,
-        flexGrow: 1,
-      }}
-      data={filteredComp}
-      keyExtractor={(item, index) => index}
-      renderItem={item => checkSwitch(item.item)}
-    />
+    <>
+      <HomeHeader
+        customViewStyle={{backgroundColor: '#FFFFFF'}}
+        {...props}
+        headertext={title}
+      />
+      <FlatList
+        contentContainerStyle={{
+          backgroundColor: Colors.backgroundColor,
+          paddingBottom: 20,
+          flexGrow: 1,
+        }}
+        data={filteredComp}
+        keyExtractor={(item, index) => index}
+        renderItem={item => checkSwitch(item.item)}
+      />
+    </>
   );
 }
-
-{
-  /* <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        backgroundColor: Colors.backgroundColor,
-        paddingBottom: 20,
-      }}> */
-}
-
-{
-  /* <TopGallery /> */
-}
-{
-  /* {Ids.includes('Section1') && (
-        <TopSwiper data={dashboardData} position="Section1" />
-      )} */
-}
-{
-  /* <TopSwiper
-        data={[
-          {banner: image.kidinterior1},
-          {banner: image.banner1},
-          {banner: image.kidinterior2},
-        ]}
-      /> */
-}
-// <SummerGalary
-//   data={SummerGalaryData}
-//   title={getSummerTitle()}
-//   subtitles="All things natural, organic and healthy"
-//   backgroundColor="#EFE5E0"
-//   customViewStyle={{marginBottom: 50}}
-// />
-// <View
-//   style={{
-//     flexDirection: 'row',
-//     flexWrap: 'wrap',
-//     paddingHorizontal: 15,
-//     marginTop: 5,
-//   }}>
-//   <Chip
-//     title="Bestsellers"
-//     handleClick={() => handleClick('Bestsellers')}
-//     active={active}
-//   />
-//   <Chip
-//     title="Recommended for you"
-//     handleClick={() => handleClick('Recommended for you')}
-//     active={active}
-//   />
-// </View>
-{
-  /* <View style={{marginLeft: 15, height: 440}}> */
-}
-// <CommonTopTab data={dataMap1} />
-{
-  /* </View> */
-}
-{
-  /* <OfferCommonCarousel
-  data={OfferData}
-  UptoText="UPTO"
-  backgroundColor={'#DB8C5F'}
-  width={width / 1.07}
-  height={420}
-  customStyle={{marginVertical: 20}}
-/>; */
-}
-{
-  /* <SummerGalary
-        data={HomeProductData}
-        title={getSummerTitle1()}
-        subtitles="Rejuvenate every morning!"
-        backgroundColor="#EFE5E0"
-        customViewStyle={{marginBottom: 50, marginTop: 20}}
-      />
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingHorizontal: 15,
-          marginTop: 5,
-        }}>
-        <Chip
-          title="Bestsellers"
-          handleClick={() => handleClick('Bestsellers')}
-          active={active}
-        />
-        <Chip
-          title="Recommended for you"
-          handleClick={() => handleClick('Recommended for you')}
-          active={active}
-        />
-      </View>
-      <CommonTopTab data={dataMap2} /> */
-}
-// <CommonCarousel data={WomenCarouselData} width={width} height={410} />
-// <SummerGalary
-//   data={HomeProductData}
-//   title={getSummerTitle1()}
-//   subtitles="Rejuvenate every morning!"
-//   backgroundColor="#EFE5E0"
-//   customViewStyle={{marginBottom: 50, marginTop: 20}}
-// />
-// <LifeStyleCard />
-//   <CommonTopTab data={dataMap3} />
-//   <FoodReceips
-//     heading={ReceipsCardHeading}
-//     customStyle={{backgroundColor: '#CFA566'}}
-//     data={ReceipsCardData}
-//   />
-// </ScrollView>

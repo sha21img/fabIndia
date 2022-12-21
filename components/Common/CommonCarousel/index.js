@@ -49,18 +49,21 @@ export default function CommonCarousel(props) {
   const renderItem = ({item}) => {
     const mediaurl1 = item.media.url || item.media.mobile.url;
     const newCode = item.urlLink;
-    // console.log('item for product', newCode);
+    // console.log('item for product', newCode.includes('giftcard'));
     let splitURL = newCode.split('/');
     splitURL = splitURL[splitURL.length - 1];
     // console.log('splitURL', splitURL);
     return (
       <TouchableOpacity
-        onPress={() =>
-          props.navigation.navigate('LandingPageSaris_Blouses', {
-            code: splitURL,
-            title: item.title,
-          })
-        }
+        onPress={() => {
+          if (newCode.includes('giftcard')) {
+          } else {
+            props.navigation.navigate('LandingPageSaris_Blouses', {
+              code: splitURL,
+              title: item.title || 'Gift Sets',
+            });
+          }
+        }}
         activeOpacity={0.8}>
         <ImageBackground
           resizeMode="stretch"

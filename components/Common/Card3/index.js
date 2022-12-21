@@ -10,7 +10,11 @@ import {Colors} from '../../../assets/Colors';
 import Toast from 'react-native-simple-toast';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {cartDetail, wishlistDetail} from '../Helper/Redux/actions';
+import {
+  cartDetail,
+  Sharedataadd,
+  wishlistDetail,
+} from '../Helper/Redux/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 export default function Card3(props) {
@@ -56,8 +60,8 @@ export default function Card3(props) {
       )
       .then(response => {
         console.log(
-          'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
-          response.data.name,
+          'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsaa',
+          response.data,
         );
         if (!!response?.data?.name) {
           if (response?.data?.name?.includes('wishlist')) {
@@ -101,7 +105,7 @@ export default function Card3(props) {
       'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
       response.data,
     );
-    let finalvalue = response?.data?.orderEntries?.reduce(
+    let finalvalue = response?.data?.entries?.reduce(
       (n, {quantity}) => n + quantity,
       0,
     );
@@ -187,11 +191,16 @@ export default function Card3(props) {
     // }
   };
   const AddtoCart = async item => {
-    console.log('add to cart in wihslist page', item.product.code);
+    console.log(
+      'add to cart in wihslist page',
+      item.product.stock.stockLevelStatus,
+    );
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     const type = getToken.isCheck ? 'current' : 'anonymous';
+    const getWishlistID = await AsyncStorage.getItem('WishlistID');
+
     console.log('this -s=df-=sdf-=sd-f=ds-f=-', getToken);
     console.log('this -s=df-=sdf-=sd-f=ds-f=-', getCartID);
     console.log('thistypetype', type);
@@ -210,33 +219,67 @@ export default function Card3(props) {
           },
         },
       )
-      .then(response => {
-        console.log('responssse', response.data);
+      .then(async response => {
         getCartDetails();
-        dispatch(
-          cartDetail({
-            data: response.data,
-            quantity: response.data.entries.length,
-          }),
-        );
+
+        // console.log('responssseitemitemitem', item.entryNumber);
+        // const entryNumber = response.data.entry.entryNumber;
+        // console.log(
+        //   'entryNumberentryNumberentryNumberentryNumber',
+        //   entryNumber,
+        // );
+        // console.log('getWishlistIDgetWishlistIDgetWishlistID', getWishlistID);
+        // console.log(
+        //   'getToken.access_tokengetToken.access_tokengetToken.access_token',
+        //   getToken.access_token,
+        // );
+
+        await axios
+          .delete(
+            `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries/${item.entryNumber}?lang=en&curr=INR`,
+            // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
+            // {quantity: 0, product: {code: isAddWishlist.code}},
+            {
+              headers: {
+                Authorization: `${getToken.token_type} ${getToken.access_token}`,
+              },
+            },
+          )
+          .then(response => {
+            console.log(
+              'response.data deletetetetetetettetetet ssssto wishlist',
+              response.data,
+            );
+            getWishListDetail();
+          });
       })
-      .catch(error => {
-        console.log(
-          'add to cart )))))))))))))))))))))))))))))))))))))))))))))))))',
-          error,
+      .catch(errors => {
+        Toast.showWithGravity(
+          errors?.response?.data?.errors[0]?.message,
+          Toast.LONG,
+          Toast.TOP,
         );
       });
   };
   return (
     <>
       <View style={[defaultViewCustomStyles, customViewStyle]}>
-        <Image
-          source={{
-            uri: `https://apisap.fabindia.com${item.product.images[0].url}`,
-          }}
-          style={Styles.imagedimension}
-          resizeMode="cover"
-        />
+        <TouchableOpacity
+          onPress={() => {
+            dispatch(Sharedataadd(item));
+            props.navigation.navigate('ProductDetailed', {
+              productId: item.product.code,
+              imageUrlCheck: item,
+            });
+          }}>
+          <Image
+            source={{
+              uri: `https://apisap.fabindia.com${item.product.images[0].url}`,
+            }}
+            style={Styles.imagedimension}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
         <View style={Styles.headingbox}>
           <Text numberOfLines={1} style={Styles.headingtxt}>
             {item.product.name}
@@ -246,17 +289,23 @@ export default function Card3(props) {
             <Text style={Styles.amounttxt}>
               {item.product.priceAfterDiscount.formattedValue}
             </Text>
-            <Text style={Styles.priceofftxt}>
+            {/* <Text style={Styles.priceofftxt}>
               {item.product.price.formattedValue}
             </Text>
             <Text style={Styles.offertxt}>
               {discountPrice?.toFixed(0)}% off
-            </Text>
+            </Text> */}
           </View>
         </View>
         <TouchableOpacity
           style={Styles.actions}
-          onPress={() => AddtoCart(item)}>
+          onPress={() => {
+            // if (item.product.stock.stockLevelStatus == 'inStock') {
+            AddtoCart(item);
+            // } else {
+            //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+            // }
+          }}>
           {/* <Text style={Styles.actionstxt}>Remove</Text>
           <View style={Styles.dash}></View> */}
           <Text style={Styles.actionstxt}>Add to cart</Text>

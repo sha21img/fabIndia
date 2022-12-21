@@ -12,3 +12,10 @@ export function wishlistDetail(payload) {
     payload: payload,
   };
 }
+export function Sharedataadd(payload) {
+  
+  return {
+    type: 'SHARE_DETAIL',
+    payload: payload,
+  };
+}

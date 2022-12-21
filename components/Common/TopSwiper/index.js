@@ -9,6 +9,7 @@ import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
 import {useNavigation} from '@react-navigation/native';
 import {SliderBox} from 'react-native-image-slider-box';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function TopSwiper(props) {
   const navigation = useNavigation();
@@ -33,6 +34,13 @@ export default function TopSwiper(props) {
       images.push('https://apisap.fabindia.com/' + item.media.mobile.url);
     }
     setCarouselData(images);
+  };
+  const isLogedIn = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    if (!getToken.isCheck) {
+      props.navigation.navigate('Login_Register');
+    }
   };
   useEffect(() => {
     getCarauselIds();
@@ -81,7 +89,8 @@ export default function TopSwiper(props) {
             newId,
           );
 
-          if (newId.code == '/login/register') {
+          if (newId.code.includes('register')) {
+            isLogedIn();
           } else {
             navigation.navigate('LandingPageSaris_Blouses', newId);
           }

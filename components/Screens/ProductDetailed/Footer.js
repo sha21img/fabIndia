@@ -22,6 +22,8 @@ export default function Footer(props) {
     disabled = false,
     handleWishListAdd = null,
     productdetail = {},
+    showcartbutton,
+    setShowcartbutton,
     wishlistproductCode = [],
   } = props;
   const {cartReducer} = useSelector(state => state);
@@ -76,34 +78,76 @@ export default function Footer(props) {
             <MaterialCommunityIcons
               name="cards-heart"
               color={Colors.primarycolor}
-              size={26}
+              size={22}
             />
           ) : (
             <MaterialCommunityIcons
               name="cards-heart-outline"
               color={Colors.primarycolor}
-              size={26}
+              size={22}
             />
           )}
+          <Text
+            style={{
+              color: Colors.primarycolor,
+              fontFamily: Fonts.Assistant400,
+              fontSize: 16,
+              paddingHorizontal:4
+            }}>
+            Added in wishlist
+          </Text>
         </TouchableOpacity>
         {oos ? (
-          <TouchableOpacity
-            style={[
-              Styles.cartBox,
-              {
-                backgroundColor: !disabled ? Colors.primarycolor : 'grey',
-              },
-            ]}
-            disabled={disabled}
-            onPress={() => {
-              // if (productdetail?.stock?.stockLevelStatus != 'inStock') {
-              //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
-              // } else {
-              handleClick();
-              // }
-            }}>
-            <Text style={Styles.cartText}>Add to cart</Text>
-          </TouchableOpacity>
+          !showcartbutton ? (
+            <TouchableOpacity
+              style={[
+                Styles.cartBox,
+                {
+                  backgroundColor: !disabled ? Colors.primarycolor : 'grey',
+                },
+              ]}
+              disabled={disabled}
+              onPress={() => {
+                // if (productdetail?.stock?.stockLevelStatus != 'inStock') {
+                //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+                // } else {
+                handleClick();
+                // }
+              }}>
+                <MaterialCommunityIcons
+              name="cart-outline"
+              color={'white'}
+              size={22}
+            />
+              <Text style={Styles.cartText}>Add to cart</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={[
+                Styles.cartBox,
+                {
+                  backgroundColor: '#ffa51d',
+                },
+              ]}
+              disabled={disabled}
+              onPress={() => {
+                props.navigation.navigate('CartPage');
+                setShowcartbutton(false);
+                // if (productdetail?.stock?.stockLevelStatus != 'inStock') {
+                //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+                // } else {
+                // handleClick();
+                // setShowcartbutton(true);
+                // }
+              }}>
+                   <MaterialCommunityIcons
+              name="cart-outline"
+              color={'white'}
+              size={22}
+            />
+              <Text style={Styles.cartText}>Go to cart</Text>
+            </TouchableOpacity>
+          )
         ) : (
           <TouchableOpacity onPress={() => openStock()} style={Styles.cartBox}>
             <Text style={Styles.cartText}>Notify me</Text>
@@ -175,24 +219,35 @@ const Styles = StyleSheet.create({
     padding: 20,
   },
   heartBox: {
-    borderWidth: 1.5,
+    // borderWidth: 1.5,
+    // borderRadius: 50,
+    // borderColor: Colors.primarycolor,
+    // padding: 7,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    padding: 12,
+    width: '48%',
     borderRadius: 50,
-    borderColor: Colors.primarycolor,
-    padding: 7,
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
+    borderWidth: 1.5,
+    backgroundColor: 'white',
+    borderColor: Colors.primarycolor,
   },
   cartBox: {
     padding: 12,
-    width: '85%',
+    width: '48%',
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection:'row'
   },
   cartText: {
     color: 'white',
     fontFamily: Fonts.Assistant400,
     fontSize: 16,
+    paddingHorizontal:5
   },
   headingBox: {
     flexDirection: 'row',

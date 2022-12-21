@@ -9,8 +9,7 @@ export const Styles = StyleSheet.create({
     backgroundColor: Colors.primarycolor,
     alignSelf: 'flex-start',
     borderRadius: 40,
-    marginVertical: 7,
-    marginRight: 15,
+    marginRight: 10,
   },
   chipTextActive: {
     paddingVertical: 7,
@@ -23,8 +22,7 @@ export const Styles = StyleSheet.create({
     backgroundColor: Colors.inAactivecolor,
     alignSelf: 'flex-start',
     borderRadius: 40,
-    marginVertical: 7,
-    marginRight: 15,
+    marginRight: 10,
   },
   chipTextInactive: {
     paddingVertical: 7,

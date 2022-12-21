@@ -25,14 +25,10 @@ export default function CommonTopTab(props) {
             // height: 40,
             backgroundColor: Colors.backgroundColor,
             shadowColor: 'white',
-            marginLeft: 10,
+            marginLeft: 15,
           },
         }}>
         {data.map((item, index) => {
-          console.log(
-            'item.detail=============================================================================',
-            item.title,
-          );
           return (
             !!item?.title && (
               <Tab.Screen
@@ -42,6 +38,7 @@ export default function CommonTopTab(props) {
                   tabBarItemStyle: {
                     width: 'auto',
                   },
+                  unmountOnBlur: true,
                   tabBarLabel: ({focused}) => (
                     <View
                       style={{
@@ -54,7 +51,7 @@ export default function CommonTopTab(props) {
                       }}>
                       <Text
                         style={{
-                          fontSize: 18,
+                          fontSize: 16,
                           fontFamily: Fonts.Assistant300,
                           color: focused
                             ? Colors.primarycolor
@@ -73,8 +70,9 @@ export default function CommonTopTab(props) {
                   ) : (
                     <Text>hello</Text>
                   )
-                }
-              />
+                }>
+                {/* {() => item?.card(props, item, item.detail)} */}
+              </Tab.Screen>
               /* {() => (item?.card ? item?.card(item) : <Text>hello</Text>)} */
             )
           );

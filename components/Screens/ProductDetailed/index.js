@@ -3,14 +3,17 @@ import {
   Text,
   ScrollView,
   FlatList,
+  Modal,
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import ImageViewer from 'react-native-image-zoom-viewer';
 import React, {useEffect, useState} from 'react';
 import CommonCarousel from '../../Common/CommonCarousel';
 import {image} from '../../../assets/images';
 import Fonts from '../../../assets/fonts';
 import Details from './Details';
+import CloseIcon from 'react-native-vector-icons/Ionicons';
 import Size_Color from './Size_Color';
 import Popular from './Popular';
 import Footer from './Footer';
@@ -25,13 +28,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 import {Colors} from '../../../assets/Colors';
 import {useDispatch, useSelector} from 'react-redux';
-import {cartDetail, wishlistDetail} from '../../Common/Helper/Redux/actions';
+import {
+  cartDetail,
+  Sharedataadd,
+  wishlistDetail,
+} from '../../Common/Helper/Redux/actions';
 import Card from '../../Common/Card';
 import Card4 from '../../Common/Card4';
 const width = Dimensions.get('window').width;
 
 export default function ProductDetailed(props) {
   const {productId, imageUrlCheck} = props?.route?.params;
+  const [showcartbutton, setShowcartbutton] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [productdetail, setProductDetail] = useState({});
   const [cartID, setCartID] = useState(null);
@@ -39,9 +48,11 @@ export default function ProductDetailed(props) {
   const [quantity, setQuantity] = useState(null);
   const [cartSuccess, setCartSuccess] = useState(null);
   const [productImage, setProductImage] = React.useState([]);
+  const [zoomImage, setZoomImage] = React.useState([]);
+
   const [productID, setProductID] = useState(productId);
   const [commonproduct, setCommonproduct] = useState([]);
-
+  const [stockcheck, Setstockcheck] = useState(null);
   const [wishlistproductCode, setWishlistproductCode] = useState([]);
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
@@ -58,20 +69,32 @@ export default function ProductDetailed(props) {
       // `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}?fields=name,purchasable,baseOptions(DEFAULT),baseProduct,variantOptions(DEFAULT),variantType&lang=en&curr=INR`,
       // `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}`,
     );
-    // console.log('response.data04733333333333333333', response.data);
+    console.log('response.data04733333333333333333', response.data);
     setProductDetail(response.data);
+
     if (response.data?.baseOptions?.length > 0) {
       setShowAdd(false);
     } else {
       setShowAdd(true);
     }
     let images = [];
+    let zoomImage = [];
     for (let i = 0; i < response.data.images.length; i++) {
       const item = response.data.images[i];
-      images.push('https://apisap.fabindia.com/' + item.url);
+      if (item.format == 'product' && item.imageType == 'GALLERY')
+        images.push('https://apisap.fabindia.com/' + item.url);
+      zoomImage.push({url: 'https://apisap.fabindia.com/' + item.url});
     }
 
+    //
+
+    console.log(
+      'zoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImage',
+      zoomImage,
+    );
     setProductImage(images);
+
+    setZoomImage(zoomImage);
   };
 
   const bestSellers = async () => {
@@ -187,8 +210,9 @@ export default function ProductDetailed(props) {
     title: item,
     card: screenObj[item],
   }));
-  const getColorProductId = data => {
+  const getColorProductId = (data, stock) => {
     setProductID(data);
+    Setstockcheck(stock);
     setShowAdd(true);
   };
   const getImageData = data => {
@@ -219,7 +243,8 @@ export default function ProductDetailed(props) {
     let images = [];
     for (let i = 0; i < response.data.images.length; i++) {
       const item = response.data.images[i];
-      images.push('https://apisap.fabindia.com/' + item.url);
+      if (item.format == 'product' && item.imageType == 'GALLERY')
+        images.push('https://apisap.fabindia.com/' + item.url);
     }
     // const newImage = response.data?.variantMatrix.map(item => {
     //   return (
@@ -230,7 +255,7 @@ export default function ProductDetailed(props) {
     setProductImage(images);
   };
   const AddtoCart = async () => {
-    console.log('asdfasdfasdfasdfasdfasdfasdf', productID);
+    console.log('asdfasdfasdfasdfasdfasdfasdf', quantity, productID);
     // const body = {
     //   quantity: 1,
     //   product: {
@@ -245,7 +270,7 @@ export default function ProductDetailed(props) {
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     const type = getToken.isCheck ? 'current' : 'anonymous';
-
+    console.log('getTokengetTokengetTokengetToken', getToken, getCartID);
     await axios
       .post(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries?lang=en&curr=INR`,
@@ -262,16 +287,19 @@ export default function ProductDetailed(props) {
         },
       )
       .then(response => {
+        console.log('responseresponseresponse', response.data);
         getCartDetials1();
 
         setCartSuccess(response.data);
         Toast.showWithGravity('Added to Your Cart', Toast.LONG, Toast.TOP);
+        setShowcartbutton(true);
         setQuantity(null);
       })
-      .catch(error => {
-        console.log(
-          'add to cart )))))))))))))))))))))))))))))))))))))))))))))))))',
-          error,
+      .catch(errors => {
+        Toast.showWithGravity(
+          errors?.response?.data?.errors[0]?.message,
+          Toast.LONG,
+          Toast.TOP,
         );
       });
   };
@@ -410,6 +438,20 @@ export default function ProductDetailed(props) {
     );
     setQuantity(count);
   };
+
+  const imagesarray = [
+    {
+      url: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/sample_img.png',
+    },
+    {
+      url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460',
+    },
+  ];
+
+  console.log(
+    'productImageproductImageproductImageproductImageproductImage',
+    productImage,
+  );
   return (
     <>
       {productdetail && (
@@ -424,6 +466,10 @@ export default function ProductDetailed(props) {
         dotColor={Colors.primarycolor}
       /> */}
           <SliderBox
+            onCurrentImagePressed={curr => {
+              console.log('curr', curr);
+              setModalVisible(true);
+            }}
             resizeMode="stretch"
             autoplay={true}
             circleLoop={true}
@@ -432,6 +478,7 @@ export default function ProductDetailed(props) {
             inactiveDotColor="#F3ECE8"
             dotColor={Colors.primarycolor}
           />
+
           {/* <CommonCarousel
             data={WomenCarouselData}
             width={width}
@@ -513,10 +560,52 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
         oos={true}
         handleClick={AddtoCart}
         handleWishListAdd={addWishlist}
-        disabled={!!showAdd ? false : true}
+        disabled={!!showAdd && stockcheck != 0 ? false : true}
         productdetail={productdetail}
-        // wishlistproductCode={wishlistproductCode}
+        showcartbutton={showcartbutton}
+        setShowcartbutton={setShowcartbutton}
       />
+      <Modal
+        animationType="slide"
+        transparent={false}
+        
+        visible={modalVisible}
+        style={{backgroundColor:'white'}}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={{width: '100%', flex: 1, backgroundColor: 'red'}}>
+          <View
+            style={{
+              // marginTop: 'auto',
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'white',
+            }}>
+        
+            <ImageViewer
+            backgroundColor='white'
+            // useNativeDriver
+              imageUrls={zoomImage}
+              // renderIndicator={() => null}
+              render={()=>{
+                return <View style={{backgroundColor:'red'}} ></View>
+              }}
+            />
+                <TouchableOpacity
+              style={{margin: 30,position:'absolute',top:0}}
+              onPress={() => {
+                setModalVisible(false);
+              }}>
+              <CloseIcon
+                name="close-circle-outline"
+                size={25}
+                color={Colors.textcolor}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </>
   );
 }
