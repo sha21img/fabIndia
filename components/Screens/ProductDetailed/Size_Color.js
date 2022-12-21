@@ -210,7 +210,7 @@ export default function Size_Color({
                 onPress={async () => {
                   console.log(
                     'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck888888888888888888888888888',
-                    item.productCode,
+                    item.stock,
                   );
                   console.log(
                     'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck6666666666666666666666666666',
@@ -218,7 +218,7 @@ export default function Size_Color({
                   );
 
                   setColor(item);
-                  getColorProductId(item.productCode);
+                  getColorProductId(item.productCode, item.stock);
                   getImageData(item.productCode);
                 }}
                 style={

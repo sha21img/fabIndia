@@ -20,7 +20,7 @@ import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
 
 export default function HomeHeader(props) {
   const [show, setShow] = useState(false);
-  const {cartReducer} = useSelector(state => state);
+  const {cartReducer,shareData} = useSelector(state => state);
   const navigation = useNavigation();
   const dispatch = useDispatch();
   // const {homeheader = false, searchVisible = true} = props;
@@ -36,8 +36,8 @@ export default function HomeHeader(props) {
   const [wishlistproduct, setWishlistproduct] = useState([]);
 
   console.log(
-    'cartReducer.WishListDetail.wishlistQuantitycartReducer.WishListDetail.wishlistQuantity',
-    cartReducer.WishListDetail.wishlistQuantity,
+    'cartReducer.WishListDetail.wishlistQuantitycartReducer.WishListDetail.wishlistQuantity1',
+    cartReducer.shareData,
   );
   React.useEffect(() => {
     getCartDetails();
@@ -123,7 +123,7 @@ export default function HomeHeader(props) {
   };
   const shareAll = () => {
     Share.open({
-      message: `Check this Out https://www.fabindia.com/cotton-silk-chanderi-sari-10648138 on Fabindia`,
+      message: "Check this Out " + `${cartReducer?.shareData?.name} `+`https://www.fabindia.com${cartReducer?.shareData?.url}`+" on Fabindia",
     })
       .then(res => {
         console.log(res);

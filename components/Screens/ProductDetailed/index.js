@@ -25,13 +25,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 import {Colors} from '../../../assets/Colors';
 import {useDispatch, useSelector} from 'react-redux';
-import {cartDetail, wishlistDetail} from '../../Common/Helper/Redux/actions';
+import {
+  cartDetail,
+  Sharedataadd,
+  wishlistDetail,
+} from '../../Common/Helper/Redux/actions';
 import Card from '../../Common/Card';
 import Card4 from '../../Common/Card4';
 const width = Dimensions.get('window').width;
 
 export default function ProductDetailed(props) {
   const {productId, imageUrlCheck} = props?.route?.params;
+  const [showcartbutton, setShowcartbutton] = useState(false);
 
   const [productdetail, setProductDetail] = useState({});
   const [cartID, setCartID] = useState(null);
@@ -41,7 +46,7 @@ export default function ProductDetailed(props) {
   const [productImage, setProductImage] = React.useState([]);
   const [productID, setProductID] = useState(productId);
   const [commonproduct, setCommonproduct] = useState([]);
-
+  const [stockcheck, Setstockcheck] = useState(null);
   const [wishlistproductCode, setWishlistproductCode] = useState([]);
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
@@ -58,8 +63,9 @@ export default function ProductDetailed(props) {
       // `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}?fields=name,purchasable,baseOptions(DEFAULT),baseProduct,variantOptions(DEFAULT),variantType&lang=en&curr=INR`,
       // `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}`,
     );
-    // console.log('response.data04733333333333333333', response.data);
+    console.log('response.data04733333333333333333', response.data);
     setProductDetail(response.data);
+
     if (response.data?.baseOptions?.length > 0) {
       setShowAdd(false);
     } else {
@@ -187,8 +193,9 @@ export default function ProductDetailed(props) {
     title: item,
     card: screenObj[item],
   }));
-  const getColorProductId = data => {
+  const getColorProductId = (data, stock) => {
     setProductID(data);
+    Setstockcheck(stock);
     setShowAdd(true);
   };
   const getImageData = data => {
@@ -266,6 +273,7 @@ export default function ProductDetailed(props) {
 
         setCartSuccess(response.data);
         Toast.showWithGravity('Added to Your Cart', Toast.LONG, Toast.TOP);
+        setShowcartbutton(true);
         setQuantity(null);
       })
       .catch(error => {
@@ -516,9 +524,10 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
         oos={true}
         handleClick={AddtoCart}
         handleWishListAdd={addWishlist}
-        disabled={!!showAdd ? false : true}
+        disabled={!!showAdd && stockcheck != 0 ? false : true}
         productdetail={productdetail}
-        // wishlistproductCode={wishlistproductCode}
+        showcartbutton={showcartbutton}
+        setShowcartbutton={setShowcartbutton}
       />
     </>
   );
