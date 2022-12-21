@@ -80,7 +80,8 @@ export default function ProductDetailed(props) {
     let images = [];
     for (let i = 0; i < response.data.images.length; i++) {
       const item = response.data.images[i];
-      images.push('https://apisap.fabindia.com/' + item.url);
+      if (item.format == 'product' && item.imageType == 'GALLERY')
+        images.push('https://apisap.fabindia.com/' + item.url);
     }
 
     // 
@@ -242,7 +243,8 @@ console.log("zoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoomImagezoom
     let images = [];
     for (let i = 0; i < response.data.images.length; i++) {
       const item = response.data.images[i];
-      images.push('https://apisap.fabindia.com/' + item.url);
+      if (item.format == 'product' && item.imageType == 'GALLERY')
+        images.push('https://apisap.fabindia.com/' + item.url);
     }
     // const newImage = response.data?.variantMatrix.map(item => {
     //   return (

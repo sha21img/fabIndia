@@ -9,6 +9,7 @@ import {getData} from '../../../../Common/Helper';
 import HomeHeader from '../../HomeHeader';
 import Carousel from './Carousel';
 import ClassicsCards from './ClassicsCards';
+import Occasion from './Occasion';
 import TopBanner from './TopBanner';
 
 const GiftingCatagory = props => {
@@ -38,17 +39,25 @@ const GiftingCatagory = props => {
   }, []);
 
   const checkSwitch = param => {
+    console.log('param.....', param);
     switch (param?.typeCode) {
       case 'FabResponsiveBannerCarouselComponent':
         return <TopBanner data={param} {...props} />;
       case 'FabBannerResponsiveCarouselComponent':
-        return (
-          <Carousel
-            data={param}
-            customStyles={{marginVertical: 10}}
-            {...props}
-          />
-        );
+        const newSplit = param.banners.split(' ');
+        console.log('param.banners.length < 3', newSplit.length);
+        if (newSplit.length < 3) {
+          return (
+            <Carousel
+              data={param}
+              customStyles={{marginVertical: 10}}
+              {...props}
+            />
+          );
+        } else {
+          return <Occasion data={param} {...props} />;
+        }
+
       case 'FabProductCarouselComponent':
         return (
           <ClassicsCards
