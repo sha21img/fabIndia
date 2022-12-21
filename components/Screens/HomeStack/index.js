@@ -39,6 +39,7 @@ import YourWishlist from '../YourWishlist';
 import InteriorCatagory from '../../Common/InteriorCatagory';
 import HomeHeader from '../Home/HomeHeader';
 import WishListCard from '../../Common/WishListCard';
+import CategorySection from '../CategorySection';
 
 const Stack = createNativeStackNavigator();
 
@@ -67,6 +68,13 @@ export default function HomeStack() {
         name="Home"
         component={Home}
       />
+      {/* <Stack.Screen
+        options={{
+          header: props => <HomeHeader {...props} homeheader={true} />,
+        }}
+        name="CategorySection"
+        component={CategorySection}
+      /> */}
       <Stack.Screen
         options={{
           header: props => <HomeHeader {...props} homeheader={true} />,

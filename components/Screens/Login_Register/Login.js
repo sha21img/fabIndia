@@ -7,20 +7,21 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import InputText from '../../Common/InputText';
-import { Colors } from '../../../assets/Colors';
+import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import axios from 'axios';
-import { getCartID, getWishID, postDataAuth } from '../../Common/Helper';
+import {getCartID, getWishID, postDataAuth} from '../../Common/Helper';
 import CommonButton from '../../Common/CommonButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
-import { StackActions, CommonActions } from '@react-navigation/native';
+import {StackActions, CommonActions} from '@react-navigation/native';
+import {FacebookLogin} from '../../SocialLogin/FacebookLogin';
 
 export default function Login(props) {
   const [email, setEmail] = React.useState('');
@@ -69,7 +70,7 @@ export default function Login(props) {
           return res.json();
         })
         .then(function (res1) {
-          const tokenGenerate = { ...res1, isCheck: true };
+          const tokenGenerate = {...res1, isCheck: true};
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           if (res1.error) {
             Toast.showWithGravity(
@@ -85,8 +86,8 @@ export default function Login(props) {
             props.navigation.dispatch(
               CommonActions.reset({
                 index: 0,
-                routes: [{ name: 'MyAccounts' }]
-              })
+                routes: [{name: 'MyAccounts'}],
+              }),
             );
             getCartID();
             getWishID();
@@ -103,7 +104,7 @@ export default function Login(props) {
       )
       .then(
         response => {
-          const tokenGenerate = { ...response.data, isCheck: false };
+          const tokenGenerate = {...response.data, isCheck: false};
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
         },
@@ -119,6 +120,9 @@ export default function Login(props) {
       await generatTokenWithout();
     }
   };
+  const facebookLoginHandler = () => {
+    FacebookLogin();
+  };
   useEffect(() => {
     checkToken();
   }, []);
@@ -131,12 +135,12 @@ export default function Login(props) {
           label={'Email address'}
           onChangeText={text => setEmail(text)}
           value={email}
-          customStyle={{ marginTop: 10 }}
+          customStyle={{marginTop: 10}}
         />
         <InputText
           label={'Password'}
           onChangeText={text => setPassword(text)}
-          customStyle={{ marginTop: 10 }}
+          customStyle={{marginTop: 10}}
           value={password}
           secureTextEntry={hideOldPass}
           right={

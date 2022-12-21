@@ -4,22 +4,21 @@ import {
   LayoutAnimation,
   Animated,
   TouchableOpacity,
+  StyleSheet,
   ImageBackground,
   Dimensions,
 } from 'react-native';
 import React, {useState} from 'react';
-import {Styles} from './styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import axios from 'axios';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Fonts from '../../../assets/fonts';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
+import AccordianSubMenu from './AccordianSubMenu';
 import {useNavigation} from '@react-navigation/native';
-const width = Dimensions.get('window').width;
 const NewAccordian = props => {
   const {newData} = props;
+  console.log('this is new accordian data-=-=', props);
   const navigation = useNavigation();
   const toggleAnimation = {
     duration: 300,
@@ -62,8 +61,8 @@ const NewAccordian = props => {
 
     response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}
-      &query=:relevance:allCategories:infant-boys-kurtas
-      &pageSize=9&lang=en&curr=INR`,
+        &query=:relevance:allCategories:infant-boys-kurtas
+        &pageSize=9&lang=en&curr=INR`,
     );
     console.log(
       'response sad[]][][fds][dsf[]df][sdffsd][dfs[]dfs][fd][-=',
@@ -72,19 +71,29 @@ const NewAccordian = props => {
   };
 
   return (
-    <View key={Math.random() * 1099900} style={Styles.accordbox}>
+    <View key={Math.random() * 1099900} style={{overflow: 'hidden'}}>
       <TouchableOpacity
-        onPress={() =>
-          newData.children.length > 0 ? toggleListItem() : goToProductList()
-        }
-        style={Styles.headingBox}>
-        <Text
-          style={[
-            Styles.activetxt,
-            {fontFamily: showContent ? Fonts.Assistant700 : null},
-          ]}>
-          {newData.title}
-        </Text>
+        activeOpacity={0.5}
+        onPress={() => {
+          newData.children.length > 0 ? toggleListItem() : null;
+        }}
+        style={{
+          padding: 20,
+          flexDirection: 'row',
+          borderBottomColor: '#ebebeb',
+          borderBottomWidth: 1,
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginLeft: 30,
+        }}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          {/* <Ionicons
+            name="ios-grid-outline"
+            size={20}
+            color={Colors.primarycolor}
+          /> */}
+          <Text style={{color: Colors.textcolor}}>{newData.title}</Text>
+        </View>
         {newData.children.length > 0 ? (
           <Animated.View
             style={{
@@ -100,17 +109,36 @@ const NewAccordian = props => {
       </TouchableOpacity>
       {newData.children.length > 0 && showContent
         ? newData.children.map((item, index) => {
-            console.log('this is last list console454545', item);
             return (
               <TouchableOpacity
-                style={Styles.listBox}
-                // onPress={() =>
-                //   navigation.navigate('LandingPageSaris_Blouses', {
-                //     title: "infant-boys-kurtas",
-                //   })
-                // }
-              >
-                <Text>{item.title}</Text>
+                activeOpacity={0.5}
+                onPress={() => {
+                  item.children.length > 0 ? toggleListItem() : null;
+                }}
+                style={{
+                  padding: 20,
+                  flexDirection: 'row',
+                  borderBottomColor: '#ebebeb',
+                  borderBottomWidth: 1,
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginLeft: 50,
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text style={{color: Colors.textcolor}}>{item.title}</Text>
+                </View>
+                {item.children.length > 0 ? (
+                  <Animated.View
+                    style={{
+                      transform: [{rotateZ: arrowTransform}],
+                    }}>
+                    <MaterialIcons
+                      name="keyboard-arrow-down"
+                      color={Colors.primarycolor}
+                      size={20}
+                    />
+                  </Animated.View>
+                ) : null}
               </TouchableOpacity>
             );
           })

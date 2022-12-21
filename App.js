@@ -35,6 +35,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CartList from './components/Screens/Checkout/CartList';
 import configureStore from './components/Common/Helper/Redux/store';
 import {getCartID} from './components/Common/Helper';
+import CategorySection from './components/Screens/CategorySection';
 
 const Stack = createNativeStackNavigator();
 
