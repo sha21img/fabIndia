@@ -51,23 +51,25 @@ export default function Details({customStyle, productdetail}) {
         </View>
       </View> */}
       <View style={Styles.txtbox}>
+      
+        <Text style={Styles.singleproductamount}>
+          ₹{productdetail?.priceAfterDiscount?.value}
+        </Text>
         <Text
           style={{
             fontSize: 18,
             fontFamily: Fonts.Assistant600,
             color: Colors.textcolor,
-            marginRight: 2,
+            marginLeft: 5,
           }}>
           M.R.P{' '}
-        </Text>
-        <Text style={Styles.singleproductamount}>
-          ₹{productdetail?.priceAfterDiscount?.value}
         </Text>
         <Text style={Styles.priceofftxt}>
           {productdetail?.price?.formattedValue}
         </Text>
         <Text style={Styles.offertxt}>{discountPrice?.toFixed(0)}% off</Text>
       </View>
+      <Text style={{fontFamily:Fonts.Assistant400}}>(Incl. of all taxes) </Text>
       {
         productdetail?.stock?.stockLevelStatus == 'outOfStock' ? <Text
         style={[
@@ -217,7 +219,7 @@ const Styles = StyleSheet.create({
     color: Colors.primarycolor,
   },
   priceofftxt: {
-    paddingRight: 5,
+    paddingRight: 2,
     textDecorationLine: 'line-through',
     color: '#979797',
     fontSize: 16,
