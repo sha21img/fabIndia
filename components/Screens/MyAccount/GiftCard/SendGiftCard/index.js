@@ -16,8 +16,10 @@ import InputText from '../../../../Common/InputText';
 import {Styles} from './styles';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {logout} from '../../../../Common/Helper';
+import {useDispatch} from 'react-redux';
 function SendGiftCard(props) {
+  const dispatch = useDispatch();
   const {walletInfo} = props;
   const [userDetail, setUserDetail] = useState({
     email: '',
@@ -36,38 +38,52 @@ function SendGiftCard(props) {
   const getGiftCardProducts = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/getGiftCardProducts?lang=en&curr=INR`,
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/getGiftCardProducts?lang=en&curr=INR`,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    // console.log('giftCardProducts==>', JSON.stringify(response.data));
-    if (response && response.status === 200) {
-      setGiftCardAmount(response.data.products);
-      setProductAmountCode(response.data.products[1]?.code);
-      setCardAmount(response.data.products[1]?.price.formattedValue);
-    }
+      )
+      .then(response => {
+        if (response && response.status === 200) {
+          setGiftCardAmount(response.data.products);
+          setProductAmountCode(response.data.products[1]?.code);
+          setCardAmount(response.data.products[1]?.price.formattedValue);
+        }
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
 
   const getGiftCardDesigns = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/getGiftCardDesigns?fields=FULL&lang=en&curr=INR`,
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/getGiftCardDesigns?fields=FULL&lang=en&curr=INR`,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    // console.log('giftCardDesigns==>', JSON.stringify(response.data));
-    if (response && response.status === 200) {
-      setProductDesignCode(response.data.products[0]?.code);
-      setGiftCardDesigns(response.data.products);
-    }
+      )
+      .then(response => {
+        if (response && response.status === 200) {
+          setProductDesignCode(response.data.products[0]?.code);
+          setGiftCardDesigns(response.data.products);
+        }
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
 
   useEffect(() => {
@@ -91,62 +107,69 @@ function SendGiftCard(props) {
     } else if (userDetail.from == '') {
       Toast.show('Please enter From', Toast.LONG);
     } else {
-      const response = await axios.post(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/entries/configurator/textfield?fields=FULL&lang=en&curr=INR`,
-        {
-          configurationInfos: [
-            {
-              configurationLabel: 'Recipient Email',
-              configurationValue: userDetail.confirmemail,
-              configuratorType: 'TEXTFIELD',
-              status: 'SUCCESS',
+      const response = await axios
+        .post(
+          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/entries/configurator/textfield?fields=FULL&lang=en&curr=INR`,
+          {
+            configurationInfos: [
+              {
+                configurationLabel: 'Recipient Email',
+                configurationValue: userDetail.confirmemail,
+                configuratorType: 'TEXTFIELD',
+                status: 'SUCCESS',
+              },
+              {
+                configurationLabel: 'Amount',
+                configurationValue: cardAmount,
+                configuratorType: 'TEXTFIELD',
+                status: 'SUCCESS',
+              },
+              {
+                configurationLabel: 'To',
+                configurationValue: userDetail.to,
+                configuratorType: 'TEXTFIELD',
+                status: 'SUCCESS',
+              },
+              {
+                configurationLabel: 'From',
+                configurationValue: userDetail.from,
+                configuratorType: 'TEXTFIELD',
+                status: 'SUCCESS',
+              },
+              {
+                configurationLabel: 'Personal message',
+                configurationValue: userDetail.message,
+                configuratorType: 'TEXTFIELD',
+                status: 'SUCCESS',
+              },
+            ],
+            product: {
+              code: productAmountCode,
             },
-            {
-              configurationLabel: 'Amount',
-              configurationValue: cardAmount,
-              configuratorType: 'TEXTFIELD',
-              status: 'SUCCESS',
+            quantity: 1,
+            fabProductPrice: userDetail.amount,
+            fabProductDesign: {
+              code: productDesignCode,
             },
-            {
-              configurationLabel: 'To',
-              configurationValue: userDetail.to,
-              configuratorType: 'TEXTFIELD',
-              status: 'SUCCESS',
-            },
-            {
-              configurationLabel: 'From',
-              configurationValue: userDetail.from,
-              configuratorType: 'TEXTFIELD',
-              status: 'SUCCESS',
-            },
-            {
-              configurationLabel: 'Personal message',
-              configurationValue: userDetail.message,
-              configuratorType: 'TEXTFIELD',
-              status: 'SUCCESS',
-            },
-          ],
-          product: {
-            code: productAmountCode,
+            userId: 'current',
+            cartId: '08266751',
           },
-          quantity: 1,
-          fabProductPrice: userDetail.amount,
-          fabProductDesign: {
-            code: productDesignCode,
+          {
+            headers: {
+              Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            },
           },
-          userId: 'current',
-          cartId: '08266751',
-        },
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-          },
-        },
-      );
-      // console.log('sendGiftCard==>', JSON.stringify(response.data));
-      if (response && response.status === 200) {
-        props.navigation.navigate('CartPage');
-      }
+        )
+        .then(response => {
+          if (response && response.status === 200) {
+            props.navigation.navigate('CartPage');
+          }
+        })
+        .catch(errors => {
+          if (errors.response.status == 401) {
+            logout(dispatch);
+          }
+        });
     }
   };
 

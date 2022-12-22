@@ -14,7 +14,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {image} from '../../../../../assets/images';
 import {Styles} from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {logout} from '../../../../Common/Helper';
+import {useDispatch} from 'react-redux';
 function MygiftCard(props) {
+  const dispatch = useDispatch();
   const {walletInfo} = props;
   const [modalVisible, setModalVisible] = useState(false);
   const [walletHistory, setWalletHistory] = useState([]);
@@ -22,18 +25,25 @@ function MygiftCard(props) {
   const getWalletHistory = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/wallethistory?lang=en&curr=INR`,
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/wallethistory?lang=en&curr=INR`,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    // console.log('walletHistory==>', JSON.stringify(response.data));
-    if (response && response.status === 200) {
-      setWalletHistory(response.data.walletTransactions);
-    }
+      )
+      .then(response => {
+        if (response && response.status === 200) {
+          setWalletHistory(response.data.walletTransactions);
+        }
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
 
   useEffect(() => {

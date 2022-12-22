@@ -17,6 +17,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch, useSelector} from 'react-redux';
 import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
+import {logout} from '../../../Common/Helper';
 
 export default function HomeHeader(props) {
   const [show, setShow] = useState(false);
@@ -39,7 +40,7 @@ export default function HomeHeader(props) {
     'cartReducer.WishListDetail.wishlistQuantitycartReducer.WishListDetail.wishlistQuantity1',
     cartReducer.shareData,
   );
-  React.useEffect(() => {
+  useEffect(() => {
     getCartDetails();
     getWishListDetail();
   }, []);
@@ -53,7 +54,7 @@ export default function HomeHeader(props) {
 
     const aa =
       'DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue, value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)';
-    await axios
+    const response = await axios
       .get(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=${aa}&lang=en&curr=INR`,
@@ -66,10 +67,6 @@ export default function HomeHeader(props) {
         },
       )
       .then(response => {
-        console.log(
-          'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
-          response.data.name,
-        );
         if (!!response?.data?.name) {
           if (response?.data?.name?.includes('wishlist')) {
             const filterProductId = response.data.entries.map(item => {
@@ -90,6 +87,9 @@ export default function HomeHeader(props) {
       })
       .catch(error => {
         console.log('error for get csrt detail', error);
+        if (error.response.status == 401) {
+          logout(dispatch);
+        }
       });
   };
   const getCartDetails = async () => {
@@ -98,28 +98,26 @@ export default function HomeHeader(props) {
     const getCartID = await AsyncStorage.getItem('cartID');
     console.log('this us cart id', getCartID);
     const type = getToken.isCheck ? 'current' : 'anonymous';
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
-      // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
-      // {},
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+        // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    console.log(
-      'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
-      response.data,
-    );
-    let finalvalue = response?.data?.deliveryItemsQuantity;
-
-    // let finalvalue = response?.data?.orderEntries?.reduce(
-    //   (n, {quantity}) => n + quantity,
-    //   0,
-    // );
-
-    dispatch(cartDetail({data: response.data, quantity: finalvalue}));
+      )
+      .then(response => {
+        let finalvalue = response?.data?.deliveryItemsQuantity;
+        dispatch(cartDetail({data: response.data, quantity: finalvalue}));
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
   const shareAll = () => {
     Share.open({
@@ -203,6 +201,8 @@ export default function HomeHeader(props) {
                 // }}
               />
             </TouchableOpacity>
+          ) : searchVisible == null ? (
+            <View></View>
           ) : (
             <TouchableOpacity
               activeOpacity={0.8}

@@ -10,7 +10,12 @@ import {
 import React, {useEffect, useState} from 'react';
 import Card from '../../../Common/Card';
 import Card1 from '../../../Common/Card1';
-import {getComponentData, postData, refreshToken} from '../../../Common/Helper';
+import {
+  getComponentData,
+  logout,
+  postData,
+  refreshToken,
+} from '../../../Common/Helper';
 import axios from 'axios';
 import SortBox from './SortBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -146,7 +151,7 @@ export default function ResultCards(props) {
 
     const aa =
       'DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue, value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)';
-    await axios
+    const response = await axios
       .get(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=${aa}&lang=en&curr=INR`,
@@ -183,6 +188,9 @@ export default function ResultCards(props) {
       })
       .catch(error => {
         console.log('error for get cqrt detail', error);
+        if (error.response.status == 401) {
+          logout(dispatch);
+        }
       });
   };
   const addWishlist = async data => {
@@ -196,7 +204,7 @@ export default function ResultCards(props) {
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
     console.log('this us cart idfor add wi', getToken);
     if (isAddWishlist) {
-      await axios
+      const response = await axios
         .delete(
           `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
           // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
@@ -217,12 +225,13 @@ export default function ResultCards(props) {
         })
         .catch(error => {
           console.log('error for remove000 wishlist', error);
+          if (error.response.status == 401) {
+            logout(dispatch);
+          }
         });
     } else {
       const value = await AsyncStorage.getItem('cartID');
-      console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
-      console.log('addWishlist', data.code, getWishlistID);
-      await axios
+      const response = await axios
         .post(
           `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries?lang=en&curr=INR`,
           // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
@@ -234,7 +243,6 @@ export default function ResultCards(props) {
           },
         )
         .then(response => {
-          console.log('response.data add to wishlist', response.data);
           getCartDetails();
         })
         .catch(errors => {
@@ -247,6 +255,9 @@ export default function ResultCards(props) {
             Toast.LONG,
             Toast.TOP,
           );
+          if (errors.response.status == 401) {
+            logout(dispatch);
+          }
         });
     }
 

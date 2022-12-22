@@ -9,7 +9,10 @@ import {Styles} from './styles';
 import axios from 'axios';
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {logout} from '../../../Common/Helper';
+import {useDispatch} from 'react-redux';
 export default function MyOrder() {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [gender, setGender] = React.useState([
     {label: 'Select date range ', value: 0},
@@ -46,7 +49,7 @@ export default function MyOrder() {
         `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
         {
           headers: {
-            Authorization: `bearer s4UIf4QpPjxuq9t3T6QcMwZwgoM`,
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
           },
         },
       )
@@ -58,10 +61,11 @@ export default function MyOrder() {
         setOrders(response.data.orders);
       })
       .catch(errors => {
-        console.log('erg', errors);
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
       });
   };
-  console.log('setGendersetGendersetGender', setGenderValue);
   return (
     <>
       <DropDownPicker
@@ -88,7 +92,6 @@ export default function MyOrder() {
       />
       <ScrollView contentContainerStyle={Styles.container}>
         {orders.map(item => {
-          console.log('item.codeitem.code', item.code);
           return (
             <TouchableOpacity
               onPress={() =>

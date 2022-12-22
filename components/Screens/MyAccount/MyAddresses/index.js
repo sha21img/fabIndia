@@ -10,6 +10,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import RazorpayCheckout from 'react-native-razorpay';
+import {logout} from '../../../Common/Helper';
+import {useDispatch} from 'react-redux';
 const faqs = [
   {
     id: '1',
@@ -22,6 +24,7 @@ const faqs = [
   },
 ];
 const MyAddresses = props => {
+  const dispatch = useDispatch();
   const {checkaddress, getCheckAddress, amount, totalquantity} = props;
   const [show, setShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
@@ -31,51 +34,49 @@ const MyAddresses = props => {
   const handleClick = async id => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    const response = await axios.delete(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses/${id}`,
-      // {},
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .delete(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses/${id}`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    console.log(
-      'handleClickhandleClickhandleClickhandleClickhandleClickhandleClickhandleClick',
-      response.data,
-    );
-    getCheckAddress();
-    setModalShow(false);
+      )
+      .then(response => {
+        getCheckAddress();
+        setModalShow(false);
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
 
   const setDeliveryAddress = async id => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    console.log('this us cart id', getCartID);
-    const response = await axios.put(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/addresses/delivery?addressId=${id}`,
-      {},
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .put(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/addresses/delivery?addressId=${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    console.log(
-      'handleClickhandleClickhandleClickhandleClickhandleClickhandleClickhandleClick',
-      response.data,
-    );
+      )
+      .then(response => {})
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
   const openCheckout = (data, UDID) => {
-    console.log(
-      'selectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselected',
-      data.orderId,
-    );
-    console.log(
-      'selectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselectedselected',
-      UDID,
-    );
     var options = {
       description: 'Payment for Fab india',
       image: 'https://i.imgur.com/3g7nmJC.png',
@@ -93,7 +94,7 @@ const MyAddresses = props => {
       },
       theme: {color: Colors.primarycolor},
     };
-    console.log("optionsoptionsoptions", JSON.stringify(options))
+    console.log('optionsoptionsoptions', JSON.stringify(options));
     RazorpayCheckout.open(options)
       .then(data => {
         // handle success
@@ -111,66 +112,80 @@ const MyAddresses = props => {
         // alert(`Error: ${error.code} | ${error.description}`);
       });
   };
+  const setUDID = async response => {
+    await paymentModes();
+    const UDID = await getUDID();
+    openCheckout(response.data, UDID);
+  };
   const getOrderID = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     console.log('this us cart id', getCartID);
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/razorpay/orderid/request?lang=en&curr=INR`,
-      // {},
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/razorpay/orderid/request?lang=en&curr=INR`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    console.log(
-      'handleClickhandleClickhandleClickhandleClickhandleClickhandleClickhandleClick',
-      response.data,
-    );
-    await paymentModes();
-    const UDID = await getUDID();
-    openCheckout(response.data, UDID);
+      )
+      .then(response => {
+        setUDID(response);
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
   const paymentModes = async () => {
     const getCartID = await AsyncStorage.getItem('cartID');
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
 
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/paymentModes?fields=DEFAULT`,
-      // {},
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/paymentModes?fields=DEFAULT`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    console.log(
-      'paymentModespaymentModespaymentModespaymentModespaymentModespaymentModespaymentModes',
-      response.data,
-    );
+      )
+      .then(response => {})
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
   const getUDID = async () => {
     const getCartID = await AsyncStorage.getItem('cartID');
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
 
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/razorpay/callback/url?lang=en&curr=INR`,
-      // {},
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/razorpay/callback/url?lang=en&curr=INR`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    console.log(
-      'getUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDID',
-      response.data,
-    );
-    return response.data;
+      )
+      .then(response => {
+        return response?.data;
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
   return (
     <>
