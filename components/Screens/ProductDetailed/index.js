@@ -19,7 +19,7 @@ import CommonTopTab from '../../Common/CommonTopTab';
 import { StoreDetails } from '../../../constant';
 import { SliderBox } from 'react-native-image-slider-box';
 import axios from 'axios';
-import {logout, postData} from '../../Common/Helper';
+import { logout, postData } from '../../Common/Helper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 import { Colors } from '../../../assets/Colors';
@@ -235,14 +235,14 @@ export default function ProductDetailed(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    const response = await axios.get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-          },
+    await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+      {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
-      )
+      },
+    )
       .then(response => {
         dispatch(
           cartDetail({
@@ -256,8 +256,6 @@ export default function ProductDetailed(props) {
           logout(dispatch);
         }
       });
-
-    // setCartDetails(response.data);
   };
 
   const isWishlisted = async () => {
@@ -275,18 +273,14 @@ export default function ProductDetailed(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
-
-    const value = await AsyncStorage.getItem('cartID');
-    const aa =
-      'DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue, value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)';
-    const response = await axios.get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-          },
+    await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+      {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
-      )
+      },
+    )
       .then(response => {
         if (response.data.name.includes('wishlist')) {
           const res = response.data.entries.find((item, index) => {
@@ -326,7 +320,7 @@ export default function ProductDetailed(props) {
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
     // console.log('this us cart id', data.code);
     if (!!isAddWishlist) {
-      const response = await axios
+      await axios
         .delete(
           `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
           {
@@ -345,7 +339,7 @@ export default function ProductDetailed(props) {
           }
         });
     } else {
-      const response = await axios
+      await axios
         .post(
           `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries?lang=en&curr=INR`,
           { quantity: 1, product: { code: data.code } },
@@ -398,7 +392,7 @@ export default function ProductDetailed(props) {
           </View>
 
           <Details productdetail={productdetail} productId={productId} />
-          
+
           {productdetail?.baseOptions?.length > 0 && (
             <Size_Color
               customStyle={{ marginTop: 20 }}
@@ -452,7 +446,7 @@ export default function ProductDetailed(props) {
         animationType="slide"
         transparent={false}
         visible={modalVisible}
-        style={{backgroundColor: 'white'}}
+        style={{ backgroundColor: 'white' }}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
@@ -469,11 +463,11 @@ export default function ProductDetailed(props) {
               imageUrls={zoomImage}
               // renderIndicator={() => null}
               render={() => {
-                return <View style={{backgroundColor: 'red'}}></View>;
+                return <View style={{ backgroundColor: 'red' }}></View>;
               }}
             />
             <TouchableOpacity
-              style={{margin: 30, position: 'absolute', top: 0}}
+              style={{ margin: 30, position: 'absolute', top: 0 }}
               onPress={() => {
                 setModalVisible(false);
               }}>
