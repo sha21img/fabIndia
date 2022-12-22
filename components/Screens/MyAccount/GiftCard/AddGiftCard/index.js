@@ -20,8 +20,10 @@ import CommonButton from '../../../../Common/CommonButton';
 import axios from 'axios';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {logout} from '../../../../Common/Helper';
+import {useDispatch} from 'react-redux';
 function AddGiftCard(props) {
+  const dispatch = useDispatch();
   const {walletInfo} = props;
   const [cardPin, setCardPin] = useState('');
   const [cardNo, setCardNo] = useState('');
@@ -37,22 +39,29 @@ function AddGiftCard(props) {
     } else if (cardPin == '') {
       Toast.show('Please enter Gift Card Pin', Toast.LONG);
     } else {
-      const response = await axios.post(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addGiftCard?lang=en&curr=INR`,
-        {
-          cardNumber: cardNo,
-          cardPin: cardPin,
-        },
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+      const response = await axios
+        .post(
+          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addGiftCard?lang=en&curr=INR`,
+          {
+            cardNumber: cardNo,
+            cardPin: cardPin,
           },
-        },
-      );
-      console.log('addGiftCard==>', JSON.stringify(response.data));
-      if (response && response.status === 200) {
-        Toast.show(response.data.responseMessage, Toast.LONG);
-      }
+          {
+            headers: {
+              Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            },
+          },
+        )
+        .then(response => {
+          if (response && response.status === 200) {
+            Toast.show(response.data.responseMessage, Toast.LONG);
+          }
+        })
+        .catch(errors => {
+          if (errors.response.status == 401) {
+            logout(dispatch);
+          }
+        });
     }
   };
 

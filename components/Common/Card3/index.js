@@ -17,6 +17,7 @@ import {
 } from '../Helper/Redux/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import {logout} from '../Helper';
 export default function Card3(props) {
   const {cartReducer} = useSelector(state => state);
 
@@ -27,11 +28,9 @@ export default function Card3(props) {
     elevation: 1,
     backgroundColor: '#FFFFFF',
   };
-  console.log('default....................................', item);
   const discountPrice =
     100 -
     (item.product.priceAfterDiscount?.value / item?.product.price?.value) * 100;
-  console.log('discountPrice', discountPrice);
   React.useEffect(() => {
     getCartDetails();
     getWishListDetail();
@@ -41,12 +40,10 @@ export default function Card3(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    console.log('this us cart iooooooooooooooood11', getCartID);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
-
     const aa =
       'DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue, value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)';
-    await axios
+    const response = await axios
       .get(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=${aa}&lang=en&curr=INR`,
@@ -54,16 +51,13 @@ export default function Card3(props) {
         // {},
         {
           headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            Authorization: `${getToken.token_type} nCVKPnrYg-ZgHMn0djWh1YSFCX0`,
           },
         },
       )
       .then(response => {
-        console.log(
-          'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsaa',
-          response.data,
-        );
         if (!!response?.data?.name) {
+          console.log('thsi sis reapobnse .data', response.data);
           if (response?.data?.name?.includes('wishlist')) {
             const filterProductId = response.data.entries.map(item => {
               return {
@@ -83,6 +77,9 @@ export default function Card3(props) {
       })
       .catch(error => {
         console.log('error for get crt detail', error);
+        if (error.response.status == 401) {
+          logout(dispatch);
+        }
       });
   };
   const getCartDetails = async () => {
@@ -91,47 +88,29 @@ export default function Card3(props) {
     const getCartID = await AsyncStorage.getItem('cartID');
     console.log('this us cart id', getCartID);
     const type = getToken.isCheck ? 'current' : 'anonymous';
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
-      // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
-      // {},
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+        // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    console.log(
-      'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
-      response.data,
-    );
-    let finalvalue = response?.data?.entries?.reduce(
-      (n, {quantity}) => n + quantity,
-      0,
-    );
-
-    dispatch(cartDetail({data: response.data, quantity: finalvalue}));
-    // console.log('quantityquantity', response.data);
-    // setCartDetails(response.data);
-    // setTotalquantity(finalvalue);
-    // setWishlistQuantity(response.data.entries.length);
-    // if (response.data.name.includes('wishlist')) {
-    //   const filterProduct = response.data.entries.map(item => {
-    //     return {
-    //       code: item.product.baseOptions[0].selected.code,
-    //       item: item,
-    //     };
-    //   });
-    //   dispatch(
-    //     wishlistDetail({
-    //       data: filterProduct,
-    //       quantity: response.data.entries.length,
-    //     }),
-    //   );
-
-    //   // console.log('filterProduct', filterProduct);
-    //   // setWishlistproduct(filterProduct);
-    // }
+      )
+      .then(response => {
+        let finalvalue = response?.data?.entries?.reduce(
+          (n, {quantity}) => n + quantity,
+          0,
+        );
+        dispatch(cartDetail({data: response.data, quantity: finalvalue}));
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
   const addWishlist = async data => {
     const isAddWishlist = cartReducer.WishListDetail.wishListData.find(
@@ -139,13 +118,11 @@ export default function Card3(props) {
         return item.code == data.product.code;
       },
     );
-    console.log('isAddWishlist', isAddWishlist);
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
-    console.log('this us cart id', getWishlistID);
     // if (isAddWishlist) {
-    await axios
+    const response = await axios
       .delete(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
@@ -157,19 +134,16 @@ export default function Card3(props) {
         },
       )
       .then(response => {
-        console.log(
-          'response.data deletetetetetetettetetet to wishlist',
-          response.data,
-        );
         getWishListDetail();
       })
       .catch(error => {
         console.log('error for remove000 wishlist', error);
+        if (error.response.status == 401) {
+          logout(dispatch);
+        }
       });
     // } else {
     //   const value = await AsyncStorage.getItem('cartID');
-    //   console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
-    //   console.log('addWishlist', data.code);
     //   await axios
     //     .post(
     //       'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR',
@@ -191,20 +165,12 @@ export default function Card3(props) {
     // }
   };
   const AddtoCart = async item => {
-    console.log(
-      'add to cart in wihslist page',
-      item.product.stock.stockLevelStatus,
-    );
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     const type = getToken.isCheck ? 'current' : 'anonymous';
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
-
-    console.log('this -s=df-=sdf-=sd-f=ds-f=-', getToken);
-    console.log('this -s=df-=sdf-=sd-f=ds-f=-', getCartID);
-    console.log('thistypetype', type);
-    await axios
+    const response = await axios
       .post(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries?lang=en&curr=INR`,
         {
@@ -221,20 +187,7 @@ export default function Card3(props) {
       )
       .then(async response => {
         getCartDetails();
-
-        // console.log('responssseitemitemitem', item.entryNumber);
-        // const entryNumber = response.data.entry.entryNumber;
-        // console.log(
-        //   'entryNumberentryNumberentryNumberentryNumber',
-        //   entryNumber,
-        // );
-        // console.log('getWishlistIDgetWishlistIDgetWishlistID', getWishlistID);
-        // console.log(
-        //   'getToken.access_tokengetToken.access_tokengetToken.access_token',
-        //   getToken.access_token,
-        // );
-
-        await axios
+        const responsee = await axios
           .delete(
             `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries/${item.entryNumber}?lang=en&curr=INR`,
             // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
@@ -246,11 +199,12 @@ export default function Card3(props) {
             },
           )
           .then(response => {
-            console.log(
-              'response.data deletetetetetetettetetet ssssto wishlist',
-              response.data,
-            );
             getWishListDetail();
+          })
+          .catch(errors => {
+            if (errors.response.status == 401) {
+              logout(dispatch);
+            }
           });
       })
       .catch(errors => {
@@ -259,6 +213,9 @@ export default function Card3(props) {
           Toast.LONG,
           Toast.TOP,
         );
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
       });
   };
   return (

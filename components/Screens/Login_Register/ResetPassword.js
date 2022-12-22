@@ -7,11 +7,12 @@ import CountryPicker from 'rn-country-picker';
 import {TextInput} from 'react-native-paper';
 import InputText from '../../Common/InputText';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {UnAuthPostData} from '../../Common/Helper';
+import {logout, UnAuthPostData} from '../../Common/Helper';
 import Toast from 'react-native-simple-toast';
 import axios from 'axios';
-
+import {useDispatch} from 'react-redux';
 export default function ResetPassword(props) {
+  const dispatch = useDispatch();
   const [text, setText] = useState('');
   const generatTokenWithout = async () => {
     await axios
@@ -42,7 +43,7 @@ export default function ResetPassword(props) {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     formBody = formBody.join('&');
-    fetch(
+    const response = await fetch(
       'https://apisap.fabindia.com/occ/v2/fabindiab2c/forgottenpasswordtokens?lang=en&curr=INR',
       {
         method: 'POST',
@@ -52,19 +53,25 @@ export default function ResetPassword(props) {
         },
         body: formBody,
       },
-    ).then(function (res) {
-      if (res.ok == true) {
-        console.log(res);
-        Toast.showWithGravity(
-          'Reset link send to your email',
-          Toast.LONG,
-          Toast.TOP,
-        );
-        props.navigation.goBack();
-      } else {
-        Toast.showWithGravity('Problem', Toast.LONG, Toast.TOP);
-      }
-    });
+    )
+      .then(function (res) {
+        if (res.ok == true) {
+          console.log(res);
+          Toast.showWithGravity(
+            'Reset link send to your email',
+            Toast.LONG,
+            Toast.TOP,
+          );
+          props.navigation.goBack();
+        } else {
+          Toast.showWithGravity('Problem', Toast.LONG, Toast.TOP);
+        }
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
   const handleSubmit = async () => {
     const get = await AsyncStorage.getItem('generatToken');

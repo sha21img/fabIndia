@@ -23,7 +23,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckAddress from '../../MyAccount/MyAddresses/CheckAddress';
 import InputText from '../../../Common/InputText';
 import Toast from 'react-native-simple-toast';
-
+import {logout} from '../../../Common/Helper';
+import { useDispatch } from 'react-redux';
 const customStyles = {
   stepIndicatorSize: 30,
   currentStepIndicatorSize: 30,
@@ -50,6 +51,7 @@ const customStyles = {
 
 const labels = ['Cart', 'Address', 'Payment'];
 export default function CartList(props) {
+  const dispatch = useDispatch()
   const newCurrPosition = props?.route?.params?.currPosition;
   console.log('newCurrPosition', newCurrPosition);
   const [showOrderDetail, setShowOrderDetail] = useState(false);
@@ -87,25 +89,32 @@ export default function CartList(props) {
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     console.log('this us cart id', getCartID);
-    const response = await axios.delete(
-      // https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/carts/08008002/vouchers/S1_Percentage_discount_coupon?lang=en&curr=INR
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/vouchers/${code}?lang=en&curr=INR`,
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .delete(
+        // https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/carts/08008002/vouchers/S1_Percentage_discount_coupon?lang=en&curr=INR
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/vouchers/${code}?lang=en&curr=INR`,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    getCartDetails();
-    console.log('checkCouponCode===>', JSON.stringify(response.data));
-    if (response && response.status == 200) {
-      setCouponCode('');
-      if (response.data?.vouchers.length > 0) {
-        // success
-      } else {
-        Toast.show('Invalid code', Toast.LONG);
-      }
-    }
+      )
+      .then(response => {
+        getCartDetails();
+        if (response && response.status == 200) {
+          setCouponCode('');
+          if (response.data?.vouchers.length > 0) {
+            // success
+          } else {
+            Toast.show('Invalid code', Toast.LONG);
+          }
+        }
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
 
   const checkCouponCode = async () => {
@@ -114,32 +123,35 @@ export default function CartList(props) {
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     console.log('this us cart id', getCartID);
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/vouchers?voucherId=${couponCode}&lang=en&curr=INR`,
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/vouchers?voucherId=${couponCode}&lang=en&curr=INR`,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    getCartDetails();
-    // console.log('checkCouponCode===>', JSON.stringify(response.data));
-    if (response && response.status == 200) {
-      setCouponCode('');
-      if (response.data?.vouchers.length > 0) {
-        // success
-      } else {
-        Toast.show('Invalid code provided', Toast.LONG);
-      }
-    }
+      )
+      .then(response => {
+        getCartDetails();
+        if (response && response.status == 200) {
+          setCouponCode('');
+          if (response.data?.vouchers.length > 0) {
+            // success
+          } else {
+            Toast.show('Invalid code provided', Toast.LONG);
+          }
+        }
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
 
   const SizeQClick = data => {
     setShowSizeQ(true);
-    console.log(
-      'dataaa quantityyyyyy7777777777777777777777777',
-      data?.product?.stock?.stockLevel,
-    );
     setMaxstock(data?.product?.stock?.stockLevel);
     setEntrynum(data?.entryNumber);
     setQuantity(data?.quantity);
@@ -158,20 +170,24 @@ export default function CartList(props) {
     const getCartID = await AsyncStorage.getItem('cartID');
     console.log('this us cart id', getCartID);
     const type = getToken.isCheck ? 'current' : 'anonymous';
-    const response = await axios.delete(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries/${data.entryNumber}`,
-      // {},
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .delete(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries/${data.entryNumber}`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    getCartDetails();
-    console.log(
-      'RemoveClickRemoveClickRemoveClickRemoveClickRemoveClickRemoveClickRemoveClickRemoveClick',
-      response.data,
-    );
+      )
+      .then(response => {
+        getCartDetails();
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
   const EmiClick = () => {
     setShowEmi(true);
@@ -203,23 +219,27 @@ export default function CartList(props) {
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     console.log('this us cart id', getCartID);
-    const response = await axios.patch(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/entries/${entrynum}`,
-      {
-        quantity: quantity,
-      },
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .patch(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/entries/${entrynum}`,
+        {
+          quantity: quantity,
         },
-      },
-    );
-    console.log(
-      'updateQuantityupdateQuantityupdateQuantityupdateQuantityupdateQuantityupdateQuantity',
-      response.data,
-    );
-    getCartDetails();
-    setShowSizeQ(false);
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      )
+      .then(response => {
+        getCartDetails();
+        setShowSizeQ(false);
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
   return (
     <>

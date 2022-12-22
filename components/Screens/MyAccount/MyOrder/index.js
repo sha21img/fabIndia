@@ -9,7 +9,10 @@ import {Styles} from './styles';
 import axios from 'axios';
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {logout} from '../../../Common/Helper';
+import {useDispatch} from 'react-redux';
 export default function MyOrder() {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [gender, setGender] = React.useState([
     {label: 'Past month ', value: 30},
@@ -40,21 +43,24 @@ export default function MyOrder() {
   const getOrders = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    console.log(
-      'getOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrders',
-      response.data,
-    );
-    setOrders(response.data.orders);
+      )
+      .then(response => {
+        setOrders(response.data.orders);
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
-  console.log('setGendersetGendersetGender', setGenderValue);
   return (
     <>
       <DropDownPicker
@@ -81,7 +87,6 @@ export default function MyOrder() {
       />
       <ScrollView contentContainerStyle={Styles.container}>
         {orders.map(item => {
-          console.log('item.codeitem.code', item.code);
           return (
             <TouchableOpacity
               onPress={() =>

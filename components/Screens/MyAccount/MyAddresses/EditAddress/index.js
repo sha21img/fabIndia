@@ -21,6 +21,8 @@ import Styles from './styles';
 import Fonts from '../../../../../assets/fonts';
 import {cos} from 'react-native-reanimated';
 import {useNavigation} from '@react-navigation/native';
+import {logout} from '../../../../Common/Helper';
+import {useDispatch} from 'react-redux';
 const faqs = [
   {
     id: '1',
@@ -37,6 +39,7 @@ const faqs = [
 ];
 
 const EditAddress = props => {
+  const dispatch = useDispatch();
   let editflag = props?.route?.params?.editData;
   const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState(
@@ -96,33 +99,33 @@ const EditAddress = props => {
   const getCountrydata = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/countries?fields=DEFAULT&type=SHIPPING`,
-      // {},
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/countries?fields=DEFAULT&type=SHIPPING`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    console.log(
-      'getCountrygetCountryCountrygetCountrygetCountrygetCountrygetCountryecheckpincode',
-      response.data,
-    );
-    const newArrayOfObj = response.data?.countries.map(
-      ({name: label, ...rest}) => ({
-        label,
-        ...rest,
-      }),
-    );
-    console.log(
-      'newArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObj',
-      newArrayOfObj,
-    );
-    setCountryData(newArrayOfObj);
-    if (!!editflag) {
-      checkpincode(editflag.postalCode, newArrayOfObj);
-    }
+      )
+      .then(response => {
+        const newArrayOfObj = response.data?.countries.map(
+          ({name: label, ...rest}) => ({
+            label,
+            ...rest,
+          }),
+        );
+        setCountryData(newArrayOfObj);
+        if (!!editflag) {
+          checkpincode(editflag.postalCode, newArrayOfObj);
+        }
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
 
   const _selectedValue = index => {
@@ -168,69 +171,58 @@ const EditAddress = props => {
       visibleInAddressBook: true,
     };
     if (!!editflag) {
-      const response = await axios.patch(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses/${editflag.id}`,
-        body,
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+      const response = await axios
+        .patch(
+          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses/${editflag.id}`,
+          body,
+          {
+            headers: {
+              Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            },
           },
-        },
-      );
-      props.navigation.navigate('CartPage', {
-        currPosition: 1,
-      });
-    } else {
-      const response = await axios.post(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses`,
-        body,
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-          },
-        },
-      );
-      if (response.data) {
-        props.navigation.navigate('CartPage', {
-          currPosition: 1,
+        )
+        .then(response => {
+          props.navigation.navigate('CartPage', {
+            currPosition: 1,
+          });
+        })
+        .catch(errors => {
+          if (errors.response.status == 401) {
+            logout(dispatch);
+          }
         });
-      }
+    } else {
+      const response = await axios
+        .post(
+          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses`,
+          body,
+          {
+            headers: {
+              Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            },
+          },
+        )
+        .then(response => {
+          if (response.data) {
+            props.navigation.navigate('CartPage', {
+              currPosition: 1,
+            });
+          }
+        })
+        .catch(errors => {
+          if (errors.response.status == 401) {
+            logout(dispatch);
+          }
+        });
     }
   };
-
-  const checkpincode = async (data, newArrayOfObj) => {
-    const get = await AsyncStorage.getItem('generatToken');
-    const getToken = JSON.parse(get);
-    SetPinCode(data);
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/pincodeService/pincodeDetails?pincode=${data}&lang=en&curr=INR`,
-      // {},
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
-        },
-      },
-    );
-    console.log(
-      'checkpincodecheckpincodecheckpincodecheckpincodecheckpincode',
-      response.data,
-    );
-    console.log(
-      'checkpincodecheckpincodecheckpincodecheckpincodecheckpincode',
-      countryData,
-    );
-    // if()
+  const finalCount = async response => {
     if (Object.keys(response.data).length) {
       let finalcountryData = !!editflag ? newArrayOfObj : countryData;
       let filter = finalcountryData.filter(el => {
         return el.isocode == response.data?.region?.countryIso;
       });
-
       const state = await getStates(filter[0].isocode);
-      console.log(
-        'statestatestatestatestatestatestatestatestatestatestatestatestatestatestatestate',
-        state,
-      );
       setCountry(filter[0]);
       setError(false);
 
@@ -245,34 +237,57 @@ const EditAddress = props => {
       setError(true);
     }
   };
+  const checkpincode = async (data, newArrayOfObj) => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    SetPinCode(data);
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/pincodeService/pincodeDetails?pincode=${data}&lang=en&curr=INR`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      )
+      .then(response => {
+        finalCount(response);
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
+  };
 
   const getStates = async code => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/countries/${code}/regions?fields=DEFAULT`,
-      // {},
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/countries/${code}/regions?fields=DEFAULT`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    console.log(
-      'getStatesgetStatesgetStatesgetStatesgetStatesgetStatesgetStates',
-      response.data,
-    );
-    const newArrayOfObj = response.data?.regions.map(
-      ({name: label, ...rest}) => ({
-        label,
-        ...rest,
-      }),
-    );
-    console.log(
-      'newArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObjnewArrayOfObj',
-      newArrayOfObj,
-    );
-    setStateData(newArrayOfObj);
+      )
+      .then(response => {
+        const newArrayOfObj = response.data?.regions.map(
+          ({name: label, ...rest}) => ({
+            label,
+            ...rest,
+          }),
+        );
+        setStateData(newArrayOfObj);
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
 
   // const seterrorText = () =>{

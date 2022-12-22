@@ -11,6 +11,7 @@ import {
 import React, {useState} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Fonts from '../../../assets/fonts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
@@ -51,9 +52,15 @@ export default function AccordianMenu(props) {
     inputRange: [0, 1],
     outputRange: ['0deg', '180deg'],
   });
-  const checkNavigation = () => {
+  const checkNavigation = async () => {
     if (data.title == 'Gift Cards') {
-      navigation.navigate('MyAccount', {screen: 'GiftCard'});
+      const get = await AsyncStorage.getItem('generatToken');
+      const getToken = JSON.parse(get);
+      if (getToken.isCheck == true) {
+        navigation.navigate('MyAccount', {screen: 'GiftCard'});
+      } else {
+        navigation.navigate('MyAccount', {screen: 'Login_Register'});
+      }
     } else if (data.title == 'FAQs') {
       navigation.navigate('MyAccount', {screen: 'FAQ'});
     } else if (data.title == 'Contact Us') {
