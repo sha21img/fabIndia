@@ -160,13 +160,15 @@ export default function OrderProductLongCard({
     console.log('entryNumber', entryNumber, orderID);
     // const get = await AsyncStorage.getItem('generatToken');
     // const getToken = JSON.parse(get);
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
     await axios
       .post(
         `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/${entryNumber}/action?fields=FULL&lang=en&curr=INR`,
         {},
         {
           headers: {
-            Authorization: `bearer s4UIf4QpPjxuq9t3T6QcMwZwgoM`,
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
           },
         },
       )
