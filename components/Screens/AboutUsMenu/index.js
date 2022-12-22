@@ -6,7 +6,7 @@ import SimpleAccordian from '../../Common/SimpleAccordian';
 import {Styles} from './style';
 
 const AboutUsMenu = props => {
-  console.log('navigation', props);
+  // console.log('navigation', props);
   const menuItem = [
     {
       id: 1,
