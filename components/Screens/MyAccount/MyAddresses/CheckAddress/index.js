@@ -6,6 +6,7 @@ import MyAddresses from '../index';
 import EditAddress from '../EditAddress';
 
 export default function CheckAddress(props) {
+  const {setCurrentPosition} = props
   const [checkaddress, setcheckAddress] = useState([]);
 
   useEffect(() => {
@@ -39,9 +40,13 @@ export default function CheckAddress(props) {
       getCheckAddress={getCheckAddress}
       amount={props?.totalPrice}
       totalquantity={props?.totalquantity}
+      setCurrentPosition= {setCurrentPosition}
     />
   ) : (
-    <EditAddress {...props} />
+    <EditAddress {...props}  
+    setCurrentPosition= {setCurrentPosition}
+    
+    />
   );
   // return true ? <CartList {...props} /> :<EmptyCart  />;
 }
