@@ -15,6 +15,7 @@ export default function MyOrder() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [gender, setGender] = React.useState([
+    {label: 'Select date range ', value: 0},
     {label: 'Past month ', value: 30},
     {label: 'Past 6 months', value: 180},
     {label: 'Last 1 year', value: 'Last 1 year'},
@@ -45,7 +46,7 @@ export default function MyOrder() {
     const getToken = JSON.parse(get);
     const response = await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
+        `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -53,6 +54,10 @@ export default function MyOrder() {
         },
       )
       .then(response => {
+        console.log(
+          'getOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrders',
+          response.data,
+        );
         setOrders(response.data.orders);
       })
       .catch(errors => {

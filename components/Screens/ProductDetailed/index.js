@@ -339,13 +339,13 @@ export default function ProductDetailed(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     if (getToken.isCheck) {
-      getCartDetails();
+      getWishListDetail();
     }
   };
   useEffect(() => {
     isWishlisted();
   }, []);
-  const getCartDetails = async () => {
+  const getWishListDetail = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
@@ -389,7 +389,7 @@ export default function ProductDetailed(props) {
         }
       })
       .catch(error => {
-        console.log('error for get crt detail', error);
+        console.log('error for get wihslist detail', error);
         if (error.response.status == 401) {
           logout(dispatch);
         }
@@ -418,7 +418,7 @@ export default function ProductDetailed(props) {
           },
         )
         .then(response => {
-          getCartDetails();
+          getWishListDetail();
         })
         .catch(error => {
           console.log('error for remove000 wishlist', error);
@@ -439,7 +439,7 @@ export default function ProductDetailed(props) {
           },
         )
         .then(response => {
-          getCartDetails();
+          getWishListDetail();
         })
         .catch(error => {
           console.log('error for add wishlist', error);

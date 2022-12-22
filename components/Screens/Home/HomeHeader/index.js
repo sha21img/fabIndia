@@ -86,7 +86,7 @@ export default function HomeHeader(props) {
         }
       })
       .catch(error => {
-        console.log('error for get crt detail', error);
+        console.log('error for get csrt detail', error);
         if (error.response.status == 401) {
           logout(dispatch);
         }
