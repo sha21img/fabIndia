@@ -37,6 +37,8 @@ const logout = async dispatch => {
       quantity: 0,
     }),
   );
+  const cartid = await AsyncStorage.removeItem('cartID');
+  console.log('delete', res);
   // props.navigation.navigate('MyAccount', {
   //   screen: 'Login_Register',
   // });
