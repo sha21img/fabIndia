@@ -106,7 +106,7 @@ export default function FAQ(props) {
 
   return (
     <ScrollView
-      style={{paddingVertical: 20, paddingHorizontal: 15}}
+      style={{paddingVertical: 20, paddingHorizontal: 15, backgroundColor:'white'}}
       contentContainerStyle={{paddingBottom: 40}}>
       <Text
         style={{

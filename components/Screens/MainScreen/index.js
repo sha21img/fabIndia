@@ -36,6 +36,7 @@ import HomeHeader from '../Home/HomeHeader';
 import Fonts from '../../../assets/fonts';
 import {getComponentData} from '../../Common/Helper';
 import AccordianMenu from './AccordianMenu';
+import {useIsFocused} from '@react-navigation/native';
 
 // import WomenCategory from '../Home/WomenCategory';
 const Tab = createBottomTabNavigator();
@@ -51,7 +52,9 @@ function useForceUpdate() {
 
 const DrawerContent = () => {
   const forceUpdate = useForceUpdate();
+  const focus = useIsFocused();
   const [listData, setListData] = useState();
+  const [userProfileData, setUserProfileData] = useState();
   const navigation = useNavigation();
   const Profile = async () => {
     const token = await AsyncStorage.getItem('generatToken');
@@ -65,11 +68,6 @@ const DrawerContent = () => {
         screen: 'Login_Register',
       });
     }
-  };
-  const checkProfile = async () => {
-    const token = await AsyncStorage.getItem('generatToken');
-    const getToken = JSON.parse(token);
-    return getToken.isCheck;
   };
   const checkOrder = async () => {
     const token = await AsyncStorage.getItem('generatToken');
@@ -111,9 +109,33 @@ const DrawerContent = () => {
     );
     shownData(response.component[0].navigationNode.children);
   };
+  const getProfiledata = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const response = await fetch(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current?lang=en&curr=INR`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
+          Accept: 'application/json',
+        },
+      },
+    )
+      .then(res => {
+        return res.json();
+      })
+      .then(res => {
+        setUserProfileData(res);
+      });
+  };
   useEffect(() => {
     categoryList();
   }, []);
+  useEffect(() => {
+    getProfiledata();
+  }, [focus]);
   return (
     <ScrollView style={{flex: 1}}>
       <TouchableOpacity
@@ -144,14 +166,14 @@ const DrawerContent = () => {
             alignItems: 'center',
             justifyContent: 'space-between',
           }}>
-          {checkProfile() ? (
+          {userProfileData?.name ? (
             <Text
               style={{
                 color: '#fff',
                 fontFamily: Fonts.Assistant700,
                 fontSize: 16,
               }}>
-              User name
+              {userProfileData?.name}
             </Text>
           ) : (
             <Text
@@ -336,13 +358,12 @@ export default function MainScreen(props) {
           tabBarLabel: 'Categories',
           tabBarActiveTintColor: Colors.primarycolor,
           header: props => (
-            <></>
-            // <HomeHeader
-            //   {...props}
-            //   homeheader={null}
-            //   searchVisible={null}
-            //   headertext="Categories"
-            // />
+            <HomeHeader
+              {...props}
+              homeheader={null}
+              searchVisible={null}
+              headertext="Categories"
+            />
           ),
           tabBarIcon: ({focused}) => (
             <Ionicons
