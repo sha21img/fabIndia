@@ -98,8 +98,8 @@ const NewAccordion = item => {
     </View>
   );
 };
-const SimpleAccordian = (props) => {
-  const{title, category, description, navigation}=props
+const SimpleAccordian = props => {
+  const {title, category, description, navigation, bodyData} = props;
   const toggleAnimation = {
     duration: 300,
     update: {
@@ -141,7 +141,11 @@ const SimpleAccordian = (props) => {
               {backgroundColor: showContent ? '#EDEDED' : ''},
             ]}>
             <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
               <Text
                 style={[
                   Styles.titletxt,
@@ -150,6 +154,7 @@ const SimpleAccordian = (props) => {
                       ? Fonts.Assistant700
                       : Fonts.Assistant400,
                     paddingRight: 10,
+                    width: '92%',
                   },
                 ]}>
                 {title}
@@ -168,10 +173,15 @@ const SimpleAccordian = (props) => {
           </View>
         </TouchableOpacity>
         {showContent &&
+          !bodyData &&
           category.map((item, index) => {
             return (
               <TouchableOpacity
-                onPress={() => props.navigation.navigate('MyAccount', { screen: item.routes })
+                onPress={
+                  () =>
+                    props.navigation.navigate('MyAccount', {
+                      screen: item.routes,
+                    })
                   // ('AboutFabindia')
                 }
                 style={{
@@ -184,6 +194,19 @@ const SimpleAccordian = (props) => {
               </TouchableOpacity>
             );
           })}
+        {showContent && bodyData && (
+          <View style={{paddingHorizontal: 15, backgroundColor: '#EDEDED'}}>
+            <Text
+              style={{
+                fontFamily: Fonts.Assistant400,
+                fontSize: 16,
+                lineHeight: 24,
+                color: '#4a4a4a',
+              }}>
+              {category}
+            </Text>
+          </View>
+        )}
       </View>
     </>
   );
