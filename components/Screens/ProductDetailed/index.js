@@ -23,7 +23,7 @@ import {StoreDetails} from '../../../constant';
 import {SliderBox} from 'react-native-image-slider-box';
 import Customize from './Customize';
 import axios from 'axios';
-import {postData} from '../../Common/Helper';
+import {logout, postData} from '../../Common/Helper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 import {Colors} from '../../../assets/Colors';
@@ -271,7 +271,7 @@ export default function ProductDetailed(props) {
     const getCartID = await AsyncStorage.getItem('cartID');
     const type = getToken.isCheck ? 'current' : 'anonymous';
     console.log('getTokengetTokengetTokengetToken', getToken, getCartID);
-    await axios
+    const response = await axios
       .post(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries?lang=en&curr=INR`,
         {
@@ -289,7 +289,6 @@ export default function ProductDetailed(props) {
       .then(response => {
         console.log('responseresponseresponse', response.data);
         getCartDetials1();
-
         setCartSuccess(response.data);
         Toast.showWithGravity('Added to Your Cart', Toast.LONG, Toast.TOP);
         setShowcartbutton(true);
@@ -301,6 +300,9 @@ export default function ProductDetailed(props) {
           Toast.LONG,
           Toast.TOP,
         );
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
       });
   };
   const getCartDetials1 = async () => {
@@ -308,34 +310,42 @@ export default function ProductDetailed(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
+      )
+      .then(response => {
+        dispatch(
+          cartDetail({
+            data: response.data,
+            quantity: response.data.entries.length,
+          }),
+        );
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
 
-    dispatch(
-      cartDetail({
-        data: response.data,
-        quantity: response.data.entries.length,
-      }),
-    );
     // setCartDetails(response.data);
   };
   const isWishlisted = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     if (getToken.isCheck) {
-      getCartDetails();
+      getWishListDetail();
     }
   };
   useEffect(() => {
     isWishlisted();
   }, []);
-  const getCartDetails = async () => {
+  const getWishListDetail = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
@@ -344,7 +354,7 @@ export default function ProductDetailed(props) {
     const value = await AsyncStorage.getItem('cartID');
     const aa =
       'DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue, value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)';
-    await axios
+    const response = await axios
       .get(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=${aa}&lang=en&curr=INR`,
@@ -379,7 +389,10 @@ export default function ProductDetailed(props) {
         }
       })
       .catch(error => {
-        console.log('error for get crt detail', error);
+        console.log('error for get wihslist detail', error);
+        if (error.response.status == 401) {
+          logout(dispatch);
+        }
       });
   };
   const addWishlist = async data => {
@@ -393,7 +406,7 @@ export default function ProductDetailed(props) {
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
     console.log('this us cart id', data.code);
     if (!!isAddWishlist) {
-      await axios
+      const response = await axios
         .delete(
           `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
           // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
@@ -405,13 +418,16 @@ export default function ProductDetailed(props) {
           },
         )
         .then(response => {
-          getCartDetails();
+          getWishListDetail();
         })
         .catch(error => {
           console.log('error for remove000 wishlist', error);
+          if (error.response.status == 401) {
+            logout(dispatch);
+          }
         });
     } else {
-      await axios
+      const response = await axios
         .post(
           `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries?lang=en&curr=INR`,
           // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
@@ -423,10 +439,13 @@ export default function ProductDetailed(props) {
           },
         )
         .then(response => {
-          getCartDetails();
+          getWishListDetail();
         })
         .catch(error => {
           console.log('error for add wishlist', error);
+          if (error.response.status == 401) {
+            logout(dispatch);
+          }
         });
     }
   };
@@ -568,9 +587,8 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
       <Modal
         animationType="slide"
         transparent={false}
-        
         visible={modalVisible}
-        style={{backgroundColor:'white'}}
+        style={{backgroundColor: 'white'}}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
@@ -582,18 +600,17 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
               height: '100%',
               backgroundColor: 'white',
             }}>
-        
             <ImageViewer
-            backgroundColor='white'
-            // useNativeDriver
+              backgroundColor="white"
+              // useNativeDriver
               imageUrls={zoomImage}
               // renderIndicator={() => null}
-              render={()=>{
-                return <View style={{backgroundColor:'red'}} ></View>
+              render={() => {
+                return <View style={{backgroundColor: 'red'}}></View>;
               }}
             />
-                <TouchableOpacity
-              style={{margin: 30,position:'absolute',top:0}}
+            <TouchableOpacity
+              style={{margin: 30, position: 'absolute', top: 0}}
               onPress={() => {
                 setModalVisible(false);
               }}>

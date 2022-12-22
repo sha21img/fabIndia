@@ -17,11 +17,12 @@ import {Colors} from '../../../../../assets/Colors';
 import {Styles} from './style';
 import CommonButton from '../../../../Common/CommonButton';
 import Fonts from '../../../../../assets/fonts';
-import {UnAuthPostData} from '../../../../Common/Helper';
+import {logout, UnAuthPostData} from '../../../../Common/Helper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
-
+import {useDispatch} from 'react-redux';
 export default function ChangePassword(props) {
+  const dispatch = useDispatch();
   const icon = {
     uri: 'https://img.icons8.com/ios-glyphs/512/visible.png',
   };
@@ -88,7 +89,7 @@ export default function ChangePassword(props) {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     formBody = formBody.join('&');
-    fetch(
+    const response = awaitfetch(
       'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/password?lang=en&curr=INR',
       {
         method: 'PUT',
@@ -98,12 +99,18 @@ export default function ChangePassword(props) {
         },
         body: formBody,
       },
-    ).then(res => {
-      if (res.ok) {
-        console.log(res, 'resresresresresres');
-      }
-      return res.json();
-    }).then;
+    )
+      .then(res => {
+        if (res.ok) {
+          console.log(res, 'resresresresresres');
+        }
+        return res.json();
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
 
     // Toast.showWithGravity(
     //   'Password Changed Succesfully',

@@ -51,13 +51,14 @@ import {postDataAuth, UnAuthPostData} from '../../Common/Helper';
 import axios from 'axios';
 import {deleteAsyncStorage, getAsyncStorage} from '../../Common/Helper';
 import MyAccounts from './MyAccounts';
+import {useIsFocused} from '@react-navigation/native';
 const Stack = createNativeStackNavigator();
 
 const MyAccount = props => {
   const [check, setCheck] = useState(false);
+  const focus = useIsFocused();
   const [initialRouteName, setInitialRouteName] = useState(null);
 
-  // var demo = ''
   const loginCheck = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);

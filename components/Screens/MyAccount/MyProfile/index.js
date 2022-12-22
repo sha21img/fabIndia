@@ -14,15 +14,16 @@ import Fonts from '../../../../assets/fonts';
 import {Colors} from '../../../../assets/Colors';
 import InputText from '../../../Common/InputText';
 import CommonButton from '../../../Common/CommonButton';
-import {patchComponentData} from '../../../Common/Helper';
+import {logout, patchComponentData} from '../../../Common/Helper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Toast from 'react-native-simple-toast';
 import CountryPicker from 'rn-country-picker';
 import Feather from 'react-native-vector-icons/Feather';
 import {UnAuthPostData, postData} from '../../../Common/Helper';
-
+import {useDispatch} from 'react-redux';
 const MyProfile = props => {
+  const dispatch = useDispatch();
   const allProps = props.route.params;
   console.log('all props', allProps);
   const isCheck = props.route.params?.isCheck ?? false;
@@ -65,7 +66,7 @@ const MyProfile = props => {
       transactionId: transactionId ? transactionId : '',
       uid: editUser.email,
     };
-    const res = await axios
+    const response = await axios
       .patch(
         'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current?lang=en&curr=INR',
         body,
@@ -85,6 +86,11 @@ const MyProfile = props => {
             Toast.TOP,
           );
           props.navigation.goBack();
+        }
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
         }
       });
   };

@@ -34,7 +34,7 @@ const customStyles = {
   currentStepLabelColor: '#979797',
 };
 const PaymentPage = (data, item) => {
-  console.log('dattt', item.detail);
+  console.log('dattt', item);
   return (
     <ScrollView
       contentContainerStyle={{
@@ -64,13 +64,23 @@ const PaymentPage = (data, item) => {
               color: '#979797',
               lineHeight: 18,
             }}>
-            {item.detail?.deliveryAddress?.firstName}
+            {item.detail?.deliveryAddress?.nickName}
           </Text>
           <Text
             style={{
-              fontFamily: Fonts.Assistant700,
+              fontFamily: Fonts.Assistant600,
               fontSize: 14,
-              color: Colors.textcolor,
+              color: '#979797',
+              lineHeight: 18,
+            }}>
+            {item.detail?.deliveryAddress?.firstName}{' '}
+            {item.detail?.deliveryAddress?.lastName}
+          </Text>
+          <Text
+            style={{
+              fontFamily: Fonts.Assistant600,
+              fontSize: 14,
+              color: '#979797',
               lineHeight: 18,
             }}>
             {item.detail?.deliveryAddress?.line1}{' '}
@@ -84,6 +94,8 @@ const PaymentPage = (data, item) => {
               lineHeight: 18,
             }}>
             {item.detail?.deliveryAddress?.town}
+            {'  '}
+            {item.detail?.deliveryAddress?.postalCode}
           </Text>
           <Text
             style={{
@@ -92,7 +104,7 @@ const PaymentPage = (data, item) => {
               color: Colors.textcolor,
               lineHeight: 18,
             }}>
-            {item.detail?.deliveryAddress?.postalCode}
+            Mobile -{item.detail?.deliveryAddress?.phone}
           </Text>
         </View>
       </View>
@@ -212,7 +224,7 @@ const PaymentPage = (data, item) => {
     </ScrollView>
   );
 };
-export default function OrderInProgress({orderDetails,getorderDetails}) {
+export default function OrderInProgress({orderDetails, getorderDetails}) {
   const [currentPosition, setCurrentPosition] = useState(0);
   // const [orderDetailsstate,setorderDetailsstate] = useState(orderDetails)
   const CardCompo = item => {
@@ -231,12 +243,12 @@ export default function OrderInProgress({orderDetails,getorderDetails}) {
             color: '#979797',
             lineHeight: 18,
           }}>
-         {orderDetails?.totalItems} items ordered
+          {orderDetails?.totalItems} items ordered
         </Text>
         {orderDetails?.entries?.map(item => {
           return (
             <>
-              <View style={{paddingVertical:10}}>
+              <View style={{paddingVertical: 10}}>
                 {/* <Text
                   style={{
                     paddingTop: 10,
@@ -254,7 +266,12 @@ export default function OrderInProgress({orderDetails,getorderDetails}) {
                     stepCount={3}
                   />
                 </View> */}
-                <OrderProductLongCard data={item}  orderID={orderDetails.code} status ={orderDetails?.statusDisplay} getorderDetails={getorderDetails} />
+                <OrderProductLongCard
+                  data={item}
+                  orderID={orderDetails.code}
+                  status={orderDetails?.statusDisplay}
+                  getorderDetails={getorderDetails}
+                />
               </View>
             </>
           );
