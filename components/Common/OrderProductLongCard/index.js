@@ -6,8 +6,7 @@ import {
   Modal,
   TextInput,
 } from 'react-native';
-import React, {useState} from 'react';
-import {image} from '../../../assets/images';
+import React, {useEffect, useState} from 'react';
 import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -22,13 +21,23 @@ export default function OrderProductLongCard({
   getorderDetails,
   handliClick = null,
 }) {
+  const image = 'https://apisap.fabindia.com/' + data.product.images[0].url;
+  console.log(image);
+  console.log('order in progress data', status);
+  console.log('data?.status?.name', data.status);
+
   const [showmodal, setshowmodal] = useState(false);
   const [comment, setComment] = useState(null);
   const [radio, setRadio] = useState(null);
-  const [statusshow, setStatushow] = useState(data?.status?.name || null);
+  const [statusshow, setStatushow] = useState(data?.status?.name);
   const [returnshow, setreturnshow] = useState(false);
   const [exchangeshow, setexchangeshow] = useState(false);
-
+  const [reasonData, setReasonData] = useState({});
+  const [newReasonData, setNewReasonData] = useState([]);
+  useEffect(() => {
+    const newStatus = data?.status?.name || null;
+    setStatushow(newStatus);
+  }, []);
   const radiodata = [
     {
       label: 'Delay in Delivery',
@@ -62,32 +71,43 @@ export default function OrderProductLongCard({
     },
   ];
   const cancelorder = async () => {
+    console.log('reasonData.quantity', reasonData.quantity);
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     console.log('orderIDorderIDorderIDorderID', data?.entryNumber);
-    const response = await axios.post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/cancellation?lang=en&curr=INR`,
-      {
-        cancellationRequestEntryInputs: [
-          {
-            orderEntryNumber: data?.entryNumber,
-            quantity: 1,
-            reasonCode: 'CANCEL_INCORRECT_PRODUCT',
-            reasonDescription: comment,
-          },
-        ],
-      },
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    console.log('orderIDorderID', orderID);
+    console.log('radio.reasonCoderadio.reasonCode', radio.reasonCode);
+    console.log('radio.commentcommentcomment.reasonCode', comment);
+    const response = await axios
+      .post(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/cancellation?lang=en&curr=INR`,
+        {
+          cancellationRequestEntryInputs: [
+            {
+              orderEntryNumber: data?.entryNumber,
+              quantity: reasonData.quantity,
+              reasonCode: radio.reasonCode,
+              reasonDescription: comment,
+            },
+          ],
         },
-      },
-    );
-    console.log(
-      'responseresponseresponseresponseresponseresponseresponse',
-      response.data,
-    );
-    getorderDetails();
+        {
+          headers: {
+            Authorization: `bearer s4UIf4QpPjxuq9t3T6QcMwZwgoM`,
+          },
+        },
+      )
+      .then(response => {
+        setshowmodal(false);
+        console.log(
+          'responseresponseresponseresponseresponseresponseresponse',
+          response.data,
+        );
+        getorderDetails();
+      })
+      .catch(error => {
+        console.log('error', error);
+      });
   };
 
   const exchangeorder = async () => {
@@ -127,6 +147,47 @@ export default function OrderProductLongCard({
   // );
 
   // console.logg("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",data)
+  const reasonForChange = async entryNumber => {
+    console.log('entryNumber', entryNumber, orderID);
+    // const get = await AsyncStorage.getItem('generatToken');
+    // const getToken = JSON.parse(get);
+    await axios
+      .post(
+        `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/${entryNumber}/action?fields=FULL&lang=en&curr=INR`,
+        {},
+        {
+          headers: {
+            Authorization: `bearer s4UIf4QpPjxuq9t3T6QcMwZwgoM`,
+          },
+        },
+      )
+      .then(response => {
+        console.log(
+          '111getOrdersgetOrderdersgetOrdersgetOrdersget11111OrdtOrders',
+          response.data,
+        );
+        setReasonData(response.data);
+        const newReasonData = response.data.availableAction.reasons.map(
+          (item, index) => {
+            return {
+              label: item.name,
+              index: index,
+              reasonCode: item.code,
+            };
+          },
+        );
+        setNewReasonData(newReasonData);
+        setshowmodal(true);
+      })
+      .catch(error => {
+        console.log(
+          '222getOrdersgetOrderdersgetOrdersgetOrdersget11111OrdtOrders',
+          error,
+        );
+      });
+
+    // setOrders(response.data.orders);
+  };
   return (
     <>
       <View
@@ -143,13 +204,10 @@ export default function OrderProductLongCard({
             width: '100%',
             paddingVertical: 10,
           }}>
-          <View style={{width: '35%'}}>
-            <Image
-              source={image.ArtistImg1}
-              style={{height: 131, width: 106}}
-            />
+          <View style={{backgroundColor: 'red', width: '25%'}}>
+            <Image source={{uri: image}} style={{height: 100, width: 79}} />
           </View>
-          <View style={{width: '60%'}}>
+          <View style={{width: '70%'}}>
             <Text
               style={{
                 fontFamily: Fonts.Assistant400,
@@ -218,29 +276,28 @@ export default function OrderProductLongCard({
           </View>
         </View>
 
-        {!!data?.status?.name == 'Cancelled' ? null : status == 'processing' ? (
-          <View
+        {statusshow === 'Cancelled' ? null : status == 'processing' ? (
+          <TouchableOpacity
             style={{
               paddingVertical: 15,
               alignItems: 'center',
               backgroundColor: '#FAFAFA',
+              justifyContent: 'center',
+            }}
+            onPress={() => {
+              // setshowmodal(true);
+              reasonForChange(data.entryNumber);
             }}>
-            <TouchableOpacity
-              onPress={() => {
-                setshowmodal(true);
-              }}
-              style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Text
-                style={{
-                  fontFamily: Fonts.Assistant600,
-                  fontSize: 14,
-                  lineHeight: 18,
-                  color: Colors.textcolor,
-                }}>
-                Cancel
-              </Text>
-            </TouchableOpacity>
-          </View>
+            <Text
+              style={{
+                fontFamily: Fonts.Assistant600,
+                fontSize: 14,
+                lineHeight: 18,
+                color: Colors.textcolor,
+              }}>
+              Cancel
+            </Text>
+          </TouchableOpacity>
         ) : (
           <View
             style={{
@@ -252,7 +309,7 @@ export default function OrderProductLongCard({
             <TouchableOpacity
               onPress={() => setreturnshow(true)}
               style={{
-                width: '50%',
+                width: '100%',
                 alignItems: 'center',
                 borderRightWidth: 1,
                 borderRightColor: '#BDBDBD',
@@ -267,7 +324,7 @@ export default function OrderProductLongCard({
                 Return
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{width: '50%', alignItems: 'center'}}
               onPress={() => setexchangeshow(true)}>
               <Text
@@ -279,7 +336,7 @@ export default function OrderProductLongCard({
                 }}>
                 Exchange
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             {/* <Text
         style={{
           fontFamily: Fonts.Assistant600,
@@ -371,10 +428,10 @@ export default function OrderProductLongCard({
                 animationTypes={['zoomIn']}
                 circleSize={17}
                 box={false}
-                data={radiodata}
+                data={newReasonData}
                 activeColor={Colors.primarycolor}
                 selectedBtn={e => {
-                  console.log('e', e);
+                  console.log('e1111111111111111111111111', e);
                   setRadio(e);
                 }}
                 style={{marginVertical: 9}}
@@ -472,7 +529,7 @@ export default function OrderProductLongCard({
                 animationTypes={['zoomIn']}
                 circleSize={17}
                 box={false}
-                data={radiodata}
+                data={newReasonData}
                 activeColor={Colors.primarycolor}
                 selectedBtn={e => {
                   console.log('e', e);
@@ -496,7 +553,7 @@ export default function OrderProductLongCard({
         </View>
       </Modal>
       {/* exchange */}
-      <Modal
+      {/* <Modal
         visible={exchangeshow}
         animationType="slide"
         swipeDirection={['down']}
@@ -595,7 +652,7 @@ export default function OrderProductLongCard({
             </View>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
     </>
   );
 }

@@ -20,7 +20,7 @@ import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
 
 export default function HomeHeader(props) {
   const [show, setShow] = useState(false);
-  const {cartReducer,shareData} = useSelector(state => state);
+  const {cartReducer, shareData} = useSelector(state => state);
   const navigation = useNavigation();
   const dispatch = useDispatch();
   // const {homeheader = false, searchVisible = true} = props;
@@ -89,7 +89,7 @@ export default function HomeHeader(props) {
         }
       })
       .catch(error => {
-        console.log('error for get crt detail', error);
+        console.log('error for get csrt detail', error);
       });
   };
   const getCartDetails = async () => {
@@ -123,7 +123,11 @@ export default function HomeHeader(props) {
   };
   const shareAll = () => {
     Share.open({
-      message: "Check this Out " + `${cartReducer?.shareData?.name} `+`https://www.fabindia.com${cartReducer?.shareData?.url}`+" on Fabindia",
+      message:
+        'Check this Out ' +
+        `${cartReducer?.shareData?.name} ` +
+        `https://www.fabindia.com${cartReducer?.shareData?.url}` +
+        ' on Fabindia',
     })
       .then(res => {
         console.log(res);

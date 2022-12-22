@@ -115,7 +115,7 @@ export default function CartPage(props) {
         }
       })
       .catch(error => {
-        console.log('error for get crt detail', error);
+        console.log('error for get cart detail', error);
       });
   };
   //

@@ -2,6 +2,7 @@ import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
 import axios from 'axios';
 import Card from '../../../Common/Card';
+import {useScrollToTop} from '@react-navigation/native';
 
 const CardProducts = (props, item) => {
   const [productData, setproductData] = React.useState([]);
@@ -36,9 +37,13 @@ const CardProducts = (props, item) => {
     // });
     getproductData(productCodes);
   }, []);
+  const ref = React.useRef(null);
+
+  useScrollToTop(ref);
 
   return (
     <ScrollView
+      ref={ref}
       horizontal
       contentContainerStyle={{
         flexDirection: 'row',

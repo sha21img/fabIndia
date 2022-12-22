@@ -329,13 +329,13 @@ export default function ProductDetailed(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     if (getToken.isCheck) {
-      getCartDetails();
+      getWishListDetail();
     }
   };
   useEffect(() => {
     isWishlisted();
   }, []);
-  const getCartDetails = async () => {
+  const getWishListDetail = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
@@ -379,7 +379,7 @@ export default function ProductDetailed(props) {
         }
       })
       .catch(error => {
-        console.log('error for get crt detail', error);
+        console.log('error for get wihslist detail', error);
       });
   };
   const addWishlist = async data => {
@@ -405,7 +405,7 @@ export default function ProductDetailed(props) {
           },
         )
         .then(response => {
-          getCartDetails();
+          getWishListDetail();
         })
         .catch(error => {
           console.log('error for remove000 wishlist', error);
@@ -423,7 +423,7 @@ export default function ProductDetailed(props) {
           },
         )
         .then(response => {
-          getCartDetails();
+          getWishListDetail();
         })
         .catch(error => {
           console.log('error for add wishlist', error);
@@ -568,9 +568,8 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
       <Modal
         animationType="slide"
         transparent={false}
-        
         visible={modalVisible}
-        style={{backgroundColor:'white'}}
+        style={{backgroundColor: 'white'}}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
@@ -582,18 +581,17 @@ and versatile. Team it with a pair of white PJs for the perfect work-from-home o
               height: '100%',
               backgroundColor: 'white',
             }}>
-        
             <ImageViewer
-            backgroundColor='white'
-            // useNativeDriver
+              backgroundColor="white"
+              // useNativeDriver
               imageUrls={zoomImage}
               // renderIndicator={() => null}
-              render={()=>{
-                return <View style={{backgroundColor:'red'}} ></View>
+              render={() => {
+                return <View style={{backgroundColor: 'red'}}></View>;
               }}
             />
-                <TouchableOpacity
-              style={{margin: 30,position:'absolute',top:0}}
+            <TouchableOpacity
+              style={{margin: 30, position: 'absolute', top: 0}}
               onPress={() => {
                 setModalVisible(false);
               }}>

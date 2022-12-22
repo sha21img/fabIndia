@@ -12,22 +12,23 @@ export default function OrderStatus(props) {
   console.log('orderIDorderIDorderIDorderIDorderID', orderID);
   useEffect(() => {
     getorderDetails();
-  }, []);
+  }, [props]);
 
   const getorderDetails = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/${orderID}?fields=DEFAULT`,
+      // 'https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/08045005?fields=FULL&lang=en&curr=INR'
+      `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}?fields=FULL`,
       {
         headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          Authorization: `bearer s4UIf4QpPjxuq9t3T6QcMwZwgoM`,
         },
       },
     );
     console.log(
       'setOrderDetailssetOrderDetailssetOrderDetailssetOrderDetailsashishhhhhhhhhhhh89555555555',
-      response?.data?.entries[0]?.status?.name,
+      response?.data,
     );
     setOrderDetails(response.data);
   };
