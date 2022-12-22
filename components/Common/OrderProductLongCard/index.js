@@ -15,6 +15,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import RadioButtonRN from 'radio-buttons-react-native';
 import CommonButton from '../CommonButton';
 import axios from 'axios';
+import {logout} from '../Helper';
+import {useDispatch} from 'react-redux';
 export default function OrderProductLongCard({
   data = {},
   status,
@@ -22,6 +24,7 @@ export default function OrderProductLongCard({
   getorderDetails,
   handliClick = null,
 }) {
+  const dispatch = useDispatch();
   const [showmodal, setshowmodal] = useState(false);
   const [comment, setComment] = useState(null);
   const [radio, setRadio] = useState(null);
@@ -65,59 +68,67 @@ export default function OrderProductLongCard({
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     console.log('orderIDorderIDorderIDorderID', data?.entryNumber);
-    const response = await axios.post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/cancellation?lang=en&curr=INR`,
-      {
-        cancellationRequestEntryInputs: [
-          {
-            orderEntryNumber: data?.entryNumber,
-            quantity: 1,
-            reasonCode: 'CANCEL_INCORRECT_PRODUCT',
-            reasonDescription: comment,
-          },
-        ],
-      },
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .post(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/cancellation?lang=en&curr=INR`,
+        {
+          cancellationRequestEntryInputs: [
+            {
+              orderEntryNumber: data?.entryNumber,
+              quantity: 1,
+              reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+              reasonDescription: comment,
+            },
+          ],
         },
-      },
-    );
-    console.log(
-      'responseresponseresponseresponseresponseresponseresponse',
-      response.data,
-    );
-    getorderDetails();
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      )
+      .then(response => {
+        getorderDetails();
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
 
   const exchangeorder = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     console.log('orderIDorderIDorderIDorderID', data?.entryNumber);
-    const response = await axios.post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orderReturns?fields=DEFAULT`,
-      {
-        orderCode: data?.product?.code,
-        returnRequestEntryInputs: [
-          {
-            orderEntryNumber: data?.entryNumber,
-            quantity: 1,
-            reasonCode: 'CANCEL_INCORRECT_PRODUCT',
-            reasonDescription: comment,
-          },
-        ],
-      },
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .post(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orderReturns?fields=DEFAULT`,
+        {
+          orderCode: data?.product?.code,
+          returnRequestEntryInputs: [
+            {
+              orderEntryNumber: data?.entryNumber,
+              quantity: 1,
+              reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+              reasonDescription: comment,
+            },
+          ],
         },
-      },
-    );
-    console.log(
-      'responseresponseresponseresponseresponseresponseresponse',
-      response.data,
-    );
-    getorderDetails();
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      )
+      .then(response => {
+        getorderDetails();
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
 
   // console.log('statusstatusstatusstatus', status);

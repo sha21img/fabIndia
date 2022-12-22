@@ -9,6 +9,7 @@ import Profile from './Profile';
 import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
+import {useDispatch} from 'react-redux';
 const pages = [
   {
     icon: image.document,
@@ -62,6 +63,7 @@ const pages = [
   },
 ];
 const MyAccounts = props => {
+  const dispatch = useDispatch();
   const focus = useIsFocused();
   const [userProfileData, setUserProfileData] = useState();
 
@@ -84,6 +86,11 @@ const MyAccounts = props => {
       })
       .then(res => {
         setUserProfileData(res);
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
       });
   };
   useEffect(() => {

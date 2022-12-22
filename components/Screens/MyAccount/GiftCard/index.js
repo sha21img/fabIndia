@@ -8,8 +8,10 @@ import axios from 'axios';
 import {giftCardTabs} from '../../../../constant';
 import Card from '../../../Common/Card';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {logout} from '../../../Common/Helper';
+import {useDispatch} from 'react-redux';
 export default function GiftCard(props) {
+  const dispatch = useDispatch();
   const [walletInfo, setWalletInfo] = useState({
     totalBalance: '0.0',
     walletNumber: '0',
@@ -18,18 +20,25 @@ export default function GiftCard(props) {
   const getWallet = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/getWallet?lang=en&curr=INR`,
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    const response = await axios
+      .get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/getWallet?lang=en&curr=INR`,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
         },
-      },
-    );
-    // console.log('walletInfo==>', JSON.stringify(response.data));
-    if (response && response.status === 200) {
-      setWalletInfo(response.data);
-    }
+      )
+      .then(response => {
+        if (response && response.status === 200) {
+          setWalletInfo(response.data);
+        }
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
 
   useEffect(() => {

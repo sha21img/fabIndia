@@ -34,10 +34,10 @@ import FabFamily from '../MyAccount/FabFamily';
 import CategorySection from '../CategorySection';
 import HomeHeader from '../Home/HomeHeader';
 import Fonts from '../../../assets/fonts';
-import {getComponentData} from '../../Common/Helper';
+import {getComponentData, logout} from '../../Common/Helper';
 import AccordianMenu from './AccordianMenu';
 import {useIsFocused} from '@react-navigation/native';
-
+import { useDispatch } from 'react-redux';
 // import WomenCategory from '../Home/WomenCategory';
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -52,6 +52,7 @@ function useForceUpdate() {
 
 const DrawerContent = () => {
   const forceUpdate = useForceUpdate();
+  const dispatch = useDispatch()
   const focus = useIsFocused();
   const [listData, setListData] = useState();
   const [userProfileData, setUserProfileData] = useState();
@@ -128,6 +129,11 @@ const DrawerContent = () => {
       })
       .then(res => {
         setUserProfileData(res);
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
       });
   };
   useEffect(() => {
