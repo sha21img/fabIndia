@@ -36,7 +36,7 @@ export default function Dashbord(props) {
     if (props.navigation.isFocused()) {
       Alert.alert(
         'Exit App',
-        'Exiting the application?',
+        'Are you sure you want to exit?',
         [
           {
             text: 'Cancel',
