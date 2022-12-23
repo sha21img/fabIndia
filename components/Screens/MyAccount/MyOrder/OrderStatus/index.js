@@ -15,14 +15,15 @@ export default function OrderStatus(props) {
   console.log('orderIDorderIDorderIDorderIDorderID', orderID);
   useEffect(() => {
     getorderDetails();
-  }, []);
+  }, [props]);
 
   const getorderDetails = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    const response = await axios
+
+    await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/${orderID}?fields=DEFAULT`,
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/${orderID}?fields=FULL`,
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,

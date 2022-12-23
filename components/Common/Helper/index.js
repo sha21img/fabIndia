@@ -232,6 +232,7 @@ const getAsyncStorage = async key => {
 const deleteAsyncStorage = async key => {
   const res = await AsyncStorage.removeItem(key);
 };
+const refreshToken = async () => {};
 export {
   // postData,
   getData,
@@ -243,5 +244,6 @@ export {
   deleteAsyncStorage,
   // patchComponentData,
   getWishID,
+  refreshToken,
   logout,
 };

@@ -10,7 +10,12 @@ import {
 import React, {useEffect, useState} from 'react';
 import Card from '../../../Common/Card';
 import Card1 from '../../../Common/Card1';
-import {getComponentData, logout, postData} from '../../../Common/Helper';
+import {
+  getComponentData,
+  logout,
+  postData,
+  refreshToken,
+} from '../../../Common/Helper';
 import axios from 'axios';
 import SortBox from './SortBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -20,6 +25,7 @@ import HomeHeader from '../../Home/HomeHeader';
 import Filter from '../../../Common/Filter';
 import Fonts from '../../../../assets/fonts';
 import {Colors} from '../../../../assets/Colors';
+import Toast from 'react-native-simple-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
 
 export default function ResultCards(props) {
@@ -181,7 +187,7 @@ export default function ResultCards(props) {
         }
       })
       .catch(error => {
-        console.log('error for get crt detail', error);
+        console.log('error for get cqrt detail', error);
         if (error.response.status == 401) {
           logout(dispatch);
         }
@@ -240,6 +246,10 @@ export default function ResultCards(props) {
           getCartDetails();
         })
         .catch(errors => {
+          console.log('woiuytfgh', errors.response.status);
+          if (errors.response.status == 401) {
+            refreshToken();
+          }
           Toast.showWithGravity(
             errors?.response?.data?.errors[0]?.message,
             Toast.LONG,

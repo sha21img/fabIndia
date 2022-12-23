@@ -303,9 +303,10 @@ export default function CartList(props) {
             {...props}
             totalPrice={cartdetails?.totalAmountToPay?.value}
             totalquantity={cartdetails?.deliveryItemsQuantity}
+            setCurrentPosition={setCurrentPosition}
           />
         ) : currentPosition == 2 ? (
-          <Payment />
+          <Payment {...props} />
         ) : null}
       </ScrollView>
       {currentPosition == 0 ? (

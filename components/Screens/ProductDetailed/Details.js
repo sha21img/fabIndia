@@ -23,7 +23,7 @@ export default function Details({customStyle, productdetail}) {
     100 -
     (productdetail.priceAfterDiscount?.value / productdetail?.price?.value) *
       100;
-  console.log('discountPrice'.discountPrice);
+  // console.log('discountPrice'.discountPrice);
   openCompare = () => setModalVisible(true);
 
   return (

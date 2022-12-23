@@ -27,10 +27,6 @@ export default function Size_Color({
   getColorProductId = null,
   getImageData = null,
 }) {
-  console.log(
-    'imageUrlCheck?.codeimageUrlCheck?.codeimageUrlCheck?.code000000p============================================================',
-    productdetail.baseOptions[0].selected,
-  );
   const [filterData, setFilterData] = useState([]);
   const [count, setCount] = useState(1);
   const [pinCode, setPinCode] = useState(null);
@@ -45,7 +41,6 @@ export default function Size_Color({
     color:
       productdetail.baseOptions[0].selected.variantOptionQualifiers[0].value,
   });
-  console.log(color, '............................');
   const [modalVisible, setModalVisible] = useState(false);
   // const freeSize = productdetail?.baseOptions[0]?.options[0]?.variantOptionQualifiers[1]?.value;
   const SizeHeader = [
@@ -55,32 +50,18 @@ export default function Size_Color({
     {value: 'Waist'},
     {value: 'Length'},
   ];
-  // console.log('productdetail..........', productdetail.baseOptions);
 
   openSize = () => setModalVisible(true);
   useEffect(() => {
     if (Object.keys(productdetail).length) {
-      console.log('sdfghjk');
-      // vicky();
       sizefilter();
     }
   }, [productdetail]);
 
   useEffect(() => {
     getColorProductId(imageUrlCheck?.code);
-    // setColor(prev => {
-    //   return {...prev, productCode: imageUrlCheck?.code};
-    // });
   }, []);
-  // const vicky = () => {
-  //   let array = [];
-  //   const filterArray = productdetail.baseOptions[0].options.map(item => {
-  //     const aa = item.variantOptionQualifiers.map(it => {
-  //       return {[it.value]: it.value};
-  //     });
-  //     console.log("aaaaaaaa",aa)
-  //   });
-  // };
+
   const sizefilter = () => {
     let arrayData = [];
     productdetail?.baseOptions &&
@@ -123,17 +104,17 @@ export default function Size_Color({
       });
     setfinalData(arrayData[0]);
     setFilterData(arrayData);
-    console.log(
-      arrayData,
-      'arrayDataarrayDataooooooooooooo9999999999999999999',
-    );
+    // console.log(
+    //   arrayData,
+    //   'arrayDataarrayDataooooooooooooo9999999999999999999',
+    // );
   };
 
   const StockSubmit = item => {
-    console.log(
-      'itemmmmmmmashishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
-      item,
-    );
+    // console.log(
+    //   'itemmmmmmmashishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
+    //   item,
+    // );
     let sum = 0;
     item.color.map(el => {
       sum = sum + el.stock;
@@ -161,7 +142,7 @@ export default function Size_Color({
   };
 
   const CounterQuantity = task => {
-    console.log('color.stockcolor.stock', color.stock);
+    // console.log('color.stockcolor.stock', color.stock);
     let countData = count;
     if (task == 'Minus') {
       if (countData != 1) {
@@ -180,42 +161,36 @@ export default function Size_Color({
       const response = await axios.get(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/pincodeService/productcatalogs/fabindia-b2cProductCatalog/versions/Online/product?pincode=${pinCode}&productCode=${productId}&lang=en&curr=INR`,
       );
-      console.log(
-        'response.dat response.data response.data response.data response.data33333333333',
-        response.data,
-      );
+      // console.log(
+      //   'response.dat response.data response.data response.data response.data33333333333',
+      //   response.data,
+      // );
       // setProductDetail(response.data);
       setPinStatus(response.data?.status);
     }
   };
 
-  // const getonPress = item => {
-  //   console.log('itemitemitemitem', item);
-  //   setColor(item);
-  //   // getColorProductId(item.productCode);
-  //   // getImageData(item.image);
-  // };
   return (
     <View style={[Styles.container, customStyle]}>
       <View style={Styles.ColorBox}>
         <Text style={Styles.ColorTxt}>Colour</Text>
         <View style={Styles.colorContainer}>
           {finalData?.color?.map(item => {
-            console.log(
-              'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck8--------------8888',
-              item,
-            );
+            // console.log(
+            //   'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck8--------------8888',
+            //   item,
+            // );
             return (
               <TouchableOpacity
                 onPress={async () => {
-                  console.log(
-                    'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck888888888888888888888888888',
-                    item.stock,
-                  );
-                  console.log(
-                    'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck6666666666666666666666666666',
-                    color?.productCode,
-                  );
+                  // console.log(
+                  //   'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck888888888888888888888888888',
+                  //   item.stock,
+                  // );
+                  // console.log(
+                  //   'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck6666666666666666666666666666',
+                  //   color?.productCode,
+                  // );
 
                   setColor(item);
                   getColorProductId(item.productCode, item.stock);
@@ -256,7 +231,7 @@ export default function Size_Color({
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={Styles.btnBox}>
         {filterData.map((item, index) => {
-          console.log(item, '///llllllll/0000000000000000000000/?');
+          // console.log(item, '///llllllll/0000000000000000000000/?');
 
           return (
             <>
