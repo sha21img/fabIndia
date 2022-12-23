@@ -37,6 +37,8 @@ const logout = async dispatch => {
       quantity: 0,
     }),
   );
+  const cartid = await AsyncStorage.removeItem('cartID');
+  console.log('delete', res);
   // props.navigation.navigate('MyAccount', {
   //   screen: 'Login_Register',
   // });
@@ -133,8 +135,7 @@ const UnAuthPostData = async (url, data) => {
     const result2 = await response.json();
     return result2;
   } catch (error) {
-    console.log(e);
-    if (error.response.status == 401) {
+    if (error?.response?.status == 401) {
       logout(dispatch);
     }
   }

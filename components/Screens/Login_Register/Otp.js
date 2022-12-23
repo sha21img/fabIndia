@@ -20,24 +20,45 @@ import {
   UnAuthPostData,
 } from '../../Common/Helper';
 import axios from 'axios';
-import { CommonActions } from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 
 export default function Otp(props) {
   const {transactionId, mobilePrefix, phoneNumber} = props.route.params;
   const [otp, setOtp] = React.useState('');
 
   const handleOTP = async () => {
+    const token = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(token);
     const data = {
       mobileDailCode: `+${mobilePrefix}`,
       mobileNumber: phoneNumber,
       otp: otp,
       transactionId: transactionId,
     };
-    let res = await UnAuthPostData('otp/validate?lang=en&curr=INR', data)
-      .then(() => {
-        saveToken();
+    let res = await axios
+      .post(
+        'https://apisap.fabindia.com/occ/v2/fabindiab2c/otp/validate?lang=en&curr=INR',
+        data,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      )
+      .then(response => {
+        console.log('this sis res', response?.data);
+        if (response?.status == 200) {
+          saveToken();
+        } else {
+          console.log('in else');
+        }
       })
-      .catch(err => {});
+      .catch(error => {
+        console.log('error', error?.response?.status);
+        if (error?.response?.status == 400) {
+          Toast.showWithGravity('Enter valied detail', Toast.LONG, Toast.TOP);
+        }
+      });
   };
   const saveToken = async () => {
     var details = {
@@ -50,6 +71,7 @@ export default function Otp(props) {
       contactNumberDailCode: `+${mobilePrefix}`,
       transactionId: transactionId,
     };
+    console.log('detailsdetailsdetails', details);
     var formBody = [];
     for (var property in details) {
       var encodedKey = encodeURIComponent(property);
@@ -81,9 +103,9 @@ export default function Otp(props) {
           props.navigation.dispatch(
             CommonActions.reset({
               index: 0,
-              routes: [{ name: 'MyAccounts' }]
-            })
-          );          
+              routes: [{name: 'MyAccounts'}],
+            }),
+          );
           getCartID();
           getWishID();
         }
