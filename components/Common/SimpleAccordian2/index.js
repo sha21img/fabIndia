@@ -102,6 +102,8 @@ const SimpleAccordian2 = props => {
   const {title, description, navigation, bodyData, IconName, handleclick} =
     props;
   console.log(typeof props.subItem, 'asssssssssssssssssss');
+  console.log( props.subItem, '-----------------------------------');
+
   const toggleAnimation = {
     duration: 300,
     update: {
