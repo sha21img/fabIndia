@@ -11,7 +11,7 @@ import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {logout} from '../../../Common/Helper';
 import {useDispatch} from 'react-redux';
-export default function MyOrder() {
+export default function MyOrder(props) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [gender, setGender] = React.useState([
@@ -50,6 +50,7 @@ export default function MyOrder() {
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            // Authorization: `${getToken.token_type} JrvN_H6QsowQB6WHsWumhEZA4s0`,
           },
         },
       )
@@ -98,6 +99,7 @@ export default function MyOrder() {
                 navigation.navigate('OrderStatus', {
                   screen: item.status,
                   orderID: item.code,
+                  ...props,
                 })
               }
               style={Styles.mainbox}>

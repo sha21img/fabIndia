@@ -20,20 +20,24 @@ export default function OrderStatus(props) {
   const getorderDetails = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
+    console.log('orderID', orderID);
 
     await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/${orderID}?fields=FULL`,
+        `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}?fields=FULL&lang=en&curr=INR`,
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            // Authorization: `${getToken.token_type} JrvN_H6QsowQB6WHsWumhEZA4s0`,
           },
         },
       )
       .then(response => {
+        console.log(response.data, 'for item deliverry');
         setOrderDetails(response.data);
       })
       .catch(errors => {
+        console.log('error', errors);
         if (errors.response.status == 401) {
           logout(dispatch);
         }
@@ -44,6 +48,7 @@ export default function OrderStatus(props) {
     <OrderInProgress
       orderDetails={orderDetails}
       getorderDetails={getorderDetails}
+      {...props}
     />
     // <OrderCancelled  orderDetails={orderDetails}/>
   );
