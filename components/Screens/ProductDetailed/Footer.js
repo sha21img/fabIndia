@@ -29,28 +29,27 @@ export default function Footer(props) {
   const {cartReducer} = useSelector(state => state);
   const dispatch = useDispatch();
 
-  console.log(
-    'disabled',
-    cartReducer.WishListDetail.wishListData.find(items => {
-      return items.code == productdetail.code;
-    }),
-  );
+  // console.log(
+  //   'disabled',
+  //   cartReducer.WishListDetail.wishListData.find(items => {
+  //     return items.code == productdetail.code;
+  //   }),
+  // );
   const [modalVisible, setModalVisible] = useState(false);
   var isVisible = cartReducer.WishListDetail.wishListData.find(items => {
     return items.code == productdetail.code;
   });
   openStock = () => setModalVisible(true);
 
-  console.log(
-    'prprprprprprp1111111111111111111111111111111rprp',
-    productdetail?.stock?.stockLevelStatus,
-  );
+  // console.log(
+  //   'prprprprprprp1111111111111111111111111111111rprp',
+  //   productdetail?.stock?.stockLevelStatus,
+  // );
   const isAddWishlist = async () => {
     const token = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(token);
-    console.log('tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111', getToken.isCheck);
+    // console.log('tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111', getToken.isCheck);
     if (getToken.isCheck) {
-      console.log('shsihsihshsihhhh');
       if (productdetail?.stock?.stockLevelStatus == 'inStock') {
         // handleClick(item);
         handleWishListAdd(productdetail);
@@ -58,9 +57,7 @@ export default function Footer(props) {
         Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
       }
     } else {
-      console.log('glglglglglltltlhhh');
       Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
-
       props.navigation.navigate('MyAccount', {
         screen: 'Login_Register',
       });

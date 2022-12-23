@@ -24,7 +24,13 @@ const faqs = [
   },
 ];
 const MyAddresses = props => {
-  const {checkaddress, getCheckAddress, amount, totalquantity, setCurrentPosition} = props;
+  const {
+    checkaddress,
+    getCheckAddress,
+    amount,
+    totalquantity,
+    setCurrentPosition,
+  } = props;
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
@@ -343,9 +349,7 @@ const MyAddresses = props => {
             backgroundColor: !!selected ? Colors.primarycolor : '#BDBDBD',
           }}
           // handleClick={getOrderID}
-          handleClick={()=>setCurrentPosition(prev => prev + 1)}
-
-          
+          handleClick={() => setCurrentPosition(prev => prev + 1)}
           disable={!!!selected}
         />
       </View>

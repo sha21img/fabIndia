@@ -1,23 +1,13 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import Fonts from '../../../assets/fonts';
-import {image} from '../../../assets/images';
-import {Styles} from './styles';
-import {useNavigation} from '@react-navigation/native';
+import { Styles } from './styles';
+import FastImage from 'react-native-fast-image'
 
 export default function Card(props) {
   const {
     customViewStyle = {},
-    items,
-    originalprice = null,
-    offer = null,
+    items
   } = props;
-
-  // console.log(
-  //   'items wwwwwwwwwwwwwwwwwwwwwwwoooooooooooooooooooooommmmmmmmmmmmmmmmeeeeeeeeeeeeeeeeennnnnnnnnnnnn',
-  //   items.code,
-  // );
-  // console.log('items    atattatatata dataadatadatra', items);
 
   const defaultViewCustomStyles = {
     width: 192,
@@ -38,14 +28,16 @@ export default function Card(props) {
           })
         }
         activeOpacity={0.8}>
-        <Image
+
+        <FastImage
+          style={{ height: 243, width: 192 }}
           source={{
             uri: `https://apisap.fabindia.com${items?.images[0]?.url}`,
+            priority: FastImage.priority.normal
           }}
-          // source={{uri: item.images[0].url}}
-          style={{height: 243, width: 192}}
-          resizeMode="cover"
+          resizeMode={FastImage.resizeMode.contain}
         />
+
         <View style={Styles.headingbox}>
           <Text numberOfLines={1} style={Styles.headingtxt}>
             {items.name}
@@ -54,12 +46,6 @@ export default function Card(props) {
             <Text style={Styles.amounttxt}>
               M.R.P. {items?.price?.formattedValue}
             </Text>
-            {/* <Text style={Styles.amountoff}>
-              {originalprice ? `₹${originalprice}` : null}
-            </Text>
-            <Text style={Styles.offertxt}>
-              {offer ? `${offer}% off` : null}
-            </Text> */}
           </View>
         </View>
       </TouchableOpacity>

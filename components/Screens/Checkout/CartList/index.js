@@ -24,7 +24,7 @@ import CheckAddress from '../../MyAccount/MyAddresses/CheckAddress';
 import InputText from '../../../Common/InputText';
 import Toast from 'react-native-simple-toast';
 import {logout} from '../../../Common/Helper';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 const customStyles = {
   stepIndicatorSize: 30,
   currentStepIndicatorSize: 30,
@@ -51,7 +51,7 @@ const customStyles = {
 
 const labels = ['Cart', 'Address', 'Payment'];
 export default function CartList(props) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const newCurrPosition = props?.route?.params?.currPosition;
   console.log('newCurrPosition', newCurrPosition);
   const [showOrderDetail, setShowOrderDetail] = useState(false);

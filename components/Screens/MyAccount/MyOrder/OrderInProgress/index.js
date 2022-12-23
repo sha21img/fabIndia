@@ -9,7 +9,7 @@ import Fonts from '../../../../../assets/fonts';
 import StepIndicator from 'react-native-step-indicator';
 import OrderProductLongCard from '../../../../Common/OrderProductLongCard';
 
-const labels = ['Order confirmed', 'Shipped', 'Delivery  pending'];
+const labels = ['Order confirmed', 'Shipped', 'Delivery'];
 const customStyles = {
   stepIndicatorSize: 25,
   currentStepIndicatorSize: 30,
@@ -224,7 +224,8 @@ const PaymentPage = (data, item) => {
     </ScrollView>
   );
 };
-export default function OrderInProgress({orderDetails, getorderDetails}) {
+export default function OrderInProgress(props) {
+  const {orderDetails, getorderDetails} = props;
   const [currentPosition, setCurrentPosition] = useState(0);
   // const [orderDetailsstate,setorderDetailsstate] = useState(orderDetails)
   const CardCompo = item => {
@@ -246,10 +247,12 @@ export default function OrderInProgress({orderDetails, getorderDetails}) {
           {orderDetails?.totalItems} items ordered
         </Text>
         {orderDetails?.entries?.map(item => {
+          console.log('item111111111111111', item);
+          const position = item.status.name == 'Returned' ? 3 : null;
           return (
             <>
               <View style={{paddingVertical: 10}}>
-                {/* <Text
+                <Text
                   style={{
                     paddingTop: 10,
                     fontFamily: Fonts.Assistant600,
@@ -265,12 +268,13 @@ export default function OrderInProgress({orderDetails, getorderDetails}) {
                     labels={labels}
                     stepCount={3}
                   />
-                </View> */}
+                </View>
                 <OrderProductLongCard
                   data={item}
                   orderID={orderDetails.code}
                   status={orderDetails?.statusDisplay}
                   getorderDetails={getorderDetails}
+                  {...props}
                 />
               </View>
             </>

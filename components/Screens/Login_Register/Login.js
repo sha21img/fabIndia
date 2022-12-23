@@ -80,15 +80,15 @@ export default function Login(props) {
             );
           } else {
             AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-            // props.navigation.navigate('MyAccount', {
-            //   screen: 'MyAccounts',
-            // });
-            props.navigation.dispatch(
-              CommonActions.reset({
-                index: 0,
-                routes: [{name: 'MyAccounts'}],
-              }),
-            );
+            props.navigation.navigate('MyAccount', {
+              screen: 'MyAccounts',
+            });
+            // props.navigation.dispatch(
+            //   CommonActions.reset({
+            //     index: 0,
+            //     routes: [{name: 'MyAccounts'}],
+            //   }),
+            // );
             getCartID();
             getWishID();
           }

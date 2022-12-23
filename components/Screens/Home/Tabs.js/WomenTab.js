@@ -1,63 +1,46 @@
-import {View, Text, ScrollView} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import { View, Text } from 'react-native';
+import React, { useEffect } from 'react';
 import Chip from '../../../Common/Chip';
 import CommonTopTab from '../../../Common/CommonTopTab';
-import Card from '../../../Common/Card';
-import {Colors} from '../../../../assets/Colors';
-import {WomenTabdata} from '../../../../constant';
-import {getComponentData} from '../../../Common/Helper';
-import axios from 'axios';
+import { getComponentData } from '../../../Common/Helper';
 import CardProducts from './CardProducts';
 
 export default function WomenTab(props) {
-  const {data = {}} = props;
+  const { data = {} } = props;
   const [active, setActive] = React.useState('');
   const [chipData, setChipData] = React.useState([]);
   const [toptabLabelData, setToptabLabelData] = React.useState([]);
-  // const [filterArray, setChipData] = React.useState([]);
 
   const getTabCount = async () => {
-    // const filterArray = data.filter(item => {
-    //   return item.position == position;
-    // });
-    // console.log('filterArray', filterArray);
-    // const filterSlotId = filterArray[0].components.component[0].uid;
-    // console.log('commontabuid', filterSlotId);
-    // const response = await getComponentData(
-    //   `fabindiab2c/cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${filterSlotId}&lang=en&curr=INR`,
-    // );
     const bannerId = data.tabs;
-    // console.log('commontabbannerId', bannerId);
     getBannerCount(bannerId);
   };
+
   const getTabData = async data => {
     setActive(data.title);
     const splitBannerId = data.components.split(' ').join(',');
     const response = await getComponentData(
       `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-
-    console.log('response.component', response.component);
+    // console.log('tabData==>', response.component);
     setToptabLabelData(response.component);
-    //2
   };
 
   const getBannerCount = async bannerId => {
     const splitBannerId = bannerId.split(' ').join(',');
-    console.log('response', splitBannerId);
+    // console.log('bannerId==>', splitBannerId);
     const response = await getComponentData(
       `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    // console.log('responseresponse', response);
     setChipData(response.component);
-    console.log('ALALALALLAALALL', response.component);
-
     getTabData(response.component[0]);
-    // setCarouselData(response.data.component);
+    // console.log('chipData==>', response.component);
   };
+
   useEffect(() => {
     getTabCount();
   }, []);
+
   const cardsObj = {
     Jewellery: CardProducts,
     'Saris & Blouses': CardProducts,
@@ -112,7 +95,7 @@ export default function WomenTab(props) {
     'Lamp & Shades': CardProducts,
     'Stationary & Tags': CardProducts,
   };
-  // console.log('oiuyf', toptabLabelData);
+
   return (
     <>
       <View
@@ -132,14 +115,13 @@ export default function WomenTab(props) {
           );
         })}
       </View>
+
       {toptabLabelData.length > 0 && (
         <CommonTopTab
           {...props}
           data={toptabLabelData.map(item => ({
             ...item,
             card: cardsObj[item.title],
-
-            // card: cardsObj[item.title],
           }))}
         />
       )}
