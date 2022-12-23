@@ -67,7 +67,7 @@ const MyAccount = props => {
   };
   useEffect(() => {
     loginCheck();
-  }, []);
+  });
 
   const leftIcon = (
     <TouchableOpacity onPress={() => props.navigation.goBack()}>
@@ -85,40 +85,80 @@ const MyAccount = props => {
     return (
       <>
         <Stack.Navigator initialRouteName={initialRouteName}>
-          <Stack.Screen
-            name="MyAccounts"
-            component={MyAccounts}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="My Profile"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="Login_Register"
-            component={Login_Register}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="My Account"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
+          {initialRouteName == 'MyAccounts' ? (
+            <Stack.Screen
+              name="MyAccounts"
+              component={MyAccounts}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon}
+                    title="My Profile"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                      marginBottom: 4,
+                    }}
+                  />
+                ),
+              }}
+            />
+          ) : (
+            <>
+              <Stack.Screen
+                name="Login_Register"
+                component={Login_Register}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="My Account"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Log in"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="LoginMobile"
+                component={LoginMobile}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Log in"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+            </>
+          )}
+
           <Stack.Screen
             name="ErrorScreen"
             component={ErrorScreen}
@@ -672,40 +712,6 @@ const MyAccount = props => {
                 <Header
                   leftIcon={leftIcon}
                   title="Pending Payments"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Log in"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="LoginMobile"
-            component={LoginMobile}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Log in"
                   rightIcon={rightIcon}
                   customStyle={{
                     backgroundColor: '#F8F6F5',
