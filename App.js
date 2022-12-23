@@ -1,117 +1,460 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import SplashScreen from 'react-native-splash-screen';
+import {View, Text, TouchableOpacity, LogBox} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import FabulousCardDetails from './components/Screens/FabulousCardDetails';
+import MainScreen from './components/Screens/MainScreen';
+import NetInfo from '@react-native-community/netinfo';
+import Header from './components/Common/Header';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+// import {useNavigation} from '@react-navigation/native';
+import Filter from './components/Common/Filter';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Fonts from './assets/fonts';
+import {Colors} from './assets/Colors';
+import MyAddresses from './components/Screens/MyAccount/MyAddresses';
+import EditAddress from './components/Screens/MyAccount/MyAddresses/EditAddress';
+import CartPage from './components/Screens/Checkout/CartPage';
+import ErrorScreen from './components/Screens/ErrorScreen';
+import YourWishlist from './components/Screens/YourWishlist';
+import StoreLocator from './components/Screens/StoreLocator';
+import SearchLocator from './components/Screens/StoreLocator/SearchLocator';
+import StoreMainDetails from './components/Screens/StoreLocator/StoreMainDetails';
+import AboutUsMenu from './components/Screens/AboutUsMenu';
+import EmptyCart from './components/Screens/Checkout/EmptyCart';
+import PDP_Compare from './components/Screens/PDP_Compare';
+import ProductDetailed from './components/Screens/ProductDetailed';
+import Header1 from './components/Common/Header1';
+import OrderConfirmation from './components/Screens/OrderConfirmation';
+import HomeHeader from './components/Screens/Home/HomeHeader';
+import CheckAddress from './components/Screens/MyAccount/MyAddresses/CheckAddress';
+import axios from 'axios';
+import {Provider, useDispatch} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import CartList from './components/Screens/Checkout/CartList';
+import configureStore from './components/Common/Helper/Redux/store';
+import {getCartID} from './components/Common/Helper';
+import CategorySection from './components/Screens/CategorySection';
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const Stack = createNativeStackNavigator();
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+export default function App(props) {
+  const [netInfo, setNetInfo] = useState(true);
+  const store = configureStore();
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setNetInfo(state.isConnected);
+    });
+    SplashScreen.hide();
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+  const getNetInfo = () => {
+    // To get the network state once
+    NetInfo.fetch().then(state => {
+      setNetInfo(state.isConnected);
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+      // alert(
+      //   `Connection type: ${state.type}
+      //   Is connected?: ${state.isConnected}
+      //   IP Address: ${state.details.ipAddress}`,
+      // );
+    });
   };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+  useEffect(() => {
+    LogBox.ignoreAllLogs();
+  }, []);
+  const leftIcon = props => {
+    return (
+      <TouchableOpacity onPress={() => props.navigation.goBack()}>
+        <SimpleLineIcons
+          name="arrow-left"
+          color={Colors.primarycolor}
+          size={20}
+        />
+      </TouchableOpacity>
+    );
+  };
+  const rightIcon = (
+    <TouchableOpacity>
+      <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
+    </TouchableOpacity>
   );
-};
+  const generatTokenWithout = async () => {
+    await axios
+      .post(
+        `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+      )
+      .then(
+        response => {
+          const tokenGenerate = {...response.data, isCheck: false};
+          console.log('response-=-=-=-=-=-generatTokenWithout', response.data);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+        },
+        error => {
+          console.log('response-=-=-=-=-=-error', error);
+        },
+      );
+  };
+  const checkToken = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    console.log('asdfasdfasdfasdf', JSON.parse(get));
+    if (getToken == null) {
+      await generatTokenWithout();
+      // await getCartDetails();
+    }
+    // }
+  };
+  // const getCartDetails = async () => {
+  //   const value = await AsyncStorage.getItem('cartID');
+  //   console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
+  //   const get = await AsyncStorage.getItem('generatToken');
+  //   const getCartID = await AsyncStorage.getItem('cartID');
+  //   console.log('this us cart id', getCartID);
+  //   const getToken = JSON.parse(get);
+  //   const response = await axios
+  //     .get(
+  //       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+  //       {
+  //         headers: {
+  //           Authorization: `${getToken.token_type} ${getToken.access_token}`,
+  //         },
+  //       },
+  //     )
+  //     .then(response => {
+  //       console.log(
+  //         'get initial cart detail ..................................',
+  //         response.data,
+  //       );
+  //     });
+  //   // console.log(
+  //   //   'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
+  //   //   response.data,
+  //   // );
+  //   let finalvalue = response?.data?.orderEntries?.reduce(
+  //     (n, {quantity}) => n + quantity,
+  //     0,
+  //   );
+  //   // console.log('quantityquantity', response.data);
+  //   // setCartDetails(response.data);
+  //   // setTotalquantity(finalvalue);
+  //   // setWishlistQuantity(response.data.entries.length);
+  //   // if (response.data.name.includes('wishlist')) {
+  //   //   const filterProduct = response.data.entries.map(item => {
+  //   //     return {
+  //   //       code: item.product.baseOptions[0].selected.code,
+  //   //       item: item,
+  //   //     };
+  //   //   });
+  //   //   // console.log('filterProduct', filterProduct);
+  //   //   setWishlistproduct(filterProduct);
+  //   // }
+  // };
+  // useEffect(() => {
+  //   getCartID();
+  // }, []);
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+  // const generatTokenWith = async () => {
+  //   const response = await axios.get(
+  //     'https://apisap.fabindiahome.com/authorizationserver/oauth/token',
+  //     {
+  //       // client_id: 'mobile_android',
+  //       // client_secret: 'secret',
+  //       // grant_type: 'client_credentials',
+  //     },
+  //   );
+  //   console.log('response-=-=-=-=-=-response', response);
+  // };
+  const getInitialCartId = async () => {
+    const cartId = await AsyncStorage.getItem('cartID');
+    console.log(
+      'cartIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartIdcartId',
+      cartId,
+    );
+    !cartId && getCartID();
+  };
+  // useEffect(() => {
+  //   checkToken();
+  //   // getInitialCartId();
+  // }, []);
+  const rightText = (
+    <TouchableOpacity>
+      <Text
+        style={{
+          fontFamily: Fonts.Assistant400,
+          fontSize: 16,
+          color: '#979797',
+        }}>
+        Clear all
+      </Text>
+    </TouchableOpacity>
+  );
 
-export default App;
+  if (netInfo) {
+    return (
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="MainScreen">
+            <Stack.Screen
+              name="MainScreen"
+              component={MainScreen}
+              options={{headerShown: false}}
+            />
+
+            <Stack.Screen
+              name="FabulousCardDetails"
+              component={FabulousCardDetails}
+              options={{
+                header: props => {
+                  return (
+                    <Header
+                      leftIcon={leftIcon(props)}
+                      title="FabulousCardDetails"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                      }}
+                    />
+                  );
+                },
+              }}
+            />
+            <Stack.Screen
+              name="PDP_Compare"
+              component={PDP_Compare}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="PDP_Compare"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                    }}
+                  />
+                ),
+              }}
+            />
+
+            <Stack.Screen
+              name="ProductDetailed"
+              component={ProductDetailed}
+              options={{
+                header: props => (
+                  <HomeHeader
+                    {...props}
+                    searchVisible={false}
+                    customViewStyle={{backgroundColor: '#FFFFFF'}}
+                    // leftIcon={leftIcon(props)}
+                    // title="Cotton Viscose Printed Short..."
+                    // rightIcon={rightIcon}
+                    // customStyle={{
+                    //   backgroundColor: '#F8F6F5',
+                    // }}
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              options={{
+                header: props => <HomeHeader {...props} homeheader={true} />,
+              }}
+              name="YourWishlist"
+              component={YourWishlist}
+            />
+            <Stack.Screen
+              name="Filter"
+              component={Filter}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Filter By"
+                    rightIcon={rightText}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                    }}
+                  />
+                ),
+              }}
+            />
+
+            <Stack.Screen
+              name="MyAddresses"
+              component={MyAddresses}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Address"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                    }}
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="CheckAddress"
+              component={CheckAddress}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Address"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                    }}
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="OrderConfirmation"
+              component={OrderConfirmation}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Order Confirmation"
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                    }}
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="EmptyCart"
+              component={EmptyCart}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Your Shopping cart"
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                    }}
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="CartList"
+              component={CartList}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Your Shopping cart"
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                    }}
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="CartPage"
+              component={CartPage}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Your Shopping cart"
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                    }}
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="Address"
+              component={EditAddress}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Address"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                      marginBottom: 4,
+                    }}
+                  />
+                ),
+              }}
+            />
+
+            <Stack.Screen
+              name="StoreLocator"
+              component={StoreLocator}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Store Locator"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                      marginBottom: 4,
+                    }}
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="SearchLocator"
+              component={SearchLocator}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Search results"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                      marginBottom: 4,
+                    }}
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="StoreMainDetails"
+              component={StoreMainDetails}
+              options={{
+                header: props => (
+                  <Header
+                    leftIcon={leftIcon(props)}
+                    title="Store details"
+                    rightIcon={rightIcon}
+                    customStyle={{
+                      backgroundColor: '#F8F6F5',
+                      marginBottom: 4,
+                    }}
+                  />
+                ),
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    );
+  } else {
+    return (
+      <>
+        <Text>No Coneected Network</Text>
+        <TouchableOpacity onPress={() => getNetInfo()}>
+          <Text>Try to connect</Text>
+        </TouchableOpacity>
+      </>
+    );
+  }
+}
