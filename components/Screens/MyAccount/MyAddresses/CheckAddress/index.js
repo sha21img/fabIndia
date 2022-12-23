@@ -7,7 +7,7 @@ import EditAddress from '../EditAddress';
 import {logout} from '../../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 export default function CheckAddress(props) {
-  const {setCurrentPosition} = props
+  const {setCurrentPosition} = props;
   const [checkaddress, setcheckAddress] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -45,13 +45,10 @@ export default function CheckAddress(props) {
       getCheckAddress={getCheckAddress}
       amount={props?.totalPrice}
       totalquantity={props?.totalquantity}
-      setCurrentPosition= {setCurrentPosition}
+      setCurrentPosition={setCurrentPosition}
     />
   ) : (
-    <EditAddress {...props}  
-    setCurrentPosition= {setCurrentPosition}
-    
-    />
+    <EditAddress {...props} setCurrentPosition={setCurrentPosition} />
   );
   // return true ? <CartList {...props} /> :<EmptyCart  />;
 }

@@ -86,23 +86,506 @@ const MyAccount = props => {
       <>
         <Stack.Navigator initialRouteName={initialRouteName}>
           {initialRouteName == 'MyAccounts' ? (
-            <Stack.Screen
-              name="MyAccounts"
-              component={MyAccounts}
-              options={{
-                header: props => (
-                  <Header
-                    leftIcon={leftIcon}
-                    title="My Profile"
-                    rightIcon={rightIcon}
-                    customStyle={{
-                      backgroundColor: '#F8F6F5',
-                      marginBottom: 4,
-                    }}
-                  />
-                ),
-              }}
-            />
+            <>
+              <Stack.Screen
+                name="MyAccounts"
+                component={MyAccounts}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="My Profile"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="MyOrder"
+                component={MyOrder}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="My Orders"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="OrderStatus"
+                component={OrderStatus}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="My Orders"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+
+              <Stack.Screen
+                name="ErrorScreen"
+                component={ErrorScreen}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="The FabIndia Schools"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="FabIndiaSchools"
+                component={FabIndiaSchools}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="60 Years of FabIndia"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="Years60"
+                component={Years60}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="60 Years of FabIndia"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="Certification"
+                component={Certification}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Organic Certification"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="Philosophy"
+                component={Philosophy}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Our philosophy"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="AboutUs"
+                component={AboutUs}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="About us"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="AboutFabindia"
+                component={AboutFabindia}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="About Fabindia"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="FabFamily"
+                component={FabFamily}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="FabFamily"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="FAQ"
+                component={FAQ}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="FAQs"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="DeleteMyAccount"
+                component={DeleteMyAccount}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Delete my account"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="GiftCard"
+                component={GiftCard}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Gift Cards"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                      {...props}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="Unsubscribe"
+                component={Unsubscribe}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Unsubscribe"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="CustomerCare"
+                component={CustomerCare}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Customer Care"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="TrackRequest"
+                component={TrackRequest}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Track Requests"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="CustomerCareStatus"
+                component={CustomerCareStatus}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Customer Care"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="ReturnStatus"
+                component={ReturnStatus}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="My Orders"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="ContactUs"
+                component={ContactUs}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="My Orders"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+
+              <Stack.Screen
+                name="ChangePasswordSuccesfully"
+                component={ChangePasswordSuccesfully}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Change password"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="MyProfile"
+                component={MyProfile}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="My Profile"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="OrderSuccess"
+                component={OrderSuccess}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="My Profile"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+
+              <Stack.Screen
+                name="ChangeMobileNumber"
+                component={ChangeMobileNumber}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Change mobile number"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+
+              <Stack.Screen
+                name="ChangePassword"
+                component={ChangePassword}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Change Password"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="AddCard"
+                component={AddCard}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Saved Cards"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="AllCards"
+                component={AllCards}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Saved Cards"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="PendingProductList"
+                component={PendingProductList}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Pending Payments"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="PendingProductDetails"
+                component={PendingProductDetails}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Pending Payments"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+            </>
           ) : (
             <>
               <Stack.Screen
@@ -156,282 +639,77 @@ const MyAccount = props => {
                   ),
                 }}
               />
+              <Stack.Screen
+                name="Otp"
+                component={Otp}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Log in"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="ResetPassword"
+                component={ResetPassword}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Forgot password"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="Register"
+                component={Register}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Register"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="RegisterSuccess"
+                component={RegisterSuccess}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="Register"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              />
             </>
           )}
 
-          <Stack.Screen
-            name="ErrorScreen"
-            component={ErrorScreen}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="The FabIndia Schools"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="FabIndiaSchools"
-            component={FabIndiaSchools}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="60 Years of FabIndia"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="Years60"
-            component={Years60}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="60 Years of FabIndia"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="Certification"
-            component={Certification}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Organic Certification"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="Philosophy"
-            component={Philosophy}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Our philosophy"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="AboutUs"
-            component={AboutUs}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="About us"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="AboutFabindia"
-            component={AboutFabindia}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="About Fabindia"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="FabFamily"
-            component={FabFamily}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="FabFamily"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="FAQ"
-            component={FAQ}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="FAQs"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="DeleteMyAccount"
-            component={DeleteMyAccount}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Delete my account"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="GiftCard"
-            component={GiftCard}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Gift Cards"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                  {...props}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="Unsubscribe"
-            component={Unsubscribe}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Unsubscribe"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="CustomerCare"
-            component={CustomerCare}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Customer Care"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="TrackRequest"
-            component={TrackRequest}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Track Requests"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="CustomerCareStatus"
-            component={CustomerCareStatus}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Customer Care"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="ReturnStatus"
-            component={ReturnStatus}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="My Orders"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
           {/* <Stack.Screen
           name="ReturnItem"
           component={ReturnItem}
@@ -449,278 +727,6 @@ const MyAccount = props => {
             ),
           }}
         /> */}
-          <Stack.Screen
-            name="OrderStatus"
-            component={OrderStatus}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="My Orders"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="ContactUs"
-            component={ContactUs}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="My Orders"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="MyOrder"
-            component={MyOrder}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="My Orders"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="ChangePasswordSuccesfully"
-            component={ChangePasswordSuccesfully}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Change password"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="MyProfile"
-            component={MyProfile}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="My Profile"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="OrderSuccess"
-            component={OrderSuccess}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="My Profile"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="RegisterSuccess"
-            component={RegisterSuccess}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Register"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="Register"
-            component={Register}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Register"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="ChangeMobileNumber"
-            component={ChangeMobileNumber}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Change mobile number"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="ResetPassword"
-            component={ResetPassword}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Forgot password"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="Otp"
-            component={Otp}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Log in"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="ChangePassword"
-            component={ChangePassword}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Change Password"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="AddCard"
-            component={AddCard}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Saved Cards"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="AllCards"
-            component={AllCards}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Saved Cards"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="PendingProductList"
-            component={PendingProductList}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Pending Payments"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="PendingProductDetails"
-            component={PendingProductDetails}
-            options={{
-              header: props => (
-                <Header
-                  leftIcon={leftIcon}
-                  title="Pending Payments"
-                  rightIcon={rightIcon}
-                  customStyle={{
-                    backgroundColor: '#F8F6F5',
-                    marginBottom: 4,
-                  }}
-                />
-              ),
-            }}
-          />
         </Stack.Navigator>
       </>
     );

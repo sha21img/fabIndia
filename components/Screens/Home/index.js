@@ -1,4 +1,4 @@
-import {Text, Dimensions, FlatList} from 'react-native';
+import {Text, Dimensions, FlatList, BackHandler, Alert} from 'react-native';
 import React, {useEffect} from 'react';
 import Catagory from './Catagory';
 import NewHighlights from '../../Common/NewHighlights';
@@ -15,6 +15,7 @@ import OfferTab from './Tabs.js/OfferTab';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
 const width = Dimensions.get('window').width;
+import {withNavigationFocus} from 'react-navigation';
 
 export default function Dashbord(props) {
   const [active, setActive] = React.useState('Bestsellers');
@@ -26,6 +27,35 @@ export default function Dashbord(props) {
     setDashboardData(response.contentSlots.contentSlot);
     getSections(response.contentSlots.contentSlot);
   };
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+  }, []);
+  const handleBackButton = () => {
+    if (props.navigation.isFocused()) {
+      Alert.alert(
+        'Exit App',
+        'Exiting the application?',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {
+            text: 'OK',
+            onPress: () => BackHandler.exitApp(),
+          },
+        ],
+        {
+          cancelable: false,
+        },
+      );
+      return true;
+    }
+  };
+
   const checkSwitch = param => {
     switch (param?.typeCode) {
       case 'FabResponsiveGridBannerCarouselComponent':

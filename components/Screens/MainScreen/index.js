@@ -37,7 +37,7 @@ import Fonts from '../../../assets/fonts';
 import {getComponentData, logout} from '../../Common/Helper';
 import AccordianMenu from './AccordianMenu';
 import {useIsFocused} from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 // import WomenCategory from '../Home/WomenCategory';
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -52,7 +52,7 @@ function useForceUpdate() {
 
 const DrawerContent = () => {
   const forceUpdate = useForceUpdate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const focus = useIsFocused();
   const [listData, setListData] = useState();
   const [userProfileData, setUserProfileData] = useState();

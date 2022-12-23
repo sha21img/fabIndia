@@ -57,6 +57,7 @@ export default function CommonCarousel(props) {
       <TouchableOpacity
         onPress={() => {
           if (newCode.includes('giftcard')) {
+            props.navigation.navigate('MyAccount', {screen: 'GiftCard'});
           } else {
             props.navigation.navigate('LandingPageSaris_Blouses', {
               code: splitURL,

@@ -16,31 +16,32 @@ import CommonButton from '../CommonButton';
 import axios from 'axios';
 import {logout} from '../Helper';
 import {useDispatch} from 'react-redux';
-export default function OrderProductLongCard({
-  data = {},
-  status,
-  orderID,
-  getorderDetails,
-  handliClick = null,
-}) {
+export default function OrderProductLongCard(props) {
+  const {
+    data = {},
+    status,
+    orderID,
+    getorderDetails,
+    handliClick = null,
+  } = props;
   const image = 'https://apisap.fabindia.com/' + data.product.images[0].url;
   console.log(image);
-  console.log('order in progress data', status);
-  console.log('data?.status?.name', data.status);
+  console.log('order in progress data', data);
+  console.log('data?.status?.name', data);
 
   const dispatch = useDispatch();
   const [showmodal, setshowmodal] = useState(false);
   const [comment, setComment] = useState(null);
   const [radio, setRadio] = useState(null);
-  const [statusshow, setStatushow] = useState(data?.status?.name);
+  // const [statusshow, setStatushow] = useState(data?.status?.name);
   const [returnshow, setreturnshow] = useState(false);
   const [exchangeshow, setexchangeshow] = useState(false);
   const [reasonData, setReasonData] = useState({});
   const [newReasonData, setNewReasonData] = useState([]);
-  useEffect(() => {
-    const newStatus = data?.status?.name || null;
-    setStatushow(newStatus);
-  }, []);
+  // useEffect(() => {
+  //   const newStatus = data?.status?.name || null;
+  //   setStatushow(newStatus);
+  // }, []);
   const radiodata = [
     {
       label: 'Delay in Delivery',
@@ -97,6 +98,7 @@ export default function OrderProductLongCard({
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            // Authorization: `${getToken.token_type} JrvN_H6QsowQB6WHsWumhEZA4s0`,
           },
         },
       )
@@ -156,12 +158,13 @@ export default function OrderProductLongCard({
   // );
 
   // console.logg("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",data)
-  const reasonForChange = async entryNumber => {
+  const reasonForCancel = async entryNumber => {
     console.log('entryNumber', entryNumber, orderID);
     // const get = await AsyncStorage.getItem('generatToken');
     // const getToken = JSON.parse(get);
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
+    // 08045003
     await axios
       .post(
         `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/${entryNumber}/action?fields=FULL&lang=en&curr=INR`,
@@ -169,6 +172,7 @@ export default function OrderProductLongCard({
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            // Authorization: `${getToken.token_type} JrvN_H6QsowQB6WHsWumhEZA4s0`,
           },
         },
       )
@@ -215,9 +219,16 @@ export default function OrderProductLongCard({
             width: '100%',
             paddingVertical: 10,
           }}>
-          <View style={{backgroundColor: 'red', width: '25%'}}>
+          <TouchableOpacity
+            style={{width: '25%'}}
+            onPress={() =>
+              props.navigation.navigate('ProductDetailed', {
+                productId: data.product.code,
+                imageUrlCheck: data,
+              })
+            }>
             <Image source={{uri: image}} style={{height: 100, width: 79}} />
-          </View>
+          </TouchableOpacity>
           <View style={{width: '70%'}}>
             <Text
               style={{
@@ -272,22 +283,50 @@ export default function OrderProductLongCard({
                 alignItems: 'center',
               }}>
               <View>
-                <Text
-                  style={{
-                    color: 'red',
-                    fontSize: 14,
-                    fontFamily: Fonts.Assistant700,
-                    lineHeight: 18,
-                  }}>
-                  {!!statusshow ? statusshow : null}
-                </Text>
+                {data?.status?.name && (
+                  <Text
+                    style={{
+                      color: 'orange',
+                      fontSize: 14,
+                      fontFamily: Fonts.Assistant700,
+                      lineHeight: 18,
+                    }}>
+                    {data.status.name}
+                  </Text>
+                )}
+
+                {/* {!!statusshow ? statusshow : null} */}
                 {/* <Text>Arriving by Friday, 14 May</Text> */}
               </View>
             </View>
           </View>
         </View>
-
-        {statusshow === 'Cancelled' ? null : status == 'processing' ? (
+        {data.availableAction.name !== 'No Action' && (
+          <TouchableOpacity
+            style={{
+              paddingVertical: 15,
+              alignItems: 'center',
+              backgroundColor: '#FAFAFA',
+              justifyContent: 'center',
+            }}
+            onPress={() => {
+              // setshowmodal(true);
+              // if (data.availableAction.name == 'Cancel') {
+              reasonForCancel(data.entryNumber);
+              // }
+            }}>
+            <Text
+              style={{
+                fontFamily: Fonts.Assistant600,
+                fontSize: 14,
+                lineHeight: 18,
+                color: Colors.textcolor,
+              }}>
+              {data.availableAction.name}
+            </Text>
+          </TouchableOpacity>
+        )}
+        {/* {statusshow === 'Cancelled' ? null : status == 'processing' ? (
           <TouchableOpacity
             style={{
               paddingVertical: 15,
@@ -335,30 +374,8 @@ export default function OrderProductLongCard({
                 Return
               </Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity
-              style={{width: '50%', alignItems: 'center'}}
-              onPress={() => setexchangeshow(true)}>
-              <Text
-                style={{
-                  fontFamily: Fonts.Assistant600,
-                  fontSize: 14,
-                  lineHeight: 18,
-                  color: Colors.textcolor,
-                }}>
-                Exchange
-              </Text>
-            </TouchableOpacity> */}
-            {/* <Text
-        style={{
-          fontFamily: Fonts.Assistant600,
-          fontSize: 14,
-          lineHeight: 18,
-          color: Colors.textcolor,
-        }}>
-        Cancel
-      </Text> */}
           </View>
-        )}
+        )} */}
       </View>
 
       {/* cancel */}
