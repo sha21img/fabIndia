@@ -8,7 +8,6 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import Card from '../../../Common/Card';
 import Card1 from '../../../Common/Card1';
 import {
   getComponentData,
@@ -31,7 +30,6 @@ import Entypo from 'react-native-vector-icons/Entypo';
 export default function ResultCards(props) {
   const {cartReducer} = useSelector(state => state);
   const dispatch = useDispatch();
-
   const [page, setPage] = useState(0);
   const [dataMain, setdataMain] = useState([]);
   const [filterProducts, setFilterProducts] = useState([]);
@@ -42,48 +40,33 @@ export default function ResultCards(props) {
   const [isChecked, setIsChecked] = useState(false);
   const [sortValue, setSortValue] = useState('');
   const [isCheck, setIsCheck] = useState([]);
-
   const [productCount, setProductCount] = useState(0);
   const {code, status, title, isSearch} = props;
-  console.log(
-    'code+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
-    code,
-    status,
-    sortValue,
-  );
   const {data = []} = props;
+  
   const getProductData = async data => {
-    console.log('datadatadatadatadatadatadatadatadatadatadatadata', data);
-    console.log(
-      'isSearchisSearchisSearchisSearchisSearchisSearchisSearch',
-      isSearch,
-    );
+    // console.log('datadatadatadatadatadatadatadatadatadatadatadata', data);
     const fields =
       'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
     var response;
 
     if (!!isSearch) {
-      console.log('Searchoiouytrewsdrfghjkopoiuytrdsedxcfvbh');
       response = await axios.get(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&query=${title}
         &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
     } else if (data) {
-      console.log(
-        'elelelelleleleifififififiififioioyutydrsdghkiuytresafghjopoiuytrds',
-      );
       response = await axios.get(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
     } else {
-      console.log('wergthyui.l,kmjnhbsgmpokijuhgvfcdxsza');
       response = await axios.get(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&${
           status ? `${code}` : `query=:relevance:allCategories:${code}`
         }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
     }
-    console.log('1234567890', response.data);
+    // console.log('1234567890', response.data);
     // fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}`);
     setdataMain(response.data);
     setProductCount(response.data.pagination.totalResults);
@@ -146,11 +129,9 @@ export default function ResultCards(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    console.log('this us cart iooooooooooooooood11', getCartID);
+    // console.log('this us cart iooooooooooooooood11', getCartID);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
 
-    const aa =
-      'DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue, value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)';
     const response = await axios
       .get(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
@@ -164,10 +145,10 @@ export default function ResultCards(props) {
         },
       )
       .then(response => {
-        console.log(
-          'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
-          response.data.name,
-        );
+        // console.log(
+        //   'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
+        //   response.data.name,
+        // );
         if (!!response?.data?.name) {
           if (response?.data?.name?.includes('wishlist')) {
             const filterProductId = response.data.entries.map(item => {
@@ -202,7 +183,7 @@ export default function ResultCards(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
-    console.log('this us cart idfor add wi', getToken);
+    // console.log('this us cart idfor add wi', getToken);
     if (isAddWishlist) {
       const response = await axios
         .delete(
@@ -216,10 +197,10 @@ export default function ResultCards(props) {
           },
         )
         .then(response => {
-          console.log(
-            'response.data deletetetetetetettetetet to wishlist',
-            response.data,
-          );
+          // console.log(
+          //   'response.data deletetetetetetettetetet to wishlist',
+          //   response.data,
+          // );
 
           getCartDetails();
         })
@@ -230,7 +211,6 @@ export default function ResultCards(props) {
           }
         });
     } else {
-      const value = await AsyncStorage.getItem('cartID');
       const response = await axios
         .post(
           `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries?lang=en&curr=INR`,
@@ -246,7 +226,7 @@ export default function ResultCards(props) {
           getCartDetails();
         })
         .catch(errors => {
-          console.log('woiuytfgh', errors.response.status);
+          // console.log('woiuytfgh', errors.response.status);
           if (errors.response.status == 401) {
             refreshToken();
           }
@@ -260,22 +240,6 @@ export default function ResultCards(props) {
           }
         });
     }
-
-    // console.log('addwishlist data response', response.data);
-    // https://apisap.fabindia.com/occ/v2/
-    // fabindiab2c/users/anonymous/carts/378a862e-301d-4
-    // 1ae-b2b2-015610c56c01/entries?lang=en&curr=INR
-    // const body = {
-    //   quantity: 1,
-    //   product: {
-    //     code: data.code,
-    //   },
-    // };
-    // const response = await postData(
-    //   `fabindiab2c/users/current/carts/${value}/entries?lang=en&curr=INR`,
-    //   body,
-    // );
-    // console.log('responseppppppppppp', response);
   };
   const getCardData = item => {
     return (
@@ -290,22 +254,16 @@ export default function ResultCards(props) {
       </>
     );
   };
+
   const handleClick = data => {
     getProductData(data);
   };
+
   return (
     <>
       <HomeHeader {...props} headertext={title} totalCount={totalCount} />
 
       <FlatList
-        // ListHeaderComponent={() => (
-        //   <SortBox
-        //     openSort={openSort}
-        //     dataMain={filterProducts}
-        //     productCount={productCount}
-        //     //  openFilter={openFilter}
-        //   />
-        // )}
         columnWrapperStyle={{justifyContent: 'space-between'}}
         contentContainerStyle={{
           paddingHorizontal: 15,

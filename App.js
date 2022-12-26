@@ -37,6 +37,7 @@ import configureStore from './components/Common/Helper/Redux/store';
 import {getCartID} from './components/Common/Helper';
 import CategorySection from './components/Screens/CategorySection';
 import ViewPolicy from './components/Screens/ViewPolicy/ViewPolicy';
+import LandingPageSaris_Blouses from './components/Screens/LandingPageL2/LandingPageSaris_Blouses';
 
 const Stack = createNativeStackNavigator();
 
@@ -211,6 +212,14 @@ export default function App(props) {
             />
 
             <Stack.Screen
+              name="LandingPageSaris_Blouses"
+              component={LandingPageSaris_Blouses}
+              options={{
+                headerShown: false,
+              }}
+            />
+
+            <Stack.Screen
               name="FabulousCardDetails"
               component={FabulousCardDetails}
               options={{
@@ -249,6 +258,7 @@ export default function App(props) {
               name="ProductDetailed"
               component={ProductDetailed}
               options={{
+                headerShown: false,
                 header: props => (
                   <HomeHeader
                     {...props}
@@ -266,7 +276,7 @@ export default function App(props) {
             />
             <Stack.Screen
               options={{
-                header: props => <HomeHeader {...props} homeheader={true} />,
+                header: props => <HomeHeader {...props} />,
               }}
               name="YourWishlist"
               component={YourWishlist}

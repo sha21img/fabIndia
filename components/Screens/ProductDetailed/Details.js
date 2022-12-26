@@ -37,7 +37,7 @@ export default function Details({customStyle, productdetail}) {
             fontFamily: Fonts.Assistant400,
             color: Colors.textcolor,
           }}>
-          SKU:{productdetail.code}
+          SKU : {productdetail.code}
         </Text>
       </View>
       {/* <View style={Styles.titleContainer}>
@@ -53,7 +53,7 @@ export default function Details({customStyle, productdetail}) {
       <View style={Styles.txtbox}>
       
         <Text style={Styles.singleproductamount}>
-          ₹{productdetail?.priceAfterDiscount?.value}
+          {productdetail?.priceAfterDiscount?.formattedValue}
         </Text>
         <Text
           style={{

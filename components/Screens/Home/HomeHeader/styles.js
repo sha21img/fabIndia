@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 import Fonts from '../../../../assets/fonts';
 export const Styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     flexDirection: 'row',
     padding: 15,
     alignItems: 'center',

@@ -1,15 +1,11 @@
 import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Styles} from './styles';
 import {image} from '../../../../assets/images';
 import Fonts from '../../../../assets/fonts';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import InputText from '../../../Common/InputText';
-import debounce from 'lodash.debounce';
 import Share from 'react-native-share';
 import {Colors} from '../../../../assets/Colors';
 import {useNavigation} from '@react-navigation/native';
@@ -20,12 +16,10 @@ import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
 import {logout} from '../../../Common/Helper';
 
 export default function HomeHeader(props) {
-  const [show, setShow] = useState(false);
   const {cartReducer, shareData} = useSelector(state => state);
-  const navigation = useNavigation();
   const dispatch = useDispatch();
-  // const {homeheader = false, searchVisible = true} = props;
   const {
+    isTransparent = false,
     homeheader = false,
     searchVisible = true,
     headertext = '',
@@ -51,12 +45,12 @@ export default function HomeHeader(props) {
     getCartDetails();
     isInitialWishlised();
   }, []);
+
   const getWishListDetail = async () => {
     const value = await AsyncStorage.getItem('cartID');
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    console.log('this us cart iooooooooooooooood11', getCartID);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
 
     const aa =
@@ -104,7 +98,6 @@ export default function HomeHeader(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    console.log('this us cart id', getCartID);
     const type = getToken.isCheck ? 'current' : 'anonymous';
     const response = await axios
       .get(
@@ -155,7 +148,11 @@ export default function HomeHeader(props) {
   };
   return (
     <>
-      <View style={Styles.container}>
+      <View
+        style={[
+          Styles.container,
+          {backgroundColor: isTransparent ? Colors.TRANSPARENT : 'white'},
+        ]}>
         {homeheader ? (
           <View
             style={{
@@ -194,7 +191,7 @@ export default function HomeHeader(props) {
                 {headertext}
               </Text>
               {!!totalCount && (
-                <Text style={{fontSize: 10}}>{totalCount}items</Text>
+                <Text style={{fontSize: 10}}>{totalCount} items</Text>
               )}
             </View>
           </>
@@ -205,19 +202,11 @@ export default function HomeHeader(props) {
             <TouchableOpacity
               style={Styles.locationContainer}
               onPress={() => {
-                console.log('jiji'),
-                  props.navigation.navigate('InitialSearch', {
-                    screen: 'Search',
-                  });
+                props.navigation.navigate('InitialSearch', {
+                  screen: 'Search',
+                });
               }}>
-              <EvilIcons
-                name="search"
-                color={Colors.primarycolor}
-                size={30}
-                // onPress={() => {
-                //   setShow(!show);
-                // }}
-              />
+              <EvilIcons name="search" color={Colors.primarycolor} size={30} />
             </TouchableOpacity>
           ) : searchVisible == null ? (
             <View></View>
@@ -235,10 +224,7 @@ export default function HomeHeader(props) {
               />
             </TouchableOpacity>
           )}
-          {/* <Ionicons name="location-sharp" color={'#792C27'} size={20} />
-          <Text numberOfLines={1} style={Styles.locationText}>
-            Powai, Mumbai
-          </Text> */}
+
           <TouchableOpacity
             style={Styles.currencyContainer}
             onPress={() => isWishlisted()}>
@@ -267,9 +253,6 @@ export default function HomeHeader(props) {
                 </Text>
               </View>
             ) : null}
-
-            {/* <Text style={Styles.currencyIcon}>₹</Text>
-          <Text style={Styles.currencyText}>INR</Text> */}
           </TouchableOpacity>
           <TouchableOpacity
             style={Styles.cartContainer}
@@ -304,85 +287,6 @@ export default function HomeHeader(props) {
           </TouchableOpacity>
         </View>
       </View>
-      {/* {show ? (
-        <>
-          <View
-            style={{
-              position: 'absolute',
-              left: '10%',
-              width: '80%',
-              zIndex: 999,
-              alignSelf: 'center',
-              backgroundColor: 'white',
-              elevation: 5,
-              paddingHorizontal: 20,
-              borderRadius: 40,
-            }}>
-            <View
-              style={{
-                alignItems: 'center',
-                flexDirection: 'row',
-              }}>
-              <TextInput
-                placeholder="Search here..."
-                onChangeText={text => setText(text)}
-                value={debouncedText}
-                style={{
-                  width: '95%',
-                }}
-              />
-              <FontAwesome
-                name="close"
-                color={Colors.primarycolor}
-                size={25}
-                onPress={() => {
-                  setShow(!show);
-                }}
-              />
-            </View>
-            {filterProduct.length > 0 ? (
-              filterProduct?.map(item => {
-                return (
-                  <TouchableOpacity
-                    onPress={() =>
-                      props.navigation.navigate('ProductDetailed', {
-                        productId: item.code,
-                      })
-                    }
-                    style={{paddingBottom: 10, paddingHorizontal: 15}}>
-                    <Text>{item.name}</Text>
-                    <Text>{item.price.formattedValue}</Text>
-                  </TouchableOpacity>
-                );
-              })
-            ) : filterProduct.length ? (
-              <Text>No Product Found</Text>
-            ) : null}
-          </View>
-        </>
-      ) : null} */}
     </>
   );
-}
-{
-  /* <View style={Styles.container}>
-<View style={Styles.logoBox}>
-  <Image source={image.color_logo} style={Styles.logo} />
-</View>
-<View style={Styles.detailContainer}>
-  <TouchableOpacity style={Styles.locationContainer}>
-    <Ionicons name="location-sharp" color={'#792C27'} size={20} />
-    <Text numberOfLines={1} style={Styles.locationText}>
-      Powai, Mumbai
-    </Text>
-  </TouchableOpacity>
-  <TouchableOpacity style={Styles.currencyContainer}>
-    <Text style={Styles.currencyIcon}>₹</Text>
-    <Text style={Styles.currencyText}>INR</Text>
-  </TouchableOpacity>
-  <TouchableOpacity style={Styles.cartContainer}>
-    <AntDesign name="shoppingcart" size={24} color={'#792C27'} />
-  </TouchableOpacity>
-</View>
-</View> */
 }

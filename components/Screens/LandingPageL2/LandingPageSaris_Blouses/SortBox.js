@@ -20,7 +20,8 @@ export default function SortBox({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingVertical: 10,
+        paddingVertical: 16,
+        elevation: 6
       }}>
       {/* <View style={{flexDirection: 'row', paddingHorizontal: 15}}>
         <Text
