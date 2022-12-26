@@ -37,7 +37,7 @@ import Fonts from '../../../assets/fonts';
 import {getComponentData, logout} from '../../Common/Helper';
 import AccordianMenu from './AccordianMenu';
 import {useIsFocused} from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 // import WomenCategory from '../Home/WomenCategory';
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -52,7 +52,7 @@ function useForceUpdate() {
 
 const DrawerContent = () => {
   const forceUpdate = useForceUpdate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const focus = useIsFocused();
   const [listData, setListData] = useState();
   const [userProfileData, setUserProfileData] = useState();
@@ -208,7 +208,9 @@ const DrawerContent = () => {
           source={image.document}
           style={{width: 20, height: 20, resizeMode: 'contain'}}
         />
-        <Text style={{color: Colors.textcolor, marginLeft: 10}}>Orders</Text>
+        <Text style={{color: Colors.textcolor, fontSize: 16, marginLeft: 10}}>
+          Orders
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.5}
@@ -224,7 +226,9 @@ const DrawerContent = () => {
           source={image.ribbon}
           style={{width: 20, height: 20, resizeMode: 'contain'}}
         />
-        <Text style={{color: Colors.textcolor, marginLeft: 10}}>FabFamily</Text>
+        <Text style={{color: Colors.textcolor, fontSize: 16, marginLeft: 10}}>
+          FabFamily
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.5}
@@ -241,7 +245,7 @@ const DrawerContent = () => {
           size={20}
           color={Colors.primarycolor}
         />
-        <Text style={{color: Colors.textcolor, marginLeft: 10}}>
+        <Text style={{color: Colors.textcolor, fontSize: 16, marginLeft: 10}}>
           Shop By Categories
         </Text>
       </TouchableOpacity>

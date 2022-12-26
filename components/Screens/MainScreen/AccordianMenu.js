@@ -136,7 +136,7 @@ export default function AccordianMenu(props) {
             data.title == 'FAQs' || data.title == 'Contact Us'
               ? {
                   paddingHorizontal: 20,
-                  paddingVertical: 15,
+                  paddingVertical: 12,
                   marginLeft: 20,
                   flexDirection: 'row',
                   alignItems: 'center',
@@ -155,7 +155,12 @@ export default function AccordianMenu(props) {
             {data.title == 'FAQs' || data.title == 'Contact Us'
               ? null
               : checkIcon(data.title)}
-            <Text style={{color: Colors.textcolor, marginLeft: 10}}>
+            <Text
+              style={
+                data.title == 'FAQs' || data.title == 'Contact Us'
+                  ? {fontSize: 13, color: Colors.textcolor, marginLeft: 10}
+                  : {fontSize: 16, color: Colors.textcolor, marginLeft: 10}
+              }>
               {data.title}
             </Text>
           </View>
