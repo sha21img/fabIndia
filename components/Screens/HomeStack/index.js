@@ -364,7 +364,7 @@ export default function HomeStack() {
           ),
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="LandingPageSaris_Blouses"
         component={LandingPageSaris_Blouses}
         options={{
@@ -386,7 +386,7 @@ export default function HomeStack() {
         //     />
         //   ),
         // }}
-      />
+      /> */}
       <Stack.Screen
         name="LandingPageBedsheets"
         component={LandingPageBedsheets}
