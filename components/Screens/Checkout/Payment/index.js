@@ -12,6 +12,7 @@ import {TextInput} from 'react-native-paper';
 import {image} from '../../../../assets/images';
 import {CreditCardInput, LiteCreditCardInput} from '../../../CardView';
 import {useNavigation} from '@react-navigation/native';
+import Fonts from '../../../../assets/fonts';
 
 const BankData = [
   {name: 'ICICI Bank', code: 'ICICI', id: 1},
@@ -31,12 +32,13 @@ const WalletData = [
   {name: 'Phonepe', id: 8},
 ];
 
-
 const Payment = props => {
   const [paymentMode, setPaymentMode] = useState([]);
   const [showlist, setshowlist] = useState([]);
+  const [cartDetails, setcartDetails] = useState(null);
   const navigation = useNavigation();
   const openCheckout = (id, UDID, method, data, details) => {
+    console.log('dataaa', data);
     let prfilData;
     if (method == 'card') {
       prfilData = {
@@ -113,7 +115,7 @@ const Payment = props => {
     const type = getToken.isCheck ? 'current' : 'anonymous';
     console.log('this us cart id a', getToken);
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}?fields=DEFAULT,user,deliveryAddress(FULL)`,
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}?fields=DEFAULT,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
       {
         headers: {
           Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -122,9 +124,10 @@ const Payment = props => {
     );
     if (response.status == 200) {
       console.log(
-        'response.datresponse.dataresponse.dataresponse.dataa',
+        'response.datresponse.dataresponse.dataresponse.dataagetDetailsgetDetailsgetDetailsgetDetailsgetDetailsgetDetailsgetDetailsgetDetailsgetDetails',
         response.data,
       );
+      setcartDetails(response.data);
       return response.data;
     }
   };
@@ -156,7 +159,7 @@ const Payment = props => {
     const getCartID = await AsyncStorage.getItem('cartID');
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-  
+
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/razorpay/callback/url?lang=en&curr=INR`,
       // {},
@@ -180,7 +183,7 @@ const Payment = props => {
       }
       // console.log(JSON.stringify(formData, null, ' '), 'hiiiiiiiiiiii');
     };
-  
+
     const _onFocus = field => console.log('focusing', field);
     return (
       <View style={{backgroundColor: 'white'}}>
@@ -216,7 +219,7 @@ const Payment = props => {
   };
   const UpiData = () => {
     const [Upistore, setUpistore] = useState('');
-  
+
     return (
       <View style={{}}>
         <TextInput
@@ -258,7 +261,7 @@ const Payment = props => {
   };
   const NetBanking = () => {
     const [bank, setBank] = useState('');
-  
+
     console.log(bank);
     return (
       <View style={{}}>
@@ -309,7 +312,7 @@ const Payment = props => {
             </TouchableOpacity>
           );
         })}
-  
+
         <TouchableOpacity
           onPress={() => {
             getOrderID('netbanking', bank);
@@ -330,7 +333,7 @@ const Payment = props => {
   };
   const Wallets = () => {
     const [wallet, setwallet] = useState('');
-  
+
     return (
       <View style={{}}>
         {WalletData.map(item => {
@@ -347,7 +350,8 @@ const Payment = props => {
                 marginHorizontal: 25,
                 borderWidth: 1,
                 elevation: 3,
-                borderColor: wallet.id == item.id ? Colors.primarycolor : 'white',
+                borderColor:
+                  wallet.id == item.id ? Colors.primarycolor : 'white',
                 borderRadius: 10,
               }}>
               <View
@@ -380,7 +384,7 @@ const Payment = props => {
             </TouchableOpacity>
           );
         })}
-  
+
         <TouchableOpacity
           onPress={() => {
             getOrderID('wallet', wallet);
@@ -399,94 +403,437 @@ const Payment = props => {
       </View>
     );
   };
-  
+
   const Cashondelivery = () => {
-    const [wallet, setwallet] = useState('');
-  
+    const [verify, setVerify] = useState(false);
+    const [trID, setTrID] = useState(false);
+    const [otp, setOtp] = useState(null);
+
+    const orderPlace = async () => {
+      console.log('orderPlaceorderPlaceorderPlaceCashondelivery');
+      const get = await AsyncStorage.getItem('generatToken');
+      const getToken = JSON.parse(get);
+      const getCartID = await AsyncStorage.getItem('cartID');
+      console.log('this us cart id', getToken);
+      const response = await axios
+        .post(
+          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/placeOrder?fields=DEFAULT,deliveryAddress(FULL)&cartId=${getCartID}&termsChecked=true&lang=en&curr=INR`,
+          {},
+          {
+            headers: {
+              Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            },
+          },
+        )
+        .then(response => {
+          console.log(
+            'orderPlaceorderPlaceorderPlaceorderPlace',
+            response.data,
+          );
+          if (response.data) {
+            navigation.navigate('OrderConfirmation', {
+              type: 'cod',
+            });
+          }
+        })
+        .catch(error => {
+          console.log('errorr', error);
+        });
+    };
+    const generateOTP = async () => {
+      const get = await AsyncStorage.getItem('generatToken');
+      const getToken = JSON.parse(get);
+      const getCartID = await AsyncStorage.getItem('cartID');
+      console.log('this us cart id', getCartID);
+      const response = await axios.get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/otp/generate?fields=DEFAULT&lang=en&curr=INR`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      );
+      console.log(
+        'generateOTPgenerateOTPgenerateOTPgenerateOTPgenerateOTP',
+        response.data,
+      );
+      if (response.data) {
+        setVerify(true);
+        setTrID(response.data?.transactionId);
+      }
+    };
+
+    const verifyOTP = async () => {
+      console.log(
+        'otp transaction , amount',
+        otp,
+        trID,
+        cartDetails?.totalAmountToPay?.value,
+      );
+      const get = await AsyncStorage.getItem('generatToken');
+      const getToken = JSON.parse(get);
+      const getCartID = await AsyncStorage.getItem('cartID');
+      console.log('this us cart idverifyOTPverifyOTPverifyOTP', getCartID);
+      const response = await axios.post(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/cod/otp/verify/request?fields=DEFAULT&lang=en&curr=INR`,
+        {
+          otp: otp,
+          transactionId: trID,
+          amount: cartDetails?.totalAmountToPay?.value, //(cod => cart amount, baki dono me wallet amount)
+          // "walletBal": "5000.0" only for gift card (giftcard) (loyalitypoints)
+        },
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      );
+      console.log(
+        'generateOTPgenerateOTPgenerateOTPgenerateOTPgenerateOTP',
+        response.data,
+      );
+      if (response.data?.success) {
+        orderPlace();
+      }
+    };
     return (
       <View style={{}}>
-        {WalletData.map(item => {
-          return (
+        {!verify ? (
+          <>
+            <View>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: Fonts.Assistant400,
+                  paddingVertical: 15,
+                }}>
+                You will receive an OTP on your mobile number{' '}
+                {cartDetails?.deliveryAddress?.cellphone}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: Fonts.Assistant400,
+                  paddingVertical: 15,
+                }}>
+                Please use this OTP to continue with the transaction
+              </Text>
+            </View>
+
             <TouchableOpacity
-              onPress={() => setwallet(item)}
+              onPress={() => {
+                generateOTP();
+              }}
               style={{
                 backgroundColor: 'white',
-                flexDirection: 'row',
-                alignItems: 'center',
-                paddingVertical: 25,
-                paddingHorizontal: 25,
-                marginVertical: 15,
-                marginHorizontal: 25,
+                justifyContent: 'center',
+                alignSelf: 'center',
+                marginTop: 20,
+                borderRadius: 20,
                 borderWidth: 1,
-                elevation: 3,
-                borderColor: wallet.id == item.id ? Colors.primarycolor : 'white',
-                borderRadius: 10,
+                borderColor: Colors.primarycolor,
+                paddingHorizontal: 30,
+                paddingVertical: 10,
               }}>
+              <Text style={{color: Colors.primarycolor}}>Generate OTP</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <View>
+            <View>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: Fonts.Assistant400,
+                  paddingTop: 15,
+                }}>
+                Please use this OTP to continue with the transaction
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: Fonts.Assistant400,
+                  paddingVertical: 15,
+                }}>
+                Not received? Resend OTP
+              </Text>
+              <View>
+                <TextInput
+                  activeOutlineColor="black"
+                  activeUnderlineColor="black"
+                  underlineColor="black"
+                  style={{
+                    letterSpacing: 2,
+                    borderBottomColor: 'white',
+                    fontSize: 14,
+                    color: 'black',
+                    backgroundColor: 'white',
+                    // height: 40,
+                    width: '100%',
+                    textAlign: 'center',
+                  }}
+                  keyboardType="numeric"
+                  value={otp}
+                  placeholder="Enter 4-Digit OTP"
+                  onChangeText={value => setOtp(value)}
+                  placeholderTextColor="grey"
+                  disableFullscreenUI={true}
+                />
+              </View>
               <View
                 style={{
-                  borderWidth: 1,
-                  borderColor: Colors.primarycolor,
-                  width: 20,
-                  height: 20,
-                  borderRadius: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  flexDirection: 'row',
+                  justifyContent: 'space-evenly',
+                  marginBottom: 20,
                 }}>
-                <View
+                <TouchableOpacity
+                  onPress={() => {
+                    setVerify(false);
+                  }}
                   style={{
                     backgroundColor: Colors.primarycolor,
-                    width: 14,
-                    height: 14,
-                    borderRadius: 10,
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                    marginTop: 20,
+                    borderRadius: 20,
+                    paddingHorizontal: 30,
+                    paddingVertical: 10,
+                  }}>
+                  <Text style={{color: 'white'}}>Cancel</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    verifyOTP();
                   }}
-                />
+                  style={{
+                    backgroundColor: otp ? Colors.primarycolor : 'lightgrey',
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                    marginTop: 20,
+                    borderRadius: 20,
+                    paddingHorizontal: 30,
+                    paddingVertical: 10,
+                  }}>
+                  <Text style={{color: 'white'}}>Confirm Order</Text>
+                </TouchableOpacity>
               </View>
-              <View style={{flexDirection: 'row'}}>
-                <Image
-                  source={image.Shape}
-                  resizeMode="cover"
-                  style={{width: 20, height: 20, marginHorizontal: 10}}
-                />
-                <Text style={{color: 'black', fontSize: 16}}>{item.name}</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-  
-        <TouchableOpacity
-          onPress={() => {
-            getOrderID('wallet', wallet);
-          }}
-          style={{
-            backgroundColor: Colors.primarycolor,
-            justifyContent: 'center',
-            alignSelf: 'center',
-            marginTop: 20,
-            borderRadius: 20,
-            paddingHorizontal: 30,
-            paddingVertical: 10,
-          }}>
-          <Text style={{color: 'white'}}>Pay Now</Text>
-        </TouchableOpacity>
+            </View>
+          </View>
+        )}
       </View>
     );
   };
   const Loyalitypoints = () => {
-   
     const [points, setPoints] = useState('');
-  
+    const [balance, setBalance] = useState('');
+    const [showotop, setShowotp] = useState(false);
+    const [otp, setOtp] = useState(null);
+    const [trID, setTrID] = useState(false);
+    const getLoyalityPoints = async () => {
+      const get = await AsyncStorage.getItem('generatToken');
+      const getToken = JSON.parse(get);
+      const response = await axios
+        .get(
+          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/loyalityPoints?lang=en&curr=INR`,
+          {
+            headers: {
+              Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            },
+          },
+        )
+        .then(response => {
+          console.log('in the then response', response.data);
+          setBalance(response.data.balances[0]);
+        })
+        .catch(error => {
+          console.log('in the catch error', error);
+        });
+    };
+    useEffect(() => {
+      getLoyalityPoints();
+    }, []);
+    const generateOTP = async () => {
+      setShowotp(true);
+      const get = await AsyncStorage.getItem('generatToken');
+      const getToken = JSON.parse(get);
+      const getCartID = await AsyncStorage.getItem('cartID');
+      console.log('this us cart id', getCartID);
+      const response = await axios.get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/otp/generate?fields=DEFAULT&lang=en&curr=INR`,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      );
+      console.log(
+        'generateOTPgenerateOTPgenerateOTPgenerateOTPgenerateOTP',
+        response.data,
+      );
+      if (response.data) {
+        setTrID(response.data?.transactionId);
+      }
+    };
+    const verfiyOTP = async () => {
+      const get = await AsyncStorage.getItem('generatToken');
+      const getToken = JSON.parse(get);
+      const getCartID = await AsyncStorage.getItem('cartID');
+      console.log('this us cart idverifyOTPverifyOTPverifyOTP', getCartID);
+      const response = await axios.post(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/loyalitypoints/otp/verify/request?fields=DEFAULT&lang=en&curr=INR`,
+        {
+          otp: otp,
+          transactionId: trID,
+          amount: balance, //(cod => cart amount, baki dono me wallet amount)
+          // "walletBal": "5000.0" only for gift card (giftcard) (loyalitypoints)
+        },
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      );
+      console.log(
+        'LoyalitypointsLoyalitypointsLoyalitypoints verifyyyy',
+        response.data,
+      );
+      if (response.data?.success) {
+        orderPlace();
+      }
+    };
+    const orderPlace = async () => {
+      const get = await AsyncStorage.getItem('generatToken');
+      const getToken = JSON.parse(get);
+      const getCartID = await AsyncStorage.getItem('cartID');
+      console.log('this us cart id', getCartID);
+      const response = await axios.post(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/placeOrder?fields=DEFAULT%2CdeliveryAddress(FULL)&cartId=${getCartID}&termsChecked=true&lang=en&curr=INR`,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      );
+      console.log(
+        'generateOTPgenerateOTPgenerateOTPgenerateOTPgenerateOTP',
+        response.data,
+      );
+      if (response.data) {
+        console.log('successs order place ');
+        // navigation.navigate('OrderConfirmation', {
+        //   type: 'cod',
+        // });
+      }
+    };
     return (
       <View style={{}}>
-        <View style={{margin:20}}>
-        <Text style={{color:'black'}}>Available Balance : 0</Text>
-        <Text style={{color:'black',marginTop:20}}>Mobile Number  : 9462797441</Text>
+        <View style={{margin: 20}}>
+          <Text style={{color: 'black'}}>
+            Available Balance : {balance.balanceCurrencyAmount}
+          </Text>
+          <Text style={{color: 'black', marginTop: 20}}>
+            Mobile Number : {cartDetails?.deliveryAddress?.cellphone}
+          </Text>
+          {showotop ? (
+            <>
+              <View>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontFamily: Fonts.Assistant400,
+                    paddingTop: 15,
+                  }}>
+                  One Time Password (OTP) has been sent successfully to your
+                  mobile number
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontFamily: Fonts.Assistant400,
+                    paddingVertical: 15,
+                  }}>
+                  Note: This OTP will be valid only for 15 minutes. Your points
+                  will be released again if order is not placed in this time
+                  frame
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontFamily: Fonts.Assistant400,
+                    paddingVertical: 15,
+                  }}>
+                  Not received? Resend OTP
+                </Text>
+              </View>
+              <View>
+                <TextInput
+                  activeOutlineColor="black"
+                  activeUnderlineColor="black"
+                  underlineColor="black"
+                  style={{
+                    letterSpacing: 2,
+                    borderBottomColor: 'white',
+                    fontSize: 14,
+                    color: 'black',
+                    backgroundColor: 'white',
+                    // height: 40,
+                    width: '100%',
+                    textAlign: 'center',
+                  }}
+                  keyboardType="numeric"
+                  value={otp}
+                  placeholder="Enter 4-Digit OTP"
+                  onChangeText={value => setOtp(value)}
+                  placeholderTextColor="grey"
+                  disableFullscreenUI={true}
+                />
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-evenly',
+                  marginBottom: 20,
+                }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setShowotp(false);
+                  }}
+                  style={{
+                    backgroundColor: Colors.primarycolor,
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                    marginTop: 20,
+                    borderRadius: 20,
+                    paddingHorizontal: 30,
+                    paddingVertical: 10,
+                  }}>
+                  <Text style={{color: 'white'}}>Cancel</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    verfiyOTP();
+                  }}
+                  style={{
+                    backgroundColor: otp ? Colors.primarycolor : 'lightgrey',
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                    marginTop: 20,
+                    borderRadius: 20,
+                    paddingHorizontal: 30,
+                    paddingVertical: 10,
+                  }}>
+                  <Text style={{color: 'white'}}>Verify OTP</Text>
+                </TouchableOpacity>
+              </View>
+            </>
+          ) : null}
         </View>
-  
-  
-  
+
         <TouchableOpacity
-          onPress={() => {
-          }}
+          onPress={() => generateOTP()}
           style={{
             backgroundColor: Colors.primarycolor,
             justifyContent: 'center',
@@ -502,11 +849,66 @@ const Payment = props => {
     );
   };
   const Giftcardwallet = () => {
-    const [giftcard, setGiftcard] = useState('');
-    const [showcard , setShowcard] = useState(false)
-  
-    const [pin , setPin] = useState(null)
-  
+    const [giftcard, setGiftcard] = useState(null);
+    const [showcard, setShowcard] = useState(false);
+    const [Balance, setBalance] = useState(null);
+    const [pin, setPin] = useState(null);
+
+    useEffect(() => {
+      getWallet();
+    }, []);
+
+    const getWallet = async () => {
+      const get = await AsyncStorage.getItem('generatToken');
+      const getToken = JSON.parse(get);
+      const getCartID = await AsyncStorage.getItem('cartID');
+      console.log('this us cart id', getCartID);
+      const response = await axios.get(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/getWallet?lang=en&curr=INR`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      );
+      console.log('getWalletgetWalletgetWalletgetWallet', response.data);
+      if (response.data) {
+        setBalance(response.data?.totalBalance);
+      }
+    };
+
+    const addCard = async () => {
+      setShowcard(true);
+      if (giftcard && pin) {
+        console.log('iffffffffffffff');
+        const get = await AsyncStorage.getItem('generatToken');
+        const getToken = JSON.parse(get);
+        const getCartID = await AsyncStorage.getItem('cartID');
+        const response = await axios.post(
+          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addGiftCard?lang=en&curr=INR`,
+          {
+            cardNumber: giftcard,
+            cardPin: pin,
+          },
+          {
+            headers: {
+              Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            },
+          },
+        );
+        console.log(
+          'addCardaddCardaddCardaddCardt00000000000000000000000',
+          response.data,
+        );
+        if (response.data) {
+          getWallet();
+          setShowcard(false);
+        }
+      } else {
+        console.log('checkinggg');
+      }
+    };
     return (
       <View style={{}}>
         <View
@@ -518,79 +920,89 @@ const Payment = props => {
           }}>
           <Text>
             Your Total Balance
-            <Text> ₹ 0.0</Text>
+            <Text> ₹ {Balance}</Text>
           </Text>
-        
-          
         </View>
-        { showcard ? 
+        {showcard ? (
           <>
-          <View style={{marginHorizontal:20}}>
-  
-            <TextInput
-            activeOutlineColor="black"
-            activeUnderlineColor="black"
-            underlineColor="black"
-            style={{
-              letterSpacing: 2,
-              borderBottomColor: 'white',
-              fontSize: 14,
-              color: 'black',
-              backgroundColor: 'white',
-              // height: 40,
-              width: '100%',
-            }}
-            value={giftcard}
-            placeholder="Gift Card"
-            onChangeText={value => setGiftcard(value)}
-            placeholderTextColor="grey"
-            disableFullscreenUI={true}
-          />
-          <TextInput
-            activeOutlineColor="black"
-            activeUnderlineColor="black"
-            underlineColor="black"
-            style={{
-              letterSpacing: 2,
-              borderBottomColor: 'white',
-              fontSize: 14,
-              color: 'black',
-              backgroundColor: 'white',
-              // height: 40,
-              width: '100%',
-              marginTop:10
-            }}
-            value={pin}
-            placeholder="Pin"
-            onChangeText={value => setPin(value)}
-            placeholderTextColor="grey"
-            disableFullscreenUI={true}
-          /> 
-          </View>
+            <View style={{marginHorizontal: 20}}>
+              <TextInput
+                activeOutlineColor="black"
+                activeUnderlineColor="black"
+                underlineColor="black"
+                style={{
+                  letterSpacing: 2,
+                  borderBottomColor: 'white',
+                  fontSize: 14,
+                  color: 'black',
+                  backgroundColor: 'white',
+                  // height: 40,
+                  width: '100%',
+                }}
+                value={giftcard}
+                placeholder="Gift Card"
+                onChangeText={value => setGiftcard(value)}
+                placeholderTextColor="grey"
+                disableFullscreenUI={true}
+              />
+              <TextInput
+                activeOutlineColor="black"
+                activeUnderlineColor="black"
+                underlineColor="black"
+                style={{
+                  letterSpacing: 2,
+                  borderBottomColor: 'white',
+                  fontSize: 14,
+                  color: 'black',
+                  backgroundColor: 'white',
+                  // height: 40,
+                  width: '100%',
+                  marginTop: 10,
+                }}
+                value={pin}
+                placeholder="Pin"
+                onChangeText={value => setPin(value)}
+                placeholderTextColor="grey"
+                disableFullscreenUI={true}
+              />
+            </View>
           </>
-          : null
-          }
-        <View style={{flexDirection:'row',justifyContent:'space-evenly',marginBottom:20}}>
+        ) : null}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            marginBottom: 20,
+          }}>
           <TouchableOpacity
-            onPress={() => { !showcard ? null : setShowcard(false)}}
+            onPress={() => {
+              !showcard ? null : setShowcard(false);
+            }}
             style={{
               backgroundColor: !showcard ? '#BDBDBD' : 'white',
               justifyContent: 'center',
               alignSelf: 'center',
               marginTop: 20,
               borderRadius: 20,
-              borderColor:Colors.primarycolor,
-              borderWidth:1,
+              borderColor: Colors.primarycolor,
+              borderWidth: 1,
               paddingHorizontal: 30,
               paddingVertical: 10,
             }}>
-            <Text style={{color: Colors.primarycolor}}>{!showcard ? 'Redeem' : 'Cancel'}</Text>
+            <Text style={{color: Colors.primarycolor}}>
+              {!showcard ? 'Redeem' : 'Cancel'}
+            </Text>
           </TouchableOpacity>
-  
+
           <TouchableOpacity
-            onPress={() => {setShowcard(true)}}
+            onPress={() => {
+              addCard();
+            }}
             style={{
-              backgroundColor: !showcard ?Colors.primarycolor : '#BDBDBD',
+              backgroundColor:
+                !showcard || (giftcard && pin)
+                  ? Colors.primarycolor
+                  : '#BDBDBD',
               justifyContent: 'center',
               alignSelf: 'center',
               marginTop: 20,
@@ -601,77 +1013,6 @@ const Payment = props => {
             <Text style={{color: 'white'}}>Add Card</Text>
           </TouchableOpacity>
         </View>
-      </View>
-    );
-  };
-  const Razorpay = () => {
-    const [wallet, setwallet] = useState('');
-  
-    return (
-      <View style={{}}>
-        {WalletData.map(item => {
-          return (
-            <TouchableOpacity
-              onPress={() => setwallet(item)}
-              style={{
-                backgroundColor: 'white',
-                flexDirection: 'row',
-                alignItems: 'center',
-                paddingVertical: 25,
-                paddingHorizontal: 25,
-                marginVertical: 15,
-                marginHorizontal: 25,
-                borderWidth: 1,
-                elevation: 3,
-                borderColor: wallet.id == item.id ? Colors.primarycolor : 'white',
-                borderRadius: 10,
-              }}>
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: Colors.primarycolor,
-                  width: 20,
-                  height: 20,
-                  borderRadius: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <View
-                  style={{
-                    backgroundColor: Colors.primarycolor,
-                    width: 14,
-                    height: 14,
-                    borderRadius: 10,
-                  }}
-                />
-              </View>
-              <View style={{flexDirection: 'row'}}>
-                <Image
-                  source={image.Shape}
-                  resizeMode="cover"
-                  style={{width: 20, height: 20, marginHorizontal: 10}}
-                />
-                <Text style={{color: 'black', fontSize: 16}}>{item.name}</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-  
-        <TouchableOpacity
-          onPress={() => {
-            getOrderID('wallet', wallet);
-          }}
-          style={{
-            backgroundColor: Colors.primarycolor,
-            justifyContent: 'center',
-            alignSelf: 'center',
-            marginTop: 20,
-            borderRadius: 20,
-            paddingHorizontal: 30,
-            paddingVertical: 10,
-          }}>
-          <Text style={{color: 'white'}}>Pay Now</Text>
-        </TouchableOpacity>
       </View>
     );
   };
@@ -709,8 +1050,12 @@ const Payment = props => {
   ];
 
   useEffect(() => {
-    paymentModes();
+    asyncfunc();
   }, []);
+  const asyncfunc = async () => {
+    await getDetails();
+    paymentModes();
+  };
 
   const paymentModes = async () => {
     const getCartID = await AsyncStorage.getItem('cartID');
@@ -726,12 +1071,18 @@ const Payment = props => {
         },
       },
     );
+    console.log(
+      'response.data.paymentModes',
+      response.data.paymentModes,
+      getToken,
+      getCartID,
+    );
 
     setPaymentMode(response.data.paymentModes);
-    let filter = response.data.paymentModes.filter((el)=>{
-      return el.name != 'RAZORPAY'
-    })
-    console.log("filterfilterfilterfilterfilterfilter",filter)
+    let filter = response.data.paymentModes.filter(el => {
+      return el.name != 'RAZORPAY';
+    });
+    console.log('filterfilterfilterfilterfilterfilter', filter);
     const final = menuItem.concat(filter);
     console.log('finalllllllllll', final);
     let updateFinal = [];
@@ -745,7 +1096,7 @@ const Payment = props => {
         idVal = el.id;
       }
       if (!Object.keys(el).includes('subItem')) {
-        console.log("el.nameel.name",el.name)
+        console.log('el.nameel.name', el.name);
         switch (el.name) {
           case 'CASHONDELIVERY':
             el.subItem = React.createElement(Cashondelivery);
@@ -756,8 +1107,8 @@ const Payment = props => {
           case 'GIFTCARDWALLET':
             el.subItem = React.createElement(Giftcardwallet);
             break;
-            default : 
-            return 
+          default:
+            return;
         }
         // let name = React.createElement(
         //  <Text>{el.name.charAt(0).toUpperCase() + el.name.slice(1).toLowerCase()}</Text>
@@ -775,7 +1126,6 @@ const Payment = props => {
     setshowlist(updateFinal);
   };
 
-  console.log('showlistshowlistshowlistshowlistshowlistshowlist', showlist);
   return (
     <ScrollView
       //   style={{backgroundColor: 'red', height: '100%'}}
@@ -799,6 +1149,67 @@ const Payment = props => {
               </View>
             );
           })}
+        </View>
+        <View style={{marginVertical: 5, marginHorizontal: 30}}>
+          <View
+            style={{borderBottomWidth: 1, paddingTop: 15, paddingBottom: 20}}>
+            <Text style={{fontFamily: Fonts.Assistant700, fontSize: 18}}>
+              {' '}
+              ORDER SUMMARY
+            </Text>
+          </View>
+          <Text
+            style={{
+              marginTop: 15,
+              fontFamily: Fonts.Assistant400,
+              fontSize: 17,
+              color: 'black',
+            }}>
+            Price Details ({cartDetails?.deliveryItemsQuantity} items)
+          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginVertical: 18,
+            }}>
+            <Text>Total MRP</Text>
+            <Text>{cartDetails?.subTotalWithoutDiscount?.formattedValue}</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginVertical: 10,
+            }}>
+            <Text>discount on MRP</Text>
+            <Text>{cartDetails?.productDiscounts?.formattedValue}</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              borderBottomWidth: 1,
+              paddingTop: 15,
+              paddingBottom: 28,
+              marginBottom: 15,
+            }}>
+            <Text>Delivery Charges</Text>
+            <Text>{cartDetails?.deliveryCost?.formattedValue}</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginVertical: 15,
+            }}>
+            <Text>Amount Payable</Text>
+            <Text>{cartDetails?.totalAmountToPay?.formattedValue}</Text>
+          </View>
         </View>
       </View>
     </ScrollView>
