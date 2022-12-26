@@ -26,6 +26,7 @@ export default function HomeHeader(props) {
   const dispatch = useDispatch();
   // const {homeheader = false, searchVisible = true} = props;
   const {
+    isTransparent = false,
     homeheader = false,
     searchVisible = true,
     headertext = '',
@@ -137,7 +138,7 @@ export default function HomeHeader(props) {
 
   return (
     <>
-      <View style={Styles.container}>
+      <View style={[Styles.container, { backgroundColor: isTransparent ? Colors.TRANSPARENT : 'white' }]}>
         {homeheader ? (
           <View
             style={{

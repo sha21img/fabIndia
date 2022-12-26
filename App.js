@@ -243,6 +243,7 @@ export default function App(props) {
               name="ProductDetailed"
               component={ProductDetailed}
               options={{
+                headerShown: false,
                 header: props => (
                   <HomeHeader
                     {...props}

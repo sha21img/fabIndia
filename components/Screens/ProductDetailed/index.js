@@ -29,6 +29,7 @@ import {cartDetail, wishlistDetail} from '../../Common/Helper/Redux/actions';
 import Card4 from '../../Common/Card4';
 import FastImage from 'react-native-fast-image';
 import RenderHtml from 'react-native-render-html';
+import HomeHeader from '../Home/HomeHeader';
 
 export default function ProductDetailed(props) {
   const {productId, imageUrlCheck} = props?.route?.params;
@@ -397,7 +398,7 @@ export default function ProductDetailed(props) {
               height: Dimensions.get('window').height * 0.7,
             }}>
             <SliderBox
-              circleLoop={true}
+              // circleLoop={true}
               images={productImage}
               ImageComponent={FastImage}
               inactiveDotColor="#90A4AE"
@@ -415,6 +416,14 @@ export default function ProductDetailed(props) {
                 setModalVisible(true);
               }}
             />
+
+            <View style={{ position:'absolute', top: 0, width: '100%', }}>
+              <HomeHeader
+                {...props}
+                searchVisible={false}
+                isTransparent={true}
+              />
+            </View>
           </View>
 
           <Details productdetail={productdetail} productId={productId} />
