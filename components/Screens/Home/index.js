@@ -29,9 +29,11 @@ export default function Dashbord(props) {
   };
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
-    return () =>
+    return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    };
   }, []);
+
   const handleBackButton = () => {
     if (props.navigation.isFocused()) {
       Alert.alert(

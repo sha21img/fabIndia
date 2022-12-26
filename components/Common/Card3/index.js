@@ -51,7 +51,9 @@ export default function Card3(props) {
         // {},
         {
           headers: {
-            Authorization: `${getToken.token_type} nCVKPnrYg-ZgHMn0djWh1YSFCX0`,
+            Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
+
+            // Authorization: `${getToken.token_type} nCVKPnrYg-ZgHMn0djWh1YSFCX0`,
           },
         },
       )
@@ -76,7 +78,8 @@ export default function Card3(props) {
         }
       })
       .catch(error => {
-        console.log('error for get crt detail', error);
+        console.log('vicky,card3', error);
+
         if (error.response.status == 401) {
           logout(dispatch);
         }
@@ -107,6 +110,8 @@ export default function Card3(props) {
         dispatch(cartDetail({data: response.data, quantity: finalvalue}));
       })
       .catch(errors => {
+        console.log('vicky,card3', errors);
+
         if (errors.response.status == 401) {
           logout(dispatch);
         }
@@ -137,7 +142,8 @@ export default function Card3(props) {
         getWishListDetail();
       })
       .catch(error => {
-        console.log('error for remove000 wishlist', error);
+        console.log('vicky,card3', error);
+
         if (error.response.status == 401) {
           logout(dispatch);
         }
@@ -202,6 +208,8 @@ export default function Card3(props) {
             getWishListDetail();
           })
           .catch(errors => {
+            console.log('vicky,card3', errors);
+
             if (errors.response.status == 401) {
               logout(dispatch);
             }
@@ -214,6 +222,8 @@ export default function Card3(props) {
           Toast.TOP,
         );
         if (errors.response.status == 401) {
+          console.log('vicky,card3', errors);
+
           logout(dispatch);
         }
       });
