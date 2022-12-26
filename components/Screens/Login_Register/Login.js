@@ -130,6 +130,7 @@ export default function Login(props) {
   return (
     <>
       <ScrollView style={styles.container}>
+      <View></View>
         <Text style={styles.titleText}>Log in with email address</Text>
         <InputText
           label={'Email address'}
@@ -163,8 +164,50 @@ export default function Login(props) {
               screen: 'ResetPassword',
             });
           }}>
-          <Text style={styles.forgetText}>Forgot password</Text>
+          <Text style={styles.forgetText}>Forgot password?</Text>
         </TouchableOpacity>
+        <View style={{paddingVertical: 10}}>
+          <CommonButton
+            handleClick={handleSubmit}
+            backgroundColor="#BDBDBD"
+            txt="Login"
+            customViewStyle={{
+              backgroundColor:
+                !password || !email
+                  ? Colors.inAactivecolor
+                  : Colors.primarycolor,
+            }}
+            disable={!password || !email}
+          />
+        </View>
+
+        <View
+          style={{
+            marginTop: 15,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text
+            style={{
+              paddingVertical: 5,
+              fontFamily: Fonts.Assistant600,
+              fontSize: 16,
+            }}>
+            Not a Registered user?
+          </Text>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('Register')}>
+            <Text
+              style={{
+                paddingVertical: 5,
+                fontFamily: Fonts.Assistant600,
+                fontSize: 16,
+                color: Colors.primarycolor,
+              }}>
+              Sign Up
+            </Text>
+          </TouchableOpacity>
+        </View>
         <View style={styles.horizontalContainer}>
           <View style={styles.horizontalLine} />
           <View>
@@ -181,18 +224,6 @@ export default function Login(props) {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <View style={styles.btncontainer}>
-        <CommonButton
-          handleClick={handleSubmit}
-          backgroundColor="#BDBDBD"
-          txt="Login"
-          customViewStyle={{
-            backgroundColor:
-              !password || !email ? Colors.inAactivecolor : Colors.primarycolor,
-          }}
-          disable={!password || !email}
-        />
-      </View>
     </>
   );
 }
@@ -218,20 +249,20 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 50,
-    marginLeft: 10,
+    marginLeft: 5,
   },
   facebookIcon: {
-    height: 35,
-    width: 35,
+    height: 33,
+    width: 33,
     borderRadius: 50,
-    marginRight: 10,
+    marginRight: 5,
   },
   readText: {
     paddingVertical: 7,
   },
   forgetText: {
     fontFamily: Fonts.Assistant400,
-    fontSize: 14,
+    fontSize: 16,
     color: '#903233',
   },
   orText: {
