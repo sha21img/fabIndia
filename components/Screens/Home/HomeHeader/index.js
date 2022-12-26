@@ -40,9 +40,16 @@ export default function HomeHeader(props) {
     'cartReducer.WishListDetail.wishlistQuantitycartReducer.WishListDetail.wishlistQuantity1',
     cartReducer.shareData,
   );
+  const isInitialWishlised = async () => {
+    const token = await AsyncStorage.getItem('generatToken');
+    const parseToken = JSON.parse(token);
+    if (parseToken.isCheck) {
+      getWishListDetail();
+    }
+  };
   useEffect(() => {
     getCartDetails();
-    getWishListDetail();
+    isInitialWishlised();
   }, []);
   const getWishListDetail = async () => {
     const value = await AsyncStorage.getItem('cartID');
@@ -86,7 +93,8 @@ export default function HomeHeader(props) {
         }
       })
       .catch(error => {
-        console.log('error for get csrt detail', error);
+        console.log('vicky,getWishlistDetila', error);
+
         if (error.response.status == 401) {
           logout(dispatch);
         }
@@ -114,6 +122,8 @@ export default function HomeHeader(props) {
         dispatch(cartDetail({data: response.data, quantity: finalvalue}));
       })
       .catch(errors => {
+        console.log('vicky,getWishlistDetila', errors);
+
         if (errors.response.status == 401) {
           logout(dispatch);
         }
@@ -134,7 +144,15 @@ export default function HomeHeader(props) {
         err && console.log(err);
       });
   };
-
+  const isWishlisted = async () => {
+    const token = await AsyncStorage.getItem('generatToken');
+    const parseToken = JSON.parse(token);
+    if (parseToken.isCheck) {
+      props.navigation.navigate('YourWishlist');
+    } else {
+      props.navigation.navigate('MyAccount', {screen: 'Login_Register'});
+    }
+  };
   return (
     <>
       <View style={Styles.container}>
@@ -223,7 +241,7 @@ export default function HomeHeader(props) {
           </Text> */}
           <TouchableOpacity
             style={Styles.currencyContainer}
-            onPress={() => props.navigation.navigate('YourWishlist')}>
+            onPress={() => isWishlisted()}>
             <EvilIcons name="heart" color={Colors.primarycolor} size={30} />
             {cartReducer.WishListDetail.wishlistQuantity > 0 ? (
               <View
