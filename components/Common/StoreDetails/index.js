@@ -25,32 +25,29 @@ export default function StoreDetails() {
                 <Entypo name={'location-pin'} color={'#BDBDBD'} size={20} />
                 <Text style={Styles.nearest}>City center mall</Text>
               </View>
-              <Text
-                style={Styles.txt1}>
+              <Text style={Styles.txt1}>
                 City Center Mall, Unit no. CCRP 0029, Upper ground floor,
                 Vill-Mowa, Vidhan sabha road, Raipur - (Chattishgarh)
               </Text>
-              <Text
-                style={Styles.txt2}>
+              <Text style={Styles.txt2}>
                 Open all days
-                <Text
-                  style={Styles.subtext}>
-                  - 11 am to 9 pm
-                </Text>
+                <Text style={Styles.subtext}>- 11 am to 9 pm</Text>
               </Text>
-              <View
-                style={Styles.upperView2}>
+              <View style={Styles.upperView2}>
                 <FontAwesome name={'phone'} color={'#4A4A4A'} size={20} />
-                <Text
-                  style={Styles.txt3}>
-                  91-0771-4062574 / 4062577
-                </Text>
+                <Text style={Styles.txt3}>91-0771-4062574 / 4062577</Text>
               </View>
               <CommonButton
                 backgroundColor="#BDBDBD"
                 txt={'View Details'}
                 btntxtColor={Colors.primarycolor}
-                customViewStyle={Styles.commonbutton}
+                customViewStyle={{
+                  backgroundColor: 'white',
+                  borderWidth: 1,
+                  borderColor: Colors.primarycolor,
+                  width: '35%',
+                  paddingVertical: 7,
+                }}
               />
             </View>
           </View>
