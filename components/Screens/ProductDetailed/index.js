@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Platform,
   Dimensions,
+  useWindowDimensions
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import React, {useEffect, useState} from 'react';
@@ -27,6 +28,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {cartDetail, wishlistDetail} from '../../Common/Helper/Redux/actions';
 import Card4 from '../../Common/Card4';
 import FastImage from 'react-native-fast-image';
+import RenderHtml from 'react-native-render-html';
 
 export default function ProductDetailed(props) {
   const {productId, imageUrlCheck} = props?.route?.params;
@@ -45,6 +47,7 @@ export default function ProductDetailed(props) {
   const [wishlistproductCode, setWishlistproductCode] = useState([]);
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
+  const [selectedTab, setSelectedTab] = useState('Description');
 
   useEffect(() => {
     setProductID(productId);
@@ -57,7 +60,7 @@ export default function ProductDetailed(props) {
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/${productId}?fields=code,configurable,configuratorType,name,summary,optionId,stock(DEFAULT),price(formattedValue,value,DEFAULT),images(galleryIndex,FULL),baseProduct,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantMatrix(FULL),sizeChart,averageRating,description,canonicalUrl,availableForPickup,url,numberOfReviews,manufacturer,categories(FULL),priceRange,multidimensional,tags,baseOptions,additionalDetails,DEFAULT,classifications,variantOptions,variantType&lang=en&curr=INR`,
     );
-    // console.log('response.data04733333333333333333', response.data);
+    // console.log('response.data04733333333333333333', JSON.stringify(response.data));
     setProductDetail(response.data);
 
     if (response.data?.baseOptions?.length > 0) {
@@ -90,16 +93,16 @@ export default function ProductDetailed(props) {
     bestSellers();
   }, []);
 
-  const DetailsData1 = (props, item, productDetail) => {
+  const SpecificationsData = (props, item, productDetail) => {
     return (
       <ScrollView
         contentContainerStyle={{
-          paddingHorizontal: 15,
+          padding: 15,
           backgroundColor: 'white',
           flexGrow: 1,
         }}>
-        {!!productDetail?.classifications &&
-          productDetail?.classifications[0].features.map((item, index) => {
+        {!!productdetail?.classifications &&
+          productdetail?.classifications[0].features.map((item, index) => {
             return (
               <View
                 style={{
@@ -110,8 +113,8 @@ export default function ProductDetailed(props) {
                   backgroundColor: '#FFFFFF',
                   // marginVertical: 10,
                   borderBottomWidth:
-                    productDetail?.classifications[0].features[
-                      productDetail?.classifications[0].features.length - 1
+                    productdetail?.classifications[0].features[
+                      productdetail?.classifications[0].features.length - 1
                     ] == item
                       ? 1
                       : null,
@@ -145,9 +148,24 @@ export default function ProductDetailed(props) {
     );
   };
 
+  const AdditionalData = (props, item, productDetail) => {
+    const { width } = useWindowDimensions();
+    return (
+      <>
+        <View style={{ padding: 15, backgroundColor: 'white', flexGrow: 1 }}>
+          <RenderHtml
+            contentWidth={width}
+            source={{ html: productdetail?.additionalDetails }}
+          />
+        </View>
+      </>
+    );
+  };
+
   const screenObj = {
     Description: DetailsData,
-    Specifications: DetailsData1,
+    Specifications: SpecificationsData,
+    'Additional Details': AdditionalData,
   };
 
   const dataMap = StoreDetails.map(item => ({
@@ -413,9 +431,32 @@ export default function ProductDetailed(props) {
             />
           )}
 
-          <View style={{paddingHorizontal: 5}}>
-            <CommonTopTab data={dataMap} />
+          <View style={{ paddingHorizontal: 5, flexDirection: 'row' }}>
+            {StoreDetails.map((item) => {
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => setSelectedTab(item)}
+                  style={{ marginLeft: 10, borderBottomWidth: 2, borderBottomColor: selectedTab == item ? Colors.primarycolor : 'transparent', paddingVertical: 3 }}>
+
+                  <Text style={{ fontSize: 16, fontFamily: Fonts.Assistant300, color: selectedTab == item ? Colors.primarycolor : Colors.textcolor }}>{item}</Text>
+                </TouchableOpacity>
+              )
+            })}
           </View>
+
+          {selectedTab == 'Description' ?
+            <DetailsData />
+            :
+            selectedTab == 'Specifications' ?
+            <SpecificationsData />
+            :
+            <AdditionalData />
+          }
+
+          {/* <View style={{paddingHorizontal: 5}}>
+            <CommonTopTab data={dataMap} />
+          </View> */}
           <View style={{marginTop: 30, marginHorizontal: 15}}>
             <Text
               style={{
@@ -454,25 +495,16 @@ export default function ProductDetailed(props) {
         animationType="slide"
         transparent={false}
         visible={modalVisible}
-        style={{backgroundColor: 'white'}}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
-        <View style={{width: '100%', flex: 1, backgroundColor: 'red'}}>
           <View
             style={{
               width: '100%',
               height: '100%',
-              backgroundColor: 'white',
             }}>
             <ImageViewer
-              backgroundColor="white"
-              // useNativeDriver
               imageUrls={zoomImage}
-              // renderIndicator={() => null}
-              render={() => {
-                return <View style={{backgroundColor: 'red'}}></View>;
-              }}
             />
             <TouchableOpacity
               style={{margin: 30, position: 'absolute', top: 0}}
@@ -486,7 +518,6 @@ export default function ProductDetailed(props) {
               />
             </TouchableOpacity>
           </View>
-        </View>
       </Modal>
     </>
   );
