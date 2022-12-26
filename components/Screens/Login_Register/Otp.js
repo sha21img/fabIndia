@@ -25,41 +25,6 @@ import {CommonActions} from '@react-navigation/native';
 export default function Otp(props) {
   const {transactionId, mobilePrefix, phoneNumber} = props.route.params;
   const [otp, setOtp] = React.useState('');
-
-  const handleOTP = async () => {
-    const token = await AsyncStorage.getItem('generatToken');
-    const getToken = JSON.parse(token);
-    const data = {
-      mobileDailCode: `+${mobilePrefix}`,
-      mobileNumber: phoneNumber,
-      otp: otp,
-      transactionId: transactionId,
-    };
-    let res = await axios
-      .post(
-        'https://apisap.fabindia.com/occ/v2/fabindiab2c/otp/validate?lang=en&curr=INR',
-        data,
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-          },
-        },
-      )
-      .then(response => {
-        console.log('this sis res', response?.data);
-        if (response?.status == 200) {
-          saveToken();
-        } else {
-          console.log('in else');
-        }
-      })
-      .catch(error => {
-        console.log('error', error?.response?.status);
-        if (error?.response?.status == 400) {
-          Toast.showWithGravity('Enter valied detail', Toast.LONG, Toast.TOP);
-        }
-      });
-  };
   const saveToken = async () => {
     var details = {
       grant_type: 'custom',
@@ -97,20 +62,64 @@ export default function Otp(props) {
         } else {
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          // props.navigation.navigate('MyAccount', {
-          //   screen: 'MyAccounts',
-          // });
-          props.navigation.dispatch(
-            CommonActions.reset({
-              index: 0,
-              routes: [{name: 'MyAccounts'}],
-            }),
-          );
+          console.log('before');
+          props.navigation.navigate('MyAccount', {
+            screen: 'MyAccounts',
+          });
+          // props.navigation.dispatch(
+          //   CommonActions.reset({
+          //     index: 0,
+          //     routes: [{name: 'MyAccounts'}],
+          //   }),
+          // );
+          console.log('after');
+
           getCartID();
           getWishID();
         }
       });
   };
+  const handleOTP = async () => {
+    const token = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(token);
+    const data = {
+      mobileDailCode: `+${mobilePrefix}`,
+      mobileNumber: phoneNumber,
+      otp: otp,
+      transactionId: transactionId,
+    };
+    let res = await axios
+      .post(
+        'https://apisap.fabindia.com/occ/v2/fabindiab2c/otp/validate?lang=en&curr=INR',
+        data,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      )
+      .then(response => {
+        console.log('this sis res', response?.data);
+        if (response?.status == 200) {
+          saveToken();
+        } else {
+          console.log('in else');
+        }
+      })
+      .catch(error => {
+        console.log('this sis res', error);
+
+        console.log('error', error?.response?.status);
+        if (error?.response?.status == 400) {
+          Toast.showWithGravity(
+            error.response.data.errors[0].message,
+            Toast.LONG,
+            Toast.TOP,
+          );
+        }
+      });
+  };
+
   const handleResend = async () => {
     let param = {
       isLogin: true,

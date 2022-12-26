@@ -14,26 +14,29 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function TopSwiper(props) {
   const navigation = useNavigation();
   const {customStyle = {}, data = {}} = props;
+  console.log('thisthishtishtishs TopSwiper', data);
   const [carouselData, setCarouselData] = React.useState([]);
-  const [filterCarouselData, setFilterCarouselData] = React.useState([]);
+  // const [filterCarouselData, setFilterCarouselData] = React.useState([]);
   const getCarauselIds = async () => {
-    const bannerId = data.banners;
-    getCarauselData(bannerId);
-  };
-  let code;
-  const getCarauselData = async bannerId => {
-    const splitBannerId = bannerId.split(' ').join(',');
-    const response = await getComponentData(
-      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
-    );
-    console.log('response.component[0]', response);
-    setFilterCarouselData(response.component);
+    // const bannerId = data.banners;
+    // getCarauselData(bannerId);
+    // getCarauselData();
+  // };
+  // let code;
+  // const getCarauselData = async bannerId => {
+    // const splitBannerId = bannerId.split(' ').join(',');
+    // const response = await getComponentData(
+    //   `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+    // );
+    // setFilterCarouselData(response.component);
     let images = [];
-    for (let i = 0; i < response.component.length; i++) {
-      const item = response.component[i];
-      images.push('https://apisap.fabindia.com/' + item.media.mobile.url);
+    for (let i = 0; i < data.length; i++) {
+      const item = data[i];
+      console.log('check all images', item.image);
+      images.push(item.image);
     }
     setCarouselData(images);
+    console.log("all images", images)
   };
   const isLogedIn = async () => {
     const get = await AsyncStorage.getItem('generatToken');
@@ -43,8 +46,10 @@ export default function TopSwiper(props) {
     }
   };
   useEffect(() => {
-    getCarauselIds();
-  }, []);
+    if(props?.data?.length){
+      getCarauselIds();
+    }
+  }, [props.data]);
   // const swiperItems = carouselData?.map((item, i) => {
   //   return (
   //     <TouchableOpacity
@@ -69,10 +74,11 @@ export default function TopSwiper(props) {
     <View style={customStyle}>
       <SliderBox
         onCurrentImagePressed={curr => {
-          const filteredObj = filterCarouselData.find((item, index) => {
+          const filteredObj = data.find((item, index) => {
             return curr == index;
           });
-          const newCode = filteredObj.urlLink;
+          // const newCode = '/shop/sale-home-living';
+          const newCode = filteredObj.landingPage;
           console.log('newCodnewCodenewCodee', newCode);
           let splitURL = newCode.split('/');
 

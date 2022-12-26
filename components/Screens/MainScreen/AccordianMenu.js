@@ -7,16 +7,19 @@ import {
   StyleSheet,
   ImageBackground,
   Dimensions,
+  Image,
 } from 'react-native';
 import React, {useState} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Fonts from '../../../assets/fonts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
 import AccordianSubMenu from './AccordianSubMenu';
 import {useNavigation} from '@react-navigation/native';
+import {style} from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
 const width = Dimensions.get('window').width;
 
 export default function AccordianMenu(props) {
@@ -74,6 +77,53 @@ export default function AccordianMenu(props) {
   //       routes: [{ name: 'GiftCard' }]
   //     })
   //   );
+  const checkIcon = item => {
+    console.log('this sis writch item', item);
+    switch (item) {
+      case 'Shop By Collection':
+        return (
+          <Ionicons
+            name="ios-grid-outline"
+            size={20}
+            color={Colors.primarycolor}
+          />
+        );
+      case 'Shop By Brand':
+        return (
+          <MaterialIcons
+            name="branding-watermark"
+            size={20}
+            color={Colors.primarycolor}
+          />
+        );
+      case 'Sale':
+        return (
+          <Fontisto
+            name="shopping-sale"
+            size={20}
+            color={Colors.primarycolor}
+          />
+        );
+      case 'Services':
+        return (
+          <MaterialIcons
+            name="design-services"
+            size={20}
+            color={Colors.primarycolor}
+          />
+        );
+      case 'Gift Cards':
+        return (
+          <Image
+            source={image.GiftCard}
+            style={{width: 18, height: 18}}
+            resizeMode="contain"
+          />
+        );
+      default:
+        return;
+    }
+  };
   return (
     <>
       <View key={Math.random() * 1099900} style={{overflow: 'hidden'}}>
@@ -82,20 +132,29 @@ export default function AccordianMenu(props) {
           onPress={() => {
             data.children.length > 0 ? toggleListItem() : checkNavigation();
           }}
-          style={{
-            padding: 20,
-            flexDirection: 'row',
-            borderBottomColor: '#ebebeb',
-            borderBottomWidth: 1,
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
+          style={
+            data.title == 'FAQs' || data.title == 'Contact Us'
+              ? {
+                  paddingHorizontal: 20,
+                  paddingVertical: 15,
+                  marginLeft: 20,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }
+              : {
+                  padding: 20,
+                  flexDirection: 'row',
+                  borderBottomColor: '#ebebeb',
+                  borderBottomWidth: 1,
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }
+          }>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Ionicons
-              name="ios-grid-outline"
-              size={20}
-              color={Colors.primarycolor}
-            />
+            {data.title == 'FAQs' || data.title == 'Contact Us'
+              ? null
+              : checkIcon(data.title)}
             <Text style={{color: Colors.textcolor, marginLeft: 10}}>
               {data.title}
             </Text>

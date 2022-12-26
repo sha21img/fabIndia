@@ -16,21 +16,23 @@ import {Colors} from '../../../assets/Colors';
 
 export default function CommonCarousel(props) {
   const {data, width, height, customStyle = {}} = props;
+  console.log('thisthishtishtishs CommonCarousel', data);
   const newWidth = Dimensions.get('window').width;
   const [imgActive1, setImgActive1] = React.useState(0);
   const [newHighlights, setNewHighlights] = React.useState([]);
 
-  const getNewHighlightIds = async () => {
-    const bannerId = data.banners;
-    getNewHighlightData(bannerId);
-  };
-  const getNewHighlightData = async bannerId => {
-    const splitBannerId = bannerId?.split(' ').join(',');
-    const response = await getComponentData(
-      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
-    );
-    setNewHighlights(response?.component);
-  };
+  // const getNewHighlightIds = async () => {
+  //   const bannerId = data.banners;
+  //   getNewHighlightData(bannerId);
+  // };
+  // const getNewHighlightData = async bannerId => {
+  //   const splitBannerId = bannerId?.split(' ').join(',');
+  //   const response = await getComponentData(
+  //     `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+  //   );
+  //   setNewHighlights(response?.component);
+  // console.log("this is the data of carousel", response.component)
+  // };
   // const imageCard = newHighlights.map(item => {
   //   return (
   //     <View key={Math.random() * 987} style={Styles.imageBox}>
@@ -42,17 +44,19 @@ export default function CommonCarousel(props) {
   //     </View>
   //   );
   // });
-  useEffect(() => {
-    getNewHighlightIds();
-  }, []);
+  // useEffect(() => {
+  //   getNewHighlightIds();
+  // }, []);
 
   const renderItem = ({item}) => {
-    const mediaurl1 = item.media.url || item.media.mobile.url;
-    const newCode = item.urlLink;
+    console.log('thisd sis item', item.image);
+    // const mediaurl1 = item.media.url || item.media.mobile.url;
+    // const newCode = '/shop/women-accessories';
+    const newCode = item.landingPage;
     // console.log('item for product', newCode.includes('giftcard'));
     let splitURL = newCode.split('/');
     splitURL = splitURL[splitURL.length - 1];
-    // console.log('splitURL', splitURL);
+    console.log('splitURL', splitURL);
     return (
       <TouchableOpacity
         onPress={() => {
@@ -71,11 +75,11 @@ export default function CommonCarousel(props) {
           style={{
             flex: 1,
             height: height,
-            width: !!item.media.url ? width : newWidth,
+            width: !!item.image ? width : newWidth,
             resizeMode: 'contain',
           }}
-          source={{uri: `${imageURL}${mediaurl1}`}}>
-          <LinearGradient
+          source={{uri: item.image}}>
+          {/* <LinearGradient
             colors={['rgba(0,0,0,0.4)', 'rgba(255,255,255,0)']}
             style={{
               padding: 20,
@@ -83,7 +87,7 @@ export default function CommonCarousel(props) {
               height: height,
             }}
             start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}></LinearGradient>
+            end={{x: 0, y: 1}}></LinearGradient> */}
         </ImageBackground>
       </TouchableOpacity>
     );
@@ -98,11 +102,11 @@ export default function CommonCarousel(props) {
         <Carousel
           autoplay
           loop
-          data={newHighlights}
+          data={data}
           renderItem={renderItem}
           autoPlayInterval={3000}
-          sliderWidth={!!newHighlights[0]?.media?.url ? width : newWidth}
-          itemWidth={!!newHighlights[0]?.media?.url ? width : newWidth}
+          sliderWidth={width}
+          itemWidth={width}
           itemHeight={height}
           sliderHeight={height}
           onSnapToItem={index => setImgActive1(index)}
@@ -114,7 +118,7 @@ export default function CommonCarousel(props) {
             justifyContent: 'center',
             marginTop: 5,
           }}>
-          {newHighlights.map((item, index) => (
+          {data?.map((item, index) => (
             <Text
               key={Math.random() * 1099900}
               style={

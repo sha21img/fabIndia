@@ -1,12 +1,13 @@
-import { View, Text } from 'react-native';
-import React, { useEffect } from 'react';
+import {View, Text} from 'react-native';
+import React, {useEffect} from 'react';
 import Chip from '../../../Common/Chip';
 import CommonTopTab from '../../../Common/CommonTopTab';
-import { getComponentData } from '../../../Common/Helper';
+import {getComponentData} from '../../../Common/Helper';
 import CardProducts from './CardProducts';
 
 export default function WomenTab(props) {
-  const { data = {} } = props;
+  const {data = {}} = props;
+  console.log('this sis data WomenTabF', data);
   const [active, setActive] = React.useState('');
   const [chipData, setChipData] = React.useState([]);
   const [toptabLabelData, setToptabLabelData] = React.useState([]);
@@ -38,8 +39,10 @@ export default function WomenTab(props) {
   };
 
   useEffect(() => {
-    getTabCount();
-  }, []);
+    if (props?.data) {
+      getTabCount();
+    }
+  }, [props?.data]);
 
   const cardsObj = {
     Jewellery: CardProducts,

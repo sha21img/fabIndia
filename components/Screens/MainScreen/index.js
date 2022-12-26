@@ -245,7 +245,6 @@ const DrawerContent = () => {
           Shop By Categories
         </Text>
       </TouchableOpacity>
-
       <FlatList
         data={listData}
         keyExtractor={item => <></>}

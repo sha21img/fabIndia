@@ -95,7 +95,7 @@ const MyAccounts = props => {
   };
   useEffect(() => {
     getProfiledata();
-  }, [focus]);
+  }, []);
   const generatTokenWithout = async () => {
     await axios
       .post(
@@ -115,9 +115,13 @@ const MyAccounts = props => {
   const logout = async () => {
     const res = await AsyncStorage.removeItem('generatToken');
     console.log('delete', res);
+    console.log('before');
+
     props.navigation.navigate('MyAccount', {
       screen: 'Login_Register',
     });
+    console.log('after');
+
     await generatTokenWithout();
   };
 

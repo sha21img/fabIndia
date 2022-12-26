@@ -27,6 +27,7 @@ export const Styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 5,
     marginLeft: '17%',
+    width:'100%',
     backgroundColor: '#F3E0E0',
   },
   imageBox: {

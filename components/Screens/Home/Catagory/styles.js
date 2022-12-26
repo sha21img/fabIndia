@@ -4,6 +4,7 @@ import Fonts from '../../../../assets/fonts';
 export const Styles = StyleSheet.create({
   mainContainer: {
     marginRight: 15,
+    marginVertical: 5,
     justifyContent: 'center',
     alignItems: 'center',
   },
