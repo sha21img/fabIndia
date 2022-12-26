@@ -1,14 +1,14 @@
-import { View, Text } from 'react-native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import {View, Text} from 'react-native';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { Colors } from '../../../assets/Colors';
+import {NavigationContainer} from '@react-navigation/native';
+import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function CommonTopTab(props) {
-  const { data = [], Card } = props;
+  const {data = [], Card} = props;
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
@@ -21,9 +21,9 @@ export default function CommonTopTab(props) {
           tabBarScrollEnabled: true,
           tabBarStyle: {
             // height: 40,
-            backgroundColor: Colors.backgroundColor,
             shadowColor: 'white',
             marginLeft: 15,
+            justifyContent: 'flex-start',
           },
         }}>
         {data.map((item, index) => {
@@ -37,7 +37,7 @@ export default function CommonTopTab(props) {
                     width: 'auto',
                   },
                   unmountOnBlur: true,
-                  tabBarLabel: ({ focused }) => (
+                  tabBarLabel: ({focused}) => (
                     <View
                       style={{
                         borderBottomWidth: 2,
@@ -61,12 +61,8 @@ export default function CommonTopTab(props) {
                   ),
                 }}
                 component={() =>
-                  item?.card ? (
-                    item?.card(props, item)
-                  )
-                    : null
-                }>
-              </Tab.Screen>
+                  item?.card ? item?.card(props, item) : null
+                }></Tab.Screen>
             )
           );
         })}

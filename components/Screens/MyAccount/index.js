@@ -62,7 +62,7 @@ const MyAccount = props => {
   const loginCheck = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    console.log('getToken?.ischeck', getToken.isCheck);
+    console.log('getToken?.ischeck', getToken);
     setInitialRouteName(getToken.isCheck ? 'MyAccounts' : 'Login_Register');
   };
   useEffect(() => {
@@ -84,7 +84,8 @@ const MyAccount = props => {
   if (initialRouteName !== null) {
     return (
       <>
-        <Stack.Navigator initialRouteName={initialRouteName}>
+        <Stack.Navigator
+          initialRouteName={initialRouteName ? initialRouteName : 'MyAccounts'}>
           {initialRouteName == 'MyAccounts' ? (
             <>
               <Stack.Screen
@@ -104,6 +105,23 @@ const MyAccount = props => {
                   ),
                 }}
               />
+              {/* <Stack.Screen
+                name="Login_Register"
+                component={Login_Register}
+                options={{
+                  header: props => (
+                    <Header
+                      leftIcon={leftIcon}
+                      title="My Account"
+                      rightIcon={rightIcon}
+                      customStyle={{
+                        backgroundColor: '#F8F6F5',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ),
+                }}
+              /> */}
               <Stack.Screen
                 name="MyOrder"
                 component={MyOrder}

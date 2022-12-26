@@ -1,22 +1,22 @@
-import { View, Text, TouchableOpacity, Image, TextInput } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Styles } from './styles';
-import { image } from '../../../../assets/images';
+import {Styles} from './styles';
+import {image} from '../../../../assets/images';
 import Fonts from '../../../../assets/fonts';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Share from 'react-native-share';
-import { Colors } from '../../../../assets/Colors';
-import { useNavigation } from '@react-navigation/native';
+import {Colors} from '../../../../assets/Colors';
+import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useDispatch, useSelector } from 'react-redux';
-import { cartDetail, wishlistDetail } from '../../../Common/Helper/Redux/actions';
-import { logout } from '../../../Common/Helper';
+import {useDispatch, useSelector} from 'react-redux';
+import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
+import {logout} from '../../../Common/Helper';
 
 export default function HomeHeader(props) {
-  const { cartReducer, shareData } = useSelector(state => state);
+  const {cartReducer, shareData} = useSelector(state => state);
   const dispatch = useDispatch();
   const {
     isTransparent = false,
@@ -26,9 +26,24 @@ export default function HomeHeader(props) {
     totalCount = null,
   } = props;
 
+  const [cartdetails, setCartDetails] = useState(null);
+  const [wishlistQuantity, setWishlistQuantity] = useState(0);
+  const [wishlistproduct, setWishlistproduct] = useState([]);
+
+  console.log(
+    'cartReducer.WishListDetail.wishlistQuantitycartReducer.WishListDetail.wishlistQuantity1',
+    cartReducer.shareData,
+  );
+  const isInitialWishlised = async () => {
+    const token = await AsyncStorage.getItem('generatToken');
+    const parseToken = JSON.parse(token);
+    if (parseToken.isCheck) {
+      getWishListDetail();
+    }
+  };
   useEffect(() => {
     getCartDetails();
-    getWishListDetail();
+    isInitialWishlised();
   }, []);
 
   const getWishListDetail = async () => {
@@ -72,7 +87,8 @@ export default function HomeHeader(props) {
         }
       })
       .catch(error => {
-        console.log('error for get csrt detail', error);
+        console.log('vicky,getWishlistDetila', error);
+
         if (error.response.status == 401) {
           logout(dispatch);
         }
@@ -96,9 +112,11 @@ export default function HomeHeader(props) {
       )
       .then(response => {
         let finalvalue = response?.data?.deliveryItemsQuantity;
-        dispatch(cartDetail({ data: response.data, quantity: finalvalue }));
+        dispatch(cartDetail({data: response.data, quantity: finalvalue}));
       })
       .catch(errors => {
+        console.log('vicky,getWishlistDetila', errors);
+
         if (errors.response.status == 401) {
           logout(dispatch);
         }
@@ -119,10 +137,22 @@ export default function HomeHeader(props) {
         err && console.log(err);
       });
   };
-
+  const isWishlisted = async () => {
+    const token = await AsyncStorage.getItem('generatToken');
+    const parseToken = JSON.parse(token);
+    if (parseToken.isCheck) {
+      props.navigation.navigate('YourWishlist');
+    } else {
+      props.navigation.navigate('MyAccount', {screen: 'Login_Register'});
+    }
+  };
   return (
     <>
-      <View style={[Styles.container, { backgroundColor: isTransparent ? Colors.TRANSPARENT : 'white' }]}>
+      <View
+        style={[
+          Styles.container,
+          {backgroundColor: isTransparent ? Colors.TRANSPARENT : 'white'},
+        ]}>
         {homeheader ? (
           <View
             style={{
@@ -151,7 +181,7 @@ export default function HomeHeader(props) {
                 size={20}
               />
             </TouchableOpacity>
-            <View style={{ flexDirection: 'column', width: '50%' }}>
+            <View style={{flexDirection: 'column', width: '50%'}}>
               <Text
                 style={{
                   fontSize: 14,
@@ -161,7 +191,7 @@ export default function HomeHeader(props) {
                 {headertext}
               </Text>
               {!!totalCount && (
-                <Text style={{ fontSize: 10 }}>{totalCount} items</Text>
+                <Text style={{fontSize: 10}}>{totalCount} items</Text>
               )}
             </View>
           </>
@@ -172,15 +202,11 @@ export default function HomeHeader(props) {
             <TouchableOpacity
               style={Styles.locationContainer}
               onPress={() => {
-                  props.navigation.navigate('InitialSearch', {
-                    screen: 'Search',
-                  });
+                props.navigation.navigate('InitialSearch', {
+                  screen: 'Search',
+                });
               }}>
-              <EvilIcons
-                name="search"
-                color={Colors.primarycolor}
-                size={30}
-              />
+              <EvilIcons name="search" color={Colors.primarycolor} size={30} />
             </TouchableOpacity>
           ) : searchVisible == null ? (
             <View></View>
@@ -201,7 +227,7 @@ export default function HomeHeader(props) {
 
           <TouchableOpacity
             style={Styles.currencyContainer}
-            onPress={() => props.navigation.navigate('YourWishlist')}>
+            onPress={() => isWishlisted()}>
             <EvilIcons name="heart" color={Colors.primarycolor} size={30} />
             {cartReducer.WishListDetail.wishlistQuantity > 0 ? (
               <View

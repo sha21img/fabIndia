@@ -1,4 +1,11 @@
-import {View, Text, ScrollView, Alert, Image} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Alert,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CommonTopTab from '../../../../Common/CommonTopTab';
 import {ProductOrderdata, WomenTabdata} from '../../../../../constant';
@@ -8,6 +15,7 @@ import {image} from '../../../../../assets/images';
 import Fonts from '../../../../../assets/fonts';
 import StepIndicator from 'react-native-step-indicator';
 import OrderProductLongCard from '../../../../Common/OrderProductLongCard';
+import CommonButton from '../../../../Common/CommonButton';
 
 const labels = ['Order confirmed', 'Shipped', 'Delivery'];
 const customStyles = {
@@ -246,29 +254,41 @@ export default function OrderInProgress(props) {
           }}>
           {orderDetails?.totalItems} items ordered
         </Text>
-        {orderDetails?.entries?.map(item => {
+        {orderDetails?.entries?.map((item, index) => {
           console.log('item111111111111111', item);
-          const position = item.status.name == 'Returned' ? 3 : null;
+
+          const position =
+            !!item.status && item?.status?.name == 'Returned'
+              ? 3
+              : item?.status?.name == 'Shipped'
+              ? 2
+              : 1;
+
           return (
             <>
               <View style={{paddingVertical: 10}}>
-                <Text
-                  style={{
-                    paddingTop: 10,
-                    fontFamily: Fonts.Assistant600,
-                    fontSize: 14,
-                    color: Colors.textcolor,
-                  }}>
-                  Shipment 1
-                </Text>
-                <View style={{paddingVertical: 10}}>
-                  <StepIndicator
-                    customStyles={customStyles}
-                    currentPosition={currentPosition}
-                    labels={labels}
-                    stepCount={3}
-                  />
-                </View>
+                {item?.status && item?.status?.name != 'Cancelled' ? (
+                  <>
+                    <Text
+                      style={{
+                        paddingTop: 10,
+                        fontFamily: Fonts.Assistant600,
+                        fontSize: 14,
+                        color: Colors.textcolor,
+                      }}>
+                      Shipment {index}
+                    </Text>
+
+                    <View style={{paddingVertical: 10}}>
+                      <StepIndicator
+                        customStyles={customStyles}
+                        currentPosition={position}
+                        labels={labels}
+                        stepCount={3}
+                      />
+                    </View>
+                  </>
+                ) : null}
                 <OrderProductLongCard
                   data={item}
                   orderID={orderDetails.code}
@@ -276,6 +296,49 @@ export default function OrderInProgress(props) {
                   getorderDetails={getorderDetails}
                   {...props}
                 />
+                <TouchableOpacity
+                  style={{
+                    paddingVertical: 15,
+                    alignItems: 'center',
+                    backgroundColor: '#FAFAFA',
+                    justifyContent: 'center',
+                  }}
+                  onPress={() => {
+                    // props.navigation.navigate('OrderSuccess');
+                    // reasonForCancel(data.entryNumber, data.availableAction.name);
+                  }}>
+                  <Text
+                    style={{
+                      fontFamily: Fonts.Assistant600,
+                      fontSize: 14,
+                      lineHeight: 18,
+                      color: Colors.textcolor,
+                    }}>
+                    Invoice
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    paddingVertical: 15,
+                    alignItems: 'center',
+                    backgroundColor: '#FAFAFA',
+                    justifyContent: 'center',
+                    marginVertical: 15,
+                  }}
+                  onPress={() => {
+                    // props.navigation.navigate('OrderSuccess');
+                    // reasonForCancel(data.entryNumber, data.availableAction.name);
+                  }}>
+                  <Text
+                    style={{
+                      fontFamily: Fonts.Assistant600,
+                      fontSize: 14,
+                      lineHeight: 18,
+                      color: Colors.textcolor,
+                    }}>
+                    TrackOrder
+                  </Text>
+                </TouchableOpacity>
               </View>
             </>
           );

@@ -27,8 +27,8 @@ export default function OrderStatus(props) {
         `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}?fields=FULL&lang=en&curr=INR`,
         {
           headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-            // Authorization: `${getToken.token_type} JrvN_H6QsowQB6WHsWumhEZA4s0`,
+            // Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            Authorization: `${getToken.token_type} WU2ZXu0fztI11ZxgR1AV4Xxs7dQ`,
           },
         },
       )
@@ -37,7 +37,8 @@ export default function OrderStatus(props) {
         setOrderDetails(response.data);
       })
       .catch(errors => {
-        console.log('error', errors);
+        console.log('vicky,orderStatus', errors);
+
         if (errors.response.status == 401) {
           logout(dispatch);
         }

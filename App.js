@@ -36,6 +36,7 @@ import CartList from './components/Screens/Checkout/CartList';
 import configureStore from './components/Common/Helper/Redux/store';
 import {getCartID} from './components/Common/Helper';
 import CategorySection from './components/Screens/CategorySection';
+import ViewPolicy from './components/Screens/ViewPolicy/ViewPolicy';
 import LandingPageSaris_Blouses from './components/Screens/LandingPageL2/LandingPageSaris_Blouses';
 
 const Stack = createNativeStackNavigator();
@@ -202,6 +203,11 @@ export default function App(props) {
             <Stack.Screen
               name="MainScreen"
               component={MainScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="ViewPolicy"
+              component={ViewPolicy}
               options={{headerShown: false}}
             />
 

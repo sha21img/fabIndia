@@ -46,37 +46,33 @@ function AboutFabFamily() {
         </ImageBackground> */}
         <View style={Styles.txtView}>
           <Text style={Styles.txtOne}>
-            Join our exclusive membership program that opens up a world of
-            experiences and rewards.
+            AN EXCLUSIVE MEMBERSHIP PROGRAM THAT OPENS UP A WORLD of REWARDS.
           </Text>
           <Text style={Styles.txtTwo}>
-            It is a close-knit circle of those of us who share love and
-            admiration for all things Indian. We value the rich cultural
-            heritage that seeps from every corner of our country, as well as the
-            progressive values that we hold dear, regardless of which part of
-            the world we are in.
+            Fabfamily is a close-knit circle of those of us who cherish the rich
+            cultural heritage of our country as well as the progressive values
+            that we all hold dear.
           </Text>
           <Text style={Styles.txtTwo}>
-            The Fabfamily program has 5 tiers, with enriched benefits at every
-            step of your journey. You can earn points on all your spends in
-            store or online, and use them for shopping with Fabindia or to
-            redeem hand-picked experiences at our selected list of partners.
+            AN ALLIANCE OF OVER 5 MILLION conscious consumers and a growing
+            number of purpose-driven businesses & organizations that are a part
+            of our Shared Values Community.
           </Text>
           <Text style={Styles.txtTwo}>
-            This program is our way of saying “Thank you” to all of you - for
-            helping us craft a brand that is loved and admired by many; for
-            standing by us for over 60 years of our existence, and for believing
-            in the things that truly matter – this country and its people.
+            FABFAMILY IS OUR WAY OF SAYING “THANK YOU us craft a brand that is
+            loved and admired by many, for standing by us for over 60 years of
+            our existence, and for believing in the things that truly matter:
+            this planet and its people.
           </Text>
         </View>
         <View style={Styles.circleView}>
           <View style={Styles.circleInnerView}>
             <View style={Styles.circle}>
-              <Text style={Styles.circleTxt}>Enrol</Text>
+              <Text style={Styles.circleTxt}>Enroll</Text>
             </View>
             <Text style={Styles.circleBottomTxt}>
-              Membership at Fabindia is simpleJust share your mobile number
-              while shopping at stores or online.
+              BECOME A MEMBER AND GET ACCESS TO EXCLUSIVE IN STORE AND ONLINE
+              OFFERS
             </Text>
           </View>
           <View style={Styles.lineView}></View>
@@ -86,24 +82,23 @@ function AboutFabFamily() {
               <Text style={Styles.circleTxt}>Earn</Text>
             </View>
             <Text style={Styles.circleBottomTxt}>
-              Shop our range at Fabindia stores or online and earn points on
-              every transaction. Earn and save as you go
+              SHOP ACROSS OUR STORES OR ONLINE AND EARN FABCOINS ON YOUR
+              TRANSACTIONS.
             </Text>
           </View>
           <View style={Styles.lineView}></View>
 
           <View style={Styles.circleInnerView}>
             <View style={Styles.circle}>
-              <Text style={Styles.circleTxt}>Redeem</Text>
+              <Text style={Styles.circleTxt}>Enjoy</Text>
             </View>
             <Text style={Styles.circleBottomTxt}>
-              Pay by points to shop or enjoy a unique experience at any of our
-              partners across India.
+              SPEND YOUR FABCOINS ON MORE SHOPPING OR WITH OUR REWARDS PARTNERS.
             </Text>
           </View>
         </View>
       </ScrollView>
-      <View style={Styles.btnbox}>
+      {/* <View style={Styles.btnbox}>
         <CommonButton
           backgroundColor="#BDBDBD"
           txt="Become a member"
@@ -111,7 +106,7 @@ function AboutFabFamily() {
             backgroundColor: Colors.primarycolor,
           }}
         />
-      </View>
+      </View> */}
     </>
   );
 }
