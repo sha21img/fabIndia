@@ -9,9 +9,11 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function CommonTopTab(props) {
   const {data = [], Card} = props;
+  console.log('this sis a to tab data reult', data[0]?.title);
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
+        initialRouteName={data[0]?.title}
         swipeEnabled={false}
         screenOptions={{
           tabBarIndicatorStyle: {
