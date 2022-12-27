@@ -131,7 +131,13 @@ const MyAccounts = props => {
         {pages.map(item => {
           return (
             <TouchableOpacity
-              onPress={() => props.navigation.navigate(item.routes)}
+              onPress={() => {
+                if (item.routes == 'GiftCard') {
+                  props.navigation.navigate(item.routes, {from: 'Account'});
+                } else {
+                  props.navigation.navigate(item.routes);
+                }
+              }}
               key={Math.random() * 10000}
               style={{
                 padding: 20,

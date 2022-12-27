@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {logout} from '../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 export default function GiftCard(props) {
+  const {from} = props.route.params;
   const dispatch = useDispatch();
   const [walletInfo, setWalletInfo] = useState({
     totalBalance: '0.0',

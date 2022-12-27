@@ -214,7 +214,9 @@ const DrawerContent = () => {
           source={image.document}
           style={{width: 20, height: 20, resizeMode: 'contain'}}
         />
-        <Text style={{color: Colors.textcolor, marginLeft: 10}}>Orders</Text>
+        <Text style={{color: Colors.textcolor, fontSize: 16, marginLeft: 10}}>
+          Orders
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.5}
@@ -230,7 +232,9 @@ const DrawerContent = () => {
           source={image.ribbon}
           style={{width: 20, height: 20, resizeMode: 'contain'}}
         />
-        <Text style={{color: Colors.textcolor, marginLeft: 10}}>FabFamily</Text>
+        <Text style={{color: Colors.textcolor, fontSize: 16, marginLeft: 10}}>
+          FabFamily
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.5}
@@ -247,11 +251,10 @@ const DrawerContent = () => {
           size={20}
           color={Colors.primarycolor}
         />
-        <Text style={{color: Colors.textcolor, marginLeft: 10}}>
+        <Text style={{color: Colors.textcolor, fontSize: 16, marginLeft: 10}}>
           Shop By Categories
         </Text>
       </TouchableOpacity>
-
       <FlatList
         data={listData}
         keyExtractor={item => <></>}
