@@ -13,6 +13,8 @@ import {image} from '../../../../assets/images';
 import {CreditCardInput, LiteCreditCardInput} from '../../../CardView';
 import {useNavigation} from '@react-navigation/native';
 import Fonts from '../../../../assets/fonts';
+import Toast from 'react-native-simple-toast';
+
 
 const BankData = [
   {name: 'ICICI Bank', code: 'ICICI', id: 1},
@@ -81,8 +83,8 @@ const Payment = props => {
       description: 'Payment for Fab india',
       image: 'https://i.imgur.com/3g7nmJC.png',
       currency: details?.totalPriceWithTax?.currencyIso,
-      // callback_url: UDID,
-      // redirect: true,
+      callback_url: UDID,
+      redirect: true,
       key: 'rzp_test_T70CWf6iJpuekL',
       amount: details?.totalPriceWithTax?.value * 100,
       name: 'FAB India',
@@ -137,11 +139,12 @@ const Payment = props => {
     const getCartID = await AsyncStorage.getItem('cartID');
     console.log('this us cart id', getCartID);
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/razorpay/orderid/request?lang=en&curr=INR`,
+      `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/carts/08073001/payment/razorpay/orderid/request?lang=en&curr=INR`,
       // {},
       {
         headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          // Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          Authorization: `bearer CfQZ6-rE0ngL8o-Yxu5-XQTS4YE`
         },
       },
     );
@@ -156,16 +159,19 @@ const Payment = props => {
     openCheckout(response.data, UDID, method, data, details);
   };
   const getUDID = async () => {
+    console.log("udiddddddd")
     const getCartID = await AsyncStorage.getItem('cartID');
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
 
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/razorpay/callback/url?lang=en&curr=INR`,
+      `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/carts/08073001/payment/razorpay/callback/url?lang=en&curr=INR`,
       // {},
       {
         headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          // Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          Authorization: `bearer CfQZ6-rE0ngL8o-Yxu5-XQTS4YE`
+      
         },
       },
     );
@@ -701,6 +707,9 @@ const Payment = props => {
       );
       if (response.data?.success) {
         orderPlace();
+      }else{
+        Toast.showWithGravity(' Sorry Insufficient balance', Toast.LONG, Toast.TOP);
+        setShowotp(false)
       }
     };
     const orderPlace = async () => {
@@ -710,6 +719,7 @@ const Payment = props => {
       console.log('this us cart id', getCartID);
       const response = await axios.post(
         `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/placeOrder?fields=DEFAULT%2CdeliveryAddress(FULL)&cartId=${getCartID}&termsChecked=true&lang=en&curr=INR`,
+        {},
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -831,20 +841,21 @@ const Payment = props => {
             </>
           ) : null}
         </View>
-
-        <TouchableOpacity
-          onPress={() => generateOTP()}
-          style={{
-            backgroundColor: Colors.primarycolor,
-            justifyContent: 'center',
-            alignSelf: 'center',
-            marginTop: 20,
-            borderRadius: 20,
-            paddingHorizontal: 30,
-            paddingVertical: 10,
-          }}>
-          <Text style={{color: 'white'}}>Redeem</Text>
-        </TouchableOpacity>
+        {!showotop ? (
+          <TouchableOpacity
+            onPress={() => generateOTP()}
+            style={{
+              backgroundColor: Colors.primarycolor,
+              justifyContent: 'center',
+              alignSelf: 'center',
+              marginTop: 20,
+              borderRadius: 20,
+              paddingHorizontal: 30,
+              paddingVertical: 10,
+            }}>
+            <Text style={{color: 'white'}}>Redeem</Text>
+          </TouchableOpacity>
+        ) : null}
       </View>
     );
   };
@@ -901,12 +912,13 @@ const Payment = props => {
           'addCardaddCardaddCardaddCardt00000000000000000000000',
           response.data,
         );
-        if (response.data) {
+        if (response.data.responseCode != 10004) {
           getWallet();
           setShowcard(false);
         }
       } else {
-        console.log('checkinggg');
+        Toast.showWithGravity(response.data.responseMessage, Toast.LONG, Toast.TOP);
+
       }
     };
     return (
