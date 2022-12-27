@@ -10,11 +10,10 @@ import {
 import React from 'react';
 import {Styles} from './styles';
 import Otp from './Otp';
+import {image} from '../../../assets/images';
+import Fonts from '../../../assets/fonts';
 
 export default function Login_Register(props) {
-  const largeimage = {
-    uri: 'https://img.freepik.com/free-photo/young-woman-wearing-winter-clothes_273609-22209.jpg',
-  };
   const googleIcon = {
     uri: 'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
   };
@@ -33,16 +32,53 @@ export default function Login_Register(props) {
   const resisterHandler = () => {
     props.navigation.navigate('Register');
   };
+  const login = () => {
+    props.navigation.navigate('Login');
+  };
   return (
     <ImageBackground
-      source={largeimage}
+      source={image.loginBg}
       resizeMode="cover"
       style={Styles.container}>
+      <Image
+        style={{
+          width: 140,
+          height: 150,
+          top: 0,
+          position: 'absolute',
+          resizeMode: 'contain',
+          right: 0,
+          transform: [{rotate: '0deg'}, {scaleY: -1}],
+        }}
+        source={image.fabfamilyflower}
+      />
+      <Image
+        style={{
+          width: 140,
+          height: 150,
+          bottom: 0,
+          position: 'absolute',
+          resizeMode: 'contain',
+          left: 0,
+          transform: [{rotate: '0deg'}, {scaleX: -1}],
+        }}
+        source={image.fabfamilyflower}
+      />
+      <Text
+        style={{
+          fontFamily: Fonts.PlayfairDisplay600Italic,
+          fontSize: 26,
+          lineHeight: 24,
+          color: 'white',
+          paddingHorizontal: 20,
+        }}>
+        Hello!
+      </Text>
       <Text style={Styles.titleText}>
         Log in or register to manage your orders
       </Text>
       <View style={Styles.buttonContainer}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={Styles.button}
           onPress={() => loginWithMobileHandler()}>
           <Text style={Styles.loginText}>Log in with moble no.</Text>
@@ -51,27 +87,30 @@ export default function Login_Register(props) {
           style={Styles.button}
           onPress={() => loginWithEmailHandler()}>
           <Text style={Styles.loginText}>Log in with email</Text>
+        </TouchableOpacity> */}
+        <TouchableOpacity style={Styles.button} onPress={() => login()}>
+          <Text style={Styles.loginText}>Log in</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={Styles.registerButton}
           onPress={() => resisterHandler()}>
           <Text style={Styles.registerText}>Register</Text>
         </TouchableOpacity>
-        {/* <View style={Styles.horizontalContainer}>
+        <View style={Styles.horizontalContainer}>
           <View style={Styles.horizontalLine} />
           <View>
             <Text style={Styles.orText}>or</Text>
           </View>
           <View style={Styles.iconContainer} />
-        </View> */}
-        {/* <View style={Styles.socialIconContainer}>
+        </View>
+        <View style={Styles.socialIconContainer}>
           <TouchableOpacity onPress={() => facebookLoginHandler()}>
             <Image source={facebookIcon} style={Styles.facebookIcon} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => googleLoginHandler()}>
             <Image source={googleIcon} style={Styles.googleIcon} />
           </TouchableOpacity>
-        </View> */}
+        </View>
       </View>
     </ImageBackground>
   );

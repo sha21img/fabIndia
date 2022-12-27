@@ -13,10 +13,11 @@ export const Styles = StyleSheet.create({
   },
   titleText: {
     fontFamily: Fonts.Assistant600,
-    fontSize: 18,
+    fontSize: 20,
     lineHeight: 24,
     color: 'white',
-    paddingHorizontal: 20,
+    paddingHorizontal: 40,
+    paddingTop: 10,
   },
   button: {
     width: '60%',
