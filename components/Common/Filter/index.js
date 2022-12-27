@@ -39,18 +39,16 @@ const Filter = props => {
     isCheck,
     setIsCheck,
   } = props;
-  console.log(
-    'kjhbvhjopaa',
-    data.find(item => item.name == 'Color'),
-  );
 
   const [isActive, setIsActive] = useState('Price');
   const [isActiveCheckBox, setIsActiveCheckBox] = useState([]);
   const [activeOption, setActiveOption] = useState(colorOption);
   const [categoryOption, setCategoryOption] = useState(null);
+
   useEffect(() => {
     setCategoryOption(data[0].name);
   }, []);
+
   const onPressCheckBox = op => {
     if (isActiveCheckBox.includes(op)) {
       let a = isActiveCheckBox.filter(el => el !== op);
@@ -58,21 +56,13 @@ const Filter = props => {
     } else {
       setIsActiveCheckBox([...isActiveCheckBox, op]);
     }
-    console.log('isActiveCheckBox...', isActiveCheckBox);
   };
-  // const aa = data
-  //   ?.find(item => {
-  //     return item.name == categoryOption;
-  //   })
-  //   ?.values.map(item => {
-  //     console.log('itemitem', item);
-  //   });
-  // console.log('aa', aa);
+
   function capitalizeFirstLetter(string) {
     const newString = string.toLowerCase();
     return newString.charAt(0).toUpperCase() + newString.slice(1);
   }
-  console.log('capitalizeFirstLetter', capitalizeFirstLetter('black'));
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -111,8 +101,6 @@ const Filter = props => {
             return item.name == categoryOption;
           })
           ?.values.map(item => {
-            console.log('itemitem', item);
-            console.log('isCheck[item.name] == item.name', item);
             return (
               <View style={styles.checkboxContainer}>
                 <CheckBox
@@ -131,6 +119,7 @@ const Filter = props => {
                       width: 20,
                       borderRadius: 50,
                       marginHorizontal: 5,
+                      borderWidth: 1
                     }}></View>
                 )}
 
