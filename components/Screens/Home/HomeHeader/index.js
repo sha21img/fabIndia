@@ -24,6 +24,9 @@ export default function HomeHeader(props) {
     searchVisible = true,
     headertext = '',
     totalCount = null,
+    showWishlist = true,
+    showCart = true,
+    middleHeader = '',
   } = props;
 
   const [cartdetails, setCartDetails] = useState(null);
@@ -181,19 +184,31 @@ export default function HomeHeader(props) {
                 size={20}
               />
             </TouchableOpacity>
-            <View style={{flexDirection: 'column', width: '50%'}}>
+            {!!headertext ? (
+              <View style={{flexDirection: 'column', width: '50%'}}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: Colors.textcolor,
+                    fontFamily: Fonts.Assistant500,
+                  }}>
+                  {headertext}
+                </Text>
+                {!!totalCount && (
+                  <Text style={{fontSize: 10}}>{totalCount} items</Text>
+                )}
+              </View>
+            ) : null}
+            {!!middleHeader && (
               <Text
                 style={{
-                  fontSize: 14,
-                  color: Colors.textcolor,
-                  fontFamily: Fonts.Assistant500,
+                  color: Colors.primarycolor,
+                  fontSize: 18,
+                  fontFamily: Fonts.PlayfairDisplay500,
                 }}>
-                {headertext}
+                {middleHeader}
               </Text>
-              {!!totalCount && (
-                <Text style={{fontSize: 10}}>{totalCount} items</Text>
-              )}
-            </View>
+            )}
           </>
         )}
 
@@ -225,66 +240,70 @@ export default function HomeHeader(props) {
             </TouchableOpacity>
           )}
 
-          <TouchableOpacity
-            style={Styles.currencyContainer}
-            onPress={() => isWishlisted()}>
-            <EvilIcons name="heart" color={Colors.primarycolor} size={30} />
-            {cartReducer.WishListDetail.wishlistQuantity > 0 ? (
-              <View
-                style={{
-                  position: 'absolute',
-                  backgroundColor: Colors.primarycolor,
-                  width: 16,
-                  height: 16,
-                  borderRadius: 15 / 2,
-                  right: 0,
-                  top: -10,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
+          {showWishlist && (
+            <TouchableOpacity
+              style={Styles.currencyContainer}
+              onPress={() => isWishlisted()}>
+              <EvilIcons name="heart" color={Colors.primarycolor} size={30} />
+              {cartReducer.WishListDetail.wishlistQuantity > 0 ? (
+                <View
                   style={{
+                    position: 'absolute',
+                    backgroundColor: Colors.primarycolor,
+                    width: 16,
+                    height: 16,
+                    borderRadius: 15 / 2,
+                    right: 0,
+                    top: -10,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#FFFFFF',
-                    fontSize: 8,
                   }}>
-                  {cartReducer.WishListDetail.wishlistQuantity}
-                </Text>
-              </View>
-            ) : null}
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={Styles.cartContainer}
-            onPress={() => {
-              props.navigation.navigate('CartPage');
-            }}>
-            <EvilIcons name="cart" size={30} color={Colors.primarycolor} />
-            {cartReducer.CartDetail.cartQuantity > 0 ? (
-              <View
-                style={{
-                  position: 'absolute',
-                  backgroundColor: Colors.primarycolor,
-                  width: 16,
-                  height: 16,
-                  borderRadius: 15 / 2,
-                  right: 0,
-                  top: -10,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
+                  <Text
+                    style={{
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#FFFFFF',
+                      fontSize: 8,
+                    }}>
+                    {cartReducer.WishListDetail.wishlistQuantity}
+                  </Text>
+                </View>
+              ) : null}
+            </TouchableOpacity>
+          )}
+          {showCart && (
+            <TouchableOpacity
+              style={Styles.cartContainer}
+              onPress={() => {
+                props.navigation.navigate('CartPage');
+              }}>
+              <EvilIcons name="cart" size={30} color={Colors.primarycolor} />
+              {cartReducer.CartDetail.cartQuantity > 0 ? (
+                <View
                   style={{
+                    position: 'absolute',
+                    backgroundColor: Colors.primarycolor,
+                    width: 16,
+                    height: 16,
+                    borderRadius: 15 / 2,
+                    right: 0,
+                    top: -10,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#FFFFFF',
-                    fontSize: 8,
                   }}>
-                  {cartReducer.CartDetail.cartQuantity}
-                </Text>
-              </View>
-            ) : null}
-          </TouchableOpacity>
+                  <Text
+                    style={{
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#FFFFFF',
+                      fontSize: 8,
+                    }}>
+                    {cartReducer.CartDetail.cartQuantity}
+                  </Text>
+                </View>
+              ) : null}
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </>

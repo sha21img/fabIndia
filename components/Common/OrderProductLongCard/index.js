@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Modal,
   TextInput,
+  ScrollView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Fonts from '../../../assets/fonts';
@@ -101,8 +102,8 @@ export default function OrderProductLongCard(props) {
         },
         {
           headers: {
-            // Authorization: `${getToken.token_type} ${getToken.access_token}`,
-            Authorization: `${getToken.token_type} q8BkXSgRnD4xPbdk9Cry3YrlVM8`,
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            // Authorization: `${getToken.token_type} B7vKxGVlrWBGKVNFDlUci2ZfXTM`,
           },
         },
       )
@@ -144,7 +145,7 @@ export default function OrderProductLongCard(props) {
         },
         {
           headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            Authorization: `${getToken.token_type} B7vKxGVlrWBGKVNFDlUci2ZfXTM`,
           },
         },
       )
@@ -179,8 +180,8 @@ export default function OrderProductLongCard(props) {
         {},
         {
           headers: {
-            // Authorization: `${getToken.token_type} ${getToken.access_token}`,
-            Authorization: `${getToken.token_type} q8BkXSgRnD4xPbdk9Cry3YrlVM8`,
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            // Authorization: `${getToken.token_type} B7vKxGVlrWBGKVNFDlUci2ZfXTM`,
           },
         },
       )
@@ -190,10 +191,13 @@ export default function OrderProductLongCard(props) {
           response.data.cancelEntries[0],
         );
         setReasonData(response.data.cancelEntries[0]);
+        console.log('response?.data?.availableAction?.reasons', response?.data);
+
         if (data == 'Cancel') {
           const reason =
-            response?.data?.availableAction?.reasons ||
+            !!response?.data?.availableAction?.reasons.length > 0 ||
             response?.data?.cancelEntries[0];
+          console.log('reason', reason);
           const newReasonData = reason.availableAction.reasons.map(
             (item, index) => {
               return {
@@ -203,6 +207,7 @@ export default function OrderProductLongCard(props) {
               };
             },
           );
+          console.log('newReasonDatanewReasonData', newReasonData);
           setNewReasonData(newReasonData);
           setshowmodal(true);
         } else {
@@ -343,7 +348,7 @@ export default function OrderProductLongCard(props) {
             }}
             onPress={() => {
               // props.navigation.navigate('OrderSuccess');
-              // reasonForCancel(data.entryNumber, data.availableAction.name);
+              reasonForCancel(data.entryNumber, data.availableAction.name);
             }}>
             <Text
               style={{
@@ -414,8 +419,8 @@ export default function OrderProductLongCard(props) {
         animationType="slide"
         swipeDirection={['down']}
         transparent={true}>
-        <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}>
-          <View
+        <View style={{flexGrow: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}>
+          <ScrollView
             style={{
               backgroundColor: 'white',
               elevation: 5,
@@ -423,9 +428,9 @@ export default function OrderProductLongCard(props) {
               borderTopLeftRadius: 15,
               paddingHorizontal: 15,
               paddingVertical: 10,
-              marginTop: 'auto',
+              marginTop: '45%',
               width: '100%',
-              height: '80%',
+              // height: '80%',
             }}>
             <View style={{margin: 10}}>
               <View
@@ -536,7 +541,7 @@ export default function OrderProductLongCard(props) {
                 handleClick={cancelorder}
               />
             </View>
-          </View>
+          </ScrollView>
         </View>
       </Modal>
       {/* return */}

@@ -52,10 +52,12 @@ import axios from 'axios';
 import {deleteAsyncStorage, getAsyncStorage} from '../../Common/Helper';
 import MyAccounts from './MyAccounts';
 import {useIsFocused} from '@react-navigation/native';
+import HomeHeader from '../Home/HomeHeader';
 const Stack = createNativeStackNavigator();
 
 const MyAccount = props => {
   const [check, setCheck] = useState(false);
+  // const from = props.route.params.from
   const focus = useIsFocused();
   const [initialRouteName, setInitialRouteName] = useState(null);
 
@@ -89,18 +91,29 @@ const MyAccount = props => {
           {initialRouteName == 'MyAccounts' ? (
             <>
               <Stack.Screen
+                name="ReturnItem"
+                component={ReturnItem}
+                options={{
+                  header: props => (
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="My Orders"
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
                 name="MyAccounts"
                 component={MyAccounts}
                 options={{
                   header: props => (
-                    <Header
-                      leftIcon={leftIcon}
-                      title="My Profile"
-                      rightIcon={rightIcon}
-                      customStyle={{
-                        backgroundColor: '#F8F6F5',
-                        marginBottom: 4,
-                      }}
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="My Account"
                     />
                   ),
                 }}
@@ -329,7 +342,7 @@ const MyAccount = props => {
               />
               <Stack.Screen
                 name="GiftCard"
-                component={GiftCard}
+                component={() => GiftCard(props)}
                 options={{
                   header: props => (
                     <Header
@@ -727,24 +740,6 @@ const MyAccount = props => {
               />
             </>
           )}
-
-          {/* <Stack.Screen
-          name="ReturnItem"
-          component={ReturnItem}
-          options={{
-            header: props => (
-              <Header
-                leftIcon={leftIcon}
-                title="My Orders"
-                rightIcon={rightIcon}
-                customStyle={{
-                  backgroundColor: '#F8F6F5',
-                  marginBottom: 4,
-                }}
-              />
-            ),
-          }}
-        /> */}
         </Stack.Navigator>
       </>
     );

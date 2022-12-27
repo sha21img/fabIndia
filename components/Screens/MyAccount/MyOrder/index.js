@@ -49,8 +49,8 @@ export default function MyOrder(props) {
         `${BaseURL2}/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
         {
           headers: {
-            // Authorization: `${getToken.token_type} ${getToken.access_token}`,
-            Authorization: `${getToken.token_type} WU2ZXu0fztI11ZxgR1AV4Xxs7dQ`,
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            // Authorization: `${getToken.token_type} B7vKxGVlrWBGKVNFDlUci2ZfXTM`,
           },
         },
       )
