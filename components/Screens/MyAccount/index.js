@@ -56,6 +56,7 @@ const Stack = createNativeStackNavigator();
 
 const MyAccount = props => {
   const [check, setCheck] = useState(false);
+  // const from = props.route.params.from
   const focus = useIsFocused();
   const [initialRouteName, setInitialRouteName] = useState(null);
 
@@ -329,7 +330,7 @@ const MyAccount = props => {
               />
               <Stack.Screen
                 name="GiftCard"
-                component={GiftCard}
+                component={() => GiftCard(props)}
                 options={{
                   header: props => (
                     <Header

@@ -133,7 +133,7 @@ const MyAccounts = props => {
             <TouchableOpacity
               onPress={() => {
                 if (item.routes == 'GiftCard') {
-                  props.navigation.navigate(item.routes, {from: 'Account'});
+                  props.navigation.navigate(item.routes);
                 } else {
                   props.navigation.navigate(item.routes);
                 }
