@@ -10,6 +10,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import Card1 from '../../../Common/Card1';
 import {
+  BaseURL2,
   getComponentData,
   logout,
   postData,
@@ -52,16 +53,16 @@ export default function ResultCards(props) {
 
     if (!!isSearch) {
       response = await axios.get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&query=${title}
+        `${BaseURL2}/products/search?fields=${fields}&query=${title}
         &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
     } else if (data) {
       response = await axios.get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+        `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
     } else {
       response = await axios.get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&${
+        `${BaseURL2}/products/search?fields=${fields}&${
           status ? `${code}` : `query=:relevance:allCategories:${code}`
         }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
@@ -88,12 +89,12 @@ export default function ResultCards(props) {
     var response;
     if (!!isSearch) {
       response = await axios.get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&query=${title}
+        `${BaseURL2}/products/search?fields=${fields}&query=${title}
         &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
     } else {
       response = await axios.get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}&${
+        `${BaseURL2}/products/search?fields=${fields}&${
           status ? `${code}` : `query=:relevance:allCategories:${code}`
         }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
@@ -134,7 +135,7 @@ export default function ResultCards(props) {
 
     const response = await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+        `${BaseURL2}/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=${aa}&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/?fileds=${aa}?lang=en&curr=INR`,
         // {},
@@ -187,7 +188,7 @@ export default function ResultCards(props) {
     if (isAddWishlist) {
       const response = await axios
         .delete(
-          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
+          `${BaseURL2}/users/current/carts/${getWishlistID}/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
           // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
           // {quantity: 0, product: {code: isAddWishlist.code}},
           {
@@ -213,7 +214,7 @@ export default function ResultCards(props) {
     } else {
       const response = await axios
         .post(
-          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}/entries?lang=en&curr=INR`,
+          `${BaseURL2}/users/current/carts/${getWishlistID}/entries?lang=en&curr=INR`,
           // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
           {quantity: 1, product: {code: data.code}},
           {

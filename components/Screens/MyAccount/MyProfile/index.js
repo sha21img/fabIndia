@@ -14,7 +14,7 @@ import Fonts from '../../../../assets/fonts';
 import {Colors} from '../../../../assets/Colors';
 import InputText from '../../../Common/InputText';
 import CommonButton from '../../../Common/CommonButton';
-import {logout, patchComponentData} from '../../../Common/Helper';
+import {BaseURL2, logout, patchComponentData} from '../../../Common/Helper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Toast from 'react-native-simple-toast';
@@ -68,7 +68,7 @@ const MyProfile = props => {
     };
     const response = await axios
       .patch(
-        'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current?lang=en&curr=INR',
+        `${BaseURL2}/users/current?lang=en&curr=INR`,
         body,
         {
           headers: {

@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {image} from '../../../assets/images';
-import {getComponentData} from '../Helper';
+import {BaseURL2, getComponentData} from '../Helper';
 import axios from 'axios';
 import Card from '../Card';
 const width = Dimensions.get('window').width;
@@ -29,7 +29,7 @@ export default function TitleCard(props) {
       productCodes: bannerId,
     };
     const response = await axios.post(
-      'https://apisap.fabindia.com/occ/v2/fabindiab2c/plpContent/searchProducts?fields=products(name,code,price(FULL),images(FULL),totalDiscount,priceAfterDiscount(FULL),newArrival,sale,stock)&lang=en&curr=INR',
+      `${BaseURL2}/plpContent/searchProducts?fields=products(name,code,price(FULL),images(FULL),totalDiscount,priceAfterDiscount(FULL),newArrival,sale,stock)&lang=en&curr=INR`,
       params,
     );
     console.log('response for personal category', response.data.products);

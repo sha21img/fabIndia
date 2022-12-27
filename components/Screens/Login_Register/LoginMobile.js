@@ -5,7 +5,7 @@ import CommonButton from '../../Common/CommonButton';
 import Fonts from '../../../assets/fonts';
 import CountryPicker from 'rn-country-picker';
 import {TextInput} from 'react-native-paper';
-import {UnAuthPostData} from '../../Common/Helper';
+import {AuthBaseUrl2, UnAuthPostData} from '../../Common/Helper';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
@@ -19,7 +19,7 @@ export default function LoginMobile(props) {
   const generatTokenWithout = async () => {
     await axios
       .post(
-        `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+        `${AuthBaseUrl2}/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
       )
       .then(
         response => {

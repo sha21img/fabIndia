@@ -14,7 +14,7 @@ import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
-import {imageURL} from '../../Common/Helper';
+import {BaseURL2, imageURL} from '../../Common/Helper';
 import axios from 'axios';
 import {dataDetectorType} from 'deprecated-react-native-prop-types/DeprecatedTextPropTypes';
 
@@ -159,7 +159,7 @@ export default function Size_Color({
   const checkPin = async () => {
     if (pinCode != null) {
       const response = await axios.get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/pincodeService/productcatalogs/fabindia-b2cProductCatalog/versions/Online/product?pincode=${pinCode}&productCode=${productId}&lang=en&curr=INR`,
+        `${BaseURL2}/pincodeService/productcatalogs/fabindia-b2cProductCatalog/versions/Online/product?pincode=${pinCode}&productCode=${productId}&lang=en&curr=INR`,
       );
       // console.log(
       //   'response.dat response.data response.data response.data response.data33333333333',

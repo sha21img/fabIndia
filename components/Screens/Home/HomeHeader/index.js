@@ -13,7 +13,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch, useSelector} from 'react-redux';
 import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
-import {logout} from '../../../Common/Helper';
+import {BaseURL2, logout} from '../../../Common/Helper';
 
 export default function HomeHeader(props) {
   const {cartReducer, shareData} = useSelector(state => state);
@@ -24,6 +24,9 @@ export default function HomeHeader(props) {
     searchVisible = true,
     headertext = '',
     totalCount = null,
+    showWishlist = true,
+    showCart = true,
+    middleHeader = '',
   } = props;
 
   const [cartdetails, setCartDetails] = useState(null);
@@ -57,7 +60,7 @@ export default function HomeHeader(props) {
       'DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue, value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)';
     const response = await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+        `${BaseURL2}/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=${aa}&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/?fileds=${aa}?lang=en&curr=INR`,
         // {},
@@ -101,7 +104,7 @@ export default function HomeHeader(props) {
     const type = getToken.isCheck ? 'current' : 'anonymous';
     const response = await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+        `${BaseURL2}/users/${type}/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
         // {},
         {
@@ -181,19 +184,31 @@ export default function HomeHeader(props) {
                 size={20}
               />
             </TouchableOpacity>
-            <View style={{flexDirection: 'column', width: '50%'}}>
+            {!!headertext ? (
+              <View style={{flexDirection: 'column', width: '50%'}}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: Colors.textcolor,
+                    fontFamily: Fonts.Assistant500,
+                  }}>
+                  {headertext}
+                </Text>
+                {!!totalCount && (
+                  <Text style={{fontSize: 10}}>{totalCount} items</Text>
+                )}
+              </View>
+            ) : null}
+            {!!middleHeader && (
               <Text
                 style={{
-                  fontSize: 14,
-                  color: Colors.textcolor,
-                  fontFamily: Fonts.Assistant500,
+                  color: Colors.primarycolor,
+                  fontSize: 18,
+                  fontFamily: Fonts.PlayfairDisplay500,
                 }}>
-                {headertext}
+                {middleHeader}
               </Text>
-              {!!totalCount && (
-                <Text style={{fontSize: 10}}>{totalCount} items</Text>
-              )}
-            </View>
+            )}
           </>
         )}
 
@@ -225,66 +240,70 @@ export default function HomeHeader(props) {
             </TouchableOpacity>
           )}
 
-          <TouchableOpacity
-            style={Styles.currencyContainer}
-            onPress={() => isWishlisted()}>
-            <EvilIcons name="heart" color={Colors.primarycolor} size={30} />
-            {cartReducer.WishListDetail.wishlistQuantity > 0 ? (
-              <View
-                style={{
-                  position: 'absolute',
-                  backgroundColor: Colors.primarycolor,
-                  width: 16,
-                  height: 16,
-                  borderRadius: 15 / 2,
-                  right: 0,
-                  top: -10,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
+          {showWishlist && (
+            <TouchableOpacity
+              style={Styles.currencyContainer}
+              onPress={() => isWishlisted()}>
+              <EvilIcons name="heart" color={Colors.primarycolor} size={30} />
+              {cartReducer.WishListDetail.wishlistQuantity > 0 ? (
+                <View
                   style={{
+                    position: 'absolute',
+                    backgroundColor: Colors.primarycolor,
+                    width: 16,
+                    height: 16,
+                    borderRadius: 15 / 2,
+                    right: 0,
+                    top: -10,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#FFFFFF',
-                    fontSize: 8,
                   }}>
-                  {cartReducer.WishListDetail.wishlistQuantity}
-                </Text>
-              </View>
-            ) : null}
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={Styles.cartContainer}
-            onPress={() => {
-              props.navigation.navigate('CartPage');
-            }}>
-            <EvilIcons name="cart" size={30} color={Colors.primarycolor} />
-            {cartReducer.CartDetail.cartQuantity > 0 ? (
-              <View
-                style={{
-                  position: 'absolute',
-                  backgroundColor: Colors.primarycolor,
-                  width: 16,
-                  height: 16,
-                  borderRadius: 15 / 2,
-                  right: 0,
-                  top: -10,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
+                  <Text
+                    style={{
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#FFFFFF',
+                      fontSize: 8,
+                    }}>
+                    {cartReducer.WishListDetail.wishlistQuantity}
+                  </Text>
+                </View>
+              ) : null}
+            </TouchableOpacity>
+          )}
+          {showCart && (
+            <TouchableOpacity
+              style={Styles.cartContainer}
+              onPress={() => {
+                props.navigation.navigate('CartPage');
+              }}>
+              <EvilIcons name="cart" size={30} color={Colors.primarycolor} />
+              {cartReducer.CartDetail.cartQuantity > 0 ? (
+                <View
                   style={{
+                    position: 'absolute',
+                    backgroundColor: Colors.primarycolor,
+                    width: 16,
+                    height: 16,
+                    borderRadius: 15 / 2,
+                    right: 0,
+                    top: -10,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#FFFFFF',
-                    fontSize: 8,
                   }}>
-                  {cartReducer.CartDetail.cartQuantity}
-                </Text>
-              </View>
-            ) : null}
-          </TouchableOpacity>
+                  <Text
+                    style={{
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#FFFFFF',
+                      fontSize: 8,
+                    }}>
+                    {cartReducer.CartDetail.cartQuantity}
+                  </Text>
+                </View>
+              ) : null}
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </>

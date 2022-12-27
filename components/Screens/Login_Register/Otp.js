@@ -14,6 +14,8 @@ import CommonOtp from '../../Common/CommonOtp';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
+  AuthBaseUrl2,
+  BaseURL2,
   getCartID,
   getWishID,
   postDataAuth,
@@ -37,7 +39,7 @@ export default function Otp(props) {
     };
     let res = await axios
       .post(
-        'https://apisap.fabindia.com/occ/v2/fabindiab2c/otp/validate?lang=en&curr=INR',
+        `${BaseURL2}/otp/validate?lang=en&curr=INR`,
         data,
         {
           headers: {
@@ -79,7 +81,7 @@ export default function Otp(props) {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     formBody = formBody.join('&');
-    fetch('https://apisap.fabindia.com/authorizationserver/oauth/token', {
+    fetch(`${AuthBaseUrl2}/oauth/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',

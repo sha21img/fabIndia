@@ -2,7 +2,7 @@ import {View, Text, StyleSheet, Dimensions, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CommonCarousel from '../../../../Common/CommonCarousel';
 import Fonts from '../../../../../assets/fonts';
-import {getComponentData} from '../../../../Common/Helper';
+import {BaseURL2, getComponentData} from '../../../../Common/Helper';
 import Card from '../../../../Common/Card';
 import Card1 from '../../../../Common/Card1';
 import axios from 'axios';
@@ -25,7 +25,7 @@ export default function ClassicsCards(props) {
       productCodes: bannerId.split(' '),
     };
     const response = await axios.post(
-      'https://apisap.fabindia.com/occ/v2/fabindiab2c/plpContent/searchProducts?fields=products(name,code,price(FULL),images(FULL),totalDiscount,priceAfterDiscount(FULL),newArrival,sale,stock)&lang=en&curr=INR',
+      `${BaseURL2}/plpContent/searchProducts?fields=products(name,code,price(FULL),images(FULL),totalDiscount,priceAfterDiscount(FULL),newArrival,sale,stock)&lang=en&curr=INR`,
       params,
     );
     // console.log(

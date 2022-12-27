@@ -34,7 +34,7 @@ import FabFamily from '../MyAccount/FabFamily';
 import CategorySection from '../CategorySection';
 import HomeHeader from '../Home/HomeHeader';
 import Fonts from '../../../assets/fonts';
-import {getComponentData, logout} from '../../Common/Helper';
+import {BaseURL2, getComponentData, logout} from '../../Common/Helper';
 import AccordianMenu from './AccordianMenu';
 import {useIsFocused} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
@@ -114,7 +114,7 @@ const DrawerContent = () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const response = await fetch(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current?lang=en&curr=INR`,
+      `${BaseURL2}/users/current?lang=en&curr=INR`,
       {
         method: 'GET',
         headers: {

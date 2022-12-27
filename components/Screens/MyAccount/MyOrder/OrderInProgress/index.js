@@ -5,6 +5,7 @@ import {
   Alert,
   Image,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CommonTopTab from '../../../../Common/CommonTopTab';
@@ -233,9 +234,14 @@ const PaymentPage = (data, item) => {
   );
 };
 export default function OrderInProgress(props) {
-  const {orderDetails, getorderDetails} = props;
+  const {orderDetails, getorderDetails, orderID} = props;
   const [currentPosition, setCurrentPosition] = useState(0);
+
+  console.log('orderDetails', orderDetails);
   // const [orderDetailsstate,setorderDetailsstate] = useState(orderDetails)
+  const getUrlLink = data => {
+    console.log('dataoiuytrew', data);
+  };
   const CardCompo = item => {
     return (
       <ScrollView
@@ -254,20 +260,23 @@ export default function OrderInProgress(props) {
           }}>
           {orderDetails?.totalItems} items ordered
         </Text>
-        {orderDetails?.entries?.map((item, index) => {
-          console.log('item111111111111111', item);
-
+        {orderDetails?.consignments?.map((item, index) => {
+          console.log('item111111111111111', item?.trackingID);
           const position =
-            !!item.status && item?.status?.name == 'Returned'
+            !!item?.entries[0]?.orderEntry?.status?.name &&
+            (item?.entries[0]?.orderEntry?.status?.name == 'Returned' ||
+              item?.entries[0]?.orderEntry?.status?.name == 'Delivered' ||
+              item?.entries[0]?.orderEntry?.status?.name == 'Non Returnable')
               ? 3
-              : item?.status?.name == 'Shipped'
+              : item?.entries[0]?.orderEntry?.status?.name == 'Shipped'
               ? 2
               : 1;
 
           return (
             <>
               <View style={{paddingVertical: 10}}>
-                {item?.status && item?.status?.name != 'Cancelled' ? (
+                {item?.entries[0]?.orderEntry?.status?.name &&
+                item?.entries[0]?.orderEntry?.status?.name != 'Cancelled' ? (
                   <>
                     <Text
                       style={{
@@ -276,7 +285,7 @@ export default function OrderInProgress(props) {
                         fontSize: 14,
                         color: Colors.textcolor,
                       }}>
-                      Shipment {index}
+                      Shipment {index + 1}
                     </Text>
 
                     <View style={{paddingVertical: 10}}>
@@ -290,55 +299,74 @@ export default function OrderInProgress(props) {
                   </>
                 ) : null}
                 <OrderProductLongCard
-                  data={item}
+                  data={item?.entries[0]?.orderEntry}
                   orderID={orderDetails.code}
                   status={orderDetails?.statusDisplay}
                   getorderDetails={getorderDetails}
                   {...props}
                 />
-                <TouchableOpacity
-                  style={{
-                    paddingVertical: 15,
-                    alignItems: 'center',
-                    backgroundColor: '#FAFAFA',
-                    justifyContent: 'center',
-                  }}
-                  onPress={() => {
-                    // props.navigation.navigate('OrderSuccess');
-                    // reasonForCancel(data.entryNumber, data.availableAction.name);
-                  }}>
-                  <Text
-                    style={{
-                      fontFamily: Fonts.Assistant600,
-                      fontSize: 14,
-                      lineHeight: 18,
-                      color: Colors.textcolor,
-                    }}>
-                    Invoice
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    paddingVertical: 15,
-                    alignItems: 'center',
-                    backgroundColor: '#FAFAFA',
-                    justifyContent: 'center',
-                    marginVertical: 15,
-                  }}
-                  onPress={() => {
-                    // props.navigation.navigate('OrderSuccess');
-                    // reasonForCancel(data.entryNumber, data.availableAction.name);
-                  }}>
-                  <Text
-                    style={{
-                      fontFamily: Fonts.Assistant600,
-                      fontSize: 14,
-                      lineHeight: 18,
-                      color: Colors.textcolor,
-                    }}>
-                    TrackOrder
-                  </Text>
-                </TouchableOpacity>
+                {!!item?.entries[0]?.orderEntry?.status?.name &&
+                  (item?.entries[0]?.orderEntry?.status?.name == 'Returned' ||
+                    item?.entries[0]?.orderEntry?.status?.names == 'Shipped' ||
+                    item?.entries[0]?.orderEntry?.status?.name == 'Delivered' ||
+                    item?.entries[0]?.orderEntry?.status?.name ==
+                      'Non Returnable') && (
+                    <>
+                      <TouchableOpacity
+                        style={{
+                          paddingVertical: 15,
+                          alignItems: 'center',
+                          backgroundColor: '#FAFAFA',
+                          justifyContent: 'center',
+                        }}
+                        onPress={() => {
+                          Linking.openURL(
+                            `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/vinculum/orders/v1/getInvoice/${orderID}/${item?.trackingID}`,
+                          );
+                        }}>
+                        <Text
+                          style={{
+                            fontFamily: Fonts.Assistant600,
+                            fontSize: 14,
+                            lineHeight: 18,
+                            color: Colors.textcolor,
+                          }}>
+                          Invoice
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={{
+                          paddingVertical: 15,
+                          alignItems: 'center',
+                          backgroundColor: '#FAFAFA',
+                          justifyContent: 'center',
+                          marginVertical: 15,
+                        }}
+                        onPress={
+                          () =>
+                            props.navigation.navigate('Tracking', {
+                              url: item?.carrierDetails.trackingUrl,
+                            })
+                          // getUrlLink(item?.carrierDetails.trackingUrl)
+                        }
+
+                        // onPress={() => {
+                        //   // props.navigation.navigate('OrderSuccess');
+                        //   // reasonForCancel(data.entryNumber, data.availableAction.name);
+                        // }}
+                      >
+                        <Text
+                          style={{
+                            fontFamily: Fonts.Assistant600,
+                            fontSize: 14,
+                            lineHeight: 18,
+                            color: Colors.textcolor,
+                          }}>
+                          TrackOrder
+                        </Text>
+                      </TouchableOpacity>
+                    </>
+                  )}
               </View>
             </>
           );
