@@ -60,7 +60,7 @@ export default function AccordianMenu(props) {
       const get = await AsyncStorage.getItem('generatToken');
       const getToken = JSON.parse(get);
       if (getToken.isCheck == true) {
-        navigation.navigate('MyAccount', {screen: 'GiftCard'});
+        navigation.navigate('MyAccount', {screen: 'GiftCard', from: 'Menu'});
       } else {
         navigation.navigate('MyAccount', {screen: 'Login_Register'});
       }
