@@ -2,6 +2,8 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Fonts from '../../../../assets/fonts';
 import {Colors} from '../../../../assets/Colors';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 
 export default function SortBox({
   openSort = null,
@@ -53,33 +55,39 @@ export default function SortBox({
           width: '50%',
           borderRightWidth: 1,
           borderRightColor: Colors.primarycolor,
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'row',
         }}>
+        <Fontisto name="arrow-swap" color={Colors.primarycolor} size={10} />
+
         <Text
           style={{
             fontFamily: Fonts.Assistant500,
             fontSize: 16,
-            lineHeight: 16,
             color: Colors.primarycolor,
             textAlign: 'center',
+            paddingLeft: 10,
           }}>
           SORT
         </Text>
       </TouchableOpacity>
-      {/* <View
+      <TouchableOpacity
         style={{
-          borderLeftWidth: 1,
-          marginVertical: 10,
-          borderLeftColor: '#828282',
+          width: '50%',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
-      /> */}
-      <TouchableOpacity style={{width: '50%'}} onPress={() => openFilter()}>
+        onPress={() => openFilter()}>
+        <FontAwesome name="filter" color={Colors.primarycolor} size={15} />
         <Text
           style={{
             fontFamily: Fonts.Assistant500,
             fontSize: 16,
             color: Colors.primarycolor,
-            lineHeight: 16,
             textAlign: 'center',
+            paddingLeft: 10,
           }}>
           FILTER
         </Text>

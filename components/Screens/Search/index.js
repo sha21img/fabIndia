@@ -5,46 +5,47 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Entypo from 'react-native-vector-icons/Entypo';
-import {Colors} from '../../../assets/Colors';
-import TrendingNow from './TrendingNow';
-import {Styles} from './styles';
-import Tags from './Tags';
-import {useDebounce} from '../../../constant';
+import { Colors } from '../../../assets/Colors';
+import { Styles } from './styles';
+import { useDebounce } from '../../../constant';
 import axios from 'axios';
 import Fonts from '../../../assets/fonts';
 import NoResultFound from './NoResultFound';
-import SearchResult from './SearchResult';
-
-const data = [
-  {name: 'Cotton sari'},
-  {name: 'Bedsheets'},
-  {name: 'Oxidised jewellery'},
-  {name: 'Dining table'},
-];
 
 export default function Search(props) {
   const [text, setText] = React.useState('');
   const debouncedText = useDebounce(text);
   const [filterProduct, setFilterProduct] = useState([]);
+  const [suggestedProduct, setSuggestedProduct] = useState([]);
 
   const getProductSearchData = async () => {
     const response = await axios.get(
       `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=${text}&pageSize=5&lang=en&curr=INR`,
     );
-    console.log('response for search', response.data.products);
+    // console.log('response for search', response.data.products);
     setFilterProduct(response.data.products);
   };
+
+  const getSuggestionData = async () => {
+    const response = await axios.get(
+      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/suggestions?term=${text}&max=5&lang=en&curr=INR`,
+    );
+    // console.log('suggestedProduct==>', response.data.suggestions);
+    setSuggestedProduct(response.data.suggestions);
+  };
+
   useEffect(() => {
     if (!!text) {
       getProductSearchData();
+      getSuggestionData();
     } else if (text == '') {
       setFilterProduct([]);
     }
   }, [text]);
+
   return (
     <>
       <View style={Styles.headercontainer}>
@@ -64,41 +65,45 @@ export default function Search(props) {
             placeholderTextColor={'#BDBDBD'}
             onChangeText={text => setText(text)}
             value={debouncedText}
+            onSubmitEditing={() =>
+              props.navigation.navigate('LandingPageSaris_Blouses', {
+                ...props,
+                isSearch: true,
+                title: text
+              })
+            }
           />
-          <TouchableOpacity style={Styles.righticonbox}>
-            <AntDesign name="search1" color={Colors.primarycolor} size={20} />
+          <TouchableOpacity disabled={true} activeOpacity={0.8} style={Styles.righticonbox}>
+            <AntDesign name={"search1"} color={Colors.primarycolor} size={20} />
           </TouchableOpacity>
         </View>
       </View>
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={Styles.scrollcontainer}>
         {filterProduct.length > 0 ? (
           <>
-            <TouchableOpacity
-              onPress={() =>
-                props.navigation.navigate('LandingPageSaris_Blouses', {
-                  ...props,
-                  isSearch: true,
-                  title: text,
-                })
-              }
-              style={{
-                paddingVertical: 15,
-                borderBottomWidth: 1,
-                borderBottomColor: '#EDEDED',
-              }}>
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontFamily: Fonts.Assistant400,
-                  color: Colors.textcolor,
-                }}>
-                {text}
-              </Text>
-            </TouchableOpacity>
+            {suggestedProduct.length > 0 ?
+              suggestedProduct.map((obj) => {
+                return (
+                  <TouchableOpacity
+                    style={{ paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: '#EDEDED' }}
+                    onPress={() =>
+                      props.navigation.navigate('LandingPageSaris_Blouses', {
+                        ...props,
+                        isSearch: true,
+                        title: obj.value,
+                      })
+                    }>
+                    <Text style={{ fontSize: 14, fontFamily: Fonts.Assistant400, color: Colors.textcolor }}>{obj.value}</Text>
+                  </TouchableOpacity>
+                )
+              })
+              : null
+            }
+
             {filterProduct?.map(item => {
-              console.log('item........', item);
               return (
                 <TouchableOpacity
                   onPress={() =>
@@ -108,13 +113,6 @@ export default function Search(props) {
                       // ...props,
                     })
                   }
-                  // onPress={() =>
-                  //   props.navigation.navigate('SearchResult', {
-                  //     productId: item.code,
-                  //     filterProduct: filterProduct,
-                  //     ...props,
-                  //   })
-                  // }
                   style={{
                     paddingVertical: 10,
                     borderBottomWidth: 1,
@@ -129,38 +127,13 @@ export default function Search(props) {
                     {item.name}
                   </Text>
                   <Text>{item.price.formattedValue}</Text>
-                  {/* <Text>{item.price.formattedValue}</Text> */}
                 </TouchableOpacity>
               );
             })}
           </>
-        ) : filterProduct.length == 0 && text !== '' ? (
+        ) : filterProduct.length == 0 && text == '' ? (
           <NoResultFound />
         ) : null}
-        {/* <View style={Styles.recentsearchbox}>
-          <Text style={Styles.recentsearchtxt}>Recent searches</Text>
-          <Text style={Styles.cleartxt}>clear</Text>
-        </View> */}
-        {/* {data.map((item, index) => {
-          return (
-            <View
-              key={Math.random() * 1000}
-              style={[
-                Styles.searchlistbox,
-                {
-                  borderBottomWidth: data.length - 1 ? 0.3 : 0,
-                },
-              ]}>
-              <Text style={Styles.searchlisttxt}>{item.name}</Text>
-              <Entypo name="cross" color="#979797" size={15} />
-            </View>
-          );
-        })} */}
-        {/* <Text style={Styles.discovertxt}>Discover more</Text>
-        <View style={Styles.chipcontainer}>
-          <Tags />
-        </View> */}
-        {/* <TrendingNow /> */}
       </ScrollView>
     </>
   );

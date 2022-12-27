@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
 import axios from 'axios';
 import Card from '../../../Common/Card';
@@ -33,7 +33,7 @@ const CardProducts = (props, item) => {
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
         flexDirection: 'row',
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
         // paddingVertical: 5,
         backgroundColor: '#FFFFFF',
         flexGrow: 1,

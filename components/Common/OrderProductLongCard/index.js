@@ -16,6 +16,7 @@ import CommonButton from '../CommonButton';
 import axios from 'axios';
 import {logout} from '../Helper';
 import {useDispatch} from 'react-redux';
+import WebView from 'react-native-webview';
 export default function OrderProductLongCard(props) {
   const {
     data = {},
@@ -24,9 +25,8 @@ export default function OrderProductLongCard(props) {
     getorderDetails,
     handliClick = null,
   } = props;
-  const image = 'https://apisap.fabindia.com/' + data.product.images[0].url;
+  const image = 'https://apisap.fabindia.com' + data.product.images[0].url;
   console.log(image);
-  console.log('order in progress data', data);
   console.log('data?.status?.name', data);
 
   const dispatch = useDispatch();
@@ -84,10 +84,14 @@ export default function OrderProductLongCard(props) {
     console.log('radio.commentcommentcomment.reasonCode', comment);
     const response = await axios
       .post(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/cancellation?lang=en&curr=INR`,
+        `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/cancellation?lang=en&curr=INR`,
         {
           cancellationRequestEntryInputs: [
             {
+              // orderEntryNumber: '0',
+              // quantity: '1',
+              // reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+              // reasonDescription: 'kok',
               orderEntryNumber: data?.entryNumber,
               quantity: reasonData.quantity,
               reasonCode: radio.reasonCode,
@@ -97,8 +101,8 @@ export default function OrderProductLongCard(props) {
         },
         {
           headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-            // Authorization: `${getToken.token_type} JrvN_H6QsowQB6WHsWumhEZA4s0`,
+            // Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            Authorization: `${getToken.token_type} q8BkXSgRnD4xPbdk9Cry3YrlVM8`,
           },
         },
       )
@@ -108,9 +112,12 @@ export default function OrderProductLongCard(props) {
           'responseresponseresponseresponseresponseresponseresponse',
           response.data,
         );
+        props.navigation.navigate('OrderSuccess');
         getorderDetails();
       })
       .catch(errors => {
+        console.log('vicky,orderproductlongcard', errors);
+
         if (errors.response.status == 401) {
           logout(dispatch);
         }
@@ -158,8 +165,9 @@ export default function OrderProductLongCard(props) {
   // );
 
   // console.logg("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",data)
-  const reasonForCancel = async entryNumber => {
-    console.log('entryNumber', entryNumber, orderID);
+
+  const reasonForCancel = async (entryNumber, data) => {
+    console.log('entryNumbe.....................r', data);
     // const get = await AsyncStorage.getItem('generatToken');
     // const getToken = JSON.parse(get);
     const get = await AsyncStorage.getItem('generatToken');
@@ -171,30 +179,42 @@ export default function OrderProductLongCard(props) {
         {},
         {
           headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-            // Authorization: `${getToken.token_type} JrvN_H6QsowQB6WHsWumhEZA4s0`,
+            // Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            Authorization: `${getToken.token_type} q8BkXSgRnD4xPbdk9Cry3YrlVM8`,
           },
         },
       )
       .then(response => {
         console.log(
           '111getOrdersgetOrderdersgetOrdersgetOrdersget11111OrdtOrders',
-          response.data,
+          response.data.cancelEntries[0],
         );
-        setReasonData(response.data);
-        const newReasonData = response.data.availableAction.reasons.map(
-          (item, index) => {
-            return {
-              label: item.name,
-              index: index,
-              reasonCode: item.code,
-            };
-          },
-        );
-        setNewReasonData(newReasonData);
-        setshowmodal(true);
+        setReasonData(response.data.cancelEntries[0]);
+        if (data == 'Cancel') {
+          const reason =
+            response?.data?.availableAction?.reasons ||
+            response?.data?.cancelEntries[0];
+          const newReasonData = reason.availableAction.reasons.map(
+            (item, index) => {
+              return {
+                label: item.name,
+                index: index,
+                reasonCode: item.code,
+              };
+            },
+          );
+          setNewReasonData(newReasonData);
+          setshowmodal(true);
+        } else {
+          setreturnshow(true);
+        }
       })
       .catch(error => {
+        console.log('vicky,orderproductlongcard', error);
+
+        if (error.response.status == 401) {
+          logout(dispatch);
+        }
         console.log(
           '222getOrdersgetOrderdersgetOrdersgetOrdersget11111OrdtOrders',
           error,
@@ -203,6 +223,10 @@ export default function OrderProductLongCard(props) {
 
     // setOrders(response.data.orders);
   };
+  console.log(
+    'data?.product?.name.includes',
+    data?.product?.name.includes('gift'),
+  );
   return (
     <>
       <View
@@ -228,6 +252,7 @@ export default function OrderProductLongCard(props) {
               })
             }>
             <Image source={{uri: image}} style={{height: 100, width: 79}} />
+            {/* <Text>hjg</Text> */}
           </TouchableOpacity>
           <View style={{width: '70%'}}>
             <Text
@@ -240,20 +265,22 @@ export default function OrderProductLongCard(props) {
               {data?.product?.name}
             </Text>
             <View style={{flexDirection: 'row', paddingVertical: 5}}>
-              <Text
-                style={{
-                  marginRight: 10,
-                  fontFamily: Fonts.Assistant400,
-                  fontSize: 14,
-                  lineHeight: 18,
-                  color: Colors.textcolor,
-                }}>
-                Size{' '}
-                {
-                  data?.product?.baseOptions[0]?.selected
-                    ?.variantOptionQualifiers[1].value
-                }
-              </Text>
+              {!data?.product?.name.includes('gift') && (
+                <Text
+                  style={{
+                    marginRight: 10,
+                    fontFamily: Fonts.Assistant400,
+                    fontSize: 14,
+                    lineHeight: 18,
+                    color: Colors.textcolor,
+                  }}>
+                  Size{' '}
+                  {
+                    data?.product?.baseOptions[0]?.selected
+                      ?.variantOptionQualifiers[1].value
+                  }
+                </Text>
+              )}
               <Text
                 style={{
                   marginRight: 10,
@@ -283,10 +310,15 @@ export default function OrderProductLongCard(props) {
                 alignItems: 'center',
               }}>
               <View>
-                {data?.status?.name && (
+                {!!data?.status?.name && (
                   <Text
                     style={{
-                      color: 'orange',
+                      color:
+                        data?.status?.name == 'Cancelled'
+                          ? 'red'
+                          : data?.status?.name == 'Delivered'
+                          ? '#a3b779'
+                          : 'orange',
                       fontSize: 14,
                       fontFamily: Fonts.Assistant700,
                       lineHeight: 18,
@@ -310,10 +342,8 @@ export default function OrderProductLongCard(props) {
               justifyContent: 'center',
             }}
             onPress={() => {
-              // setshowmodal(true);
-              // if (data.availableAction.name == 'Cancel') {
-              reasonForCancel(data.entryNumber);
-              // }
+              // props.navigation.navigate('OrderSuccess');
+              // reasonForCancel(data.entryNumber, data.availableAction.name);
             }}>
             <Text
               style={{
@@ -423,7 +453,37 @@ export default function OrderProductLongCard(props) {
                 If yes, do let us know why so we can serve you better the next
                 time!
               </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingVertical: 15,
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Ionicons
+                    name="arrow-back-circle-outline"
+                    color={Colors.primarycolor}
+                    size={20}
+                  />
 
+                  <Text style={{paddingLeft: 10, color: Colors.textcolor}}>
+                    Eligible for Cancellation
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    props.navigation.navigate('ViewPolicy');
+                  }}>
+                  <Text
+                    style={{
+                      fontFamily: Fonts.Assistant400,
+                      color: Colors.primarycolor,
+                      fontSize: 16,
+                    }}>
+                    View Policy
+                  </Text>
+                </TouchableOpacity>
+              </View>
               <View style={{paddingVertical: 18}}>
                 <TextInput
                   numberOfLines={3}
@@ -524,6 +584,37 @@ export default function OrderProductLongCard(props) {
                 If yes, do let us know why so we can serve you better the next
                 time!
               </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingVertical: 15,
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Ionicons
+                    name="arrow-back-circle-outline"
+                    color={Colors.primarycolor}
+                    size={20}
+                  />
+
+                  <Text style={{paddingLeft: 10, color: Colors.textcolor}}>
+                    Eligible for Cancellation
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    props.navigation.navigate('ViewPolicy');
+                  }}>
+                  <Text
+                    style={{
+                      fontFamily: Fonts.Assistant400,
+                      color: Colors.primarycolor,
+                      fontSize: 16,
+                    }}>
+                    View Policy
+                  </Text>
+                </TouchableOpacity>
+              </View>
 
               <View style={{paddingVertical: 18}}>
                 <TextInput

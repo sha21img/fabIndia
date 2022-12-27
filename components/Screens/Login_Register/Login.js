@@ -41,6 +41,29 @@ export default function Login(props) {
   const toggleOldHide = () => {
     setHideOldPass(!hideOldPass);
   };
+  const saveToken = async data => {
+    await AsyncStorage.setItem('fabToken', JSON.stringify(data));
+  };
+  const tokenGenerationFabFamily = async () => {
+    const params = {
+      username: 'durgesh.yadav@fabindia.net',
+      password: 'AIlqeFI4K',
+    };
+    await axios
+      .post(`https://api.apm20.gravty.io/v1/login/`, params, {
+        headers: {
+          'x-api-key': 'ZIhuq8Igby1qOyhu1nnsb6JL5ibQJ2sf6V968DLk',
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(async response => {
+        saveToken(response.data);
+        console.log('response for token generation', response.data);
+      })
+      .catch(errors => {
+        console.log('errors for token generation', errors);
+      });
+  };
 
   const handleSubmit = async () => {
     if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(email)) {
@@ -70,8 +93,9 @@ export default function Login(props) {
           return res.json();
         })
         .then(function (res1) {
+          tokenGenerationFabFamily();
           const tokenGenerate = {...res1, isCheck: true};
-          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          console.log('tokenGeneratetokenGeneratetokenGenerate', res1);
           if (res1.error) {
             Toast.showWithGravity(
               'Enter correct Details',

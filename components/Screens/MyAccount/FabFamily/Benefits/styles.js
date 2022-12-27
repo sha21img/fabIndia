@@ -4,7 +4,7 @@ import Fonts from '../../../../../assets/fonts';
 
 export const Styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: 'white',
   },
   header: {
@@ -25,7 +25,7 @@ export const Styles = StyleSheet.create({
   },
   txtMainView: {
     paddingHorizontal: 15,
-    paddingVertical: 20,
+    paddingBottom: 20,
     backgroundColor: 'white',
   },
   txtOne: {
