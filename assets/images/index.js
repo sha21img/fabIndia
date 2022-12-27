@@ -146,7 +146,7 @@ export const image = {
   transCart: require('./transCart.png'),
   Shape: require('./Shape.png'),
   fabshow: require('./fabshow.png'),
-  map:require('./map.png'), 
+  map: require('./map.png'),
 
   fabfamily: require('./fabfamily.png'),
   fabfamilyflower: require('./fabfamilyflower.png'),
@@ -180,4 +180,5 @@ export const image = {
   hike: require('./hike.png'),
   saree: require('./saree.png'),
   close: require('./close.png'),
+  loginBg: require('./loginBg.jpg'),
 };

@@ -7,7 +7,11 @@ import {wishlistDetail} from './Redux/actions';
 const ComponentBaseURL = 'https://apisap.fabindia.com/occ/v2/';
 const BaseURL = 'https://apisap.fabindia.com/occ/v2/';
 const BaseURL1 = 'https://apisap.fabindia.com/occ/v2/fabindiab2c/';
+export const BaseURL2= 'https://apisap.fabindiahome.com/occ/v2/fabindiab2c/';
+
 const AuthBaseUrl = 'https://apisap.fabindia.com/authorizationserver/';
+export const AuthBaseUrl2 = 'https://apisap.fabindiahome.com/authorizationserver/';
+
 const AuthAuthor = 'bearer nCVKPnrYg-ZgHMn0djWh1YSFCX0';
 
 export const imageURL = 'https://apisap.fabindia.com/';
@@ -15,7 +19,7 @@ export const imageURL = 'https://apisap.fabindia.com/';
 const generatTokenWithout = async () => {
   await axios
     .post(
-      `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+      `${AuthBaseUrl2}/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
     )
     .then(
       response => {
@@ -67,7 +71,7 @@ const logout = async dispatch => {
 // };
 const getData = async path => {
   // const Token = localStorage.getItem('token');
-  const response = await fetch(`${BaseURL1}/${path}`, {
+  const response = await fetch(`${BaseURL2}/${path}`, {
     method: 'GET',
     // mode: 'cors',
     headers: {
@@ -83,7 +87,7 @@ const getData = async path => {
 };
 const getComponentData = async path => {
   // const Token = localStorage.getItem('token');
-  const response = await fetch(`${BaseURL1}/${path}`, {
+  const response = await fetch(`${BaseURL2}/${path}`, {
     method: 'GET',
     // mode: 'cors',
     headers: {
@@ -122,7 +126,7 @@ const UnAuthPostData = async (url, data) => {
   const getToken = JSON.parse(get);
   console.log('getToken for login', getToken);
 
-  const response = await fetch(`${BaseURL1}${url}`, {
+  const response = await fetch(`${BaseURL2}${url}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -146,7 +150,7 @@ const getCartID = async () => {
   const type = getToken.isCheck ? 'current' : 'anonymous';
   const response = await axios
     .post(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts`,
+      `${BaseURL2}/users/${type}/carts`,
       {},
       {
         headers: {
@@ -188,7 +192,7 @@ const getWishID = async () => {
   console.log('getToken-=as-fd=-asd=f-=sdaf-', getToken);
   const response = await axios
     .get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts?fields=carts(DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,entries(totalPrice(formattedValue),product(images(FULL),stock(FULL),variantOptions(FULL),variantMatrix,priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,DEFAULT),user,saveTime,name,description)&lang=en&curr=INR`,
+      `${BaseURL2}/users/current/carts?fields=carts(DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,entries(totalPrice(formattedValue),product(images(FULL),stock(FULL),variantOptions(FULL),variantMatrix,priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,DEFAULT),user,saveTime,name,description)&lang=en&curr=INR`,
       {
         headers: {
           Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
@@ -207,7 +211,7 @@ const getWishID = async () => {
 const postDataAuth = async (url, formData) => {
   const response = await axios({
     method: 'post',
-    url: `${AuthBaseUrl}/${url}`,
+    url: `${AuthBaseUrl2}/${url}`,
     data: formData,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',

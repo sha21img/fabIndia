@@ -34,7 +34,7 @@ import FabFamily from '../MyAccount/FabFamily';
 import CategorySection from '../CategorySection';
 import HomeHeader from '../Home/HomeHeader';
 import Fonts from '../../../assets/fonts';
-import {getComponentData, logout} from '../../Common/Helper';
+import {BaseURL2, getComponentData, logout} from '../../Common/Helper';
 import AccordianMenu from './AccordianMenu';
 import {useIsFocused} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
@@ -114,7 +114,7 @@ const DrawerContent = () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const response = await fetch(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current?lang=en&curr=INR`,
+      `${BaseURL2}/users/current?lang=en&curr=INR`,
       {
         method: 'GET',
         headers: {
@@ -164,7 +164,13 @@ const DrawerContent = () => {
             borderRadius: 5,
             marginVertical: 10,
           }}>
-          <Ionicons name="person" size={30} />
+          {userProfileData?.name ? (
+            <Text style={{fontSize: 30, color: '#CDCDCD'}}>
+              {userProfileData?.name?.match(/\b(\w)/g).join('')}
+            </Text>
+          ) : (
+            <Ionicons name="person" size={30} />
+          )}
         </View>
         <View
           style={{
@@ -208,7 +214,9 @@ const DrawerContent = () => {
           source={image.document}
           style={{width: 20, height: 20, resizeMode: 'contain'}}
         />
-        <Text style={{color: Colors.textcolor, marginLeft: 10}}>Orders</Text>
+        <Text style={{color: Colors.textcolor, fontSize: 16, marginLeft: 10}}>
+          Orders
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.5}
@@ -224,7 +232,9 @@ const DrawerContent = () => {
           source={image.ribbon}
           style={{width: 20, height: 20, resizeMode: 'contain'}}
         />
-        <Text style={{color: Colors.textcolor, marginLeft: 10}}>FabFamily</Text>
+        <Text style={{color: Colors.textcolor, fontSize: 16, marginLeft: 10}}>
+          FabFamily
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.5}
@@ -241,11 +251,10 @@ const DrawerContent = () => {
           size={20}
           color={Colors.primarycolor}
         />
-        <Text style={{color: Colors.textcolor, marginLeft: 10}}>
+        <Text style={{color: Colors.textcolor, fontSize: 16, marginLeft: 10}}>
           Shop By Categories
         </Text>
       </TouchableOpacity>
-
       <FlatList
         data={listData}
         keyExtractor={item => <></>}

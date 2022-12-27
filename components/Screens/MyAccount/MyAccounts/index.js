@@ -10,6 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
+import {AuthBaseUrl2, BaseURL2, logout} from '../../../Common/Helper';
 const pages = [
   {
     icon: image.document,
@@ -71,7 +72,7 @@ const MyAccounts = props => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const response = await fetch(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current?lang=en&curr=INR`,
+      `${BaseURL2}/users/current?lang=en&curr=INR`,
       {
         method: 'GET',
         headers: {
@@ -99,7 +100,7 @@ const MyAccounts = props => {
   const generatTokenWithout = async () => {
     await axios
       .post(
-        `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+        `${AuthBaseUrl2}/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
       )
       .then(
         response => {
@@ -112,12 +113,14 @@ const MyAccounts = props => {
         },
       );
   };
-  const logout = async () => {
-    const res = await AsyncStorage.removeItem('generatToken');
-    console.log('delete', res);
+  const logoutt = async () => {
+    // const res = await AsyncStorage.removeItem('generatToken');
+    // console.log('delete', res);
+    // console.log('before');
     props.navigation.navigate('MyAccount', {
       screen: 'Login_Register',
     });
+    // console.log('after');
     await generatTokenWithout();
   };
 
@@ -128,7 +131,13 @@ const MyAccounts = props => {
         {pages.map(item => {
           return (
             <TouchableOpacity
-              onPress={() => props.navigation.navigate(item.routes)}
+              onPress={() => {
+                if (item.routes == 'GiftCard') {
+                  props.navigation.navigate(item.routes, {from: 'Account'});
+                } else {
+                  props.navigation.navigate(item.routes);
+                }
+              }}
               key={Math.random() * 10000}
               style={{
                 padding: 20,
@@ -155,7 +164,7 @@ const MyAccounts = props => {
           );
         })}
         <TouchableOpacity
-          onPress={() => logout()}
+          onPress={() => logoutt()}
           key={Math.random() * 10000}
           style={{
             padding: 20,

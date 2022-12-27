@@ -16,7 +16,7 @@ import InputText from '../../../../Common/InputText';
 import {Styles} from './styles';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {logout} from '../../../../Common/Helper';
+import {BaseURL2, logout} from '../../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 function SendGiftCard(props) {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ function SendGiftCard(props) {
     const getToken = JSON.parse(get);
     const response = await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/getGiftCardProducts?lang=en&curr=INR`,
+        `${BaseURL2}/getGiftCardProducts?lang=en&curr=INR`,
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -66,7 +66,7 @@ function SendGiftCard(props) {
     const getToken = JSON.parse(get);
     const response = await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/getGiftCardDesigns?fields=FULL&lang=en&curr=INR`,
+        `${BaseURL2}/getGiftCardDesigns?fields=FULL&lang=en&curr=INR`,
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -109,7 +109,7 @@ function SendGiftCard(props) {
     } else {
       const response = await axios
         .post(
-          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/entries/configurator/textfield?fields=FULL&lang=en&curr=INR`,
+          `${BaseURL2}/users/current/carts/${getCartID}/entries/configurator/textfield?fields=FULL&lang=en&curr=INR`,
           {
             configurationInfos: [
               {

@@ -8,9 +8,10 @@ import axios from 'axios';
 import {giftCardTabs} from '../../../../constant';
 import Card from '../../../Common/Card';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {logout} from '../../../Common/Helper';
+import {BaseURL2, logout} from '../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 export default function GiftCard(props) {
+  const {from} = props.route.params;
   const dispatch = useDispatch();
   const [walletInfo, setWalletInfo] = useState({
     totalBalance: '0.0',
@@ -22,7 +23,7 @@ export default function GiftCard(props) {
     const getToken = JSON.parse(get);
     const response = await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/getWallet?lang=en&curr=INR`,
+        `${BaseURL2}/users/current/getWallet?lang=en&curr=INR`,
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
