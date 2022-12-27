@@ -23,7 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckAddress from '../../MyAccount/MyAddresses/CheckAddress';
 import InputText from '../../../Common/InputText';
 import Toast from 'react-native-simple-toast';
-import {logout} from '../../../Common/Helper';
+import {BaseURL2, logout} from '../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 const customStyles = {
   stepIndicatorSize: 30,
@@ -92,7 +92,7 @@ export default function CartList(props) {
     const response = await axios
       .delete(
         // https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/carts/08008002/vouchers/S1_Percentage_discount_coupon?lang=en&curr=INR
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/vouchers/${code}?lang=en&curr=INR`,
+        `${BaseURL2}/users/current/carts/${getCartID}/vouchers/${code}?lang=en&curr=INR`,
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -125,7 +125,7 @@ export default function CartList(props) {
     console.log('this us cart id', getCartID);
     const response = await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/vouchers?voucherId=${couponCode}&lang=en&curr=INR`,
+        `${BaseURL2}/users/current/carts/${getCartID}/vouchers?voucherId=${couponCode}&lang=en&curr=INR`,
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -172,7 +172,7 @@ export default function CartList(props) {
     const type = getToken.isCheck ? 'current' : 'anonymous';
     const response = await axios
       .delete(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}/entries/${data.entryNumber}`,
+        `${BaseURL2}/users/${type}/carts/${getCartID}/entries/${data.entryNumber}`,
         // {},
         {
           headers: {
@@ -221,7 +221,7 @@ export default function CartList(props) {
     console.log('this us cart id', getCartID);
     const response = await axios
       .patch(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/entries/${entrynum}`,
+        `${BaseURL2}/users/current/carts/${getCartID}/entries/${entrynum}`,
         {
           quantity: quantity,
         },

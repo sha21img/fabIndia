@@ -4,7 +4,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyAddresses from '../index';
 import EditAddress from '../EditAddress';
-import {logout} from '../../../../Common/Helper';
+import {BaseURL2, logout} from '../../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 export default function CheckAddress(props) {
   const {setCurrentPosition} = props;
@@ -20,7 +20,7 @@ export default function CheckAddress(props) {
     const getToken = JSON.parse(get);
     const response = await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses`,
+        `${BaseURL2}/users/current/addresses`,
         // {},
         {
           headers: {

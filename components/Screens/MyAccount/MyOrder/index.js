@@ -9,7 +9,7 @@ import {Styles} from './styles';
 import axios from 'axios';
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {logout} from '../../../Common/Helper';
+import {BaseURL2, logout} from '../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 export default function MyOrder(props) {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ export default function MyOrder(props) {
     const getToken = JSON.parse(get);
     const response = await axios
       .get(
-        `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
+        `${BaseURL2}/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
         {
           headers: {
             // Authorization: `${getToken.token_type} ${getToken.access_token}`,

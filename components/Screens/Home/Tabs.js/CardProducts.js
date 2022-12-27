@@ -3,6 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import Card from '../../../Common/Card';
 import {useScrollToTop} from '@react-navigation/native';
+import { BaseURL2 } from '../../../Common/Helper';
 
 const CardProducts = (props, item) => {
   const [productData, setproductData] = React.useState([]);
@@ -12,7 +13,7 @@ const CardProducts = (props, item) => {
       productCodes: productCodes,
     };
     const response = await axios.post(
-      'https://apisap.fabindia.com/occ/v2/fabindiab2c/plpContent/searchProducts?fields=products(name,code,price(FULL),images(FULL),totalDiscount,priceAfterDiscount(FULL),newArrival,sale,stock)&lang=en&curr=INR',
+      `${BaseURL2}/plpContent/searchProducts?fields=products(name,code,price(FULL),images(FULL),totalDiscount,priceAfterDiscount(FULL),newArrival,sale,stock)&lang=en&curr=INR`,
       params,
     );
     setproductData(response.data.products);

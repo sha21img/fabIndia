@@ -13,6 +13,7 @@ import {image} from '../../../assets/images';
 import axios from 'axios';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CommonButton from '../../Common/CommonButton';
+import { BaseURL2 } from '../../Common/Helper';
 
 const OrderConfirmation = props => {
   const [showmodal, setshowmodal] = useState(false);
@@ -28,7 +29,7 @@ const OrderConfirmation = props => {
   const getorderconfirmDetails = async id => {
     console.log('jijhiojiojhp', id);
     const response = await axios.post(
-      `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/fetch?id=${id}&lang=en&curr=INR`,
+      `${BaseURL2}/users/current/orders/fetch?id=${id}&lang=en&curr=INR`,
       // {},
     );
     console.log(

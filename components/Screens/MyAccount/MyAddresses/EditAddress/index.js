@@ -21,7 +21,7 @@ import Styles from './styles';
 import Fonts from '../../../../../assets/fonts';
 import {cos} from 'react-native-reanimated';
 import {useNavigation} from '@react-navigation/native';
-import {logout} from '../../../../Common/Helper';
+import {BaseURL2, logout} from '../../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 const faqs = [
   {
@@ -101,7 +101,7 @@ const EditAddress = props => {
     const getToken = JSON.parse(get);
     const response = await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/countries?fields=DEFAULT&type=SHIPPING`,
+        `${BaseURL2}/countries?fields=DEFAULT&type=SHIPPING`,
         // {},
         {
           headers: {
@@ -173,7 +173,7 @@ const EditAddress = props => {
     if (!!editflag) {
       const response = await axios
         .patch(
-          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses/${editflag.id}`,
+          `${BaseURL2}/users/current/addresses/${editflag.id}`,
           body,
           {
             headers: {
@@ -194,7 +194,7 @@ const EditAddress = props => {
     } else {
       const response = await axios
         .post(
-          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses`,
+          `${BaseURL2}/users/current/addresses`,
           body,
           {
             headers: {
@@ -243,7 +243,7 @@ const EditAddress = props => {
     SetPinCode(data);
     const response = await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/pincodeService/pincodeDetails?pincode=${data}&lang=en&curr=INR`,
+        `${BaseURL2}/pincodeService/pincodeDetails?pincode=${data}&lang=en&curr=INR`,
         // {},
         {
           headers: {
@@ -266,7 +266,7 @@ const EditAddress = props => {
     const getToken = JSON.parse(get);
     const response = await axios
       .get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/countries/${code}/regions?fields=DEFAULT`,
+        `${BaseURL2}/countries/${code}/regions?fields=DEFAULT`,
         // {},
         {
           headers: {

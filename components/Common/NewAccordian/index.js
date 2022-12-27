@@ -17,6 +17,7 @@ import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
 import {useNavigation} from '@react-navigation/native';
+import { BaseURL2 } from '../Helper';
 const width = Dimensions.get('window').width;
 const NewAccordian = props => {
   const {newData} = props;
@@ -61,7 +62,7 @@ const NewAccordian = props => {
     // &query=%3Arelevance%3AallCategories%3Ainfant-boys-kurtas&pageSize=9&lang=en&curr=INR
 
     response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}
+      `${BaseURL2}/products/search?fields=${fields}
       &query=:relevance:allCategories:infant-boys-kurtas
       &pageSize=9&lang=en&curr=INR`,
     );
