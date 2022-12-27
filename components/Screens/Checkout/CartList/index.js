@@ -303,6 +303,7 @@ export default function CartList(props) {
             {...props}
             totalPrice={cartdetails?.totalAmountToPay?.value}
             totalquantity={cartdetails?.deliveryItemsQuantity}
+            cartdetails={cartdetails}
             setCurrentPosition={setCurrentPosition}
           />
         ) : currentPosition == 2 ? (
