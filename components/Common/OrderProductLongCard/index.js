@@ -25,11 +25,12 @@ export default function OrderProductLongCard(props) {
     orderID,
     getorderDetails,
     handliClick = null,
+    orderID1,
   } = props;
   const image = 'https://apisap.fabindia.com' + data.product.images[0].url;
   console.log(image);
-  console.log('data?.status?.name', data);
-
+  console.log('data?.status?.orderID', orderID);
+  // 20030719
   const dispatch = useDispatch();
   const [showmodal, setshowmodal] = useState(false);
   const [comment, setComment] = useState(null);
@@ -113,7 +114,10 @@ export default function OrderProductLongCard(props) {
           'responseresponseresponseresponseresponseresponseresponse',
           response.data,
         );
-        props.navigation.navigate('OrderSuccess');
+        props.navigation.navigate('OrderSuccess', {
+          productId: data.product.code,
+          orderID: orderID1,
+        });
         getorderDetails();
       })
       .catch(errors => {
@@ -159,7 +163,7 @@ export default function OrderProductLongCard(props) {
       });
   };
 
-  // console.log('statusstatusstatusstatus', status);
+  console.log('newReasonDatanewReasonData', newReasonData);
   // console.log(
   //   'data?.status?.namedata?.status?.namedata?.status?.namedata?.status?.name',
   //   data?.status?.name,
@@ -190,6 +194,10 @@ export default function OrderProductLongCard(props) {
           '111getOrdersgetOrderdersgetOrdersgetOrdersget11111OrdtOrders',
           response.data.cancelEntries[0],
         );
+        console.log(
+          'response?.data?.availableAction?.reasonsresponse?.data?.availableAction?.reasons',
+          response?.data?.availableAction?.reasons,
+        );
         setReasonData(response.data.cancelEntries[0]);
         console.log('response?.data?.availableAction?.reasons', response?.data);
 
@@ -211,6 +219,21 @@ export default function OrderProductLongCard(props) {
           setNewReasonData(newReasonData);
           setshowmodal(true);
         } else {
+          const reason =
+            !!response?.data?.availableAction?.reasons.length > 0 ||
+            response?.data?.cancelEntries[0];
+          console.log('reason ele wal', reason);
+          const newReasonData = reason.availableAction.reasons.map(
+            (item, index) => {
+              return {
+                label: item.name,
+                index: index,
+                reasonCode: item.code,
+              };
+            },
+          );
+          setNewReasonData(newReasonData);
+
           setreturnshow(true);
         }
       })
@@ -232,6 +255,33 @@ export default function OrderProductLongCard(props) {
     'data?.product?.name.includes',
     data?.product?.name.includes('gift'),
   );
+  const returnOrder = async () => {
+    axios.post(
+      `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orderReturns?fields=BASIC,returnEntries(BASIC,refundAmount(formattedValue),orderEntry(basePrice(formattedValue),product(name,code,baseOptions,images(DEFAULT,galleryIndex)))),deliveryCost(formattedValue),totalPrice(formattedValue),subTotal(formattedValue)&lang=en&curr=INR`,
+      {
+        orderCode: '08121001',
+        returnRequestEntryInputs: [
+          {
+            // orderEntryNumber: '0',
+            // quantity: '1',
+            // reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+            // reasonDescription: 'kok',
+            orderEntryNumber: data?.entryNumber,
+            parentReasonCode: '',
+            reasonCode: '',
+            quantity: reasonData.quantity,
+            reasonDescription: comment,
+          },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          // Authorization: `${getToken.token_type} B7vKxGVlrWBGKVNFDlUci2ZfXTM`,
+        },
+      },
+    );
+  };
   return (
     <>
       <View
@@ -432,7 +482,7 @@ export default function OrderProductLongCard(props) {
               width: '100%',
               // height: '80%',
             }}>
-            <View style={{margin: 10}}>
+            <View style={{margin: 10, paddingBottom: 20}}>
               <View
                 style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Text style={{fontFamily: Fonts.Assistant700, fontSize: 16}}>
@@ -550,8 +600,8 @@ export default function OrderProductLongCard(props) {
         animationType="slide"
         swipeDirection={['down']}
         transparent={true}>
-        <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}>
-          <View
+        <View style={{flexGrow: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}>
+          <ScrollView
             style={{
               backgroundColor: 'white',
               elevation: 5,
@@ -559,15 +609,16 @@ export default function OrderProductLongCard(props) {
               borderTopLeftRadius: 15,
               paddingHorizontal: 15,
               paddingVertical: 10,
-              marginTop: 'auto',
+              marginTop: '45%',
               width: '100%',
-              height: '80%',
+              paddingBottom: 20,
+              // height: '80%',
             }}>
-            <View style={{margin: 10}}>
+            <View style={{margin: 10, paddingBottom: 20}}>
               <View
                 style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Text style={{fontFamily: Fonts.Assistant700, fontSize: 16}}>
-                  You are about to cancel this item!
+                  You are about to return this item!
                 </Text>
                 <TouchableOpacity onPress={() => setreturnshow(false)}>
                   <Ionicons name="close-circle-outline" size={24} />
@@ -579,7 +630,7 @@ export default function OrderProductLongCard(props) {
                   fontFamily: Fonts.Assistant400,
                   fontSize: 14,
                 }}>
-                Are you sure you want to cancel the item{' '}
+                Are you sure you want to return the item{' '}
                 <Text style={{fontFamily: Fonts.Assistant700, fontSize: 14}}>
                   {data?.product?.name}?
                 </Text>
@@ -603,7 +654,7 @@ export default function OrderProductLongCard(props) {
                   />
 
                   <Text style={{paddingLeft: 10, color: Colors.textcolor}}>
-                    Eligible for Cancellation
+                    Eligible for return
                   </Text>
                 </View>
                 <TouchableOpacity
@@ -647,7 +698,7 @@ export default function OrderProductLongCard(props) {
                   fontSize: 14,
                 }}>
                 {' '}
-                Reason for cancellation
+                Reason for exchange
               </Text>
               <RadioButtonRN
                 animationTypes={['zoomIn']}
@@ -670,113 +721,12 @@ export default function OrderProductLongCard(props) {
                   marginTop: 20,
                 }}
                 disable={!(!!comment && !!radio)}
-                handleClick={cancelorder}
+                handleClick={returnOrder}
               />
             </View>
-          </View>
+          </ScrollView>
         </View>
       </Modal>
-      {/* exchange */}
-      {/* <Modal
-        visible={exchangeshow}
-        animationType="slide"
-        swipeDirection={['down']}
-        transparent={true}>
-        <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}>
-          <View
-            style={{
-              backgroundColor: 'white',
-              elevation: 5,
-              borderTopRightRadius: 15,
-              borderTopLeftRadius: 15,
-              paddingHorizontal: 15,
-              paddingVertical: 10,
-              marginTop: 'auto',
-              width: '100%',
-              height: '80%',
-            }}>
-            <View style={{margin: 10}}>
-              <View
-                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontFamily: Fonts.Assistant700, fontSize: 16}}>
-                  You are about to cancel this item!
-                </Text>
-                <TouchableOpacity onPress={() => setexchangeshow(false)}>
-                  <Ionicons name="close-circle-outline" size={24} />
-                </TouchableOpacity>
-              </View>
-              <Text
-                style={{
-                  paddingVertical: 15,
-                  fontFamily: Fonts.Assistant400,
-                  fontSize: 14,
-                }}>
-                Are you sure you want to cancel the item{' '}
-                <Text style={{fontFamily: Fonts.Assistant700, fontSize: 14}}>
-                  {data?.product?.name}?
-                </Text>
-              </Text>
-              <Text>
-                {' '}
-                If yes, do let us know why so we can serve you better the next
-                time!
-              </Text>
-
-              <View style={{paddingVertical: 18}}>
-                <TextInput
-                  numberOfLines={3}
-                  placeholder="Write your Comment"
-                  multiline
-                  onChangeText={text => {
-                    setComment(text);
-                  }}
-                  value={comment}
-                  style={{
-                    borderWidth: 1,
-                    borderColor: '#979797',
-                    borderRadius: 4,
-                    marginHorizontal: 15,
-                    paddingHorizontal: 15,
-                    textAlignVertical: 'top',
-                  }}
-                />
-              </View>
-              <Text
-                style={{
-                  paddingVertical: 15,
-                  fontFamily: Fonts.Assistant400,
-                  fontSize: 14,
-                }}>
-                {' '}
-                Reason for cancellation
-              </Text>
-              <RadioButtonRN
-                animationTypes={['zoomIn']}
-                circleSize={17}
-                box={false}
-                data={radiodata}
-                activeColor={Colors.primarycolor}
-                selectedBtn={e => {
-                  console.log('e', e);
-                  setRadio(e);
-                }}
-                style={{marginVertical: 9}}
-              />
-              <CommonButton
-                backgroundColor="#BDBDBD"
-                txt="Submit"
-                customViewStyle={{
-                  backgroundColor:
-                    !!comment && !!radio ? Colors.primarycolor : 'lightgrey',
-                  marginTop: 20,
-                }}
-                disable={!(!!comment && !!radio)}
-                handleClick={exchangeorder}
-              />
-            </View>
-          </View>
-        </View>
-      </Modal> */}
     </>
   );
 }

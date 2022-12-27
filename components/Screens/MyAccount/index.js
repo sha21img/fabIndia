@@ -90,20 +90,6 @@ const MyAccount = props => {
           {initialRouteName == 'MyAccounts' ? (
             <>
               <Stack.Screen
-                name="ReturnItem"
-                component={ReturnItem}
-                options={{
-                  header: props => (
-                    <HomeHeader
-                      searchVisible={null}
-                      {...props}
-                      showWishlist={false}
-                      middleHeader="My Orders"
-                    />
-                  ),
-                }}
-              />
-              <Stack.Screen
                 name="MyAccounts"
                 component={MyAccounts}
                 options={{
@@ -139,14 +125,11 @@ const MyAccount = props => {
                 component={MyOrder}
                 options={{
                   header: props => (
-                    <Header
-                      leftIcon={leftIcon}
-                      title="My Orders"
-                      rightIcon={rightIcon}
-                      customStyle={{
-                        backgroundColor: '#F8F6F5',
-                        marginBottom: 4,
-                      }}
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="My Order"
                     />
                   ),
                 }}
@@ -182,6 +165,20 @@ const MyAccount = props => {
                         backgroundColor: '#F8F6F5',
                         marginBottom: 4,
                       }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="ReturnItem"
+                component={ReturnItem}
+                options={{
+                  header: props => (
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="My Orders"
                     />
                   ),
                 }}
@@ -499,14 +496,11 @@ const MyAccount = props => {
                 component={OrderSuccess}
                 options={{
                   header: props => (
-                    <Header
-                      leftIcon={leftIcon}
-                      title="My Profile"
-                      rightIcon={rightIcon}
-                      customStyle={{
-                        backgroundColor: '#F8F6F5',
-                        marginBottom: 4,
-                      }}
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="My Orders"
                     />
                   ),
                 }}

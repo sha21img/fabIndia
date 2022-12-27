@@ -123,10 +123,10 @@ export default function MyOrder(props) {
                 <Text style={Styles.orderidtxt}>Order ID: {item.code}</Text>
               </View>
 
-              <View style={Styles.endbox}>
+              {/* <View style={Styles.endbox}>
                 <View style={Styles.progressbox}></View>
                 <Text style={Styles.statustxt}>{item.statusDisplay}</Text>
-              </View>
+              </View> */}
             </TouchableOpacity>
           );
         })}
