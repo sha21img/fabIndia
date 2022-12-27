@@ -10,6 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
+import {logout} from '../../../Common/Helper';
 const pages = [
   {
     icon: image.document,
@@ -112,12 +113,14 @@ const MyAccounts = props => {
         },
       );
   };
-  const logout = async () => {
-    const res = await AsyncStorage.removeItem('generatToken');
-    console.log('delete', res);
+  const logoutt = async () => {
+    // const res = await AsyncStorage.removeItem('generatToken');
+    // console.log('delete', res);
+    // console.log('before');
     props.navigation.navigate('MyAccount', {
       screen: 'Login_Register',
     });
+    // console.log('after');
     await generatTokenWithout();
   };
 
@@ -155,7 +158,7 @@ const MyAccounts = props => {
           );
         })}
         <TouchableOpacity
-          onPress={() => logout()}
+          onPress={() => logoutt()}
           key={Math.random() * 10000}
           style={{
             padding: 20,

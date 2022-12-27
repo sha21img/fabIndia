@@ -164,7 +164,13 @@ const DrawerContent = () => {
             borderRadius: 5,
             marginVertical: 10,
           }}>
-          <Ionicons name="person" size={30} />
+          {userProfileData?.name ? (
+            <Text style={{fontSize: 30, color: '#CDCDCD'}}>
+              {userProfileData?.name?.match(/\b(\w)/g).join('')}
+            </Text>
+          ) : (
+            <Ionicons name="person" size={30} />
+          )}
         </View>
         <View
           style={{
