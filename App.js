@@ -38,6 +38,8 @@ import {AuthBaseUrl2, getCartID} from './components/Common/Helper';
 import CategorySection from './components/Screens/CategorySection';
 import ViewPolicy from './components/Screens/ViewPolicy/ViewPolicy';
 import LandingPageSaris_Blouses from './components/Screens/LandingPageL2/LandingPageSaris_Blouses';
+import Tracking from './components/Screens/MyAccount/MyOrder/OrderInProgress/Tracking';
+import TrackingUrl from './components/Screens/MyAccount/MyOrder/OrderInProgress/Tracking';
 
 const Stack = createNativeStackNavigator();
 
@@ -205,6 +207,12 @@ export default function App(props) {
               component={MainScreen}
               options={{headerShown: false}}
             />
+            <Stack.Screen
+              name="Tracking"
+              component={TrackingUrl}
+              options={{headerShown: false}}
+            />
+
             <Stack.Screen
               name="ViewPolicy"
               component={ViewPolicy}
