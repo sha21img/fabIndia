@@ -4,7 +4,7 @@ import Fonts from '../../../../assets/fonts';
 
 export const Styles = StyleSheet.create({
   dropdowncontainer: {
-    backgroundColor: '#F9F9F9',
+    backgroundColor: '#FFFFFF',
     padding: 15,
     elevation: 5,
     zIndex: 999,
@@ -17,7 +17,7 @@ export const Styles = StyleSheet.create({
   },
   container: {
     flexGrow: 1,
-    backgroundColor: '#F9F9F9',
+    backgroundColor: '#FFFFFF',
     paddingHorizontal: 15,
     paddingVertical: 20,
   },

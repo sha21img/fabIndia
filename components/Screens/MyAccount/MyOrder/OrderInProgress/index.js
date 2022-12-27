@@ -238,10 +238,18 @@ export default function OrderInProgress(props) {
   const [currentPosition, setCurrentPosition] = useState(0);
 
   console.log('orderDetails', orderDetails);
-  // const [orderDetailsstate,setorderDetailsstate] = useState(orderDetails)
-  const getUrlLink = data => {
-    console.log('dataoiuytrew', data);
-  };
+
+  var consignmentData =
+    !!orderDetails &&
+    orderDetails?.consignments?.map(item => {
+      console.log('itemaaaaaaaaaaaaa', item.carrierDetails);
+      return {
+        trackUrl: item?.carrierDetails?.trackingUrl,
+        code: item?.entries[0]?.orderEntry?.product?.code,
+        trackingID: item?.trackingID,
+      };
+    });
+  console.log('consignmentData', consignmentData);
   const CardCompo = item => {
     return (
       <ScrollView
@@ -260,23 +268,22 @@ export default function OrderInProgress(props) {
           }}>
           {orderDetails?.totalItems} items ordered
         </Text>
-        {orderDetails?.consignments?.map((item, index) => {
-          console.log('item111111111111111', item?.trackingID);
+        {orderDetails?.entries?.map((item, index) => {
+          console.log('item111111111111111', item);
           const position =
-            !!item?.entries[0]?.orderEntry?.status?.name &&
-            (item?.entries[0]?.orderEntry?.status?.name == 'Returned' ||
-              item?.entries[0]?.orderEntry?.status?.name == 'Delivered' ||
-              item?.entries[0]?.orderEntry?.status?.name == 'Non Returnable')
+            !!item?.status?.name &&
+            (item?.status?.name == 'Returned' ||
+              item?.status?.name == 'Delivered' ||
+              item?.status?.name == 'Non Returnable')
               ? 3
-              : item?.entries[0]?.orderEntry?.status?.name == 'Shipped'
+              : item?.status?.name == 'Shipped'
               ? 2
               : 1;
 
           return (
             <>
               <View style={{paddingVertical: 10}}>
-                {item?.entries[0]?.orderEntry?.status?.name &&
-                item?.entries[0]?.orderEntry?.status?.name != 'Cancelled' ? (
+                {item?.status?.name && item?.status?.name != 'Cancelled' ? (
                   <>
                     <Text
                       style={{
@@ -299,18 +306,18 @@ export default function OrderInProgress(props) {
                   </>
                 ) : null}
                 <OrderProductLongCard
-                  data={item?.entries[0]?.orderEntry}
+                  data={item}
                   orderID={orderDetails.code}
                   status={orderDetails?.statusDisplay}
                   getorderDetails={getorderDetails}
                   {...props}
+                  orderID1={orderID}
                 />
-                {!!item?.entries[0]?.orderEntry?.status?.name &&
-                  (item?.entries[0]?.orderEntry?.status?.name == 'Returned' ||
-                    item?.entries[0]?.orderEntry?.status?.names == 'Shipped' ||
-                    item?.entries[0]?.orderEntry?.status?.name == 'Delivered' ||
-                    item?.entries[0]?.orderEntry?.status?.name ==
-                      'Non Returnable') && (
+                {!!item?.status?.name &&
+                  (item?.status?.name == 'Returned' ||
+                    item?.status?.names == 'Shipped' ||
+                    item?.status?.name == 'Delivered' ||
+                    item?.status?.name == 'Non Returnable') && (
                     <>
                       <TouchableOpacity
                         style={{
@@ -320,8 +327,12 @@ export default function OrderInProgress(props) {
                           justifyContent: 'center',
                         }}
                         onPress={() => {
+                          const trackId = consignmentData.find(items => {
+                            return items.code === item.product.code;
+                          });
+                          console.log('trackId', trackId);
                           Linking.openURL(
-                            `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/vinculum/orders/v1/getInvoice/${orderID}/${item?.trackingID}`,
+                            `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/vinculum/orders/v1/getInvoice/${orderID}/${trackId?.trackingID}`,
                           );
                         }}>
                         <Text
@@ -342,19 +353,15 @@ export default function OrderInProgress(props) {
                           justifyContent: 'center',
                           marginVertical: 15,
                         }}
-                        onPress={
-                          () =>
-                            props.navigation.navigate('Tracking', {
-                              url: item?.carrierDetails.trackingUrl,
-                            })
-                          // getUrlLink(item?.carrierDetails.trackingUrl)
-                        }
-
-                        // onPress={() => {
-                        //   // props.navigation.navigate('OrderSuccess');
-                        //   // reasonForCancel(data.entryNumber, data.availableAction.name);
-                        // }}
-                      >
+                        onPress={() => {
+                          const fetchUrl = consignmentData.find(items => {
+                            return items.code === item.product.code;
+                          });
+                          console.log('fetchUrlfetchUrl', fetchUrl);
+                          props.navigation.navigate('Tracking', {
+                            url: fetchUrl.trackUrl,
+                          });
+                        }}>
                         <Text
                           style={{
                             fontFamily: Fonts.Assistant600,

@@ -33,7 +33,7 @@ export default function OrderStatus(props) {
         },
       )
       .then(response => {
-        console.log(response.data, 'for item deliverry');
+        console.log('poiuytrdfghjk', response.data);
         setOrderDetails(response.data);
       })
       .catch(errors => {
