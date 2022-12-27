@@ -7,7 +7,7 @@ import CountryPicker from 'rn-country-picker';
 import {TextInput} from 'react-native-paper';
 import InputText from '../../Common/InputText';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {logout, UnAuthPostData} from '../../Common/Helper';
+import {AuthBaseUrl2, BaseURL2, logout, UnAuthPostData} from '../../Common/Helper';
 import Toast from 'react-native-simple-toast';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
@@ -17,7 +17,7 @@ export default function ResetPassword(props) {
   const generatTokenWithout = async () => {
     await axios
       .post(
-        `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+        `${AuthBaseUrl2}/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
       )
       .then(
         response => {
@@ -44,7 +44,7 @@ export default function ResetPassword(props) {
     }
     formBody = formBody.join('&');
     const response = await fetch(
-      'https://apisap.fabindia.com/occ/v2/fabindiab2c/forgottenpasswordtokens?lang=en&curr=INR',
+      `${BaseURL2}/forgottenpasswordtokens?lang=en&curr=INR`,
       {
         method: 'POST',
         headers: {

@@ -10,7 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import RazorpayCheckout from 'react-native-razorpay';
-import {logout} from '../../../Common/Helper';
+import {BaseURL2, logout} from '../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 const faqs = [
   {
@@ -42,7 +42,7 @@ const MyAddresses = props => {
     const getToken = JSON.parse(get);
     const response = await axios
       .delete(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addresses/${id}`,
+        `${BaseURL2}/users/current/addresses/${id}`,
         // {},
         {
           headers: {
@@ -67,7 +67,7 @@ const MyAddresses = props => {
     const getCartID = await AsyncStorage.getItem('cartID');
     const response = await axios
       .put(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/addresses/delivery?addressId=${id}`,
+        `${BaseURL2}/users/current/carts/${getCartID}/addresses/delivery?addressId=${id}`,
         {},
         {
           headers: {

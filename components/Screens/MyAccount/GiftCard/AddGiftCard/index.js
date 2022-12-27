@@ -20,7 +20,7 @@ import CommonButton from '../../../../Common/CommonButton';
 import axios from 'axios';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {logout} from '../../../../Common/Helper';
+import {BaseURL2, logout} from '../../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 function AddGiftCard(props) {
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ function AddGiftCard(props) {
     } else {
       const response = await axios
         .post(
-          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addGiftCard?lang=en&curr=INR`,
+          `${BaseURL2}/users/current/addGiftCard?lang=en&curr=INR`,
           {
             cardNumber: cardNo,
             cardPin: cardPin,

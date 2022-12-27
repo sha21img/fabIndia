@@ -17,7 +17,7 @@ import {Colors} from '../../../../../assets/Colors';
 import {Styles} from './style';
 import CommonButton from '../../../../Common/CommonButton';
 import Fonts from '../../../../../assets/fonts';
-import {logout, UnAuthPostData} from '../../../../Common/Helper';
+import {BaseURL2, logout, UnAuthPostData} from '../../../../Common/Helper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 import {useDispatch} from 'react-redux';
@@ -90,7 +90,7 @@ export default function ChangePassword(props) {
     }
     formBody = formBody.join('&');
     const response = awaitfetch(
-      'https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/password?lang=en&curr=INR',
+      `${BaseURL2}/users/current/password?lang=en&curr=INR`,
       {
         method: 'PUT',
         headers: {

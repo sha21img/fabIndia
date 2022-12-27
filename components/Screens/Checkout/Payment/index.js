@@ -13,6 +13,8 @@ import {image} from '../../../../assets/images';
 import {CreditCardInput, LiteCreditCardInput} from '../../../CardView';
 import {useNavigation} from '@react-navigation/native';
 import Fonts from '../../../../assets/fonts';
+import Toast from 'react-native-simple-toast';
+import {BaseURL2} from '../../../Common/Helper';
 
 const BankData = [
   {name: 'ICICI Bank', code: 'ICICI', id: 1},
@@ -81,8 +83,8 @@ const Payment = props => {
       description: 'Payment for Fab india',
       image: 'https://i.imgur.com/3g7nmJC.png',
       currency: details?.totalPriceWithTax?.currencyIso,
-      // callback_url: UDID,
-      // redirect: true,
+      callback_url: UDID,
+      redirect: true,
       key: 'rzp_test_T70CWf6iJpuekL',
       amount: details?.totalPriceWithTax?.value * 100,
       name: 'FAB India',
@@ -115,7 +117,7 @@ const Payment = props => {
     const type = getToken.isCheck ? 'current' : 'anonymous';
     console.log('this us cart id a', getToken);
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/${type}/carts/${getCartID}?fields=DEFAULT,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+      `${BaseURL2}/users/${type}/carts/${getCartID}?fields=DEFAULT,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
       {
         headers: {
           Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -137,11 +139,12 @@ const Payment = props => {
     const getCartID = await AsyncStorage.getItem('cartID');
     console.log('this us cart id', getCartID);
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/razorpay/orderid/request?lang=en&curr=INR`,
+      `${BaseURL2}/users/current/carts/${getCartID}/payment/razorpay/orderid/request?lang=en&curr=INR`,
       // {},
       {
         headers: {
           Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          // Authorization: `bearer CfQZ6-rE0ngL8o-Yxu5-XQTS4YE`
         },
       },
     );
@@ -156,16 +159,18 @@ const Payment = props => {
     openCheckout(response.data, UDID, method, data, details);
   };
   const getUDID = async () => {
+    console.log('udiddddddd');
     const getCartID = await AsyncStorage.getItem('cartID');
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
 
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/razorpay/callback/url?lang=en&curr=INR`,
+      `${BaseURL2}/users/current/carts/${getCartID}/payment/razorpay/callback/url?lang=en&curr=INR`,
       // {},
       {
         headers: {
           Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          // Authorization: `bearer CfQZ6-rE0ngL8o-Yxu5-XQTS4YE`
         },
       },
     );
@@ -417,7 +422,7 @@ const Payment = props => {
       console.log('this us cart id', getToken);
       const response = await axios
         .post(
-          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/placeOrder?fields=DEFAULT,deliveryAddress(FULL)&cartId=${getCartID}&termsChecked=true&lang=en&curr=INR`,
+          `${BaseURL2}/users/current/placeOrder?fields=DEFAULT,deliveryAddress(FULL)&cartId=${getCartID}&termsChecked=true&lang=en&curr=INR`,
           {},
           {
             headers: {
@@ -446,7 +451,7 @@ const Payment = props => {
       const getCartID = await AsyncStorage.getItem('cartID');
       console.log('this us cart id', getCartID);
       const response = await axios.get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/otp/generate?fields=DEFAULT&lang=en&curr=INR`,
+        `${BaseURL2}/users/current/carts/${getCartID}/otp/generate?fields=DEFAULT&lang=en&curr=INR`,
         // {},
         {
           headers: {
@@ -476,7 +481,7 @@ const Payment = props => {
       const getCartID = await AsyncStorage.getItem('cartID');
       console.log('this us cart idverifyOTPverifyOTPverifyOTP', getCartID);
       const response = await axios.post(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/cod/otp/verify/request?fields=DEFAULT&lang=en&curr=INR`,
+        `${BaseURL2}/users/current/carts/${getCartID}/payment/cod/otp/verify/request?fields=DEFAULT&lang=en&curr=INR`,
         {
           otp: otp,
           transactionId: trID,
@@ -635,14 +640,11 @@ const Payment = props => {
       const get = await AsyncStorage.getItem('generatToken');
       const getToken = JSON.parse(get);
       const response = await axios
-        .get(
-          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/loyalityPoints?lang=en&curr=INR`,
-          {
-            headers: {
-              Authorization: `${getToken.token_type} ${getToken.access_token}`,
-            },
+        .get(`${BaseURL2}/users/current/loyalityPoints?lang=en&curr=INR`, {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
           },
-        )
+        })
         .then(response => {
           console.log('in the then response', response.data);
           setBalance(response.data.balances[0]);
@@ -661,7 +663,7 @@ const Payment = props => {
       const getCartID = await AsyncStorage.getItem('cartID');
       console.log('this us cart id', getCartID);
       const response = await axios.get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/otp/generate?fields=DEFAULT&lang=en&curr=INR`,
+        `${BaseURL2}/users/current/carts/${getCartID}/otp/generate?fields=DEFAULT&lang=en&curr=INR`,
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -682,7 +684,7 @@ const Payment = props => {
       const getCartID = await AsyncStorage.getItem('cartID');
       console.log('this us cart idverifyOTPverifyOTPverifyOTP', getCartID);
       const response = await axios.post(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/payment/loyalitypoints/otp/verify/request?fields=DEFAULT&lang=en&curr=INR`,
+        `${BaseURL2}/users/current/carts/${getCartID}/payment/loyalitypoints/otp/verify/request?fields=DEFAULT&lang=en&curr=INR`,
         {
           otp: otp,
           transactionId: trID,
@@ -701,6 +703,13 @@ const Payment = props => {
       );
       if (response.data?.success) {
         orderPlace();
+      } else {
+        Toast.showWithGravity(
+          ' Sorry Insufficient balance',
+          Toast.LONG,
+          Toast.TOP,
+        );
+        setShowotp(false);
       }
     };
     const orderPlace = async () => {
@@ -709,7 +718,8 @@ const Payment = props => {
       const getCartID = await AsyncStorage.getItem('cartID');
       console.log('this us cart id', getCartID);
       const response = await axios.post(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/placeOrder?fields=DEFAULT%2CdeliveryAddress(FULL)&cartId=${getCartID}&termsChecked=true&lang=en&curr=INR`,
+        `${BaseURL2}/users/current/placeOrder?fields=DEFAULT%2CdeliveryAddress(FULL)&cartId=${getCartID}&termsChecked=true&lang=en&curr=INR`,
+        {},
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -831,20 +841,21 @@ const Payment = props => {
             </>
           ) : null}
         </View>
-
-        <TouchableOpacity
-          onPress={() => generateOTP()}
-          style={{
-            backgroundColor: Colors.primarycolor,
-            justifyContent: 'center',
-            alignSelf: 'center',
-            marginTop: 20,
-            borderRadius: 20,
-            paddingHorizontal: 30,
-            paddingVertical: 10,
-          }}>
-          <Text style={{color: 'white'}}>Redeem</Text>
-        </TouchableOpacity>
+        {!showotop ? (
+          <TouchableOpacity
+            onPress={() => generateOTP()}
+            style={{
+              backgroundColor: Colors.primarycolor,
+              justifyContent: 'center',
+              alignSelf: 'center',
+              marginTop: 20,
+              borderRadius: 20,
+              paddingHorizontal: 30,
+              paddingVertical: 10,
+            }}>
+            <Text style={{color: 'white'}}>Redeem</Text>
+          </TouchableOpacity>
+        ) : null}
       </View>
     );
   };
@@ -853,6 +864,9 @@ const Payment = props => {
     const [showcard, setShowcard] = useState(false);
     const [Balance, setBalance] = useState(null);
     const [pin, setPin] = useState(null);
+    const [trID, setTrID] = useState(false);
+    const [showotop, setShowotp] = useState(false);
+    const [otp, setOtp] = useState(null);
 
     useEffect(() => {
       getWallet();
@@ -864,7 +878,7 @@ const Payment = props => {
       const getCartID = await AsyncStorage.getItem('cartID');
       console.log('this us cart id', getCartID);
       const response = await axios.get(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/getWallet?lang=en&curr=INR`,
+        `${BaseURL2}/users/current/getWallet?lang=en&curr=INR`,
         // {},
         {
           headers: {
@@ -886,7 +900,7 @@ const Payment = props => {
         const getToken = JSON.parse(get);
         const getCartID = await AsyncStorage.getItem('cartID');
         const response = await axios.post(
-          `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/addGiftCard?lang=en&curr=INR`,
+          `${BaseURL2}/users/current/addGiftCard?lang=en&curr=INR`,
           {
             cardNumber: giftcard,
             cardPin: pin,
@@ -901,12 +915,105 @@ const Payment = props => {
           'addCardaddCardaddCardaddCardt00000000000000000000000',
           response.data,
         );
-        if (response.data) {
+        if (response.data.responseCode != 10004) {
           getWallet();
           setShowcard(false);
         }
       } else {
-        console.log('checkinggg');
+        Toast.showWithGravity(
+          response.data.responseMessage,
+          Toast.LONG,
+          Toast.TOP,
+        );
+      }
+    };
+    const Otpgenrate = async () => {
+      setShowotp(true);
+      const get = await AsyncStorage.getItem('generatToken');
+      const getToken = JSON.parse(get);
+      const getCartID = await AsyncStorage.getItem('cartID');
+      console.log('this us cart id', getCartID);
+      const response = await axios.get(
+        `${BaseURL2}/users/current/carts/${getCartID}/otp/generate?fields=DEFAULT&lang=en&curr=INR`,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      );
+      console.log(
+        'generateOTPgenerateOTPgenerateOTPgenerateOTPgenerateOTP',
+        response.data,
+      );
+      if (response.data) {
+        setTrID(response.data?.transactionId);
+      }
+    };
+    const verfiyOTP = async () => {
+      console.log('otp , trID ,Balance0', otp, trID, Balance);
+      const get = await AsyncStorage.getItem('generatToken');
+      const getToken = JSON.parse(get);
+      const getCartID = await AsyncStorage.getItem('cartID');
+      console.log('this us cart idverifyOTPverifyOTPverifyOTP', getCartID);
+      const response = await axios
+        .post(
+          `${BaseURL2}/users/current/carts/${getCartID}/payment/giftcard/otp/verify/request?fields=DEFAULT&lang=en&curr=INR`,
+          {
+            otp: otp,
+            transactionId: trID,
+            amount: 0, //(cod => cart amount, baki dono me wallet amount)
+            // "walletBal": "5000.0" only for gift card (giftcard) (loyalitypoints)
+          },
+          {
+            headers: {
+              Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            },
+          },
+        )
+        .then(response => {
+          if (response.data?.success) {
+            orderPlace();
+          } else {
+            Toast.showWithGravity(
+              ' Sorry Insufficient balance',
+              Toast.LONG,
+              Toast.TOP,
+            );
+            setShowotp(false);
+          }
+        })
+        .catch(error => {
+          console.log('error', error.response.data.errors[0].message);
+          Toast.showWithGravity(
+            error.response.data.errors[0].message,
+            Toast.LONG,
+            Toast.TOP,
+          );
+        });
+    };
+    const orderPlace = async () => {
+      const get = await AsyncStorage.getItem('generatToken');
+      const getToken = JSON.parse(get);
+      const getCartID = await AsyncStorage.getItem('cartID');
+      console.log('this us cart id', getCartID);
+      const response = await axios.post(
+        `${BaseURL2}/users/current/placeOrder?fields=DEFAULT%2CdeliveryAddress(FULL)&cartId=${getCartID}&termsChecked=true&lang=en&curr=INR`,
+        {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      );
+      console.log(
+        'generateOTPgenerateOTPgenerateOTPgenerateOTPgenerateOTP',
+        response.data,
+      );
+      if (response.data) {
+        console.log('successs order place ');
+        // navigation.navigate('OrderConfirmation', {
+        //   type: 'cod',
+        // });
       }
     };
     return (
@@ -923,6 +1030,99 @@ const Payment = props => {
             <Text> ₹ {Balance}</Text>
           </Text>
         </View>
+        {showotop ? (
+          <>
+            <View>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: Fonts.Assistant400,
+                  paddingTop: 15,
+                }}>
+                One Time Password (OTP) has been sent successfully to your
+                mobile number
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: Fonts.Assistant400,
+                  paddingVertical: 15,
+                }}>
+                Note: This OTP will be valid only for 15 minutes. Your points
+                will be released again if order is not placed in this time frame
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: Fonts.Assistant400,
+                  paddingVertical: 15,
+                }}>
+                Not received? Resend OTP
+              </Text>
+            </View>
+            <View>
+              <TextInput
+                activeOutlineColor="black"
+                activeUnderlineColor="black"
+                underlineColor="black"
+                style={{
+                  letterSpacing: 2,
+                  borderBottomColor: 'white',
+                  fontSize: 14,
+                  color: 'black',
+                  backgroundColor: 'white',
+                  // height: 40,
+                  width: '100%',
+                  textAlign: 'center',
+                }}
+                keyboardType="numeric"
+                value={otp}
+                placeholder="Enter 4-Digit OTP"
+                onChangeText={value => setOtp(value)}
+                placeholderTextColor="grey"
+                disableFullscreenUI={true}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                marginBottom: 20,
+              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  setShowotp(false);
+                }}
+                style={{
+                  backgroundColor: Colors.primarycolor,
+                  justifyContent: 'center',
+                  alignSelf: 'center',
+                  marginTop: 20,
+                  borderRadius: 20,
+                  paddingHorizontal: 30,
+                  paddingVertical: 10,
+                }}>
+                <Text style={{color: 'white'}}>Cancel</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  verfiyOTP();
+                }}
+                style={{
+                  backgroundColor: otp ? Colors.primarycolor : 'lightgrey',
+                  justifyContent: 'center',
+                  alignSelf: 'center',
+                  marginTop: 20,
+                  borderRadius: 20,
+                  paddingHorizontal: 30,
+                  paddingVertical: 10,
+                }}>
+                <Text style={{color: 'white'}}>Verify OTP</Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        ) : null}
         {showcard ? (
           <>
             <View style={{marginHorizontal: 20}}>
@@ -968,51 +1168,53 @@ const Payment = props => {
             </View>
           </>
         ) : null}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            marginBottom: 20,
-          }}>
-          <TouchableOpacity
-            onPress={() => {
-              !showcard ? null : setShowcard(false);
-            }}
+        {!showotop ? (
+          <View
             style={{
-              backgroundColor: !showcard ? '#BDBDBD' : 'white',
-              justifyContent: 'center',
-              alignSelf: 'center',
-              marginTop: 20,
-              borderRadius: 20,
-              borderColor: Colors.primarycolor,
-              borderWidth: 1,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              marginBottom: 20,
             }}>
-            <Text style={{color: Colors.primarycolor}}>
-              {!showcard ? 'Redeem' : 'Cancel'}
-            </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                !showcard ? Otpgenrate() : setShowcard(false);
+              }}
+              style={{
+                backgroundColor: !showcard ? '#BDBDBD' : 'white',
+                justifyContent: 'center',
+                alignSelf: 'center',
+                marginTop: 20,
+                borderRadius: 20,
+                borderColor: Colors.primarycolor,
+                borderWidth: 1,
+                paddingHorizontal: 30,
+                paddingVertical: 10,
+              }}>
+              <Text style={{color: Colors.primarycolor}}>
+                {!showcard ? 'Redeem' : 'Cancel'}
+              </Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              addCard();
-            }}
-            style={{
-              backgroundColor:
-                !showcard || (giftcard && pin)
-                  ? Colors.primarycolor
-                  : '#BDBDBD',
-              justifyContent: 'center',
-              alignSelf: 'center',
-              marginTop: 20,
-              borderRadius: 20,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}>
-            <Text style={{color: 'white'}}>Add Card</Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              onPress={() => {
+                addCard();
+              }}
+              style={{
+                backgroundColor:
+                  !showcard || (giftcard && pin)
+                    ? Colors.primarycolor
+                    : '#BDBDBD',
+                justifyContent: 'center',
+                alignSelf: 'center',
+                marginTop: 20,
+                borderRadius: 20,
+                paddingHorizontal: 30,
+                paddingVertical: 10,
+              }}>
+              <Text style={{color: 'white'}}>Add Card</Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
       </View>
     );
   };
@@ -1063,7 +1265,7 @@ const Payment = props => {
     const getToken = JSON.parse(get);
 
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/${getCartID}/paymentModes?fields=DEFAULT`,
+      `${BaseURL2}/users/current/carts/${getCartID}/paymentModes?fields=DEFAULT`,
       // {},
       {
         headers: {

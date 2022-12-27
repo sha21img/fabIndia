@@ -16,6 +16,7 @@ import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import axios from 'axios';
 import {
+  BaseURL2,
   getCartID,
   getWishID,
   postDataAuth,
@@ -28,7 +29,7 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 import {StackActions, CommonActions} from '@react-navigation/native';
 import {FacebookLogin} from '../../SocialLogin/FacebookLogin';
-
+import { AuthBaseUrl2 } from '../../Common/Helper';
 export default function Login(props) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -92,7 +93,7 @@ export default function Login(props) {
         formBody.push(encodedKey + '=' + encodedValue);
       }
       formBody = formBody.join('&');
-      fetch('https://apisap.fabindia.com/authorizationserver/oauth/token', {
+      fetch(`${AuthBaseUrl2}/oauth/token`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -134,7 +135,7 @@ export default function Login(props) {
   const generatTokenWithout = async () => {
     await axios
       .post(
-        `https://apisap.fabindia.com/authorizationserver/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+        `${AuthBaseUrl2}/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
       )
       .then(
         response => {
@@ -205,7 +206,7 @@ export default function Login(props) {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     formBody = formBody.join('&');
-    fetch('https://apisap.fabindia.com/authorizationserver/oauth/token', {
+    fetch(`${AuthBaseUrl2}/oauth/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -248,7 +249,7 @@ export default function Login(props) {
     };
     let res = await axios
       .post(
-        'https://apisap.fabindia.com/occ/v2/fabindiab2c/otp/validate?lang=en&curr=INR',
+        `${BaseURL2}otp/validate?lang=en&curr=INR`,
         data,
         {
           headers: {

@@ -15,7 +15,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
 import AccordianSubMenu from './AccordianSubMenu';
+import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
+import { BaseURL2 } from '../../Common/Helper';
 const NewAccordian = props => {
   const {newData} = props;
   console.log('this is new accordian data-=-=', props);
@@ -60,7 +62,7 @@ const NewAccordian = props => {
     // &query=%3Arelevance%3AallCategories%3Ainfant-boys-kurtas&pageSize=9&lang=en&curr=INR
 
     response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=${fields}
+      `${BaseURL2}/products/search?fields=${fields}
         &query=:relevance:allCategories:infant-boys-kurtas
         &pageSize=9&lang=en&curr=INR`,
     );

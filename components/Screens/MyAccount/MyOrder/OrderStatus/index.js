@@ -5,7 +5,7 @@ import OrderDelivered from '../OrderDelivered';
 import OrderCancelled from '../OrderCancelled';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {logout} from '../../../../Common/Helper';
+import {BaseURL2, logout} from '../../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 export default function OrderStatus(props) {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export default function OrderStatus(props) {
 
     await axios
       .get(
-        `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}?fields=FULL&lang=en&curr=INR`,
+        `${BaseURL2}/users/current/orders/${orderID}?fields=FULL&lang=en&curr=INR`,
         {
           headers: {
             // Authorization: `${getToken.token_type} ${getToken.access_token}`,

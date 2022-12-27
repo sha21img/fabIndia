@@ -14,6 +14,7 @@ import { useDebounce } from '../../../constant';
 import axios from 'axios';
 import Fonts from '../../../assets/fonts';
 import NoResultFound from './NoResultFound';
+import { BaseURL2 } from '../../Common/Helper';
 
 export default function Search(props) {
   const [text, setText] = React.useState('');
@@ -23,7 +24,7 @@ export default function Search(props) {
 
   const getProductSearchData = async () => {
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?query=${text}&pageSize=5&lang=en&curr=INR`,
+      `${BaseURL2}/products/search?query=${text}&pageSize=5&lang=en&curr=INR`,
     );
     // console.log('response for search', response.data.products);
     setFilterProduct(response.data.products);
@@ -31,7 +32,7 @@ export default function Search(props) {
 
   const getSuggestionData = async () => {
     const response = await axios.get(
-      `https://apisap.fabindia.com/occ/v2/fabindiab2c/products/suggestions?term=${text}&max=5&lang=en&curr=INR`,
+      `${BaseURL2}/products/suggestions?term=${text}&max=5&lang=en&curr=INR`,
     );
     // console.log('suggestedProduct==>', response.data.suggestions);
     setSuggestedProduct(response.data.suggestions);

@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import RadioButtonRN from 'radio-buttons-react-native';
 import CommonButton from '../CommonButton';
 import axios from 'axios';
-import {logout} from '../Helper';
+import {BaseURL2, logout} from '../Helper';
 import {useDispatch} from 'react-redux';
 import WebView from 'react-native-webview';
 export default function OrderProductLongCard(props) {
@@ -84,7 +84,7 @@ export default function OrderProductLongCard(props) {
     console.log('radio.commentcommentcomment.reasonCode', comment);
     const response = await axios
       .post(
-        `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/cancellation?lang=en&curr=INR`,
+        `${BaseURL2}/users/current/orders/${orderID}/cancellation?lang=en&curr=INR`,
         {
           cancellationRequestEntryInputs: [
             {
@@ -130,7 +130,7 @@ export default function OrderProductLongCard(props) {
     console.log('orderIDorderIDorderIDorderID', data?.entryNumber);
     const response = await axios
       .post(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/orderReturns?fields=DEFAULT`,
+        `${BaseURL2}/users/current/orderReturns?fields=DEFAULT`,
         {
           orderCode: data?.product?.code,
           returnRequestEntryInputs: [
@@ -175,7 +175,7 @@ export default function OrderProductLongCard(props) {
     // 08045003
     await axios
       .post(
-        `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}/${entryNumber}/action?fields=FULL&lang=en&curr=INR`,
+        `${BaseURL2}/users/current/orders/${orderID}/${entryNumber}/action?fields=FULL&lang=en&curr=INR`,
         {},
         {
           headers: {
