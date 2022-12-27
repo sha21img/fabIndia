@@ -25,7 +25,7 @@ const width = Dimensions.get('window').width;
 export default function AccordianMenu(props) {
   const {data} = props;
   const navigation = useNavigation();
-  console.log('this is a data first accourdion', data);
+  // console.log('this is a data first accourdion', data);
   const toggleAnimation = {
     duration: 300,
     update: {
@@ -60,7 +60,7 @@ export default function AccordianMenu(props) {
       const get = await AsyncStorage.getItem('generatToken');
       const getToken = JSON.parse(get);
       if (getToken.isCheck == true) {
-        navigation.navigate('MyAccount', {screen: 'GiftCard'});
+        navigation.navigate('MyAccount', {screen: 'GiftCard', from: 'Menu'});
       } else {
         navigation.navigate('MyAccount', {screen: 'Login_Register'});
       }
@@ -78,7 +78,7 @@ export default function AccordianMenu(props) {
   //     })
   //   );
   const checkIcon = item => {
-    console.log('this sis writch item', item);
+    // console.log('this sis writch item', item);
     switch (item) {
       case 'Shop By Collection':
         return (

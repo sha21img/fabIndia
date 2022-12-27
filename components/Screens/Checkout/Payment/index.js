@@ -15,7 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import Fonts from '../../../../assets/fonts';
 import Toast from 'react-native-simple-toast';
 import {BaseURL2} from '../../../Common/Helper';
-
+import useRazorpay from 'react-razorpay';
 const BankData = [
   {name: 'ICICI Bank', code: 'ICICI', id: 1},
   {name: 'State Bank of India', code: 'SBI', id: 2},
@@ -297,14 +297,16 @@ const Payment = props => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <View
-                  style={{
-                    backgroundColor: Colors.primarycolor,
-                    width: 14,
-                    height: 14,
-                    borderRadius: 10,
-                  }}
-                />
+                {bank.id == item.id ? (
+                  <View
+                    style={{
+                      backgroundColor: Colors.primarycolor,
+                      width: 14,
+                      height: 14,
+                      borderRadius: 10,
+                    }}
+                  />
+                ) : null}
               </View>
               <View style={{flexDirection: 'row'}}>
                 <Image
@@ -369,14 +371,16 @@ const Payment = props => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <View
-                  style={{
-                    backgroundColor: Colors.primarycolor,
-                    width: 14,
-                    height: 14,
-                    borderRadius: 10,
-                  }}
-                />
+                {wallet.id == item.id ? (
+                  <View
+                    style={{
+                      backgroundColor: Colors.primarycolor,
+                      width: 14,
+                      height: 14,
+                      borderRadius: 10,
+                    }}
+                  />
+                ) : null}
               </View>
               <View style={{flexDirection: 'row'}}>
                 <Image
@@ -961,7 +965,7 @@ const Payment = props => {
           {
             otp: otp,
             transactionId: trID,
-            amount: 0, //(cod => cart amount, baki dono me wallet amount)
+            amount: Balance, //(cod => cart amount, baki dono me wallet amount)
             // "walletBal": "5000.0" only for gift card (giftcard) (loyalitypoints)
           },
           {
@@ -1256,7 +1260,8 @@ const Payment = props => {
   }, []);
   const asyncfunc = async () => {
     await getDetails();
-    paymentModes();
+    await paymentModes();
+    //  RazorpayResponse()
   };
 
   const paymentModes = async () => {
@@ -1328,6 +1333,16 @@ const Payment = props => {
     setshowlist(updateFinal);
   };
 
+  const RazorpayResponse = async () => {
+    // var razorpay = new Razorpay({
+    //   key: 'rzp_test_T70CWf6iJpuekL',
+    //     // logo, displayed in the popup
+    //   image: 'https://i.imgur.com/n5tjHFD.jpg',
+    // });
+    // razorpay.once('ready', function(response) {
+    //   console.log('RazorpayCheckoutRazorpayCheckout0',response);
+    // })
+  };
   return (
     <ScrollView
       //   style={{backgroundColor: 'red', height: '100%'}}

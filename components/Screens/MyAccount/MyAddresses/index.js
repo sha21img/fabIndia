@@ -30,6 +30,7 @@ const MyAddresses = props => {
     amount,
     totalquantity,
     setCurrentPosition,
+    cartdetails
   } = props;
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -187,6 +188,7 @@ const MyAddresses = props => {
   //   );
   //   return response.data;
   // };
+  console.log("cartdetailscartdetailscartdetailscartdetailscartdetails",cartdetails)
   return (
     <>
       <ScrollView
@@ -288,7 +290,7 @@ const MyAddresses = props => {
               fontSize: 17,
               color: 'black',
             }}>
-            Price Details ({totalquantity} items)
+            Price Details ({cartdetails?.deliveryItemsQuantity} items)
           </Text>
           <View
             style={{
@@ -298,7 +300,7 @@ const MyAddresses = props => {
               marginVertical: 18,
             }}>
             <Text>Total MRP</Text>
-            <Text>24,980</Text>
+            <Text>{cartdetails?.subTotalWithoutDiscount?.formattedValue}</Text>
           </View>
           <View
             style={{
@@ -308,7 +310,7 @@ const MyAddresses = props => {
               marginVertical: 10,
             }}>
             <Text>discount on MRP</Text>
-            <Text>-8,393</Text>
+            <Text>{cartdetails?.productDiscounts?.formattedValue}</Text>
           </View>
           <View
             style={{
@@ -321,7 +323,7 @@ const MyAddresses = props => {
               marginBottom: 15,
             }}>
             <Text>Delivery Charges</Text>
-            <Text>0</Text>
+            <Text>{cartdetails?.deliveryCost?.formattedValue}</Text>
           </View>
           <View
             style={{
@@ -331,7 +333,7 @@ const MyAddresses = props => {
               marginVertical: 15,
             }}>
             <Text>Amount Payable</Text>
-            <Text>₹{amount}</Text>
+            <Text>{cartdetails?.totalAmountToPay?.formattedValue}</Text>
           </View>
         </View>
       </ScrollView>

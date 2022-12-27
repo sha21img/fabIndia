@@ -71,17 +71,14 @@ const MyAccounts = props => {
   const getProfiledata = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    const response = await fetch(
-      `${BaseURL2}/users/current?lang=en&curr=INR`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
-          Accept: 'application/json',
-        },
+    const response = await fetch(`${BaseURL2}/users/current?lang=en&curr=INR`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
+        Accept: 'application/json',
       },
-    )
+    })
       .then(res => {
         return res.json();
       })
@@ -133,7 +130,7 @@ const MyAccounts = props => {
             <TouchableOpacity
               onPress={() => {
                 if (item.routes == 'GiftCard') {
-                  props.navigation.navigate(item.routes, {from: 'Account'});
+                  props.navigation.navigate(item.routes);
                 } else {
                   props.navigation.navigate(item.routes);
                 }
@@ -148,7 +145,10 @@ const MyAccounts = props => {
                 alignItems: 'center',
               }}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Image source={item.icon} />
+                <Image
+                  source={item.icon}
+                  style={{width: 30, height: 25, resizeMode: 'contain'}}
+                />
                 <Text
                   style={{
                     marginLeft: 23,
@@ -163,31 +163,31 @@ const MyAccounts = props => {
             </TouchableOpacity>
           );
         })}
-        <TouchableOpacity
-          onPress={() => logoutt()}
-          key={Math.random() * 10000}
-          style={{
-            padding: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            borderBottomWidth: 2,
-            borderBottomColor: '#EDEDED',
-            alignItems: 'center',
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Image source={image.DelAccount} />
+        <View style={{margin: 15}}>
+          <TouchableOpacity
+            onPress={() => logoutt()}
+            key={Math.random() * 10000}
+            style={{
+              padding: 10,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              backgroundColor: 'white',
+              borderWidth: 2,
+              borderColor: Colors.primarycolor,
+              borderRadius: 5,
+              justifyContent: 'center',
+            }}>
             <Text
               style={{
-                marginLeft: 23,
                 fontFamily: Fonts.Assistant400,
-                fontSize: 14,
-                color: Colors.textcolor,
+                fontSize: 20,
+                color: Colors.primarycolor,
               }}>
               Logout
             </Text>
-          </View>
-          <Image source={image.rightArrow} />
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </>
   );

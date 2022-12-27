@@ -9,9 +9,11 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function CommonTopTab(props) {
   const {data = [], Card} = props;
+  console.log('this sis a to tab data reult', data[0]?.title);
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
+        initialRouteName={data[0]?.title}
         swipeEnabled={false}
         screenOptions={{
           tabBarIndicatorStyle: {
@@ -22,7 +24,7 @@ export default function CommonTopTab(props) {
           tabBarStyle: {
             // height: 40,
             shadowColor: 'white',
-            marginLeft: 15,
+            paddingLeft: 15,
             justifyContent: 'flex-start',
           },
         }}>
@@ -34,7 +36,7 @@ export default function CommonTopTab(props) {
                 name={item?.title ? item?.title : 'po'}
                 options={{
                   tabBarItemStyle: {
-                    width: 'auto',
+                    width: data.length > 1 ? 'auto' : null,
                   },
                   unmountOnBlur: true,
                   tabBarLabel: ({focused}) => (

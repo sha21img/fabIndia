@@ -27,7 +27,7 @@ const OrderConfirmation = props => {
   }, []);
 
   const getorderconfirmDetails = async id => {
-    console.log('jijhiojiojhp', id);
+    console.log('id==>', id);
     const response = await axios.post(
       `${BaseURL2}/users/current/orders/fetch?id=${id}&lang=en&curr=INR`,
       // {},
