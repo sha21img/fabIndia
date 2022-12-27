@@ -27,8 +27,8 @@ export default function OrderStatus(props) {
         `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orders/${orderID}?fields=FULL&lang=en&curr=INR`,
         {
           headers: {
-            // Authorization: `${getToken.token_type} ${getToken.access_token}`,
-            Authorization: `${getToken.token_type} WU2ZXu0fztI11ZxgR1AV4Xxs7dQ`,
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            // Authorization: `${getToken.token_type} B7vKxGVlrWBGKVNFDlUci2ZfXTM`,
           },
         },
       )
@@ -50,6 +50,7 @@ export default function OrderStatus(props) {
       orderDetails={orderDetails}
       getorderDetails={getorderDetails}
       {...props}
+      orderID={orderID}
     />
     // <OrderCancelled  orderDetails={orderDetails}/>
   );
