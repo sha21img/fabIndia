@@ -10,11 +10,17 @@ import {
 import {TextInput} from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 import React, {useState, useEffect} from 'react';
+import CountryPicker from 'rn-country-picker';
 import InputText from '../../Common/InputText';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import axios from 'axios';
-import {getCartID, getWishID, postDataAuth} from '../../Common/Helper';
+import {
+  getCartID,
+  getWishID,
+  postDataAuth,
+  UnAuthPostData,
+} from '../../Common/Helper';
 import CommonButton from '../../Common/CommonButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
@@ -26,8 +32,13 @@ import {FacebookLogin} from '../../SocialLogin/FacebookLogin';
 export default function Login(props) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-
+  const [method, setMethod] = useState('Mobile');
   const [hideOldPass, setHideOldPass] = useState(true);
+  const [mobilePrefix, setMobilePrefix] = useState('91');
+  const [Otp, setOtp] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [transactionId, setTransectionId] = useState(false);
+  const [generateOtp, setGenerateOtp] = useState(false);
   const googleIcon = {
     uri: 'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
   };
@@ -41,7 +52,7 @@ export default function Login(props) {
   const toggleOldHide = () => {
     setHideOldPass(!hideOldPass);
   };
-  const saveToken = async data => {
+  const saveTokenFab = async data => {
     await AsyncStorage.setItem('fabToken', JSON.stringify(data));
   };
   const tokenGenerationFabFamily = async () => {
@@ -57,8 +68,7 @@ export default function Login(props) {
         },
       })
       .then(async response => {
-        saveToken(response.data);
-        console.log('response for token generation', response.data);
+        saveTokenFab(response.data);
       })
       .catch(errors => {
         console.log('errors for token generation', errors);
@@ -95,7 +105,7 @@ export default function Login(props) {
         .then(function (res1) {
           tokenGenerationFabFamily();
           const tokenGenerate = {...res1, isCheck: true};
-          console.log('tokenGeneratetokenGeneratetokenGenerate', res1);
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           if (res1.error) {
             Toast.showWithGravity(
               'Enter correct Details',
@@ -151,60 +161,372 @@ export default function Login(props) {
     checkToken();
   }, []);
 
+  const _selectedValue = index => {
+    setMobilePrefix(index);
+  };
+  const handleOTP = async () => {
+    console.log('handle otp');
+    let param = {
+      isLogin: true,
+      isSignUp: false,
+      mobileDailCode: `+${mobilePrefix}`,
+      mobileNumber: phoneNumber,
+    };
+    let res = await UnAuthPostData(`otp/generate?lang=en&curr=INR`, param);
+    if (res.transactionId) {
+      console.log('this sis send otp response', res);
+      setTransectionId(res.transactionId);
+      setGenerateOtp(true);
+      // props.navigation.navigate('Otp', {
+      //   transactionId: res.transactionId,
+      //   mobilePrefix: mobilePrefix,
+      //   phoneNumber: phoneNumber,
+      // });
+    } else {
+      Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
+    }
+  };
+  const saveToken = async () => {
+    var details = {
+      grant_type: 'custom',
+      scope: '',
+      client_id: 'mobile_android',
+      client_secret: 'secret',
+      provider: 'MOBILE',
+      contactNumber: phoneNumber,
+      contactNumberDailCode: `+${mobilePrefix}`,
+      transactionId: transactionId,
+    };
+    console.log('detailsdetailsdetails', details);
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
+    fetch('https://apisap.fabindia.com/authorizationserver/oauth/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formBody,
+    })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (res1) {
+        console.log('response==>-=-=-=', res1);
+        const tokenGenerate = {...res1, isCheck: true};
+        if (res1.error) {
+          Toast.showWithGravity(res1.error_description, Toast.LONG, Toast.TOP);
+        } else {
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          // props.navigation.navigate('MyAccount', {
+          //   screen: 'MyAccounts',
+          // });
+          props.navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{name: 'MyAccounts'}],
+            }),
+          );
+          getCartID();
+          getWishID();
+        }
+      });
+  };
+  const VerifyOTP = async () => {
+    const token = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(token);
+    const data = {
+      mobileDailCode: `+${mobilePrefix}`,
+      mobileNumber: phoneNumber,
+      otp: Otp,
+      transactionId: transactionId,
+    };
+    let res = await axios
+      .post(
+        'https://apisap.fabindia.com/occ/v2/fabindiab2c/otp/validate?lang=en&curr=INR',
+        data,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      )
+      .then(response => {
+        console.log('this sis res', response?.data);
+        if (response?.status == 200) {
+          saveToken();
+        } else {
+          console.log('in else');
+        }
+      })
+      .catch(error => {
+        if (error?.response?.status == 400) {
+          Toast.showWithGravity(
+            error?.response?.data?.errors[0].message,
+            Toast.LONG,
+            Toast.TOP,
+          );
+        }
+      });
+  };
   return (
     <>
       <ScrollView style={styles.container}>
-      <View></View>
-        <Text style={styles.titleText}>Log in with email address</Text>
-        <InputText
-          label={'Email address'}
-          onChangeText={text => setEmail(text)}
-          value={email}
-          customStyle={{marginTop: 10}}
-        />
-        <InputText
-          label={'Password'}
-          onChangeText={text => setPassword(text)}
-          customStyle={{marginTop: 10}}
-          value={password}
-          secureTextEntry={hideOldPass}
-          right={
-            <TextInput.Icon
-              name={() => (
-                <Feather
-                  name="eye-off"
-                  color={hideOldPass ? Colors.primarycolor : Colors.textcolor}
-                  size={20}
-                  onPress={toggleOldHide}
-                />
-              )}
+        {generateOtp ? (
+          <View style={{marginVertical: 10}}>
+            <Text
+              style={{
+                textAlign: 'center',
+                color: '#222',
+                fontSize: 20,
+                fontFamily: Fonts.Assistant600,
+                paddingVertical: 5,
+              }}>
+              Verify with OTP
+            </Text>
+            <Text
+              style={{
+                textAlign: 'center',
+                color: '#222',
+                fontSize: 16,
+                fontFamily: Fonts.Assistant600,
+                paddingVertical: 5,
+              }}>
+              Send to{' '}
+              {`${phoneNumber[0]}${phoneNumber[1]}******${phoneNumber[8]}${phoneNumber[9]}`}
+            </Text>
+            <TextInput
+              value={Otp}
+              activeOutlineColor="white"
+              activeUnderlineColor="white"
+              underlineColor="white"
+              onChangeText={value =>
+                value.length <= 4 ? setOtp(value) : false
+              }
+              multiline={true}
+              keyboardType="numeric"
+              style={{
+                backgroundColor: '#fff',
+                height: 35,
+                textAlign: 'center',
+                borderBottomColor: Colors.inactiveicon,
+                borderBottomWidth: 1,
+                marginVertical: 10,
+                width: '85%',
+                alignSelf: 'center',
+              }}
+              placeholder="Enter 4-digit OTP"
             />
-          }
-        />
-        <TouchableOpacity
-          style={styles.readText}
-          onPress={() => {
-            props.navigation.navigate('MyAccount', {
-              screen: 'ResetPassword',
-            });
-          }}>
-          <Text style={styles.forgetText}>Forgot password?</Text>
-        </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleOTP()}>
+              <Text
+                style={{
+                  color: Colors.primarycolor,
+                  textAlign: 'center',
+                  marginVertical: 10,
+                }}>
+                Resend OTP
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+              <TouchableOpacity
+                onPress={() => setMethod('Mobile')}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  padding: 10,
+                }}>
+                <View
+                  style={{
+                    borderWidth: 1,
+                    borderColor:
+                      method == 'Mobile' ? Colors.primarycolor : 'grey',
+                    width: 22,
+                    height: 22,
+                    borderRadius: 100,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <View
+                    style={{
+                      backgroundColor:
+                        method == 'Mobile' ? Colors.primarycolor : 'grey',
+                      width: 12,
+                      height: 12,
+                      borderRadius: 10,
+                    }}
+                  />
+                </View>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontFamily: Fonts.Assistant700,
+                    paddingHorizontal: 7,
+                  }}>
+                  Mobile
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setMethod('Email')}
+                style={{
+                  flexDirection: 'row',
+                  padding: 10,
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={{
+                    borderWidth: 1,
+                    borderColor:
+                      method == 'Email' ? Colors.primarycolor : 'grey',
+                    width: 22,
+                    height: 22,
+                    borderRadius: 100,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <View
+                    style={{
+                      backgroundColor:
+                        method == 'Email' ? Colors.primarycolor : 'grey',
+                      width: 12,
+                      height: 12,
+                      borderRadius: 10,
+                    }}
+                  />
+                </View>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontFamily: Fonts.Assistant700,
+                    paddingHorizontal: 7,
+                  }}>
+                  Email
+                </Text>
+              </TouchableOpacity>
+            </View>
+            {method == 'Mobile' ? (
+              <View style={styles.pickerbox}>
+                <CountryPicker
+                  disable={false}
+                  animationType={'slide'}
+                  containerStyle={styles.pickercontainer}
+                  pickerTitleStyle={styles.pickertitle}
+                  selectedCountryTextStyle={styles.selectedTextStyle}
+                  countryNameTextStyle={styles.selectnametxt}
+                  pickerTitle={'Country Picker'}
+                  searchBarPlaceHolder={'Search......'}
+                  hideCountryFlag={false}
+                  hideCountryCode={false}
+                  searchBarStyle={styles.searchbar}
+                  selectedValue={_selectedValue}
+                  countryCode={mobilePrefix}
+                />
+                <View style={{flex: 1, paddingHorizontal: 15}}>
+                  <TextInput
+                    activeOutlineColor="white"
+                    activeUnderlineColor="white"
+                    underlineColor="white"
+                    style={styles.textinput1}
+                    value={phoneNumber}
+                    placeholder="phone number"
+                    onChangeText={value =>
+                      value.length <= 10 ? setPhoneNumber(value) : false
+                    }
+                    placeholderTextColor="grey"
+                    keyboardType={'number-pad'}
+                    disableFullscreenUI={true}
+                  />
+                </View>
+              </View>
+            ) : (
+              <>
+                <InputText
+                  label={'Email address'}
+                  onChangeText={text => setEmail(text)}
+                  value={email}
+                  customStyle={{marginTop: 10}}
+                />
+                <InputText
+                  label={'Password'}
+                  onChangeText={text => setPassword(text)}
+                  customStyle={{marginTop: 10}}
+                  value={password}
+                  secureTextEntry={hideOldPass}
+                  right={
+                    <TextInput.Icon
+                      name={() => (
+                        <Feather
+                          name="eye-off"
+                          color={
+                            hideOldPass ? Colors.primarycolor : Colors.textcolor
+                          }
+                          size={20}
+                          onPress={toggleOldHide}
+                        />
+                      )}
+                    />
+                  }
+                />
+                <TouchableOpacity
+                  style={styles.readText}
+                  onPress={() => {
+                    props.navigation.navigate('MyAccount', {
+                      screen: 'ResetPassword',
+                    });
+                  }}>
+                  <Text style={styles.forgetText}>Forgot password?</Text>
+                </TouchableOpacity>
+              </>
+            )}
+          </>
+        )}
         <View style={{paddingVertical: 10}}>
-          <CommonButton
-            handleClick={handleSubmit}
-            backgroundColor="#BDBDBD"
-            txt="Login"
-            customViewStyle={{
-              backgroundColor:
-                !password || !email
-                  ? Colors.inAactivecolor
-                  : Colors.primarycolor,
-            }}
-            disable={!password || !email}
-          />
+          {method == 'Mobile' ? (
+            generateOtp ? (
+              <CommonButton
+                disable={Otp.length != 4}
+                handleClick={VerifyOTP}
+                txt="Confirm OTP"
+                customViewStyle={{
+                  backgroundColor:
+                    Otp.length == 4 ? Colors.primarycolor : '#BDBDBD',
+                }}
+              />
+            ) : (
+              <CommonButton
+                disable={phoneNumber.length != 10}
+                backgroundColor="#BDBDBD"
+                txt="Send OTP"
+                handleClick={handleOTP}
+                customViewStyle={{
+                  backgroundColor:
+                    phoneNumber.length == 10 ? Colors.primarycolor : '#BDBDBD',
+                }}
+              />
+            )
+          ) : (
+            <CommonButton
+              handleClick={handleSubmit}
+              backgroundColor="#BDBDBD"
+              txt="Login"
+              customViewStyle={{
+                backgroundColor:
+                  !password || !email
+                    ? Colors.inAactivecolor
+                    : Colors.primarycolor,
+              }}
+              disable={!password || !email}
+            />
+          )}
         </View>
-
         <View
           style={{
             marginTop: 15,
@@ -295,6 +617,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'black',
   },
+  textinput1: {
+    letterSpacing: 2,
+    borderBottomColor: 'white',
+    fontSize: 18,
+    color: 'black',
+    height: 20,
+    backgroundColor: 'white',
+    width: '100%',
+  },
   horizontalContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -309,5 +640,46 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: '#FDFDFD',
     elevation: 5,
+  },
+  pickerbox: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 15,
+    borderBottomColor: '#EDEDED',
+    marginVertical: 20,
+  },
+  pickercontainer: {
+    width: 75,
+    height: 30,
+    justifyContent: 'center',
+  },
+  pickertitle: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    flex: 1,
+    fontSize: 16,
+    color: '#000',
+  },
+  selectedTextStyle: {
+    paddingLeft: 5,
+    // paddingRight: 5,
+    color: '#000',
+    textAlign: 'right',
+  },
+  selectnametxt: {
+    paddingLeft: 10,
+    color: '#000',
+    textAlign: 'right',
+  },
+  searchbar: {
+    flex: 1,
+    justifyContent: 'center',
+    flexDirection: 'row',
+    // marginLeft: 8,
+    // marginRight: 10,
   },
 });
