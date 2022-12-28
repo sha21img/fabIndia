@@ -17,7 +17,7 @@ import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
 import {useNavigation} from '@react-navigation/native';
-import { BaseURL2 } from '../Helper';
+import {BaseURL2} from '../Helper';
 const width = Dimensions.get('window').width;
 const NewAccordian = props => {
   const {newData} = props;
@@ -71,12 +71,24 @@ const NewAccordian = props => {
       response.data,
     );
   };
-
+  const navigations = name => {
+    console.log('adsfasdfasdf start', name);
+    let splitURL = name.split('/');
+    splitURL = splitURL[splitURL.length - 1];
+    console.log('adsfasdfasdf', splitURL);
+    navigation.navigate('LandingPageSaris_Blouses', {
+      title: splitURL,
+      code: splitURL,
+      status: false,
+    });
+  };
   return (
     <View key={Math.random() * 1099900} style={Styles.accordbox}>
       <TouchableOpacity
         onPress={() =>
-          newData.children.length > 0 ? toggleListItem() : goToProductList()
+          newData.children.length > 0
+            ? toggleListItem()
+            : navigations(newData.landingPage)
         }
         style={Styles.headingBox}>
         <Text
@@ -105,12 +117,7 @@ const NewAccordian = props => {
             return (
               <TouchableOpacity
                 style={Styles.listBox}
-                // onPress={() =>
-                //   navigation.navigate('LandingPageSaris_Blouses', {
-                //     title: "infant-boys-kurtas",
-                //   })
-                // }
-              >
+                onPress={() => navigations(item.landingPage)}>
                 <Text>{item.title}</Text>
               </TouchableOpacity>
             );

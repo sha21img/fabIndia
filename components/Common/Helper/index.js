@@ -7,10 +7,11 @@ import {wishlistDetail} from './Redux/actions';
 const ComponentBaseURL = 'https://apisap.fabindia.com/occ/v2/';
 const BaseURL = 'https://apisap.fabindia.com/occ/v2/';
 const BaseURL1 = 'https://apisap.fabindia.com/occ/v2/fabindiab2c/';
-export const BaseURL2= 'https://apisap.fabindiahome.com/occ/v2/fabindiab2c/';
+export const BaseURL2 = 'https://apisap.fabindiahome.com/occ/v2/fabindiab2c/';
 
 const AuthBaseUrl = 'https://apisap.fabindia.com/authorizationserver/';
-export const AuthBaseUrl2 = 'https://apisap.fabindiahome.com/authorizationserver/';
+export const AuthBaseUrl2 =
+  'https://apisap.fabindiahome.com/authorizationserver/';
 
 const AuthAuthor = 'bearer nCVKPnrYg-ZgHMn0djWh1YSFCX0';
 
