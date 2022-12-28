@@ -13,7 +13,7 @@ import Fonts from '../../../../assets/fonts';
 import Toast from 'react-native-simple-toast';
 import {BaseURL2} from '../../../Common/Helper';
 import SearchableDropdown from 'react-native-searchable-dropdown';
-
+import {Dropdown} from 'react-native-element-dropdown';
 const BankData = [
   {name: 'ICICI Bank', code: 'ICICI', id: 1},
   {name: 'State Bank of India', code: 'SBI', id: 2},
@@ -66,8 +66,11 @@ var items = [
   },
 ];
 const Payment = props => {
-  const {razorpaymethod} = props
-  console.log("razorpaymethodrazorpaymethodrazorpaymethodrazorpaymethodrazorpaymethod",razorpaymethod)
+  const {razorpaymethod} = props;
+  console.log(
+    'razorpaymethodrazorpaymethodrazorpaymethodrazorpaymethodrazorpaymethod',
+    razorpaymethod,
+  );
   const [paymentMode, setPaymentMode] = useState([]);
   const [showlist, setshowlist] = useState([]);
   const [cartDetails, setcartDetails] = useState(null);
@@ -75,15 +78,15 @@ const Payment = props => {
   const openCheckout = (id, UDID, method, data, details) => {
     // console.log('dataa6666666a', data.expiry.split('/')[0]);
     let options;
- 
+
     if (method == 'card') {
       let card = {
-        number:data.number,
-        name:details?.user.name,
+        number: data.number,
+        name: details?.user.name,
         expiry_month: Number(data.expiry.split('/')[0]),
         expiry_year: Number(data.expiry.split('/')[1]),
-        cvv:Number(data.cvc)
-      }
+        cvv: Number(data.cvc),
+      };
       options = {
         description: 'Payment for Fab india',
         currency: details?.totalPriceWithTax?.currencyIso,
@@ -93,8 +96,7 @@ const Payment = props => {
         email: details?.user?.uid,
         order_id: id.orderId,
         method: method,
-        card: card
-        
+        card: card,
       };
     } else if (method == 'netbanking') {
       options = {
@@ -118,7 +120,7 @@ const Payment = props => {
         email: details?.user?.uid,
         order_id: id.orderId,
         method: method,
-        wallet: data.name,   
+        wallet: data.name,
       };
     } else if (method == 'upi') {
       options = {
@@ -131,7 +133,7 @@ const Payment = props => {
         order_id: id.orderId,
         method: method,
         vpa: data,
-      }
+      };
     }
 
     console.log('optionsoptionsoptions', JSON.stringify(options));
@@ -149,14 +151,16 @@ const Payment = props => {
     //   .catch(error => {
     //     console.log('error==>', JSON.stringify(error));
     //   });
-    Razorpay.open(options).then((data) => {
-      // handle success
-      alert(`Success: ${data.razorpay_payment_id}`);
-    }).catch((error) => {
-      // handle failure
-      console.log(`Error: ${error.code} | ${error.description}`)
-      alert(`Error: ${error.code} | ${error.description}`);
-    });
+    Razorpay.open(options)
+      .then(data => {
+        // handle success
+        alert(`Success: ${data.razorpay_payment_id}`);
+      })
+      .catch(error => {
+        // handle failure
+        console.log(`Error: ${error.code} | ${error.description}`);
+        alert(`Error: ${error.code} | ${error.description}`);
+      });
   };
   const getDetails = async () => {
     const get = await AsyncStorage.getItem('generatToken');
@@ -314,6 +318,40 @@ const Payment = props => {
   };
   const NetBanking = () => {
     const [bank, setBank] = useState('');
+    const [State, SetState] = useState('')
+    const [isFocus, setIsFocus] = useState(false);
+    const data = [
+      {label: 'Arunachal Pradesh'},
+      {label: 'Bihar'},
+      {label: 'Chhattisgarh'},
+      {label: 'Goa'},
+      {label: 'Gujarat'},
+      {label: 'Haryana'},
+      {label: 'Himachal Pradesh'},
+      {label: 'Jharkhand'},
+      {label: 'Karnataka'},
+      {label: 'Kerala'},
+      {label: 'Madhya Pradesh'},
+      {label: 'Maharashtra'},
+      {label: 'Manipur'},
+      {label: 'Meghalaya'},
+      {label: 'Mizoram'},
+      {label: 'Punjab'},
+      {label: 'Rajasthan'},
+      {label: 'Tamil Nadu'},
+      {label: 'Tripura'},
+      {label: 'Uttar Pradesh'},
+      {label: 'Uttarakhand'},
+      {label: 'West Bengal'},
+    ];
+    const renderLabel = () => {
+      if (isFocus) {
+        return (
+          <Text style={[style.label, isFocus && {color: 'blue'}]}>State</Text>
+        );
+      }
+      return null;
+    };
     return (
       <View style={{}}>
         {BankData.map(item => {
@@ -365,6 +403,37 @@ const Payment = props => {
             </TouchableOpacity>
           );
         })}
+        <View style ={{marginTop:10}}>
+          <Dropdown
+            style={{
+              height: 50,
+              paddingHorizontal: 8,
+              paddingBottom: 0,
+              // borderBottomWidth:2,
+              // borderBottomColor:color.SubMainColor,
+              marginBottom: 10,
+            }}
+            placeholderStyle={{fontSize: 16, fontFamily: Fonts.Assistant200}}
+            selectedTextStyle={{fontSize: 16, fontFamily: Fonts.Assistant200}}
+            inputSearchStyle={{fontSize: 16, fontFamily: Fonts.Assistant200}}
+            iconStyle={{width: 20,
+              height: 20,}}
+            data={data}
+            search
+            maxHeight={300}
+            labelField="label"
+            valueField="label"
+            placeholder={!isFocus ? 'Select State' : '...'}
+            searchPlaceholder="Search..."
+            value={State}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={item => {
+              SetState(item.label);
+              setIsFocus(false);
+            }}
+          />
+        </View>
 
         <TouchableOpacity
           onPress={() => {
@@ -1377,7 +1446,6 @@ const Payment = props => {
     console.log('updateFinal', updateFinal);
     setshowlist(updateFinal);
   };
-
 
   return (
     <ScrollView
