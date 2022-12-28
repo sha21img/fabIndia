@@ -311,7 +311,6 @@ export default function OrderInProgress(props) {
                   status={orderDetails?.statusDisplay}
                   getorderDetails={getorderDetails}
                   {...props}
-                  orderID1={orderID}
                 />
                 {!!item?.status?.name &&
                   (item?.status?.name == 'Returned' ||
@@ -390,15 +389,5 @@ export default function OrderInProgress(props) {
     card: screenObj[item],
     detail: orderDetails,
   }));
-  return (
-    <ScrollView
-      contentContainerStyle={{
-        paddingBottom: 30,
-        flexGrow: 1,
-        backgroundColor: '#FFFFFF',
-        // paddingHorizontal: 15,
-      }}>
-      <CommonTopTab data={dataMap} />
-    </ScrollView>
-  );
+  return <CommonTopTab data={dataMap} />;
 }

@@ -2,10 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, Text, View, Image, TouchableOpacity} from 'react-native';
 import axios from 'axios';
 import {Colors} from '../../../../assets/Colors';
-// import {
-//   CreditCardInput,
-// } from 'react-native-credit-card-input';
-import RazorpayCheckout from 'react-native-razorpay';
+import Razorpay from 'react-native-customui';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SimpleAccordian2 from '../../../Common/SimpleAccordian2';
 import {TextInput} from 'react-native-paper';
@@ -15,99 +12,177 @@ import {useNavigation} from '@react-navigation/native';
 import Fonts from '../../../../assets/fonts';
 import Toast from 'react-native-simple-toast';
 import {BaseURL2} from '../../../Common/Helper';
-import useRazorpay from 'react-razorpay';
+import SearchableDropdown from 'react-native-searchable-dropdown';
+import {Dropdown} from 'react-native-element-dropdown';
 const BankData = [
-  {name: 'ICICI Bank', code: 'ICICI', id: 1},
-  {name: 'State Bank of India', code: 'SBI', id: 2},
-  {name: 'Axis Bank', code: 'AXIS', id: 3},
-  {name: 'Yes Bank', code: 'YES', id: 4},
-  {name: 'HDFC Bank', code: 'HDFC', id: 5},
+  {name: 'ICICI Bank', code: 'ICIC', id: 1},
+  {name: 'State Bank of India', code: 'SBIN', id: 2},
+  {name: 'Axis Bank', code: 'UTIB', id: 3},
+  {name: 'Yes Bank', code: 'YESB', id: 4},
 ];
 const WalletData = [
-  {name: 'Airtel Money', id: 1},
-  {name: 'amazonpay', id: 2},
-  {name: 'Free Charge', id: 3},
-  {name: 'Jio Money', id: 4},
-  {name: 'Mobikwik', id: 5},
-  {name: 'Ola Money', id: 6},
-  {name: 'Payzapp', id: 7},
-  {name: 'Phonepe', id: 8},
+  {name: 'Airtel Money', id: 1, code: 'airtelmoney'},
+  {name: 'amazonpay', id: 2, code: 'amazonpay'},
+  {name: 'Free Charge', id: 3, code: 'freecharge'},
+  {name: 'Jio Money', id: 4, code: 'jiomoney'},
+  {name: 'Mobikwik', id: 5, code: 'mobikwik'},
+  {name: 'Ola Money', id: 6, code: 'olamoney'},
+  {name: 'Payzapp', id: 7, code: 'payzapp'},
+  {name: 'Phonepe', id: 8, code: 'phonepe'},
 ];
-
+var items = [
+  {
+    id: 1,
+    name: 'JavaScript',
+  },
+  {
+    id: 2,
+    name: 'Java',
+  },
+  {
+    id: 3,
+    name: 'Ruby',
+  },
+  {
+    id: 4,
+    name: 'React Native',
+  },
+  {
+    id: 5,
+    name: 'PHP',
+  },
+  {
+    id: 6,
+    name: 'Python',
+  },
+  {
+    id: 7,
+    name: 'Go',
+  },
+  {
+    id: 8,
+    name: 'Swift',
+  },
+];
 const Payment = props => {
+  const {razorpaymethod} = props;
+  console.log(
+    'razorpaymethodrazorpaymethodrazorpaymethodrazorpaymethodrazorpaymethod',
+    razorpaymethod,
+  );
   const [paymentMode, setPaymentMode] = useState([]);
   const [showlist, setshowlist] = useState([]);
   const [cartDetails, setcartDetails] = useState(null);
   const navigation = useNavigation();
-  const openCheckout = (id, UDID, method, data, details) => {
-    console.log('dataaa', data);
-    let prfilData;
+  const openCheckout = (id, UDID, method, data, details,emid) => {
+    // console.log('dataa6666666a', data.expiry.split('/')[0]);
+    let options;
+
     if (method == 'card') {
-      prfilData = {
-        email: details?.user?.uid,
-        contact: details?.deliveryAddress?.cellphone,
+      let card = {
+        number: data.number,
         name: details?.user.name,
+        expiry_month: Number(data.expiry.split('/')[0]),
+        expiry_year: Number(data.expiry.split('/')[1]),
+        cvv: Number(data.cvc),
+      };
+      options = {
+        description: 'Payment for Fab india',
+        currency: details?.totalPriceWithTax?.currencyIso,
+        key_id: 'rzp_test_T70CWf6iJpuekL',
+        amount: details?.totalPriceWithTax?.value * 100,
+        email: details?.user?.uid,
+        contact: details?.deliveryAddress?.phone,
+        order_id: id.orderId,
         method: method,
-        'card[name]': details?.user.name,
-        'card[number]': data.number,
-        'card[expiry]': data.expiry,
-        'card[cvv]': data.cvc,
+        card: card,
       };
     } else if (method == 'netbanking') {
-      prfilData = {
+      options = {
+        description: 'Payment for Fab india',
+        currency: details?.totalPriceWithTax?.currencyIso,
+        key_id: 'rzp_test_T70CWf6iJpuekL',
+        amount: details?.totalPriceWithTax?.value * 100,
         email: details?.user?.uid,
-        contact: details?.deliveryAddress?.cellphone,
-        name: details?.user.name,
+        contact: details?.deliveryAddress?.phone,
+        order_id: id.orderId,
         method: method,
         bank: data.code,
-        // bank: 'HDFC',
       };
-    } else if (method == 'wallet') {
-      prfilData = {
-        email: details?.user?.uid,
-        contact: details?.deliveryAddress?.cellphone,
+    } else if (method == 'emi'){
+      let card = {
+        number: data.number,
         name: details?.user.name,
+        expiry_month: Number(data.expiry.split('/')[0]),
+        expiry_year: Number(data.expiry.split('/')[1]),
+        cvv: Number(data.cvc),
+      };
+      options = {
+        description: 'Payment for Fab india',
+        currency: details?.totalPriceWithTax?.currencyIso,
+        key_id: 'rzp_test_T70CWf6iJpuekL',
+        amount: details?.totalPriceWithTax?.value * 100,
+        email: details?.user?.uid,
+        contact: details?.deliveryAddress?.phone,
+        order_id: id.orderId,
         method: method,
-        wallet: data.name,
+        emi_duration: emid.duration,
+        card: card,
+      };
+    }
+    
+    else if (method == 'wallet') {
+      options = {
+        description: 'Payment for Fab india',
+        currency: details?.totalPriceWithTax?.currencyIso,
+        key_id: 'rzp_test_T70CWf6iJpuekL',
+        amount: details?.totalPriceWithTax?.value * 100,
+        email: details?.user?.uid,
+        contact: details?.deliveryAddress?.phone,
+        order_id: id.orderId,
+        method: method,
+        wallet: data.code,
       };
     } else if (method == 'upi') {
-      prfilData = {
+      options = {
+        description: 'Payment for Fab india',
+        currency: details?.totalPriceWithTax?.currencyIso,
+        key_id: 'rzp_test_T70CWf6iJpuekL',
+        amount: details?.totalPriceWithTax?.value * 100,
         email: details?.user?.uid,
-        contact: details?.deliveryAddress?.cellphone,
-        name: details?.user.name,
+        contact: details?.deliveryAddress?.phone,
+        order_id: id.orderId,
         method: method,
         vpa: data,
       };
     }
-    var options = {
-      description: 'Payment for Fab india',
-      image: 'https://i.imgur.com/3g7nmJC.png',
-      currency: details?.totalPriceWithTax?.currencyIso,
-      callback_url: UDID,
-      redirect: true,
-      key: 'rzp_test_T70CWf6iJpuekL',
-      amount: details?.totalPriceWithTax?.value * 100,
-      name: 'FAB India',
-      orderId: id.orderId,
-      prefill: prfilData,
-      theme: {color: Colors.primarycolor},
-    };
-    console.log('optionsoptionsoptions', JSON.stringify(options));
-    RazorpayCheckout.open(options)
+
+    console.log('optionsoptionsoptions00000', JSON.stringify(options));
+    // RazorpayCheckout.open(options)
+    //   .then(data => {
+    //     // handle success
+    //     console.log('Razorpay==>', JSON.stringify(data));
+    //     navigation.navigate('OrderConfirmation', {
+    //       amount: details?.totalPriceWithTax?.value,
+    //       addressData: details,
+    //       UDID: UDID,
+    //     });
+    //     // alert(`Success: ${data.razorpay_payment_id}`);
+    //   })
+    //   .catch(error => {
+    //     console.log('error==>', JSON.stringify(error));
+    //   });
+    Razorpay.open(options)
       .then(data => {
-        // handle success
-        console.log('Razorpay==>', JSON.stringify(data));
         navigation.navigate('OrderConfirmation', {
           amount: details?.totalPriceWithTax?.value,
           addressData: details,
           UDID: UDID,
         });
-        // alert(`Success: ${data.razorpay_payment_id}`);
       })
       .catch(error => {
-        // handle failure
-        console.log('error==>', JSON.stringify(error));
-        // alert(`Error: ${error.code} | ${error.description}`);
+        console.log(`Error: ${error.code} | ${error.description}`);
+        alert(`Error: ${error.code} | ${error.description}`);
       });
   };
   const getDetails = async () => {
@@ -133,7 +208,7 @@ const Payment = props => {
       return response.data;
     }
   };
-  const getOrderID = async (method, data) => {
+  const getOrderID = async (method, data,circlepoint) => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
@@ -156,7 +231,7 @@ const Payment = props => {
     const UDID = await getUDID();
     const details = await getDetails();
     console.log('detailsdetailsdetailsdetailsdetailsdetailsdetails', details);
-    openCheckout(response.data, UDID, method, data, details);
+    openCheckout(response.data, UDID, method, data, details,circlepoint);
   };
   const getUDID = async () => {
     console.log('udiddddddd');
@@ -266,8 +341,35 @@ const Payment = props => {
   };
   const NetBanking = () => {
     const [bank, setBank] = useState('');
+    const [State, SetState] = useState('');
+    const [isFocus, setIsFocus] = useState(false);
+    const [data, setData] = useState([]);
 
-    console.log(bank);
+    useEffect(() => {
+      let formatedData = Object.entries(razorpaymethod.netbanking);
+      let final = [];
+      formatedData.map(el => {
+        let ob = {
+          label: el[1],
+          code: el[0],
+        };
+        final.push(ob);
+      });
+      console.log('finallllllllllllllllll', final);
+      setData(final);
+    }, []);
+    const renderLabel = () => {
+      if (isFocus) {
+        return (
+          <Text style={[style.label, isFocus && {color: 'blue'}]}>State</Text>
+        );
+      }
+      return null;
+    };
+    console.log(
+      'razorpaymethodrazorpaymethodrazorpaymethodashish',
+      razorpaymethod.netbanking,
+    );
     return (
       <View style={{}}>
         {BankData.map(item => {
@@ -319,6 +421,36 @@ const Payment = props => {
             </TouchableOpacity>
           );
         })}
+        <View style={{marginTop: 10}}>
+          <Dropdown
+            style={{
+              height: 50,
+              paddingHorizontal: 8,
+              paddingBottom: 0,
+              borderBottomWidth: 0.8,
+              borderBottomColor: '#ababab',
+              marginBottom: 10,
+            }}
+            placeholderStyle={{fontSize: 16, fontFamily: Fonts.Assistant400}}
+            selectedTextStyle={{fontSize: 16, fontFamily: Fonts.Assistant400}}
+            inputSearchStyle={{fontSize: 16, fontFamily: Fonts.Assistant400}}
+            iconStyle={{width: 20, height: 20}}
+            data={data}
+            search
+            maxHeight={300}
+            labelField="label"
+            valueField="label"
+            placeholder={!isFocus ? 'Select Bank' : '...'}
+            searchPlaceholder="Search..."
+            value={State}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={item => {
+              setBank(item);
+              setIsFocus(false);
+            }}
+          />
+        </View>
 
         <TouchableOpacity
           onPress={() => {
@@ -700,21 +832,28 @@ const Payment = props => {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
           },
         },
-      );
-      console.log(
-        'LoyalitypointsLoyalitypointsLoyalitypoints verifyyyy',
-        response.data,
-      );
-      if (response.data?.success) {
-        orderPlace();
-      } else {
+      ).then((response)=>{
+        console.log("errr99999r",response.data)
+
+        if (response.data?.success) {
+          orderPlace();
+        } else {
+          Toast.showWithGravity(
+            ' Sorry Insufficient balance',
+            Toast.LONG,
+            Toast.TOP,
+          );
+          setShowotp(false);
+        }
+      }).catch((err)=>{
+        console.log("errrr",err.response.data.errors[0])
         Toast.showWithGravity(
-          ' Sorry Insufficient balance',
+          err.response.data.errors[0].message,
           Toast.LONG,
           Toast.TOP,
         );
         setShowotp(false);
-      }
+      })
     };
     const orderPlace = async () => {
       const get = await AsyncStorage.getItem('generatToken');
@@ -1222,6 +1361,197 @@ const Payment = props => {
       </View>
     );
   };
+  const EMIdata = () => {
+    const [card, setcard] = useState(null);
+    const [State, SetState] = useState('');
+    const [isFocus, setIsFocus] = useState(false);
+    const [data, setData] = useState([]);
+    const [selected, setSelected] = useState([]);
+    const [circlepoint,setCirclepoint] = useState(null)
+
+    useEffect(() => {
+      let formatedData = Object.entries(razorpaymethod.emi_options);
+      let final = [];
+      formatedData.map(el => {
+        let ob = {
+          label: el[0],
+          value: el[1],
+        };
+        final.push(ob);
+      });
+      console.log('finallllllllll_______llllllll', final);
+      setData(final);
+    }, []);
+
+    const _onChange = formData => {
+      if (formData.valid) {
+        setcard(formData.values);
+      }
+
+      // console.log(JSON.stringify(formData, null, ' '), 'hiiiiiiiiiiii');
+    };
+    const renderLabel = () => {
+      if (isFocus) {
+        return (
+          <Text style={[style.label, isFocus && {color: 'blue'}]}>State</Text>
+        );
+      }
+      return null;
+    };
+    const _onFocus = field => console.log('focusing', field);
+
+    console.log('_____________', selected);
+
+    return (
+      <View style={{backgroundColor: 'white'}}>
+        <View style={{marginTop: 10}}>
+          <Dropdown
+            style={{
+              height: 50,
+              paddingHorizontal: 8,
+              paddingBottom: 0,
+              borderBottomWidth: 0.8,
+              borderBottomColor: '#ababab',
+              marginBottom: 10,
+            }}
+            placeholderStyle={{fontSize: 16, fontFamily: Fonts.Assistant400}}
+            selectedTextStyle={{fontSize: 16, fontFamily: Fonts.Assistant400}}
+            inputSearchStyle={{fontSize: 16, fontFamily: Fonts.Assistant400}}
+            iconStyle={{width: 20, height: 20}}
+            data={data}
+            search
+            maxHeight={300}
+            labelField="label"
+            valueField="label"
+            placeholder={!isFocus ? 'Select Bank' : '...'}
+            searchPlaceholder="Search..."
+            value={State}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={item => {
+              setSelected(item.value);
+              // setIsFocus(false);
+            }}
+          />
+        </View>
+        {selected.length ? (
+          <View style={{marginVertical:15}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                backgroundColor: '#ABABAB',
+                borderBottomWidth: 3,
+                borderBottomColor: '#222',
+              }}>
+              <View
+                style={{
+                  width: '50%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  paddingVertical: 20,
+                }}>
+                <Text>Plans</Text>
+              </View>
+              <View
+                style={{
+                  width: '50%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  paddingVertical: 20,
+                }}>
+                <Text>Interests</Text>
+              </View>
+            </View>
+            {selected.map((item, index) => {
+              return (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    backgroundColor: index % 2 == 0 ? '#f6f6f6' : '#fff',
+                  }}>
+                  
+                  <View
+                    style={{
+                      width: '50%',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      flexDirection:'row',
+                      paddingVertical: 20,
+                      borderBottomWidth: 0.8,
+                      borderLeftWidth: 0.8,
+                    }}>
+                      <TouchableOpacity
+                       onPress={()=>{
+                        setCirclepoint(item)
+                       }}
+                    style={{
+                      borderWidth: 1,
+                      borderColor: Colors.primarycolor,
+                      width: 20,
+                      height: 20,
+                      marginRight:15,
+                      borderRadius: 10,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    {circlepoint?.duration == item?.duration ? (
+                      <View
+                        style={{
+                          backgroundColor: Colors.primarycolor,
+                          width: 14,
+                          height: 14,
+                          borderRadius: 10,
+                        }}
+                      />
+                    ) : null}
+                  </TouchableOpacity>
+                    <Text>{item.duration}</Text>
+                  </View>
+                  <View
+                    style={{
+                      width: '50%',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      paddingVertical: 20,
+                      borderWidth: 0.8,
+                      borderTopWidth: 0,
+                    }}>
+                    <Text>{item.interest}%</Text>
+                  </View>
+                </View>
+              );
+            })}
+          </View>
+        ) : null}
+        <LiteCreditCardInput
+          inputStyle={{
+            fontSize: 16,
+            color: 'black',
+          }}
+          validColor={'black'}
+          invalidColor={'red'}
+          placeholderColor={'darkgray'}
+          onFocus={_onFocus}
+          onChange={_onChange}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            getOrderID('emi', card,circlepoint);
+          }}
+          style={{
+            backgroundColor: Colors.primarycolor,
+            justifyContent: 'center',
+            alignSelf: 'center',
+            marginTop: 20,
+            borderRadius: 20,
+            paddingHorizontal: 30,
+            paddingVertical: 10,
+          }}>
+          <Text style={{color: 'white'}}>Pay Now</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
   let menuItem = [
     {
       id: 1,
@@ -1247,12 +1577,12 @@ const Payment = props => {
       IconName: 'credit-card',
       subItem: React.createElement(React.memo(Wallets)),
     },
-    // {
-    //   id: 5,
-    //   name: 'EMI',
-    //   IconName: 'credit-card',
-    //   subItem: React.createElement(React.memo(Wallets)),
-    // },
+    {
+      id: 5,
+      name: 'EMI',
+      IconName: 'credit-card',
+      subItem: React.createElement(React.memo(EMIdata)),
+    },
   ];
 
   useEffect(() => {
@@ -1261,7 +1591,6 @@ const Payment = props => {
   const asyncfunc = async () => {
     await getDetails();
     await paymentModes();
-    //  RazorpayResponse()
   };
 
   const paymentModes = async () => {
@@ -1333,16 +1662,6 @@ const Payment = props => {
     setshowlist(updateFinal);
   };
 
-  const RazorpayResponse = async () => {
-    // var razorpay = new Razorpay({
-    //   key: 'rzp_test_T70CWf6iJpuekL',
-    //     // logo, displayed in the popup
-    //   image: 'https://i.imgur.com/n5tjHFD.jpg',
-    // });
-    // razorpay.once('ready', function(response) {
-    //   console.log('RazorpayCheckoutRazorpayCheckout0',response);
-    // })
-  };
   return (
     <ScrollView
       //   style={{backgroundColor: 'red', height: '100%'}}

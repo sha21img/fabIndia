@@ -9,13 +9,16 @@ import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import {useNavigation} from '@react-navigation/native';
 import {Styles} from './styles';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default function Header({
-  customViewStyle = {},
-  headtext = '',
-  count = '',
-  title = '',
-}) {
+export default function Header(props) {
+  const {
+    customViewStyle = {},
+    headtext = '',
+    count = '',
+    title = '',
+    handleClick = null,
+  } = props;
   const navigation = useNavigation();
   return (
     <View style={[Styles.container, customViewStyle]}>
@@ -62,18 +65,21 @@ export default function Header({
         }}>
         {title}
       </Text>
-      <View></View>
-      {/* <View style={Styles.detailContainer}>
-        <TouchableOpacity style={Styles.locationContainer}>
+      {/* <View></View> */}
+      <View style={Styles.detailContainer}>
+        {/* <TouchableOpacity style={Styles.locationContainer}>
           <Ionicons name="share-social" color={Colors.primarycolor} size={25} />
         </TouchableOpacity>
         <TouchableOpacity style={Styles.currencyContainer}>
           <EvilIcons name="heart" color={Colors.primarycolor} size={30} />
+        </TouchableOpacity> */}
+        <TouchableOpacity style={Styles.cartContainer} onPress={handleClick}>
+          {/* <AntDesign name="profile" color={Colors.primarycolor} size={25} /> */}
+          <Ionicons name="person" size={20} color={Colors.primarycolor} />
+
+          {/* <EvilIcons name="cart" size={30} color={Colors.primarycolor} /> */}
         </TouchableOpacity>
-        <TouchableOpacity style={Styles.cartContainer}>
-          <EvilIcons name="cart" size={30} color={Colors.primarycolor} />
-        </TouchableOpacity>
-      </View> */}
+      </View>
     </View>
   );
 }

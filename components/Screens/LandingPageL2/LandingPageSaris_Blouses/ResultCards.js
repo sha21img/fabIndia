@@ -44,9 +44,9 @@ export default function ResultCards(props) {
   const [productCount, setProductCount] = useState(0);
   const {code, status, title, isSearch} = props;
   const {data = []} = props;
-  
+
   const getProductData = async data => {
-    // console.log('datadatadatadatadatadatadatadatadatadatadatadata', data);
+    console.log('datadatadatadatadatadatadatadatadatadatadatadata', data);
     const fields =
       'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
     var response;
@@ -67,13 +67,13 @@ export default function ResultCards(props) {
         }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
     }
-    // console.log('1234567890', response.data);
+    console.log('1234567890', response.data);
     // fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}`);
     setdataMain(response.data);
     setProductCount(response.data.pagination.totalResults);
     setTotalCount(response.data.pagination.totalResults);
     setFilterProducts(response.data.products);
-    if (filterProducts.length) {
+    if (filterProducts.length > 0 && !data) {
       setFilterProducts([...filterProducts, ...response.data.products]);
     } else {
       setFilterProducts(response.data.products);
@@ -100,6 +100,7 @@ export default function ResultCards(props) {
       );
     }
     setdataMain(response.data);
+
     setFilterProducts(response.data.products);
   };
   useEffect(() => {

@@ -13,13 +13,16 @@ import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
 import CommonButton from '../CommonButton';
 
-export default function Success({
-  title = '',
-  description = '',
-  btntxt = '',
-  showCard = true,
-  descfont = {},
-}) {
+export default function Success(props) {
+  const {
+    title = '',
+    description = '',
+    btntxt = '',
+    showCard = true,
+    descfont = {},
+    orderDetail = {},
+  } = props;
+  console.log('orderDetaipoiuytfdfghjklss', orderDetail);
   return (
     <>
       <ScrollView
@@ -67,17 +70,38 @@ export default function Success({
             {description}
           </Text>
         </View>
+        <OrderProductCard
+          {...props}
+          data={orderDetail}
+          image="https://www.bringitonline.in/uploads/2/2/4/5/22456530/saree-photographers-in-delhi-bringitonline-2_orig.jpeg"
+          title="Cotton Silk Block Printed Sari Product Name"
+          size="M"
+          quantity="1"
+          price="3,500"
+        />
 
         {/* //----product details----// */}
-        {showCard && (
-          <OrderProductCard
-            image="https://www.bringitonline.in/uploads/2/2/4/5/22456530/saree-photographers-in-delhi-bringitonline-2_orig.jpeg"
-            title="Cotton Silk Block Printed Sari Product Name"
-            size="M"
-            quantity="1"
-            price="3,500"
-          />
-        )}
+        {/* {orderDetail?.entries?.map(item => {
+          return (
+            <>
+              <OrderProductCard
+                data={item}
+                image="https://www.bringitonline.in/uploads/2/2/4/5/22456530/saree-photographers-in-delhi-bringitonline-2_orig.jpeg"
+                title="Cotton Silk Block Printed Sari Product Name"
+                size="M"
+                quantity="1"
+                price="3,500"
+              />
+            </>
+          );
+        })} */}
+        {/* <OrderProductLongCard
+                  data={item}
+                  orderID={orderDetails.code}
+                  status={orderDetails?.statusDisplay}
+                  getorderDetails={getorderDetails}
+                  {...props}
+                /> */}
       </ScrollView>
       <View
         style={{
@@ -86,6 +110,7 @@ export default function Success({
           elevation: 5,
         }}>
         <CommonButton
+          handleClick={() => props.navigation.navigate('MyOrder')}
           backgroundColor="#BDBDBD"
           txt={btntxt}
           customViewStyle={{

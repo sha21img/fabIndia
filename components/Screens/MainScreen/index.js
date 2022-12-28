@@ -38,6 +38,7 @@ import {BaseURL2, getComponentData, logout} from '../../Common/Helper';
 import AccordianMenu from './AccordianMenu';
 import {useIsFocused} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
+import {CommonActions} from '@react-navigation/native';
 // import WomenCategory from '../Home/WomenCategory';
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -1720,7 +1721,13 @@ export default function MainScreen(props) {
           tabBarIcon: ({focused}) => (
             <TouchableOpacity
               onPress={() => {
-                console.log('home'), props.navigation.navigate('Home');
+                () =>
+                  props.navigation.dispatch(
+                    CommonActions.reset({
+                      index: 1,
+                      routes: [{name: 'Home'}],
+                    }),
+                  );
               }}>
               <Entypo
                 name="home"
@@ -1780,10 +1787,22 @@ export default function MainScreen(props) {
           tabBarActiveTintColor: Colors.primarycolor,
           tabBarIcon: ({focused}) => (
             <TouchableOpacity
-              onPress={() =>
-                props.navigation.navigate('MyAccount', {
-                  screen: 'MyAccounts',
-                })
+              onPress={
+                () =>
+                  props.navigation.dispatch(
+                    CommonActions.reset({
+                      index: 0,
+                      routes: [
+                        {name: 'MyAccount'},
+                        // {
+                        //   name: 'MyAccounts',
+                        // },
+                      ],
+                    }),
+                  )
+                // props.navigation.navigate('MyAccount', {
+                //   screen: 'MyAccounts',
+                // })
               }>
               <MaterialCommunityIcons
                 name="account-outline"

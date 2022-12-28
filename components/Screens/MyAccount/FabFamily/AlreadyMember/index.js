@@ -10,7 +10,10 @@ import YourCardAndBenefits from './YourCardAndBenefits';
 import YourProfile from './YourProfile';
 import YourReferrals from './YourReferrals';
 
-function AlreadyMember() {
+function AlreadyMember(props) {
+  const {referCode} = props.route.params;
+
+  console.log('referCodereferCode', referCode);
   const screenObj = {
     'Your Profile': YourProfile,
     'Your card & benifits': YourCardAndBenefits,
@@ -22,10 +25,11 @@ function AlreadyMember() {
     'Your referrals',
   ];
   const dataMap = FabFamilyAlreadyTabData.map(item => ({
+    referCode: referCode,
     title: item,
     card: screenObj[item],
   }));
-  return <CommonTopTab data={dataMap} />;
+  return <CommonTopTab {...props} data={dataMap} />;
 }
 
 export default AlreadyMember;

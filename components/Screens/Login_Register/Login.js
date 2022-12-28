@@ -29,7 +29,7 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 import {StackActions, CommonActions} from '@react-navigation/native';
 import {FacebookLogin} from '../../SocialLogin/FacebookLogin';
-import { AuthBaseUrl2 } from '../../Common/Helper';
+import {AuthBaseUrl2} from '../../Common/Helper';
 export default function Login(props) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -60,6 +60,8 @@ export default function Login(props) {
     const params = {
       username: 'durgesh.yadav@fabindia.net',
       password: 'AIlqeFI4K',
+      // username: email,
+      // password: password,
     };
     await axios
       .post(`https://api.apm20.gravty.io/v1/login/`, params, {
@@ -68,7 +70,8 @@ export default function Login(props) {
           'Content-Type': 'application/json',
         },
       })
-      .then(async response => {
+      .then(response => {
+        console.log('resaaaaaaaaaaaa', response.data);
         saveTokenFab(response.data);
       })
       .catch(errors => {
@@ -224,15 +227,15 @@ export default function Login(props) {
         } else {
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          // props.navigation.navigate('MyAccount', {
-          //   screen: 'MyAccounts',
-          // });
-          props.navigation.dispatch(
-            CommonActions.reset({
-              index: 0,
-              routes: [{name: 'MyAccounts'}],
-            }),
-          );
+          props.navigation.navigate('MyAccount', {
+            screen: 'MyAccounts',
+          });
+          // props.navigation.dispatch(
+          //   CommonActions.reset({
+          //     index: 0,
+          //     routes: [{name: 'MyAccounts'}],
+          //   }),
+          // );
           getCartID();
           getWishID();
         }
@@ -248,15 +251,11 @@ export default function Login(props) {
       transactionId: transactionId,
     };
     let res = await axios
-      .post(
-        `${BaseURL2}otp/validate?lang=en&curr=INR`,
-        data,
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-          },
+      .post(`${BaseURL2}otp/validate?lang=en&curr=INR`, data, {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
-      )
+      })
       .then(response => {
         console.log('this sis res', response?.data);
         if (response?.status == 200) {
