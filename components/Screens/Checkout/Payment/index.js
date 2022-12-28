@@ -2,10 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, Text, View, Image, TouchableOpacity} from 'react-native';
 import axios from 'axios';
 import {Colors} from '../../../../assets/Colors';
-// import {
-//   CreditCardInput,
-// } from 'react-native-credit-card-input';
-import RazorpayCheckout from 'react-native-razorpay';
+import Razorpay from 'react-native-customui';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SimpleAccordian2 from '../../../Common/SimpleAccordian2';
 import {TextInput} from 'react-native-paper';
@@ -15,7 +12,8 @@ import {useNavigation} from '@react-navigation/native';
 import Fonts from '../../../../assets/fonts';
 import Toast from 'react-native-simple-toast';
 import {BaseURL2} from '../../../Common/Helper';
-import useRazorpay from 'react-razorpay';
+import SearchableDropdown from 'react-native-searchable-dropdown';
+
 const BankData = [
   {name: 'ICICI Bank', code: 'ICICI', id: 1},
   {name: 'State Bank of India', code: 'SBI', id: 2},
@@ -33,82 +31,132 @@ const WalletData = [
   {name: 'Payzapp', id: 7},
   {name: 'Phonepe', id: 8},
 ];
-
+var items = [
+  {
+    id: 1,
+    name: 'JavaScript',
+  },
+  {
+    id: 2,
+    name: 'Java',
+  },
+  {
+    id: 3,
+    name: 'Ruby',
+  },
+  {
+    id: 4,
+    name: 'React Native',
+  },
+  {
+    id: 5,
+    name: 'PHP',
+  },
+  {
+    id: 6,
+    name: 'Python',
+  },
+  {
+    id: 7,
+    name: 'Go',
+  },
+  {
+    id: 8,
+    name: 'Swift',
+  },
+];
 const Payment = props => {
+  const {razorpaymethod} = props
+  console.log("razorpaymethodrazorpaymethodrazorpaymethodrazorpaymethodrazorpaymethod",razorpaymethod)
   const [paymentMode, setPaymentMode] = useState([]);
   const [showlist, setshowlist] = useState([]);
   const [cartDetails, setcartDetails] = useState(null);
   const navigation = useNavigation();
   const openCheckout = (id, UDID, method, data, details) => {
-    console.log('dataaa', data);
-    let prfilData;
+    // console.log('dataa6666666a', data.expiry.split('/')[0]);
+    let options;
+ 
     if (method == 'card') {
-      prfilData = {
+      let card = {
+        number:data.number,
+        name:details?.user.name,
+        expiry_month: Number(data.expiry.split('/')[0]),
+        expiry_year: Number(data.expiry.split('/')[1]),
+        cvv:Number(data.cvc)
+      }
+      options = {
+        description: 'Payment for Fab india',
+        currency: details?.totalPriceWithTax?.currencyIso,
+        key_id: 'rzp_test_T70CWf6iJpuekL',
+        amount: details?.totalPriceWithTax?.value * 100,
+        name: 'FAB India',
         email: details?.user?.uid,
-        contact: details?.deliveryAddress?.cellphone,
-        name: details?.user.name,
+        order_id: id.orderId,
         method: method,
-        'card[name]': details?.user.name,
-        'card[number]': data.number,
-        'card[expiry]': data.expiry,
-        'card[cvv]': data.cvc,
+        card: card
+        
       };
     } else if (method == 'netbanking') {
-      prfilData = {
+      options = {
+        description: 'Payment for Fab india',
+        currency: details?.totalPriceWithTax?.currencyIso,
+        key_id: 'rzp_test_T70CWf6iJpuekL',
+        amount: details?.totalPriceWithTax?.value * 100,
+        // name: 'FAB India',
         email: details?.user?.uid,
-        contact: details?.deliveryAddress?.cellphone,
-        name: details?.user.name,
+        order_id: id.orderId,
         method: method,
         bank: data.code,
-        // bank: 'HDFC',
       };
     } else if (method == 'wallet') {
-      prfilData = {
+      options = {
+        description: 'Payment for Fab india',
+        currency: details?.totalPriceWithTax?.currencyIso,
+        key_id: 'rzp_test_T70CWf6iJpuekL',
+        amount: details?.totalPriceWithTax?.value * 100,
+        name: 'FAB India',
         email: details?.user?.uid,
-        contact: details?.deliveryAddress?.cellphone,
-        name: details?.user.name,
+        order_id: id.orderId,
         method: method,
-        wallet: data.name,
+        wallet: data.name,   
       };
     } else if (method == 'upi') {
-      prfilData = {
+      options = {
+        description: 'Payment for Fab india',
+        currency: details?.totalPriceWithTax?.currencyIso,
+        key_id: 'rzp_test_T70CWf6iJpuekL',
+        amount: details?.totalPriceWithTax?.value * 100,
+        name: 'FAB India',
         email: details?.user?.uid,
-        contact: details?.deliveryAddress?.cellphone,
-        name: details?.user.name,
+        order_id: id.orderId,
         method: method,
         vpa: data,
-      };
+      }
     }
-    var options = {
-      description: 'Payment for Fab india',
-      image: 'https://i.imgur.com/3g7nmJC.png',
-      currency: details?.totalPriceWithTax?.currencyIso,
-      callback_url: UDID,
-      redirect: true,
-      key: 'rzp_test_T70CWf6iJpuekL',
-      amount: details?.totalPriceWithTax?.value * 100,
-      name: 'FAB India',
-      orderId: id.orderId,
-      prefill: prfilData,
-      theme: {color: Colors.primarycolor},
-    };
+
     console.log('optionsoptionsoptions', JSON.stringify(options));
-    RazorpayCheckout.open(options)
-      .then(data => {
-        // handle success
-        console.log('Razorpay==>', JSON.stringify(data));
-        navigation.navigate('OrderConfirmation', {
-          amount: details?.totalPriceWithTax?.value,
-          addressData: details,
-          UDID: UDID,
-        });
-        // alert(`Success: ${data.razorpay_payment_id}`);
-      })
-      .catch(error => {
-        // handle failure
-        console.log('error==>', JSON.stringify(error));
-        // alert(`Error: ${error.code} | ${error.description}`);
-      });
+    // RazorpayCheckout.open(options)
+    //   .then(data => {
+    //     // handle success
+    //     console.log('Razorpay==>', JSON.stringify(data));
+    //     navigation.navigate('OrderConfirmation', {
+    //       amount: details?.totalPriceWithTax?.value,
+    //       addressData: details,
+    //       UDID: UDID,
+    //     });
+    //     // alert(`Success: ${data.razorpay_payment_id}`);
+    //   })
+    //   .catch(error => {
+    //     console.log('error==>', JSON.stringify(error));
+    //   });
+    Razorpay.open(options).then((data) => {
+      // handle success
+      alert(`Success: ${data.razorpay_payment_id}`);
+    }).catch((error) => {
+      // handle failure
+      console.log(`Error: ${error.code} | ${error.description}`)
+      alert(`Error: ${error.code} | ${error.description}`);
+    });
   };
   const getDetails = async () => {
     const get = await AsyncStorage.getItem('generatToken');
@@ -266,8 +314,6 @@ const Payment = props => {
   };
   const NetBanking = () => {
     const [bank, setBank] = useState('');
-
-    console.log(bank);
     return (
       <View style={{}}>
         {BankData.map(item => {
@@ -1261,7 +1307,6 @@ const Payment = props => {
   const asyncfunc = async () => {
     await getDetails();
     await paymentModes();
-    //  RazorpayResponse()
   };
 
   const paymentModes = async () => {
@@ -1333,16 +1378,7 @@ const Payment = props => {
     setshowlist(updateFinal);
   };
 
-  const RazorpayResponse = async () => {
-    // var razorpay = new Razorpay({
-    //   key: 'rzp_test_T70CWf6iJpuekL',
-    //     // logo, displayed in the popup
-    //   image: 'https://i.imgur.com/n5tjHFD.jpg',
-    // });
-    // razorpay.once('ready', function(response) {
-    //   console.log('RazorpayCheckoutRazorpayCheckout0',response);
-    // })
-  };
+
   return (
     <ScrollView
       //   style={{backgroundColor: 'red', height: '100%'}}
