@@ -25,7 +25,7 @@ const width = Dimensions.get('window').width;
 export default function AccordianMenu(props) {
   const {data} = props;
   const navigation = useNavigation();
-  // console.log('this is a data first accourdion', data);
+  console.log('this is a data first accourdion', data);
   const toggleAnimation = {
     duration: 300,
     update: {
@@ -56,9 +56,9 @@ export default function AccordianMenu(props) {
     outputRange: ['0deg', '180deg'],
   });
   const checkNavigation = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
     if (data.title == 'Gift Cards') {
-      const get = await AsyncStorage.getItem('generatToken');
-      const getToken = JSON.parse(get);
       if (getToken.isCheck == true) {
         navigation.navigate('MyAccount', {screen: 'GiftCard', from: 'Menu'});
       } else {
@@ -68,18 +68,46 @@ export default function AccordianMenu(props) {
       navigation.navigate('MyAccount', {screen: 'FAQ'});
     } else if (data.title == 'Contact Us') {
       navigation.navigate('MyAccount', {screen: 'ContactUs'});
+    } else if (data.title == 'Shop By Categories') {
+      navigation.navigate('CategorySection', data);
+    } else if (data.title == 'FabFamily') {
+      navigation.navigate('MyAccount', {screen: 'FabFamily'});
+    } else if (data.title == 'Orders') {
+      if (getToken.isCheck) {
+        navigation.navigate('MyOrder');
+      } else {
+        navigation.navigate('MyAccount', {
+          screen: 'Login_Register',
+        });
+      }
     }
   };
 
-  //   navigation.dispatch(
-  //     CommonActions.reset({
-  //       index: 0,
-  //       routes: [{ name: 'GiftCard' }]
-  //     })
-  //   );
   const checkIcon = item => {
     // console.log('this sis writch item', item);
     switch (item) {
+      case 'Orders':
+        return (
+          <Image
+            source={image.document}
+            style={{width: 20, height: 20, resizeMode: 'contain'}}
+          />
+        );
+      case 'FabFamily':
+        return (
+          <Image
+            source={image.ribbon}
+            style={{width: 20, height: 20, resizeMode: 'contain'}}
+          />
+        );
+      case 'Shop By Categories':
+        return (
+          <Ionicons
+            name="ios-grid-outline"
+            size={20}
+            color={Colors.primarycolor}
+          />
+        );
       case 'Shop By Collection':
         return (
           <Ionicons
@@ -164,7 +192,7 @@ export default function AccordianMenu(props) {
               {data.title}
             </Text>
           </View>
-          {data.children.length > 0 ? (
+          {data?.children?.length > 0 ? (
             <Animated.View
               style={{
                 transform: [{rotateZ: arrowTransform}],
@@ -177,7 +205,7 @@ export default function AccordianMenu(props) {
             </Animated.View>
           ) : null}
         </TouchableOpacity>
-        {data.children.length > 0 && showContent
+        {data?.children?.length > 0 && showContent
           ? data.children.map((item, index) => {
               return <AccordianSubMenu newData={item} {...props} />;
             })

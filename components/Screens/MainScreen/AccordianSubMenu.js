@@ -17,11 +17,22 @@ import {image} from '../../../assets/images';
 import AccordianSubMenu from './AccordianSubMenu';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
-import { BaseURL2 } from '../../Common/Helper';
+import {BaseURL2} from '../../Common/Helper';
 const NewAccordian = props => {
   const {newData} = props;
   console.log('this is new accordian data-=-=', props);
   const navigation = useNavigation();
+  const navigations = name => {
+    console.log('adsfasdfasdf start', name);
+    let splitURL = name.split('/');
+    splitURL = splitURL[splitURL.length - 1];
+    console.log('adsfasdfasdf', splitURL);
+    navigation.navigate('LandingPageSaris_Blouses', {
+      title: splitURL,
+      code: splitURL,
+      status: false,
+    });
+  };
   const toggleAnimation = {
     duration: 300,
     update: {
@@ -77,7 +88,9 @@ const NewAccordian = props => {
       <TouchableOpacity
         activeOpacity={0.5}
         onPress={() => {
-          newData.children.length > 0 ? toggleListItem() : null;
+          newData.children.length > 0
+            ? toggleListItem()
+            : navigations(newData.landingPage);
         }}
         style={{
           padding: 20,
@@ -115,7 +128,9 @@ const NewAccordian = props => {
               <TouchableOpacity
                 activeOpacity={0.5}
                 onPress={() => {
-                  item.children.length > 0 ? toggleListItem() : null;
+                  item.children.length > 0
+                    ? toggleListItem()
+                    : navigations(item.landingPage);
                 }}
                 style={{
                   padding: 20,
