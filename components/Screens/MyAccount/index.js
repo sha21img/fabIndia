@@ -53,6 +53,7 @@ import {deleteAsyncStorage, getAsyncStorage} from '../../Common/Helper';
 import MyAccounts from './MyAccounts';
 import {useIsFocused} from '@react-navigation/native';
 import HomeHeader from '../Home/HomeHeader';
+import AlreadyMember from './FabFamily/AlreadyMember';
 const Stack = createNativeStackNavigator();
 
 const MyAccount = props => {
@@ -80,6 +81,7 @@ const MyAccount = props => {
       />
     </TouchableOpacity>
   );
+
   const rightIcon = (
     <AntDesign name="shoppingcart" color={Colors.primarycolor} size={25} />
   );
@@ -289,19 +291,27 @@ const MyAccount = props => {
               <Stack.Screen
                 name="FabFamily"
                 component={FabFamily}
-                options={{
-                  header: props => (
-                    <Header
-                      leftIcon={leftIcon}
-                      title="FabFamily"
-                      rightIcon={rightIcon}
-                      customStyle={{
-                        backgroundColor: '#F8F6F5',
-                        marginBottom: 4,
-                      }}
-                    />
-                  ),
-                }}
+                options={{headerShown: false}}
+
+                // options={{
+                //   header: props => (
+                //     <Header
+                //       leftIcon={leftIcon}
+                //       title="FabFamily"
+                //       rightIcon={rightIcon}
+                //       customStyle={{
+                //         backgroundColor: '#F8F6F5',
+                //         marginBottom: 4,
+                //       }}
+                //     />
+                //     // <HomeHeader
+                //     //   searchVisible={null}
+                //     //   {...props}
+                //     //   showWishlist={false}
+                //     //   middleHeader="FabFamily"
+                //     // />
+                //   ),
+                // }}
               />
               <Stack.Screen
                 name="FAQ"
@@ -453,6 +463,21 @@ const MyAccount = props => {
                         backgroundColor: '#F8F6F5',
                         marginBottom: 4,
                       }}
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="AlreadyMember"
+                component={AlreadyMember}
+                options={{
+                  header: props => (
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="FabFamily"
+                      showCart={false}
                     />
                   ),
                 }}

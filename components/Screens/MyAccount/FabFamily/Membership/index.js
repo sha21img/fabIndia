@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -16,20 +16,29 @@ import CommonButton from '../../../../Common/CommonButton';
 import {Colors} from '../../../../../assets/Colors';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Toast from 'react-native-simple-toast';
+import {logout} from '../../../../Common/Helper';
+import {useDispatch} from 'react-redux';
 function Membership() {
+  const dispatch = useDispatch();
+  const [text, setText] = useState({
+    Name: '',
+    mobile: '',
+    email: '',
+  });
+  console.log('text11111', text);
   const getMemberEnroll = async () => {
     const data = await AsyncStorage.getItem('fabToken');
     const parseData = JSON.parse(data);
 
     const params = {
       user: {
-        email: parseData.user.email,
-        first_name: parseData.user.first_name,
-        last_name: parseData.user.last_name,
+        email: text.email,
+        first_name: text.Name,
+        // last_name: parseData.user.last_name,
       },
       enrolling_sponsor: parseData.sponsor_id,
-      mobile: parseData.mobile,
+      mobile: text.mobile,
     };
     console.log('paramsparams', params);
 
@@ -99,21 +108,33 @@ function Membership() {
       })
       .catch(errors => {
         console.log('members enroll errors', errors.response.data);
+        Toast.showWithGravity(
+          errors.response.data.error.message,
+          Toast.LONG,
+          Toast.TOP,
+        );
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
       });
   };
-  useEffect(() => {
-    console.log('plaaaaaaaaaa');
-    getMemberEnroll();
-    // generateSpecificMemberToken();
-  }, []);
+  // useEffect(() => {
+  //   console.log('plaaaaaaaaaa');
+  //   getMemberEnroll();
+  //   // generateSpecificMemberToken();
+  // }, []);
   return (
     <>
       <ScrollView contentContainerStyle={Styles.container}>
         {/* <View style={Styles.nameTxtView}> */}
         <InputText
           label={'Name'}
-          //   onChangeText={text => setText(text)}
-          //   value={text}
+          onChangeText={text =>
+            setText(prev => {
+              return {...prev, Name: text};
+            })
+          }
+          value={text.Name}
           customStyle={{
             marginTop: 10,
             marginHorizontal: 15,
@@ -122,8 +143,12 @@ function Membership() {
         />
         <InputText
           label={'Mobile number'}
-          //   onChangeText={text => setText(text)}
-          //   value={text}
+          onChangeText={text =>
+            setText(prev => {
+              return {...prev, mobile: text};
+            })
+          }
+          value={text.mobile}
           customStyle={{
             marginTop: 10,
             marginHorizontal: 15,
@@ -132,8 +157,12 @@ function Membership() {
         />
         <InputText
           label={'Email address'}
-          //   onChangeText={text => setText(text)}
-          //   value={text}
+          onChangeText={text =>
+            setText(prev => {
+              return {...prev, email: text};
+            })
+          }
+          value={text.email}
           customStyle={{
             marginTop: 10,
             marginHorizontal: 15,
@@ -148,6 +177,7 @@ function Membership() {
           elevation: 5,
         }}>
         <CommonButton
+          handleClick={getMemberEnroll}
           backgroundColor="#BDBDBD"
           txt="Join FabFamily"
           customViewStyle={{

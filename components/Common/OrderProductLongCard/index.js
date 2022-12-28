@@ -25,11 +25,10 @@ export default function OrderProductLongCard(props) {
     orderID,
     getorderDetails,
     handliClick = null,
-    orderID1,
   } = props;
   const image = 'https://apisap.fabindia.com' + data.product.images[0].url;
   console.log(image);
-  console.log('data?.status?.orderID', orderID);
+  console.log('data?.status?.orderID', data.availableAction.name);
   // 20030719
   const dispatch = useDispatch();
   const [showmodal, setshowmodal] = useState(false);
@@ -40,6 +39,10 @@ export default function OrderProductLongCard(props) {
   const [exchangeshow, setexchangeshow] = useState(false);
   const [reasonData, setReasonData] = useState({});
   const [newReasonData, setNewReasonData] = useState([]);
+  const [excludesReasonData, setExcludesReasonData] = useState([]);
+  const [childreason, setChildreason] = useState([]);
+  const [childRadio, setChildRadio] = useState([]);
+
   // useEffect(() => {
   //   const newStatus = data?.status?.name || null;
   //   setStatushow(newStatus);
@@ -116,7 +119,7 @@ export default function OrderProductLongCard(props) {
         );
         props.navigation.navigate('OrderSuccess', {
           productId: data.product.code,
-          orderID: orderID1,
+          orderID: orderID,
         });
         getorderDetails();
       })
@@ -215,6 +218,9 @@ export default function OrderProductLongCard(props) {
               };
             },
           );
+          // const subReason=reason.availableAction.reason.map((item)=>{
+
+          // })
           console.log('newReasonDatanewReasonData', newReasonData);
           setNewReasonData(newReasonData);
           setshowmodal(true);
@@ -232,6 +238,8 @@ export default function OrderProductLongCard(props) {
               };
             },
           );
+          setExcludesReasonData(reason.availableAction.reasons);
+
           setNewReasonData(newReasonData);
 
           setreturnshow(true);
@@ -256,31 +264,51 @@ export default function OrderProductLongCard(props) {
     data?.product?.name.includes('gift'),
   );
   const returnOrder = async () => {
-    axios.post(
-      `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orderReturns?fields=BASIC,returnEntries(BASIC,refundAmount(formattedValue),orderEntry(basePrice(formattedValue),product(name,code,baseOptions,images(DEFAULT,galleryIndex)))),deliveryCost(formattedValue),totalPrice(formattedValue),subTotal(formattedValue)&lang=en&curr=INR`,
-      {
-        orderCode: '08121001',
-        returnRequestEntryInputs: [
-          {
-            // orderEntryNumber: '0',
-            // quantity: '1',
-            // reasonCode: 'CANCEL_INCORRECT_PRODUCT',
-            // reasonDescription: 'kok',
-            orderEntryNumber: data?.entryNumber,
-            parentReasonCode: '',
-            reasonCode: '',
-            quantity: reasonData.quantity,
-            reasonDescription: comment,
-          },
-        ],
-      },
-      {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
-          // Authorization: `${getToken.token_type} B7vKxGVlrWBGKVNFDlUci2ZfXTM`,
-        },
-      },
-    );
+    console.log('data?.entryNumber', data?.entryNumber);
+    console.log('data?.entryNumber', radio.reasonCode);
+    console.log('data?.entryNumber', childRadio.reasonCode);
+    console.log('data?.entryNumber', reasonData.quantity);
+    console.log('data?.entryNumber', comment);
+    // axios.post(
+    //   `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orderReturns?fields=BASIC,returnEntries(BASIC,refundAmount(formattedValue),orderEntry(basePrice(formattedValue),product(name,code,baseOptions,images(DEFAULT,galleryIndex)))),deliveryCost(formattedValue),totalPrice(formattedValue),subTotal(formattedValue)&lang=en&curr=INR`,
+    //   {
+    //     orderCode: orderID,
+    //     returnRequestEntryInputs: [
+    //       {
+    //         // orderEntryNumber: '0',
+    //         // quantity: '1',
+    //         // reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+    //         // reasonDescription: 'kok',
+    //         orderEntryNumber: data?.entryNumber,
+    //         parentReasonCode: radio.reasonCode,
+    //         reasonCode: childRadio.reasonCode,
+    //         quantity: reasonData.quantity,
+    //         reasonDescription: comment,
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     headers: {
+    //       Authorization: `${getToken.token_type} ${getToken.access_token}`,
+    //       // Authorization: `${getToken.token_type} B7vKxGVlrWBGKVNFDlUci2ZfXTM`,
+    //     },
+    //   },
+    // );
+  };
+  const filterSubReason = data => {
+    console.log('data111111111111111', data);
+    const filteredChildReason = excludesReasonData?.find(item => {
+      return item.code == data.reasonCode;
+    });
+    console.log('filteredChildReason', filteredChildReason);
+    const sunReason = filteredChildReason?.subreasons?.map((item, index) => {
+      return {
+        label: item.name,
+        index: index,
+        reasonCode: item.code,
+      };
+    });
+    setChildreason(sunReason);
   };
   return (
     <>
@@ -708,10 +736,28 @@ export default function OrderProductLongCard(props) {
                 activeColor={Colors.primarycolor}
                 selectedBtn={e => {
                   console.log('e', e);
+                  filterSubReason(e);
+
                   setRadio(e);
                 }}
                 style={{marginVertical: 9}}
               />
+              {childreason?.length > 0 && (
+                <>
+                  <Text>Select Detail issue</Text>
+                  <RadioButtonRN
+                    animationTypes={['zoomIn']}
+                    circleSize={17}
+                    box={false}
+                    data={childreason}
+                    activeColor={Colors.primarycolor}
+                    selectedBtn={e => {
+                      setChildRadio(e);
+                    }}
+                    style={{marginVertical: 9}}
+                  />
+                </>
+              )}
               <CommonButton
                 backgroundColor="#BDBDBD"
                 txt="Submit"

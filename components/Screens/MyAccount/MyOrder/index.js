@@ -1,4 +1,4 @@
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Colors} from '../../../../assets/Colors';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
@@ -33,20 +33,23 @@ export default function MyOrder(props) {
   ]);
   const [loading, setLoading] = React.useState(false);
   const [orders, setOrders] = useState([]);
+  const [newOrders, setNewOrders] = useState([]);
+  const [page, setPage] = useState(0);
+
   const onGenderOpen = React.useCallback(() => {
     setCompanyOpen(false);
   }, []);
 
   useEffect(() => {
     getOrders();
-  }, [dayrange]);
+  }, [dayrange, props]);
 
   const getOrders = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const response = await axios
       .get(
-        `${BaseURL2}/users/current/orders?currentPage=0&days=${dayrange}&fields=DEFAULT&pageSize=20`,
+        `${BaseURL2}/users/current/orders?currentPage=${page}&days=${dayrange}&fields=DEFAULT&pageSize=20`,
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -59,7 +62,14 @@ export default function MyOrder(props) {
           'getOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrdersgetOrders',
           response.data,
         );
-        setOrders(response.data.orders);
+        setOrders(response.data);
+        setNewOrders(response.data.orders);
+        setPage(page + 1);
+        if (newOrders.length > 0) {
+          setNewOrders(prev => [...newOrders, ...response.data.orders]);
+        } else {
+          setNewOrders(response.data.orders);
+        }
       })
       .catch(errors => {
         console.log('vicky,MyOrder', errors);
@@ -68,6 +78,11 @@ export default function MyOrder(props) {
           logout(dispatch);
         }
       });
+  };
+  const endReach = () => {
+    if (orders?.pagination?.totalPages > page) {
+      getOrders();
+    }
   };
   return (
     <>
@@ -93,44 +108,59 @@ export default function MyOrder(props) {
         zIndex={3000}
         zIndexInverse={1000}
       />
-      <ScrollView contentContainerStyle={Styles.container}>
-        {orders.map(item => {
+      <FlatList
+        contentContainerStyle={Styles.container}
+        data={newOrders}
+        onEndReached={endReach}
+        showsHorizontalScrollIndicator={false}
+        onEndReachedThreshold={0.1}
+        keyExtractor={(item, index) => index}
+        renderItem={({item, index}) => {
           return (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('OrderStatus', {
-                  screen: item.status,
-                  orderID: item.code,
-                  ...props,
-                })
-              }
-              style={Styles.mainbox}>
-              <View style={Styles.innertopbox}>
-                <Text style={Styles.datetxt}>
-                  {moment(item?.placed).format('MMM-DD-YYYY')}
-                </Text>
-                <SimpleLineIcons
-                  name="arrow-right"
-                  color={Colors.textcolor}
-                  size={15}
-                />
-              </View>
-              <View style={Styles.middlebox}>
-                <Text style={Styles.itemtxt}>{item.totalItems} items</Text>
-                <Text style={Styles.pricetxt}>
-                  {item?.total?.formattedValue}
-                </Text>
-                <Text style={Styles.orderidtxt}>Order ID: {item.code}</Text>
-              </View>
+            <>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('OrderStatus', {
+                    screen: item.status,
+                    orderID: item.code,
+                    ...props,
+                  })
+                }
+                style={Styles.mainbox}>
+                <View style={Styles.innertopbox}>
+                  <Text style={Styles.datetxt}>
+                    {moment(item?.placed).format('MMM-DD-YYYY')}
+                  </Text>
+                  <SimpleLineIcons
+                    name="arrow-right"
+                    color={Colors.textcolor}
+                    size={15}
+                  />
+                </View>
+                <View style={Styles.middlebox}>
+                  <Text style={Styles.itemtxt}>{item.totalItems} items</Text>
+                  <Text style={Styles.pricetxt}>
+                    {item?.total?.formattedValue}
+                  </Text>
+                  <Text style={Styles.orderidtxt}>Order ID: {item.code}</Text>
+                </View>
 
-              {/* <View style={Styles.endbox}>
+                {/* <View style={Styles.endbox}>
                 <View style={Styles.progressbox}></View>
                 <Text style={Styles.statustxt}>{item.statusDisplay}</Text>
               </View> */}
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </>
+          );
+        }}
+      />
+      {/* <ScrollView contentContainerStyle={Styles.container}>
+        {orders.map(item => {
+          return (
+           
           );
         })}
-      </ScrollView>
+      </ScrollView> */}
     </>
   );
 }
