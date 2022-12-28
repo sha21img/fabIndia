@@ -75,7 +75,7 @@ const Payment = props => {
   const openCheckout = (id, UDID, method, data, details) => {
     // console.log('dataa6666666a', data.expiry.split('/')[0]);
     let options;
- 
+
     if (method == 'card') {
       let card = {
         number:data.number,
@@ -89,8 +89,8 @@ const Payment = props => {
         currency: details?.totalPriceWithTax?.currencyIso,
         key_id: 'rzp_test_T70CWf6iJpuekL',
         amount: details?.totalPriceWithTax?.value * 100,
-        name: 'FAB India',
         email: details?.user?.uid,
+        contact: details?.deliveryAddress?.phone,
         order_id: id.orderId,
         method: method,
         card: card
@@ -102,8 +102,8 @@ const Payment = props => {
         currency: details?.totalPriceWithTax?.currencyIso,
         key_id: 'rzp_test_T70CWf6iJpuekL',
         amount: details?.totalPriceWithTax?.value * 100,
-        // name: 'FAB India',
         email: details?.user?.uid,
+        contact: details?.deliveryAddress?.phone,
         order_id: id.orderId,
         method: method,
         bank: data.code,
@@ -114,8 +114,8 @@ const Payment = props => {
         currency: details?.totalPriceWithTax?.currencyIso,
         key_id: 'rzp_test_T70CWf6iJpuekL',
         amount: details?.totalPriceWithTax?.value * 100,
-        name: 'FAB India',
         email: details?.user?.uid,
+        contact: details?.deliveryAddress?.phone,
         order_id: id.orderId,
         method: method,
         wallet: data.name,   
@@ -126,8 +126,8 @@ const Payment = props => {
         currency: details?.totalPriceWithTax?.currencyIso,
         key_id: 'rzp_test_T70CWf6iJpuekL',
         amount: details?.totalPriceWithTax?.value * 100,
-        name: 'FAB India',
         email: details?.user?.uid,
+        contact: details?.deliveryAddress?.phone,
         order_id: id.orderId,
         method: method,
         vpa: data,
