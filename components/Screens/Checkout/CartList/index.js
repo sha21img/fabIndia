@@ -67,12 +67,33 @@ export default function CartList(props) {
   const [entrynum, setEntrynum] = useState(null);
   const [maxstock, setMaxstock] = useState(null);
   const [couponCode, setCouponCode] = useState('');
-
+  const [razorpaymethod,setRazorpaymethod] = useState(null)
   const {cartdetails, getCartDetails, handleClick} = props;
   useEffect(() => {
     let newCurrpos = newCurrPosition || 0;
     setCurrentPosition(newCurrpos);
   }, []);
+
+useEffect(()=>{
+  asyncfunc();
+},[])
+const asyncfunc = async () => {
+  await RazorpayDetails();
+};
+const RazorpayDetails = async () => {
+  const response = await axios
+    .get(`https://api.razorpay.com/v1/methods?key_id=rzp_test_T70CWf6iJpuekL`)
+    .then(res => {
+      console.log(
+        'RazorpayDetailsRazorpayDetailsRazorpayDetailsRazorpayDetailsRazorpayDetails',
+        res.data,
+      );
+      setRazorpaymethod(res.data)
+    })
+    .catch(error => {
+      console.log('res.data', error);
+    });
+};
   const orderValueDetail = () => {
     setShowOrderDetail(true);
   };
@@ -307,7 +328,7 @@ export default function CartList(props) {
             setCurrentPosition={setCurrentPosition}
           />
         ) : currentPosition == 2 ? (
-          <Payment {...props} />
+          <Payment {...props} razorpaymethod={razorpaymethod}/>
         ) : null}
       </ScrollView>
       {currentPosition == 0 ? (

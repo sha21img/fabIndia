@@ -150,11 +150,11 @@ const SimpleAccordian2 = props => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-              <MaterialIcons
+              {/* <MaterialIcons
                 name={IconName}
                 color={Colors.primarycolor}
                 size={20}
-              />
+              /> */}
               <Text
                 style={[
                   Styles.titletxt,
