@@ -40,6 +40,7 @@ import ViewPolicy from './components/Screens/ViewPolicy/ViewPolicy';
 import LandingPageSaris_Blouses from './components/Screens/LandingPageL2/LandingPageSaris_Blouses';
 import Tracking from './components/Screens/MyAccount/MyOrder/OrderInProgress/Tracking';
 import TrackingUrl from './components/Screens/MyAccount/MyOrder/OrderInProgress/Tracking';
+import AlreadyMember from './components/Screens/MyAccount/FabFamily/AlreadyMember';
 
 const Stack = createNativeStackNavigator();
 

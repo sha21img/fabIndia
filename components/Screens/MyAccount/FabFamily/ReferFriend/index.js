@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -15,8 +15,105 @@ import {Styles} from './styles';
 import CommonButton from '../../../../Common/CommonButton';
 import {Colors} from '../../../../../assets/Colors';
 import {image} from '../../../../../assets/images';
+import {BaseURL2} from '../../../../Common/Helper';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-simple-toast';
+import {useDispatch} from 'react-redux';
+function ReferFriend(props) {
+  const dispatch = useDispatch();
 
-function ReferFriend() {
+  const [refercode, setReferCode] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+
+  const getUserDetail = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    await axios
+      .get(`${BaseURL2}/users/current?lang=en&curr=INR`, {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+        },
+      })
+      .then(response => {
+        console.log('response.data', response.data);
+        getMemberlist(response.data.contactNumber);
+        setMobileNumber(response.data.contactNumber);
+      })
+      .catch(err => {
+        console.log('err', err);
+        if (err.response.status == 401) {
+          logout(dispatch);
+        }
+      });
+  };
+  const getMemberlist = async mobile => {
+    console.log('mobile', mobile);
+    const data = await AsyncStorage.getItem('fabToken');
+    const parseData = JSON.parse(data);
+    console.log('parseDataparseData', parseData.token);
+
+    await axios
+      .get(`https://api.apm20.gravty.io/v1/members/list/?mobile=${mobile}`, {
+        headers: {
+          'x-api-key': 'ZIhuq8Igby1qOyhu1nnsb6JL5ibQJ2sf6V968DLk',
+          'Content-Type': 'application/json',
+          Authorization: `JWT ${parseData.token}`,
+        },
+      })
+      .then(response => {
+        console.log(
+          'response.data for member list',
+          response.data[0].member_id,
+        );
+        setReferCode(response.data[0].member_id);
+      })
+      .catch(err => {
+        console.log('err', err);
+        if (err.response.status == 401) {
+          logout(dispatch);
+        }
+      });
+  };
+  useEffect(() => {
+    getUserDetail();
+  }, [props]);
+  const referFriend = async () => {
+    const data = await AsyncStorage.getItem('fabToken');
+    const parseData = JSON.parse(data);
+    console.log('parseData11', parseData);
+
+    const params = {
+      user: {
+        email: parseData.user.email,
+        first_name: parseData.user.first_name,
+        last_name: parseData.user.last_name,
+      },
+      enrolling_sponsor: parseData.sponsor_id,
+      mobile: !!parseData.mobile || mobileNumber,
+      enrollment_referrer: refercode,
+    };
+    console.log('paramsparams', params);
+    await axios
+      .post(`https://api.apm20.gravty.io/v2/members`, params, {
+        headers: {
+          'x-api-key': 'ZIhuq8Igby1qOyhu1nnsb6JL5ibQJ2sf6V968DLk',
+          'Content-Type': 'application/json',
+          Authorization: `JWT ${parseData.token}`,
+        },
+      })
+      .then(response => {
+        console.log('members enroll response', response.data);
+      })
+      .catch(errors => {
+        console.log('members enroll errors', errors.response.data);
+        Toast.showWithGravity(
+          errors.response.data.error.message,
+          Toast.LONG,
+          Toast.TOP,
+        );
+      });
+  };
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -101,8 +198,9 @@ function ReferFriend() {
           elevation: 5,
         }}>
         <CommonButton
+          handleClick={referFriend}
           backgroundColor="#BDBDBD"
-          txt="Join FabFamily"
+          txt="refer a friend"
           customViewStyle={{
             backgroundColor: Colors.primarycolor,
           }}
