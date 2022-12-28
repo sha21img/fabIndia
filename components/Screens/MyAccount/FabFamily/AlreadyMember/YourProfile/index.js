@@ -4,22 +4,36 @@ import ProgressBar from 'react-native-progress/Bar';
 import {image} from '../../../../../../assets/images';
 import {Styles} from './styles';
 import axios from 'axios';
-function YourProfile() {
+import AsyncStorage from '@react-native-async-storage/async-storage';
+function YourProfile(props, item) {
+  console.log('item/.,mnbvcvbnm,.', item);
+  // console.log('propspropsprops.', props);
   const [useDetail, setUserDetail] = useState({});
   const getProfileDetail = async () => {
-    const response = await axios.get(
-      `https://fabindia.apm12.gravty.io/bolapi/v1/members/data/TNQ4XYD/`,
-      {
+    const token = await AsyncStorage.getItem('fabToken');
+    const parseToken = JSON.parse(token);
+    console.log('JSON.parse(token)', parseToken);
+
+    const response = await axios
+      .get(`https://api.apm20.gravty.io/v1/members/data/${item.referCode}/`, {
         headers: {
-          Authorization: `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjo1MzQ3MDE3LCJ1c2VybmFtZSI6IlROUTRYWUQiLCJleHAiOjE2NzE4Njg3ODQsImVtYWlsIjoiZ3VwdGF2aWNreS5pbWdAZ21haWwuY29tIiwib3JpZ19pYXQiOjE2NzE4NTQzODQsImFjY2Vzc19tYXNrIjo2LCJwcm9ncmFtX2lkIjo2LCJleHBfbXMiOjE2NzE4Njg3ODQ2Mjd9.EFv0AxFKyolWTddsFLUaTmFPBr0eRhONRxCAqObzDeZKo5zl9sSOOXLnIQu1XXkq5FeOATsYvE2m82TOVrISMBVhc0IkE9EKZZCtJQD8iEsMDAE786ppefCv3OM7vwfhs73nX-Nd0u2JWUqXj79nu_YmP_CNMYZNJJtTcpUemH-G15a1QWx9GlpAPOzAnBwx9DUaByO67AOdJPbNOIQOwDwWB1l79ehgxtJqw3_vkkdLoqBfDK9ud-K61mcr5PLJcihbigersBj1xRm4lCNTVkAmLcPzRC339drDQto0jN6KVMMsW3B507oSQPx93t40xxGH9Wc19uPpN_VTL7BFuGnte_tai9KS-RYtA2ufauGFa8TUy7zq4sxyW4P7-Y3y9d5j8ApE5FN2wMaet8iNmt_smT_gb8D25E76gmz7Y0sJGKfEb3q_zKkB41pN8hHelKRMztBiVCnWHseQUJ4ZuUWWhuD6_zpvNwjDo1cGusNSZ7p4QADjrAnZmHHnvxwyfC3faT7vGjIuJDuflJnZaTRyZ7RXr9OsyDLhAA4TE08y7J0xGmxS5lSX2CKKM0PfQ4JKU2klB1FnCSjwJfUWWgq_yuhw2xw2UPE9VcPgb4JBRsHB9zXeL8J1bEXgP_VyYQCUDjcTA4pfxRVcbYq4e-V5Qd9nIqvPWEKSGPcGSgg`,
+          // Authorization: `JWT ${parseToken.token}`,
+          'Content-Type': 'application/json',
+          'x-api-key': 'ZIhuq8Igby1qOyhu1nnsb6JL5ibQJ2sf6V968DLk',
+          Authorization: `JWT ${parseToken.token}`,
         },
-      },
-    );
-    setUserDetail(response.data);
-    console.log('poiuyf', response.data?.data?.user?.first_name);
+      })
+      .then(response => {
+        setUserDetail(response.data);
+        console.log('poiuyf12345678', response.data);
+      })
+      .catch(error => {
+        console.log('erro', error);
+      });
   };
   useEffect(() => {
     getProfileDetail();
+    console.log('kkkkkkkkkkkkkkkkkkkkkkkk');
   }, []);
   return (
     <View>

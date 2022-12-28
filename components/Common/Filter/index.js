@@ -106,6 +106,11 @@ const Filter = props => {
                 <CheckBox
                   checkBoxColor={Colors.primarycolor}
                   onClick={() => {
+                    console.log(
+                      'jijijjijjijjiccccccccccccccccc',
+                      item?.query.query.value,
+                    );
+
                     handleClick(item?.query.query.value);
                   }}
                   isChecked={item.selected}
@@ -119,7 +124,7 @@ const Filter = props => {
                       width: 20,
                       borderRadius: 50,
                       marginHorizontal: 5,
-                      borderWidth: 1
+                      borderWidth: 1,
                     }}></View>
                 )}
 
