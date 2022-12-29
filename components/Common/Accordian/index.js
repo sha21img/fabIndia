@@ -57,7 +57,7 @@ const Accordian = props => {
           }}>
           <ImageBackground
             resizeMode="cover"
-            source={image.HomeDecor3}
+            source={{uri: data.image}}
             style={{
               height: 150,
               width: width,

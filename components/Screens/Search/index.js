@@ -74,7 +74,13 @@ export default function Search(props) {
               })
             }
           />
-          <TouchableOpacity disabled={true} activeOpacity={0.8} style={Styles.righticonbox}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={Styles.righticonbox}
+            onPress={() => {
+              getProductSearchData();
+              getSuggestionData();
+            }}>
             <AntDesign name={"search1"} color={Colors.primarycolor} size={20} />
           </TouchableOpacity>
         </View>

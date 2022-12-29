@@ -76,6 +76,13 @@ export default function Header(props) {
       ) : (
         <View></View>
       )}
+      {/* <View style={Styles.detailContainer}>
+        {title == 'FabFamily' ? (
+          <TouchableOpacity style={Styles.cartContainer} onPress={handleClick}>
+            <Ionicons name="person" size={20} color={Colors.primarycolor} />
+          </TouchableOpacity>
+        ) : null}
+      </View> */}
     </View>
   );
 }

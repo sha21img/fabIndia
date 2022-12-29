@@ -25,7 +25,7 @@ function MygiftCard(props) {
   const getWalletHistory = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    const response = await axios
+    await axios
       .get(
         `${BaseURL2}/users/current/wallethistory?lang=en&curr=INR`,
         {
@@ -47,7 +47,7 @@ function MygiftCard(props) {
   };
 
   useEffect(() => {
-    // getWalletHistory();
+    getWalletHistory();
   }, []);
 
   return (

@@ -54,11 +54,11 @@ const Styles = StyleSheet.create({
     backgroundColor: 'lightgray',
     alignItems: 'center',
     flexDirection: 'row',
+    marginRight: 7,
   },
   quantityContainer: {
     paddingVertical: 5,
     paddingHorizontal: 10,
-    marginHorizontal: 7,
     borderRadius: 5,
     flexDirection: 'row',
     backgroundColor: 'lightgray',
@@ -91,6 +91,7 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 15,
     backgroundColor: '#FAFAFA',
+    justifyContent:'center'
   },
   btn: {
     justifyContent: 'center',

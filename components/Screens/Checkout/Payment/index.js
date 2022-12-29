@@ -174,6 +174,7 @@ const Payment = props => {
     //   });
     Razorpay.open(options)
       .then(data => {
+        console.log("data",data)
         navigation.navigate('OrderConfirmation', {
           amount: details?.totalPriceWithTax?.value,
           addressData: details,

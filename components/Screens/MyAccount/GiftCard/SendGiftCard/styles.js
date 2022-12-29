@@ -63,6 +63,12 @@ export const Styles = StyleSheet.create({
     color: Colors.textcolor,
     paddingHorizontal: 15,
   },
+  chooseAmtTxt1: {
+    fontSize: 16,
+    marginTop: 16,
+    color: Colors.textcolor,
+    paddingHorizontal: 15,
+  },
   amountTxtView: {
     backgroundColor: '#FAFAFA',
     paddingVertical: 20,

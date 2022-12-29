@@ -16,6 +16,7 @@ export const AuthBaseUrl2 =
 const AuthAuthor = 'bearer nCVKPnrYg-ZgHMn0djWh1YSFCX0';
 
 export const imageURL = 'https://apisap.fabindia.com/';
+export const imageURL2 = 'https://apisap.fabindiaHome.com/';
 
 const generatTokenWithout = async () => {
   await axios
