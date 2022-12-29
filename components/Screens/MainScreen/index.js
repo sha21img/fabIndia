@@ -104,6 +104,8 @@ const DrawerContent = () => {
             },
           ],
           title: 'New Arrivals',
+          image:
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -284,6 +286,8 @@ const DrawerContent = () => {
             },
           ],
           title: 'Women',
+          image:
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -389,6 +393,8 @@ const DrawerContent = () => {
             },
           ],
           title: 'Men',
+          image:
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -549,6 +555,8 @@ const DrawerContent = () => {
             },
           ],
           title: 'Kids',
+          image:
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -844,6 +852,8 @@ const DrawerContent = () => {
             },
           ],
           title: 'Home & Living',
+          image:
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -1014,6 +1024,8 @@ const DrawerContent = () => {
             },
           ],
           title: 'Furniture',
+          image:
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -1204,6 +1216,8 @@ const DrawerContent = () => {
             },
           ],
           title: 'Personal Care',
+          image:
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -1320,15 +1334,6 @@ const DrawerContent = () => {
                   landingPage: '/food/cookies-biscottis',
                 },
                 {
-                  uid: 'H_ReadytoCookNode',
-                  uuid: 'eyJpdGVtSWQiOiJIX1JlYWR5dG9Db29rTm9kZSIsImNhdGFsb2dJZCI6ImZhYmluZGlhLWIyY0NvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==',
-                  entries: [
-                    {
-                      itemId: 'RTCLink',
-                      itemSuperType: 'AbstractCMSComponent',
-                      itemType: 'CMSLinkComponent',
-                    },
-                  ],
                   children: [],
                   title: 'Ready to Cook',
                   landingPage: '/food/ready-to-cook',
@@ -1358,6 +1363,8 @@ const DrawerContent = () => {
             },
           ],
           title: 'Food',
+          image:
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
       ],
       children: [],
