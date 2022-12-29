@@ -237,6 +237,27 @@ const getAsyncStorage = async key => {
 const deleteAsyncStorage = async key => {
   const res = await AsyncStorage.removeItem(key);
 };
+const tokenGenerationFabFamily = async () => {
+  const params = {
+    username: 'durgesh.yadav@fabindia.net',
+    password: 'AIlqeFI4K',
+    // username: email,
+    // password: password,
+  };
+  await axios
+    .post(`https://api.apm20.gravty.io/v1/login/`, params, {
+      headers: {
+        'x-api-key': 'ZIhuq8Igby1qOyhu1nnsb6JL5ibQJ2sf6V968DLk',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(async response => {
+      await AsyncStorage.setItem('fabToken', JSON.stringify(response.data));
+    })
+    .catch(errors => {
+      console.log('errors for token generation', errors);
+    });
+};
 const refreshToken = async () => {};
 export {
   // postData,
@@ -251,4 +272,5 @@ export {
   getWishID,
   refreshToken,
   logout,
+  tokenGenerationFabFamily,
 };

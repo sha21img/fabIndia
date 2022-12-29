@@ -11,6 +11,8 @@ import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {AuthBaseUrl2, BaseURL2, logout} from '../../../Common/Helper';
+import {CommonActions} from '@react-navigation/native';
+
 const pages = [
   {
     icon: image.document,
@@ -111,13 +113,20 @@ const MyAccounts = props => {
       );
   };
   const logoutt = async () => {
+    await AsyncStorage.removeItem('cartID');
     // const res = await AsyncStorage.removeItem('generatToken');
     // console.log('delete', res);
     // console.log('before');
-    props.navigation.navigate('MyAccount', {
-      screen: 'Login_Register',
-    });
+    // props.navigation.navigate('MyAccount', {
+    //   screen: 'Login_Register',
+    // });
     // console.log('after');
+    props.navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{name: 'MyAccount'}],
+      }),
+    );
     await generatTokenWithout();
   };
 

@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function OrderSuccess(props) {
   const {productId, orderID} = props.route.params;
   console.log('123456789', productId, orderID);
-  const [orderDetail, setOrderdetail] = useState({});
+  const [orderDetail, setOrderdetail] = useState(null);
   useEffect(() => {
     getorderDetails();
   }, []);
@@ -47,13 +47,17 @@ export default function OrderSuccess(props) {
   //   return;
   // });
   return (
-    <Success
-      {...props}
-      orderDetail={orderDetail}
-      title="Return request submitted"
-      description="Your package will be picked up by our 
+    <>
+      {!!orderDetail && (
+        <Success
+          {...props}
+          orderDetail={orderDetail}
+          title="Return request submitted"
+          description="Your package will be picked up by our 
   delivery executive"
-      btntxt="Done"
-    />
+          btntxt="Done"
+        />
+      )}
+    </>
   );
 }

@@ -75,10 +75,12 @@ export default function Card1(props) {
     } else {
       console.log('glglglglglltltlhhh');
       Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
-
       props.navigation.navigate('MyAccount', {
         screen: 'Login_Register',
       });
+      // props.navigation.navigate('MyAccount', {
+      //   screen: 'Login_Register',
+      // });
     }
   };
 

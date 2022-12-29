@@ -18,6 +18,7 @@ export default function Header(props) {
     count = '',
     title = '',
     handleClick = null,
+    right = true,
   } = props;
   const navigation = useNavigation();
   return (
@@ -66,20 +67,15 @@ export default function Header(props) {
         {title}
       </Text>
       {/* <View></View> */}
-      <View style={Styles.detailContainer}>
-        {/* <TouchableOpacity style={Styles.locationContainer}>
-          <Ionicons name="share-social" color={Colors.primarycolor} size={25} />
-        </TouchableOpacity>
-        <TouchableOpacity style={Styles.currencyContainer}>
-          <EvilIcons name="heart" color={Colors.primarycolor} size={30} />
-        </TouchableOpacity> */}
-        <TouchableOpacity style={Styles.cartContainer} onPress={handleClick}>
-          {/* <AntDesign name="profile" color={Colors.primarycolor} size={25} /> */}
-          <Ionicons name="person" size={20} color={Colors.primarycolor} />
-
-          {/* <EvilIcons name="cart" size={30} color={Colors.primarycolor} /> */}
-        </TouchableOpacity>
-      </View>
+      {right ? (
+        <View style={Styles.detailContainer}>
+          <TouchableOpacity style={Styles.cartContainer} onPress={handleClick}>
+            <Ionicons name="person" size={20} color={Colors.primarycolor} />
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View></View>
+      )}
     </View>
   );
 }
