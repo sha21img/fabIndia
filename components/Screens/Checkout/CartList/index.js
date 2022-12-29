@@ -53,7 +53,6 @@ const labels = ['Cart', 'Address', 'Payment'];
 export default function CartList(props) {
   const dispatch = useDispatch();
   const newCurrPosition = props?.route?.params?.currPosition;
-  console.log('newCurrPosition', newCurrPosition);
   const [showOrderDetail, setShowOrderDetail] = useState(false);
   const [modalShowMono, setModalShowMono] = useState(false);
   const [showCustom, setShowCustom] = useState(false);
@@ -177,13 +176,7 @@ const RazorpayDetails = async () => {
     setEntrynum(data?.entryNumber);
     setQuantity(data?.quantity);
   };
-  console.log(
-    'currentPositibbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbon',
-    currentPosition,
-  );
-  const addWishlist = async () => {
-    console.log('add wishlist');
-  };
+
   const RemoveClick = async data => {
     const value = await AsyncStorage.getItem('cartID');
     const get = await AsyncStorage.getItem('generatToken');
