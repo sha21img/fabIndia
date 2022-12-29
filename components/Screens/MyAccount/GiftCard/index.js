@@ -1,19 +1,18 @@
-import {View, Text} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import { View, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import MyGiftCard from './MyGiftCard';
 import SendGiftCard from './SendGiftCard';
 import AddGiftCard from './AddGiftCard';
 import CommonTopTab from '../../../Common/CommonTopTab';
 import axios from 'axios';
-import {giftCardTabs, giftCardTabs1} from '../../../../constant';
-import Card from '../../../Common/Card';
+import { giftCardTabs, giftCardTabs1 } from '../../../../constant';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {BaseURL2, logout} from '../../../Common/Helper';
-import {useDispatch} from 'react-redux';
+import { BaseURL2, logout } from '../../../Common/Helper';
+import { useDispatch } from 'react-redux';
+
 export default function GiftCard(props) {
-  // const from = props.route.name == 'GiftCard';
   const from = props?.route;
-  console.log('5][][[][][]][][[]345[34]5[34]5[]34[5]34[5]', from);
+
   const dispatch = useDispatch();
   const [walletInfo, setWalletInfo] = useState({
     totalBalance: '0.0',
@@ -23,7 +22,7 @@ export default function GiftCard(props) {
   const getWallet = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    const response = await axios
+    await axios
       .get(
         `${BaseURL2}/users/current/getWallet?lang=en&curr=INR`,
         {
@@ -48,12 +47,6 @@ export default function GiftCard(props) {
     getWallet();
   }, []);
 
-  // 'My Gift Card', 'Add Gift Card', 'Send Gift Card'
-
-  // const SendGiftCard = item => {
-  //   return <SendGiftCard walletInfo={walletInfo} />
-  // };
-
   const screenObj = {
     'My Gift Card': () => <MyGiftCard walletInfo={walletInfo} {...props} />,
     'Add Gift Card': () => <AddGiftCard walletInfo={walletInfo} {...props} />,
@@ -64,6 +57,7 @@ export default function GiftCard(props) {
     title: item,
     card: screenObj[item],
   }));
+
   const screenObj1 = {
     'Send Gift Card': () => <SendGiftCard walletInfo={walletInfo} {...props} />,
   };
@@ -72,6 +66,7 @@ export default function GiftCard(props) {
     title: item,
     card: screenObj1[item],
   }));
+
   const checkData = () => {
     if (from?.params?.from == 'Menu') {
       return dataMap1;
@@ -79,13 +74,10 @@ export default function GiftCard(props) {
       return dataMap;
     }
   };
+
   return (
     <>
       <CommonTopTab data={checkData()} />
-
-      {/* <AddGiftCard walletInfo={walletInfo} /> */}
-      {/* <SendGiftCard walletInfo={walletInfo} /> */}
-      {/* <MyGiftCard walletInfo={walletInfo} /> */}
     </>
   );
 }

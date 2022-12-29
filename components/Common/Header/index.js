@@ -73,12 +73,14 @@ export default function Header(props) {
         <TouchableOpacity style={Styles.currencyContainer}>
           <EvilIcons name="heart" color={Colors.primarycolor} size={30} />
         </TouchableOpacity> */}
+        {title == "FabFamily" ?
         <TouchableOpacity style={Styles.cartContainer} onPress={handleClick}>
           {/* <AntDesign name="profile" color={Colors.primarycolor} size={25} /> */}
           <Ionicons name="person" size={20} color={Colors.primarycolor} />
 
           {/* <EvilIcons name="cart" size={30} color={Colors.primarycolor} /> */}
         </TouchableOpacity>
+        : null}
       </View>
     </View>
   );
