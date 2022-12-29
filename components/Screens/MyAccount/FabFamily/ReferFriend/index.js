@@ -42,9 +42,6 @@ function ReferFriend(props) {
       })
       .catch(err => {
         console.log('err', err);
-        if (err.response.status == 401) {
-          logout(dispatch);
-        }
       });
   };
   const getMemberlist = async mobile => {

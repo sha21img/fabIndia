@@ -113,9 +113,6 @@ function Membership() {
           Toast.LONG,
           Toast.TOP,
         );
-        if (errors.response.status == 401) {
-          logout(dispatch);
-        }
       });
   };
   // useEffect(() => {

@@ -359,12 +359,11 @@ export default function App(props) {
               component={EmptyCart}
               options={{
                 header: props => (
-                  <Header
-                    leftIcon={leftIcon(props)}
-                    title="Your Shopping cart"
-                    customStyle={{
-                      backgroundColor: '#F8F6F5',
-                    }}
+                  <HomeHeader
+                    searchVisible={null}
+                    {...props}
+                    showWishlist={false}
+                    middleHeader="My Order"
                   />
                 ),
               }}
@@ -374,12 +373,11 @@ export default function App(props) {
               component={CartList}
               options={{
                 header: props => (
-                  <Header
-                    leftIcon={leftIcon(props)}
-                    title="Your Shopping cart"
-                    customStyle={{
-                      backgroundColor: '#F8F6F5',
-                    }}
+                  <HomeHeader
+                    searchVisible={null}
+                    {...props}
+                    showWishlist={false}
+                    middleHeader="My Order"
                   />
                 ),
               }}
@@ -389,12 +387,11 @@ export default function App(props) {
               component={CartPage}
               options={{
                 header: props => (
-                  <Header
-                    leftIcon={leftIcon(props)}
-                    title="Your Shopping cart"
-                    customStyle={{
-                      backgroundColor: '#F8F6F5',
-                    }}
+                  <HomeHeader
+                    searchVisible={null}
+                    {...props}
+                    showWishlist={false}
+                    middleHeader="Your Shopping cart"
                   />
                 ),
               }}
@@ -404,14 +401,11 @@ export default function App(props) {
               component={EditAddress}
               options={{
                 header: props => (
-                  <Header
-                    leftIcon={leftIcon(props)}
-                    title="Address"
-                    rightIcon={rightIcon}
-                    customStyle={{
-                      backgroundColor: '#F8F6F5',
-                      marginBottom: 4,
-                    }}
+                  <HomeHeader
+                    searchVisible={null}
+                    {...props}
+                    showWishlist={false}
+                    middleHeader="Address"
                   />
                 ),
               }}
