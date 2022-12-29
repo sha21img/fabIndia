@@ -135,6 +135,7 @@ const EditAddress = props => {
   const SubmitAddress = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
+    console.log('getToken', getToken);
     const body = {
       cellphone: phoneNumber,
       city: {
@@ -170,18 +171,17 @@ const EditAddress = props => {
       town: city,
       visibleInAddressBook: true,
     };
+    console.log('body', body);
     if (!!editflag) {
       const response = await axios
-        .patch(
-          `${BaseURL2}/users/current/addresses/${editflag.id}`,
-          body,
-          {
-            headers: {
-              Authorization: `${getToken.token_type} ${getToken.access_token}`,
-            },
+        .patch(`${BaseURL2}/users/current/addresses/${editflag.id}`, body, {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
           },
-        )
+        })
         .then(response => {
+          console.log('po', response.data);
+
           props.navigation.navigate('CartPage', {
             currPosition: 1,
           });
@@ -193,15 +193,11 @@ const EditAddress = props => {
         });
     } else {
       const response = await axios
-        .post(
-          `${BaseURL2}/users/current/addresses`,
-          body,
-          {
-            headers: {
-              Authorization: `${getToken.token_type} ${getToken.access_token}`,
-            },
+        .post(`${BaseURL2}/users/current/addresses`, body, {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
           },
-        )
+        })
         .then(response => {
           if (response.data) {
             props.navigation.navigate('CartPage', {
@@ -210,6 +206,7 @@ const EditAddress = props => {
           }
         })
         .catch(errors => {
+          console.log('aa', errors.response.data);
           if (errors.response.status == 401) {
             logout(dispatch);
           }
