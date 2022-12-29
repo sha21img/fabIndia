@@ -147,11 +147,8 @@ export const MenCatagoryTab3 = [
   'In the Kitchen',
 ];
 export const hasSpaces = str => {
-  if (str.indexOf(' ') !== -1) {
-    return true;
-  } else {
-    return false;
-  }
+  let string = str?.split('/');
+  return string;
 };
 
 export const HomeCatagoryTab4 = [
@@ -219,32 +216,32 @@ export const giftCardTabs = ['My Gift Card', 'Add Gift Card', 'Send Gift Card'];
 export const giftCardTabs1 = ['Send Gift Card'];
 
 export const HomePageSection = [
-  'Section2', //category
-  'Section1', // Top Swipper
-  'Section3', //Women new high
-  'Section4', // women carousel
+  // 'Section2', //category
+  // 'Section1', // Top Swipper
+  // 'Section3', //Women new high
+  // 'Section4', // women carousel
   'Section5', // women Tab
-  'Section6', // Empty
-  'Section7', //men new high
-  'Section8', //men carousel
+  // 'Section6', // Empty
+  // 'Section7', //men new high
+  // 'Section8', //men carousel
   'Section9', // 9 repeat men tab
-  'Section9A', // 9A kid new high
-  'Section9B', // 9B  kid carousel
+  // 'Section9A', // 9A kid new high
+  // 'Section9B', // 9B  kid carousel
   'Section9C', // 9C  kid tab
-  'Section10', // offer long card
-  'Section11', //Interior
-  'Section12', //Empty
-  'Section13', // home livin new high
-  'Section14', // home livin Carousel
+  // 'Section10', // offer long card
+  // 'Section11', //Interior
+  // 'Section12', //Empty
+  // 'Section13', // home livin new high
+  // 'Section14', // home livin Carousel
   'Section15', // home livin tab
-  'Section16', //Empty
-  'Section17', //Empty
-  'Section18', //Empty
-  'Section19', // tea carousel
-  'Section20', // Empty
-  'Section21', //video ART_ARTIST
-  'Section22', //legacy
-  'Section23', // not available in our figma
+  // 'Section16', //Empty
+  // 'Section17', //Empty
+  // 'Section18', //Empty
+  // 'Section19', // tea carousel
+  // 'Section20', // Empty
+  // 'Section21', //video ART_ARTIST
+  // 'Section22', //legacy
+  // 'Section23', // not available in our figma
 ];
 
 export const LandingPageL1Women = [

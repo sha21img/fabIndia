@@ -251,7 +251,7 @@ function SendGiftCard(props) {
                   ]}>
                   <TouchableOpacity
                     disabled={userDetail?.amount > 0}
-                    key={item.code}
+                    key={Math.random()}
                     activeOpacity={0.8}
                     onPress={() => {
                       setProductAmountCode(item.code);

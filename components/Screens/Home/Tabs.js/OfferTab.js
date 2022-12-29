@@ -54,7 +54,7 @@ export default function OfferTab(props) {
             const newCode = item.urlLink;
             let splitURL = newCode.split('/');
             splitURL = splitURL[splitURL.length - 1];
-            console.log('splitURL', splitURL);
+            // console.log('splitURL', splitURL);
             return (
               <TouchableOpacity
                 activeOpacity={0.8}

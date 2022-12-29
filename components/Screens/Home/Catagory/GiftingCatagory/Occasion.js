@@ -37,7 +37,7 @@ const Occasion = props => {
     const newCode = item.item.urlLink;
     let splitURL = newCode.split('/');
     splitURL = splitURL[splitURL.length - 1].split('?')[1];
-    console.log('splitURL', splitURL);
+    // console.log('splitURL', splitURL);
 
     return (
       <View style={{flexDirection: 'column', marginRight: 10}}>

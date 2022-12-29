@@ -1,4 +1,11 @@
-import {Text, Dimensions, FlatList, BackHandler, Alert} from 'react-native';
+import {
+  Text,
+  Dimensions,
+  ScrollView,
+  FlatList,
+  BackHandler,
+  Alert,
+} from 'react-native';
 import React, {useEffect} from 'react';
 import Catagory from './Catagory';
 import NewHighlights from '../../Common/NewHighlights';
@@ -16,17 +23,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
 const width = Dimensions.get('window').width;
 import {withNavigationFocus} from 'react-navigation';
+import YoutubeVideo from '../YoutubeVideo';
+import OfferForYou from '../OfferForYou';
 
 export default function Dashbord(props) {
   const [active, setActive] = React.useState('Bestsellers');
   const [dashboardData, setDashboardData] = React.useState([]);
   const [filteredComp, setFilteredComp] = React.useState([]);
-  const [Ids, setIds] = React.useState([]);
-  const getInitialData = async () => {
-    const response = await getData('cms/pages?lang=en&curr=INR');
-    setDashboardData(response.contentSlots.contentSlot);
-    getSections(response.contentSlots.contentSlot);
-  };
+
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
     return () => {
@@ -58,69 +62,6 @@ export default function Dashbord(props) {
     }
   };
 
-  const checkSwitch = param => {
-    switch (param?.typeCode) {
-      case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper data={param} {...props} />;
-      case 'FabCmsLinkCarousalComponent':
-        return <Catagory data={param} {...props} />;
-      case 'FabBannerCarouselComponent':
-        return (
-          <NewHighlights
-            {...props}
-            customStyle={{marginVertical: 20}}
-            bgColor={{backgroundColor: '#F3E0E0'}}
-            data={param}
-          />
-        );
-      case 'FabBannerResponsiveCarouselComponent':
-        return (
-          <CommonCarousel
-            {...props}
-            data={param}
-            width={width / 1.07}
-            height={200}
-            customStyle={{margin: 20}}
-          />
-        );
-      case 'FabCMSTabContainer':
-        return (
-          <>
-            <WomenTab data={param} {...props} />
-          </>
-        );
-      case 'FabResponsiveBannerCarouselComponent':
-        return (
-          <CommonCarousel
-            {...props}
-            data={param}
-            width={width}
-            height={200}
-            customStyle={{margin: 20}}
-          />
-        );
-      case 'FabTitleCMSTabParagraphContainer':
-        return (
-          <>
-            <Text
-              style={{
-                fontFamily: Fonts.PlayfairDisplay600Italic,
-                fontSize: 20,
-                paddingTop: 20,
-                color: Colors.textcolor,
-                marginLeft: 15,
-              }}>
-              Offers for you
-            </Text>
-            <OfferTab data={param} {...props} />
-          </>
-        );
-      case 'SimpleResponsiveBannerComponent':
-        return <Interior data={param} {...props} />;
-      default:
-        return;
-    }
-  };
   const getInitialCartID = async () => {
     const cartId = await AsyncStorage.getItem('cartID');
     console.log('cartId==>', cartId);
@@ -162,6 +103,33 @@ export default function Dashbord(props) {
     }, []),
   );
 
+  const HomPageSections = {
+    Categorymenu: '63aab8dc15519f83a59729df',
+    Mainslider: '63aab8b715519f83a59729d7',
+    NewInWomen: '63aad98915519f83a5972aa6',
+    BannerWomen: '63ac17c868d9c52a522c9763',
+    NewInMen: '63aadb1815519f83a5972ab4',
+    BannerMen: '63aadab915519f83a5972aad',
+    NewInKids: '63aadbd215519f83a5972ac1',
+    BannerKids: '63ad7b23bcb1a02702f7bb0c',
+    // offer
+    offerWomen: '63ad9230bcb1a02702f7bb9f',
+    offerMen: '63ad9067bcb1a02702f7bb87',
+    offerKids: '63ad923cbcb1a02702f7bba4',
+    offerHome: '63ad9244bcb1a02702f7bba9',
+
+    Interior: '63ad95f5bcb1a02702f7bbd8',
+    NewInHome: '63ad96b4bcb1a02702f7bbe6',
+    BannerHome: '63ad979cbcb1a02702f7bbfd',
+    BannerLiving: '63ad983cbcb1a02702f7bc10',
+  };
+  const getNewHomeData = async () => {
+    const response = await axios.get(
+      'http://159.89.164.11:3030/homepage/getForApp',
+    );
+    setDashboardData(response.data.data);
+    console.log('this is a eresponse of pageXOffset', response.data.data);
+  };
   const getSections = data => {
     var dataa = [];
     HomePageSection.map(sectionId => {
@@ -170,20 +138,142 @@ export default function Dashbord(props) {
       });
       dataa.push(filter?.components?.component[0]);
     });
+    console.log('dataadataadataa', dataa);
     setFilteredComp(dataa);
+  };
+  const getInitialData = async () => {
+    const response = await getData('cms/pages?lang=en&curr=INR');
+    getSections(response.contentSlots.contentSlot);
   };
   React.useEffect(() => {
     getInitialData();
+    getNewHomeData();
   }, []);
 
   return (
     <>
-      <FlatList
-        contentContainerStyle={{flexGrow: 1, backgroundColor: '#FFFFFF'}}
-        data={filteredComp}
-        keyExtractor={(item, index) => index}
-        renderItem={item => checkSwitch(item.item)}
-      />
+      <ScrollView style={{backgroundColor: 'white'}}>
+        {Array.isArray(dashboardData[HomPageSections.Categorymenu]) && (
+          <Catagory
+            data={dashboardData?.[HomPageSections.Categorymenu]}
+            {...props}
+            customStyle={{paddingVertical: 10}}
+          />
+        )}
+        {Array.isArray(dashboardData[HomPageSections.Mainslider]) && (
+          <TopSwiper
+            data={dashboardData?.[HomPageSections.Mainslider]}
+            {...props}
+          />
+        )}
+        {Array.isArray(dashboardData[HomPageSections.NewInWomen]) && (
+          <NewHighlights
+            {...props}
+            customStyle={{marginVertical: 20}}
+            bgColor={{backgroundColor: '#F3E0E0'}}
+            data={dashboardData?.[HomPageSections.NewInWomen]}
+          />
+        )}
+        {Array.isArray(dashboardData[HomPageSections.BannerWomen]) && (
+          <CommonCarousel
+            {...props}
+            data={dashboardData?.[HomPageSections.BannerWomen]}
+            width={width / 1.07}
+            height={200}
+            customStyle={{margin: 20}}
+          />
+        )}
+        {/* {Array.isArray(filteredComp) && (
+          <WomenTab data={filteredComp[0]} {...props} />
+        )} */}
+        {Array.isArray(dashboardData[HomPageSections.NewInMen]) && (
+          <NewHighlights
+            {...props}
+            customStyle={{marginVertical: 20}}
+            bgColor={{backgroundColor: '#F3E0E0'}}
+            data={dashboardData?.[HomPageSections.NewInMen]}
+          />
+        )}
+        {/* {Array.isArray(dashboardData[HomPageSections.BannerMen]) && (
+          <CommonCarousel
+            {...props}
+            data={dashboardData?.[HomPageSections.BannerMen]}
+            width={width / 1.07}
+            height={200}
+            customStyle={{margin: 20}}
+          />
+        )} */}
+        {/* {Array.isArray(filteredComp) && (
+          <WomenTab data={filteredComp[1]} {...props} />
+        )} */}
+
+        {Array.isArray(dashboardData[HomPageSections.NewInKids]) && (
+          <NewHighlights
+            {...props}
+            customStyle={{marginVertical: 20}}
+            bgColor={{backgroundColor: '#F3E0E0'}}
+            data={dashboardData?.[HomPageSections.NewInKids]}
+          />
+        )}
+        {Array.isArray(dashboardData[HomPageSections.BannerKids]) && (
+          <CommonCarousel
+            {...props}
+            data={dashboardData?.[HomPageSections.BannerKids]}
+            width={width / 1.07}
+            height={200}
+            customStyle={{margin: 20}}
+          />
+        )}
+        {/* {Array.isArray(filteredComp) && (
+          <WomenTab data={filteredComp[2]} {...props} />
+        )} */}
+        {/* long card */}
+
+        {Array.isArray(dashboardData[HomPageSections.offerWomen]) && (
+          <OfferForYou
+            dataWomen={dashboardData[HomPageSections.offerWomen]}
+            dataMen={dashboardData[HomPageSections.offerMen]}
+            dataKids={dashboardData[HomPageSections.offerKids]}
+            dataHome={dashboardData[HomPageSections.offerHome]}
+          />
+        )}
+        {Array.isArray(dashboardData[HomPageSections.Interior]) && (
+          <Interior
+            data={dashboardData?.[HomPageSections.Interior]}
+            {...props}
+          />
+        )}
+        {Array.isArray(dashboardData[HomPageSections.NewInHome]) && (
+          <NewHighlights
+            {...props}
+            customStyle={{marginVertical: 20}}
+            bgColor={{backgroundColor: '#F3E0E0'}}
+            data={dashboardData?.[HomPageSections.NewInHome]}
+          />
+        )}
+        {Array.isArray(dashboardData[HomPageSections.BannerHome]) && (
+          <CommonCarousel
+            {...props}
+            data={dashboardData?.[HomPageSections.BannerHome]}
+            width={width / 1.07}
+            height={200}
+            customStyle={{margin: 20}}
+          />
+        )}
+        {/* {Array.isArray(filteredComp) && (
+          <WomenTab data={filteredComp[3]} {...props} />
+        )} */}
+        {Array.isArray(dashboardData[HomPageSections.BannerLiving]) && (
+          <CommonCarousel
+            {...props}
+            data={dashboardData?.[HomPageSections.BannerLiving]}
+            width={width / 1.07}
+            height={200}
+            customStyle={{margin: 20}}
+          />
+        )}
+        <YoutubeVideo />
+      </ScrollView>
     </>
   );
 }

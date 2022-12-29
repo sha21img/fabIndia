@@ -60,7 +60,7 @@ export default function CartCard(props) {
     });
     return (
       <>
-        <View style={Styles.mainContainer} key={item.item.product.code}>
+        <View style={Styles.mainContainer} key={Math.random()}>
           {false ? (
             <View style={Styles.offerTextContainer}>
               <Text style={Styles.offerText}>

@@ -64,7 +64,7 @@ export default function LifeStyle(props) {
     // console.log('item for product', newCode);
     let splitURL = newCode.split('/');
     splitURL = splitURL[splitURL.length - 1];
-    console.log('splitURL', splitURL);
+    // console.log('splitURL', splitURL);
     return (
       <TouchableOpacity
         activeOpacity={0.8}

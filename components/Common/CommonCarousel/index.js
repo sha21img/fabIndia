@@ -13,43 +13,13 @@ import {Styles} from './styles';
 import {getComponentData, imageURL} from '../Helper';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../../assets/Colors';
-
 export default function CommonCarousel(props) {
   const {data, width, height, customStyle = {}} = props;
+  // console.log('thisthishtishtishs CommonCarousel', data);
   const newWidth = Dimensions.get('window').width;
   const [imgActive1, setImgActive1] = React.useState(0);
-  const [newHighlights, setNewHighlights] = React.useState([]);
-
-  const getNewHighlightIds = async () => {
-    const bannerId = data.banners;
-    getNewHighlightData(bannerId);
-  };
-  const getNewHighlightData = async bannerId => {
-    const splitBannerId = bannerId?.split(' ').join(',');
-    const response = await getComponentData(
-      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
-    );
-    setNewHighlights(response?.component);
-  };
-  // const imageCard = newHighlights.map(item => {
-  //   return (
-  //     <View key={Math.random() * 987} style={Styles.imageBox}>
-  //       <Image
-  //         style={Styles.image}
-  //          source={{uri:`${imageURL}${item.media.url}`}}
-  //       />
-  //       <Text style={Styles.imageText}>{item.title}</Text>
-  //     </View>
-  //   );
-  // });
-  useEffect(() => {
-    getNewHighlightIds();
-  }, []);
-
   const renderItem = ({item}) => {
-    const mediaurl1 = item.media.url || item.media.mobile.url;
-    const newCode = item.urlLink;
-    // console.log('item for product', newCode.includes('giftcard'));
+    const newCode = item.landingPage;
     let splitURL = newCode.split('/');
     splitURL = splitURL[splitURL.length - 1];
     // console.log('splitURL', splitURL);
@@ -57,7 +27,6 @@ export default function CommonCarousel(props) {
       <TouchableOpacity
         onPress={() => {
           if (newCode.includes('giftcard')) {
-            props.navigation.navigate('MyAccount', {screen: 'GiftCard'});
           } else {
             props.navigation.navigate('LandingPageSaris_Blouses', {
               code: splitURL,
@@ -72,11 +41,11 @@ export default function CommonCarousel(props) {
           style={{
             flex: 1,
             height: height,
-            width: !!item.media.url ? width : newWidth,
+            width: !!item.image ? width : newWidth,
             resizeMode: 'contain',
           }}
-          source={{uri: `${imageURL}${mediaurl1}`}}>
-          <LinearGradient
+          source={{uri: item.image}}>
+          {/* <LinearGradient
             colors={['rgba(0,0,0,0.4)', 'rgba(255,255,255,0)']}
             style={{
               padding: 20,
@@ -84,7 +53,7 @@ export default function CommonCarousel(props) {
               height: height,
             }}
             start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}></LinearGradient>
+            end={{x: 0, y: 1}}></LinearGradient> */}
         </ImageBackground>
       </TouchableOpacity>
     );
@@ -99,11 +68,11 @@ export default function CommonCarousel(props) {
         <Carousel
           autoplay
           loop
-          data={newHighlights}
+          data={data}
           renderItem={renderItem}
           autoPlayInterval={3000}
-          sliderWidth={!!newHighlights[0]?.media?.url ? width : newWidth}
-          itemWidth={!!newHighlights[0]?.media?.url ? width : newWidth}
+          sliderWidth={width}
+          itemWidth={width}
           itemHeight={height}
           sliderHeight={height}
           onSnapToItem={index => setImgActive1(index)}
@@ -115,7 +84,7 @@ export default function CommonCarousel(props) {
             justifyContent: 'center',
             marginTop: 5,
           }}>
-          {newHighlights.map((item, index) => (
+          {Array.isArray(data) && data?.map((item, index) => (
             <Text
               key={Math.random() * 1099900}
               style={
