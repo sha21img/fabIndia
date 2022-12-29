@@ -269,31 +269,54 @@ export default function OrderProductLongCard(props) {
     console.log('data?.entryNumber', childRadio.reasonCode);
     console.log('data?.entryNumber', reasonData.quantity);
     console.log('data?.entryNumber', comment);
-    // axios.post(
-    //   `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orderReturns?fields=BASIC,returnEntries(BASIC,refundAmount(formattedValue),orderEntry(basePrice(formattedValue),product(name,code,baseOptions,images(DEFAULT,galleryIndex)))),deliveryCost(formattedValue),totalPrice(formattedValue),subTotal(formattedValue)&lang=en&curr=INR`,
-    //   {
-    //     orderCode: orderID,
-    //     returnRequestEntryInputs: [
-    //       {
-    //         // orderEntryNumber: '0',
-    //         // quantity: '1',
-    //         // reasonCode: 'CANCEL_INCORRECT_PRODUCT',
-    //         // reasonDescription: 'kok',
-    //         orderEntryNumber: data?.entryNumber,
-    //         parentReasonCode: radio.reasonCode,
-    //         reasonCode: childRadio.reasonCode,
-    //         quantity: reasonData.quantity,
-    //         reasonDescription: comment,
-    //       },
-    //     ],
-    //   },
-    //   {
-    //     headers: {
-    //       Authorization: `${getToken.token_type} ${getToken.access_token}`,
-    //       // Authorization: `${getToken.token_type} B7vKxGVlrWBGKVNFDlUci2ZfXTM`,
-    //     },
-    //   },
-    // );
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+
+    axios
+      .post(
+        `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orderReturns?fields=BASIC,returnEntries(BASIC,refundAmount(formattedValue),orderEntry(basePrice(formattedValue),product(name,code,baseOptions,images(DEFAULT,galleryIndex)))),deliveryCost(formattedValue),totalPrice(formattedValue),subTotal(formattedValue)&lang=en&curr=INR`,
+        {
+          orderCode: orderID,
+          returnRequestEntryInputs: [
+            {
+              // orderEntryNumber: '0',
+              // quantity: '1',
+              // reasonCode: 'CANCEL_INCORRECT_PRODUCT',
+              // reasonDescription: 'kok',
+              orderEntryNumber: data?.entryNumber,
+              parentReasonCode: radio.reasonCode,
+              reasonCode: childRadio.reasonCode,
+              quantity: reasonData.quantity,
+              reasonDescription: comment,
+            },
+          ],
+        },
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            // Authorization: `${getToken.token_type} B7vKxGVlrWBGKVNFDlUci2ZfXTM`,
+          },
+        },
+      )
+      .then(response => {
+        setreturnshow(false);
+        console.log(
+          'responseresponseresponseresponseresponseresponseresponse',
+          response.data,
+        );
+        props.navigation.navigate('OrderSuccess', {
+          productId: data.product.code,
+          orderID: orderID,
+        });
+        getorderDetails();
+      })
+      .catch(errors => {
+        console.log('vicky,orderproductlongcard', errors);
+
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
   };
   const filterSubReason = data => {
     console.log('data111111111111111', data);

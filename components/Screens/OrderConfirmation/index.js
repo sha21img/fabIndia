@@ -13,12 +13,12 @@ import {image} from '../../../assets/images';
 import axios from 'axios';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CommonButton from '../../Common/CommonButton';
-import { BaseURL2 } from '../../Common/Helper';
+import {BaseURL2} from '../../Common/Helper';
 
 const OrderConfirmation = props => {
   const [showmodal, setshowmodal] = useState(false);
   const {amount, addressData, UDID} = props?.route?.params;
-  console.log('UD///ID',UDID)
+  console.log('UD///ID', UDID);
   const [details, setDetails] = useState(null);
   useEffect(() => {
     const final = UDID.split('/');
@@ -70,7 +70,7 @@ const OrderConfirmation = props => {
             }}>
             Yay! Your order has been placed.
           </Text>
-          <Text
+          {/* <Text
             style={{
               color: Colors.textcolor,
               marginTop: 10,
@@ -80,7 +80,7 @@ const OrderConfirmation = props => {
             }}>
             You saved
             <Text style={{fontFamily: Fonts.Assistant700}}> ₹ 24,000</Text>
-          </Text>
+          </Text> */}
         </View>
         <View style={{height: 113, padding: 13}}>
           <Text
@@ -169,24 +169,23 @@ const OrderConfirmation = props => {
           </View>
         </Modal>
       </ScrollView>
-      <View style={{alignItems:'center',marginBottom:20}}>
-      <CommonButton
-        backgroundColor="#BDBDBD"
-        txt={'Back to home'}
-        btntxtColor='white'
-        customViewStyle={{
-          backgroundColor: Colors.primarycolor,
-          borderWidth: 1,
-          // borderColor: Colors.primarycolor,
-          width: '80%',
-          paddingVertical: 12,
-        }}
-        handleClick={()=>{
-          props.navigation.navigate("Home")
-        }}
-      />
+      <View style={{alignItems: 'center', marginBottom: 20}}>
+        <CommonButton
+          backgroundColor="#BDBDBD"
+          txt={'Back to home'}
+          btntxtColor="white"
+          customViewStyle={{
+            backgroundColor: Colors.primarycolor,
+            borderWidth: 1,
+            // borderColor: Colors.primarycolor,
+            width: '80%',
+            paddingVertical: 12,
+          }}
+          handleClick={() => {
+            props.navigation.navigate('Home');
+          }}
+        />
       </View>
-      
     </>
   );
 };
