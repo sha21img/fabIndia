@@ -1,15 +1,17 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import React from 'react';
+import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
+import {numberOfLines} from 'deprecated-react-native-prop-types/DeprecatedTextInputPropTypes';
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function CommonTopTab(props) {
   const {data = [], Card} = props;
-  console.log('this sis a to tab data reult', data[0]?.title);
+  const [active, setActive] = useState('');
+
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
@@ -34,36 +36,44 @@ export default function CommonTopTab(props) {
               <Tab.Screen
                 key={Math.random() * 3456}
                 name={item?.title ? item?.title : 'po'}
-                options={{
+                listeners={{
+                  tabPress: e => {
+                    // Prevent default action
+                    setActive(Math.random());
+                  },
+                }}
+                options={({route, navigation}) => ({
                   tabBarItemStyle: {
                     width: data.length > 1 ? 'auto' : null,
                   },
                   unmountOnBlur: true,
-                  tabBarLabel: ({focused}) => (
-                    <View
-                      style={{
-                        borderBottomWidth: 2,
-                        borderBottomColor: focused
-                          ? Colors.primarycolor
-                          : 'transparent',
-                        width: '100%',
-                        paddingVertical: 3,
-                      }}>
-                      <Text
+                  tabBarLabel: ({focused}) => {
+                    return (
+                      <TouchableOpacity
                         style={{
-                          fontSize: 16,
-                          fontFamily: Fonts.Assistant300,
-                          color: focused
+                          borderBottomWidth: 2,
+                          borderBottomColor: focused
                             ? Colors.primarycolor
-                            : Colors.textcolor,
+                            : 'transparent',
+                          width: '100%',
+                          paddingVertical: 3,
                         }}>
-                        {item?.title}
-                      </Text>
-                    </View>
-                  ),
-                }}
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            fontFamily: Fonts.Assistant300,
+                            color: focused
+                              ? Colors.primarycolor
+                              : Colors.textcolor,
+                          }}>
+                          {item?.title}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  },
+                })}
                 component={() =>
-                  item?.card ? item?.card(props, item) : null
+                  item?.card ? item?.card(props, item, active) : null
                 }></Tab.Screen>
             )
           );

@@ -1,11 +1,11 @@
-import {View, Text, ScrollView} from 'react-native';
-import React from 'react';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import React, {useEffect} from 'react';
 import axios from 'axios';
 import Card from '../../../Common/Card';
 import {useScrollToTop} from '@react-navigation/native';
-import { BaseURL2 } from '../../../Common/Helper';
+import {BaseURL2} from '../../../Common/Helper';
 
-const CardProducts = (props, item) => {
+const CardProducts = (props, item, active) => {
   const [productData, setproductData] = React.useState([]);
 
   const getproductData = async productCodes => {
@@ -25,28 +25,36 @@ const CardProducts = (props, item) => {
   }, []);
   const ref = React.useRef(null);
 
-  useScrollToTop(ref);
-
+  const onStart = () => {
+    ref.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  };
+  useEffect(() => {
+    onStart();
+  }, [active]);
   return (
-    <ScrollView
-      ref={ref}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{
-        flexDirection: 'row',
-        paddingHorizontal: 15,
-        // paddingVertical: 5,
-        backgroundColor: '#FFFFFF',
-        flexGrow: 1,
-      }}>
-      {productData?.map((items, index) => {
-        return (
-          <>
-            <Card {...props} items={items} />
-          </>
-        );
-      })}
-    </ScrollView>
+    <>
+      <ScrollView
+        ref={ref}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          flexDirection: 'row',
+          paddingHorizontal: 15,
+          backgroundColor: '#FFFFFF',
+          flexGrow: 1,
+        }}>
+        {productData?.map((items, index) => {
+          return (
+            <>
+              <Card {...props} items={items} />
+            </>
+          );
+        })}
+      </ScrollView>
+    </>
   );
 };
 export default CardProducts;
