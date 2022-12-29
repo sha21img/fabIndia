@@ -46,12 +46,16 @@ export default function OrderStatus(props) {
   };
 
   return (
-    <OrderInProgress
-      orderDetails={orderDetails}
-      getorderDetails={getorderDetails}
-      {...props}
-      orderID={orderID}
-    />
+    <>
+      {!!orderDetails && (
+        <OrderInProgress
+          orderDetails={orderDetails}
+          getorderDetails={getorderDetails}
+          {...props}
+          orderID={orderID}
+        />
+      )}
+    </>
     // <OrderCancelled  orderDetails={orderDetails}/>
   );
   // return screenName === 'In progress' ? (

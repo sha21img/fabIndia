@@ -112,13 +112,12 @@ const MyAccount = props => {
                 options={{
                   header: props => (
                     <Header
-                      leftIcon={leftIcon}
                       title="My Account"
-                      rightIcon={rightIcon}
                       customStyle={{
                         backgroundColor: '#F8F6F5',
                         marginBottom: 4,
                       }}
+                      right={false}
                     />
                   ),
                 }}
@@ -142,14 +141,11 @@ const MyAccount = props => {
                 component={OrderStatus}
                 options={{
                   header: props => (
-                    <Header
-                      leftIcon={leftIcon}
-                      title="My Orders"
-                      rightIcon={rightIcon}
-                      customStyle={{
-                        backgroundColor: '#F8F6F5',
-                        marginBottom: 4,
-                      }}
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="My Orders"
                     />
                   ),
                 }}
@@ -318,14 +314,11 @@ const MyAccount = props => {
                 component={FAQ}
                 options={{
                   header: props => (
-                    <Header
-                      leftIcon={leftIcon}
-                      title="FAQs"
-                      rightIcon={rightIcon}
-                      customStyle={{
-                        backgroundColor: '#F8F6F5',
-                        marginBottom: 4,
-                      }}
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="FAQs"
                     />
                   ),
                 }}
@@ -352,15 +345,11 @@ const MyAccount = props => {
                 component={() => GiftCard(props)}
                 options={{
                   header: props => (
-                    <Header
-                      leftIcon={leftIcon}
-                      title="Gift Cards"
-                      rightIcon={rightIcon}
-                      customStyle={{
-                        backgroundColor: '#F8F6F5',
-                        marginBottom: 4,
-                      }}
+                    <HomeHeader
+                      searchVisible={null}
                       {...props}
+                      showWishlist={false}
+                      middleHeader="Gift Cards"
                     />
                   ),
                 }}
@@ -455,14 +444,11 @@ const MyAccount = props => {
                 component={ContactUs}
                 options={{
                   header: props => (
-                    <Header
-                      leftIcon={leftIcon}
-                      title="My Orders"
-                      rightIcon={rightIcon}
-                      customStyle={{
-                        backgroundColor: '#F8F6F5',
-                        marginBottom: 4,
-                      }}
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="Gift Cards"
                     />
                   ),
                 }}
@@ -488,14 +474,11 @@ const MyAccount = props => {
                 component={ChangePasswordSuccesfully}
                 options={{
                   header: props => (
-                    <Header
-                      leftIcon={leftIcon}
-                      title="Change password"
-                      rightIcon={rightIcon}
-                      customStyle={{
-                        backgroundColor: '#F8F6F5',
-                        marginBottom: 4,
-                      }}
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="Change password"
                     />
                   ),
                 }}
@@ -505,14 +488,11 @@ const MyAccount = props => {
                 component={MyProfile}
                 options={{
                   header: props => (
-                    <Header
-                      leftIcon={leftIcon}
-                      title="My Profile"
-                      rightIcon={rightIcon}
-                      customStyle={{
-                        backgroundColor: '#F8F6F5',
-                        marginBottom: 4,
-                      }}
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="My Profile"
                     />
                   ),
                 }}
@@ -555,14 +535,11 @@ const MyAccount = props => {
                 component={ChangePassword}
                 options={{
                   header: props => (
-                    <Header
-                      leftIcon={leftIcon}
-                      title="Change Password"
-                      rightIcon={rightIcon}
-                      customStyle={{
-                        backgroundColor: '#F8F6F5',
-                        marginBottom: 4,
-                      }}
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="Change Password"
                     />
                   ),
                 }}
@@ -572,14 +549,11 @@ const MyAccount = props => {
                 component={AddCard}
                 options={{
                   header: props => (
-                    <Header
-                      leftIcon={leftIcon}
-                      title="Saved Cards"
-                      rightIcon={rightIcon}
-                      customStyle={{
-                        backgroundColor: '#F8F6F5',
-                        marginBottom: 4,
-                      }}
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="Saved Cards"
                     />
                   ),
                 }}
@@ -589,14 +563,11 @@ const MyAccount = props => {
                 component={AllCards}
                 options={{
                   header: props => (
-                    <Header
-                      leftIcon={leftIcon}
-                      title="Saved Cards"
-                      rightIcon={rightIcon}
-                      customStyle={{
-                        backgroundColor: '#F8F6F5',
-                        marginBottom: 4,
-                      }}
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="Saved Cards"
                     />
                   ),
                 }}
@@ -644,13 +615,12 @@ const MyAccount = props => {
                 options={{
                   header: props => (
                     <Header
-                      leftIcon={leftIcon}
-                      title="My Account"
-                      rightIcon={rightIcon}
+                      title="Log in"
                       customStyle={{
                         backgroundColor: '#F8F6F5',
                         marginBottom: 4,
                       }}
+                      right={false}
                     />
                   ),
                 }}
@@ -661,13 +631,12 @@ const MyAccount = props => {
                 options={{
                   header: props => (
                     <Header
-                      leftIcon={leftIcon}
                       title="Log in"
-                      rightIcon={rightIcon}
                       customStyle={{
                         backgroundColor: '#F8F6F5',
                         marginBottom: 4,
                       }}
+                      right={false}
                     />
                   ),
                 }}
@@ -695,13 +664,12 @@ const MyAccount = props => {
                 options={{
                   header: props => (
                     <Header
-                      leftIcon={leftIcon}
                       title="Log in"
-                      rightIcon={rightIcon}
                       customStyle={{
                         backgroundColor: '#F8F6F5',
                         marginBottom: 4,
                       }}
+                      right={false}
                     />
                   ),
                 }}
@@ -712,13 +680,12 @@ const MyAccount = props => {
                 options={{
                   header: props => (
                     <Header
-                      leftIcon={leftIcon}
                       title="Forgot password"
-                      rightIcon={rightIcon}
                       customStyle={{
                         backgroundColor: '#F8F6F5',
                         marginBottom: 4,
                       }}
+                      right={false}
                     />
                   ),
                 }}
@@ -729,13 +696,12 @@ const MyAccount = props => {
                 options={{
                   header: props => (
                     <Header
-                      leftIcon={leftIcon}
                       title="Register"
-                      rightIcon={rightIcon}
                       customStyle={{
                         backgroundColor: '#F8F6F5',
                         marginBottom: 4,
                       }}
+                      right={false}
                     />
                   ),
                 }}
@@ -746,13 +712,12 @@ const MyAccount = props => {
                 options={{
                   header: props => (
                     <Header
-                      leftIcon={leftIcon}
                       title="Register"
-                      rightIcon={rightIcon}
                       customStyle={{
                         backgroundColor: '#F8F6F5',
                         marginBottom: 4,
                       }}
+                      right={false}
                     />
                   ),
                 }}

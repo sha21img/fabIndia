@@ -20,6 +20,7 @@ import {
   getCartID,
   getWishID,
   postDataAuth,
+  tokenGenerationFabFamily,
   UnAuthPostData,
 } from '../../Common/Helper';
 import CommonButton from '../../Common/CommonButton';
@@ -53,31 +54,31 @@ export default function Login(props) {
   const toggleOldHide = () => {
     setHideOldPass(!hideOldPass);
   };
-  const saveTokenFab = async data => {
-    await AsyncStorage.setItem('fabToken', JSON.stringify(data));
-  };
-  const tokenGenerationFabFamily = async () => {
-    const params = {
-      username: 'durgesh.yadav@fabindia.net',
-      password: 'AIlqeFI4K',
-      // username: email,
-      // password: password,
-    };
-    await axios
-      .post(`https://api.apm20.gravty.io/v1/login/`, params, {
-        headers: {
-          'x-api-key': 'ZIhuq8Igby1qOyhu1nnsb6JL5ibQJ2sf6V968DLk',
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(response => {
-        console.log('resaaaaaaaaaaaa', response.data);
-        saveTokenFab(response.data);
-      })
-      .catch(errors => {
-        console.log('errors for token generation', errors);
-      });
-  };
+  // const saveTokenFab = async data => {
+  //   await AsyncStorage.setItem('fabToken', JSON.stringify(data));
+  // };
+  // const tokenGenerationFabFamily = async () => {
+  //   const params = {
+  //     username: 'durgesh.yadav@fabindia.net',
+  //     password: 'AIlqeFI4K',
+  //     // username: email,
+  //     // password: password,
+  //   };
+  //   await axios
+  //     .post(`https://api.apm20.gravty.io/v1/login/`, params, {
+  //       headers: {
+  //         'x-api-key': 'ZIhuq8Igby1qOyhu1nnsb6JL5ibQJ2sf6V968DLk',
+  //         'Content-Type': 'application/json',
+  //       },
+  //     })
+  //     .then(response => {
+  //       console.log('resaaaaaaaaaaaa', response.data);
+  //       saveTokenFab(response.data);
+  //     })
+  //     .catch(errors => {
+  //       console.log('errors for token generation', errors);
+  //     });
+  // };
 
   const handleSubmit = async () => {
     if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(email)) {

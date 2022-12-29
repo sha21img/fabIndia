@@ -48,9 +48,6 @@ export default function FabFamily(props) {
       })
       .catch(err => {
         console.log('err', err);
-        if (err.response.status == 401) {
-          logout(dispatch);
-        }
       });
   };
   const getMemberlist = async mobile => {
@@ -75,9 +72,6 @@ export default function FabFamily(props) {
         setReferCode(response.data[0].member_id);
       })
       .catch(err => {
-        if (err.response.status == 401) {
-          logout(dispatch);
-        }
         console.log('err', err);
       });
   };
