@@ -5,6 +5,7 @@ import {
   FlatList,
   BackHandler,
   Alert,
+  View
 } from 'react-native';
 import React, {useEffect} from 'react';
 import Catagory from './Catagory';
@@ -25,6 +26,7 @@ const width = Dimensions.get('window').width;
 import {withNavigationFocus} from 'react-navigation';
 import YoutubeVideo from '../YoutubeVideo';
 import OfferForYou from '../OfferForYou';
+import YoutubePlayer from 'react-native-youtube-iframe';
 
 export default function Dashbord(props) {
   const [active, setActive] = React.useState('Bestsellers');
@@ -166,6 +168,7 @@ export default function Dashbord(props) {
             {...props}
           />
         )}
+        
         {Array.isArray(dashboardData[HomPageSections.NewInWomen]) && (
           <NewHighlights
             {...props}
@@ -174,6 +177,7 @@ export default function Dashbord(props) {
             data={dashboardData?.[HomPageSections.NewInWomen]}
           />
         )}
+         
         {Array.isArray(dashboardData[HomPageSections.BannerWomen]) && (
           <CommonCarousel
             {...props}
@@ -183,9 +187,9 @@ export default function Dashbord(props) {
             customStyle={{margin: 20}}
           />
         )}
-        {/* {Array.isArray(filteredComp) && (
+        {Array.isArray(filteredComp) && (
           <WomenTab data={filteredComp[0]} {...props} />
-        )} */}
+        )}
         {Array.isArray(dashboardData[HomPageSections.NewInMen]) && (
           <NewHighlights
             {...props}
@@ -194,7 +198,7 @@ export default function Dashbord(props) {
             data={dashboardData?.[HomPageSections.NewInMen]}
           />
         )}
-        {/* {Array.isArray(dashboardData[HomPageSections.BannerMen]) && (
+        {Array.isArray(dashboardData[HomPageSections.BannerMen]) && (
           <CommonCarousel
             {...props}
             data={dashboardData?.[HomPageSections.BannerMen]}
@@ -202,12 +206,12 @@ export default function Dashbord(props) {
             height={200}
             customStyle={{margin: 20}}
           />
-        )} */}
-        {/* {Array.isArray(filteredComp) && (
+        )}
+        {Array.isArray(filteredComp) && (
           <WomenTab data={filteredComp[1]} {...props} />
-        )} */}
+        )}
 
-        {Array.isArray(dashboardData[HomPageSections.NewInKids]) && (
+         {Array.isArray(dashboardData[HomPageSections.NewInKids]) && (
           <NewHighlights
             {...props}
             customStyle={{marginVertical: 20}}
@@ -223,13 +227,13 @@ export default function Dashbord(props) {
             height={200}
             customStyle={{margin: 20}}
           />
-        )}
-        {/* {Array.isArray(filteredComp) && (
+        )} 
+        {Array.isArray(filteredComp) && (
           <WomenTab data={filteredComp[2]} {...props} />
-        )} */}
+        )} 
         {/* long card */}
 
-        {Array.isArray(dashboardData[HomPageSections.offerWomen]) && (
+         {Array.isArray(dashboardData[HomPageSections.offerWomen]) && (
           <OfferForYou
             dataWomen={dashboardData[HomPageSections.offerWomen]}
             dataMen={dashboardData[HomPageSections.offerMen]}
@@ -259,11 +263,11 @@ export default function Dashbord(props) {
             height={200}
             customStyle={{margin: 20}}
           />
-        )}
-        {/* {Array.isArray(filteredComp) && (
+        )} 
+        {Array.isArray(filteredComp) && (
           <WomenTab data={filteredComp[3]} {...props} />
-        )} */}
-        {Array.isArray(dashboardData[HomPageSections.BannerLiving]) && (
+        )} 
+         {Array.isArray(dashboardData[HomPageSections.BannerLiving]) && (
           <CommonCarousel
             {...props}
             data={dashboardData?.[HomPageSections.BannerLiving]}
@@ -271,8 +275,10 @@ export default function Dashbord(props) {
             height={200}
             customStyle={{margin: 20}}
           />
-        )}
-        <YoutubeVideo />
+        )} 
+        {/* <YoutubeVideo />
+         */}
+       
       </ScrollView>
     </>
   );
