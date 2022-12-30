@@ -253,6 +253,7 @@ const tokenGenerationFabFamily = async () => {
       },
     })
     .then(async response => {
+      console.log(',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,', response.data);
       await AsyncStorage.setItem('fabToken', JSON.stringify(response.data));
     })
     .catch(errors => {

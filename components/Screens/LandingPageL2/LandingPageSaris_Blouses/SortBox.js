@@ -21,7 +21,7 @@ export default function SortBox({
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingVertical: 16,
-        elevation: 6
+        elevation: 6,
       }}>
       {/* <View style={{flexDirection: 'row', paddingHorizontal: 15}}>
         <Text
@@ -54,18 +54,18 @@ export default function SortBox({
         style={{
           width: '50%',
           borderRightWidth: 1,
-          borderRightColor: Colors.primarycolor,
+          borderRightColor: Colors.textcolor,
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'row',
         }}>
-        <Fontisto name="arrow-swap" color={Colors.primarycolor} size={10} />
+        <Fontisto name="arrow-swap" color={Colors.textcolor} size={10} />
 
         <Text
           style={{
-            fontFamily: Fonts.Assistant500,
+            fontFamily: Fonts.Assistant600,
             fontSize: 16,
-            color: Colors.primarycolor,
+            color: Colors.textcolor,
             textAlign: 'center',
             paddingLeft: 10,
           }}>
@@ -80,12 +80,12 @@ export default function SortBox({
           justifyContent: 'center',
         }}
         onPress={() => openFilter()}>
-        <FontAwesome name="filter" color={Colors.primarycolor} size={15} />
+        <FontAwesome name="filter" color={Colors.textcolor} size={15} />
         <Text
           style={{
-            fontFamily: Fonts.Assistant500,
+            fontFamily: Fonts.Assistant600,
             fontSize: 16,
-            color: Colors.primarycolor,
+            color: Colors.textcolor,
             textAlign: 'center',
             paddingLeft: 10,
           }}>

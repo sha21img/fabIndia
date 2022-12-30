@@ -17,8 +17,10 @@ export default function Card4(props) {
   //   'items wwwwwwwwwwwwwwwwwwwwwwwoooooooooooooooooooooommmmmmmmmmmmmmmmeeeeeeeeeeeeeeeeennnnnnnnnnnnn',
   //   items.code,
   // );
-  // console.log('items    atattatatata dataadatadatra', items);
-
+  console.log('items    atattatatata dataadatadatra', items);
+  const discountPrice =
+    100 - (items.priceAfterDiscount?.value / items?.price?.value) * 100;
+  console.log('discountPrice', discountPrice);
   const defaultViewCustomStyles = {
     width: 192,
     elevation: 1,
@@ -34,7 +36,7 @@ export default function Card4(props) {
         onPress={() =>
           props.navigation.push('ProductDetailed', {
             productId: items.code,
-            imageUrlCheck:items
+            imageUrlCheck: items,
           })
         }
         activeOpacity={0.8}>
@@ -54,6 +56,17 @@ export default function Card4(props) {
             <Text style={Styles.amounttxt}>
               M.R.P. {items?.price?.formattedValue}
             </Text>
+            {discountPrice !== 0 && (
+              <Text
+                styles={{
+                  paddingHorizontal: 10,
+                  fontFamily: Fonts.Assistant700,
+                  color: '#96ad66',
+                  fontSize: 12,
+                }}>
+                {discountPrice} %off
+              </Text>
+            )}
             {/* <Text style={Styles.amountoff}>
               {originalprice ? `₹${originalprice}` : null}
             </Text>

@@ -26,7 +26,8 @@ import {BaseURL2, logout} from '../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 export default function FabFamily(props) {
   const dispatch = useDispatch();
-  const [referCode, setReferCode] = React.useState('');
+  const [referCode, setReferCode] = React.useState(null);
+  const [userDetail, setuserDetail] = React.useState('');
   const screenObj = {
     'About FabFamily': AboutFabFamily,
     Benefits: Benefits,
@@ -34,6 +35,7 @@ export default function FabFamily(props) {
     'Refer a friend': ReferFriend,
   };
   const getUserDetail = async () => {
+    console.log('getUserDetailgetUserDetailgetUserDetail');
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     await axios
@@ -43,7 +45,8 @@ export default function FabFamily(props) {
         },
       })
       .then(response => {
-        console.log('response.data', response.data);
+        console.log('respohhhhhhhhhhhhhhhhhhhhhhhhhhh', response.data);
+        setuserDetail(response.data);
         getMemberlist(response.data.contactNumber);
       })
       .catch(err => {
@@ -65,20 +68,19 @@ export default function FabFamily(props) {
         },
       })
       .then(response => {
-        console.log(
-          'response.data for member list',
-          response.data[0].member_id,
-        );
+        console.log('responskjhgfghjkl', response.data[0].member_id);
         setReferCode(response.data[0].member_id);
       })
       .catch(err => {
-        console.log('err', err);
+        console.log('errkoihugyf', err);
       });
   };
   useEffect(() => {
     getUserDetail();
-  }, [props]);
+  }, []);
   const dataMap = FabFamilyTabData.map(item => ({
+    referCode: referCode,
+    userDetail: userDetail,
     title: item,
     card: screenObj[item],
   }));
@@ -135,7 +137,7 @@ export default function FabFamily(props) {
           />
         </ImageBackground>
       </TouchableOpacity>
-      <CommonTopTab data={dataMap} />
+      {!!referCode ? <CommonTopTab data={dataMap} /> : <Text>nhinhinhi</Text>}
     </>
   );
 }
