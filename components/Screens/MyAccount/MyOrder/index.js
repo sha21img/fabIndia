@@ -12,6 +12,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {BaseURL2, logout} from '../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 import CommonButton from '../../../Common/CommonButton';
+import {CommonActions} from '@react-navigation/native';
+
 export default function MyOrder(props) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -196,7 +198,17 @@ export default function MyOrder(props) {
               width: '70%',
             }}
             // disable={!(!!comment && !!radio)}
-            handleClick={() => props.navigation.navigate('Home')}
+
+            handleClick={
+              () =>
+                props.navigation.dispatch(
+                  CommonActions.reset({
+                    index: 1,
+                    routes: [{name: 'MainScreen'}],
+                  }),
+                )
+              // props.navigation.navigate('MainScreen', {screen: 'Home'})
+            }
           />
         </View>
       )}

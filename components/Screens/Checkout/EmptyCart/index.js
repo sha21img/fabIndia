@@ -5,9 +5,33 @@ import Styles from './styles';
 import CommonButton from '../../../Common/CommonButton';
 import {Colors} from '../../../../assets/Colors';
 import Fonts from '../../../../assets/fonts';
+import {CommonActions} from '@react-navigation/native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function EmptyCart(props) {
   console.log('props..............', props);
+  const isLogedIn = async () => {
+    console.log('props..............');
+
+    const token = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(token);
+    if (getToken.isCheck) {
+      props.navigation.navigate('YourWishlist');
+    } else {
+      props.navigation.navigate('MyAccount', {screen: 'Login_Register'});
+    }
+    // if (getToken.isCheck) {
+    //   props.navigation.navigate('');
+    // } else {
+    //   props.navigation.dispatch(
+    //     CommonActions.reset({
+    //       index: 0,
+    //       routes: [{name: 'MyAccounts'}],
+    //     }),
+    //   );
+    // }
+  };
   return (
     <View style={Styles.mainContainer}>
       <View style={Styles.ImageView}>
@@ -30,6 +54,9 @@ export default function EmptyCart(props) {
       </View>
       <View style={Styles.btnContainer}>
         <CommonButton
+          handleClick={() => {
+            isLogedIn();
+          }}
           txt="Check wishlist"
           btntxtColor={Colors.primarycolor}
           customViewStyle={{
