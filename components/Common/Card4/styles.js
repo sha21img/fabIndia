@@ -23,7 +23,7 @@ export const Styles = StyleSheet.create({
   },
   amounttxt: {
     paddingRight: 10,
-    fontSize: 16,
+    fontSize: 12,
     color: '#4A4A4A',
     fontFamily: Fonts.RupeeForadian,
   },
