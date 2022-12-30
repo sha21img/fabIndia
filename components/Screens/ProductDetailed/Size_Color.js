@@ -103,7 +103,7 @@ export default function Size_Color({
         // arrayData.push({size:el[1].value, color:})
       });
     setfinalData(arrayData[0]);
-    setFilterData(arrayData);
+    setFilterData(arrayData.reverse());
     // console.log(
     //   arrayData,
     //   'arrayDataarrayDataooooooooooooo9999999999999999999',
@@ -183,15 +183,6 @@ export default function Size_Color({
             return (
               <TouchableOpacity
                 onPress={async () => {
-                  // console.log(
-                  //   'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck888888888888888888888888888',
-                  //   item.stock,
-                  // );
-                  // console.log(
-                  //   'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck6666666666666666666666666666',
-                  //   color?.productCode,
-                  // );
-
                   setColor(item);
                   getColorProductId(item.productCode, item.stock);
                   getImageData(item.productCode);
@@ -217,11 +208,13 @@ export default function Size_Color({
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
+          marginBottom: 15,
+          width: '70%',
         }}>
-        <Text style={Styles.sizeTxt}>Size</Text>
+        <Text style={Styles.sizeTxt}>SELECT SIZE</Text>
         {filterData[0]?.size != 'Free Size' ? (
           <TouchableOpacity onPress={() => openSize()} style={Styles.chartBox}>
-            <FontAwesome5 name="ruler" color={'#903233'} size={15} />
+            {/* <FontAwesome5 name="ruler" color={'#903233'} size={15} /> */}
             <Text style={Styles.chartText}>Size Guide</Text>
           </TouchableOpacity>
         ) : null}
@@ -230,7 +223,7 @@ export default function Size_Color({
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={Styles.btnBox}>
-        {filterData.map((item, index) => {
+        {filterData?.map((item, index) => {
           // console.log(item, '///llllllll/0000000000000000000000/?');
 
           return (
@@ -240,11 +233,7 @@ export default function Size_Color({
                   StockSubmit(item);
                 }}
                 style={
-                  item.size == size.size ||
-                  item.color.filter(el => el.productCode == color?.productCode)
-                    .length
-                    ? Styles.activeBtn
-                    : Styles.inActiveBtn
+                  item.size == size.size ? Styles.activeBtn : Styles.inActiveBtn
                 }>
                 <Text
                   style={
@@ -268,7 +257,7 @@ export default function Size_Color({
       </Text>
 
       <View style={{marginVertical: 15, marginHorizontal: 15}}>
-        <Text>Quantity</Text>
+        <Text>QUANTITY</Text>
       </View>
       <View style={{flexDirection: 'row', marginHorizontal: 15}}>
         <TouchableOpacity
@@ -290,7 +279,7 @@ export default function Size_Color({
           style={{
             borderWidth: 2,
             paddingVertical: 5,
-            paddingHorizontal: 16,
+            paddingHorizontal: 20,
             borderColor: 'lightgrey',
           }}>
           <Text style={{fontFamily: Fonts.Assistant700}}>{count}</Text>
@@ -560,7 +549,7 @@ const Styles = StyleSheet.create({
   sizeTxt: {
     paddingHorizontal: 15,
     fontFamily: Fonts.Assistant400,
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 16,
     color: ' #717171',
   },
@@ -574,7 +563,7 @@ const Styles = StyleSheet.create({
   activeBtn: {
     justifyContent: 'center',
     alignItems: 'center',
-    minWidth: 70,
+    minWidth: 50,
     backgroundColor: 'white',
     padding: 7,
     marginRight: 10,
@@ -588,7 +577,7 @@ const Styles = StyleSheet.create({
   inActiveBtn: {
     justifyContent: 'center',
     alignItems: 'center',
-    minWidth: 70,
+    minWidth: 50,
     backgroundColor: 'white',
     marginRight: 10,
     padding: 7,
@@ -600,7 +589,7 @@ const Styles = StyleSheet.create({
     color: Colors.textcolor,
   },
   chartBox: {
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
     paddingVertical: 7,
     flexDirection: 'row',
     alignItems: 'center',
@@ -608,9 +597,11 @@ const Styles = StyleSheet.create({
   chartText: {
     color: '#903233',
     fontFamily: Fonts.Assistant400,
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 16,
     paddingHorizontal: 7,
+    textDecorationLine: 'underline',
+    // textDecorationColor:Colors.primarycolor
   },
   ColorTxt: {
     color: '#717171',
@@ -621,7 +612,7 @@ const Styles = StyleSheet.create({
   },
   ColorBox: {
     paddingHorizontal: 15,
-    paddingVertical: 15,
+    paddingBottom: 15,
   },
   colorContainer: {
     flexDirection: 'row',
