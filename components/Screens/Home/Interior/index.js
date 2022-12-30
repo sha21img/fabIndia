@@ -19,7 +19,7 @@ export default function Interior(props) {
       <ImageBackground
         resizeMode="stretch"
         style={{width: '100%', height: 200}}
-        source={{uri: data[0]?.image}}>
+        source={{uri: data[0]?.image.split('?')[0]}}>
         {/* source={image.interiorBackground}>
         {/* <View style={Styles.thoughtBox}>
         <Text style={Styles.thoughtText}>Build your sanctuary</Text>

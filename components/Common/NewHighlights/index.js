@@ -26,7 +26,7 @@ export default function NewHighlights(props) {
         activeOpacity={0.8}
         key={Math.random() * 987}
         style={Styles.imageBox}>
-        <Image style={Styles.image} source={{uri: item.item.image}} />
+        <Image style={Styles.image} source={{uri: item?.item?.image?.split('?')[0]}} />
         <Text style={Styles.imageText}>{item.item.title}</Text>
       </TouchableOpacity>
     );

@@ -24,7 +24,7 @@ export default function Catagory({data}) {
             }
             style={Styles.catagory}>
             <Image
-              source={{uri: item.item.image}}
+              source={{uri: item?.item?.image?.split('?')[0] }}
               style={Styles.imgDim}></Image>
           </TouchableOpacity>
           <Text style={Styles.catagoryText}>{item.item.title}</Text>
