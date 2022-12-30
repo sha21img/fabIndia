@@ -12,11 +12,8 @@ import React from 'react';
 import {Styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
 export default function Catagory({data}) {
-  // console.log('thisthishtishtishs TopSwiper', data);
   const navigation = useNavigation();
   const catagory = item => {
-    // console.log('this sis category single data', item);
-    console.log(item)
     return (
       <>
         <View style={Styles.mainContainer}>

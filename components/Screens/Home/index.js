@@ -5,7 +5,7 @@ import {
   FlatList,
   BackHandler,
   Alert,
-  View
+  View,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import Catagory from './Catagory';
@@ -109,7 +109,7 @@ export default function Dashbord(props) {
     Categorymenu: '63aab8dc15519f83a59729df',
     Mainslider: '63aab8b715519f83a59729d7',
     NewInWomen: '63aad98915519f83a5972aa6',
-    BannerWomen: '63ac17c868d9c52a522c9763',
+    BannerWomen: '63ae8541bcb1a02702f7be1a',
     NewInMen: '63aadb1815519f83a5972ab4',
     BannerMen: '63aadab915519f83a5972aad',
     NewInKids: '63aadbd215519f83a5972ac1',
@@ -159,30 +159,32 @@ export default function Dashbord(props) {
           <Catagory
             data={dashboardData?.[HomPageSections.Categorymenu]}
             {...props}
+            isAdmin2={'isAdmin2'}
             customStyle={{paddingVertical: 10}}
           />
         )}
         {Array.isArray(dashboardData[HomPageSections.Mainslider]) && (
           <TopSwiper
+            isAdmin2={'isAdmin2'}
             data={dashboardData?.[HomPageSections.Mainslider]}
             {...props}
           />
         )}
-        
         {Array.isArray(dashboardData[HomPageSections.NewInWomen]) && (
           <NewHighlights
             {...props}
+            isAdmin2={'isAdmin2'}
             customStyle={{marginVertical: 20}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={dashboardData?.[HomPageSections.NewInWomen]}
           />
         )}
-         
         {Array.isArray(dashboardData[HomPageSections.BannerWomen]) && (
           <CommonCarousel
             {...props}
             data={dashboardData?.[HomPageSections.BannerWomen]}
             width={width / 1.07}
+            isAdmin2={'isAdmin2'}
             height={200}
             customStyle={{margin: 20}}
           />
@@ -193,6 +195,7 @@ export default function Dashbord(props) {
         {Array.isArray(dashboardData[HomPageSections.NewInMen]) && (
           <NewHighlights
             {...props}
+            isAdmin2={'isAdmin2'}
             customStyle={{marginVertical: 20}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={dashboardData?.[HomPageSections.NewInMen]}
@@ -203,6 +206,7 @@ export default function Dashbord(props) {
             {...props}
             data={dashboardData?.[HomPageSections.BannerMen]}
             width={width / 1.07}
+            isAdmin2={'isAdmin2'}
             height={200}
             customStyle={{margin: 20}}
           />
@@ -210,10 +214,10 @@ export default function Dashbord(props) {
         {Array.isArray(filteredComp) && (
           <WomenTab data={filteredComp[1]} {...props} />
         )}
-
-         {Array.isArray(dashboardData[HomPageSections.NewInKids]) && (
+        {Array.isArray(dashboardData[HomPageSections.NewInKids]) && (
           <NewHighlights
             {...props}
+            isAdmin2={'isAdmin2'}
             customStyle={{marginVertical: 20}}
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={dashboardData?.[HomPageSections.NewInKids]}
@@ -223,18 +227,19 @@ export default function Dashbord(props) {
           <CommonCarousel
             {...props}
             data={dashboardData?.[HomPageSections.BannerKids]}
+            isAdmin2={'isAdmin2'}
             width={width / 1.07}
             height={200}
             customStyle={{margin: 20}}
           />
-        )} 
+        )}
         {Array.isArray(filteredComp) && (
           <WomenTab data={filteredComp[2]} {...props} />
-        )} 
+        )}
         {/* long card */}
-
-         {Array.isArray(dashboardData[HomPageSections.offerWomen]) && (
+        {Array.isArray(dashboardData[HomPageSections.offerWomen]) && (
           <OfferForYou
+            isAdmin2={'isAdmin2'}
             dataWomen={dashboardData[HomPageSections.offerWomen]}
             dataMen={dashboardData[HomPageSections.offerMen]}
             dataKids={dashboardData[HomPageSections.offerKids]}
@@ -244,11 +249,13 @@ export default function Dashbord(props) {
         {Array.isArray(dashboardData[HomPageSections.Interior]) && (
           <Interior
             data={dashboardData?.[HomPageSections.Interior]}
+            isAdmin2={'isAdmin2'}
             {...props}
           />
         )}
         {Array.isArray(dashboardData[HomPageSections.NewInHome]) && (
           <NewHighlights
+            isAdmin2={'isAdmin2'}
             {...props}
             customStyle={{marginVertical: 20}}
             bgColor={{backgroundColor: '#F3E0E0'}}
@@ -259,26 +266,26 @@ export default function Dashbord(props) {
           <CommonCarousel
             {...props}
             data={dashboardData?.[HomPageSections.BannerHome]}
+            isAdmin2={'isAdmin2'}
             width={width / 1.07}
             height={200}
             customStyle={{margin: 20}}
           />
-        )} 
+        )}
         {Array.isArray(filteredComp) && (
           <WomenTab data={filteredComp[3]} {...props} />
-        )} 
-         {Array.isArray(dashboardData[HomPageSections.BannerLiving]) && (
+        )}
+        {Array.isArray(dashboardData[HomPageSections.BannerLiving]) && (
           <CommonCarousel
             {...props}
             data={dashboardData?.[HomPageSections.BannerLiving]}
+            isAdmin2={'isAdmin2'}
             width={width / 1.07}
             height={200}
             customStyle={{margin: 20}}
           />
-        )} 
-        {/* <YoutubeVideo />
-         */}
-       
+        )}
+        <YoutubeVideo />
       </ScrollView>
     </>
   );

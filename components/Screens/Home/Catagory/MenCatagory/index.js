@@ -54,6 +54,7 @@ const MenCatagory = props => {
   }, []);
 
   const checkSwitch = param => {
+    console.log(param);
     switch (param?.typeCode) {
       case 'FabResponsiveGridBannerCarouselComponent':
         return <TopSwiper data={param} />;

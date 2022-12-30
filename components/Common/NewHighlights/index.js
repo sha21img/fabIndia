@@ -11,20 +11,16 @@ import {Styles} from './styles';
 import {hasSpaces} from '../../../constant';
 export default function NewHighlights(props) {
   const {data = {}, customStyle = ''} = props;
-  // console.log('thisthishtishtishs NewHighlights', data);
   const width = Dimensions.get('window').width;
   const imageCard = item => {
-    console.log('image card item', item.item);
     const newCode = item.item.landingPage;
-    let splitURL = newCode.split('/');
-    splitURL = splitURL[splitURL.length - 1];
-    // console.log('splitURL', splitURL);
     return (
       <TouchableOpacity
         onPress={() =>
           props.navigation.navigate('LandingPageSaris_Blouses', {
-            code: splitURL,
+            code: newCode,
             title: item.item.title,
+            isAdmin2: 'isAdmin2',
           })
         }
         activeOpacity={0.8}
@@ -36,8 +32,6 @@ export default function NewHighlights(props) {
     );
   };
   const check = hasSpaces(data[0]?.categoryName);
-  console.log('check', check);
-
   return (
     <View style={[Styles.container, customStyle]}>
       <View style={Styles.headingBox}>
