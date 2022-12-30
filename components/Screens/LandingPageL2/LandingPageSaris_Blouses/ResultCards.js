@@ -42,31 +42,45 @@ export default function ResultCards(props) {
   const [sortValue, setSortValue] = useState('');
   const [isCheck, setIsCheck] = useState([]);
   const [productCount, setProductCount] = useState(0);
-  const {code, status, title, isSearch} = props;
+  const {code, status, title, isSearch, isAdmin2} = props;
   const {data = []} = props;
-
+  console.log(
+    'in the askjdhflkjasdhflkjasdhflkjahsdfjkhasdlkfh',
+    isAdmin2,
+    code,
+  );
   const getProductData = async data => {
-    console.log('datadatadatadatadatadatadatadatadatadatadatadata', data);
     const fields =
       'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
     var response;
+    if (isAdmin2 == 'isAdmin2') {
+      console.log('ifififififififififififififififififififififiif', isAdmin2);
 
-    if (!!isSearch) {
       response = await axios.get(
-        `${BaseURL2}/products/search?fields=${fields}&query=${title}
-        &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-      );
-    } else if (data) {
-      response = await axios.get(
-        `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+        `${BaseURL2}/products/search?fields=${fields}&query=${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+        //     `${BaseURL2}/products/search?fields=${fields}&query=${code}
+        // &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
     } else {
-      response = await axios.get(
-        `${BaseURL2}/products/search?fields=${fields}&${
-          status ? `${code}` : `query=:relevance:allCategories:${code}`
-        }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-      );
+      console.log('elseleslelesleelse');
+      if (!!isSearch) {
+        response = await axios.get(
+          `${BaseURL2}/products/search?fields=${fields}&query=${title}
+      &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+        );
+      } else if (data) {
+        response = await axios.get(
+          `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+        );
+      } else {
+        response = await axios.get(
+          `${BaseURL2}/products/search?fields=${fields}&${
+            status ? `${code}` : `query=:relevance:allCategories:${code}`
+          }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+        );
+      }
     }
+
     console.log('1234567890', response.data);
     // fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}`);
     setdataMain(response.data);
@@ -87,17 +101,31 @@ export default function ResultCards(props) {
       'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
 
     var response;
-    if (!!isSearch) {
+    if (isAdmin2 == 'isAdmin2') {
+      console.log(
+        'ifififififififififififififififififififififiif-=-=-=- sort-=-=',
+        isAdmin2,
+      );
+
       response = await axios.get(
-        `${BaseURL2}/products/search?fields=${fields}&query=${title}
-        &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+        `${BaseURL2}/products/search?fields=${fields}&query=${code}
+    &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
     } else {
-      response = await axios.get(
-        `${BaseURL2}/products/search?fields=${fields}&${
-          status ? `${code}` : `query=:relevance:allCategories:${code}`
-        }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-      );
+      console.log('elseleslelesleelse-=-=-=-sort-==-');
+
+      if (!!isSearch) {
+        response = await axios.get(
+          `${BaseURL2}/products/search?fields=${fields}&query=${title}
+        &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+        );
+      } else {
+        response = await axios.get(
+          `${BaseURL2}/products/search?fields=${fields}&${
+            status ? `${code}` : `query=:relevance:allCategories:${code}`
+          }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+        );
+      }
     }
     setdataMain(response.data);
 

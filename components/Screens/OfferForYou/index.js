@@ -12,13 +12,22 @@ import {ScrollView} from 'react-native';
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function OfferForYou({dataWomen, dataMen, dataKids, dataHome}) {
+export default function OfferForYou({
+  dataWomen,
+  dataMen,
+  dataKids,
+  dataHome,
+  isAdmin2,
+}) {
   const navigation = useNavigation();
   const [selectTab, setSelectedTab] = useState();
   const [active, setActive] = useState('');
   const Card = obj => {
     return (
-      <ScrollView horizontal>
+      <ScrollView
+        horizontal
+        style={{backgroundColor: 'white'}}
+        showsHorizontalScrollIndicator={false}>
         {Array.isArray(obj) &&
           obj.map(item => {
             return (
@@ -26,12 +35,10 @@ export default function OfferForYou({dataWomen, dataMen, dataKids, dataHome}) {
                 activeOpacity={0.8}
                 onPress={() => {
                   const newCode = item.landingPage;
-                  let splitURL = newCode.split('/');
-                  splitURL = splitURL[splitURL.length - 1];
                   navigation.navigate('LandingPageSaris_Blouses', {
-                    code: splitURL.split('?')[0],
+                    code: newCode,
                     title: item.title,
-                    search: true
+                    isAdmin2: 'isAdmin2',
                   });
                 }}
                 style={{
@@ -39,9 +46,8 @@ export default function OfferForYou({dataWomen, dataMen, dataKids, dataHome}) {
                 }}>
                 <Image
                   style={{height: 128, width: 192, resizeMode: 'contain'}}
-                  // source={image.ArtistImg1}
                   source={{
-                    uri: 'https://apisap.fabindiahome.com/medias/sys_master/root/h78/h34/9088449249310/hp-ofw-11oct22-1/hp-ofw-11oct22-1.jpg',
+                    uri: item.image,
                   }}
                 />
               </TouchableOpacity>

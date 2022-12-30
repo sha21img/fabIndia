@@ -15,22 +15,19 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../../assets/Colors';
 export default function CommonCarousel(props) {
   const {data, width, height, customStyle = {}} = props;
-  // console.log('thisthishtishtishs CommonCarousel', data);
   const newWidth = Dimensions.get('window').width;
   const [imgActive1, setImgActive1] = React.useState(0);
   const renderItem = ({item}) => {
     const newCode = item.landingPage;
-    let splitURL = newCode.split('/');
-    splitURL = splitURL[splitURL.length - 1];
-    // console.log('splitURL', splitURL);
     return (
       <TouchableOpacity
         onPress={() => {
           if (newCode.includes('giftcard')) {
           } else {
             props.navigation.navigate('LandingPageSaris_Blouses', {
-              code: splitURL,
+              code: newCode,
               title: item.title || 'Gift Sets',
+              isAdmin2: 'isAdmin2',
             });
           }
         }}
@@ -44,17 +41,7 @@ export default function CommonCarousel(props) {
             width: !!item.image ? width : newWidth,
             resizeMode: 'contain',
           }}
-          source={{uri: item.image}}>
-          {/* <LinearGradient
-            colors={['rgba(0,0,0,0.4)', 'rgba(255,255,255,0)']}
-            style={{
-              padding: 20,
-              width: width,
-              height: height,
-            }}
-            start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}></LinearGradient> */}
-        </ImageBackground>
+          source={{uri: item.image}}></ImageBackground>
       </TouchableOpacity>
     );
   };
@@ -84,17 +71,18 @@ export default function CommonCarousel(props) {
             justifyContent: 'center',
             marginTop: 5,
           }}>
-          {Array.isArray(data) && data?.map((item, index) => (
-            <Text
-              key={Math.random() * 1099900}
-              style={
-                imgActive1 == index
-                  ? {color: Colors.primarycolor}
-                  : {color: '#E5E5E5'}
-              }>
-              ●
-            </Text>
-          ))}
+          {Array.isArray(data) &&
+            data?.map((item, index) => (
+              <Text
+                key={Math.random() * 1099900}
+                style={
+                  imgActive1 == index
+                    ? {color: Colors.primarycolor}
+                    : {color: '#E5E5E5'}
+                }>
+                ●
+              </Text>
+            ))}
         </View>
       </View>
     </>

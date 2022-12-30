@@ -13,8 +13,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function TopSwiper(props) {
   const navigation = useNavigation();
-  const {customStyle = {}, data = {}} = props;
-  // console.log('thisthishtishtishs TopSwiper', data);
+  const {customStyle = {}, data = {}, isAdmin2 = ''} = props;
+  console.log('this isbsu', data);
   const [carouselData, setCarouselData] = React.useState([]);
 
   const getCarauselIds = async () => {
@@ -37,14 +37,27 @@ export default function TopSwiper(props) {
           const filteredObj = data.find((item, index) => {
             return curr == index;
           });
-          const newCode = filteredObj.landingPage;
-          let splitURL = newCode.split('/');
-          splitURL = splitURL[splitURL.length - 1];
-          navigation.navigate('LandingPageSaris_Blouses', {
-            code: splitURL,
-            title: splitURL,
-            status: false,
-          });
+          if (isAdmin2 == 'isAdmin2') {
+            const urlCode = filteredObj.landingPage;
+            const title = filteredObj.title;
+            navigation.navigate('LandingPageSaris_Blouses', {
+              code: urlCode,
+              title: title,
+              isAdmin2: 'isAdmin2',
+            });
+          } else {
+            const newCode = filteredObj.urlLink;
+            console.log('newCodnewCodenewCodee', newCode);
+            let splitURL = newCode.split('/');
+            splitURL = splitURL[splitURL.length - 1];
+            let a = splitURL.split('?');
+            const newId = {
+              code: a[a.length - 1].includes('query') ? a[1] : a[0],
+              status: a[a.length - 1].includes('query'),
+              title: filteredObj.title || filteredObj.media.mobile.altText,
+            };
+            navigation.navigate('LandingPageSaris_Blouses', newId);
+          }
         }}
         circleLoop={true}
         sliderBoxHeight={212}
