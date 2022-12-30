@@ -5,6 +5,7 @@ import {image} from '../../../../../../assets/images';
 import ProgressBar from 'react-native-progress/Bar';
 import {Colors} from '../../../../../../assets/Colors';
 import Fonts from '../../../../../../assets/fonts';
+import * as Progress from 'react-native-progress';
 import CommonButton from '../../../../../Common/CommonButton';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -26,14 +27,31 @@ function YourCardAndBenefits(props, item) {
         <Image style={Styles.card} source={image.fabIndiaDebitCard} />
         <View style={Styles.containerViewOne}>
           <Text style={Styles.tierTxt}>Tier</Text>
-          <View>
-            <ProgressBar
-              progress={0.39}
-              width={375}
-              color="#750000"
-              style={Styles.progressBarStyle}
-            />
-          </View>
+          {/* <View> */}
+          <Progress.Bar
+            // progress={
+            //   loyalityTier.tierClass == 'BRONZE'
+            //     ? 0.2
+            //     : loyalityTier.tierClass == 'SILVER'
+            //     ? 0.4
+            //     : loyalityTier.tierClass == 'GOLD'
+            //     ? 0.6
+            //     : loyalityTier.tierClass == 'PLATINUM'
+            //     ? 0.8
+            //     : loyalityTier.tierClass == 'BLACK'
+            //     ? 1
+            //     : 0
+            // }
+            progress={0.5}
+            // width={null}
+            borderColor={'#EDF0ED'}
+            borderRadius={0}
+            height={5}
+            color={'red'}
+            unfilledColor={'#EDF0ED'}
+          />
+          {/* </View> */}
+          {/* <View style={{height: 10, backgroundColor: 'red', width: 200}}></View> */}
           <View style={Styles.tierContainer}>
             <View style={Styles.goldView}>
               <Text style={Styles.goldTxt}>GOLD</Text>

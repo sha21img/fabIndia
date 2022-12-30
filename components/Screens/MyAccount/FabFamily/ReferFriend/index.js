@@ -20,61 +20,15 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 import {useDispatch} from 'react-redux';
-function ReferFriend(props) {
+function ReferFriend(props, item) {
   const dispatch = useDispatch();
+  const {referCode, userDetail} = item;
+  console.log(
+    'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm',
+    referCode,
+    userDetail,
+  );
 
-  const [refercode, setReferCode] = useState('');
-  const [mobileNumber, setMobileNumber] = useState('');
-
-  const getUserDetail = async () => {
-    const get = await AsyncStorage.getItem('generatToken');
-    const getToken = JSON.parse(get);
-    await axios
-      .get(`${BaseURL2}/users/current?lang=en&curr=INR`, {
-        headers: {
-          Authorization: `${getToken.token_type} ${getToken.access_token}`,
-        },
-      })
-      .then(response => {
-        console.log('response.data', response.data);
-        getMemberlist(response.data.contactNumber);
-        setMobileNumber(response.data.contactNumber);
-      })
-      .catch(err => {
-        console.log('err', err);
-      });
-  };
-  const getMemberlist = async mobile => {
-    console.log('mobile', mobile);
-    const data = await AsyncStorage.getItem('fabToken');
-    const parseData = JSON.parse(data);
-    console.log('parseDataparseData', parseData.token);
-
-    await axios
-      .get(`https://api.apm20.gravty.io/v1/members/list/?mobile=${mobile}`, {
-        headers: {
-          'x-api-key': 'ZIhuq8Igby1qOyhu1nnsb6JL5ibQJ2sf6V968DLk',
-          'Content-Type': 'application/json',
-          Authorization: `JWT ${parseData.token}`,
-        },
-      })
-      .then(response => {
-        console.log(
-          'response.data for member list',
-          response.data[0].member_id,
-        );
-        setReferCode(response.data[0].member_id);
-      })
-      .catch(err => {
-        console.log('err', err);
-        if (err.response.status == 401) {
-          logout(dispatch);
-        }
-      });
-  };
-  useEffect(() => {
-    getUserDetail();
-  }, [props]);
   const referFriend = async () => {
     const data = await AsyncStorage.getItem('fabToken');
     const parseData = JSON.parse(data);
