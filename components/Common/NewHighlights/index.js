@@ -3,15 +3,16 @@ import {
   Text,
   Image,
   FlatList,
-  Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import {Styles} from './styles';
-import {hasSpaces} from '../../../constant';
+import { Styles } from './styles';
+import { hasSpaces } from '../../../constant';
+import FastImage from 'react-native-fast-image';
+
 export default function NewHighlights(props) {
-  const {data = {}, customStyle = ''} = props;
-  const width = Dimensions.get('window').width;
+  const { data = {}, customStyle = '' } = props;
+
   const imageCard = item => {
     const newCode = item.item.landingPage;
     return (
@@ -24,14 +25,24 @@ export default function NewHighlights(props) {
           })
         }
         activeOpacity={0.8}
-        key={Math.random() * 987}
+        key={item?.item?._id}
         style={Styles.imageBox}>
-        <Image style={Styles.image} source={{uri: item?.item?.image?.split('?')[0]}} />
+
+        <FastImage
+          style={Styles.image}
+          source={{
+            uri: item?.item?.image?.split('?')[0],
+            priority: FastImage.priority.normal
+          }}
+          resizeMode={FastImage.resizeMode.contain}
+        />
         <Text style={Styles.imageText}>{item.item.title}</Text>
       </TouchableOpacity>
     );
-  };
+  }
+
   const check = hasSpaces(data[0]?.categoryName);
+
   return (
     <View style={[Styles.container, customStyle]}>
       <View style={Styles.headingBox}>
@@ -43,8 +54,7 @@ export default function NewHighlights(props) {
           horizontal
           data={data}
           showsHorizontalScrollIndicator={false}
-          onEndReachedThreshold={0.1}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item) => item?.item?._id}
           renderItem={imageCard}
         />
       </View>

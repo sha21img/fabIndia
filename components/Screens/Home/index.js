@@ -60,7 +60,7 @@ export default function Dashbord(props) {
 
   const getInitialCartID = async () => {
     const cartId = await AsyncStorage.getItem('cartID');
-    console.log('cartId==>', cartId);
+    // console.log('cartId==>', cartId);
     cartId == null && getCartID();
   };
 
@@ -71,10 +71,7 @@ export default function Dashbord(props) {
       )
       .then(
         response => {
-          console.log(
-            'response-=-=-=-=-=-generatTokenWithoutaa',
-            response.data,
-          );
+          // console.log('response', response.data);
           AsyncStorage.setItem(
             'generatToken',
             JSON.stringify({...response.data, isCheck: false}),
@@ -88,7 +85,6 @@ export default function Dashbord(props) {
   const checkToken = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    console.log('asdfasdfasdfasdf', JSON.parse(get));
     if (getToken == null) {
       await generatTokenWithout();
       await getInitialCartID();
@@ -128,6 +124,8 @@ export default function Dashbord(props) {
     setDashboardData(response.data.data);
     setLoading(false);
     // console.log('this is a eresponse of pageXOffset', response.data.data);
+
+    // console.log('homeSections==>', JSON.stringify(response.data.data));
   };
   const getSections = data => {
     var dataa = [];
@@ -137,7 +135,6 @@ export default function Dashbord(props) {
       });
       dataa.push(filter?.components?.component[0]);
     });
-    console.log('dataadataadataa', dataa);
     setFilteredComp(dataa);
   };
   const getInitialData = async () => {
@@ -155,22 +152,22 @@ export default function Dashbord(props) {
   return (
     <>
       <ScrollView style={{backgroundColor: 'white'}}>
-        {Array.isArray(dashboardData[HomPageSections.Categorymenu]) && (
+        {dashboardData?.[HomPageSections.Categorymenu]?.length > 0 ? (
           <Catagory
             data={dashboardData?.[HomPageSections.Categorymenu]}
             {...props}
             isAdmin2={'isAdmin2'}
             customStyle={{paddingVertical: 10}}
           />
-        )}
-        {Array.isArray(dashboardData[HomPageSections.Mainslider]) && (
+        ) : null}
+        {dashboardData?.[HomPageSections.Mainslider]?.length > 0 ? (
           <TopSwiper
             isAdmin2={'isAdmin2'}
             data={dashboardData?.[HomPageSections.Mainslider]}
             {...props}
           />
-        )}
-        {Array.isArray(dashboardData[HomPageSections.NewInWomen]) && (
+        ) : null}
+        {dashboardData?.[HomPageSections.NewInWomen]?.length > 0 ? (
           <NewHighlights
             {...props}
             isAdmin2={'isAdmin2'}
@@ -178,8 +175,8 @@ export default function Dashbord(props) {
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={dashboardData?.[HomPageSections.NewInWomen]}
           />
-        )}
-        {Array.isArray(dashboardData[HomPageSections.BannerWomen]) && (
+        ) : null}
+        {dashboardData?.[HomPageSections.BannerWomen]?.length > 0 ? (
           <CommonCarousel
             {...props}
             data={dashboardData?.[HomPageSections.BannerWomen]}
@@ -188,11 +185,11 @@ export default function Dashbord(props) {
             height={200}
             customStyle={{margin: 20}}
           />
-        )}
-        {Array.isArray(filteredComp) && (
+        ) : null}
+        {filteredComp.length > 0 ? (
           <WomenTab data={filteredComp[0]} {...props} />
-        )}
-        {Array.isArray(dashboardData[HomPageSections.NewInMen]) && (
+        ) : null}
+        {dashboardData?.[HomPageSections.NewInMen]?.length > 0 ? (
           <NewHighlights
             {...props}
             isAdmin2={'isAdmin2'}
@@ -200,8 +197,8 @@ export default function Dashbord(props) {
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={dashboardData?.[HomPageSections.NewInMen]}
           />
-        )}
-        {Array.isArray(dashboardData[HomPageSections.BannerMen]) && (
+        ) : null}
+        {dashboardData?.[HomPageSections.BannerMen]?.length > 0 ? (
           <CommonCarousel
             {...props}
             data={dashboardData?.[HomPageSections.BannerMen]}
@@ -210,11 +207,11 @@ export default function Dashbord(props) {
             height={200}
             customStyle={{margin: 20}}
           />
-        )}
-        {Array.isArray(filteredComp) && (
+        ) : null}
+        {filteredComp.length > 0 ? (
           <WomenTab data={filteredComp[1]} {...props} />
-        )}
-        {Array.isArray(dashboardData[HomPageSections.NewInKids]) && (
+        ) : null}
+        {dashboardData?.[HomPageSections.NewInKids]?.length > 0 ? (
           <NewHighlights
             {...props}
             isAdmin2={'isAdmin2'}
@@ -222,8 +219,8 @@ export default function Dashbord(props) {
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={dashboardData?.[HomPageSections.NewInKids]}
           />
-        )}
-        {Array.isArray(dashboardData[HomPageSections.BannerKids]) && (
+        ) : null}
+        {dashboardData?.[HomPageSections.BannerKids]?.length > 0 ? (
           <CommonCarousel
             {...props}
             data={dashboardData?.[HomPageSections.BannerKids]}
@@ -232,27 +229,26 @@ export default function Dashbord(props) {
             height={200}
             customStyle={{margin: 20}}
           />
-        )}
-        {Array.isArray(filteredComp) && (
+        ) : null}
+        {filteredComp.length > 0 ? (
           <WomenTab data={filteredComp[2]} {...props} />
-        )}
-        {Array.isArray(dashboardData[HomPageSections.offerWomen]) && (
-          <OfferForYou
-            isAdmin2={'isAdmin2'}
-            dataWomen={dashboardData[HomPageSections.offerWomen]}
-            dataMen={dashboardData[HomPageSections.offerMen]}
-            dataKids={dashboardData[HomPageSections.offerKids]}
-            dataHome={dashboardData[HomPageSections.offerHome]}
-          />
-        )}
-        {Array.isArray(dashboardData[HomPageSections.Interior]) && (
+        ) : null}
+        {/* long card */}
+        <OfferForYou
+          isAdmin2={'isAdmin2'}
+          dataWomen={dashboardData[HomPageSections.offerWomen]}
+          dataMen={dashboardData[HomPageSections.offerMen]}
+          dataKids={dashboardData[HomPageSections.offerKids]}
+          dataHome={dashboardData[HomPageSections.offerHome]}
+        />
+        {dashboardData?.[HomPageSections.Interior]?.length > 0 ? (
           <Interior
             data={dashboardData?.[HomPageSections.Interior]}
             isAdmin2={'isAdmin2'}
             {...props}
           />
-        )}
-        {Array.isArray(dashboardData[HomPageSections.NewInHome]) && (
+        ) : null}
+        {dashboardData?.[HomPageSections.NewInHome]?.length > 0 ? (
           <NewHighlights
             isAdmin2={'isAdmin2'}
             {...props}
@@ -260,8 +256,8 @@ export default function Dashbord(props) {
             bgColor={{backgroundColor: '#F3E0E0'}}
             data={dashboardData?.[HomPageSections.NewInHome]}
           />
-        )}
-        {Array.isArray(dashboardData[HomPageSections.BannerHome]) && (
+        ) : null}
+        {dashboardData?.[HomPageSections.BannerHome]?.length > 0 ? (
           <CommonCarousel
             {...props}
             data={dashboardData?.[HomPageSections.BannerHome]}
@@ -270,11 +266,11 @@ export default function Dashbord(props) {
             height={200}
             customStyle={{margin: 20}}
           />
-        )}
-        {Array.isArray(filteredComp) && (
+        ) : null}
+        {filteredComp.length > 0 ? (
           <WomenTab data={filteredComp[3]} {...props} />
-        )}
-        {Array.isArray(dashboardData[HomPageSections.BannerLiving]) && (
+        ) : null}
+        {dashboardData?.[HomPageSections.BannerLiving]?.length > 0 ? (
           <CommonCarousel
             {...props}
             data={dashboardData?.[HomPageSections.BannerLiving]}
@@ -283,7 +279,7 @@ export default function Dashbord(props) {
             height={200}
             customStyle={{margin: 20}}
           />
-        )}
+        ) : null}
         <YoutubeVideo />
         {loading ? (
           <View

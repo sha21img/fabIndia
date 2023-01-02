@@ -1,37 +1,41 @@
 import {
   View,
   Text,
-  ScrollView,
   FlatList,
   TouchableOpacity,
-  Image,
-  ImageBackground,
-  Dimensions,
+  Image
 } from 'react-native';
 import React from 'react';
-import {Styles} from './styles';
-import {useNavigation} from '@react-navigation/native';
-export default function Catagory({data}) {
+import { Styles } from './styles';
+import { useNavigation } from '@react-navigation/native';
+import FastImage from 'react-native-fast-image';
+
+export default function Catagory({ data }) {
   const navigation = useNavigation();
+
   const catagory = item => {
     return (
-      <>
-        <View style={Styles.mainContainer}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() =>
-              navigation.navigate(item.item.title, {title: item.item.title})
-            }
-            style={Styles.catagory}>
-            <Image
-              source={{uri: item?.item?.image?.split('?')[0] }}
-              style={Styles.imgDim}></Image>
-          </TouchableOpacity>
-          <Text style={Styles.catagoryText}>{item.item.title}</Text>
-        </View>
-      </>
+      <View key={item?.item?._id} style={Styles.mainContainer}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() =>
+            navigation.navigate(item.item.title, { title: item.item.title })
+          }>
+
+          <FastImage
+            style={Styles.imgDim}
+            source={{
+              uri: item?.item?.image?.split('?')[0],
+              priority: FastImage.priority.normal
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </TouchableOpacity>
+        <Text style={Styles.catagoryText}>{item.item.title}</Text>
+      </View>
     );
   };
+
   return (
     <FlatList
       contentContainerStyle={{
@@ -42,8 +46,7 @@ export default function Catagory({data}) {
       data={data}
       horizontal
       showsHorizontalScrollIndicator={false}
-      onEndReachedThreshold={0.1}
-      keyExtractor={(item, index) => index}
+      keyExtractor={(item) => item?.item?._id}
       renderItem={catagory}
     />
   );
