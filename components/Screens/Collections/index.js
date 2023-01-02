@@ -21,6 +21,7 @@ import Fonts from '../../../assets/fonts';
 import TopVideo from './TopVideo';
 import {getData} from '../../Common/Helper';
 import CommonCarousel from '../../Common/CommonCarousel';
+import CollectionTab from './CollectionTab';
 const width = Dimensions.get('window').width;
 
 const data = [
@@ -36,99 +37,22 @@ export default function Collections(props) {
   const [dashboardData, setDashboardData] = React.useState([]);
   const [filteredComp, setFilteredComp] = React.useState([]);
 
-  const CardCompo = item => {
-    return (
-      <>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            padding: 10,
-            backgroundColor: Colors.backgroundColor,
-          }}>
-          <Card
-            offer="20"
-            originalprice="1,000"
-            customViewStyle={{marginRight: 10}}
-          />
-          <Card customViewStyle={{marginRight: 10}} />
-        </ScrollView>
-      </>
-    );
-  };
-  // Tab 1
-  const screenObj = {
-    Dupattas: CardCompo,
-    Kurtas: CardCompo,
-    Saris: CardCompo,
-    Lehengas: CardCompo,
-  };
-  const dataMap = CollectionWomenData.map(item => ({
-    name: item,
-    screen: screenObj[item],
-  }));
-
-  const HomeScreen2 = item => {
-    return <ArCarousel data={data} width={width / 1.07} height={380} />;
-  };
-  const screenObj3 = {
-    Bestsellers: HomeScreen2,
-    Furniture: HomeScreen2,
-    'Games & Toys': HomeScreen2,
-  };
-  const dataMap2 = KidsTableData2.map(item => ({
-    name: item,
-    screen: screenObj3[item],
-  }));
-  const text = () => {
-    return (
-      <>
-        <View
-          style={{
-            backgroundColor: '#C57B31',
-            paddingVertical: 10,
-            paddingHorizontal: 15,
-            justifyContent: 'center',
-            alignItems: 'center',
-            alignSelf: 'center',
-            position: 'absolute',
-            bottom: '10%',
-          }}>
-          <Text
-            style={{
-              fontFamily: Fonts.PlayfairDisplay700,
-              fontSize: 30,
-              color: 'white',
-            }}>
-            AJRAKH
-          </Text>
-          <Text
-            style={{
-              fontFamily: Fonts.Assistant400,
-              fontSize: 22,
-              color: 'white',
-              marginTop: 5,
-            }}>
-            Celebrating Traditions
-          </Text>
-        </View>
-      </>
-    );
-  };
   const getSections = data => {
     var dataa = [];
     ShopByCollections.map(sectionId => {
       const filter = data.find(item => {
         return item.position == sectionId;
       });
-      console.log('filterfilterfilter', filter);
+      // console.log('filterfilterfilter', filter);
 
       dataa.push(filter?.components?.component[0]);
     });
     setFilteredComp(dataa);
   };
   const getInitialData = async () => {
-    const response = await getData('cms/pages?lang=en&curr=INR');
+    const response = await getData(
+      'cms/pages?pageType=ContentPage&pageLabelOrId=%2Fwedding&lang=en&curr=INR',
+    );
     setDashboardData(response.contentSlots.contentSlot);
     getSections(response.contentSlots.contentSlot);
   };
@@ -137,84 +61,102 @@ export default function Collections(props) {
   }, []);
   // console.log('1234560-98765432', filteredComp);
   const checkSwitch = param => {
+    // console.log('Checking switch', param?.typeCode);
     switch (param?.typeCode) {
       case 'FabResponsiveBannerCarouselComponent':
         return (
           <CommonCarousel
+            data={[
+              {
+                _id: '63ad97fdbcb1a02702f7bc02',
+                category: '63ad979cbcb1a02702f7bbfd',
+                categoryData: {
+                  Is_Active: true,
+                  Name: 'Banner Four',
+                  _id: '63ad979cbcb1a02702f7bbfd',
+                  createdAt: '2022-12-29T13:35:24.534Z',
+                  is_youtube: false,
+                  sortorder: '29',
+                  updatedAt: '2022-12-29T13:35:24.534Z',
+                },
+                categoryId: '63ad979cbcb1a02702f7bbfd',
+                categoryName: 'Banner Four',
+                createdAt: '2022-12-29T13:37:01.628Z',
+                image:
+                  'https://apisap.fabindiahome.com/medias/sys_master/root/hf7/hbd/9093790498846/wedding-sec1-mob-28oct22-1/wedding-sec1-mob-28oct22-1.jpg',
+                is_enable: true,
+                is_slider: true,
+                landingPage:
+                  ':creationtime-desc:allCategories:wedding:ibmCategories:Women:ibmCategories:Men:ibmCategories:Kids',
+                sortorder: 1,
+                title: 'Wedding Collection',
+                updatedAt: '2022-12-30T13:44:54.649Z',
+              },
+              {
+                _id: '63ad9820bcb1a02702f7bc07',
+                category: '63ad979cbcb1a02702f7bbfd',
+                categoryData: {
+                  Is_Active: true,
+                  Name: 'Banner Four',
+                  _id: '63ad979cbcb1a02702f7bbfd',
+                  createdAt: '2022-12-29T13:35:24.534Z',
+                  is_youtube: false,
+                  sortorder: '29',
+                  updatedAt: '2022-12-29T13:35:24.534Z',
+                },
+                categoryId: '63ad979cbcb1a02702f7bbfd',
+                categoryName: 'Banner Four',
+                createdAt: '2022-12-29T13:37:36.501Z',
+                image:
+                  'https://apisap.fabindiahome.com/medias/sys_master/root/h26/hb7/9093790695454/wedding-sec1-mob-28oct22-2/wedding-sec1-mob-28oct22-2.jpg',
+                is_enable: true,
+                is_slider: true,
+                landingPage: ':relevance:allCategories:wedding-home-living',
+                sortorder: 2,
+                title: 'Wedding Home & Living',
+                updatedAt: '2022-12-30T13:45:01.782Z',
+              },
+            ]}
+            width={width}
+            height={278}
             {...props}
-            data={param}
-            width={width / 1.07}
-            height={200}
-            customStyle={{margin: 20}}
+            // customStyle={{margin: 20}}
           />
         );
-      // case 'FabCmsLinkCarousalComponent':
-      //   return <Catagory data={param} {...props} />;
-      // case 'FabBannerCarouselComponent':
-      //   return (
-      //     <NewHighlights
-      //       {...props}
-      //       customStyle={{marginVertical: 20}}
-      //       bgColor={{backgroundColor: '#F3E0E0'}}
-      //       data={param}
-      //     />
-      //   );
-      // case 'FabBannerResponsiveCarouselComponent':
-      //   return (
-      //     <CommonCarousel
-      //       {...props}
-      //       data={param}
-      //       width={width / 1.07}
-      //       height={200}
-      //       customStyle={{margin: 20}}
-      //     />
-      //   );
-      // case 'FabCMSTabContainer':
-      //   return (
-      //     <>
-      //       <WomenTab data={param} {...props} />
-      //     </>
-      //   );
-      // case 'FabResponsiveBannerCarouselComponent':
-      //   return (
-      //     <CommonCarousel
-      //       {...props}
-      //       data={param}
-      //       width={width}
-      //       height={200}
-      //       customStyle={{margin: 20}}
-      //     />
-      //   );
-      // case 'FabTitleCMSTabParagraphContainer':
-      //   return (
-      //     <>
-      //       <Text
-      //         style={{
-      //           fontFamily: Fonts.PlayfairDisplay600Italic,
-      //           fontSize: 20,
-      //           paddingTop: 20,
-      //           color: Colors.textcolor,
-      //           marginLeft: 15,
-      //         }}>
-      //         Offers for you
-      //       </Text>
-      //       <OfferTab data={param} {...props} />
-      //     </>
-      //   );
-      // case 'SimpleResponsiveBannerComponent':
-      //   return <Interior data={param} {...props} />;
+      case 'FabCollectionBannerCarouselComponent':
+        return (
+          <KidsCards customStyle={{paddingTop: 20}} {...props} data={param} />
+        );
+      case 'FabCMSTabParagraphContainer':
+        return <CollectionTab {...props} data={param} />;
+      case 'FabCollectionSpaceBannerCarouselComponent':
+        return (
+          <KidsCards customStyle={{paddingTop: 20}} {...props} data={param} />
+        );
+      case 'FabWeddingPageSection7TabContainer':
+        return (
+          <>
+            <CollectionTab {...props} data={param} />
+          </>
+        );
       default:
         return;
     }
   };
   return (
     <>
-      <FlatList
-        contentContainerStyle={{flexGrow: 1, backgroundColor: '#FFFFFF'}}
-        data={filteredComp}
-        keyExtractor={(item, index) => index}
-        renderItem={item => checkSwitch(item.item)}
-      />
+      {filteredComp.length > 0 && (
+        <FlatList
+          contentContainerStyle={{
+            flexGrow: 1,
+            backgroundColor: '#FFFFFF',
+            paddingBottom: 20,
+          }}
+          data={filteredComp}
+          keyExtractor={(item, index) => index}
+          renderItem={item => checkSwitch(item.item)}
+        />
+      )}
       {/* <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
@@ -225,7 +167,7 @@ export default function Collections(props) {
          <TopVideo />
          <CommonTopTab data={dataMap} /> 
         <KidsCards customStyle={{paddingTop: 20}} />
-        <WomenCollection customStyle={{paddingVertical: 15}} />
+       
         <CommonTopTab data={dataMap} />
         <MenCollection customStyle={{paddingTop: 20}} />
         <CommonTopTab data={dataMap} />

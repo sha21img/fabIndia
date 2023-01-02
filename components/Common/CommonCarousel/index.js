@@ -16,6 +16,7 @@ import {Colors} from '../../../assets/Colors';
 export default function CommonCarousel(props) {
   const {data, width, height, customStyle = {}} = props;
   const newWidth = Dimensions.get('window').width;
+  // console.log('mmmmmmmmmmm', data);
   const [imgActive1, setImgActive1] = React.useState(0);
   const renderItem = ({item}) => {
     const newCode = item.landingPage;

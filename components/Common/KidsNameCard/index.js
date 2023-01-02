@@ -1,15 +1,37 @@
-import {View, Text, ImageBackground} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {image} from '../../../assets/images';
 import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
+import {imageURL, imageURL2} from '../Helper';
 
-export default function KidsNameCard({item, height, width}) {
+export default function KidsNameCard(props) {
+  const {item, height, width} = props;
+  console.log('qqqqqqqqqqqq', item);
+  const newSplitId = item.urlLink.split('/')[2];
+  console.log('newSplitIdaa', newSplitId);
   return (
-    <ImageBackground
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() =>
+        props.navigation.navigate('LandingPageSaris_Blouses', {
+          status: false,
+          title: newSplitId,
+          code: newSplitId,
+        })
+      }>
+      <Image
+        source={{uri: imageURL2 + item.media.url}}
+        style={{
+          width: height,
+          height: width,
+        }}
+      />
+    </TouchableOpacity>
+    /* <ImageBackground
       key={Math.random() * 777266}
       resizeMode="cover"
-      source={item.banner}
+      source={{uri: imageURL2 + item.media.url}}
       style={{
         width: height,
         height: width,
@@ -27,6 +49,6 @@ export default function KidsNameCard({item, height, width}) {
         }}>
         {item.title}
       </Text>
-    </ImageBackground>
+    </ImageBackground> */
   );
 }

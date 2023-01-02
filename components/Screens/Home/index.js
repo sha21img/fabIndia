@@ -4,7 +4,7 @@ import {
   BackHandler,
   Alert,
   View,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import Catagory from './Catagory';
@@ -63,7 +63,7 @@ export default function Dashbord(props) {
     console.log('cartId==>', cartId);
     cartId == null && getCartID();
   };
-  
+
   const generatTokenWithout = async () => {
     await axios
       .post(
@@ -121,12 +121,12 @@ export default function Dashbord(props) {
     BannerLiving: '63ad983cbcb1a02702f7bc10',
   };
   const getNewHomeData = async () => {
-    setLoading(true)
+    setLoading(true);
     const response = await axios.get(
       'http://159.89.164.11:3030/homepage/getForApp',
     );
     setDashboardData(response.data.data);
-    setLoading(false)
+    setLoading(false);
     // console.log('this is a eresponse of pageXOffset', response.data.data);
   };
   const getSections = data => {
@@ -148,7 +148,10 @@ export default function Dashbord(props) {
     getInitialData();
     getNewHomeData();
   }, []);
-
+  console.log(
+    'dashboardData?.[HomPageSections.NewInWomen]',
+    dashboardData?.[HomPageSections.NewInWomen],
+  );
   return (
     <>
       <ScrollView style={{backgroundColor: 'white'}}>
@@ -233,7 +236,6 @@ export default function Dashbord(props) {
         {Array.isArray(filteredComp) && (
           <WomenTab data={filteredComp[2]} {...props} />
         )}
-        {/* long card */}
         {Array.isArray(dashboardData[HomPageSections.offerWomen]) && (
           <OfferForYou
             isAdmin2={'isAdmin2'}
@@ -283,12 +285,22 @@ export default function Dashbord(props) {
           />
         )}
         <YoutubeVideo />
-        {loading ?
-          <View style={{ position: 'absolute', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', top: 0, bottom: 0, right: 0, left: 0, elevation: 0 }}>
+        {loading ? (
+          <View
+            style={{
+              position: 'absolute',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'white',
+              top: 0,
+              bottom: 0,
+              right: 0,
+              left: 0,
+              elevation: 0,
+            }}>
             <ActivityIndicator size="large" color={Colors.primarycolor} />
           </View>
-          : null
-        }
+        ) : null}
       </ScrollView>
     </>
   );
