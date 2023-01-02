@@ -22,8 +22,8 @@ export const Styles = StyleSheet.create({
   imgDim: {
     width: 70,
     height: 70,
-    elevation: 10,
-    borderRadius: 100,
+    borderRadius: 35,
+    backgroundColor: Colors.inAactivecolor
   },
   catagoryText: {
     textAlign: 'center',

@@ -1,38 +1,25 @@
 import {
-  View,
-  Text,
-  Dimensions,
-  ImageBackground,
-  TouchableOpacity,
-  Button,
+  TouchableOpacity
 } from 'react-native';
 import React from 'react';
-const width = Dimensions.get('window').width;
+import FastImage from 'react-native-fast-image';
 
 export default function Interior(props) {
-  const {data = {}} = props;
-  // console.log('thisthishtishtishs Interior', data[0]);
+  const { data = {} } = props;
+
   return (
     <TouchableOpacity
-      style={{marginVertical: 15}}
+      style={{ margin: 16, marginBottom: 0 }}
       onPress={() => props.navigation.navigate('InteriorCatagory')}>
-      <ImageBackground
-        resizeMode="stretch"
-        style={{width: '100%', height: 200}}
-        source={{uri: data[0]?.image.split('?')[0]}}>
-        {/* source={image.interiorBackground}>
-        {/* <View style={Styles.thoughtBox}>
-        <Text style={Styles.thoughtText}>Build your sanctuary</Text>
-      </View>
-      <View style={Styles.headingBox}>
-        <Text style={Styles.headingText}>INTERIOR DESIGN</Text>
-        <Text style={Styles.headingText1}>Solutions</Text>
-      </View>
-      <TouchableOpacity style={Styles.buttonBox}>
-        <Text style={Styles.buttonText}>Get in touch with us</Text>
-      </TouchableOpacity> */}
-        {/* </ImageBackground> */}
-      </ImageBackground>
+
+      <FastImage
+        style={{ height: 200 }}
+        source={{
+          uri: data[0]?.image.split('?')[0],
+          priority: FastImage.priority.normal
+        }}
+      // resizeMode={FastImage.resizeMode.contain}
+      />
     </TouchableOpacity>
   );
 }

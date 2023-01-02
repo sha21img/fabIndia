@@ -1,91 +1,61 @@
 import {
-  ImageBackground,
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Dimensions,
+  View
 } from 'react-native';
-import React, {useEffect} from 'react';
-// import Carousel from 'react-native-reanimated-carousel';
-import Carousel from 'react-native-snap-carousel';
-import {Styles} from './styles';
-import {getComponentData, imageURL} from '../Helper';
-import LinearGradient from 'react-native-linear-gradient';
-import {Colors} from '../../../assets/Colors';
+import React, { useEffect } from 'react';
+import { Colors } from '../../../assets/Colors';
+import { SliderBox } from 'react-native-image-slider-box';
+import FastImage from 'react-native-fast-image';
+
 export default function CommonCarousel(props) {
-  const {data, width, height, customStyle = {}} = props;
-  const newWidth = Dimensions.get('window').width;
-  const [imgActive1, setImgActive1] = React.useState(0);
-  const renderItem = ({item}) => {
-    const newCode = item.landingPage;
-    // console.log('itemImage==>', item)
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          if (newCode.includes('giftcard')) {
-          } else {
-            props.navigation.navigate('LandingPageSaris_Blouses', {
-              code: newCode,
-              title: item.title || 'Gift Sets',
-              isAdmin2: 'isAdmin2',
-            });
-          }
-        }}
-        activeOpacity={0.8}>
-        <ImageBackground
-          resizeMode="stretch"
-          key={Math.random() * 1099900}
-          style={{
-            flex: 1,
-            height: height,
-            width: !!item.image ? width : newWidth,
-            resizeMode: 'contain',
-          }}
-          source={{uri: item.image.split('?')[0]}}></ImageBackground>
-      </TouchableOpacity>
-    );
+  const { data, width, height, customStyle = {} } = props;
+  const [carouselData, setCarouselData] = React.useState([]);
+
+  const getCarauselImages = async () => {
+    let images = [];
+    for (let i = 0; i < data.length; i++) {
+      const item = data[i];
+      images.push(item?.image?.split('?')[0]);
+    }
+    setCarouselData(images);
   };
+
+  useEffect(() => {
+    if (props?.data?.length) {
+      getCarauselImages();
+    }
+  }, [props.data]);
+
+  const onImagePressed = (curr) => {
+    const filteredObj = data.find((item, index) => {
+      return curr == index;
+    });
+
+    const newCode = filteredObj.landingPage;
+    if (newCode.includes('giftcard')) {
+    } else {
+      props.navigation.navigate('LandingPageSaris_Blouses', {
+        code: newCode,
+        title: filteredObj.title || 'Gift Sets',
+        isAdmin2: 'isAdmin2',
+      });
+    }
+  }
+
   return (
-    <>
-      <View
-        style={[
-          {alignItems: 'center', backgroundColor: '#FFFFFF'},
-          customStyle,
-        ]}>
-        <Carousel
-          autoplay
-          loop
-          data={data}
-          renderItem={renderItem}
-          autoPlayInterval={3000}
-          sliderWidth={width}
-          itemWidth={width}
-          itemHeight={height}
-          sliderHeight={height}
-          onSnapToItem={index => setImgActive1(index)}
-        />
-        <View
-          style={{
-            width: '100%',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginTop: 5,
-          }}>
-          {Array.isArray(data) &&
-            data?.map((item, index) => (
-              <Text
-                key={Math.random() * 1099900}
-                style={
-                  imgActive1 == index
-                    ? {color: Colors.primarycolor}
-                    : {color: '#E5E5E5'}
-                }>
-                ●
-              </Text>
-            ))}
-        </View>
-      </View>
-    </>
+    <View style={{ marginBottom: 30, marginTop: 16 }}>
+      <SliderBox
+        // circleLoop={true}
+        sliderBoxHeight={height}
+        images={carouselData}
+        ImageComponent={FastImage}
+        inactiveDotColor="#90A4AE"
+        dotColor={Colors.primarycolor}
+        // resizeMode={"contain"}
+        ImageComponentStyle={{ width: width, height: height }}
+        pagingEnabled={Platform.select({ android: true })}
+        dotStyle={{ top: 25, width: 8, height: 8, borderRadius: 5, marginHorizontal: -10 }}
+        onCurrentImagePressed={curr => onImagePressed(curr)}
+      />
+    </View>
   );
 }

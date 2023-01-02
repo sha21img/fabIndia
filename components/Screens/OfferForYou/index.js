@@ -1,14 +1,14 @@
-import {View, Text, TouchableOpacity, Image} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {Colors} from '../../../assets/Colors';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Colors } from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {useNavigation} from '@react-navigation/native';
-import {numberOfLines} from 'deprecated-react-native-prop-types/DeprecatedTextInputPropTypes';
-import {ScrollView} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { numberOfLines } from 'deprecated-react-native-prop-types/DeprecatedTextInputPropTypes';
+import { ScrollView } from 'react-native';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -26,7 +26,7 @@ export default function OfferForYou({
     return (
       <ScrollView
         horizontal
-        style={{backgroundColor: 'white'}}
+        style={{ backgroundColor: 'white' }}
         showsHorizontalScrollIndicator={false}>
         {Array.isArray(obj) &&
           obj.map(item => {
@@ -45,7 +45,7 @@ export default function OfferForYou({
                   marginRight: 10,
                 }}>
                 <Image
-                  style={{height: 128, width: 192, resizeMode: 'contain'}}
+                  style={{ height: 128, width: 192, resizeMode: 'contain' }}
                   source={{
                     uri: item?.image?.split('?')[0],
                   }}
@@ -57,29 +57,27 @@ export default function OfferForYou({
     );
   };
 
-  const data = [
-    {
-      title: Array.isArray(dataWomen) && dataWomen[0]?.categoryName,
-      Card,
-      data: dataWomen,
-    },
-
-    {
-      title: Array.isArray(dataMen) && dataMen[0]?.categoryName,
-      Card,
-      data: dataMen,
-    },
-    {
-      title: Array.isArray(dataKids) && dataKids[0]?.categoryName,
-      Card,
-      data: dataKids,
-    },
-    {
-      title: Array.isArray(dataHome) && dataHome[0]?.categoryName,
-      Card,
-      data: dataHome,
-    },
-  ];
+  const data = [{
+    title: Array.isArray(dataWomen) && dataWomen[0]?.categoryName,
+    data: dataWomen,
+    selected: true,
+    Card,
+  }, {
+    title: Array.isArray(dataMen) && dataMen[0]?.categoryName,
+    data: dataMen,
+    selected: false,
+    Card,
+  }, {
+    title: Array.isArray(dataKids) && dataKids[0]?.categoryName,
+    data: dataKids,
+    selected: false,
+    Card,
+  }, {
+    title: Array.isArray(dataHome) && dataHome[0]?.categoryName,
+    data: dataHome,
+    selected: false,
+    Card,
+  }];
 
   return (
     <>
@@ -93,6 +91,34 @@ export default function OfferForYou({
         }}>
         Offers for you
       </Text>
+
+      {/* <View style={{ flexDirection: 'row', paddingLeft: 16 }}>
+        {offerTabs.map((item, index) => {
+          return (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                let tabs = offerTabs
+                for (let i = 0; i < tabs.length; i++) {
+                  const element = tabs[i];
+                  // if(element.selected == item.selected)
+                  if (i === index) {
+                    element.selected = true
+                  }
+                  else {
+                    element.selected = false
+                  }
+                  tabs[i] = element
+
+                }
+              }}
+              style={{ paddingVertical: 5, marginRight: 16, borderBottomWidth: 2, borderBottomColor: item.selected ? Colors.primarycolor : 'transparent' }}>
+              <Text>{item.title}</Text>
+            </TouchableOpacity>
+          )
+        })}
+      </View> */}
+
       <NavigationContainer independent={true}>
         {Object.entries(data).length && data[0]?.title && (
           <Tab.Navigator
@@ -125,12 +151,12 @@ export default function OfferForYou({
                           setActive(Math.random());
                         },
                       }}
-                      options={({route, navigation}) => ({
+                      options={({ route, navigation }) => ({
                         tabBarItemStyle: {
                           width: data.length > 1 ? 'auto' : null,
                         },
                         unmountOnBlur: true,
-                        tabBarLabel: ({focused}) => {
+                        tabBarLabel: ({ focused }) => {
                           return (
                             <TouchableOpacity
                               style={{
