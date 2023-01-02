@@ -6,6 +6,7 @@ import CommonTopTab from '../../../../Common/CommonTopTab';
 import CongratulationModal from './CongratulationsModal';
 import ThankYouModal from './ThankYouModal';
 import YourCardAndBenefits from './YourCardAndBenefits';
+
 // import ProgressBar from 'react-native-progress/Bar';
 // import { image } from '../../../../../assets/images';
 // import { Styles } from './styles';
