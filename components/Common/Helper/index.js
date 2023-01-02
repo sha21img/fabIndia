@@ -28,6 +28,7 @@ const generatTokenWithout = async () => {
         const tokenGenerate = {...response.data, isCheck: false};
         console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
         AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+        getCartID()
       },
       error => {
         console.log('response-=-=-=-=-=-error', error);
