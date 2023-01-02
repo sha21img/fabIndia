@@ -22,7 +22,7 @@ function YourReferrals(props, item) {
   const getReferal = async () => {
     const token = await AsyncStorage.getItem('fabToken');
     const parseToken = JSON.parse(token);
-    console.log('JSON.parse(token)', parseToken);
+    // console.log('JSON.parse(token)', parseToken);
     console.log('referCodereferCodereferCode.parse(token)', referCode);
 
     const response = await axios
