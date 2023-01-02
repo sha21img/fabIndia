@@ -17,10 +17,9 @@ export default function Card4(props) {
   //   'items wwwwwwwwwwwwwwwwwwwwwwwoooooooooooooooooooooommmmmmmmmmmmmmmmeeeeeeeeeeeeeeeeennnnnnnnnnnnn',
   //   items.code,
   // );
-  console.log('items    atattatatata dataadatadatra', items);
   const discountPrice =
     100 - (items.priceAfterDiscount?.value / items?.price?.value) * 100;
-  console.log('discountPrice', discountPrice);
+  // console.log('discountPrice', discountPrice);
   const defaultViewCustomStyles = {
     width: 192,
     elevation: 1,

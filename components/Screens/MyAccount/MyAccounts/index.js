@@ -10,7 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
-import {AuthBaseUrl2, BaseURL2, logout} from '../../../Common/Helper';
+import {AuthBaseUrl2, BaseURL2, getCartID, logout} from '../../../Common/Helper';
 import {CommonActions} from '@react-navigation/native';
 
 const pages = [
@@ -106,6 +106,7 @@ const MyAccounts = props => {
           const tokenGenerate = {...response.data, isCheck: false};
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          getCartID()
         },
         error => {
           console.log('response-=-=-=-=-=-error', error);

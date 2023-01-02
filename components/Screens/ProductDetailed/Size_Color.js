@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   Image,
+  Dimensions,
   TouchableOpacity,
   TextInput,
 } from 'react-native';
@@ -24,6 +25,8 @@ export default function Size_Color({
   productId,
   sendCount,
   imageUrlCheck,
+  SelectText,
+  setSelectText,
   getColorProductId = null,
   getImageData = null,
 }) {
@@ -36,19 +39,21 @@ export default function Size_Color({
   const [measure, setMeasure] = useState('inches');
   const [Stock, setStock] = useState(0);
   const [color, setColor] = useState({
-    productCode: imageUrlCheck?.code,
+    productCode: false,
     stock: 10,
     color:
       productdetail.baseOptions[0].selected.variantOptionQualifiers[0].value,
   });
   const [modalVisible, setModalVisible] = useState(false);
+  const width = Dimensions.get('window').width;
+
   // const freeSize = productdetail?.baseOptions[0]?.options[0]?.variantOptionQualifiers[1]?.value;
   const SizeHeader = [
-    {value: 'Size'},
-    {value: 'Bust'},
-    {value: 'Across Shoulder'},
-    {value: 'Waist'},
-    {value: 'Length'},
+    {value: 'Fabindia Size'},
+    {value: 'To fit Shoulder'},
+    {value: 'To fit Chest'},
+    {value: 'To fit Waist'},
+    {value: 'To fit Hip'},
   ];
 
   openSize = () => setModalVisible(true);
@@ -58,9 +63,9 @@ export default function Size_Color({
     }
   }, [productdetail]);
 
-  useEffect(() => {
-    getColorProductId(imageUrlCheck?.code);
-  }, []);
+  // useEffect(() => {
+  //   getColorProductId(imageUrlCheck?.code);
+  // }, []);
 
   const sizefilter = () => {
     let arrayData = [];
@@ -138,6 +143,7 @@ export default function Size_Color({
     setColor(a);
     getColorProductId(item.productCode);
     getImageData(item.productCode);
+    setSelectText(false);
     setfinalData(item);
   };
 
@@ -224,8 +230,10 @@ export default function Size_Color({
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={Styles.btnBox}>
         {filterData?.map((item, index) => {
-          // console.log(item, '///llllllll/0000000000000000000000/?');
-
+          console.log(
+            'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitem=-0==0',
+            item,
+          );
           return (
             <>
               <TouchableOpacity
@@ -233,7 +241,9 @@ export default function Size_Color({
                   StockSubmit(item);
                 }}
                 style={
-                  item.size == size.size ? Styles.activeBtn : Styles.inActiveBtn
+                  item.size == size.size || item.size == 'Free Size'
+                    ? Styles.activeBtn
+                    : Styles.inActiveBtn
                 }>
                 <Text
                   style={
@@ -248,12 +258,24 @@ export default function Size_Color({
           );
         })}
       </ScrollView>
-      <Text style={Styles.leftTxt}>
-        {Stock < 6
-          ? size.length || Object.keys(size).length
-            ? ` Only ${Stock}  Left`
-            : ''
-          : null}
+      {Stock < 6 ? (
+        <Text style={Styles.leftTxt}>
+          {Stock < 6
+            ? size.length || Object.keys(size).length
+              ? ` Only ${Stock}  Left`
+              : ''
+            : null}
+        </Text>
+      ) : null}
+
+      <Text
+        style={{
+          color: '#db0002',
+          fontFamily: Fonts.Assistant400,
+          fontSize: 16,
+          paddingHorizontal: 15,
+        }}>
+        {SelectText ? 'Please select size' : null}
       </Text>
 
       <View style={{marginVertical: 15, marginHorizontal: 15}}>
@@ -418,92 +440,93 @@ export default function Size_Color({
                 </TouchableOpacity>
               </View>
             </View>
-
-            <View style={[Styles.chipContainer]}>
-              <View
-                style={{
-                  // flex: 1,
-                  alignSelf: 'stretch',
-                  flexDirection: 'row',
-                  paddingLeft: 15,
-                }}>
-                {SizeHeader.map(item => {
-                  return (
-                    <View style={{alignSelf: 'stretch', flex: 1}}>
-                      <Text
+            {/*  */}
+            <ScrollView horizontal>
+              <View style={[Styles.chipContainer]}>
+                <View
+                  style={{
+                    // flex: 1,
+                    flexDirection: 'row',
+                  }}>
+                  {SizeHeader.map(item => {
+                    return (
+                      <View
                         style={{
-                          fontSize: 14,
-                          color: '#4A4A4A',
-                          fontFamily: Fonts.Assistant400,
+                          width: width / 4,
+                          alignItems: 'center',
+                          borderWidth: 0.3,
+                          paddingVertical: 10,
+                          backgroundColor:'#F6F6F6'
                         }}>
-                        {item.value}
-                      </Text>
-                    </View>
-                  );
-                })}
-              </View>
+                        <Text
+                          style={{
+                            fontSize: 14,
+                            color: '#4A4A4A',
+                            fontFamily: Fonts.Assistant400,
+                          }}>
+                          {item.value}
+                        </Text>
+                      </View>
+                    );
+                  })}
+                </View>
 
-              {productdetail?.sizeChart?.entryMap.map(item => {
-                return (
-                  <ScrollView>
+                {productdetail?.sizeChart?.entryMap.map(item => {
+                  return (
                     <View>
                       {item.value.entries.map(el => {
                         if (item.key == measure) {
                           return (
-                            <>
-                              <View
-                                style={{
-                                  flexDirection: 'row',
-                                }}>
-                                {el.entries.map(elem => {
-                                  return (
-                                    <View
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                              }}>
+                              {el.entries.map(elem => {
+                                console.log('elemmmmmmmmmmmmmmmmmmmm', elem);
+                                return (
+                                  <View
+                                    style={{
+                                      // alignSelf: 'center',
+                                      flexDirection: 'row',
+                                      width: width / 4,
+                                      justifyContent: 'center',
+                                      paddingVertical: 10,
+                                      borderWidth: 0.3,
+                                    }}>
+                                    <Text
                                       style={{
-                                        flex: 1,
-                                        alignSelf: 'stretch',
-                                        flexDirection: 'row',
-                                        paddingLeft: 15,
+                                        fontFamily: Fonts.Assistant700,
+                                        fontSize: 16,
                                       }}>
-                                      <View
-                                        style={{flex: 1, alignSelf: 'stretch'}}>
-                                        <Text
-                                          style={{
-                                            fontFamily: Fonts.Assistant700,
-                                            fontSize: 16,
-                                          }}>
-                                          {elem.value}
-                                        </Text>
-                                      </View>
-                                    </View>
-                                  );
-                                })}
-                              </View>
-                            </>
+                                      {elem.value}
+                                    </Text>
+                                  </View>
+                                );
+                              })}
+                            </View>
                           );
                         }
                       })}
                     </View>
-
-                    {/* <TouchableOpacity style={Styles.chipInActive}>
-                      <Text style={Styles.chipTextActive}>{item}</Text>
-                    </TouchableOpacity> */}
-                  </ScrollView>
-                );
-              })}
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginTop: 20,
-                }}>
-                <Image
-                  source={{
-                    uri: `${imageURL}${productdetail?.sizeChart?.image?.url}`,
-                  }}
-                  style={{height: 300, width: 300}}
-                  resizeMode="contain"
-                />
+                  );
+                })}
               </View>
+            </ScrollView>
+
+            {/*  */}
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 20,
+              }}>
+              <Image
+                source={{
+                  uri: `${imageURL}${productdetail?.sizeChart?.image?.url}`,
+                }}
+                style={{height: 300, width: 300}}
+                resizeMode="contain"
+              />
             </View>
           </View>
         </View>
@@ -527,7 +550,7 @@ const Styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
-    height: '85%',
+    // height: '85%',
   },
   headingBox: {
     flexDirection: 'row',
