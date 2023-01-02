@@ -59,7 +59,7 @@ export default function CategorySection(props) {
           ],
           title: 'New Arrivals',
           image:
-            'https://static.vecteezy.com/system/resources/previews/005/050/576/non_2x/abstract-background-banner-with-color-creative-digital-light-modern-free-vector.jpg',
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -241,7 +241,7 @@ export default function CategorySection(props) {
           ],
           title: 'Women',
           image:
-            'https://static.vecteezy.com/system/resources/previews/005/050/576/non_2x/abstract-background-banner-with-color-creative-digital-light-modern-free-vector.jpg',
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -348,7 +348,7 @@ export default function CategorySection(props) {
           ],
           title: 'Men',
           image:
-            'https://static.vecteezy.com/system/resources/previews/005/050/576/non_2x/abstract-background-banner-with-color-creative-digital-light-modern-free-vector.jpg',
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -510,7 +510,7 @@ export default function CategorySection(props) {
           ],
           title: 'Kids',
           image:
-            'https://static.vecteezy.com/system/resources/previews/005/050/576/non_2x/abstract-background-banner-with-color-creative-digital-light-modern-free-vector.jpg',
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -807,7 +807,7 @@ export default function CategorySection(props) {
           ],
           title: 'Home & Living',
           image:
-            'https://static.vecteezy.com/system/resources/previews/005/050/576/non_2x/abstract-background-banner-with-color-creative-digital-light-modern-free-vector.jpg',
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -979,7 +979,7 @@ export default function CategorySection(props) {
           ],
           title: 'Furniture',
           image:
-            'https://static.vecteezy.com/system/resources/previews/005/050/576/non_2x/abstract-background-banner-with-color-creative-digital-light-modern-free-vector.jpg',
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -1171,7 +1171,7 @@ export default function CategorySection(props) {
           ],
           title: 'Personal Care',
           image:
-            'https://static.vecteezy.com/system/resources/previews/005/050/576/non_2x/abstract-background-banner-with-color-creative-digital-light-modern-free-vector.jpg',
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
         {
           children: [
@@ -1318,7 +1318,7 @@ export default function CategorySection(props) {
           ],
           title: 'Food',
           image:
-            'https://static.vecteezy.com/system/resources/previews/005/050/576/non_2x/abstract-background-banner-with-color-creative-digital-light-modern-free-vector.jpg',
+            'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
         },
       ],
       children: [],
@@ -1329,8 +1329,8 @@ export default function CategorySection(props) {
       children: [
         {
           children: [],
-          title: 'Collections',
-          landingPage: 'Collections',
+          title: 'Wedding',
+          landingPage: '/wedding',
         },
         {
           children: [],

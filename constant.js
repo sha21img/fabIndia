@@ -865,3 +865,30 @@ export const FabFamilyTabData = [
   'Membership',
   'Refer a friend',
 ];
+// Section1=FabResponsiveBannerCarouselComponent
+//Section2=FabCollectionBannerCarouselComponent
+// Section3=FabCMSTabParagraphContainer
+// Section4=FabCollectionSpaceBannerCarouselComponent
+//Section5=FabCMSTabParagraphContainer
+// Section6=FabCollectionBannerCarouselComponent
+
+//Section7=FabWeddingPageSection7TabContainer
+// Section8=FabCollectionBannerCarouselComponent
+// Section9=FabCMSTabParagraphContainer
+// 10=blank
+// Section11=FabCollectionBannerCarouselComponent
+// Section12=FabCMSTabParagraphContainer
+// Section13=blank
+export const ShopByCollections = [
+  'Section1',
+  'Section2',
+  'Section3',
+  'Section4',
+  'Section5',
+  'Section6',
+  // 'Section7',
+  // 'Section8',
+  // 'Section9',
+  // 'Section11',
+  // 'Section12',
+];

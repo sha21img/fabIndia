@@ -1,8 +1,12 @@
-import {View, Text, ScrollView, Dimensions} from 'react-native';
+import {View, Text, ScrollView, Dimensions, FlatList} from 'react-native';
 import React from 'react';
 import WomenCollection from './WomenCollection';
 import {Colors} from '../../../assets/Colors';
-import {CollectionWomenData, KidsTableData2} from '../../../constant';
+import {
+  CollectionWomenData,
+  KidsTableData2,
+  ShopByCollections,
+} from '../../../constant';
 import CommonTopTab from '../../Common/CommonTopTab';
 import Card from '../../Common/Card';
 import KidsCards from './KidsCards';
@@ -15,6 +19,8 @@ import {image} from '../../../assets/images';
 import Videos from '../../Common/Videos';
 import Fonts from '../../../assets/fonts';
 import TopVideo from './TopVideo';
+import {getData} from '../../Common/Helper';
+import CommonCarousel from '../../Common/CommonCarousel';
 const width = Dimensions.get('window').width;
 
 const data = [
@@ -26,7 +32,10 @@ const data = [
   },
 ];
 
-export default function Collections() {
+export default function Collections(props) {
+  const [dashboardData, setDashboardData] = React.useState([]);
+  const [filteredComp, setFilteredComp] = React.useState([]);
+
   const CardCompo = item => {
     return (
       <>
@@ -106,18 +115,117 @@ export default function Collections() {
       </>
     );
   };
+  const getSections = data => {
+    var dataa = [];
+    ShopByCollections.map(sectionId => {
+      const filter = data.find(item => {
+        return item.position == sectionId;
+      });
+      console.log('filterfilterfilter', filter);
+
+      dataa.push(filter?.components?.component[0]);
+    });
+    setFilteredComp(dataa);
+  };
+  const getInitialData = async () => {
+    const response = await getData('cms/pages?lang=en&curr=INR');
+    setDashboardData(response.contentSlots.contentSlot);
+    getSections(response.contentSlots.contentSlot);
+  };
+  React.useEffect(() => {
+    getInitialData();
+  }, []);
+  // console.log('1234560-98765432', filteredComp);
+  const checkSwitch = param => {
+    switch (param?.typeCode) {
+      case 'FabResponsiveBannerCarouselComponent':
+        return (
+          <CommonCarousel
+            {...props}
+            data={param}
+            width={width / 1.07}
+            height={200}
+            customStyle={{margin: 20}}
+          />
+        );
+      // case 'FabCmsLinkCarousalComponent':
+      //   return <Catagory data={param} {...props} />;
+      // case 'FabBannerCarouselComponent':
+      //   return (
+      //     <NewHighlights
+      //       {...props}
+      //       customStyle={{marginVertical: 20}}
+      //       bgColor={{backgroundColor: '#F3E0E0'}}
+      //       data={param}
+      //     />
+      //   );
+      // case 'FabBannerResponsiveCarouselComponent':
+      //   return (
+      //     <CommonCarousel
+      //       {...props}
+      //       data={param}
+      //       width={width / 1.07}
+      //       height={200}
+      //       customStyle={{margin: 20}}
+      //     />
+      //   );
+      // case 'FabCMSTabContainer':
+      //   return (
+      //     <>
+      //       <WomenTab data={param} {...props} />
+      //     </>
+      //   );
+      // case 'FabResponsiveBannerCarouselComponent':
+      //   return (
+      //     <CommonCarousel
+      //       {...props}
+      //       data={param}
+      //       width={width}
+      //       height={200}
+      //       customStyle={{margin: 20}}
+      //     />
+      //   );
+      // case 'FabTitleCMSTabParagraphContainer':
+      //   return (
+      //     <>
+      //       <Text
+      //         style={{
+      //           fontFamily: Fonts.PlayfairDisplay600Italic,
+      //           fontSize: 20,
+      //           paddingTop: 20,
+      //           color: Colors.textcolor,
+      //           marginLeft: 15,
+      //         }}>
+      //         Offers for you
+      //       </Text>
+      //       <OfferTab data={param} {...props} />
+      //     </>
+      //   );
+      // case 'SimpleResponsiveBannerComponent':
+      //   return <Interior data={param} {...props} />;
+      default:
+        return;
+    }
+  };
   return (
     <>
-      <ScrollView
+      <FlatList
+        contentContainerStyle={{flexGrow: 1, backgroundColor: '#FFFFFF'}}
+        data={filteredComp}
+        keyExtractor={(item, index) => index}
+        renderItem={item => checkSwitch(item.item)}
+      />
+      {/* <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           backgroundColor: Colors.backgroundColor,
           paddingBottom: 20,
+          flexGrow: 1,
         }}>
-        <TopVideo />
-        <WomenCollection customStyle={{paddingVertical: 15}} />
-        <CommonTopTab data={dataMap} />
+         <TopVideo />
+         <CommonTopTab data={dataMap} /> 
         <KidsCards customStyle={{paddingTop: 20}} />
+        <WomenCollection customStyle={{paddingVertical: 15}} />
         <CommonTopTab data={dataMap} />
         <MenCollection customStyle={{paddingTop: 20}} />
         <CommonTopTab data={dataMap} />
@@ -144,8 +252,8 @@ export default function Collections() {
         <FurnitureCollection customStyle={{marginTop: 10}} />
         <CommonTopTab data={dataMap} />
 
-        <CommonTopTab data={dataMap2} />
-      </ScrollView>
+        <CommonTopTab data={dataMap2} /> 
+      </ScrollView> */}
     </>
   );
 }
