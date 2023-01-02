@@ -110,8 +110,8 @@ export default function AccordianMenu(props) {
         );
       case 'Shop By Collection':
         return (
-          <Ionicons
-            name="ios-grid-outline"
+          <MaterialIcons
+            name="shop-two"
             size={20}
             color={Colors.primarycolor}
           />

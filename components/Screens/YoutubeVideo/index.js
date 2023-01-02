@@ -4,7 +4,7 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 
 function YoutubeVideo() {
   return (
-    <View style={{}}>
+    <View style={{ paddingBottom: 20 }}>
       <YoutubePlayer
         webViewStyle={{opacity: 0.99}}
         height={220}

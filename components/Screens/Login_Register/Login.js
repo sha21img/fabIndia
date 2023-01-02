@@ -313,7 +313,7 @@ export default function Login(props) {
               keyboardType="numeric"
               style={{
                 backgroundColor: '#fff',
-                height: 35,
+                height: 40,
                 textAlign: 'center',
                 borderBottomColor: Colors.inactiveicon,
                 borderBottomWidth: 1,
@@ -623,7 +623,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'white',
     fontSize: 18,
     color: 'black',
-    height: 20,
+    height: 40,
     backgroundColor: 'white',
     width: '100%',
   },
