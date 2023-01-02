@@ -22,6 +22,7 @@ function AlreadyMember(props) {
   const [loyalityTier, setLoyalityTier] = useState({});
   const [userDetail, setUserDetail] = useState(null);
   const [loyalityPoints, setLoyalityPoints] = useState({});
+  const [transactionDetail, setTransactionDetail] = useState([]);
 
   const getLoyalityPoints = async () => {
     const get = await AsyncStorage.getItem('generatToken');
@@ -65,7 +66,7 @@ function AlreadyMember(props) {
   const getTransactionDetail = async () => {
     const token = await AsyncStorage.getItem('fabToken');
     const parseToken = JSON.parse(token);
-    console.log('JSON.parse(token)', parseToken);
+    // console.log('JSON.parse(token)', parseToken);
     console.log('referCodereferCodereferCode.parse(token)', referCode);
 
     const response = await axios
@@ -82,6 +83,7 @@ function AlreadyMember(props) {
           'poiuyf12345678 for transaction detail in fabfamily',
           response.data,
         );
+        setTransactionDetail(response.data);
       })
       .catch(error => {
         console.log('profile detail error', error.response.data);
@@ -128,6 +130,7 @@ function AlreadyMember(props) {
     referCode: referCode,
     loyalityTier: loyalityTier,
     loyalityPoints: loyalityPoints,
+    transactionDetail: transactionDetail,
     userDetail: userDetail,
     title: item,
     card: screenObj[item],
