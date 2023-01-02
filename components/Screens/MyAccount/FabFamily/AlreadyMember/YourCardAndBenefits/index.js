@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, ScrollView, Image} from 'react-native';
+import {View, Text, ScrollView, Image, Dimensions} from 'react-native';
 import {Styles} from './styles';
 import {image} from '../../../../../../assets/images';
 import ProgressBar from 'react-native-progress/Bar';
@@ -11,8 +11,9 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 function YourCardAndBenefits(props, item) {
-  const {loyalityTier} = item;
+  const {loyalityTier, transactionDetail} = item;
   console.log('item loyality tier props', loyalityTier);
+  // const width=
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -121,6 +122,14 @@ function YourCardAndBenefits(props, item) {
             customViewStyle={Styles.buttonTwo}
           />
         </View>
+        <View style={{flexDirection: 'row'}}></View>
+        {transactionDetail.map(item => {
+          return (
+            <>
+              <Text>ihu</Text>
+            </>
+          );
+        })}
       </View>
     </ScrollView>
   );
