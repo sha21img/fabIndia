@@ -110,8 +110,9 @@ export default function AccordianMenu(props) {
         );
       case 'Shop By Collection':
         return (
+          // <></>
           <MaterialIcons
-            name="shop-two"
+            name="collections-bookmark"
             size={20}
             color={Colors.primarycolor}
           />
