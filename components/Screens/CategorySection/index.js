@@ -1329,8 +1329,8 @@ export default function CategorySection(props) {
       children: [
         {
           children: [],
-          title: 'Wedding',
-          landingPage: '/wedding',
+          title: 'Collections',
+          landingPage: 'Collections',
         },
         {
           children: [],

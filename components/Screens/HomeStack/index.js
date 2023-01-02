@@ -241,13 +241,11 @@ export default function HomeStack() {
         component={Collections}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Collections"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-              }}
+            <HomeHeader
+              searchVisible={null}
+              {...props}
+              showWishlist={false}
+              middleHeader="Address"
             />
           ),
         }}
@@ -424,6 +422,7 @@ export default function HomeStack() {
           ),
         }}
       />
+
       <Stack.Screen
         name="LandingPageDiningTable"
         component={LandingPageDiningTable}
