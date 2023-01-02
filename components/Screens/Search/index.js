@@ -10,17 +10,18 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Colors } from '../../../assets/Colors';
 import { Styles } from './styles';
-import { useDebounce } from '../../../constant';
 import axios from 'axios';
 import Fonts from '../../../assets/fonts';
 import NoResultFound from './NoResultFound';
 import { BaseURL2 } from '../../Common/Helper';
+import NewArrivals from './NewArrivals';
 
 export default function Search(props) {
   const [text, setText] = React.useState('');
-  const debouncedText = useDebounce(text);
   const [filterProduct, setFilterProduct] = useState([]);
   const [suggestedProduct, setSuggestedProduct] = useState([]);
+  const [menNewArrivals, setMenNewArrivals] = useState([]);
+  const [womenNewArrivals, setWomenNewArrivals] = useState([]);
 
   const getProductSearchData = async () => {
     const response = await axios.get(
@@ -38,12 +39,43 @@ export default function Search(props) {
     setSuggestedProduct(response.data.suggestions);
   };
 
+  const getWomenNewArrivals = async () => {
+    const fields = 'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
+    const query = ':relevance:allCategories:new-women-products'
+
+    await axios.get(`${BaseURL2}/products/search?fields=${fields}&query=${query}&pageSize=5&lang=en&curr=INR`,
+    ).then((res) => {
+      // console.log('womenNewArrivals==>', JSON.stringify(res.data));
+      setWomenNewArrivals(res?.data?.products);
+    }).catch((err) => {
+      console.log('err==>', err.response);
+    })
+  };
+
+  const getMenNewArrivals = async () => {
+    const fields = 'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
+    const query = ':relevance:allCategories:new-men-products'
+    await axios.get(`${BaseURL2}/products/search?fields=${fields}&query=${query}&pageSize=5&lang=en&curr=INR`,
+    ).then((res) => {
+      // console.log('menNewArrivals==>', JSON.stringify(res.data));
+      setMenNewArrivals(res?.data?.products);
+    }).catch((err) => {
+      console.log('err==>', err.response);
+    })
+  };
+
+  useEffect(() => {
+    getWomenNewArrivals()
+    getMenNewArrivals()
+  }, []);
+
   useEffect(() => {
     if (!!text) {
       getProductSearchData();
       getSuggestionData();
     } else if (text == '') {
       setFilterProduct([]);
+      setSuggestedProduct([])
     }
   }, [text]);
 
@@ -65,7 +97,7 @@ export default function Search(props) {
             placeholder="Search for products"
             placeholderTextColor={'#BDBDBD'}
             onChangeText={text => setText(text)}
-            value={debouncedText}
+            value={text}
             onSubmitEditing={() =>
               props.navigation.navigate('LandingPageSaris_Blouses', {
                 ...props,
@@ -75,13 +107,13 @@ export default function Search(props) {
             }
           />
           <TouchableOpacity
+            disabled={!text.length > 0}
             activeOpacity={0.8}
             style={Styles.righticonbox}
             onPress={() => {
-              getProductSearchData();
-              getSuggestionData();
+              setText('')
             }}>
-            <AntDesign name={"search1"} color={Colors.primarycolor} size={20} />
+            <AntDesign name={text.length > 0 ? "closecircle" : "search1"} color={Colors.primarycolor} size={20} />
           </TouchableOpacity>
         </View>
       </View>
@@ -92,9 +124,10 @@ export default function Search(props) {
         {filterProduct.length > 0 ? (
           <>
             {suggestedProduct.length > 0 ?
-              suggestedProduct.map((obj) => {
+              suggestedProduct.map((obj, index) => {
                 return (
                   <TouchableOpacity
+                    key={index.toString()}
                     style={{ paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: '#EDEDED' }}
                     onPress={() =>
                       props.navigation.navigate('LandingPageSaris_Blouses', {
@@ -113,11 +146,10 @@ export default function Search(props) {
             {filterProduct?.map(item => {
               return (
                 <TouchableOpacity
+                  key={item?.code}
                   onPress={() =>
                     props.navigation.navigate('ProductDetailed', {
-                      productId: item.code,
-                      // filterProduct: filterProduct,
-                      // ...props,
+                      productId: item.code
                     })
                   }
                   style={{
@@ -131,16 +163,23 @@ export default function Search(props) {
                       fontFamily: Fonts.Assistant400,
                       color: Colors.textcolor,
                     }}>
-                    {item.name}
+                    {item?.name}
                   </Text>
-                  <Text>{item.price.formattedValue}</Text>
+                  <Text>{item?.price?.formattedValue}</Text>
                 </TouchableOpacity>
               );
             })}
           </>
-        ) : filterProduct.length == 0 && text == '' ? (
-          <NoResultFound />
-        ) : null}
+        )
+          : filterProduct.length == 0 && text == '' ?
+            // <NoResultFound />
+            <NewArrivals
+              props={props}
+              menNewArrivals={menNewArrivals}
+              womenNewArrivals={womenNewArrivals}
+            />
+            : null
+        }
       </ScrollView>
     </>
   );
