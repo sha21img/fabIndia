@@ -47,7 +47,7 @@ export default function OfferForYou({
                 <Image
                   style={{height: 128, width: 192, resizeMode: 'contain'}}
                   source={{
-                    uri: item.image,
+                    uri: item?.image?.split('?')[0],
                   }}
                 />
               </TouchableOpacity>

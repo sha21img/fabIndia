@@ -19,6 +19,7 @@ export default function CommonCarousel(props) {
   const [imgActive1, setImgActive1] = React.useState(0);
   const renderItem = ({item}) => {
     const newCode = item.landingPage;
+    // console.log('itemImage==>', item)
     return (
       <TouchableOpacity
         onPress={() => {
@@ -41,7 +42,7 @@ export default function CommonCarousel(props) {
             width: !!item.image ? width : newWidth,
             resizeMode: 'contain',
           }}
-          source={{uri: item.image}}></ImageBackground>
+          source={{uri: item.image.split('?')[0]}}></ImageBackground>
       </TouchableOpacity>
     );
   };

@@ -21,7 +21,7 @@ export default function TopSwiper(props) {
     let images = [];
     for (let i = 0; i < data.length; i++) {
       const item = data[i];
-      images.push(item.image);
+      images.push(item?.image?.split('?')[0]);
     }
     setCarouselData(images);
   };

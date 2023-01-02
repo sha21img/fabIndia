@@ -1,11 +1,10 @@
 import {
-  Text,
   Dimensions,
   ScrollView,
-  FlatList,
   BackHandler,
   Alert,
   View,
+  ActivityIndicator
 } from 'react-native';
 import React, {useEffect} from 'react';
 import Catagory from './Catagory';
@@ -14,24 +13,19 @@ import CommonCarousel from '../../Common/CommonCarousel/index';
 import {HomePageSection} from '../../../constant';
 import {Colors} from '../../../assets/Colors';
 import Interior from './Interior';
-import Fonts from '../../../assets/fonts';
 import TopSwiper from '../../Common/TopSwiper';
 import axios from 'axios';
 import {AuthBaseUrl2, getCartID, getData} from '../../Common/Helper';
 import WomenTab from './Tabs.js/WomenTab';
-import OfferTab from './Tabs.js/OfferTab';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useFocusEffect} from '@react-navigation/native';
 const width = Dimensions.get('window').width;
-import {withNavigationFocus} from 'react-navigation';
 import YoutubeVideo from '../YoutubeVideo';
 import OfferForYou from '../OfferForYou';
-import YoutubePlayer from 'react-native-youtube-iframe';
 
 export default function Dashbord(props) {
-  const [active, setActive] = React.useState('Bestsellers');
   const [dashboardData, setDashboardData] = React.useState([]);
   const [filteredComp, setFilteredComp] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
@@ -69,6 +63,7 @@ export default function Dashbord(props) {
     console.log('cartId==>', cartId);
     cartId == null && getCartID();
   };
+  
   const generatTokenWithout = async () => {
     await axios
       .post(
@@ -109,7 +104,7 @@ export default function Dashbord(props) {
     Categorymenu: '63aab8dc15519f83a59729df',
     Mainslider: '63aab8b715519f83a59729d7',
     NewInWomen: '63aad98915519f83a5972aa6',
-    BannerWomen: '63ae8541bcb1a02702f7be1a',
+    BannerWomen: '63aadb5815519f83a5972aba',
     NewInMen: '63aadb1815519f83a5972ab4',
     BannerMen: '63aadab915519f83a5972aad',
     NewInKids: '63aadbd215519f83a5972ac1',
@@ -126,11 +121,13 @@ export default function Dashbord(props) {
     BannerLiving: '63ad983cbcb1a02702f7bc10',
   };
   const getNewHomeData = async () => {
+    setLoading(true)
     const response = await axios.get(
       'http://159.89.164.11:3030/homepage/getForApp',
     );
     setDashboardData(response.data.data);
-    console.log('this is a eresponse of pageXOffset', response.data.data);
+    setLoading(false)
+    // console.log('this is a eresponse of pageXOffset', response.data.data);
   };
   const getSections = data => {
     var dataa = [];
@@ -286,6 +283,12 @@ export default function Dashbord(props) {
           />
         )}
         <YoutubeVideo />
+        {loading ?
+          <View style={{ position: 'absolute', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', top: 0, bottom: 0, right: 0, left: 0, elevation: 0 }}>
+            <ActivityIndicator size="large" color={Colors.primarycolor} />
+          </View>
+          : null
+        }
       </ScrollView>
     </>
   );
