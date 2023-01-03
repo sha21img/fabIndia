@@ -27,6 +27,7 @@ export default function HomeHeader(props) {
     showWishlist = true,
     showCart = true,
     middleHeader = '',
+    backArrow = true,
   } = props;
 
   const [cartdetails, setCartDetails] = useState(null);
@@ -172,23 +173,25 @@ export default function HomeHeader(props) {
           </View>
         ) : (
           <>
-            <TouchableOpacity
-              style={{
-                paddingHorizontal: 5,
-                flexDirection: 'row',
-              }}
-              onPress={() => props.navigation.goBack()}>
-              <SimpleLineIcons
-                name="arrow-left"
-                color={Colors.primarycolor}
-                size={20}
-              />
-            </TouchableOpacity>
+            {backArrow ? (
+              <TouchableOpacity
+                style={{
+                  paddingHorizontal: 5,
+                  flexDirection: 'row',
+                }}
+                onPress={() => props.navigation.goBack()}>
+                <SimpleLineIcons
+                  name="arrow-left"
+                  color={Colors.primarycolor}
+                  size={20}
+                />
+              </TouchableOpacity>
+            ) : null}
             {!!headertext ? (
               <View style={{flexDirection: 'column', width: '50%'}}>
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: 15,
                     color: Colors.textcolor,
                     fontFamily: Fonts.Assistant500,
                   }}>
