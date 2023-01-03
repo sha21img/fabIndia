@@ -128,7 +128,6 @@ const getComponentData = async path => {
 const UnAuthPostData = async (url, data) => {
   const get = await AsyncStorage.getItem('generatToken');
   const getToken = JSON.parse(get);
-  console.log('getToken for login', getToken);
 
   const response = await fetch(`${BaseURL2}${url}`, {
     method: 'POST',
