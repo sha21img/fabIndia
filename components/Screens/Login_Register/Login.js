@@ -30,7 +30,14 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 import {StackActions, CommonActions} from '@react-navigation/native';
 import {FacebookLogin} from '../../SocialLogin/FacebookLogin';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {AuthBaseUrl2} from '../../Common/Helper';
+import NumberCheck from '../../Common/NumberCheck';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+} from '@react-native-google-signin/google-signin';
+
 export default function Login(props) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -41,6 +48,12 @@ export default function Login(props) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [transactionId, setTransectionId] = useState(false);
   const [generateOtp, setGenerateOtp] = useState(false);
+
+  //
+  const [numberRequire, setNumberRequire] = useState(false);
+  const [userGoogleInfo, setUserGoogleInfo] = useState({});
+  //
+
   const googleIcon = {
     uri: 'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
   };
@@ -162,6 +175,53 @@ export default function Login(props) {
   const facebookLoginHandler = () => {
     FacebookLogin();
   };
+
+  // const googleLoginHandler = () => {
+  //   FacebookLogin();
+  // };
+  // const checkPhone = async userInfo => {
+  //   // email = userInfo.user;
+  //   await axios
+  //     // https://apisap.fabindia.com/occ/v2/fabindiab2c/users?uid=ashishjain.img%40gmail.com&lang=en&curr=INR
+  //     .post(`${BaseURL2}users?uid=ashishjain.img%40gmail.com&lang=en&curr=INR`)
+  //     .then(response => {
+  //       console.log('response-=-=-=-=-=-number', response.data);
+
+  //       // setNumberRequire(true);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // };
+  const signIn = async () => {
+    try {
+      GoogleSignin.configure({
+        scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
+        // androidClientId:
+        //   '880463673394-hp2s28e6hjdcm65qjqrlogfohevk5296.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+        webClientId:
+          '919208314385-n31m1r91p6jcfflgru2f2ktnogkrqo3a.apps.googleusercontent.com',
+        offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+        hostedDomain: '', // specifies a hosted domain restriction
+        forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
+        accountName: '', // [Android] specifies an account name on the device that should be used
+        // iosClientId: '<FROM DEVELOPER CONSOLE>', // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+        googleServicePlistPath: '', // [iOS] if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
+        openIdRealm: '', // [iOS] The OpenID2 realm of the home web server. This allows Google to include the user's OpenID Identifier in the OpenID Connect ID token.
+        profileImageSize: 120, // [iOS] The desired height (and width) of the profile image. Defaults to 120px
+      });
+      await GoogleSignin.hasPlayServices();
+      console.log('reached google sign in');
+      const userInfo = await GoogleSignin.signIn();
+      console.log('userInfouserInfouserInfouserInfouserInfo', userInfo);
+      setUserGoogleInfo(userInfo);
+      // if (userInfo.idToken) {
+      //   checkPhone(userInfo);
+      // }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   useEffect(() => {
     checkToken();
   }, []);
@@ -277,300 +337,308 @@ export default function Login(props) {
   };
   return (
     <>
-      <ScrollView style={styles.container}>
-        {generateOtp ? (
-          <View style={{marginVertical: 10}}>
-            <Text
-              style={{
-                textAlign: 'center',
-                color: '#222',
-                fontSize: 20,
-                fontFamily: Fonts.Assistant600,
-                paddingVertical: 5,
-              }}>
-              Verify with OTP
-            </Text>
-            <Text
-              style={{
-                textAlign: 'center',
-                color: '#222',
-                fontSize: 16,
-                fontFamily: Fonts.Assistant600,
-                paddingVertical: 5,
-              }}>
-              Send to{' '}
-              {`${phoneNumber[0]}${phoneNumber[1]}******${phoneNumber[8]}${phoneNumber[9]}`}
-            </Text>
-            <TextInput
-              value={Otp}
-              activeOutlineColor="white"
-              activeUnderlineColor="white"
-              underlineColor="white"
-              onChangeText={value =>
-                value.length <= 4 ? setOtp(value) : false
-              }
-              multiline={true}
-              keyboardType="numeric"
-              style={{
-                backgroundColor: '#fff',
-                height: 40,
-                textAlign: 'center',
-                borderBottomColor: Colors.inactiveicon,
-                borderBottomWidth: 1,
-                marginVertical: 10,
-                width: '85%',
-                alignSelf: 'center',
-              }}
-              placeholder="Enter 4-digit OTP"
-            />
-            <TouchableOpacity onPress={() => handleOTP()}>
+      {numberRequire ? (
+        <NumberCheck setNumberRequire={setNumberRequire} />
+      ) : (
+        <ScrollView style={styles.container}>
+          {generateOtp ? (
+            <View style={{marginVertical: 10}}>
               <Text
                 style={{
-                  color: Colors.primarycolor,
                   textAlign: 'center',
-                  marginVertical: 10,
+                  color: '#222',
+                  fontSize: 20,
+                  fontFamily: Fonts.Assistant600,
+                  paddingVertical: 5,
                 }}>
-                Resend OTP
+                Verify with OTP
               </Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-              <TouchableOpacity
-                onPress={() => setMethod('Mobile')}
+              <Text
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  padding: 10,
+                  textAlign: 'center',
+                  color: '#222',
+                  fontSize: 16,
+                  fontFamily: Fonts.Assistant600,
+                  paddingVertical: 5,
                 }}>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor:
-                      method == 'Mobile' ? Colors.primarycolor : 'grey',
-                    width: 22,
-                    height: 22,
-                    borderRadius: 100,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <View
-                    style={{
-                      backgroundColor:
-                        method == 'Mobile' ? Colors.primarycolor : 'grey',
-                      width: 12,
-                      height: 12,
-                      borderRadius: 10,
-                    }}
-                  />
-                </View>
+                Send to{' '}
+                {`${phoneNumber[0]}${phoneNumber[1]}******${phoneNumber[8]}${phoneNumber[9]}`}
+              </Text>
+              <TextInput
+                value={Otp}
+                activeOutlineColor="white"
+                activeUnderlineColor="white"
+                underlineColor="white"
+                onChangeText={value =>
+                  value.length <= 4 ? setOtp(value) : false
+                }
+                multiline={true}
+                keyboardType="numeric"
+                style={{
+                  backgroundColor: '#fff',
+                  height: 35,
+                  textAlign: 'center',
+                  borderBottomColor: Colors.inactiveicon,
+                  borderBottomWidth: 1,
+                  marginVertical: 10,
+                  width: '85%',
+                  alignSelf: 'center',
+                }}
+                placeholder="Enter 4-digit OTP"
+              />
+              <TouchableOpacity onPress={() => handleOTP()}>
                 <Text
                   style={{
-                    fontSize: 18,
-                    fontFamily: Fonts.Assistant700,
-                    paddingHorizontal: 7,
+                    color: Colors.primarycolor,
+                    textAlign: 'center',
+                    marginVertical: 10,
                   }}>
-                  Mobile
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => setMethod('Email')}
-                style={{
-                  flexDirection: 'row',
-                  padding: 10,
-                  alignItems: 'center',
-                }}>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor:
-                      method == 'Email' ? Colors.primarycolor : 'grey',
-                    width: 22,
-                    height: 22,
-                    borderRadius: 100,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <View
-                    style={{
-                      backgroundColor:
-                        method == 'Email' ? Colors.primarycolor : 'grey',
-                      width: 12,
-                      height: 12,
-                      borderRadius: 10,
-                    }}
-                  />
-                </View>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontFamily: Fonts.Assistant700,
-                    paddingHorizontal: 7,
-                  }}>
-                  Email
+                  Resend OTP
                 </Text>
               </TouchableOpacity>
             </View>
-            {method == 'Mobile' ? (
-              <View style={styles.pickerbox}>
-                <CountryPicker
-                  disable={false}
-                  animationType={'slide'}
-                  containerStyle={styles.pickercontainer}
-                  pickerTitleStyle={styles.pickertitle}
-                  selectedCountryTextStyle={styles.selectedTextStyle}
-                  countryNameTextStyle={styles.selectnametxt}
-                  pickerTitle={'Country Picker'}
-                  searchBarPlaceHolder={'Search......'}
-                  hideCountryFlag={false}
-                  hideCountryCode={false}
-                  searchBarStyle={styles.searchbar}
-                  selectedValue={_selectedValue}
-                  countryCode={mobilePrefix}
-                />
-                <View style={{flex: 1, paddingHorizontal: 15}}>
-                  <TextInput
-                    activeOutlineColor="white"
-                    activeUnderlineColor="white"
-                    underlineColor="white"
-                    style={styles.textinput1}
-                    value={phoneNumber}
-                    placeholder="phone number"
-                    onChangeText={value =>
-                      value.length <= 10 ? setPhoneNumber(value) : false
-                    }
-                    placeholderTextColor="grey"
-                    keyboardType={'number-pad'}
-                    disableFullscreenUI={true}
-                  />
-                </View>
-              </View>
-            ) : (
-              <>
-                <InputText
-                  label={'Email address'}
-                  onChangeText={text => setEmail(text)}
-                  value={email}
-                  customStyle={{marginTop: 10}}
-                />
-                <InputText
-                  label={'Password'}
-                  onChangeText={text => setPassword(text)}
-                  customStyle={{marginTop: 10}}
-                  value={password}
-                  secureTextEntry={hideOldPass}
-                  right={
-                    <TextInput.Icon
-                      name={() => (
-                        <Feather
-                          name="eye-off"
-                          color={
-                            hideOldPass ? Colors.primarycolor : Colors.textcolor
-                          }
-                          size={20}
-                          onPress={toggleOldHide}
-                        />
-                      )}
-                    />
-                  }
-                />
-                <TouchableOpacity
-                  style={styles.readText}
-                  onPress={() => {
-                    props.navigation.navigate('MyAccount', {
-                      screen: 'ResetPassword',
-                    });
-                  }}>
-                  <Text style={styles.forgetText}>Forgot password?</Text>
-                </TouchableOpacity>
-              </>
-            )}
-          </>
-        )}
-        <View style={{paddingVertical: 10}}>
-          {method == 'Mobile' ? (
-            generateOtp ? (
-              <CommonButton
-                disable={Otp.length != 4}
-                handleClick={VerifyOTP}
-                txt="Confirm OTP"
-                customViewStyle={{
-                  backgroundColor:
-                    Otp.length == 4 ? Colors.primarycolor : '#BDBDBD',
-                }}
-              />
-            ) : (
-              <CommonButton
-                disable={phoneNumber.length != 10}
-                backgroundColor="#BDBDBD"
-                txt="Send OTP"
-                handleClick={handleOTP}
-                customViewStyle={{
-                  backgroundColor:
-                    phoneNumber.length == 10 ? Colors.primarycolor : '#BDBDBD',
-                }}
-              />
-            )
           ) : (
-            <CommonButton
-              handleClick={handleSubmit}
-              backgroundColor="#BDBDBD"
-              txt="Login"
-              customViewStyle={{
-                backgroundColor:
-                  !password || !email
-                    ? Colors.inAactivecolor
-                    : Colors.primarycolor,
-              }}
-              disable={!password || !email}
-            />
+            <>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+                <TouchableOpacity
+                  onPress={() => setMethod('Mobile')}
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    padding: 10,
+                  }}>
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderColor:
+                        method == 'Mobile' ? Colors.primarycolor : 'grey',
+                      width: 22,
+                      height: 22,
+                      borderRadius: 100,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <View
+                      style={{
+                        backgroundColor:
+                          method == 'Mobile' ? Colors.primarycolor : 'grey',
+                        width: 12,
+                        height: 12,
+                        borderRadius: 10,
+                      }}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontFamily: Fonts.Assistant700,
+                      paddingHorizontal: 7,
+                    }}>
+                    Mobile
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setMethod('Email')}
+                  style={{
+                    flexDirection: 'row',
+                    padding: 10,
+                    alignItems: 'center',
+                  }}>
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderColor:
+                        method == 'Email' ? Colors.primarycolor : 'grey',
+                      width: 22,
+                      height: 22,
+                      borderRadius: 100,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <View
+                      style={{
+                        backgroundColor:
+                          method == 'Email' ? Colors.primarycolor : 'grey',
+                        width: 12,
+                        height: 12,
+                        borderRadius: 10,
+                      }}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontFamily: Fonts.Assistant700,
+                      paddingHorizontal: 7,
+                    }}>
+                    Email
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              {method == 'Mobile' ? (
+                <View style={styles.pickerbox}>
+                  <CountryPicker
+                    disable={false}
+                    animationType={'slide'}
+                    containerStyle={styles.pickercontainer}
+                    pickerTitleStyle={styles.pickertitle}
+                    selectedCountryTextStyle={styles.selectedTextStyle}
+                    countryNameTextStyle={styles.selectnametxt}
+                    pickerTitle={'Country Picker'}
+                    searchBarPlaceHolder={'Search......'}
+                    hideCountryFlag={false}
+                    hideCountryCode={false}
+                    searchBarStyle={styles.searchbar}
+                    selectedValue={_selectedValue}
+                    countryCode={mobilePrefix}
+                  />
+                  <View style={{flex: 1, paddingHorizontal: 15}}>
+                    <TextInput
+                      activeOutlineColor="white"
+                      activeUnderlineColor="white"
+                      underlineColor="white"
+                      style={styles.textinput1}
+                      value={phoneNumber}
+                      placeholder="phone number"
+                      onChangeText={value =>
+                        value.length <= 10 ? setPhoneNumber(value) : false
+                      }
+                      placeholderTextColor="grey"
+                      keyboardType={'number-pad'}
+                      disableFullscreenUI={true}
+                    />
+                  </View>
+                </View>
+              ) : (
+                <>
+                  <InputText
+                    label={'Email address'}
+                    onChangeText={text => setEmail(text)}
+                    value={email}
+                    customStyle={{marginTop: 10}}
+                  />
+                  <InputText
+                    label={'Password'}
+                    onChangeText={text => setPassword(text)}
+                    customStyle={{marginTop: 10}}
+                    value={password}
+                    secureTextEntry={hideOldPass}
+                    right={
+                      <TextInput.Icon
+                        name={() => (
+                          <Feather
+                            name="eye-off"
+                            color={
+                              hideOldPass
+                                ? Colors.primarycolor
+                                : Colors.textcolor
+                            }
+                            size={20}
+                            onPress={toggleOldHide}
+                          />
+                        )}
+                      />
+                    }
+                  />
+                  <TouchableOpacity
+                    style={styles.readText}
+                    onPress={() => {
+                      props.navigation.navigate('MyAccount', {
+                        screen: 'ResetPassword',
+                      });
+                    }}>
+                    <Text style={styles.forgetText}>Forgot password?</Text>
+                  </TouchableOpacity>
+                </>
+              )}
+            </>
           )}
-        </View>
-        <View
-          style={{
-            marginTop: 15,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text
+          <View style={{paddingVertical: 10}}>
+            {method == 'Mobile' ? (
+              generateOtp ? (
+                <CommonButton
+                  disable={Otp.length != 4}
+                  handleClick={VerifyOTP}
+                  txt="Confirm OTP"
+                  customViewStyle={{
+                    backgroundColor:
+                      Otp.length == 4 ? Colors.primarycolor : '#BDBDBD',
+                  }}
+                />
+              ) : (
+                <CommonButton
+                  disable={phoneNumber.length != 10}
+                  backgroundColor="#BDBDBD"
+                  txt="Send OTP"
+                  handleClick={handleOTP}
+                  customViewStyle={{
+                    backgroundColor:
+                      phoneNumber.length == 10
+                        ? Colors.primarycolor
+                        : '#BDBDBD',
+                  }}
+                />
+              )
+            ) : (
+              <CommonButton
+                handleClick={handleSubmit}
+                backgroundColor="#BDBDBD"
+                txt="Login"
+                customViewStyle={{
+                  backgroundColor:
+                    !password || !email
+                      ? Colors.inAactivecolor
+                      : Colors.primarycolor,
+                }}
+                disable={!password || !email}
+              />
+            )}
+          </View>
+          <View
             style={{
-              paddingVertical: 5,
-              fontFamily: Fonts.Assistant600,
-              fontSize: 16,
+              marginTop: 15,
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            Not a Registered user?
-          </Text>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('Register')}>
             <Text
               style={{
                 paddingVertical: 5,
                 fontFamily: Fonts.Assistant600,
                 fontSize: 16,
-                color: Colors.primarycolor,
               }}>
-              Sign Up
+              Not a Registered user?
             </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.horizontalContainer}>
-          <View style={styles.horizontalLine} />
-          <View>
-            <Text style={styles.orText}>Or</Text>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Register')}>
+              <Text
+                style={{
+                  paddingVertical: 5,
+                  fontFamily: Fonts.Assistant600,
+                  fontSize: 16,
+                  color: Colors.primarycolor,
+                }}>
+                Sign Up
+              </Text>
+            </TouchableOpacity>
           </View>
-          <View style={styles.horizontalLine} />
-        </View>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity onPress={() => facebookLoginHandler()}>
-            <Image source={facebookIcon} style={styles.facebookIcon} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => googleLoginHandler()}>
-            <Image source={googleIcon} style={styles.googleIcon} />
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+          <View style={styles.horizontalContainer}>
+            <View style={styles.horizontalLine} />
+            <View>
+              <Text style={styles.orText}>Or</Text>
+            </View>
+            <View style={styles.horizontalLine} />
+          </View>
+          <View style={styles.iconContainer}>
+            <TouchableOpacity onPress={() => facebookLoginHandler()}>
+              <Image source={facebookIcon} style={styles.facebookIcon} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={signIn}>
+              <Image source={googleIcon} style={styles.googleIcon} />
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      )}
     </>
   );
 }
