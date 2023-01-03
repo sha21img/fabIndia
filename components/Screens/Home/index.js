@@ -234,7 +234,6 @@ export default function Dashbord(props) {
         {filteredComp.length > 0 ? (
           <WomenTab data={filteredComp[2]} {...props} />
         ) : null}
-        {/* long card */}
         <OfferForYou
           isAdmin2={'isAdmin2'}
           dataWomen={dashboardData[HomPageSections.offerWomen]}
