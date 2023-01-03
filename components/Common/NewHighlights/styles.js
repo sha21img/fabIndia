@@ -29,6 +29,7 @@ export const Styles = StyleSheet.create({
     marginLeft: '17%',
     width: '100%',
     backgroundColor: '#F3E0E0',
+    paddingRight: '20%',
   },
   imageBox: {
     marginRight: 10,
