@@ -468,12 +468,12 @@ export default function App(props) {
     );
   } else {
     return (
-      <>
-        <Text>No Coneected Network</Text>
-        <TouchableOpacity onPress={() => getNetInfo()}>
-          <Text>Try to connect</Text>
+      <View style={{ marginTop: 250, alignItems: 'center', justifyContent: 'center', }}>
+        <Text style={{ fontSize: 16, color: '#000' }}>No Coneected Network</Text>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => getNetInfo()}>
+          <Text style={{ fontSize: 16, color: Colors.primarycolor, fontWeight: '600' }}>Try to connect</Text>
         </TouchableOpacity>
-      </>
+      </View>
     );
   }
 }

@@ -24,6 +24,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Toast from 'react-native-simple-toast';
+import moment from 'moment';
 
 const faqs = [
   {
@@ -71,7 +72,7 @@ const Register = props => {
       .then(
         response => {
           const tokenGenerate = {...response.data, isCheck: false};
-          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          // console.log('tokenGenerate==>', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
         },
         error => {
@@ -117,7 +118,6 @@ const Register = props => {
     checkToken();
   });
   const showDatePicker = () => {
-    console.log('yes');
     setDatePickerVisibility(true);
   };
 
@@ -126,19 +126,9 @@ const Register = props => {
   };
 
   const handleConfirm = date => {
-    let Newdate = new Date(date);
-    console.warn('A date has been picked: ', date);
-    setDOB(
-      `${
-        `${Newdate.getDate()}`.length == 1
-          ? `0${Newdate.getDate()}`
-          : Newdate.getDate()
-      }/${
-        `${Newdate.getMonth()}`.length == 1
-          ? `0${Newdate.getMonth()}`
-          : Newdate.getMonth()
-      }/${Newdate.getFullYear()}`,
-    );
+    // console.log('datePicked==>', date, moment(date).format('DD/MM/YYYY'));
+    if (date)
+      setDOB(moment(date).format('DD/MM/YYYY'));
     hideDatePicker();
   };
   const GenerateOtp = async () => {
