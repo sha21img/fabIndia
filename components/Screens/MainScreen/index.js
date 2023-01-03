@@ -1386,7 +1386,7 @@ const DrawerContent = () => {
         {
           children: [],
           title: 'Festive',
-          landingPage: '/festive',
+          landingPage: 'FestiveCollection',
         },
         {
           children: [],
@@ -1727,15 +1727,14 @@ export default function MainScreen(props) {
           tabBarActiveTintColor: Colors.primarycolor,
           tabBarIcon: ({focused}) => (
             <TouchableOpacity
-              onPress={() => {
-                () =>
-                  props.navigation.dispatch(
-                    CommonActions.reset({
-                      index: 1,
-                      routes: [{name: 'Home'}],
-                    }),
-                  );
-              }}>
+              onPress={() =>
+                props.navigation.dispatch(
+                  CommonActions.reset({
+                    index: 0,
+                    routes: [{name: 'MainScreen'}],
+                  }),
+                )
+              }>
               <Entypo
                 name="home"
                 size={20}

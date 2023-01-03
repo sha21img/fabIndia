@@ -27,8 +27,8 @@ const NewAccordian = props => {
     let splitURL = name.split('/');
     splitURL = splitURL[splitURL.length - 1];
     console.log('adsfasdfasdf', splitURL);
-    if (name == 'Collections') {
-      navigation.navigate('Collections');
+    if (name == 'Collections' || name == 'FestiveCollection') {
+      navigation.navigate(name);
     } else {
       navigation.navigate('LandingPageSaris_Blouses', {
         title: splitURL,

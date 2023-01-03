@@ -91,7 +91,7 @@ export default function Footer(props) {
               fontSize: 16,
               paddingHorizontal:4
             }}>
-            Added in wishlist
+        {!!!isVisible?.code ? 'Add To Wishlist' : 'Added In Wishlist'}   
           </Text>
         </TouchableOpacity>
         {oos ? (
@@ -100,10 +100,10 @@ export default function Footer(props) {
               style={[
                 Styles.cartBox,
                 {
-                  backgroundColor: !disabled ? Colors.primarycolor : 'grey',
+                  backgroundColor:  Colors.primarycolor 
                 },
               ]}
-              disabled={disabled}
+              // disabled={disabled}
               onPress={() => {
                 // if (productdetail?.stock?.stockLevelStatus != 'inStock') {
                 //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
@@ -126,7 +126,6 @@ export default function Footer(props) {
                   backgroundColor: '#ffa51d',
                 },
               ]}
-              disabled={disabled}
               onPress={() => {
                 props.navigation.navigate('CartPage');
                 setShowcartbutton(false);

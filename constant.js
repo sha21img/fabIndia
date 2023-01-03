@@ -883,9 +883,29 @@ export const ShopByCollections = [
   'Section4',
   'Section5',
   'Section6',
-  // 'Section7',
-  // 'Section8',
-  // 'Section9',
-  // 'Section11',
-  // 'Section12',
+  'Section7',
+  'Section8',
+  'Section9',
+  'Section11',
+  'Section12',
+];
+// Section1=FabResponsiveBannerCarouselComponent
+// Section2=FabCollectionBannerCarouselComponent
+// Section3=FabCMSTabParagraphContainer
+// Section4=FabCollectionSpaceBannerCarouselComponent,
+// Section5=FabCMSTabParagraphContainer
+// Section6=FabCollectionBannerCarouselComponent
+//Section7=FabCMSTabParagraphContainer
+// Section8=FabCollectionBannerCarouselComponent
+//Section9=FabCMSTabParagraphContainer
+export const FestiveCollections = [
+  'Section1',
+  'Section2',
+  'Section3',
+  'Section4',
+  'Section5',
+  'Section6',
+  'Section7',
+  'Section8',
+  'Section9',
 ];

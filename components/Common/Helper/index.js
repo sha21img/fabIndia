@@ -28,6 +28,7 @@ const generatTokenWithout = async () => {
         const tokenGenerate = {...response.data, isCheck: false};
         console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
         AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+        getCartID();
       },
       error => {
         console.log('response-=-=-=-=-=-error', error);
@@ -43,6 +44,7 @@ const logout = async dispatch => {
       quantity: 0,
     }),
   );
+  // dispatch(cartDetail({data: [], quantity: 0}));
   const cartid = await AsyncStorage.removeItem('cartID');
   console.log('delete', res);
   // props.navigation.navigate('MyAccount', {
