@@ -1,17 +1,12 @@
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, Image, FlatList, TouchableOpacity} from 'react-native';
 import React from 'react';
-import { Styles } from './styles';
-import { hasSpaces } from '../../../constant';
+import {Styles} from './styles';
+import {hasSpaces} from '../../../constant';
 import FastImage from 'react-native-fast-image';
 
 export default function NewHighlights(props) {
-  const { data = {}, customStyle = '' } = props;
+  const {data = {}, customStyle = ''} = props;
+  // console.log('da111111111111111111ta', data);
 
   const imageCard = item => {
     const newCode = item.item.landingPage;
@@ -27,19 +22,18 @@ export default function NewHighlights(props) {
         activeOpacity={0.8}
         key={item?.item?._id}
         style={Styles.imageBox}>
-
         <FastImage
           style={Styles.image}
           source={{
             uri: item?.item?.image?.split('?')[0],
-            priority: FastImage.priority.normal
+            priority: FastImage.priority.normal,
           }}
           resizeMode={FastImage.resizeMode.contain}
         />
         <Text style={Styles.imageText}>{item.item.title}</Text>
       </TouchableOpacity>
     );
-  }
+  };
 
   const check = hasSpaces(data[0]?.categoryName);
 
@@ -54,7 +48,7 @@ export default function NewHighlights(props) {
           horizontal
           data={data}
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => item?.item?._id}
+          keyExtractor={item => item?.item?._id}
           renderItem={imageCard}
         />
       </View>
