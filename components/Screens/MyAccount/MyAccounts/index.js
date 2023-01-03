@@ -10,8 +10,14 @@ import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
-import {AuthBaseUrl2, BaseURL2, getCartID, logout} from '../../../Common/Helper';
+import {
+  AuthBaseUrl2,
+  BaseURL2,
+  getCartID,
+  logout,
+} from '../../../Common/Helper';
 import {CommonActions} from '@react-navigation/native';
+import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
 
 const pages = [
   {
@@ -106,7 +112,7 @@ const MyAccounts = props => {
           const tokenGenerate = {...response.data, isCheck: false};
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          getCartID()
+          getCartID();
         },
         error => {
           console.log('response-=-=-=-=-=-error', error);
@@ -122,13 +128,21 @@ const MyAccounts = props => {
     //   screen: 'Login_Register',
     // });
     // console.log('after');
+    dispatch(
+      wishlistDetail({
+        data: [],
+        quantity: 0,
+      }),
+    );
+    // dispatch(cartDetail({data: [], quantity: 0}));
+
+    await generatTokenWithout();
     props.navigation.dispatch(
       CommonActions.reset({
         index: 0,
         routes: [{name: 'MyAccount'}],
       }),
     );
-    await generatTokenWithout();
   };
 
   return (

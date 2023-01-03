@@ -102,6 +102,10 @@ export default function HomeHeader(props) {
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     const type = getToken.isCheck ? 'current' : 'anonymous';
+
+    console.log('iuytrdfu', getToken);
+    console.log('typetype', type);
+    console.log('getCartIDgetCartID', getCartID);
     const response = await axios
       .get(
         `${BaseURL2}/users/${type}/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
@@ -114,11 +118,13 @@ export default function HomeHeader(props) {
         },
       )
       .then(response => {
+        console.log('vicky,carrrraaaaaaaarrrrrrrrrrrr', response.data);
+
         let finalvalue = response?.data?.deliveryItemsQuantity;
         dispatch(cartDetail({data: response.data, quantity: finalvalue}));
       })
       .catch(errors => {
-        console.log('vicky,getWishlistDetila', errors);
+        console.log('vicky,carrrrrrrrrrrrrrrr', errors);
 
         if (errors.response.status == 401) {
           logout(dispatch);

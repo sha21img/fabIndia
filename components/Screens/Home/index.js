@@ -115,6 +115,7 @@ export default function Dashbord(props) {
     NewInHome: '63ad96b4bcb1a02702f7bbe6',
     BannerHome: '63ad979cbcb1a02702f7bbfd',
     BannerLiving: '63ad983cbcb1a02702f7bc10',
+    youtube: '63abc289c349c715bd92dadd',
   };
   const getNewHomeData = async () => {
     setLoading(true);
@@ -280,7 +281,7 @@ export default function Dashbord(props) {
             customStyle={{margin: 20}}
           />
         ) : null}
-        <YoutubeVideo />
+        <YoutubeVideo data={dashboardData?.[HomPageSections.youtube]} />
         {loading ? (
           <View
             style={{

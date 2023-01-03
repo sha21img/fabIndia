@@ -244,7 +244,6 @@ export default function ProductDetailed(props) {
           },
         )
         .then(response => {
-          // console.log('responseresponseresponse', response.data);
           getCartDetials1();
           setCartSuccess(response.data);
           Toast.showWithGravity('Added to Your Cart', Toast.LONG, Toast.TOP);
@@ -270,9 +269,11 @@ export default function ProductDetailed(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
+    const type = getToken.isCheck ? 'current' : 'anonymous';
+
     await axios
       .get(
-        `${BaseURL2}/users/current/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+        `${BaseURL2}/users/${type}/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -280,14 +281,13 @@ export default function ProductDetailed(props) {
         },
       )
       .then(response => {
-        dispatch(
-          cartDetail({
-            data: response.data,
-            quantity: response.data.entries.length,
-          }),
-        );
+        console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', response.data);
+
+        let finalvalue = response?.data?.deliveryItemsQuantity;
+        dispatch(cartDetail({data: response.data, quantity: finalvalue}));
       })
       .catch(errors => {
+        console.log('111111111111111', errors);
         if (errors.response.status == 401) {
           logout(dispatch);
         }
