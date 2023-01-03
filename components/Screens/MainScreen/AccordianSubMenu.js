@@ -27,11 +27,15 @@ const NewAccordian = props => {
     let splitURL = name.split('/');
     splitURL = splitURL[splitURL.length - 1];
     console.log('adsfasdfasdf', splitURL);
-    navigation.navigate('LandingPageSaris_Blouses', {
-      title: splitURL,
-      code: splitURL,
-      status: false,
-    });
+    if (name == 'Collections') {
+      navigation.navigate('Collections');
+    } else {
+      navigation.navigate('LandingPageSaris_Blouses', {
+        title: splitURL,
+        code: splitURL,
+        status: false,
+      });
+    }
   };
   const toggleAnimation = {
     duration: 300,
