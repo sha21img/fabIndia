@@ -17,13 +17,15 @@ export const Styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: Fonts.Assistant400,
     color: Colors.textcolor,
+    marginLeft: 20
   },
   listBox: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 15,
+    paddingHorizontal: 60,
     paddingVertical: 10,
     paddingTop: 10,
     backgroundColor: '#F6F6F6',
+    // marginLeft: 45
   },
 });

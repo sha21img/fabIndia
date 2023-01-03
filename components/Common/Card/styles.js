@@ -1,13 +1,20 @@
 import {StyleSheet} from 'react-native';
-import {Dimensions} from 'react-native';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
-const width = Dimensions.get('window').width;
 
 export const Styles = StyleSheet.create({
+  cardContainer: {
+    width: 192,
+    elevation: 5,
+    marginRight: 10,
+    marginBottom: 1,
+    marginLeft: 1,
+    backgroundColor: Colors.inAactivecolor,
+  },
   headingbox: {
     paddingHorizontal: 10,
     paddingTop: 10,
+    backgroundColor: Colors.WHITE
   },
   headingtxt: {
     fontSize: 16,
@@ -19,11 +26,12 @@ export const Styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 5,
+    marginBottom: 5
   },
   amounttxt: {
     paddingRight: 10,
-    fontSize: 16,
+    fontSize: 13,
     color: '#4A4A4A',
     fontFamily: Fonts.RupeeForadian,
   },

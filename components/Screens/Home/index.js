@@ -82,6 +82,7 @@ export default function Dashbord(props) {
         },
       );
   };
+
   const checkToken = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
@@ -90,6 +91,7 @@ export default function Dashbord(props) {
       await getInitialCartID();
     }
   };
+
   useEffect(
     React.useCallback(() => {
       checkToken();
@@ -117,6 +119,7 @@ export default function Dashbord(props) {
     BannerLiving: '63ad983cbcb1a02702f7bc10',
     youtube: '63abc289c349c715bd92dadd',
   };
+
   const getNewHomeData = async () => {
     setLoading(true);
     const response = await axios.get(
@@ -128,6 +131,7 @@ export default function Dashbord(props) {
 
     // console.log('homeSections==>', JSON.stringify(response.data.data));
   };
+
   const getSections = data => {
     var dataa = [];
     HomePageSection.map(sectionId => {
@@ -136,20 +140,20 @@ export default function Dashbord(props) {
       });
       dataa.push(filter?.components?.component[0]);
     });
+    // console.log('filterComp==>', JSON.stringify(dataa))
     setFilteredComp(dataa);
   };
+
   const getInitialData = async () => {
     const response = await getData('cms/pages?lang=en&curr=INR');
     getSections(response.contentSlots.contentSlot);
   };
+
   React.useEffect(() => {
     getInitialData();
     getNewHomeData();
   }, []);
-  console.log(
-    'dashboardData?.[HomPageSections.NewInWomen]',
-    dashboardData?.[HomPageSections.NewInWomen],
-  );
+
   return (
     <>
       <ScrollView style={{backgroundColor: 'white'}}>
