@@ -4,5 +4,6 @@ export const Colors = {
   textcolor: '#4A4A4A',
   inAactivecolor: '#F3ECE8',
   backgroundColor: '#ffffff',
-  TRANSPARENT: '#00000000'
+  TRANSPARENT: '#00000000',
+  WHITE: '#FFF',
 };

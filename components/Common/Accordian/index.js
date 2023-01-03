@@ -71,9 +71,7 @@ const Accordian = props => {
                   style={[
                     Styles.titletxt,
                     {
-                      fontFamily: showContent
-                        ? Fonts.Assistant700
-                        : Fonts.Assistant400,
+                      fontFamily: Fonts.Assistant700,
                       paddingRight: 10,
                     },
                   ]}>

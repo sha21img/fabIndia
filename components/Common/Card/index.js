@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Styles } from './styles';
 import FastImage from 'react-native-fast-image'
+import { imageURL } from '../Helper';
 
 export default function Card(props) {
   const {
@@ -9,18 +10,11 @@ export default function Card(props) {
     items
   } = props;
 
-  const defaultViewCustomStyles = {
-    width: 192,
-    elevation: 1,
-    backgroundColor: '#FFFFFF',
-    marginRight: 10,
-    marginBottom: 1,
-  };
-
   return (
     <>
       <TouchableOpacity
-        style={[defaultViewCustomStyles, customViewStyle]}
+        key={items.code}
+        style={[Styles.cardContainer, customViewStyle]}
         onPress={() =>
           props.navigation.navigate('ProductDetailed', {
             productId: items.code,
@@ -32,7 +26,7 @@ export default function Card(props) {
         <FastImage
           style={{ height: 243, width: 192 }}
           source={{
-            uri: `https://apisap.fabindia.com${items?.images[0]?.url}`,
+            uri: `${imageURL + items?.images[0]?.url}`,
             priority: FastImage.priority.normal
           }}
           resizeMode={FastImage.resizeMode.contain}

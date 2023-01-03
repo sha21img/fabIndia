@@ -10,7 +10,7 @@ export const Styles = StyleSheet.create({
     top: 50,
   },
   titletxt: {
-    fontSize: 16,
+    fontSize: 22,
     color: Colors.textcolor,
   },
   activebox: {
