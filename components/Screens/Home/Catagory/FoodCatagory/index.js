@@ -19,6 +19,9 @@ import LifeStyle from '../../../../Common/LifeStyle';
 import NewHighlights from '../../../../Common/NewHighlights';
 import CommonTitleTab from '../../../../Common/CommonTitleTab';
 import HomeHeader from '../../HomeHeader';
+import NewHighlights1 from '../../../../Common/NewHighlights/NewHighlights1';
+import TopSwiper1 from '../../../../Common/TopSwiper/TopSwiper1';
+import CommonCarousel1 from '../../../../Common/CommonCarousel/CommonCarousel1';
 const width = Dimensions.get('window').width;
 
 export default function FoodCatagory(props) {
@@ -49,10 +52,10 @@ export default function FoodCatagory(props) {
   const checkSwitch = param => {
     switch (param?.typeCode) {
       case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper data={param} />;
+        return <TopSwiper1 data={param} />;
       case 'FabBannerCarouselComponent':
         return (
-          <NewHighlights
+          <NewHighlights1
             {...props}
             customStyle={{marginVertical: 10}}
             bgColor={{backgroundColor: '#F3E0E0'}}
@@ -119,7 +122,7 @@ export default function FoodCatagory(props) {
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel
+          <CommonCarousel1
             {...props}
             data={param}
             width={width / 1.07}

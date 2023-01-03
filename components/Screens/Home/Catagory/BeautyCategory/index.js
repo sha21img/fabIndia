@@ -7,6 +7,8 @@ import {getData} from '../../../../Common/Helper';
 import NewHighlights from '../../../../Common/NewHighlights';
 import CommonTitleTab from '../../../../Common/CommonTitleTab';
 import HomeHeader from '../../HomeHeader';
+import TopSwiper1 from '../../../../Common/TopSwiper/TopSwiper1';
+import NewHighlights1 from '../../../../Common/NewHighlights/NewHighlights1';
 const width = Dimensions.get('window').width;
 
 export default function BeautyCategory(props) {
@@ -44,11 +46,11 @@ export default function BeautyCategory(props) {
     switch (param?.typeCode) {
       //1
       case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper data={param} {...props} />;
+        return <TopSwiper1 data={param} {...props} />;
       //  2,3,4
       case 'FabBannerCarouselComponent':
         return (
-          <NewHighlights
+          <NewHighlights1
             {...props}
             customStyle={{marginVertical: 10}}
             bgColor={{backgroundColor: '#F3E0E0'}}

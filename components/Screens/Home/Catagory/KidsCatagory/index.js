@@ -20,6 +20,10 @@ import WomenTab from '../../Tabs.js/WomenTab';
 import LifeStyle from '../../../../Common/LifeStyle';
 import CommonImageGrid from '../../../../Common/CommonImageGrid';
 import HomeHeader from '../../HomeHeader';
+
+import TopSwiper1 from '../../../../Common/TopSwiper/TopSwiper1';
+import CommonCarousel1 from '../../../../Common/CommonCarousel/CommonCarousel1';
+import NewHighlights1 from '../../../../Common/NewHighlights/NewHighlights1';
 const width = Dimensions.get('window').width;
 
 const KidsCatagory = props => {
@@ -54,10 +58,10 @@ const KidsCatagory = props => {
   const checkSwitch = param => {
     switch (param?.typeCode) {
       case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper data={param} {...props} />;
+        return <TopSwiper1 data={param} {...props} />;
       case 'FabBannerCarouselComponent':
         return (
-          <NewHighlights
+          <NewHighlights1
             {...props}
             customStyle={{marginVertical: 10}}
             bgColor={{backgroundColor: '#F3E0E0'}}
@@ -117,7 +121,7 @@ const KidsCatagory = props => {
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel
+          <CommonCarousel1
             {...props}
             data={param}
             width={width / 1.07}

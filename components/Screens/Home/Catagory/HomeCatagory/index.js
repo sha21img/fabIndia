@@ -19,6 +19,10 @@ import SingleBanner from '../../../../Common/SingleBanner';
 import CollectionCard from '../../../../Common/CollectionCard';
 import NewHighlights from '../../../../Common/NewHighlights';
 import HomeHeader from '../../HomeHeader';
+
+import TopSwiper1 from '../../../../Common/TopSwiper/TopSwiper1';
+import CommonCarousel1 from '../../../../Common/CommonCarousel/CommonCarousel1';
+import NewHighlights1 from '../../../../Common/NewHighlights/NewHighlights1';
 const width = Dimensions.get('window').width;
 
 export default function HomeCatagory(props) {
@@ -54,10 +58,10 @@ export default function HomeCatagory(props) {
   const checkSwitch = param => {
     switch (param?.typeCode) {
       case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper data={param} />;
+        return <TopSwiper1 data={param} />;
       case 'FabBannerCarouselComponent':
         return (
-          <NewHighlights
+          <NewHighlights1
             {...props}
             customStyle={{marginVertical: 10}}
             bgColor={{backgroundColor: '#F3E0E0'}}
@@ -111,7 +115,7 @@ export default function HomeCatagory(props) {
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel
+          <CommonCarousel1
             data={param}
             width={width / 1.07}
             height={200}

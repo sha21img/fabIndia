@@ -2,6 +2,7 @@ import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import CommonCarousel from '../../../../Common/CommonCarousel';
 import Fonts from '../../../../../assets/fonts';
+import CommonCarousel1 from '../../../../Common/CommonCarousel/CommonCarousel1';
 const width = Dimensions.get('window').width;
 
 export default function Carousel(props) {
@@ -9,7 +10,7 @@ export default function Carousel(props) {
   return (
     <View style={customStyles}>
       <Text style={Styles.heading}>{data.headline}</Text>
-      <CommonCarousel
+      <CommonCarousel1
         data={data}
         width={width / 1.07}
         height={200}

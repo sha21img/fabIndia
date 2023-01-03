@@ -12,6 +12,9 @@ import WomenTab from '../../Tabs.js/WomenTab';
 import SingleBanner from '../../../../Common/SingleBanner';
 import CollectionCard from '../../../../Common/CollectionCard';
 import HomeHeader from '../../HomeHeader';
+import NewHighlights1 from '../../../../Common/NewHighlights/NewHighlights1';
+import TopSwiper1 from '../../../../Common/TopSwiper/TopSwiper1';
+import CommonCarousel1 from '../../../../Common/CommonCarousel/CommonCarousel1';
 const width = Dimensions.get('window').width;
 
 const FurnitureCategory = props => {
@@ -48,11 +51,11 @@ const FurnitureCategory = props => {
     switch (param?.typeCode) {
       //1
       case 'FabResponsiveGridBannerCarouselComponent':
-        return <TopSwiper data={param} {...props} />;
+        return <TopSwiper1 data={param} {...props} />;
       //2,3,4
       case 'FabBannerCarouselComponent':
         return (
-          <NewHighlights
+          <NewHighlights1
             {...props}
             customStyle={{marginTop: 30}}
             bgColor={{backgroundColor: '#F3E0E0'}}
@@ -98,7 +101,7 @@ const FurnitureCategory = props => {
 
       case 'FabBannerResponsiveCarouselComponent':
         return (
-          <CommonCarousel
+          <CommonCarousel1
             data={param}
             width={width / 1.07}
             height={200}
