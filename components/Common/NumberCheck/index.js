@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
@@ -9,8 +9,15 @@ import {TextInput} from 'react-native-paper';
 import CommonButton from '../CommonButton';
 import {UnAuthPostData} from '../Helper';
 import Toast from 'react-native-simple-toast';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function NumberCheck({setNumberRequire}) {
+export default function NumberCheck({
+  setNumberRequire,
+  userGoogleInfo = {},
+  userEmailToken = {},
+}) {
+  console.log('this is auth token form email', userEmailToken);
   const [mobilePrefix, setMobilePrefix] = useState('91');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [Otp, setOtp] = useState('');
@@ -28,16 +35,20 @@ export default function NumberCheck({setNumberRequire}) {
       mobileNumber: phoneNumber,
     };
     console.log(params);
-    await UnAuthPostData('otp/generate?lang=en&curr=INR', params).then(res => {
-      console.log('res for regitser number sent', res);
-      if (res.transactionId) {
-        Toast.showWithGravity('OTP Sent !', Toast.LONG, Toast.TOP);
-        settransactionId(res?.transactionId);
-        setgenerate(true);
-      } else {
-        Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
-      }
-    });
+    await UnAuthPostData('otp/generate?lang=en&curr=INR', params)
+      .then(res => {
+        console.log('res for regitser number sent', res);
+        if (res.transactionId) {
+          Toast.showWithGravity('OTP Sent !', Toast.LONG, Toast.TOP);
+          settransactionId(res?.transactionId);
+          setgenerate(true);
+        } else {
+          Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
+        }
+      })
+      .catch(error => {
+        console.log('this is error', error);
+      });
   };
   const VerifyOTP = async () => {
     let params = {
@@ -55,11 +66,106 @@ export default function NumberCheck({setNumberRequire}) {
         Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
       } else {
         Toast.showWithGravity('Done', Toast.LONG, Toast.TOP);
-        setgenerate(false);
-        setNumberRequire(false);
+        // setgenerate(false);
+        userDetails();
       }
     });
   };
+  const userDetails = async () => {
+    console.log('adsfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd]f[sd[f][sd]f[');
+    let data = {
+      firstName: userGoogleInfo?.user?.givenName,
+      lastName: userGoogleInfo?.user?.familyName,
+      uid: userGoogleInfo?.user?.email,
+      password: `${userGoogleInfo?.user?.givenName}#${phoneNumber}`,
+      titleCode: '',
+      contactNumber: phoneNumber,
+      contactNumberCode: '+91',
+      authToken: userEmailToken.accessToken,
+      provider: 'GOOGLE',
+      transactionId: transactionId,
+      consents: [
+        {
+          id: 'MARKETING_NEWSLETTER',
+        },
+      ],
+    };
+    console.log('tjis', data);
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    await axios
+      .post(
+        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users?lang=en&curr=INR`,
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `bearer rLcepewFKp8YUipkMcpZsvRGDNs`,
+            Accept: 'application/json',
+          },
+        },
+      )
+      .then(response => {
+        console.log('response-=-=-=-=-=-user details', response.data);
+        // saveTokenGoogle();
+      })
+      .catch(error => {
+        console.log('error', error);
+        Toast.showWithGravity(
+          error.response.data.errors[0].message,
+          Toast.LONG,
+          Toast.TOP,
+        );
+      });
+  };
+  const saveTokenGoogle = () => {
+    var details = {
+      grant_type: 'custom',
+      scope: '',
+      client_id: 'mobile_android',
+      client_secret: 'secret',
+      provider: 'GOOGLE',
+      username: userGoogleInfo.user.email,
+      authToken: userEmailToken.accessToken,
+    };
+    console.log('detailsdetailsdetails', details);
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
+    fetch(`https://apisap.fabindiahome.com/authorizationserver/oauth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formBody,
+    })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (res1) {
+        console.log('response==>-=-=-=', res1);
+        const tokenGenerate = {...res1, isCheck: true};
+        if (res1.error) {
+          Toast.showWithGravity(res1.error_description, Toast.LONG, Toast.TOP);
+        } else {
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          setNumberRequire(false);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          props.navigation.navigate('MyAccount', {
+            screen: 'MyAccounts',
+          });
+          getCartID();
+          getWishID();
+        }
+      });
+  };
+  // useEffect(() => {
+  //   userDetails();
+  // }, []);
   return (
     <View
       style={{

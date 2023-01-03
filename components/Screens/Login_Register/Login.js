@@ -52,6 +52,7 @@ export default function Login(props) {
   //
   const [numberRequire, setNumberRequire] = useState(false);
   const [userGoogleInfo, setUserGoogleInfo] = useState({});
+  const [userEmailToken, setUserEmailToken] = useState({});
   //
 
   const googleIcon = {
@@ -176,23 +177,72 @@ export default function Login(props) {
     FacebookLogin();
   };
 
-  // const googleLoginHandler = () => {
-  //   FacebookLogin();
-  // };
-  // const checkPhone = async userInfo => {
-  //   // email = userInfo.user;
-  //   await axios
-  //     // https://apisap.fabindia.com/occ/v2/fabindiab2c/users?uid=ashishjain.img%40gmail.com&lang=en&curr=INR
-  //     .post(`${BaseURL2}users?uid=ashishjain.img%40gmail.com&lang=en&curr=INR`)
-  //     .then(response => {
-  //       console.log('response-=-=-=-=-=-number', response.data);
-
-  //       // setNumberRequire(true);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // };
+  const googleLoginHandler = () => {
+    FacebookLogin();
+  };
+  const checkPhone = async (userInfo, code) => {
+    let FbEmail = userInfo?.user?.email;
+    console.log('this is in the check phone', FbEmail);
+    await axios
+      .get(
+        `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users?uid=${FbEmail}&lang=en&curr=INR`,
+      )
+      .then(response => {
+        console.log('response-=-=-=-=-=-number', response.data);
+        if (response.data) {
+          saveTokenGoogle(userInfo, code);
+        } else {
+          setNumberRequire(true);
+        }
+      })
+      .catch(error => {
+        console.log(error, 'error');
+      });
+  };
+  const saveTokenGoogle = (userInfo, code) => {
+    var details = {
+      grant_type: 'custom',
+      scope: '',
+      client_id: 'mobile_android',
+      client_secret: 'secret',
+      provider: 'GOOGLE',
+      username: userInfo.user.email,
+      authToken: code.accessToken,
+    };
+    console.log('detailsdetailsdetails', details);
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
+    fetch(`https://apisap.fabindiahome.com/authorizationserver/oauth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formBody,
+    })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (res1) {
+        console.log('response==>-=-=-=', res1);
+        const tokenGenerate = {...res1, isCheck: true};
+        if (res1.error) {
+          Toast.showWithGravity(res1.error_description, Toast.LONG, Toast.TOP);
+        } else {
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          props.navigation.navigate('MyAccount', {
+            screen: 'MyAccounts',
+          });
+          getCartID();
+          getWishID();
+        }
+      });
+  };
   const signIn = async () => {
     try {
       GoogleSignin.configure({
@@ -213,11 +263,14 @@ export default function Login(props) {
       await GoogleSignin.hasPlayServices();
       console.log('reached google sign in');
       const userInfo = await GoogleSignin.signIn();
-      console.log('userInfouserInfouserInfouserInfouserInfo', userInfo);
+      const code = await GoogleSignin.getTokens();
+      console.log('userInfouserInfouserInfouserInfouserInfo', code);
       setUserGoogleInfo(userInfo);
-      // if (userInfo.idToken) {
-      //   checkPhone(userInfo);
-      // }
+      setUserEmailToken(code);
+      if (code.accessToken) {
+        console.log('in the ifff');
+        // checkPhone(userInfo, code);
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -251,7 +304,7 @@ export default function Login(props) {
       Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
     }
   };
-  const saveToken = async () => {
+  const saveTokenNumber = async () => {
     var details = {
       grant_type: 'custom',
       scope: '',
@@ -320,7 +373,7 @@ export default function Login(props) {
       .then(response => {
         console.log('this sis res', response?.data);
         if (response?.status == 200) {
-          saveToken();
+          saveTokenNumber();
         } else {
           console.log('in else');
         }
@@ -338,7 +391,11 @@ export default function Login(props) {
   return (
     <>
       {numberRequire ? (
-        <NumberCheck setNumberRequire={setNumberRequire} />
+        <NumberCheck
+          setNumberRequire={setNumberRequire}
+          userGoogleInfo={userGoogleInfo}
+          userEmailToken={userEmailToken}
+        />
       ) : (
         <ScrollView style={styles.container}>
           {generateOtp ? (
