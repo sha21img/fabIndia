@@ -376,7 +376,7 @@ export default function Login(props) {
                 keyboardType="numeric"
                 style={{
                   backgroundColor: '#fff',
-                  height: 35,
+                  height: 40,
                   textAlign: 'center',
                   borderBottomColor: Colors.inactiveicon,
                   borderBottomWidth: 1,
