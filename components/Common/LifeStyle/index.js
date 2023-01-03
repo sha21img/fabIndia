@@ -15,6 +15,7 @@ import {image} from '../../../assets/images';
 import {Styles} from './styles';
 import React, {useEffect, useState} from 'react';
 import {getComponentData} from '../Helper';
+import {hasSpaces} from '../../../constant';
 
 export default function LifeStyle(props) {
   const {
@@ -22,64 +23,30 @@ export default function LifeStyle(props) {
     title = null,
     backgroundColor = '',
     customViewStyle = {},
+    isAdmin2,
   } = props;
   const [categoryData, setCategoryData] = React.useState([]);
   const [page, setPage] = useState(0);
   const [array, setArray] = useState([]);
-
-  const getBannerIds = async () => {
-    const bannerId = data.banners;
-    const splitBannerId = bannerId.split(' ').join(',');
-    console.log('splitBannerId', splitBannerId);
-    getCategoryData(splitBannerId);
-  };
-  const getCategoryData = async bannerId => {
-    const response = await getComponentData(
-      `cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${bannerId}&lang=en&curr=INR`,
-    );
-    console.log(
-      'responsesdfghjhgfdsaf1111111111111111111111111111111response',
-      response.component[0].media.url,
-    );
-
-    setPage(page + 1);
-    setCategoryData(response);
-    if (array.length > 0) {
-      setArray(prev => [...prev, ...response.component]);
-    } else {
-      setArray(response.component);
-    }
-  };
-  useEffect(() => {
-    getBannerIds();
-  }, []);
-  const endReach = () => {
-    if (categoryData?.pagination?.totalPages > page) {
-      getBannerIds();
-    }
-  };
+  const check = hasSpaces(data[0]?.categoryName);
 
   const cards = (item, index) => {
-    const newCode = item.urlLink;
-    // console.log('item for product', newCode);
-    let splitURL = newCode.split('/');
-    splitURL = splitURL[splitURL.length - 1];
-    // console.log('splitURL', splitURL);
+    const newCode = item.landingPage;
+    console.log('dfg', item.image);
     return (
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() =>
           props.navigation.navigate('LandingPageSaris_Blouses', {
-            code: splitURL,
+            code: newCode,
             title: item.title,
+            isAdmin2: isAdmin2,
           })
         }>
         <ImageBackground
           key={Math.random() * 1099900}
           resizeMode="cover"
-          source={{
-            uri: `https://apisap.fabindia.com/${item.media.url}`,
-          }}
+          source={{uri: item.image}}
           style={[
             Styles.card,
             {
@@ -118,7 +85,7 @@ export default function LifeStyle(props) {
             color: '#4A4A4A',
             fontSize: 30,
           }}>
-          {data.title}
+          {check ? check[0] : null}
         </Text>
         <View>
           <Text
@@ -128,15 +95,14 @@ export default function LifeStyle(props) {
               lineHeight: 23,
               fontFamily: Fonts.Assistant400,
             }}>
-            {data.headline}
+            {check ? check[1] : null}
           </Text>
         </View>
       </View>
 
       <FlatList
         horizontal
-        data={array}
-        onEndReached={endReach}
+        data={data}
         showsHorizontalScrollIndicator={false}
         onEndReachedThreshold={0.1}
         keyExtractor={(item, index) => index}

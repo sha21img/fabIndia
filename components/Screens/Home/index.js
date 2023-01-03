@@ -125,6 +125,7 @@ export default function Dashbord(props) {
     const response = await axios.get(
       'http://159.89.164.11:3030/homepage/getForApp',
     );
+    console.log('oiuytrfghj', response.data.data);
     setDashboardData(response.data.data);
     setLoading(false);
     // console.log('this is a eresponse of pageXOffset', response.data.data);
