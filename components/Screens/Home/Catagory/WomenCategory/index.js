@@ -609,59 +609,16 @@ const WomenCategory = props => {
   ];
   console.log('filteredComp[0]', filteredComp[0]);
   return (
-    <>
-      {filteredComp.length > 0 && (
-        <>
-          <HomeHeader
-            customViewStyle={{backgroundColor: '#FFFFFF'}}
-            {...props}
-            headertext={title}
-          />
-          <ScrollView style={{backgroundColor: 'white', flexGrow: 1}}>
-            <TopSwiper data={topSwiper} {...props} isAdmin2={'isAdmin2'} />
-            <NewHighlights
-              {...props}
-              isAdmin2={'isAdmin2'}
-              customStyle={{marginVertical: 20}}
-              bgColor={{backgroundColor: '#F3E0E0'}}
-              data={apparelHighlight}
-            />
-            <NewHighlights
-              {...props}
-              isAdmin2={'isAdmin2'}
-              customStyle={{marginVertical: 20}}
-              bgColor={{backgroundColor: '#F3E0E0'}}
-              data={dupattasHighlight}
-            />
-            <NewHighlights
-              {...props}
-              isAdmin2={'isAdmin2'}
-              customStyle={{marginVertical: 20}}
-              bgColor={{backgroundColor: '#F3E0E0'}}
-              data={jewelleryHighlight}
-            />
-            {/* <LifeStyle
-              {...props}
-              customViewStyle={{marginVertical: 20}}
-              // data={LifeStyleData}
-              data={filteredComp[0]}
-              // title={GetLifeStyleTitle}
-              backgroundColor="#F8F2EF"
-            /> */}
-            {/* <FlatList
-        contentContainerStyle={{
-          backgroundColor: Colors.backgroundColor,
-          paddingBottom: 20,
-          flexGrow: 1,
-        }}
-        data={filteredComp}
-        keyExtractor={(item, index) => index}
-        renderItem={item => checkSwitch(item.item)}
-      /> */}
-          </ScrollView>
-        </>
-      )}
-    </>
+    <FlatList
+      contentContainerStyle={{
+        backgroundColor: Colors.backgroundColor,
+        paddingBottom: 20,
+        flexGrow: 1,
+      }}
+      data={filteredComp}
+      keyExtractor={(item, index) => index}
+      renderItem={item => checkSwitch(item.item)}
+    />
   );
 };
 export default WomenCategory;
