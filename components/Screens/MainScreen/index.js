@@ -1756,6 +1756,7 @@ export default function MainScreen(props) {
               homeheader={null}
               searchVisible={null}
               headertext="Categories"
+              backArrow={false}
             />
           ),
           tabBarIcon: ({focused}) => (

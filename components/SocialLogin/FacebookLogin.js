@@ -4,6 +4,7 @@ import {
   LoginManager,
   GraphRequestManager,
 } from 'react-native-fbsdk-next';
+import {View, Text} from 'react-native';
 export const FacebookLogin = props => {
   LoginManager;
   LoginManager.logInWithPermissions(['public_profile', 'email']).then(
@@ -33,14 +34,14 @@ export const FacebookLogin = props => {
                 },
               );
               console.log('demo12345678', userData);
-              const isSuccess = setData(Labels.userDataId, userData);
-              if (isSuccess) {
-                console.log('naviagteeee');
-                props.navigation.navigate('MainScreens', {userData: userData});
-              } else {
-                console.log('errorr');
-                //   onError([Messages.codeErrorMessage]);
-              }
+              // const isSuccess = setData(Labels.userDataId, userData);
+              // if (isSuccess) {
+              //   console.log('naviagteeee');
+              //   props.navigation.navigate('MainScreens', {userData: userData});
+              // } else {
+              //   console.log('errorr');
+              //   //   onError([Messages.codeErrorMessage]);
+              // }
             }
           };
           const infoRequest = new GraphRequest(
