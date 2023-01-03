@@ -79,7 +79,7 @@ export default function OfferForYou({
                 flatlistRef.current.scrollToOffset({ animated: true, offset: 0 });
               }}
               style={{ paddingVertical: 5, marginRight: 16, borderBottomWidth: 2, borderBottomColor: selectedTab == item.title ? Colors.primarycolor : 'transparent' }}>
-              <Text>{item.title}</Text>
+              <Text style={{ fontSize: 14, fontFamily: Fonts.Assistant300, color: selectedTab == item.title ? Colors.primarycolor : Colors.textcolor }}>{item.title}</Text>
             </TouchableOpacity>
           )
         })}
