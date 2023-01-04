@@ -1032,26 +1032,265 @@ const WomenCategory = props => {
       {
         _id: '63aaef8e15519f83a5972b76',
         image:
-          'https://apisap.fabindiahome.com/medias/sys_master/root/he7/haa/9081602670622/wmn-sec7-mob-3oct22/wmn-sec7-mob-3oct22.jpg',
-        landingPage:
-          ':creationtime-desc:allCategories:women-ethnic-wear:Length:Ankle Length:Length:Waist Length:Length:Thigh Length:Length:Knee Length:Length:Calf Length',
+          'https://apisap.fabindiahome.com/medias/sys_master/root/ha5/hb1/9081602867230/wmn-sec10-mob-3oct22/wmn-sec10-mob-3oct22.jpg',
+        landingPage: ':relevance:allCategories:women-stoles-scarves',
         category: '63aad98915519f83a5972aa6',
         sortorder: 16,
-        title: `Women's Ethnic Wear`,
+        title: ` Women's Stoles and Scarves `,
         is_slider: true,
         is_enable: true,
         createdAt: '2022-12-27T13:13:50.117Z',
         updatedAt: '2022-12-30T13:20:32.173Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: `Women's Ethnic Wear`,
+          Name: ` Women's Stoles and Scarves `,
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: `Women's Ethnic Wear`,
+        categoryName: ` Women's Stoles and Scarves `,
         categoryId: '63aad98915519f83a5972aa6',
+      },
+    ],
+    '63ad9230bcb1a02702f7bb9f': [
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://apisap.fabindiahome.com/medias/sys_master/root/h3c/hfb/9065285222430/wmn-ww-22sep22-img1/wmn-ww-22sep22-img1.jpg',
+        landingPage: ':relevance:allCategories:women-dresses-jumpsuits',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: `Women's Dresses and Jumpsuits`,
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: 'Western Wear/Get the freshest looks of the season to express your style mantra',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName:
+          'Western Wear/Get the freshest looks of the season to express your style mantra',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63aaf1d415519f83a5972ba7',
+        image:
+          'https://apisap.fabindiahome.com/medias/sys_master/root/h62/h94/9088548536350/wmn-ww-22sep22-img4-rep/wmn-ww-22sep22-img4-rep.jpg',
+        landingPage: ':relevance:allCategories:women-tops',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 17,
+        title: `Women's Tops`,
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:23:32.461Z',
+        updatedAt: '2022-12-30T13:20:41.484Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: 'Western Wear/Get the freshest looks of the season to express your style mantra',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName:
+          'Western Wear/Get the freshest looks of the season to express your style mantra',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63ae833abcb1a02702f7bde6',
+        image:
+          'https://apisap.fabindiahome.com/medias/sys_master/root/h73/h97/9088548601886/wmn-ww-22sep22-img2-rep/wmn-ww-22sep22-img2-rep.jpg',
+        landingPage: ':relevance:allCategories:women-pants-palazzos',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 105,
+        title: `Women's Pants And Palazzos`,
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-30T06:20:42.160Z',
+        updatedAt: '2022-12-30T13:20:53.919Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: 'Western Wear/Get the freshest looks of the season to express your style mantra',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName:
+          'Western Wear/Get the freshest looks of the season to express your style mantra',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63ae8358bcb1a02702f7bdef',
+        image:
+          'https://apisap.fabindiahome.com/medias/sys_master/root/h21/h98/9088548667422/wmn-sec11-29sep22-4-rep/wmn-sec11-29sep22-4-rep.jpg',
+        landingPage: ':relevance:allCategories:women-tunics',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 106,
+        title: `Women's Tunics`,
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-30T06:21:12.899Z',
+        updatedAt: '2022-12-30T13:21:02.098Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: 'Ethnic Wear/Creations made with an amalgamation of intricate designs and elegant hues',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName:
+          'Ethnic Wear/Creations made with an amalgamation of intricate designs and elegant hues',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+    ],
+    '63ad9067bcb1a02702f7bb87': [
+      {
+        _id: '63aae8c115519f83a5972b4a',
+        category: '63aab8b715519f83a59729d7',
+        categoryData: {
+          Is_Active: true,
+          Name: `Women's Sleepwear`,
+          _id: '63aab8b715519f83a59729d7',
+          createdAt: '2022-12-27T09:19:51.037Z',
+          sortorder: '1',
+          updatedAt: '2022-12-29T07:08:39.709Z',
+        },
+        categoryId: '63aab8b715519f83a59729d7',
+        categoryName: `Women's Sleepwear`,
+        createdAt: '2022-12-27T12:44:49.616Z',
+        image:
+          'https://apisap.fabindiahome.com/medias/sys_master/root/hc2/he7/9091104964638/wmn-lpsec12-19oct22-1/wmn-lpsec12-19oct22-1.jpg',
+        is_enable: true,
+        is_slider: true,
+        landingPage: ':relevance:allCategories:women-sleepwear',
+        sortorder: 11,
+        title: `Women's Sleepwear`,
+        updatedAt: '2023-01-03T05:59:51.680Z',
+      },
+      {
+        _id: '63ac4371f6a2493189ca4048',
+        category: '63aab8b715519f83a59729d7',
+        categoryData: {
+          Is_Active: true,
+          Name: `Women's Bags, Belts And Wallets`,
+          _id: '63aab8b715519f83a59729d7',
+          createdAt: '2022-12-27T09:19:51.037Z',
+          sortorder: '1',
+          updatedAt: '2022-12-29T07:08:39.709Z',
+        },
+        categoryId: '63aab8b715519f83a59729d7',
+        categoryName: `Women's Bags, Belts And Wallets`,
+        createdAt: '2022-12-28T13:24:01.900Z',
+        image:
+          'https://apisap.fabindiahome.com/medias/sys_master/root/h80/hcd/9091105030174/wmn-lpsec12-19oct22-2/wmn-lpsec12-19oct22-2.jpg',
+        is_enable: true,
+        is_slider: true,
+        landingPage: ':relevance:allCategories:women-bags-belts-wallets',
+        sortorder: 5,
+        title: `Women's Bags, Belts And Wallets`,
+        updatedAt: '2023-01-03T05:59:51.682Z',
+      },
+    ],
+    '63ad923cbcb1a02702f7bba4': [
+      {
+        _id: '63aae8c115519f83a5972b4a',
+        category: '63aab8b715519f83a59729d7',
+        categoryData: {
+          Is_Active: true,
+          Name: 'FabNu',
+          _id: '63aab8b715519f83a59729d7',
+          createdAt: '2022-12-27T09:19:51.037Z',
+          sortorder: '1',
+          updatedAt: '2022-12-29T07:08:39.709Z',
+        },
+        categoryId: '63aab8b715519f83a59729d7',
+        categoryName: 'FabNu',
+        createdAt: '2022-12-27T12:44:49.616Z',
+        image:
+          'https://apisap.fabindiahome.com/medias/sys_master/root/hd2/hcc/9091105095710/wmn-lpsec13-19oct22-1/wmn-lpsec13-19oct22-1.jpg',
+        is_enable: true,
+        is_slider: true,
+        landingPage: ':relevance:allCategories:fabnu-collection',
+        sortorder: 11,
+        title: 'FabNu',
+        updatedAt: '2023-01-03T05:59:51.680Z',
+      },
+      {
+        _id: '63ac4371f6a2493189ca4048',
+        category: '63aab8b715519f83a59729d7',
+        categoryData: {
+          Is_Active: true,
+          Name: `Women's Western Wear`,
+          _id: '63aab8b715519f83a59729d7',
+          createdAt: '2022-12-27T09:19:51.037Z',
+          sortorder: '1',
+          updatedAt: '2022-12-29T07:08:39.709Z',
+        },
+        categoryId: '63aab8b715519f83a59729d7',
+        categoryName: `Women's Western Wear`,
+        createdAt: '2022-12-28T13:24:01.900Z',
+        image:
+          'https://apisap.fabindiahome.com/medias/sys_master/root/hc1/hc9/9091105161246/wmn-lpsec13-19oct22-2/wmn-lpsec13-19oct22-2.jpg',
+        is_enable: true,
+        is_slider: true,
+        landingPage: ':relevance:allCategories:women-western-wear',
+        sortorder: 5,
+        title: `Women's Western Wear`,
+        updatedAt: '2023-01-03T05:59:51.682Z',
+      },
+      {
+        _id: '63ae63e3ce2829923f67fdf1',
+        category: '63aab8b715519f83a59729d7',
+        categoryData: {
+          Is_Active: true,
+          Name: ' Everyday Living Women Clothing ',
+          _id: '63aab8b715519f83a59729d7',
+          createdAt: '2022-12-27T09:19:51.037Z',
+          sortorder: '1',
+          updatedAt: '2022-12-29T07:08:39.709Z',
+        },
+        categoryId: '63aab8b715519f83a59729d7',
+        categoryName: ' Everyday Living Women Clothing ',
+        createdAt: '2022-12-30T04:06:59.301Z',
+        image:
+          'https://apisap.fabindiahome.com/medias/sys_master/root/hc3/hc6/9091105226782/wmn-lpsec13-19oct22-3/wmn-lpsec13-19oct22-3.jpg',
+        is_enable: true,
+        is_slider: true,
+        landingPage: ':relevance:allCategories:everyday-living-women',
+        sortorder: 9,
+        title: ` Everyday Living Women Clothing `,
+        updatedAt: '2023-01-03T05:59:51.682Z',
+      },
+      {
+        _id: '63b262ffbcb1a02702f7c407',
+        category: '63aab8b715519f83a59729d7',
+        categoryData: {
+          Is_Active: true,
+          Name: 'Wedding Women Clothing ',
+          _id: '63aab8b715519f83a59729d7',
+          createdAt: '2022-12-27T09:19:51.037Z',
+          sortorder: '1',
+          updatedAt: '2022-12-29T07:08:39.709Z',
+        },
+        categoryId: '63aab8b715519f83a59729d7',
+        categoryName: 'Wedding Women Clothing ',
+        createdAt: '2023-01-02T04:52:15.102Z',
+        image:
+          'https://apisap.fabindiahome.com/medias/sys_master/root/h02/hc6/9091105292318/wmn-lpsec13-19oct22-4/wmn-lpsec13-19oct22-4.jpg',
+        is_enable: true,
+        is_slider: true,
+        landingPage: ':creationtime-desc:allCategories:wedding-women',
+        sortorder: 3,
+        title: 'Wedding Women Clothing ',
+        updatedAt: '2023-01-03T05:59:51.683Z',
       },
     ],
   };
@@ -1064,18 +1303,18 @@ const WomenCategory = props => {
     TraditionBanner: '63aadab915519f83a5972aad',
     TaketoorCard: '63aadbd215519f83a5972ac1',
     Sophistication: '63ad7b23bcb1a02702f7bb0c',
+    LifeStylewesternwear: '63ad9230bcb1a02702f7bb9f',
+    carousel: '63ad9067bcb1a02702f7bb87',
+    Collections: '63ad923cbcb1a02702f7bba4',
 
     // offer
-    offerWomen: '63ad9230bcb1a02702f7bb9f',
-    offerMen: '63ad9067bcb1a02702f7bb87',
-    offerKids: '63ad923cbcb1a02702f7bba4',
-    offerHome: '63ad9244bcb1a02702f7bba9',
+    // offerHome: '63ad9244bcb1a02702f7bba9',
 
-    Interior: '63ad95f5bcb1a02702f7bbd8',
-    NewInHome: '63ad96b4bcb1a02702f7bbe6',
-    BannerHome: '63ad979cbcb1a02702f7bbfd',
-    BannerLiving: '63ad983cbcb1a02702f7bc10',
-    youtube: '63abc289c349c715bd92dadd',
+    // Interior: '63ad95f5bcb1a02702f7bbd8',
+    // NewInHome: '63ad96b4bcb1a02702f7bbe6',
+    // BannerHome: '63ad979cbcb1a02702f7bbfd',
+    // BannerLiving: '63ad983cbcb1a02702f7bc10',
+    // youtube: '63abc289c349c715bd92dadd',
   };
   return (
     <>
@@ -1091,6 +1330,7 @@ const WomenCategory = props => {
               data={data?.[HomPageSections.topSwiper]}
               {...props}
               isAdmin2={'isAdmin2'}
+              isSap={true}
             />
 
             <NewHighlights
@@ -1122,7 +1362,7 @@ const WomenCategory = props => {
               // title={GetLifeStyleTitle}
               backgroundColor="#F8F2EF"
             />
-            <WomenTab data={filteredComp[5]} {...props} />
+            <WomenTab data={filteredComp[0]} {...props} />
             <TouchableOpacity
               style={{marginTop: 20}}
               activeOpacity={0.8}
@@ -1151,6 +1391,39 @@ const WomenCategory = props => {
               {...props}
               isAdmin2="isAdmin2"
             />
+            <LifeStyle
+              isAdmin2={'isAdmin2'}
+              {...props}
+              customViewStyle={{marginVertical: 20}}
+              data={data?.[HomPageSections.LifeStylewesternwear]}
+              // title={GetLifeStyleTitle}
+              backgroundColor="#F8F2EF"
+            />
+            <WomenTab data={filteredComp[1]} {...props} />
+            <CommonCarousel
+              {...props}
+              data={data?.[HomPageSections.carousel]}
+              width={width / 1.07}
+              isAdmin2={'isAdmin2'}
+              height={200}
+              customStyle={{margin: 20}}
+            />
+            <Text
+              style={{
+                marginLeft: 15,
+                fontFamily: Fonts.PlayfairDisplay600Italic,
+                fontSize: 20,
+                color: Colors.textcolor,
+                marginBottom: 10,
+              }}>
+              Collections
+            </Text>
+            <CollectionCard
+              isAdmin2={'isAdmin2'}
+              data={data?.[HomPageSections.Collections]}
+              {...props}
+            />
+
             {/* <FlatList
         contentContainerStyle={{
           backgroundColor: Colors.backgroundColor,

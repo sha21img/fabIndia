@@ -1375,7 +1375,7 @@ const DrawerContent = () => {
       children: [
         {
           children: [],
-          title: 'Collections',
+          title: 'Wedding',
           landingPage: 'Collections',
         },
         {

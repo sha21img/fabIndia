@@ -7,14 +7,19 @@ import FastImage from 'react-native-fast-image';
 
 export default function TopSwiper(props) {
   const navigation = useNavigation();
-  const {customStyle = {}, data = {}, isAdmin2 = ''} = props;
+  const {customStyle = {}, data = {}, isAdmin2 = '', isSap = false} = props;
   const [carouselData, setCarouselData] = React.useState([]);
-
   const getCarauselIds = async () => {
     let images = [];
     for (let i = 0; i < data.length; i++) {
+      console.log('item?.image', data[0]);
+      // console.log(
+      //   'isSap ? item?.image : item?.i',
+      //   isSap ? item?.image : item?.image.split('?')[0],
+      // );
       const item = data[i];
-      images.push(item?.image?.split('?')[0]);
+      const filterImage = isSap ? item?.image : item?.image.split('?')[0];
+      images.push(filterImage);
     }
     setCarouselData(images);
   };
@@ -35,7 +40,7 @@ export default function TopSwiper(props) {
       navigation.navigate('LandingPageSaris_Blouses', {
         code: urlCode,
         title: title,
-        isAdmin2: 'isAdmin2',
+        isAdmin2: isAdmin2,
       });
     } else {
       const newCode = filteredObj.urlLink;
