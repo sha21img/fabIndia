@@ -2,7 +2,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   Alert,
   ScrollView,
   Modal,
@@ -12,9 +11,6 @@ import React, {useState} from 'react';
 import Fonts from '../../../assets/fonts';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {Colors} from '../../../assets/Colors';
-import Card from '../../Common/Card';
-import Card1 from '../../Common/Card1';
-import SimpleCard from '../../Common/SimpleCard';
 import PointDetailCard from '../../Common/PointDetailCard';
 
 export default function Details({customStyle, productdetail}) {

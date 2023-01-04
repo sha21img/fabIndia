@@ -2,7 +2,6 @@ import {View, Text, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {getComponentData} from '../Helper';
 import Chip from '../Chip';
-import CommonTopTab from '../CommonTopTab';
 import TitleCard from './TitleCard';
 
 export default function CommonTitleTab(props) {

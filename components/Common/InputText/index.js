@@ -1,8 +1,6 @@
-import {View, Text, StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import React from 'react';
-import {TextInput} from 'react-native-paper';
-import {Colors} from '../../../assets/Colors';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import { TextInput } from 'react-native-paper';
 
 export default function InputText({
   underlineColor = '#EDEDED',

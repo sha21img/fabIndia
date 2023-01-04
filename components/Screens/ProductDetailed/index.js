@@ -439,14 +439,6 @@ export default function ProductDetailed(props) {
                 setModalVisible(true);
               }}
             />
-
-            <View style={{position: 'absolute', top: 0, width: '100%'}}>
-              <HomeHeader
-                {...props}
-                searchVisible={false}
-                isTransparent={true}
-              />
-            </View>
           </View>
 
           <Details productdetail={productdetail} productId={productId} />
@@ -527,6 +519,14 @@ export default function ProductDetailed(props) {
           </View>
         </ScrollView>
       )}
+
+      <View style={{ position: 'absolute', top: 0, width: '100%' }}>
+        <HomeHeader
+          {...props}
+          searchVisible={false}
+          isTransparent={true}
+        />
+      </View>
 
       <Footer
         {...props}
