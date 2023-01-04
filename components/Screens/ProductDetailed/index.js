@@ -262,6 +262,8 @@ export default function ProductDetailed(props) {
           }
         });
     } else {
+      Toast.showWithGravity('Please Select Your Size', Toast.LONG, Toast.TOP);
+
       setSelectText(true);
     }
   };
@@ -398,6 +400,8 @@ export default function ProductDetailed(props) {
           });
       }
     } else {
+      Toast.showWithGravity('Please Select Your Size', Toast.LONG, Toast.TOP);
+
       setSelectText(true);
     }
   };

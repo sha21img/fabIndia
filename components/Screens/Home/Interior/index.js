@@ -16,7 +16,7 @@ export default function Interior(props) {
   const {data} = props;
   return (
     <TouchableOpacity
-      onPress={() => props.navigation.navigate('InteriorCatagory')}>
+      onPress={() => props.navigation.navigate('InteriorHomepage')}>
       <ImageBackground
         resizeMode="stretch"
         style={Styles.imagebg}

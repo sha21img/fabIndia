@@ -40,6 +40,7 @@ import InteriorCatagory from '../../Common/InteriorCatagory';
 import HomeHeader from '../Home/HomeHeader';
 import WishListCard from '../../Common/WishListCard';
 import CategorySection from '../CategorySection';
+import InteriorHomepage from '../InteriorHomepage';
 
 const Stack = createNativeStackNavigator();
 
@@ -354,6 +355,22 @@ export default function HomeStack() {
             <Header
               leftIcon={leftIcon}
               title="Interior Design Solutions"
+              rightIcon={rightIcon}
+              customStyle={{
+                backgroundColor: '#F8F6F5',
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="InteriorHomepage"
+        component={InteriorHomepage}
+        options={{
+          header: props => (
+            <Header
+              leftIcon={leftIcon}
+              title="Interior"
               rightIcon={rightIcon}
               customStyle={{
                 backgroundColor: '#F8F6F5',
