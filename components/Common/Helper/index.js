@@ -18,7 +18,7 @@ const AuthAuthor = 'bearer nCVKPnrYg-ZgHMn0djWh1YSFCX0';
 export const imageURL = 'https://apisap.fabindia.com/';
 export const imageURL2 = 'https://apisap.fabindiaHome.com/';
 
-const generatTokenWithout = async () => {
+const generatTokenWithout = async dispatch => {
   await axios
     .post(
       `${AuthBaseUrl2}/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
@@ -28,7 +28,7 @@ const generatTokenWithout = async () => {
         const tokenGenerate = {...response.data, isCheck: false};
         console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
         AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-        getCartID()
+        getCartID(dispatch);
       },
       error => {
         console.log('response-=-=-=-=-=-error', error);
@@ -49,7 +49,7 @@ const logout = async dispatch => {
   // props.navigation.navigate('MyAccount', {
   //   screen: 'Login_Register',
   // });
-  await generatTokenWithout();
+  await generatTokenWithout(dispatch);
 };
 
 // const postData = async (url, body) => {
@@ -146,9 +146,10 @@ const UnAuthPostData = async (url, data) => {
     }
   }
 };
-const getCartID = async () => {
+const getCartID = async dispatch => {
   const get = await AsyncStorage.getItem('generatToken');
   const getToken = JSON.parse(get);
+  console.log('get token    cart id', getToken);
   const type = getToken.isCheck ? 'current' : 'anonymous';
   const response = await axios
     .post(
@@ -172,7 +173,6 @@ const getCartID = async () => {
       }
     })
     .catch(err => {
-      console.log('inininiiniinin', err);
       if (err.response.status == 401) {
         logout(dispatch);
       }
@@ -205,6 +205,8 @@ const getWishID = async () => {
       setWishID(response);
     })
     .catch(errors => {
+      console.log('2354345435', errors);
+
       if (errors.response.status == 401) {
         logout(dispatch);
       }

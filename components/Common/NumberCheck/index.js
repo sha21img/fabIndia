@@ -11,19 +11,24 @@ import {UnAuthPostData} from '../Helper';
 import Toast from 'react-native-simple-toast';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {BaseURL2, AuthBaseUrl2} from '../Helper';
 
 export default function NumberCheck({
   setNumberRequire,
   userGoogleInfo = {},
   userEmailToken = {},
+  fbDetails = {},
+  checkFrom = '',
 }) {
-  console.log('this is auth token form email', userEmailToken);
+  const navigation = useNavigation();
   const [mobilePrefix, setMobilePrefix] = useState('91');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [Otp, setOtp] = useState('');
   const [generate, setgenerate] = useState(false);
   const [transactionId, settransactionId] = useState('');
-
+  const dispatch = useDispatch();
   const _selectedValue = index => {
     setMobilePrefix(index);
   };
@@ -66,11 +71,106 @@ export default function NumberCheck({
         Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
       } else {
         Toast.showWithGravity('Done', Toast.LONG, Toast.TOP);
-        // setgenerate(false);
-        userDetails();
+        console.log('from -+-+-+-+-}[}[+-+}{_+[][]', checkFrom);
+        if (checkFrom == 'Email') {
+          userDetails();
+        } else {
+          userDetailsFb();
+        }
       }
     });
   };
+  const userDetailsFb = async () => {
+    console.log('adsfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd]f[sd[f][sd]f[');
+    const name = fbDetails?.name.split(' ');
+    const last = name.slice(1, name?.length).join(' ');
+    let data = {
+      firstName: name[0],
+      lastName: last,
+      uid: fbDetails?.email,
+      password: `${name}#${phoneNumber}`,
+      titleCode: '',
+      contactNumber: phoneNumber,
+      contactNumberCode: '+91',
+      authToken: fbDetails?.api_key,
+      provider: 'FACEBOOK',
+      transactionId: transactionId,
+      consents: [
+        {
+          id: 'MARKETING_NEWSLETTER',
+        },
+      ],
+    };
+    console.log('tjis fb', data);
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    await axios
+      .post(`${BaseURL2}/users?lang=en&curr=INR`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
+          Accept: 'application/json',
+        },
+      })
+      .then(response => {
+        console.log('response-=-=-=-=-=-user details', response.data);
+        saveTokenFb();
+      })
+      .catch(error => {
+        console.log('error', error);
+        Toast.showWithGravity(
+          error.response.data.errors[0].message,
+          Toast.LONG,
+          Toast.TOP,
+        );
+      });
+  };
+  const saveTokenFb = () => {
+    var details = {
+      grant_type: 'custom',
+      scope: '',
+      client_id: 'mobile_android',
+      client_secret: 'secret',
+      provider: 'FACEBOOK',
+      authToken: fbDetails?.api_key,
+      username: fbDetails?.email,
+    };
+    console.log('detailsdetailsdetails', details);
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
+    fetch(`${AuthBaseUrl2}oauth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formBody,
+    })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (res1) {
+        console.log('response==>-=-=-=', res1);
+        const tokenGenerate = {...res1, isCheck: true};
+        if (res1.error) {
+          Toast.showWithGravity(res1.error_description, Toast.LONG, Toast.TOP);
+        } else {
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          setNumberRequire(false);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          navigation.navigate('MyAccount', {
+            screen: 'MyAccounts',
+          });
+          getCartID(dispatch);
+          getWishID(dispatch);
+        }
+      });
+  };
+
   const userDetails = async () => {
     console.log('adsfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd]f[sd[f][sd]f[');
     let data = {
@@ -94,20 +194,16 @@ export default function NumberCheck({
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     await axios
-      .post(
-        `https://apisap.fabindia.com/occ/v2/fabindiab2c/users?lang=en&curr=INR`,
-        data,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `bearer rLcepewFKp8YUipkMcpZsvRGDNs`,
-            Accept: 'application/json',
-          },
+      .post(`${BaseURL2}/users?lang=en&curr=INR`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
+          Accept: 'application/json',
         },
-      )
+      })
       .then(response => {
         console.log('response-=-=-=-=-=-user details', response.data);
-        // saveTokenGoogle();
+        saveTokenGoogle();
       })
       .catch(error => {
         console.log('error', error);
@@ -136,7 +232,7 @@ export default function NumberCheck({
       formBody.push(encodedKey + '=' + encodedValue);
     }
     formBody = formBody.join('&');
-    fetch(`https://apisap.fabindiahome.com/authorizationserver/oauth/token`, {
+    fetch(`${AuthBaseUrl2}oauth/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -155,22 +251,19 @@ export default function NumberCheck({
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           setNumberRequire(false);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          props.navigation.navigate('MyAccount', {
+          navigation.navigate('MyAccount', {
             screen: 'MyAccounts',
           });
-          getCartID();
-          getWishID();
+          getCartID(dispatch);
+          getWishID(dispatch);
         }
       });
   };
-  // useEffect(() => {
-  //   userDetails();
-  // }, []);
+
   return (
     <View
       style={{
         width: '100%',
-        // backgroundColor: 'rgba(0,0,0,0.3)',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
