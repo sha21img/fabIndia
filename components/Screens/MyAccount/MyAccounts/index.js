@@ -22,6 +22,11 @@ import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
 const pages = [
   {
     icon: image.document,
+    name: 'My Addresses',
+    routes: 'AllAddresses',
+  },
+  {
+    icon: image.document,
     name: 'My Orders',
     routes: 'MyOrder',
   },
@@ -122,21 +127,12 @@ const MyAccounts = props => {
   };
   const logoutt = async () => {
     await AsyncStorage.removeItem('cartID');
-    // const res = await AsyncStorage.removeItem('generatToken');
-    // console.log('delete', res);
-    // console.log('before');
-    // props.navigation.navigate('MyAccount', {
-    //   screen: 'Login_Register',
-    // });
-    // console.log('after');
     dispatch(
       wishlistDetail({
         data: [],
         quantity: 0,
       }),
     );
-    // dispatch(cartDetail({data: [], quantity: 0}));
-
     await generatTokenWithout();
     props.navigation.dispatch(
       CommonActions.reset({

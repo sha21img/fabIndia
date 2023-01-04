@@ -10,34 +10,42 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {BaseURL2, logout} from '../../../Common/Helper';
+import {useIsFocused} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-const faqs = [
-  {
-    id: '1',
-  },
-  {
-    id: '2',
-  },
-  {
-    id: '3',
-  },
-];
-const MyAddresses = props => {
-  const {
-    checkaddress,
-    getCheckAddress,
-    amount,
-    totalquantity,
-    setCurrentPosition,
-    cartdetails,
-  } = props;
+export default function AllAddresses(props) {
+  const focus = useIsFocused();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [peritem, setPeritem] = useState(null);
   const [selected, setSelected] = useState('');
+  const [checkaddress, setcheckAddress] = useState([]);
 
-  const handleClick = async id => {
+  const getAddress = async () => {
+    const value = await AsyncStorage.getItem('cartID');
+    console.log('valuevaluevaluevaluevaluevaluevaluevaluevaluevalue', value);
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const response = await axios
+      .get(
+        `${BaseURL2}/users/current/addresses`,
+        // {},
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      )
+      .then(response => {
+        setcheckAddress(response.data.addresses);
+      })
+      .catch(errors => {
+        if (errors.response.status == 401) {
+          logout(dispatch);
+        }
+      });
+  };
+  const deleteAddress = async id => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const response = await axios
@@ -51,7 +59,7 @@ const MyAddresses = props => {
         },
       )
       .then(response => {
-        getCheckAddress();
+        getAddress();
         setModalShow(false);
       })
       .catch(errors => {
@@ -60,54 +68,28 @@ const MyAddresses = props => {
         }
       });
   };
-
-  const setDeliveryAddress = async id => {
-    const get = await AsyncStorage.getItem('generatToken');
-    const getToken = JSON.parse(get);
-    const getCartID = await AsyncStorage.getItem('cartID');
-    const response = await axios
-      .put(
-        `${BaseURL2}/users/current/carts/${getCartID}/addresses/delivery?addressId=${id}`,
-        {},
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-          },
-        },
-      )
-      .then(response => {})
-      .catch(errors => {
-        if (errors.response.status == 401) {
-          logout(dispatch);
-        }
-      });
-  };
-
-  console.log(
-    'cartdetailscartdetailscartdetailscartdetailscartdetails',
-    cartdetails,
-  );
+  useEffect(() => {
+    getAddress();
+  }, [focus]);
   return (
     <>
       <ScrollView
         contentContainerStyle={Styles.container}
         nestedScrollEnabled={true}
         showsVerticalScrollIndicator={false}>
-        <Text style={Styles.headingtxt}>Saved Addresses</Text>
+        {checkaddress?.length > 0 ? (
+          <Text style={Styles.headingtxt}>Saved Addresses</Text>
+        ) : null}
         <View style={Styles.body}>
-          {checkaddress?.addresses?.map((faq, index) => (
+          {checkaddress.map((faq, index) => (
             <>
               <TouchableOpacity
                 activeOpacity={0.9}
-                onPress={() => {
-                  setDeliveryAddress(faq.id);
-                  setSelected(prev => (prev == faq ? '' : faq));
-                }}
                 style={[
                   Styles.txtbox,
                   {
                     marginBottom: faq.length - 1 == index ? 0 : 15,
-                    borderColor: selected.id == faq.id ? 'red' : '#ababab',
+                    borderColor: '#ababab',
                     borderWidth: 1,
                   },
                 ]}>
@@ -136,7 +118,7 @@ const MyAddresses = props => {
                       onPress={() => {
                         props.navigation.navigate('Address', {
                           editData: faq,
-                          from: 'Order',
+                          from: 'Acccount',
                         });
                         setShow(false);
                       }}>
@@ -145,7 +127,6 @@ const MyAddresses = props => {
                     <TouchableOpacity
                       onPress={() => {
                         setModalShow(true);
-
                         setPeritem(faq);
                         setShow(false);
                       }}>
@@ -166,99 +147,24 @@ const MyAddresses = props => {
             </>
           ))}
         </View>
-        <TouchableOpacity 
-          style={{flexDirection: 'row', alignItems: 'center'}}
-          onPress={() => {
-            props.navigation.navigate('Address', {from: 'Order'});
-          }}>
-          <Entypo
-            name="circle-with-plus"
-            color={Colors.primarycolor}
-            size={20}
-          />
-          <Text style={Styles.addbtntxt}>Add a new Addresses</Text>
-        </TouchableOpacity>
-        <View style={{marginVertical: 5, marginHorizontal: 15}}>
-          <View
-            style={{borderBottomWidth: 1, paddingTop: 15, paddingBottom: 20}}>
-            <Text style={{fontFamily: Fonts.Assistant700, fontSize: 18}}>
-              {' '}
-              ORDER SUMMARY
-            </Text>
-          </View>
-          <Text
-            style={{
-              marginTop: 15,
-              fontFamily: Fonts.Assistant400,
-              fontSize: 17,
-              color: 'black',
-            }}>
-            Price Details ({cartdetails?.deliveryItemsQuantity} items)
-          </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginVertical: 18,
-            }}>
-            <Text>Total MRP</Text>
-            <Text>{cartdetails?.subTotalWithoutDiscount?.formattedValue}</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginVertical: 10,
-            }}>
-            <Text>discount on MRP</Text>
-            <Text>{cartdetails?.productDiscounts?.formattedValue}</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              borderBottomWidth: 1,
-              paddingTop: 15,
-              paddingBottom: 28,
-              marginBottom: 15,
-            }}>
-            <Text>Delivery Charges</Text>
-            <Text>{cartdetails?.deliveryCost?.formattedValue}</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginVertical: 15,
-            }}>
-            <Text>Amount Payable</Text>
-            <Text>{cartdetails?.totalAmountToPay?.formattedValue}</Text>
-          </View>
-        </View>
       </ScrollView>
-
-      <View
+      <TouchableOpacity
         style={{
-          padding: 12,
-          backgroundColor: '#FDFDFD',
-          elevation: 5,
-        }}>
-        <CommonButton
-          backgroundColor="#BDBDBD"
-          txt="Continue"
-          customViewStyle={{
-            backgroundColor: !!selected ? Colors.primarycolor : '#BDBDBD',
-          }}
-          // handleClick={getOrderID}
-          handleClick={() => setCurrentPosition(prev => prev + 1)}
-          disable={!!!selected}
-        />
-      </View>
-
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: 15,
+          backgroundColor: Colors.primarycolor,
+          alignSelf: 'flex-end',
+          borderRadius: 50,
+          position: 'absolute',
+          bottom: '4%',
+          right: '5%',
+        }}
+        onPress={() =>
+          props.navigation.navigate('Address', {from: 'Acccount'})
+        }>
+        <Entypo name="plus" color="white" size={24} />
+      </TouchableOpacity>
       <Modal
         visible={modalShow}
         animationType="slide"
@@ -274,7 +180,6 @@ const MyAddresses = props => {
               paddingHorizontal: 15,
               paddingVertical: 10,
               width: '100%',
-              // right: '9%',
               top: '35%',
             }}>
             <View style={Styles.headbox}>
@@ -288,19 +193,6 @@ const MyAddresses = props => {
             <Text style={Styles.head1txt}>
               Are you sure you want to remove this Address?
             </Text>
-
-            {/* ///---choose mode of return---/// */}
-
-            {/* //--radio button--// */}
-            {/* <RadioButtonRN
-              animationTypes={['zoomIn']}
-              circleSize={17}
-              box={false}
-              data={dataTwo}
-              activeColor="maroon"
-              selectedBtn={e => console.log(e)}
-              style={{marginVertical: 9}}
-            /> */}
             <View
               style={{
                 paddingVertical: 15,
@@ -339,6 +231,7 @@ const MyAddresses = props => {
                   borderColor: Colors.primarycolor,
                 }}
                 btntxtColor={Colors.primarycolor}
+                handleClick={() => setModalShow(false)}
               />
               <CommonButton
                 backgroundColor="#BDBDBD"
@@ -347,37 +240,12 @@ const MyAddresses = props => {
                   backgroundColor: Colors.primarycolor,
                   width: '47%',
                 }}
-                handleClick={() => handleClick(peritem?.id)}
+                handleClick={() => deleteAddress(peritem?.id)}
               />
             </View>
-
-            {/* <View
-              style={{
-                padding: 10,
-                backgroundColor: '#FDFDFD',
-              }}>
-              <TouchableOpacity
-                onPress={() => setModalShow(true)}
-                style={{
-                  backgroundColor: Colors.primarycolor,
-                  borderRadius: 20,
-                  paddingVertical: 10,
-                }}>
-                <Text
-                  style={{
-                    fontFamily: Fonts.Assistant400,
-                    fontSize: 16,
-                    color: '#fff',
-                    alignSelf: 'center',
-                  }}>
-                  Confirm return
-                </Text>
-              </TouchableOpacity>
-            </View> */}
           </View>
         </View>
       </Modal>
     </>
   );
-};
-export default MyAddresses;
+}
