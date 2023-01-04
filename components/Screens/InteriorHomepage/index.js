@@ -81,29 +81,29 @@ export default function InteriorHomepage(props) {
             data={param}
             width={width}
             height={200}
-            customStyle={{margin: 20}}
+            // customStyle={{margin: 20}}
           />
         );
       case 'FabConfigGridBannerCarouselComponent':
         return (
           <>
-          <View style={{alignItems: 'center', paddingVertical: 20}}>
-          <Text
-            style={{
-              color: 'black',
-              fontSize: 22,
-              fontFamily: Fonts.Assistant400,
-            }}>
-            {param.title}
-          </Text>
-        </View>
-          <CommonCarousel1
-            {...props}
-            data={param}
-            width={width}
-            height={200}
-            customStyle={{margin: 20}}
-          />
+            <View style={{alignItems: 'center', paddingVertical: 20}}>
+              <Text
+                style={{
+                  color: 'black',
+                  fontSize: 22,
+                  fontFamily: Fonts.Assistant400,
+                }}>
+                {param.title}
+              </Text>
+            </View>
+            <CommonCarousel1
+              {...props}
+              data={param}
+              width={width}
+              height={200}
+              customStyle={{margin: 20}}
+            />
           </>
         );
       case 'FabConfigBannerCarouselComponent':
@@ -167,20 +167,20 @@ export default function InteriorHomepage(props) {
           return (
             <>
               <View>
-                <Text style={{
+                <Text
+                  style={{
                     textAlign: 'center',
                     fontSize: 22,
                     fontFamily: Fonts.Assistant400,
                     color: 'black',
                   }}>
-                {param.title}
+                  {param.title}
                 </Text>
                 <Text style={{textAlign: 'center', marginVertical: 10}}>
-                {param.headline}
+                  {param.headline}
                 </Text>
               </View>
               <InteriorSubSection data={param} {...props} />
-
             </>
           );
 
@@ -197,5 +197,5 @@ export default function InteriorHomepage(props) {
         renderItem={item => checkSwitch(item.item)}
       />
     </>
-  )
+  );
 }

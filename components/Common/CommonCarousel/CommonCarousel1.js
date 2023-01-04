@@ -50,7 +50,11 @@ export default function CommonCarousel1(props) {
     const mediaurl1 = item?.media?.desktop?.url;
 
     return (
-      <TouchableOpacity onPress={() => {}} activeOpacity={0.8}>
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate('InteriorCatagory');
+        }}
+        activeOpacity={0.8}>
         <ImageBackground
           resizeMode="contain"
           key={Math.random() * 1099900}
@@ -60,8 +64,7 @@ export default function CommonCarousel1(props) {
             width: width,
             resizeMode: 'contain',
           }}
-          source={{uri: `${imageURL}${mediaurl1}`}}
-          >
+          source={{uri: `${imageURL}${mediaurl1}`}}>
           {/* <LinearGradient
             colors={['rgba(0,0,0,0.4)', 'rgba(255,255,255,0)']}
             style={{
