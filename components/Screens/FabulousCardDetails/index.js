@@ -11,7 +11,6 @@ import CommonCarousel from '../../Common/CommonCarousel';
 import Fonts from '../../../assets/fonts';
 import {image} from '../../../assets/images';
 import ProductDetail from './ProductDetail';
-import CommonTopTab from '../../Common/CommonTopTab';
 import Card from '../../Common/Card';
 import {WomenTabdata} from '../../../constant';
 import FabulousCard from '../../Common/FabulousCard';

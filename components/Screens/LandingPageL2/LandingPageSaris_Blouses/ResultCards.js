@@ -55,12 +55,16 @@ export default function ResultCards(props) {
     var response;
     if (isAdmin2 == 'isAdmin2') {
       console.log('ifififififififififififififififififififififiif', isAdmin2);
-
-      response = await axios.get(
-        `${BaseURL2}/products/search?fields=${fields}&query=${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-        //     `${BaseURL2}/products/search?fields=${fields}&query=${code}
-        // &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-      );
+      if (data) {
+        response = await axios.get(
+          `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+        );
+      }
+      else {
+        response = await axios.get(
+          `${BaseURL2}/products/search?fields=${fields}&query=${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+        );
+      }
     } else {
       console.log('elseleslelesleelse');
       if (!!isSearch) {
@@ -106,10 +110,8 @@ export default function ResultCards(props) {
         'ifififififififififififififififififififififiif-=-=-=- sort-=-=',
         isAdmin2,
       );
-
       response = await axios.get(
-        `${BaseURL2}/products/search?fields=${fields}&query=${code}
-    &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+        `${BaseURL2}/products/search?fields=${fields}&query=${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
     } else {
       console.log('elseleslelesleelse-=-=-=-sort-==-');
@@ -127,6 +129,7 @@ export default function ResultCards(props) {
         );
       }
     }
+    // console.log('data===>', JSON.stringify(response.data))
     setdataMain(response.data);
 
     setFilterProducts(response.data.products);

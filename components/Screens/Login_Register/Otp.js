@@ -23,10 +23,12 @@ import {
 } from '../../Common/Helper';
 import axios from 'axios';
 import {CommonActions} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
 
 export default function Otp(props) {
   const {transactionId, mobilePrefix, phoneNumber} = props.route.params;
   const [otp, setOtp] = React.useState('');
+  const dispatch = useDispatch();
 
   const handleOTP = async () => {
     const token = await AsyncStorage.getItem('generatToken');
@@ -108,8 +110,8 @@ export default function Otp(props) {
               routes: [{name: 'MyAccounts'}],
             }),
           );
-          getCartID();
-          getWishID();
+          getCartID(dispatch);
+          getWishID(dispatch);
         }
       });
   };

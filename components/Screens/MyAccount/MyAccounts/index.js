@@ -79,6 +79,7 @@ const MyAccounts = props => {
   const getProfiledata = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
+    console.log('get token _+_+_+_+_+', getToken);
     const response = await fetch(`${BaseURL2}/users/current?lang=en&curr=INR`, {
       method: 'GET',
       headers: {
@@ -112,7 +113,7 @@ const MyAccounts = props => {
           const tokenGenerate = {...response.data, isCheck: false};
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          getCartID();
+          getCartID(dispatch);
         },
         error => {
           console.log('response-=-=-=-=-=-error', error);

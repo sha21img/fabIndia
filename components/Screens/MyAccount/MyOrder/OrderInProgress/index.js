@@ -16,6 +16,11 @@ import {image} from '../../../../../assets/images';
 import Fonts from '../../../../../assets/fonts';
 import StepIndicator from 'react-native-step-indicator';
 import OrderProductLongCard from '../../../../Common/OrderProductLongCard';
+import {
+  UnAuthPostData,
+  BaseURL2,
+  AuthBaseUrl2,
+} from '../../../../Common/Helper';
 import CommonButton from '../../../../Common/CommonButton';
 
 const labels = ['Order confirmed', 'Shipped', 'Delivery'];
@@ -331,7 +336,7 @@ export default function OrderInProgress(props) {
                           });
                           console.log('trackId', trackId);
                           Linking.openURL(
-                            `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/vinculum/orders/v1/getInvoice/${orderID}/${trackId?.trackingID}`,
+                            `${BaseURL2}/vinculum/orders/v1/getInvoice/${orderID}/${trackId?.trackingID}`,
                           );
                         }}>
                         <Text
