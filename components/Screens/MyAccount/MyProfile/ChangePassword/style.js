@@ -4,8 +4,7 @@ import Fonts from '../../../../../assets/fonts';
 
 export const Styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 15,
-    paddingTop: 55,
+    paddingHorizontal: 16,
     backgroundColor: '#FFFFFF',
     flexGrow: 1,
   },

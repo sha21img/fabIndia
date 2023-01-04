@@ -146,7 +146,7 @@ export default function ChangePassword(props) {
             />
           }
         />
-        <View>
+        <View style={{ marginLeft: 8 }}>
           <TouchableOpacity
             onPress={() => {
               props.navigation.navigate('MyAccount', {
@@ -160,7 +160,7 @@ export default function ChangePassword(props) {
         <InputText
           underlineColor="#EDEDED"
           secureTextEntry={toggle.newPass}
-          customStyle={[Styles.txtinput, {marginTop: 30}]}
+          customStyle={[Styles.txtinput, {marginTop: 16}]}
           label="New password"
           value={password.newPass}
           onChangeText={pass => setPassword({...password, newPass: pass})}
@@ -181,7 +181,7 @@ export default function ChangePassword(props) {
         />
         <InputText
           secureTextEntry={toggle.confirmPass}
-          customStyle={[Styles.txtinput, {marginTop: 30}]}
+          customStyle={[Styles.txtinput, {marginTop: 16}]}
           label="Confirm password"
           value={password.confirmPass}
           onChangeText={pass => setPassword({...password, confirmPass: pass})}
