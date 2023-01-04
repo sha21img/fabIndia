@@ -18,13 +18,25 @@ import CheckBox from 'react-native-check-box';
 import InputText from '../../Common/InputText';
 import CommonButton from '../../Common/CommonButton';
 import Fonts from '../../../assets/fonts';
-import {UnAuthPostData, postData, AuthBaseUrl2} from '../../Common/Helper';
+import {UnAuthPostData, BaseURL2, AuthBaseUrl2} from '../../Common/Helper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Toast from 'react-native-simple-toast';
-
+import {FacebookLogin} from '../../SocialLogin/FacebookLogin';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+} from '@react-native-google-signin/google-signin';
+import {useDispatch} from 'react-redux';
+import NumberCheck from '../../Common/NumberCheck';
+import {
+  AccessToken,
+  GraphRequest,
+  LoginManager,
+  GraphRequestManager,
+} from 'react-native-fbsdk-next';
 const faqs = [
   {
     id: '2',
@@ -54,6 +66,14 @@ const Register = props => {
   const [isAgree, setisAgree] = useState(false);
   const [DOB, setDOB] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  //
+  const [numberRequire, setNumberRequire] = useState(false);
+  const [userGoogleInfo, setUserGoogleInfo] = useState({});
+  const [userEmailToken, setUserEmailToken] = useState({});
+  const [fbDetails, setFbDetails] = useState();
+  const [from, setFrom] = useState('');
+  const dispatch = useDispatch();
+  //
   const googleIcon = {
     uri: 'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
   };
@@ -124,7 +144,6 @@ const Register = props => {
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
-
   const handleConfirm = date => {
     let Newdate = new Date(date);
     console.warn('A date has been picked: ', date);
@@ -160,7 +179,6 @@ const Register = props => {
       }
     });
   };
-
   const VerifyOTP = async () => {
     let params = {
       otp: Otp,
@@ -181,277 +199,514 @@ const Register = props => {
       }
     });
   };
+  const facebookLoginHandler = () => {
+    LoginManager;
+    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+      function (result) {
+        if (result.isCancelled) {
+          alert('Login cancelled');
+        } else {
+          AccessToken.getCurrentAccessToken().then(data => {
+            let accessToken = data.accessToken;
+            const responseInfoCallback = (error, result) => {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log('122result123456789', result);
+                let userData = Object.assign(
+                  {},
+                  {
+                    api_key: accessToken,
+                    id: result.id,
+                    name: result.name,
+                    photo: result.picture.data.url,
+                    email: result.email,
+                    type: 'regular',
+                    role: 'facebook',
+                    phone: null,
+                    phone_prefix: null,
+                  },
+                );
+                console.log('demo12345678', userData);
+                setFbDetails(userData);
+                checkPhoneFB(userData);
+                // const isSuccess = setData(Labels.userDataId, userData);
+                // if (isSuccess) {
+                //   console.log('naviagteeee');
+                //   props.navigation.navigate('MainScreens', {userData: userData});
+                // } else {
+                //   console.log('errorr');
+                //   //   onError([Messages.codeErrorMessage]);
+                // }
+              }
+            };
+            const infoRequest = new GraphRequest(
+              '/me',
+              {
+                accessToken: accessToken,
+                parameters: {
+                  fields: {
+                    string:
+                      'email,name,first_name,middle_name,last_name,picture',
+                  },
+                },
+              },
+              responseInfoCallback,
+            );
+            new GraphRequestManager().addRequest(infoRequest).start();
+          });
+        }
+      },
+      function (error) {
+        alert('Login fail with error: ' + error);
+      },
+    );
+  };
+  const checkPhoneFB = async userData => {
+    let FbEmail = userData?.email;
+    console.log('this is in the check phone', FbEmail);
+    await axios
+      .get(`${BaseURL2}/users?uid=${FbEmail}&lang=en&curr=INR`)
+      .then(response => {
+        console.log('response-=-=-=-=-=-number', response.data);
+        if (response.status == 200) {
+          response.data ? saveTokenFb(userData) : setFrom('Facebook'),
+            setNumberRequire(true);
+        }
+      })
+      .catch(error => {
+        console.log(error, 'error');
+      });
+  };
+  const saveTokenFb = userData => {
+    console.log('user data from facebook', userData);
+    var details = {
+      grant_type: 'custom',
+      scope: '',
+      client_id: 'mobile_android',
+      client_secret: 'secret',
+      provider: 'FACEBOOK',
+      authToken: userData?.api_key,
+      username: userData?.email,
+    };
+    console.log('detailsdetailsdetails', details);
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
+    fetch(`${AuthBaseUrl2}/oauth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formBody,
+    })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (res1) {
+        console.log('response==>-=-=-=', res1);
+        const tokenGenerate = {...res1, isCheck: true};
+        if (res1.error) {
+          Toast.showWithGravity(res1.error_description, Toast.LONG, Toast.TOP);
+        } else {
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          setNumberRequire(false);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          props.navigation.navigate('MyAccount', {
+            screen: 'MyAccounts',
+          });
+          getCartID(dispatch);
+          getWishID(dispatch);
+        }
+      });
+  };
+  const checkPhone = async (userInfo, code) => {
+    let FbEmail = userInfo?.user?.email;
+    console.log('this is in the check phone', FbEmail);
+    await axios
+      .get(`${BaseURL2}/users?uid=${FbEmail}&lang=en&curr=INR`)
+      .then(response => {
+        console.log('response-=-=-=-=-=-number', response.data);
+        if (response.status == 200) {
+          response.data
+            ? saveTokenGoogle(userInfo, code)
+            : setNumberRequire(true);
+        }
+      })
+      .catch(error => {
+        console.log(error, 'error');
+      });
+  };
+  const saveTokenGoogle = (userInfo, code) => {
+    var details = {
+      grant_type: 'custom',
+      scope: '',
+      client_id: 'mobile_android',
+      client_secret: 'secret',
+      provider: 'GOOGLE',
+      username: userInfo.user.email,
+      authToken: code.accessToken,
+    };
+    console.log('detailsdetailsdetails', details);
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
+    fetch(`${AuthBaseUrl2}/oauth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formBody,
+    })
+      .then(function (res) {
+        console.log('resresresresresresres', res);
+        return res.json();
+      })
+      .then(function (res1) {
+        console.log('response==>-=-=-=', res1);
+        const tokenGenerate = {...res1, isCheck: true};
+        if (res1.error) {
+          Toast.showWithGravity(res1.error_description, Toast.LONG, Toast.TOP);
+        } else {
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          props.navigation.navigate('MyAccount', {
+            screen: 'MyAccounts',
+          });
+          getCartID(dispatch);
+          getWishID(dispatch);
+        }
+      });
+  };
+  const signIn = async () => {
+    try {
+      GoogleSignin.configure({
+        scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
+        // androidClientId:
+        //   '880463673394-hp2s28e6hjdcm65qjqrlogfohevk5296.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+        webClientId:
+          '919208314385-n31m1r91p6jcfflgru2f2ktnogkrqo3a.apps.googleusercontent.com',
+        offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+        hostedDomain: '', // specifies a hosted domain restriction
+        forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
+        accountName: '', // [Android] specifies an account name on the device that should be used
+        // iosClientId: '<FROM DEVELOPER CONSOLE>', // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+        googleServicePlistPath: '', // [iOS] if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
+        openIdRealm: '', // [iOS] The OpenID2 realm of the home web server. This allows Google to include the user's OpenID Identifier in the OpenID Connect ID token.
+        profileImageSize: 120, // [iOS] The desired height (and width) of the profile image. Defaults to 120px
+      });
+      await GoogleSignin.hasPlayServices();
+      console.log('reached google sign in');
+      const userInfo = await GoogleSignin.signIn();
+      const code = await GoogleSignin.getTokens();
+      console.log('userInfouserInfouserInfouserInfouserInfo', code);
+      setUserGoogleInfo(userInfo);
+      setUserEmailToken(code);
+      if (code.accessToken) {
+        console.log('in the ifff');
+        checkPhone(userInfo, code);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <>
-      <ScrollView
-        contentContainerStyle={Styles.mainView}
-        showsVerticalScrollIndicator={false}>
-        <View style={Styles.secondDiv}>
-          <Text style={Styles.contacttxt}>Welcome to FabIndia!</Text>
-          {faqs.map((faq, index) => (
-            <InputText
-              underlineColor="#EDEDED"
-              activeUnderlineColor=" #979797"
-              customStyle={Styles.textinput}
-              label={faq.name}
-              value={text[faq.name]}
-              onChangeText={text =>
-                setText(prev => {
-                  return {...prev, [faq.name]: text};
-                })
-              }
-            />
-          ))}
-          {generate ? (
-            <View style={{marginVertical: 10}}>
-              <Text style={{textAlign: 'center', color: '#222'}}>
-                Verify with OTP Send to
-                {`${phoneNumber[0]}${phoneNumber[1]}******${phoneNumber[8]}${phoneNumber[9]}`}
-              </Text>
-
-              <TextInput
-                value={Otp}
-                activeOutlineColor="white"
-                activeUnderlineColor="white"
-                underlineColor="white"
-                onChangeText={value =>
-                  value.length <= 4 ? setOtp(value) : false
-                }
-                multiline={true}
-                keyboardType="numeric"
-                style={{
-                  backgroundColor: '#fff',
-                  height: 50,
-                  textAlign: 'center',
-                  borderBottomColor: Colors.inactiveicon,
-                  borderBottomWidth: 1,
-                }}
-                placeholder="Enter 4-digit OTP"
-              />
-              <TouchableOpacity onPress={() => GenerateOtp()}>
-                <Text
-                  style={{
-                    color: Colors.primarycolor,
-                    textAlign: 'center',
-                    marginVertical: 10,
-                  }}>
-                  Resend OTP
-                </Text>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <View style={Styles.pickerbox}>
-              <CountryPicker
-                disable={false}
-                animationType={'slide'}
-                containerStyle={Styles.pickercontainer}
-                pickerTitleStyle={Styles.pickertitle}
-                selectedCountryTextStyle={Styles.selectedTextStyle}
-                countryNameTextStyle={Styles.selectnametxt}
-                pickerTitle={'Country Picker'}
-                searchBarPlaceHolder={'Search......'}
-                hideCountryFlag={false}
-                hideCountryCode={false}
-                searchBarStyle={Styles.searchbar}
-                selectedValue={_selectedValue}
-                countryCode={mobilePrefix}
-              />
-              <View style={{flex: 1, paddingHorizontal: 15}}>
-                <TextInput
-                  activeOutlineColor="white"
-                  activeUnderlineColor="white"
-                  underlineColor="white"
-                  style={Styles.textinput1}
-                  value={phoneNumber}
-                  placeholder="phone number"
-                  onChangeText={value =>
-                    value.length <= 10 ? setPhoneNumber(value) : false
+      {numberRequire ? (
+        <NumberCheck
+          setNumberRequire={setNumberRequire}
+          userGoogleInfo={userGoogleInfo}
+          userEmailToken={userEmailToken}
+          fbDetails={fbDetails}
+          checkFrom={from}
+        />
+      ) : (
+        <>
+          <ScrollView
+            contentContainerStyle={Styles.mainView}
+            showsVerticalScrollIndicator={false}>
+            <View style={Styles.secondDiv}>
+              <Text style={Styles.contacttxt}>Welcome to FabIndia!</Text>
+              {faqs.map((faq, index) => (
+                <InputText
+                  underlineColor="#EDEDED"
+                  activeUnderlineColor=" #979797"
+                  customStyle={Styles.textinput}
+                  label={faq.name}
+                  value={text[faq.name]}
+                  onChangeText={text =>
+                    setText(prev => {
+                      return {...prev, [faq.name]: text};
+                    })
                   }
-                  placeholderTextColor="grey"
-                  keyboardType={'number-pad'}
-                  disableFullscreenUI={true}
                 />
-              </View>
-            </View>
-          )}
-          {generate ? (
-            <CommonButton
-              disable={Otp.length != 4}
-              handleClick={VerifyOTP}
-              txt="Confirm OTP"
-              customViewStyle={{
-                backgroundColor:
-                  Otp.length == 4 ? Colors.primarycolor : '#BDBDBD',
-                marginVertical: 10,
-              }}
-            />
-          ) : (
-            <CommonButton
-              disable={phoneNumber.length != 10}
-              handleClick={GenerateOtp}
-              txt="Generate OTP"
-              customViewStyle={{
-                backgroundColor:
-                  phoneNumber.length == 10 ? Colors.primarycolor : '#BDBDBD',
-              }}
-            />
-          )}
+              ))}
+              {generate ? (
+                <View style={{marginVertical: 10}}>
+                  <Text style={{textAlign: 'center', color: '#222'}}>
+                    Verify with OTP Send to
+                    {`${phoneNumber[0]}${phoneNumber[1]}******${phoneNumber[8]}${phoneNumber[9]}`}
+                  </Text>
 
-          <View style={{marginTop: 15}}>
-            <InputText
-              underlineColor="#EDEDED"
-              activeUnderlineColor=" #979797"
-              customStyle={Styles.textinput}
-              label="Email address"
-              value={text.email}
-              onChangeText={text => setText(prev => ({...prev, email: text}))}
-            />
-            <InputText
-              underlineColor="#EDEDED"
-              activeUnderlineColor=" #979797"
-              customStyle={Styles.textinput}
-              secureTextEntry ={true}
-              label="New password"
-              value={text.newPass}
-              onChangeText={text => setText(prev => ({...prev, newPass: text}))}
-            />
-            <InputText
-              underlineColor="#EDEDED"
-              activeUnderlineColor=" #979797"
-              secureTextEntry ={true}
-              customStyle={Styles.textinput}
-              label="Confirm password"
-              value={text.confPass}
-              onChangeText={text =>
-                setText(prev => ({...prev, confPass: text}))
-              }
-            />
-            <View
-              style={{
-                flexDirection: 'row',
-                width: '100%',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: '50%',
-                  alignItems: 'center',
-                }}>
-                <TouchableOpacity
-                  // activeOpacity={1}
-                  onPress={() => {
-                    if (gender == 'MALE') {
-                      SetGender('');
-                    } else {
-                      SetGender('MALE');
+                  <TextInput
+                    value={Otp}
+                    activeOutlineColor="white"
+                    activeUnderlineColor="white"
+                    underlineColor="white"
+                    onChangeText={value =>
+                      value.length <= 4 ? setOtp(value) : false
                     }
-                  }}
-                  style={{
-                    height: 30,
-                    width: 30,
-                    borderRadius: 50,
-                    borderWidth: 2,
-                    borderColor: '#d3d6db',
+                    multiline={true}
+                    keyboardType="numeric"
+                    style={{
+                      backgroundColor: '#fff',
+                      height: 50,
+                      textAlign: 'center',
+                      borderBottomColor: Colors.inactiveicon,
+                      borderBottomWidth: 1,
+                    }}
+                    placeholder="Enter 4-digit OTP"
+                  />
+                  <TouchableOpacity onPress={() => GenerateOtp()}>
+                    <Text
+                      style={{
+                        color: Colors.primarycolor,
+                        textAlign: 'center',
+                        marginVertical: 10,
+                      }}>
+                      Resend OTP
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <View style={Styles.pickerbox}>
+                  <CountryPicker
+                    disable={false}
+                    animationType={'slide'}
+                    containerStyle={Styles.pickercontainer}
+                    pickerTitleStyle={Styles.pickertitle}
+                    selectedCountryTextStyle={Styles.selectedTextStyle}
+                    countryNameTextStyle={Styles.selectnametxt}
+                    pickerTitle={'Country Picker'}
+                    searchBarPlaceHolder={'Search......'}
+                    hideCountryFlag={false}
+                    hideCountryCode={false}
+                    searchBarStyle={Styles.searchbar}
+                    selectedValue={_selectedValue}
+                    countryCode={mobilePrefix}
+                  />
+                  <View style={{flex: 1, paddingHorizontal: 15}}>
+                    <TextInput
+                      activeOutlineColor="white"
+                      activeUnderlineColor="white"
+                      underlineColor="white"
+                      style={Styles.textinput1}
+                      value={phoneNumber}
+                      placeholder="phone number"
+                      onChangeText={value =>
+                        value.length <= 10 ? setPhoneNumber(value) : false
+                      }
+                      placeholderTextColor="grey"
+                      keyboardType={'number-pad'}
+                      disableFullscreenUI={true}
+                    />
+                  </View>
+                </View>
+              )}
+              {generate ? (
+                <CommonButton
+                  disable={Otp.length != 4}
+                  handleClick={VerifyOTP}
+                  txt="Confirm OTP"
+                  customViewStyle={{
                     backgroundColor:
-                      gender == 'MALE' ? Colors.primarycolor : 'white',
-                  }}></TouchableOpacity>
-                <Text style={{marginLeft: 10}}>Male</Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: '50%',
-                  alignItems: 'center',
-                }}>
-                <TouchableOpacity
-                  onPress={() => {
-                    if (gender == 'FEMALE') {
-                      SetGender('');
-                    } else {
-                      SetGender('FEMALE');
-                    }
+                      Otp.length == 4 ? Colors.primarycolor : '#BDBDBD',
+                    marginVertical: 10,
                   }}
-                  activeOpacity={1}
-                  style={{
-                    height: 30,
-                    width: 30,
-                    borderRadius: 50,
-                    borderWidth: 2,
-                    borderColor: '#d3d6db',
+                />
+              ) : (
+                <CommonButton
+                  disable={phoneNumber.length != 10}
+                  handleClick={GenerateOtp}
+                  txt="Generate OTP"
+                  customViewStyle={{
                     backgroundColor:
-                      gender == 'FEMALE' ? Colors.primarycolor : 'white',
-                  }}></TouchableOpacity>
-                <Text style={{marginLeft: 10}}>Female</Text>
-              </View>
-            </View>
-            <View
-              style={{
-                marginTop: 20,
-                paddingVertical: 10,
-                borderBottomWidth: 1,
-              }}>
-              <Text style={{fontsize: 12}}>Date of birth</Text>
-              <View
-                style={[
-                  {
+                      phoneNumber.length == 10
+                        ? Colors.primarycolor
+                        : '#BDBDBD',
+                  }}
+                />
+              )}
+
+              <View style={{marginTop: 15}}>
+                <InputText
+                  underlineColor="#EDEDED"
+                  activeUnderlineColor=" #979797"
+                  customStyle={Styles.textinput}
+                  label="Email address"
+                  value={text.email}
+                  onChangeText={text =>
+                    setText(prev => ({...prev, email: text}))
+                  }
+                />
+                <InputText
+                  underlineColor="#EDEDED"
+                  activeUnderlineColor=" #979797"
+                  customStyle={Styles.textinput}
+                  secureTextEntry={true}
+                  label="New password"
+                  value={text.newPass}
+                  onChangeText={text =>
+                    setText(prev => ({...prev, newPass: text}))
+                  }
+                />
+                <InputText
+                  underlineColor="#EDEDED"
+                  activeUnderlineColor=" #979797"
+                  secureTextEntry={true}
+                  customStyle={Styles.textinput}
+                  label="Confirm password"
+                  value={text.confPass}
+                  onChangeText={text =>
+                    setText(prev => ({...prev, confPass: text}))
+                  }
+                />
+                <View
+                  style={{
                     flexDirection: 'row',
+                    width: '100%',
                     justifyContent: 'space-between',
-                  },
-                ]}>
-                <Text
-                  style={{
-                    fontSize: 18,
+                    alignItems: 'center',
                   }}>
-                  {!!DOB ? DOB : 'dd-mm-yyyy'}
-                </Text>
-                <Feather
-                  name="calendar"
-                  color={Colors.primarycolor}
-                  size={20}
-                  onPress={showDatePicker}
-                />
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      width: '50%',
+                      alignItems: 'center',
+                    }}>
+                    <TouchableOpacity
+                      // activeOpacity={1}
+                      onPress={() => {
+                        if (gender == 'MALE') {
+                          SetGender('');
+                        } else {
+                          SetGender('MALE');
+                        }
+                      }}
+                      style={{
+                        height: 30,
+                        width: 30,
+                        borderRadius: 50,
+                        borderWidth: 2,
+                        borderColor: '#d3d6db',
+                        backgroundColor:
+                          gender == 'MALE' ? Colors.primarycolor : 'white',
+                      }}></TouchableOpacity>
+                    <Text style={{marginLeft: 10}}>Male</Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      width: '50%',
+                      alignItems: 'center',
+                    }}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        if (gender == 'FEMALE') {
+                          SetGender('');
+                        } else {
+                          SetGender('FEMALE');
+                        }
+                      }}
+                      activeOpacity={1}
+                      style={{
+                        height: 30,
+                        width: 30,
+                        borderRadius: 50,
+                        borderWidth: 2,
+                        borderColor: '#d3d6db',
+                        backgroundColor:
+                          gender == 'FEMALE' ? Colors.primarycolor : 'white',
+                      }}></TouchableOpacity>
+                    <Text style={{marginLeft: 10}}>Female</Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    marginTop: 20,
+                    paddingVertical: 10,
+                    borderBottomWidth: 1,
+                  }}>
+                  <Text style={{fontsize: 12}}>Date of birth</Text>
+                  <View
+                    style={[
+                      {
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      },
+                    ]}>
+                    <Text
+                      style={{
+                        fontSize: 18,
+                      }}>
+                      {!!DOB ? DOB : 'dd-mm-yyyy'}
+                    </Text>
+                    <Feather
+                      name="calendar"
+                      color={Colors.primarycolor}
+                      size={20}
+                      onPress={showDatePicker}
+                    />
+                  </View>
+                </View>
               </View>
-            </View>
-          </View>
-          <View style={[Styles.defaultaddressbox]}>
-            <CheckBox
-              style={{paddingVertical: 5}}
-              checkBoxColor={Colors.primarycolor}
-              onClick={() => {
-                setIsCheckedSignup(!isCheckedSignup);
-              }}
-              isChecked={isCheckedSignup}
-            />
-            <Text style={{paddingHorizontal: 7}}>
-              Sign up for FabIndia newsletters
-            </Text>
-          </View>
-          <View style={Styles.defaultaddressbox}>
-            <CheckBox
-              style={{paddingVertical: 5}}
-              checkBoxColor={Colors.primarycolor}
-              onClick={() => {
-                setisAgree(!isAgree);
-              }}
-              isChecked={isAgree}
-            />
-            <Text style={{paddingHorizontal: 7, width: '85%'}}>
-              By registering you agree to
-              <Text style={{color: Colors.primarycolor}}>T&C</Text> and
-              <Text style={{color: Colors.primarycolor}}>Privacy Policy</Text>
-            </Text>
-          </View>
-          <View style={Styles.horizontalContainer}>
-            <View style={Styles.horizontalLine} />
-            <View>
-              <Text style={Styles.orText}>Or</Text>
-            </View>
-            <View style={Styles.horizontalLine} />
-          </View>
+              <View style={[Styles.defaultaddressbox]}>
+                <CheckBox
+                  style={{paddingVertical: 5}}
+                  checkBoxColor={Colors.primarycolor}
+                  onClick={() => {
+                    setIsCheckedSignup(!isCheckedSignup);
+                  }}
+                  isChecked={isCheckedSignup}
+                />
+                <Text style={{paddingHorizontal: 7}}>
+                  Sign up for FabIndia newsletters
+                </Text>
+              </View>
+              <View style={Styles.defaultaddressbox}>
+                <CheckBox
+                  style={{paddingVertical: 5}}
+                  checkBoxColor={Colors.primarycolor}
+                  onClick={() => {
+                    setisAgree(!isAgree);
+                  }}
+                  isChecked={isAgree}
+                />
+                <Text style={{paddingHorizontal: 7, width: '85%'}}>
+                  By registering you agree to
+                  <Text style={{color: Colors.primarycolor}}>T&C</Text> and
+                  <Text style={{color: Colors.primarycolor}}>
+                    Privacy Policy
+                  </Text>
+                </Text>
+              </View>
+              <View style={Styles.horizontalContainer}>
+                <View style={Styles.horizontalLine} />
+                <View>
+                  <Text style={Styles.orText}>Or</Text>
+                </View>
+                <View style={Styles.horizontalLine} />
+              </View>
 
-          {/* <InputText
+              {/* <InputText
               underlineColor="#EDEDED"
               activeUnderlineColor=" #979797"
               customStyle={Styles.textinput}
@@ -459,32 +714,34 @@ const Register = props => {
               // value={text.newPass}
               // onChangeText={text => setText(prev => ({...prev, newPass: text}))}
             /> */}
-          <View style={Styles.iconContainer}>
-            <TouchableOpacity onPress={() => facebookLoginHandler()}>
-              <Image source={facebookIcon} style={Styles.facebookIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => googleLoginHandler()}>
-              <Image source={googleIcon} style={Styles.googleIcon} />
-            </TouchableOpacity>
+              <View style={Styles.iconContainer}>
+                <TouchableOpacity onPress={() => facebookLoginHandler()}>
+                  <Image source={facebookIcon} style={Styles.facebookIcon} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => signIn()}>
+                  <Image source={googleIcon} style={Styles.googleIcon} />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+          <View style={Styles.btncontainer}>
+            <CommonButton
+              handleClick={HandleRegister}
+              backgroundColor="#BDBDBD"
+              txt="Register"
+              customViewStyle={{
+                backgroundColor: Colors.primarycolor,
+              }}
+            />
           </View>
-        </View>
-      </ScrollView>
-      <View style={Styles.btncontainer}>
-        <CommonButton
-          handleClick={HandleRegister}
-          backgroundColor="#BDBDBD"
-          txt="Register"
-          customViewStyle={{
-            backgroundColor: Colors.primarycolor,
-          }}
-        />
-      </View>
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="date"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+          />
+        </>
+      )}
     </>
   );
 };

@@ -10,7 +10,12 @@ import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
-import {AuthBaseUrl2, BaseURL2, getCartID, logout} from '../../../Common/Helper';
+import {
+  AuthBaseUrl2,
+  BaseURL2,
+  getCartID,
+  logout,
+} from '../../../Common/Helper';
 import {CommonActions} from '@react-navigation/native';
 
 const pages = [
@@ -73,6 +78,7 @@ const MyAccounts = props => {
   const getProfiledata = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
+    console.log('get token _+_+_+_+_+', getToken);
     const response = await fetch(`${BaseURL2}/users/current?lang=en&curr=INR`, {
       method: 'GET',
       headers: {
@@ -106,7 +112,7 @@ const MyAccounts = props => {
           const tokenGenerate = {...response.data, isCheck: false};
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          getCartID()
+          getCartID(dispatch);
         },
         error => {
           console.log('response-=-=-=-=-=-error', error);
