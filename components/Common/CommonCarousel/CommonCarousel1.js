@@ -14,7 +14,7 @@ import {getComponentData, imageURL} from '../Helper';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../../assets/Colors';
 
-export default function CommonCarousel(props) {
+export default function CommonCarousel1(props) {
   const {data, width, height, customStyle = {}} = props;
   const newWidth = Dimensions.get('window').width;
   const [imgActive1, setImgActive1] = React.useState(0);
@@ -47,36 +47,22 @@ export default function CommonCarousel(props) {
   }, []);
 
   const renderItem = ({item}) => {
-    const mediaurl1 = item?.media?.url || item?.media?.mobile?.url;
-    // console.log("itemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",item)
-    const newCode = item.urlLink;
-    // console.log('item for product', newCode.includes('giftcard'));
-    let splitURL = newCode.split('/');
-    splitURL = splitURL[splitURL.length - 1];
+    const mediaurl1 = item?.media?.desktop?.url;
+
     return (
-      <TouchableOpacity
-        onPress={() => {
-          if (newCode.includes('giftcard')) {
-            props.navigation.navigate('MyAccount', {screen: 'GiftCard'});
-          } else {
-            props.navigation.navigate('LandingPageSaris_Blouses', {
-              code: splitURL,
-              title: item.title || 'Gift Sets',
-            });
-          }
-        }}
-        activeOpacity={0.8}>
+      <TouchableOpacity onPress={() => {}} activeOpacity={0.8}>
         <ImageBackground
-          resizeMode="stretch"
+          resizeMode="contain"
           key={Math.random() * 1099900}
           style={{
             flex: 1,
             height: height,
-            width: !!item.media.url ? width : newWidth,
+            width: width,
             resizeMode: 'contain',
           }}
-          source={{uri: `${imageURL}${mediaurl1}`}}>
-          <LinearGradient
+          source={{uri: `${imageURL}${mediaurl1}`}}
+          >
+          {/* <LinearGradient
             colors={['rgba(0,0,0,0.4)', 'rgba(255,255,255,0)']}
             style={{
               padding: 20,
@@ -84,7 +70,7 @@ export default function CommonCarousel(props) {
               height: height,
             }}
             start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}></LinearGradient>
+            end={{x: 0, y: 1}}></LinearGradient> */}
         </ImageBackground>
       </TouchableOpacity>
     );
@@ -102,8 +88,8 @@ export default function CommonCarousel(props) {
           data={newHighlights}
           renderItem={renderItem}
           autoPlayInterval={3000}
-          sliderWidth={!!newHighlights[0]?.media?.url ? width : newWidth}
-          itemWidth={!!newHighlights[0]?.media?.url ? width : newWidth}
+          sliderWidth={width}
+          itemWidth={width}
           itemHeight={height}
           sliderHeight={height}
           onSnapToItem={index => setImgActive1(index)}
