@@ -21,8 +21,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const width = Dimensions.get('window').width;
 import YoutubeVideo from '../YoutubeVideo';
 import OfferForYou from '../OfferForYou';
+import {withNavigationFocus} from 'react-navigation';
+import {useDispatch} from 'react-redux';
 
 export default function Dashbord(props) {
+  const dispatch = useDispatch();
+  const [active, setActive] = React.useState('Bestsellers');
   const [dashboardData, setDashboardData] = React.useState([]);
   const [filteredComp, setFilteredComp] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
@@ -60,8 +64,7 @@ export default function Dashbord(props) {
 
   const getInitialCartID = async () => {
     const cartId = await AsyncStorage.getItem('cartID');
-    // console.log('cartId==>', cartId);
-    cartId == null && getCartID();
+    cartId == null && getCartID(dispatch);
   };
 
   const generatTokenWithout = async () => {

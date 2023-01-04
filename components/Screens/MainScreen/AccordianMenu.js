@@ -25,7 +25,6 @@ const width = Dimensions.get('window').width;
 export default function AccordianMenu(props) {
   const {data} = props;
   const navigation = useNavigation();
-  console.log('this is a data first accourdion', data);
   const toggleAnimation = {
     duration: 300,
     update: {
