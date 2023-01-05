@@ -67,7 +67,12 @@ export default function EmptyCart(props) {
         />
         <CommonButton
           handleClick={() => {
-            props.navigation.navigate('Home');
+            props.navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [{name: 'MainScreen'}],
+              }),
+            );
           }}
           txt="Start shopping"
           customViewStyle={{

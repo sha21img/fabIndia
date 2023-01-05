@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  TextInput as Tp,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
@@ -669,15 +670,15 @@ export default function Login(props) {
                     countryCode={mobilePrefix}
                   />
                   <View style={{flex: 1, paddingHorizontal: 15}}>
-                    <TextInput
-                      activeOutlineColor="white"
-                      activeUnderlineColor="white"
-                      underlineColor="white"
-                      style={styles.textinput1}
+                    <Tp
+                      // activeOutlineColor="white"
+                      // activeUnderlineColor="white"
+                      // underlineColor="white"
+                      // style={styles.textinput1}
                       value={phoneNumber}
-                      placeholder="phone number"
+                      placeholder="Your Mobile Number"
                       onChangeText={value =>
-                        value.length <= 10 ? setPhoneNumber(value) : false
+                        value.length <= 10 && setPhoneNumber(value)
                       }
                       placeholderTextColor="grey"
                       keyboardType={'number-pad'}
@@ -890,7 +891,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     alignItems: 'center',
     paddingHorizontal: 12,
-    paddingVertical: 15,
+    // paddingVertical: 15,
     borderBottomColor: '#EDEDED',
     marginVertical: 20,
   },
