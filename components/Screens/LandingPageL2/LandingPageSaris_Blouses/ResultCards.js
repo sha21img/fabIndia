@@ -7,7 +7,7 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Card1 from '../../../Common/Card1';
 import {
   BaseURL2,
@@ -19,17 +19,18 @@ import {
 import axios from 'axios';
 import SortBox from './SortBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch, useSelector} from 'react-redux';
-import {wishlistDetail} from '../../../Common/Helper/Redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { wishlistDetail } from '../../../Common/Helper/Redux/actions';
 import HomeHeader from '../../Home/HomeHeader';
 import Filter from '../../../Common/Filter';
 import Fonts from '../../../../assets/fonts';
-import {Colors} from '../../../../assets/Colors';
+import { Colors } from '../../../../assets/Colors';
 import Toast from 'react-native-simple-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
+import LoadingComponent from '../../../Common/LoadingComponent';
 
 export default function ResultCards(props) {
-  const {cartReducer} = useSelector(state => state);
+  const { cartReducer } = useSelector(state => state);
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [dataMain, setdataMain] = useState([]);
@@ -42,13 +43,11 @@ export default function ResultCards(props) {
   const [sortValue, setSortValue] = useState('');
   const [isCheck, setIsCheck] = useState([]);
   const [productCount, setProductCount] = useState(0);
-  const {code, status, title, isSearch, isAdmin2} = props;
-  const {data = []} = props;
-  console.log(
-    'in the askjdhflkjasdhflkjasdhflkjahsdfjkhasdlkfh',
-    isAdmin2,
-    code,
-  );
+  const { code, status, title, isSearch, isAdmin2 } = props;
+  const { data = [] } = props;
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
   const getProductData = async data => {
     const fields =
       'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
@@ -91,11 +90,13 @@ export default function ResultCards(props) {
     setProductCount(response.data.pagination.totalResults);
     setTotalCount(response.data.pagination.totalResults);
     setFilterProducts(response.data.products);
-    if (filterProducts.length > 0 && !data) {
+    if (filterProducts.length > 0 && !data && !isRefreshing) {
       setFilterProducts([...filterProducts, ...response.data.products]);
     } else {
       setFilterProducts(response.data.products);
     }
+    setIsLoading(false)
+    setIsRefreshing(false)
   };
   const openSort = () => setModalVisible(true);
   const openFilter = () => setFilterModalVisible(true);
@@ -144,19 +145,23 @@ export default function ResultCards(props) {
       getCartDetails();
     }
   };
+
   useEffect(() => {
     isWishlisted();
     getProductData();
-    // https://apisap.fabindia.com/occ/v2/fabindiab2c/
-    // products/search?query=:relevance:allCategories:new-women-accessories&pageSize=10&lang=en&curr=INR&currentPage
   }, [page]);
+
   const endReach = () => {
     if (dataMain?.pagination?.totalPages > page) {
       setPage(page + 1);
-
-      // getProductData();
     }
   };
+
+  const onRefresh = () => {
+    setIsRefreshing(true)
+    setPage(0)
+  }
+
   const getCartDetails = async () => {
     const value = await AsyncStorage.getItem('cartID');
     const get = await AsyncStorage.getItem('generatToken');
@@ -248,7 +253,7 @@ export default function ResultCards(props) {
         .post(
           `${BaseURL2}/users/current/carts/${getWishlistID}/entries?lang=en&curr=INR`,
           // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
-          {quantity: 1, product: {code: data.code}},
+          { quantity: 1, product: { code: data.code } },
           {
             headers: {
               Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -280,7 +285,7 @@ export default function ResultCards(props) {
         <Card1
           // wishlistproductCode={wishlistproductCode}
           handleClick={addWishlist}
-          customViewStyle={{marginVertical: 7}}
+          customViewStyle={{ marginVertical: 7 }}
           {...props}
           item={item.item}
         />
@@ -295,94 +300,112 @@ export default function ResultCards(props) {
   return (
     <>
       <HomeHeader {...props} headertext={title} totalCount={totalCount} />
-
-      <FlatList
-        columnWrapperStyle={{justifyContent: 'space-between'}}
-        contentContainerStyle={{
-          paddingHorizontal: 15,
-          flexGrow: 1,
-          backgroundColor: '#FFFFFF',
-          paddingBottom: 20,
-        }}
-        numColumns={2}
-        data={filterProducts}
-        onEndReached={endReach}
-        showsHorizontalScrollIndicator={false}
-        onEndReachedThreshold={0.1}
-        keyExtractor={(item, index) => index}
-        renderItem={getCardData}
-      />
-      <SortBox
-        openSort={openSort}
-        dataMain={filterProducts}
-        productCount={productCount}
-        totalCount={totalCount}
-        openFilter={openFilter}
-        //  openFilter={openFilter}
-      />
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={filterModalVisible}
-        onRequestClose={() => {
-          setFilterModalVisible(!filterModalVisible);
-        }}>
-        <Filter
-          setFilterModalVisible={setFilterModalVisible}
-          filterModalVisible={filterModalVisible}
-          data={dataMain.facets}
-          handleClick={handleClick}
-          setIsCheck={setIsCheck}
-          isCheck={isCheck}
+      <View style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <FlatList
+          numColumns={2}
+          data={filterProducts}
+          onEndReached={endReach}
+          showsHorizontalScrollIndicator={false}
+          onEndReachedThreshold={0.8}
+          keyExtractor={(item, index) => index}
+          renderItem={getCardData}
+          refreshing={isRefreshing}
+          onRefresh={onRefresh}
+          ItemSeparatorComponent={() => {
+            return (
+              <View style={{ height: 10 }} />
+            )
+          }}
+          columnWrapperStyle={{ justifyContent: 'space-between' }}
+          contentContainerStyle={{ paddingBottom: 8, paddingHorizontal: 16, backgroundColor: Colors.WHITE }}
+          ListEmptyComponent={() => {
+            return (
+              !isLoading ?
+                <View style={{ height: 500, alignItems: 'center', justifyContent: 'center' }}>
+                  <Text style={{ fontSize: 16, color: Colors.textcolor }}>No results found</Text>
+                </View>
+                : null
+            )
+          }}
         />
-        {/* <View style={styles.mainContainer}>
+
+        {filterProducts.length > 0 ?
+          <SortBox
+            openSort={openSort}
+            dataMain={filterProducts}
+            productCount={productCount}
+            totalCount={totalCount}
+            openFilter={openFilter}
+          //  openFilter={openFilter}
+          />
+          : null
+        }
+
+        {isLoading ? <LoadingComponent /> : null}
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={filterModalVisible}
+          onRequestClose={() => {
+            setFilterModalVisible(!filterModalVisible);
+          }}>
+          <Filter
+            setFilterModalVisible={setFilterModalVisible}
+            filterModalVisible={filterModalVisible}
+            data={dataMain.facets}
+            handleClick={handleClick}
+            setIsCheck={setIsCheck}
+            isCheck={isCheck}
+          />
+          {/* <View style={styles.mainContainer}>
           <Text>jihugy</Text>
         </View> */}
-      </Modal>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.mainContainer}>
-          <View style={styles.centeredView}>
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{flexGrow: 1}}>
-              <View style={styles.headingBox}>
-                <View style={{width: '50%'}}>
-                  <Text style={styles.heading}>SORT BY</Text>
-                </View>
-                <TouchableOpacity
-                  style={{width: '50%'}}
-                  onPress={() => setModalVisible(!modalVisible)}>
-                  {/* <Entypo
+        </Modal>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.mainContainer}>
+            <View style={styles.centeredView}>
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ flexGrow: 1 }}>
+                <View style={styles.headingBox}>
+                  <View style={{ width: '50%' }}>
+                    <Text style={styles.heading}>SORT BY</Text>
+                  </View>
+                  <TouchableOpacity
+                    style={{ width: '50%' }}
+                    onPress={() => setModalVisible(!modalVisible)}>
+                    {/* <Entypo
                     name="circle-with-cross"
                     color={Colors.primarycolor}
                     size={24}
                   /> */}
-                  <Text style={styles.heading}>CLOSE</Text>
-                </TouchableOpacity>
-              </View>
+                    <Text style={styles.heading}>CLOSE</Text>
+                  </TouchableOpacity>
+                </View>
 
-              {[
-                {title: `What's New`, value: 'creationtime-desc'},
-                {title: `Price: Low to High`, value: 'price-asc'},
-                {title: `Price: High to Low`, value: 'price-desc'},
-                {title: `Bestseller`, value: 'productCountBestSeller-desc'},
-              ].map(item => {
-                return (
-                  <>
-                    <TouchableOpacity
-                      style={styles.titleBox}
-                      onPress={() => {
-                        setIsChecked(item.title);
-                        setSortValue(item.value);
-                        setModalVisible(!modalVisible);
-                      }}>
-                      {/* <CheckBox
+                {[
+                  { title: `What's New`, value: 'creationtime-desc' },
+                  { title: `Price: Low to High`, value: 'price-asc' },
+                  { title: `Price: High to Low`, value: 'price-desc' },
+                  { title: `Bestseller`, value: 'productCountBestSeller-desc' },
+                ].map(item => {
+                  return (
+                    <>
+                      <TouchableOpacity
+                        style={styles.titleBox}
+                        onPress={() => {
+                          setIsChecked(item.title);
+                          setSortValue(item.value);
+                          setModalVisible(!modalVisible);
+                        }}>
+                        {/* <CheckBox
                         checkBoxColor={Colors.primarycolor}
                         onClick={() => {
                           // setIsChecked(!isChecked);
@@ -391,22 +414,23 @@ export default function ResultCards(props) {
                         }}
                         isChecked={sortValue == item.value ? true : false}
                       /> */}
-                      <Text style={styles.title}>{item.title}</Text>
-                      {isChecked == item.title && (
-                        <Entypo
-                          name="check"
-                          color={Colors.textcolor}
-                          size={24}
-                        />
-                      )}
-                    </TouchableOpacity>
-                  </>
-                );
-              })}
-            </ScrollView>
+                        <Text style={styles.title}>{item.title}</Text>
+                        {isChecked == item.title && (
+                          <Entypo
+                            name="check"
+                            color={Colors.textcolor}
+                            size={24}
+                          />
+                        )}
+                      </TouchableOpacity>
+                    </>
+                  );
+                })}
+              </ScrollView>
+            </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      </View>
     </>
   );
 }
