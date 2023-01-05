@@ -5,9 +5,11 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  TextInput,
   ScrollView,
+  Linking,
+  TextInput as Tp,
 } from 'react-native';
-import {TextInput} from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 import React, {useState, useEffect} from 'react';
 import CountryPicker from 'rn-country-picker';
@@ -32,13 +34,21 @@ import {StackActions, CommonActions} from '@react-navigation/native';
 import {FacebookLogin} from '../../SocialLogin/FacebookLogin';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {AuthBaseUrl2} from '../../Common/Helper';
+import {useDispatch} from 'react-redux';
 import NumberCheck from '../../Common/NumberCheck';
 import {
   GoogleSignin,
   GoogleSigninButton,
 } from '@react-native-google-signin/google-signin';
+import {
+  AccessToken,
+  GraphRequest,
+  LoginManager,
+  GraphRequestManager,
+} from 'react-native-fbsdk-next';
 
 export default function Login(props) {
+  const dispatch = useDispatch();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [method, setMethod] = useState('Mobile');
@@ -52,6 +62,10 @@ export default function Login(props) {
   //
   const [numberRequire, setNumberRequire] = useState(false);
   const [userGoogleInfo, setUserGoogleInfo] = useState({});
+  const [userEmailToken, setUserEmailToken] = useState({});
+  const [fbDetails, setFbDetails] = useState();
+  const [from, setFrom] = useState('');
+
   //
 
   const googleIcon = {
@@ -141,8 +155,8 @@ export default function Login(props) {
             //     routes: [{name: 'MyAccounts'}],
             //   }),
             // );
-            getCartID();
-            getWishID();
+            getCartID(dispatch);
+            getWishID(dispatch);
           }
         });
     } else {
@@ -172,27 +186,187 @@ export default function Login(props) {
       await generatTokenWithout();
     }
   };
+  const checkPhoneFB = async userData => {
+    let FbEmail = userData?.email;
+    console.log('this is in the check phone', FbEmail);
+    await axios
+      .get(`${BaseURL2}/users?uid=${FbEmail}&lang=en&curr=INR`)
+      .then(response => {
+        console.log('response-=-=-=-=-=-number', response.data);
+        if (response.status == 200) {
+          response.data ? saveTokenFb(userData) : setFrom('Facebook'),
+            setNumberRequire(true);
+        }
+      })
+      .catch(error => {
+        console.log(error, 'error');
+      });
+  };
+  const saveTokenFb = userData => {
+    console.log('user data from facebook', userData);
+    var details = {
+      grant_type: 'custom',
+      scope: '',
+      client_id: 'mobile_android',
+      client_secret: 'secret',
+      provider: 'FACEBOOK',
+      authToken: userData?.api_key,
+      username: userData?.email,
+    };
+    console.log('detailsdetailsdetails', details);
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
+    fetch(`${AuthBaseUrl2}/oauth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formBody,
+    })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (res1) {
+        console.log('response==>-=-=-=', res1);
+        const tokenGenerate = {...res1, isCheck: true};
+        if (res1.error) {
+          Toast.showWithGravity(res1.error_description, Toast.LONG, Toast.TOP);
+        } else {
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          setNumberRequire(false);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          props.navigation.navigate('MyAccount', {
+            screen: 'MyAccounts',
+          });
+          getCartID(dispatch);
+          getWishID(dispatch);
+        }
+      });
+  };
   const facebookLoginHandler = () => {
-    FacebookLogin();
+    LoginManager;
+    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+      function (result) {
+        if (result.isCancelled) {
+          alert('Login cancelled');
+        } else {
+          AccessToken.getCurrentAccessToken().then(data => {
+            let accessToken = data.accessToken;
+            const responseInfoCallback = (error, result) => {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log('122result123456789', result);
+                let userData = Object.assign(
+                  {},
+                  {
+                    api_key: accessToken,
+                    id: result.id,
+                    name: result.name,
+                    photo: result.picture.data.url,
+                    email: result.email,
+                    type: 'regular',
+                    role: 'facebook',
+                    phone: null,
+                    phone_prefix: null,
+                  },
+                );
+                console.log('demo12345678', userData);
+                setFbDetails(userData);
+                checkPhoneFB(userData);
+              }
+            };
+            const infoRequest = new GraphRequest(
+              '/me',
+              {
+                accessToken: accessToken,
+                parameters: {
+                  fields: {
+                    string:
+                      'email,name,first_name,middle_name,last_name,picture',
+                  },
+                },
+              },
+              responseInfoCallback,
+            );
+            // Start the graph request.
+            new GraphRequestManager().addRequest(infoRequest).start();
+          });
+        }
+      },
+      function (error) {
+        alert('Login fail with error: ' + error);
+      },
+    );
   };
 
-  // const googleLoginHandler = () => {
-  //   FacebookLogin();
-  // };
-  // const checkPhone = async userInfo => {
-  //   // email = userInfo.user;
-  //   await axios
-  //     // https://apisap.fabindia.com/occ/v2/fabindiab2c/users?uid=ashishjain.img%40gmail.com&lang=en&curr=INR
-  //     .post(`${BaseURL2}users?uid=ashishjain.img%40gmail.com&lang=en&curr=INR`)
-  //     .then(response => {
-  //       console.log('response-=-=-=-=-=-number', response.data);
-
-  //       // setNumberRequire(true);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // };
+  const checkPhone = async (userInfo, code) => {
+    let FbEmail = userInfo?.user?.email;
+    console.log('this is in the check phone', FbEmail);
+    await axios
+      .get(`${BaseURL2}/users?uid=${FbEmail}&lang=en&curr=INR`)
+      .then(response => {
+        console.log('response-=-=-=-=-=-number', response.data);
+        if (response.status == 200) {
+          response.data
+            ? saveTokenGoogle(userInfo, code)
+            : setNumberRequire(true);
+        }
+      })
+      .catch(error => {
+        console.log(error, 'error');
+      });
+  };
+  const saveTokenGoogle = (userInfo, code) => {
+    var details = {
+      grant_type: 'custom',
+      scope: '',
+      client_id: 'mobile_android',
+      client_secret: 'secret',
+      provider: 'GOOGLE',
+      username: userInfo.user.email,
+      authToken: code.accessToken,
+    };
+    console.log('detailsdetailsdetails', details);
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
+    fetch(`${AuthBaseUrl2}/oauth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formBody,
+    })
+      .then(function (res) {
+        console.log('resresresresresresres', res);
+        return res.json();
+      })
+      .then(function (res1) {
+        console.log('response==>-=-=-=', res1);
+        const tokenGenerate = {...res1, isCheck: true};
+        if (res1.error) {
+          Toast.showWithGravity(res1.error_description, Toast.LONG, Toast.TOP);
+        } else {
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          props.navigation.navigate('MyAccount', {
+            screen: 'MyAccounts',
+          });
+          getCartID(dispatch);
+          getWishID(dispatch);
+        }
+      });
+  };
   const signIn = async () => {
     try {
       GoogleSignin.configure({
@@ -213,11 +387,14 @@ export default function Login(props) {
       await GoogleSignin.hasPlayServices();
       console.log('reached google sign in');
       const userInfo = await GoogleSignin.signIn();
-      console.log('userInfouserInfouserInfouserInfouserInfo', userInfo);
+      const code = await GoogleSignin.getTokens();
+      console.log('userInfouserInfouserInfouserInfouserInfo', code);
       setUserGoogleInfo(userInfo);
-      // if (userInfo.idToken) {
-      //   checkPhone(userInfo);
-      // }
+      setUserEmailToken(code);
+      if (code.accessToken) {
+        console.log('in the ifff');
+        checkPhone(userInfo, code);
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -251,7 +428,7 @@ export default function Login(props) {
       Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
     }
   };
-  const saveToken = async () => {
+  const saveTokenNumber = async () => {
     var details = {
       grant_type: 'custom',
       scope: '',
@@ -291,14 +468,8 @@ export default function Login(props) {
           props.navigation.navigate('MyAccount', {
             screen: 'MyAccounts',
           });
-          // props.navigation.dispatch(
-          //   CommonActions.reset({
-          //     index: 0,
-          //     routes: [{name: 'MyAccounts'}],
-          //   }),
-          // );
-          getCartID();
-          getWishID();
+          getCartID(dispatch);
+          getWishID(dispatch);
         }
       });
   };
@@ -312,7 +483,7 @@ export default function Login(props) {
       transactionId: transactionId,
     };
     let res = await axios
-      .post(`${BaseURL2}otp/validate?lang=en&curr=INR`, data, {
+      .post(`${BaseURL2}/otp/validate?lang=en&curr=INR`, data, {
         headers: {
           Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
@@ -320,7 +491,7 @@ export default function Login(props) {
       .then(response => {
         console.log('this sis res', response?.data);
         if (response?.status == 200) {
-          saveToken();
+          saveTokenNumber();
         } else {
           console.log('in else');
         }
@@ -338,7 +509,13 @@ export default function Login(props) {
   return (
     <>
       {numberRequire ? (
-        <NumberCheck setNumberRequire={setNumberRequire} />
+        <NumberCheck
+          setNumberRequire={setNumberRequire}
+          userGoogleInfo={userGoogleInfo}
+          userEmailToken={userEmailToken}
+          fbDetails={fbDetails}
+          checkFrom={from}
+        />
       ) : (
         <ScrollView style={styles.container}>
           {generateOtp ? (
@@ -494,15 +671,15 @@ export default function Login(props) {
                     countryCode={mobilePrefix}
                   />
                   <View style={{flex: 1, paddingHorizontal: 15}}>
-                    <TextInput
-                      activeOutlineColor="white"
-                      activeUnderlineColor="white"
-                      underlineColor="white"
-                      style={styles.textinput1}
+                    <Tp
+                      // activeOutlineColor="white"
+                      // activeUnderlineColor="white"
+                      // underlineColor="white"
+                      // style={styles.textinput1}
                       value={phoneNumber}
-                      placeholder="phone number"
+                      placeholder="Your Mobile Number"
                       onChangeText={value =>
-                        value.length <= 10 ? setPhoneNumber(value) : false
+                        value.length <= 10 && setPhoneNumber(value)
                       }
                       placeholderTextColor="grey"
                       keyboardType={'number-pad'}
@@ -544,9 +721,7 @@ export default function Login(props) {
                   <TouchableOpacity
                     style={styles.readText}
                     onPress={() => {
-                      props.navigation.navigate('MyAccount', {
-                        screen: 'ResetPassword',
-                      });
+                      Linking.openURL('https://www.fabindiahome.com/login/forgot-password')
                     }}>
                     <Text style={styles.forgetText}>Forgot password?</Text>
                   </TouchableOpacity>
@@ -633,7 +808,7 @@ export default function Login(props) {
             <TouchableOpacity onPress={() => facebookLoginHandler()}>
               <Image source={facebookIcon} style={styles.facebookIcon} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={signIn}>
+            <TouchableOpacity onPress={() => signIn()}>
               <Image source={googleIcon} style={styles.googleIcon} />
             </TouchableOpacity>
           </View>
@@ -687,11 +862,11 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   textinput1: {
-    letterSpacing: 2,
+    // letterSpacing: 2,
     borderBottomColor: 'white',
-    fontSize: 18,
+    fontSize: 16,
     color: 'black',
-    height: 40,
+    // height: 40,
     backgroundColor: 'white',
     width: '100%',
   },
@@ -715,7 +890,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     alignItems: 'center',
     paddingHorizontal: 12,
-    paddingVertical: 15,
+    // paddingVertical: 15,
     borderBottomColor: '#EDEDED',
     marginVertical: 20,
   },

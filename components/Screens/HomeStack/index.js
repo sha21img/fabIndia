@@ -41,6 +41,7 @@ import HomeHeader from '../Home/HomeHeader';
 import WishListCard from '../../Common/WishListCard';
 import CategorySection from '../CategorySection';
 import FestiveCollection from '../Collections/FestiveCollection';
+import InteriorHomepage from '../InteriorHomepage';
 
 const Stack = createNativeStackNavigator();
 
@@ -353,13 +354,25 @@ export default function HomeStack() {
         component={InteriorCatagory}
         options={{
           header: props => (
-            <Header
-              leftIcon={leftIcon}
-              title="Interior Design Solutions"
-              rightIcon={rightIcon}
-              customStyle={{
-                backgroundColor: '#F8F6F5',
-              }}
+            <HomeHeader
+              searchVisible={null}
+              {...props}
+              showWishlist={false}
+              middleHeader="Interior Design Solution"
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="InteriorHomepage"
+        component={InteriorHomepage}
+        options={{
+          header: props => (
+            <HomeHeader
+              searchVisible={null}
+              {...props}
+              showWishlist={false}
+              middleHeader="Interior"
             />
           ),
         }}

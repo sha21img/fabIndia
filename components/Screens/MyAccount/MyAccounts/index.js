@@ -22,6 +22,11 @@ import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
 const pages = [
   {
     icon: image.document,
+    name: 'My Addresses',
+    routes: 'AllAddresses',
+  },
+  {
+    icon: image.document,
     name: 'My Orders',
     routes: 'MyOrder',
   },
@@ -73,12 +78,13 @@ const pages = [
 ];
 const MyAccounts = props => {
   const dispatch = useDispatch();
-  const focus = useIsFocused();
+  // const focus = useIsFocused();
   const [userProfileData, setUserProfileData] = useState();
 
   const getProfiledata = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
+    console.log('get token _+_+_+_+_+', getToken);
     const response = await fetch(`${BaseURL2}/users/current?lang=en&curr=INR`, {
       method: 'GET',
       headers: {
@@ -101,7 +107,7 @@ const MyAccounts = props => {
   };
   useEffect(() => {
     getProfiledata();
-  }, [focus]);
+  }, []);
   const generatTokenWithout = async () => {
     await axios
       .post(
@@ -112,7 +118,7 @@ const MyAccounts = props => {
           const tokenGenerate = {...response.data, isCheck: false};
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          getCartID();
+          getCartID(dispatch);
         },
         error => {
           console.log('response-=-=-=-=-=-error', error);
@@ -121,21 +127,12 @@ const MyAccounts = props => {
   };
   const logoutt = async () => {
     await AsyncStorage.removeItem('cartID');
-    // const res = await AsyncStorage.removeItem('generatToken');
-    // console.log('delete', res);
-    // console.log('before');
-    // props.navigation.navigate('MyAccount', {
-    //   screen: 'Login_Register',
-    // });
-    // console.log('after');
     dispatch(
       wishlistDetail({
         data: [],
         quantity: 0,
       }),
     );
-    // dispatch(cartDetail({data: [], quantity: 0}));
-
     await generatTokenWithout();
     props.navigation.dispatch(
       CommonActions.reset({

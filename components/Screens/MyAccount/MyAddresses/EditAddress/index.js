@@ -41,6 +41,7 @@ const faqs = [
 const EditAddress = props => {
   const dispatch = useDispatch();
   let editflag = props?.route?.params?.editData;
+  let checkFrom = props?.route?.params?.from;
   const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState(
     !!editflag ? editflag?.phone : '',
@@ -129,6 +130,10 @@ const EditAddress = props => {
   };
 
   const _selectedValue = index => {
+    console.log(
+      '_selectedValue_selectedValue_selectedValue_selectedValue_selectedValue',
+      index,
+    );
     setMobilePrefix(index);
   };
 
@@ -180,13 +185,16 @@ const EditAddress = props => {
           },
         })
         .then(response => {
-          console.log('po', response.data);
-
-          props.navigation.navigate('CartPage', {
-            currPosition: 1,
-          });
+          if (checkFrom == 'Order') {
+            props.navigation.navigate('CartPage', {
+              currPosition: 1,
+            });
+          } else {
+            props.navigation.goBack();
+          }
         })
         .catch(errors => {
+          console.log('error', errors);
           if (errors.response.status == 401) {
             logout(dispatch);
           }
@@ -200,9 +208,13 @@ const EditAddress = props => {
         })
         .then(response => {
           if (response.data) {
-            props.navigation.navigate('CartPage', {
-              currPosition: 1,
-            });
+            if (checkFrom == 'Order') {
+              props.navigation.navigate('CartPage', {
+                currPosition: 1,
+              });
+            } else {
+              props.navigation.goBack();
+            }
           }
         })
         .catch(errors => {
@@ -213,7 +225,7 @@ const EditAddress = props => {
         });
     }
   };
-  const finalCount = async response => {
+  const finalCount = async (response, newArrayOfObj) => {
     if (Object.keys(response.data).length) {
       let finalcountryData = !!editflag ? newArrayOfObj : countryData;
       let filter = finalcountryData.filter(el => {
@@ -249,7 +261,7 @@ const EditAddress = props => {
         },
       )
       .then(response => {
-        finalCount(response);
+        finalCount(response, newArrayOfObj);
       })
       .catch(errors => {
         if (errors.response.status == 401) {

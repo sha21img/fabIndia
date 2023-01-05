@@ -274,7 +274,7 @@ export default function OrderProductLongCard(props) {
 
     axios
       .post(
-        `https://apisap.fabindiahome.com/occ/v2/fabindiab2c/users/current/orderReturns?fields=BASIC,returnEntries(BASIC,refundAmount(formattedValue),orderEntry(basePrice(formattedValue),product(name,code,baseOptions,images(DEFAULT,galleryIndex)))),deliveryCost(formattedValue),totalPrice(formattedValue),subTotal(formattedValue)&lang=en&curr=INR`,
+        `${BaseURL2}/users/current/orderReturns?fields=BASIC,returnEntries(BASIC,refundAmount(formattedValue),orderEntry(basePrice(formattedValue),product(name,code,baseOptions,images(DEFAULT,galleryIndex)))),deliveryCost(formattedValue),totalPrice(formattedValue),subTotal(formattedValue)&lang=en&curr=INR`,
         {
           orderCode: orderID,
           returnRequestEntryInputs: [

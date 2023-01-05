@@ -30,7 +30,7 @@ const generatTokenWithout = async () => {
         const tokenGenerate = {...response.data, isCheck: false};
         console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
         AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-        getCartID();
+        getCartID(dispatch);
       },
       error => {
         console.log('response-=-=-=-=-=-error', error);
@@ -52,7 +52,7 @@ const logout = async dispatch => {
   // props.navigation.navigate('MyAccount', {
   //   screen: 'Login_Register',
   // });
-  await generatTokenWithout();
+  await generatTokenWithout(dispatch);
 };
 
 // const postData = async (url, body) => {
@@ -130,7 +130,6 @@ const getComponentData = async path => {
 const UnAuthPostData = async (url, data) => {
   const get = await AsyncStorage.getItem('generatToken');
   const getToken = JSON.parse(get);
-  console.log('getToken for login', getToken);
 
   const response = await fetch(`${BaseURL2}${url}`, {
     method: 'POST',
@@ -150,9 +149,10 @@ const UnAuthPostData = async (url, data) => {
     }
   }
 };
-const getCartID = async () => {
+const getCartID = async dispatch => {
   const get = await AsyncStorage.getItem('generatToken');
   const getToken = JSON.parse(get);
+  console.log('get token    cart id', getToken);
   const type = getToken.isCheck ? 'current' : 'anonymous';
   const response = await axios
     .post(
@@ -176,7 +176,6 @@ const getCartID = async () => {
       }
     })
     .catch(err => {
-      console.log('inininiiniinin', err);
       if (err.response.status == 401) {
         logout(dispatch);
       }
@@ -209,6 +208,8 @@ const getWishID = async () => {
       setWishID(response);
     })
     .catch(errors => {
+      console.log('2354345435', errors);
+
       if (errors.response.status == 401) {
         logout(dispatch);
       }

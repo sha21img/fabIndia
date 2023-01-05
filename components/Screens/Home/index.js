@@ -21,8 +21,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const width = Dimensions.get('window').width;
 import YoutubeVideo from '../YoutubeVideo';
 import OfferForYou from '../OfferForYou';
+import {withNavigationFocus} from 'react-navigation';
+import {useDispatch} from 'react-redux';
 
 export default function Dashbord(props) {
+  const dispatch = useDispatch();
+  const [active, setActive] = React.useState('Bestsellers');
   const [dashboardData, setDashboardData] = React.useState([]);
   const [filteredComp, setFilteredComp] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
@@ -60,8 +64,7 @@ export default function Dashbord(props) {
 
   const getInitialCartID = async () => {
     const cartId = await AsyncStorage.getItem('cartID');
-    // console.log('cartId==>', cartId);
-    cartId == null && getCartID();
+    cartId == null && getCartID(dispatch);
   };
 
   const generatTokenWithout = async () => {
@@ -125,11 +128,9 @@ export default function Dashbord(props) {
     const response = await axios.get(
       'http://159.89.164.11:3030/homepage/getForApp',
     );
+    console.log('oiuytrfghj', response.data.data);
     setDashboardData(response.data.data);
     setLoading(false);
-    // console.log('this is a eresponse of pageXOffset', response.data.data);
-
-    // console.log('homeSections==>', JSON.stringify(response.data.data));
   };
 
   const getSections = data => {
@@ -140,7 +141,6 @@ export default function Dashbord(props) {
       });
       dataa.push(filter?.components?.component[0]);
     });
-    // console.log('filterComp==>', JSON.stringify(dataa))
     setFilteredComp(dataa);
   };
 

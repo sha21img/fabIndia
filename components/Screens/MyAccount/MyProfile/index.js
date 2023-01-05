@@ -5,21 +5,24 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  useWindowDimensions,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import React, { useEffect, useState } from 'react';
+
+import React, {useEffect, useState} from 'react';
 import Fonts from '../../../../assets/fonts';
-import { Colors } from '../../../../assets/Colors';
+import {Colors} from '../../../../assets/Colors';
 import InputText from '../../../Common/InputText';
 import CommonButton from '../../../Common/CommonButton';
-import { BaseURL2, logout } from '../../../Common/Helper';
+import {BaseURL2, logout} from '../../../Common/Helper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Toast from 'react-native-simple-toast';
 import CountryPicker from 'rn-country-picker';
 import Feather from 'react-native-vector-icons/Feather';
-import { UnAuthPostData, postData } from '../../../Common/Helper';
-import { useDispatch } from 'react-redux';
+import {UnAuthPostData, postData} from '../../../Common/Helper';
+import {useDispatch} from 'react-redux';
+import {MaskedTextInput} from 'react-native-mask-text';
 import moment from 'moment';
 
 const MyProfile = props => {
@@ -31,15 +34,30 @@ const MyProfile = props => {
   const [gender, SetGender] = useState(allProps.profiledata?.gender?.code);
   const [transactionId, settransactionId] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isVerifyOtp, setIsVerifyOtp] = useState(false);
   const [DOB, setDOB] = useState(allProps.profiledata?.dateOfBirth || '');
+  const [allField, setAllField] = useState({
+    fname: true,
+    lname: true,
+    phone_number: true,
+    email: true,
+  });
   const [Otp, setOtp] = useState('');
   const [editUser, setEditUser] = useState({
-    first: allProps.profiledata.firstName,
-    last: allProps.profiledata.lastName,
-    mobile: allProps.profiledata.contactNumber,
-    email: allProps.profiledata.uid,
+    first: allProps?.profiledata?.firstName,
+    last: allProps?.profiledata?.lastName,
+    mobile: allProps?.profiledata?.contactNumber,
+    email: allProps?.profiledata?.uid,
   });
-
+  const [open, setOpen] = useState(false);
+  const win = useWindowDimensions();
+  const [maskedValue, setMaskedValue] = useState(
+    moment(new Date()).format('DD-MM-YYYY'),
+  );
+  console.log(
+    'oiuytfdrtfyguioiuytrrty111111111111111111111111111111111',
+    maskedValue,
+  );
   useEffect(() => {
     if (isCheck == true) {
       updateProfileHandler();
@@ -60,26 +78,24 @@ const MyProfile = props => {
     const body = {
       contactNumber: editUser.mobile,
       contactNumberCode: mobilePrefix,
-      country: { isocode: allProps.profiledata?.defaultAddress?.country?.isocode },
+      country: {
+        isocode: allProps.profiledata?.defaultAddress?.country?.isocode,
+      },
       dateOfBirth: DOB,
       firstName: editUser.first,
-      gender: { code: gender },
+      gender: {code: gender},
       lastName: editUser.last,
       transactionId: transactionId ? transactionId : '',
       uid: editUser.email,
     };
-    console.log('body==>', JSON.stringify(body))
+    console.log('body==>', JSON.stringify(body));
     const response = await axios
-      .patch(
-        `${BaseURL2}/users/current?lang=en&curr=INR`,
-        body,
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-            'Content-Type': 'application/json',
-          },
+      .patch(`${BaseURL2}/users/current?lang=en&curr=INR`, body, {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          'Content-Type': 'application/json',
         },
-      )
+      })
       .then(res => {
         if (res.status == 200) {
           console.log('this is a patch sata', res);
@@ -93,7 +109,7 @@ const MyProfile = props => {
       })
       .catch(errors => {
         console.log('errors', errors.response.data);
-        Toast.show(errors.response.data.errors[0].message, Toast.LONG)
+        Toast.show(errors.response.data.errors[0].message, Toast.LONG);
         if (errors.response.status == 401) {
           logout(dispatch);
         }
@@ -141,6 +157,7 @@ const MyProfile = props => {
       } else {
         Toast.showWithGravity('Done', Toast.LONG, Toast.TOP);
         setgenerate(false);
+        setIsVerifyOtp(true);
       }
     });
   };
@@ -151,140 +168,244 @@ const MyProfile = props => {
 
   const handleConfirm = date => {
     // console.warn('A date has been picked: ', date);
-    if (date)
+    if (date) {
+      console.log(
+        'moment(date).formatiuygfgchiokiogyutfghoiuygtf44444444444444444444444444444444',
+        moment(date).format('DD/MM/YYYY'),
+      );
       setDOB(moment(date).format('DD/MM/YYYY'));
+      setMaskedValue(moment(date).format('DD/MM/YYYY'));
+    }
+
     hideDatePicker();
   };
 
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
+  const isEmailValid = text => {
+    console.log(text);
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(text) === false) {
+      console.log('Email is Not Correct');
+      setEditUser({...editUser, email: text});
+      setAllField({...allField, email: false});
+
+      return false;
+    } else {
+      setAllField({...allField, email: true});
+      setEditUser({...editUser, email: text});
+      console.log('Email is Correct');
+    }
+  };
+  // const isEmailValid = text => {
+  //   setEditUser({...editUser, email: text});
+  //   const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  //   if (reg.test(editUser.email) === true) {
+  //     console.log('isisisivalid');
+  //   } else {
+  //     console.log('not valid');
+  //   }
+  // };
+  console.log('allField', allField);
+  console.log(
+    ' allProps.profiledata.contactNumber == editUser.mobile',
+    allProps.profiledata.contactNumber == editUser.mobile,
+  );
+  console.log('editUser.mobile', editUser.mobile.length);
 
   return (
     <>
-      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicato={false}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicato={false}>
         <InputText
-          customStyle={[styles.textInput, { marginTop: 0 }]}
+          // minLength={3}
+          // maxLength={40}
+          customStyle={[styles.textInput, {marginTop: 0}]}
           label="First Name"
           value={editUser.first}
-          onChangeText={text => setEditUser({ ...editUser, first: text })}
+          onChangeText={text => {
+            setEditUser({
+              ...editUser,
+              first: text.replace(
+                /[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
+                '',
+              ),
+            });
+            // if (regex.test(text)) {
+            if (!!editUser.first && text.length >= 3 && text.length <= 40) {
+              setAllField({...allField, fname: true});
+              // setEditUser({...editUser, first: text});
+            } else {
+              // setEditUser({...editUser, first: text});
+              setAllField({...allField, fname: false});
+            }
+          }}
         />
 
         <InputText
           customStyle={styles.textInput}
           label="Last Name"
           value={editUser.last}
-          onChangeText={text => setEditUser({ ...editUser, last: text })}
+          // maxLength={40}
+          onChangeText={text => {
+            setEditUser({
+              ...editUser,
+              last: text.replace(
+                /[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
+                '',
+              ),
+            });
+            if (!!editUser.last && text.length >= 3 && text.length <= 40) {
+              setAllField({...allField, lname: true});
+              // setEditUser({...editUser, last: text});
+            } else {
+              // setEditUser({...editUser, last: text});
+              setAllField({...allField, lname: false});
+            }
+            // setEditUser({...editUser, last: text}})
+          }}
         />
 
         {generate ? (
-          <View style={{ marginTop: 20 }}>
-            <Text style={{ textAlign: 'center', color: '#222' }}>
-              Verify with OTP Send to
-              {`${editUser.mobile[0]}${editUser.mobile[1]}******${editUser.mobile[8]}${editUser.mobile[9]}`}
-            </Text>
-
-            <TextInput
-              value={Otp}
-              activeOutlineColor="white"
-              activeUnderlineColor="white"
-              underlineColor="white"
-              onChangeText={value =>
-                value.length <= 4 ? setOtp(value) : false
-              }
-              multiline={true}
-              keyboardType="numeric"
-              style={{
-                backgroundColor: '#fff',
-                height: 50,
-                textAlign: 'center',
-                borderBottomColor: Colors.inactiveicon,
-                borderBottomWidth: 1,
-              }}
-              placeholder="Enter 4-digit OTP"
-            />
-            <TouchableOpacity onPress={() => GenerateOtp()}>
-              <Text
-                style={{
-                  color: Colors.primarycolor,
-                  textAlign: 'center',
-                  marginVertical: 10,
-                }}>
-                Resend OTP
+          <>
+            <View style={{marginTop: 20}}>
+              <Text style={{textAlign: 'center', color: '#222'}}>
+                Verify with OTP Send to
+                {`${editUser.mobile[0]}${editUser.mobile[1]}******${editUser.mobile[8]}${editUser.mobile[9]}`}
               </Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <View style={styles.pickerbox}>
-            <CountryPicker
-              disable={false}
-              animationType={'slide'}
-              containerStyle={styles.pickercontainer}
-              pickerTitleStyle={styles.pickertitle}
-              selectedCountryTextStyle={styles.selectedTextStyle}
-              countryNameTextStyle={styles.selectnametxt}
-              pickerTitle={'Country Picker'}
-              searchBarPlaceHolder={'Search......'}
-              hideCountryFlag={false}
-              hideCountryCode={false}
-              searchBarStyle={styles.searchbar}
-              selectedValue={_selectedValue}
-              countryCode={mobilePrefix}
-            />
-            <View style={{ flex: 1, paddingHorizontal: 15 }}>
+
               <TextInput
+                value={Otp}
                 activeOutlineColor="white"
                 activeUnderlineColor="white"
                 underlineColor="white"
-                style={styles.textinput1}
-                value={editUser.mobile}
-                placeholder="phone number"
                 onChangeText={value =>
-                  value.length <= 10
-                    ? setEditUser({ ...editUser, mobile: value })
+                  value.length <= 4 ? setOtp(value) : false
+                }
+                multiline={true}
+                keyboardType="numeric"
+                style={{
+                  backgroundColor: '#fff',
+                  height: 50,
+                  textAlign: 'center',
+                  borderBottomColor: Colors.inactiveicon,
+                  borderBottomWidth: 1,
+                }}
+                placeholder="Enter 4-digit OTP"
+              />
+              <TouchableOpacity onPress={() => GenerateOtp()}>
+                <Text
+                  style={{
+                    color: Colors.primarycolor,
+                    textAlign: 'center',
+                    marginVertical: 10,
+                  }}>
+                  Resend OTP
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <CommonButton
+              disable={Otp.length != 4}
+              handleClick={VerifyOTP}
+              txt="Confirm OTP"
+              customViewStyle={{
+                backgroundColor:
+                  Otp.length == 4 ? Colors.primarycolor : '#BDBDBD',
+                marginVertical: 10,
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <View style={styles.pickerbox}>
+              <CountryPicker
+                disable={false}
+                animationType={'slide'}
+                containerStyle={styles.pickercontainer}
+                pickerTitleStyle={styles.pickertitle}
+                selectedCountryTextStyle={styles.selectedTextStyle}
+                countryNameTextStyle={styles.selectnametxt}
+                pickerTitle={'Country Picker'}
+                searchBarPlaceHolder={'Search......'}
+                hideCountryFlag={false}
+                hideCountryCode={false}
+                searchBarStyle={styles.searchbar}
+                selectedValue={_selectedValue}
+                countryCode={mobilePrefix}
+              />
+              <View style={{flex: 1, paddingHorizontal: 15}}>
+                <TextInput
+                  // activeOutlineColor="white"
+                  // activeUnderlineColor="white"
+                  // underlineColor="white"
+                  style={styles.textinput1}
+                  value={editUser.mobile}
+                  placeholder="Your Mobile Number"
+                  maxLength={10}
+                  onChangeText={value => {
+                    setIsVerifyOtp(false);
+                    console.log(';oiuytfdxcghjkl;', value);
+                    if (
+                      value.length == 10
+                      // &&
+                      // allProps.profiledata.contactNumber == value
+                    ) {
+                      console.log('ojihugyfttyguhijokpl[poihugfghjk');
+                      setAllField({...allField, phone_number: true});
+                      setEditUser({...editUser, mobile: value});
+                    } else {
+                      console.log('elelelelel[poihugfghjk');
+
+                      setEditUser({...editUser, mobile: value});
+
+                      setAllField({...allField, phone_number: false});
+                    }
+                  }}
+                  placeholderTextColor="grey"
+                  keyboardType={'number-pad'}
+                  disableFullscreenUI={true}
+                />
+              </View>
+            </View>
+            {!isVerifyOtp && (
+              <CommonButton
+                disable={
+                  editUser.mobile.length == 10 &&
+                  editUser.mobile == allProps.profiledata.contactNumber
+                    ? true
                     : false
                 }
-                placeholderTextColor="grey"
-                keyboardType={'number-pad'}
-                disableFullscreenUI={true}
+                handleClick={GenerateOtp}
+                txt="Generate OTP"
+                customViewStyle={{
+                  marginVertical: 10,
+                  backgroundColor:
+                    editUser.mobile.length < 10
+                      ? '#BDBDBD'
+                      : editUser.mobile == allProps.profiledata.contactNumber
+                      ? '#BDBDBD'
+                      : Colors.primarycolor,
+                }}
               />
-            </View>
-          </View>
+            )}
+          </>
         )}
-        {generate ? (
-          <CommonButton
-            disable={Otp.length != 4}
-            handleClick={VerifyOTP}
-            txt="Confirm OTP"
-            customViewStyle={{
-              backgroundColor:
-                Otp.length == 4 ? Colors.primarycolor : '#BDBDBD',
-              marginVertical: 10,
-            }}
-          />
+        {/* {generate ? (
+         
         ) : (
-          <CommonButton
-            disable={editUser.mobile.length != 10}
-            handleClick={GenerateOtp}
-            txt="Generate OTP"
-            customViewStyle={{
-              marginVertical: 10,
-              backgroundColor:
-                editUser.mobile.length == 10
-                  ? Colors.primarycolor
-                  : '#BDBDBD',
-            }}
-          />
-        )}
+          
+        )} */}
         <InputText
           customStyle={styles.textInput}
           label="Email address"
           value={editUser.email}
-          onChangeText={text => setEditUser({ ...editUser, email: text })}
+          onChangeText={text => isEmailValid(text)}
         />
 
         <View style={styles.chooseContainer}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => {
@@ -295,14 +416,20 @@ const MyProfile = props => {
                 }
               }}
               style={{
-                height: 30, width: 30, borderRadius: 25, borderWidth: 2, borderColor: '#d3d6db',
-                backgroundColor: gender == 'MALE' ? Colors.primarycolor : 'white'
-              }}>
-            </TouchableOpacity>
-            <Text style={{ fontSize: 14, color: Colors.textcolor, marginLeft: 10 }}>Male</Text>
+                height: 30,
+                width: 30,
+                borderRadius: 25,
+                borderWidth: 2,
+                borderColor: '#d3d6db',
+                backgroundColor:
+                  gender == 'MALE' ? Colors.primarycolor : 'white',
+              }}></TouchableOpacity>
+            <Text
+              style={{fontSize: 14, color: Colors.textcolor, marginLeft: 10}}>
+              Male
+            </Text>
           </View>
-          <View
-            style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => {
@@ -313,18 +440,34 @@ const MyProfile = props => {
                 }
               }}
               style={{
-                height: 30, width: 30, borderRadius: 25, borderWidth: 2, borderColor: '#d3d6db',
-                backgroundColor: gender == 'FEMALE' ? Colors.primarycolor : 'white',
-              }}>
-            </TouchableOpacity>
-            <Text style={{ fontSize: 14, color: Colors.textcolor, marginLeft: 10 }}>Female</Text>
+                height: 30,
+                width: 30,
+                borderRadius: 25,
+                borderWidth: 2,
+                borderColor: '#d3d6db',
+                backgroundColor:
+                  gender == 'FEMALE' ? Colors.primarycolor : 'white',
+              }}></TouchableOpacity>
+            <Text
+              style={{fontSize: 14, color: Colors.textcolor, marginLeft: 10}}>
+              Female
+            </Text>
           </View>
         </View>
 
-        <View style={{ paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: Colors.inactiveicon }}>
-          <Text style={{ fontSize: 16, color: Colors.textcolor }}>Date of birth</Text>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={{ fontSize: 14, color: Colors.textcolor }}>{!!DOB ? DOB : 'dd-mm-yyyy'}</Text>
+        {/* <View
+          style={{
+            paddingVertical: 10,
+            borderBottomWidth: 1,
+            borderBottomColor: Colors.inactiveicon,
+          }}>
+          <Text style={{fontSize: 16, color: Colors.textcolor}}>
+            Date of birth
+          </Text>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Text style={{fontSize: 14, color: Colors.textcolor}}>
+              {!!DOB ? DOB : 'dd-mm-yyyy'}
+            </Text>
             <Feather
               name="calendar"
               color={Colors.primarycolor}
@@ -332,24 +475,75 @@ const MyProfile = props => {
               onPress={showDatePicker}
             />
           </View>
-        </View>
+        </View> */}
 
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginHorizontal: 16,
+            marginTop: 20,
+            borderBottomWidth: 1,
+            borderBottomColor: 'gray',
+          }}>
+          {/*  <Text style={{ fontSize: 20 }}>{date?.toLocaleDateString()}</Text>*/}
+          {/* <MaskedTextInput
+            mask="99-99-9999"
+            value={maskedValue}
+            style={{fontSize: 22, width: 300}}
+            onChangeText={(text, rawText) => {
+              setMaskedValue(text);
+            }}
+            // style={styles.input}
+            keyboardType="numeric"
+          /> */}
+          {/* <TouchableOpacity onPress={() => setOpen(true)}> */}
+          <Feather
+            name="calendar"
+            color={Colors.primarycolor}
+            size={20}
+            onPress={showDatePicker}
+          />
+          {/* </TouchableOpacity> */}
+        </View>
         <TouchableOpacity
           activeOpacity={0.8}
-          style={{ alignItems: 'center', paddingVertical: 20 }}
+          style={{alignItems: 'center', paddingVertical: 20}}
           onPress={() => {
             props.navigation.navigate('ChangePassword');
           }}>
-          <Text style={{ fontSize: 16, color: Colors.primarycolor, fontFamily: Fonts.Assistant400 }}>Change password</Text>
+          <Text
+            style={{
+              fontSize: 16,
+              color: Colors.primarycolor,
+              fontFamily: Fonts.Assistant400,
+            }}>
+            Change password
+          </Text>
         </TouchableOpacity>
       </ScrollView>
 
-      <View style={{ padding: 15, backgroundColor: '#FDFDFD', elevation: 5 }}>
+      <View style={{padding: 15, backgroundColor: '#FDFDFD', elevation: 5}}>
         <CommonButton
+          disable={
+            allField.fname &&
+            allField.lname &&
+            allField.email &&
+            allField.phone_number
+              ? false
+              : true
+          }
           backgroundColor="#BDBDBD"
           txt="Update profile"
           customViewStyle={{
-            backgroundColor: Colors.primarycolor,
+            backgroundColor:
+              allField.fname &&
+              allField.lname &&
+              allField.email &&
+              allField.phone_number
+                ? Colors.primarycolor
+                : Colors.textcolor,
           }}
           handleClick={checkUpdateProfile}
         />
@@ -385,7 +579,7 @@ const styles = StyleSheet.create({
   textInput: {
     marginTop: 8,
     fontSize: 14,
-    color: Colors.textcolor
+    color: Colors.textcolor,
   },
   updateButton: {
     paddingVertical: 15,
@@ -400,7 +594,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 12,
     borderBottomColor: '#EDEDED',
-    marginTop: 16
+    marginTop: 16,
   },
   pickercontainer: {
     width: 75,
@@ -434,11 +628,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   textinput1: {
-    height: 40,
-    letterSpacing: 2,
     borderBottomColor: 'white',
     marginVertical: Platform.OS === 'android' ? 5 : 10,
-    fontSize: 18,
+    fontSize: 16,
     color: 'black',
     backgroundColor: 'white',
   },

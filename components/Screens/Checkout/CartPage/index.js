@@ -33,7 +33,7 @@ export default function CartPage(props) {
         },
       )
       .then(response => {
-        console.log('cartList==>', JSON.stringify(response.data))
+        console.log('cartList==>', JSON.stringify(response.data));
         let finalvalue = response?.data?.entries?.reduce(
           (n, {quantity}) => n + quantity,
           0,
@@ -149,6 +149,28 @@ export default function CartPage(props) {
         });
     }
   };
+  const deleteCartDetail = async data => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const getCartID = await AsyncStorage.getItem('cartID');
+
+    console.log('getCartIDgetCartID', getCartID);
+    await axios
+      .delete(
+        `${BaseURL2}/users/current/carts/${getCartID}/entries/${data.entryNumber}?lang=en&curr=INR`,
+        {
+          headers: {
+            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+          },
+        },
+      )
+      .then(response => {
+        getCartDetails();
+      })
+      .catch(error => {
+        console.log('kjihugy', error);
+      });
+  };
 
   return cartReducer.CartDetail.cartData.entries.length > 0 ? (
     <CartList
@@ -156,6 +178,7 @@ export default function CartPage(props) {
       cartdetails={cartReducer.CartDetail.cartData}
       getCartDetails={getCartDetails}
       handleClick={addWishlist}
+      deleteCartDetail={deleteCartDetail}
     />
   ) : (
     <EmptyCart {...props} />

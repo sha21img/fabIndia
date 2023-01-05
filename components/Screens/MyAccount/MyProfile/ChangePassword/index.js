@@ -15,12 +15,17 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import {Colors} from '../../../../../assets/Colors';
 import {Styles} from './style';
+import {cartDetail, wishlistDetail} from '../../../../Common/Helper/Redux/actions';
+
 import CommonButton from '../../../../Common/CommonButton';
 import Fonts from '../../../../../assets/fonts';
-import {BaseURL2, logout, UnAuthPostData} from '../../../../Common/Helper';
+import {AuthBaseUrl2, BaseURL2, logout, getCartID,} from '../../../../Common/Helper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 import {useDispatch} from 'react-redux';
+import {CommonActions} from '@react-navigation/native';
+import axios from 'axios';
+
 export default function ChangePassword(props) {
   const dispatch = useDispatch();
   const icon = {
@@ -75,7 +80,42 @@ export default function ChangePassword(props) {
 
   console.log('user', password.newPass.length, password.confirmPass.length);
 
+  const generatTokenWithout = async () => {
+    await axios
+      .post(
+        `${AuthBaseUrl2}/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
+      )
+      .then(
+        response => {
+          const tokenGenerate = {...response.data, isCheck: false};
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          getCartID(dispatch);
+        },
+        error => {
+          console.log('response-=-=-=-=-=-error', error);
+        },
+      );
+  };
+  const logoutt = async () => {
+    await AsyncStorage.removeItem('cartID');
+    dispatch(
+      wishlistDetail({
+        data: [],
+        quantity: 0,
+      }),
+    );
+    await generatTokenWithout();
+    props.navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{name: 'MyAccount'}],
+      }),
+    );
+  }
+
   const handleChangePassword = async () => {
+    console.log("handleChangePasswordhandleChangePasswordhandleChangePassword")
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     var details = {
@@ -89,7 +129,9 @@ export default function ChangePassword(props) {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     formBody = formBody.join('&');
-    const response = awaitfetch(
+    console.log("handleChangePasswordhandleChangePasswordhandleChangePassword222222222222222222222")
+
+    const response = await fetch(
       `${BaseURL2}/users/current/password?lang=en&curr=INR`,
       {
         method: 'PUT',
@@ -99,16 +141,25 @@ export default function ChangePassword(props) {
         },
         body: formBody,
       },
-    )
-      .then(res => {
+    ).then(res => {
         if (res.ok) {
           console.log(res, 'resresresresresres');
+
+          Toast.showWithGravity(
+            'Password Changed Succesfully',
+            Toast.LONG,
+            Toast.TOP,
+          );
+          logoutt()
         }
-        return res.json();
+        // return res.json();
       })
       .catch(errors => {
-        if (errors.response.status == 401) {
+        console.log('errorserrorserrorserrors', errors);
+        if (errors?.response?.status == 401) {
           logout(dispatch);
+        console.log('errorserrorserrorserrors', errors);
+
         }
       });
 
@@ -118,7 +169,7 @@ export default function ChangePassword(props) {
     //   Toast.TOP,
     // );
   };
-
+;
   return (
     <>
       <ScrollView
@@ -146,7 +197,7 @@ export default function ChangePassword(props) {
             />
           }
         />
-        <View style={{ marginLeft: 8 }}>
+        <View style={{marginLeft: 8}}>
           <TouchableOpacity
             onPress={() => {
               props.navigation.navigate('MyAccount', {

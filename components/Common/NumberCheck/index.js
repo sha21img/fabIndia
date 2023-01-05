@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
@@ -9,14 +9,26 @@ import {TextInput} from 'react-native-paper';
 import CommonButton from '../CommonButton';
 import {UnAuthPostData} from '../Helper';
 import Toast from 'react-native-simple-toast';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {BaseURL2, AuthBaseUrl2} from '../Helper';
 
-export default function NumberCheck({setNumberRequire}) {
+export default function NumberCheck({
+  setNumberRequire,
+  userGoogleInfo = {},
+  userEmailToken = {},
+  fbDetails = {},
+  checkFrom = '',
+}) {
+  const navigation = useNavigation();
   const [mobilePrefix, setMobilePrefix] = useState('91');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [Otp, setOtp] = useState('');
   const [generate, setgenerate] = useState(false);
   const [transactionId, settransactionId] = useState('');
-
+  const dispatch = useDispatch();
   const _selectedValue = index => {
     setMobilePrefix(index);
   };
@@ -28,16 +40,20 @@ export default function NumberCheck({setNumberRequire}) {
       mobileNumber: phoneNumber,
     };
     console.log(params);
-    await UnAuthPostData('otp/generate?lang=en&curr=INR', params).then(res => {
-      console.log('res for regitser number sent', res);
-      if (res.transactionId) {
-        Toast.showWithGravity('OTP Sent !', Toast.LONG, Toast.TOP);
-        settransactionId(res?.transactionId);
-        setgenerate(true);
-      } else {
-        Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
-      }
-    });
+    await UnAuthPostData('otp/generate?lang=en&curr=INR', params)
+      .then(res => {
+        console.log('res for regitser number sent', res);
+        if (res.transactionId) {
+          Toast.showWithGravity('OTP Sent !', Toast.LONG, Toast.TOP);
+          settransactionId(res?.transactionId);
+          setgenerate(true);
+        } else {
+          Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
+        }
+      })
+      .catch(error => {
+        console.log('this is error', error);
+      });
   };
   const VerifyOTP = async () => {
     let params = {
@@ -55,16 +71,199 @@ export default function NumberCheck({setNumberRequire}) {
         Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
       } else {
         Toast.showWithGravity('Done', Toast.LONG, Toast.TOP);
-        setgenerate(false);
-        setNumberRequire(false);
+        console.log('from -+-+-+-+-}[}[+-+}{_+[][]', checkFrom);
+        if (checkFrom == 'Email') {
+          userDetails();
+        } else {
+          userDetailsFb();
+        }
       }
     });
   };
+  const userDetailsFb = async () => {
+    console.log('adsfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd]f[sd[f][sd]f[');
+    const name = fbDetails?.name.split(' ');
+    const last = name.slice(1, name?.length).join(' ');
+    let data = {
+      firstName: name[0],
+      lastName: last,
+      uid: fbDetails?.email,
+      password: `${name}#${phoneNumber}`,
+      titleCode: '',
+      contactNumber: phoneNumber,
+      contactNumberCode: '+91',
+      authToken: fbDetails?.api_key,
+      provider: 'FACEBOOK',
+      transactionId: transactionId,
+      consents: [
+        {
+          id: 'MARKETING_NEWSLETTER',
+        },
+      ],
+    };
+    console.log('tjis fb', data);
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    await axios
+      .post(`${BaseURL2}/users?lang=en&curr=INR`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
+          Accept: 'application/json',
+        },
+      })
+      .then(response => {
+        console.log('response-=-=-=-=-=-user details', response.data);
+        saveTokenFb();
+      })
+      .catch(error => {
+        console.log('error', error);
+        Toast.showWithGravity(
+          error.response.data.errors[0].message,
+          Toast.LONG,
+          Toast.TOP,
+        );
+      });
+  };
+  const saveTokenFb = () => {
+    var details = {
+      grant_type: 'custom',
+      scope: '',
+      client_id: 'mobile_android',
+      client_secret: 'secret',
+      provider: 'FACEBOOK',
+      authToken: fbDetails?.api_key,
+      username: fbDetails?.email,
+    };
+    console.log('detailsdetailsdetails', details);
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
+    fetch(`${AuthBaseUrl2}oauth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formBody,
+    })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (res1) {
+        console.log('response==>-=-=-=', res1);
+        const tokenGenerate = {...res1, isCheck: true};
+        if (res1.error) {
+          Toast.showWithGravity(res1.error_description, Toast.LONG, Toast.TOP);
+        } else {
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          setNumberRequire(false);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          navigation.navigate('MyAccount', {
+            screen: 'MyAccounts',
+          });
+          getCartID(dispatch);
+          getWishID(dispatch);
+        }
+      });
+  };
+
+  const userDetails = async () => {
+    console.log('adsfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd]f[sd[f][sd]f[');
+    let data = {
+      firstName: userGoogleInfo?.user?.givenName,
+      lastName: userGoogleInfo?.user?.familyName,
+      uid: userGoogleInfo?.user?.email,
+      password: `${userGoogleInfo?.user?.givenName}#${phoneNumber}`,
+      titleCode: '',
+      contactNumber: phoneNumber,
+      contactNumberCode: '+91',
+      authToken: userEmailToken.accessToken,
+      provider: 'GOOGLE',
+      transactionId: transactionId,
+      consents: [
+        {
+          id: 'MARKETING_NEWSLETTER',
+        },
+      ],
+    };
+    console.log('tjis', data);
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    await axios
+      .post(`${BaseURL2}/users?lang=en&curr=INR`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${getToken?.token_type} ${getToken?.access_token}`,
+          Accept: 'application/json',
+        },
+      })
+      .then(response => {
+        console.log('response-=-=-=-=-=-user details', response.data);
+        saveTokenGoogle();
+      })
+      .catch(error => {
+        console.log('error', error);
+        Toast.showWithGravity(
+          error.response.data.errors[0].message,
+          Toast.LONG,
+          Toast.TOP,
+        );
+      });
+  };
+  const saveTokenGoogle = () => {
+    var details = {
+      grant_type: 'custom',
+      scope: '',
+      client_id: 'mobile_android',
+      client_secret: 'secret',
+      provider: 'GOOGLE',
+      username: userGoogleInfo.user.email,
+      authToken: userEmailToken.accessToken,
+    };
+    console.log('detailsdetailsdetails', details);
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
+    fetch(`${AuthBaseUrl2}oauth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formBody,
+    })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (res1) {
+        console.log('response==>-=-=-=', res1);
+        const tokenGenerate = {...res1, isCheck: true};
+        if (res1.error) {
+          Toast.showWithGravity(res1.error_description, Toast.LONG, Toast.TOP);
+        } else {
+          console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+          setNumberRequire(false);
+          AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
+          navigation.navigate('MyAccount', {
+            screen: 'MyAccounts',
+          });
+          getCartID(dispatch);
+          getWishID(dispatch);
+        }
+      });
+  };
+
   return (
     <View
       style={{
         width: '100%',
-        // backgroundColor: 'rgba(0,0,0,0.3)',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',

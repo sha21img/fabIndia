@@ -40,14 +40,11 @@ function SendGiftCard(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     await axios
-      .get(
-        `${BaseURL2}/getGiftCardProducts?lang=en&curr=INR`,
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-          },
+      .get(`${BaseURL2}/getGiftCardProducts?lang=en&curr=INR`, {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
-      )
+      })
       .then(response => {
         // console.log('GiftCardProducts==>', response.data)
         if (response && response.status === 200) {
@@ -57,7 +54,7 @@ function SendGiftCard(props) {
         }
       })
       .catch(errors => {
-        console.log('errors==>', errors.response)
+        console.log('errors==>', errors.response);
         if (errors.response.status == 401) {
           logout(dispatch);
         }
@@ -68,14 +65,11 @@ function SendGiftCard(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     await axios
-      .get(
-        `${BaseURL2}/getGiftCardDesigns?fields=FULL&lang=en&curr=INR`,
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-          },
+      .get(`${BaseURL2}/getGiftCardDesigns?fields=FULL&lang=en&curr=INR`, {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
-      )
+      })
       .then(response => {
         // console.log('GiftCardDesigns==>', response.data)
         if (response && response.status === 200) {
@@ -84,7 +78,7 @@ function SendGiftCard(props) {
         }
       })
       .catch(errors => {
-        console.log('errors==>', errors.response)
+        console.log('errors==>', errors.response);
         if (errors.response.status == 401) {
           logout(dispatch);
         }
@@ -97,12 +91,14 @@ function SendGiftCard(props) {
   }, []);
 
   const sendGiftCard = async () => {
+    const regex = /^[A-Za-z._0-9+-]{3,}@[A-Za-z]{3,}[.][A-Za-z]{2,6}/i;
+
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
     console.log('this us cart id', getCartID);
-    if (userDetail.email == '') {
-      Toast.show('Please enter Recipient email', Toast.LONG);
+    if (!regex.test(userDetail.email)) {
+      Toast.show('Please enter valid Recipient email', Toast.LONG);
     } else if (userDetail.confirmemail == '') {
       Toast.show('Please enter Confirm Recipient email', Toast.LONG);
     } else if (userDetail.confirmemail != userDetail.email) {
@@ -111,7 +107,13 @@ function SendGiftCard(props) {
       Toast.show('Please enter Recipient Name', Toast.LONG);
     } else if (userDetail.from == '') {
       Toast.show('Please enter From', Toast.LONG);
+    } else if (
+      userDetail.amount > 0 &&
+      (userDetail.amount < 500 || userDetail.amount > 50000)
+    ) {
+      Toast.show('Please Enter Valid Amount', Toast.LONG);
     } else {
+      console.log('ellllllllllllllllllllllllllllllllllllllllll');
       const response = await axios
         .post(
           `${BaseURL2}/users/current/carts/${getCartID}/entries/configurator/textfield?fields=FULL&lang=en&curr=INR`,
@@ -239,7 +241,11 @@ function SendGiftCard(props) {
 
         <Text style={Styles.chooseAmtTxt}>Choose an amount</Text>
 
-        <View style={[Styles.amountTxtView, {opacity: userDetail?.amount > 0 ? 0.5 : 1 }]}>
+        <View
+          style={[
+            Styles.amountTxtView,
+            {opacity: userDetail?.amount > 0 ? 0.5 : 1},
+          ]}>
           <View style={Styles.amountTxtInnerView}>
             {giftCardAmount.map(item => {
               return item.price.value != '0.0' ? (
@@ -273,14 +279,14 @@ function SendGiftCard(props) {
           </View>
         </View>
 
-        <View style={{ alignItems:'center' }}>
+        <View style={{alignItems: 'center'}}>
           <Text style={Styles.chooseAmtTxt1}>(or choose your own amount)</Text>
 
           <InputText
             label={'Enter amount'}
             value={userDetail.amount}
             keyboardType={'numeric'}
-            customStyle={[Styles.textinput, { marginTop: 0, width: '35%' }]}
+            customStyle={[Styles.textinput, {marginTop: 0, width: '35%'}]}
             onChangeText={text => {
               setProductAmountCode(giftCardAmount[0]?.code);
               setCardAmount(text);
@@ -312,7 +318,7 @@ function SendGiftCard(props) {
           value={userDetail.message}
           numberOfLines={4}
           multiline={true}
-          underlineColor="transparent"
+          // underlineColor="transparent"
           // activeUnderlineColor="transparent"
           customStyle={Styles.textarea}
         />
@@ -327,8 +333,8 @@ function SendGiftCard(props) {
           <Text style={Styles.notetext}>Please note</Text>
           <Text style={Styles.bottomdescription}>
             The gift card cannot be cancelled, refunded or returned. Once
-            purchased, the recipient email cannot be changed. Expiry date - 1 year
-            from today. Only applicable to india user.
+            purchased, the recipient email cannot be changed. Expiry date - 1
+            year from today. Only applicable to india user.
           </Text>
         </View>
       </View>
