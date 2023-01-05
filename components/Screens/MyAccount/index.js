@@ -54,6 +54,7 @@ import MyAccounts from './MyAccounts';
 import {useIsFocused} from '@react-navigation/native';
 import HomeHeader from '../Home/HomeHeader';
 import AlreadyMember from './FabFamily/AlreadyMember';
+import AllAddresses from './AllAddresses';
 const Stack = createNativeStackNavigator();
 
 const MyAccount = props => {
@@ -122,6 +123,20 @@ const MyAccount = props => {
                   ),
                 }}
               /> */}
+              <Stack.Screen
+                name="AllAddresses"
+                component={AllAddresses}
+                options={{
+                  header: props => (
+                    <HomeHeader
+                      searchVisible={null}
+                      {...props}
+                      showWishlist={false}
+                      middleHeader="My Addresses"
+                    />
+                  ),
+                }}
+              />
               <Stack.Screen
                 name="MyOrder"
                 component={MyOrder}
