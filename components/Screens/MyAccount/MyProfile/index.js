@@ -34,10 +34,10 @@ const MyProfile = props => {
   const [DOB, setDOB] = useState(allProps.profiledata?.dateOfBirth || '');
   const [Otp, setOtp] = useState('');
   const [editUser, setEditUser] = useState({
-    first: allProps.profiledata.firstName,
-    last: allProps.profiledata.lastName,
-    mobile: allProps.profiledata.contactNumber,
-    email: allProps.profiledata.uid,
+    first: allProps?.profiledata?.firstName,
+    last: allProps?.profiledata?.lastName,
+    mobile: allProps?.profiledata?.contactNumber,
+    email: allProps?.profiledata?.uid,
   });
 
   useEffect(() => {

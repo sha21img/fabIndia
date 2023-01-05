@@ -5,9 +5,10 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  TextInput,
   ScrollView,
+  Linking,
 } from 'react-native';
-import {TextInput} from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 import React, {useState, useEffect} from 'react';
 import CountryPicker from 'rn-country-picker';
@@ -670,9 +671,10 @@ export default function Login(props) {
                   />
                   <View style={{flex: 1, paddingHorizontal: 15}}>
                     <TextInput
-                      activeOutlineColor="white"
-                      activeUnderlineColor="white"
-                      underlineColor="white"
+                       activeOutlineColor="transparent"
+                       activeUnderlineColor="grey"
+                       // underlineColor="white"
+                       underlineColorAndroid="transparent"
                       style={styles.textinput1}
                       value={phoneNumber}
                       placeholder="phone number"
@@ -719,9 +721,7 @@ export default function Login(props) {
                   <TouchableOpacity
                     style={styles.readText}
                     onPress={() => {
-                      props.navigation.navigate('MyAccount', {
-                        screen: 'ResetPassword',
-                      });
+                      Linking.openURL('https://www.fabindiahome.com/login/forgot-password')
                     }}>
                     <Text style={styles.forgetText}>Forgot password?</Text>
                   </TouchableOpacity>
@@ -862,11 +862,11 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   textinput1: {
-    letterSpacing: 2,
+    // letterSpacing: 2,
     borderBottomColor: 'white',
-    fontSize: 18,
+    fontSize: 16,
     color: 'black',
-    height: 40,
+    // height: 40,
     backgroundColor: 'white',
     width: '100%',
   },
