@@ -44,10 +44,10 @@ const MyProfile = props => {
   });
   const [Otp, setOtp] = useState('');
   const [editUser, setEditUser] = useState({
-    first: allProps.profiledata.firstName,
-    last: allProps.profiledata.lastName,
-    mobile: allProps.profiledata.contactNumber,
-    email: allProps.profiledata.uid,
+    first: allProps?.profiledata?.firstName,
+    last: allProps?.profiledata?.lastName,
+    mobile: allProps?.profiledata?.contactNumber,
+    email: allProps?.profiledata?.uid,
   });
   const [open, setOpen] = useState(false);
   const win = useWindowDimensions();

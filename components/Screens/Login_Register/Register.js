@@ -8,10 +8,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  TextInput,
   KeyboardAvoidingView,
+  Linking,
 } from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
-import {TextInput} from 'react-native-paper';
+// import {TextInput} from 'react-native-paper';
 import CountryPicker from 'rn-country-picker';
 import {Colors} from '../../../assets/Colors';
 import CheckBox from 'react-native-check-box';
@@ -69,6 +71,8 @@ const Register = props => {
   const [numberRequire, setNumberRequire] = useState(false);
   const [userGoogleInfo, setUserGoogleInfo] = useState({});
   const [userEmailToken, setUserEmailToken] = useState({});
+  const [emailError, setemailError] = useState('');
+
   const [fbDetails, setFbDetails] = useState();
   const [from, setFrom] = useState('');
   const dispatch = useDispatch();
@@ -430,11 +434,17 @@ const Register = props => {
                   customStyle={Styles.textinput}
                   label={faq.name}
                   value={text[faq.name]}
-                  onChangeText={text =>
-                    setText(prev => {
-                      return {...prev, [faq.name]: text};
-                    })
-                  }
+                  maxLength={40}
+                  onChangeText={text => {
+           
+                      setText(prev => {
+                        return {...prev, [faq.name]: text.replace(
+                          /[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
+                          '',
+                        ),};
+                      });
+                    
+                  }}
                 />
               ))}
               {generate ? (
@@ -447,7 +457,7 @@ const Register = props => {
                   <TextInput
                     value={Otp}
                     activeOutlineColor="white"
-                    activeUnderlineColor="white"
+                    activeUnderlineColor="black"
                     underlineColor="white"
                     onChangeText={value =>
                       value.length <= 4 ? setOtp(value) : false
@@ -494,11 +504,11 @@ const Register = props => {
                   <View style={{flex: 1, paddingHorizontal: 15}}>
                     <TextInput
                       activeOutlineColor="white"
-                      activeUnderlineColor="white"
+                      activeUnderlineColor="grey"
                       underlineColor="white"
                       style={Styles.textinput1}
                       value={phoneNumber}
-                      placeholder="phone number"
+                      placeholder="Your Mobile Number"
                       onChangeText={value =>
                         value.length <= 10 ? setPhoneNumber(value) : false
                       }
@@ -541,10 +551,17 @@ const Register = props => {
                   customStyle={Styles.textinput}
                   label="Email address"
                   value={text.email}
-                  onChangeText={text =>
-                    setText(prev => ({...prev, email: text}))
-                  }
+                  onChangeText={text => {
+                    let regm = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                    if (regm.test(text)) {
+                      setemailError('');
+                    } else {
+                      setemailError('Please enter valid email');
+                    }
+                    setText(prev => ({...prev, email: text}));
+                  }}
                 />
+                <Text style={{color: 'red'}}>{emailError}</Text>
                 <InputText
                   underlineColor="#EDEDED"
                   activeUnderlineColor=" #979797"
@@ -598,7 +615,17 @@ const Register = props => {
                         backgroundColor:
                           gender == 'MALE' ? Colors.primarycolor : 'white',
                       }}></TouchableOpacity>
-                    <Text style={{marginLeft: 10}}>Male</Text>
+                   <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={() => {
+                        if (gender == 'MALE') {
+                          SetGender('');
+                        } else {
+                          SetGender('MALE');
+                        }
+                      }}>
+                      <Text style={{marginLeft: 10}}>Male</Text>
+                    </TouchableOpacity>
                   </View>
                   <View
                     style={{
@@ -624,7 +651,17 @@ const Register = props => {
                         backgroundColor:
                           gender == 'FEMALE' ? Colors.primarycolor : 'white',
                       }}></TouchableOpacity>
-                    <Text style={{marginLeft: 10}}>Female</Text>
+                   <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={() => {
+                        if (gender == 'FEMALE') {
+                          SetGender('');
+                        } else {
+                          SetGender('FEMALE');
+                        }
+                      }}>
+                      <Text style={{marginLeft: 10}}>Female</Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
                 <View
@@ -679,9 +716,25 @@ const Register = props => {
                   isChecked={isAgree}
                 />
                 <Text style={{paddingHorizontal: 7, width: '85%'}}>
-                  By registering you agree to
-                  <Text style={{color: Colors.primarycolor}}>T&C</Text> and
-                  <Text style={{color: Colors.primarycolor}}>
+                  By registering you agree to{' '}
+                  <Text
+                    onPress={() => {
+                      Linking.openURL(
+                        'https://www.fabindiahome.com/term-of-use',
+                      );
+                    }}
+                    style={{color: Colors.primarycolor}}>
+                    T&C{' '}
+                  </Text>
+                  {/* </TouchableOpacity> */}
+                  and{' '}
+                  <Text
+                    onPress={() => {
+                      Linking.openURL(
+                        'https://www.fabindiahome.com/term-of-use',
+                      );
+                    }}
+                    style={{color: Colors.primarycolor}}>
                     Privacy Policy
                   </Text>
                 </Text>
@@ -717,8 +770,32 @@ const Register = props => {
               handleClick={HandleRegister}
               backgroundColor="#BDBDBD"
               txt="Register"
+              disable={
+                !(
+                  (!!text['First name'] && (text['First name'].length >= 3 && text['First name'].length <= 40)) &&
+                  (!!text['Last name'] && (text['Last name'].length >= 3 && text['Last name'].length <= 40)) &&
+                  !!text.confPass &&
+                  !!text.newPass &&
+                  !!text.email &&
+                  !!mobilePrefix &&
+                  !!gender &&
+                  !!DOB &&
+                  !!phoneNumber
+                )
+              }
               customViewStyle={{
-                backgroundColor: Colors.primarycolor,
+                backgroundColor:
+                (!!text['First name'] && (text['First name'].length >= 3 && text['First name'].length <= 40)) &&
+                (!!text['Last name'] && (text['Last name'].length >= 3 && text['Last name'].length <= 40)) &&
+                  !!text.confPass &&
+                  !!text.newPass &&
+                  !!text.email &&
+                  !!mobilePrefix &&
+                  !!gender &&
+                  !!DOB &&
+                  !!phoneNumber
+                    ? Colors.primarycolor
+                    : 'grey',
               }}
             />
           </View>
@@ -803,11 +880,11 @@ const Styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   textinput1: {
-    height: 40,
-    letterSpacing: 2,
+    // height: 40,
+    // letterSpacing: 2,
     borderBottomColor: 'white',
     marginVertical: Platform.OS === 'android' ? 5 : 10,
-    fontSize: 18,
+    fontSize: 16,
     color: 'black',
     backgroundColor: 'white',
   },
