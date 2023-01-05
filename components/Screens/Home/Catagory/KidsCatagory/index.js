@@ -250,8 +250,7 @@ const KidsCatagory = props => {
         _id: '63aaef8e15519f83a5972b76',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-lp-sec-2-10oct22-1.jpg?context=bWFzdGVyfHJvb3R8MTczMDV8aW1hZ2UvanBlZ3xoM2MvaGFiLzkwODc0NjcxMjY4MTQva2lkcy1scC1zZWMtMi0xMG9jdDIyLTEuanBnfDY4OWRjZmMyMDQ3ZmEzNDYxNTA2YzkzZjI5ZDY2OGUwNGFlZDY2NzI5N2NiMjdkOGJjMDIwZDlhYmNhMGEyM2M',
-        landingPage:
-          ':creationtime-desc:allCategories:men-kurtas:B2CL4:Long Kurtas',
+        landingPage: ':relevance:allCategories:infant-boys-sets',
         category: '63aad98915519f83a5972aa6',
         sortorder: 16,
         title: `Boys Sets`,
@@ -267,14 +266,14 @@ const KidsCatagory = props => {
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: `/Ethnic Wear`,
+        categoryName: `/Infants`,
         categoryId: '63aad98915519f83a5972aa6',
       },
       {
         _id: '63aaf1d415519f83a5972ba7',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-lp-sec-2-10oct22-2.jpg?context=bWFzdGVyfHJvb3R8MTg4NTN8aW1hZ2UvanBlZ3xoZmQvaGFiLzkwODc0NjcxOTIzNTAva2lkcy1scC1zZWMtMi0xMG9jdDIyLTIuanBnfGJkM2JiNzMzZGVlNjU5MTZiYzdkMWNlZTk3MjNkZGFlMTg0YzczYzM0MTg1NDc5ZDRhZjg0MTdmNmIyMDhmNDg',
-        landingPage: ':relevance:allCategories:men-nehru-jackets',
+        landingPage: ':relevance:allCategories:infant-girls-sets',
         category: '63aad98915519f83a5972aa6',
         sortorder: 17,
         title: `Girls Sets`,
@@ -297,7 +296,7 @@ const KidsCatagory = props => {
         _id: '63ae833abcb1a02702f7bde6',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-lp-sec-2-10oct22-3.jpg?context=bWFzdGVyfHJvb3R8MjA0MTN8aW1hZ2UvanBlZ3xoZmIvaGFlLzkwODc0NjcyNTc4ODYva2lkcy1scC1zZWMtMi0xMG9jdDIyLTMuanBnfDI5YTBiZWU5ZmQ4NDU4N2Q5ZjJhMTY5NzcxMTQ5NmFhNzIyNDA2NDgyMjQ2NWE4MWNhM2U0NWQ3YmNjOGIwNWI',
-        landingPage: ':relevance:allCategories:men-short-kurtas',
+        landingPage: ':relevance:allCategories:infant-boys-kurtas',
         category: '63aad98915519f83a5972aa6',
         sortorder: 105,
         title: `Kurtas`,
@@ -320,8 +319,7 @@ const KidsCatagory = props => {
         _id: '63ae8358bcb1a02702f7bdef',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-lp-sec-2-10oct22-4.jpg?context=bWFzdGVyfHJvb3R8MTk5ODZ8aW1hZ2UvanBlZ3xoMGMvaGIyLzkwODc0NjczMjM0MjIva2lkcy1scC1zZWMtMi0xMG9jdDIyLTQuanBnfGZhNzQxZmYyZjkxMzcxYmI0MWZiYTU5ZThmYmNmODA4NjhkYzRlNWI1OTliYWU3ODU2Nzc5MTBiZGM3M2M0ODY',
-        landingPage:
-          ':creationtime-desc:allCategories:men-kurtas:B2CL4:Pathani Kurtas',
+        landingPage: ':relevance:allCategories:infant-girls-dresses',
         category: '63aad98915519f83a5972aa6',
         sortorder: 106,
         title: 'Dresses',
@@ -344,7 +342,7 @@ const KidsCatagory = props => {
         _id: '63ae8358bcb1a02702f7bdef',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-lp-sec-2-10oct22-5.jpg?context=bWFzdGVyfHJvb3R8MjQzODV8aW1hZ2UvanBlZ3xoYmEvaGIyLzkwODc0NjczODg5NTgva2lkcy1scC1zZWMtMi0xMG9jdDIyLTUuanBnfDYzZDk1Y2U2OTNmMDhhMzI3ZTIwMTIyMTcyZjA3ODUzMTk5OTNlMjYyOTFhM2NjMTg1YzdlNWFlZGVmOGFiMDk',
-        landingPage: ':relevance:allCategories:men-churidars-pyjamas',
+        landingPage: ':relevance:allCategories:infant-boys-shirts-short-kurtas',
         category: '63aad98915519f83a5972aa6',
         sortorder: 106,
         title: 'Shirts',
@@ -1209,6 +1207,7 @@ const KidsCatagory = props => {
             />
 
             <NewHighlights
+              isSap={true}
               {...props}
               isAdmin2={'isAdmin2'}
               customStyle={{marginVertical: 20}}
