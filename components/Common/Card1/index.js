@@ -30,11 +30,6 @@ export default function Card1(props) {
   } = props;
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
-  const defaultViewCustomStyles = {
-    width: '48%',
-    elevation: 1,
-    backgroundColor: '#FFFFFF',
-  };
 
   const isAvtive = cartReducer.WishListDetail.wishListData.find(items => {
     return items.code == item.code;
@@ -87,7 +82,7 @@ export default function Card1(props) {
   return (
     <>
       <TouchableOpacity
-        style={[defaultViewCustomStyles, customViewStyle]}
+        style={Styles.cardContainer}
         onPress={() => {
           dispatch(Sharedataadd(item));
           props.navigation.navigate('ProductDetailed', {
@@ -118,15 +113,10 @@ export default function Card1(props) {
           </TouchableOpacity>
         </ImageBackground>
         <View style={Styles.headingbox}>
-          <Text numberOfLines={1} style={Styles.headingtxt}>
-            {item.name}
-          </Text>
+          <Text numberOfLines={1} style={Styles.headingtxt}>{item.name}</Text>
           <View style={Styles.pricebox}>
-            <Text style={Styles.amounttxt}>
-              ₹{item?.priceAfterDiscount?.value}
-            </Text>
+            <Text style={Styles.amounttxt}>{item?.priceAfterDiscount?.formattedValue}</Text>
             <Text style={Styles.mrptxt}>M.R.P.</Text>
-
             <Text style={Styles.priceofftxt}>
               {item?.price?.formattedValue}
             </Text>
