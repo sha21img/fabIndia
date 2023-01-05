@@ -655,14 +655,15 @@ const MenCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Ajrakh',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Ajrakh',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2022-12-27T12:44:49.616Z',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h94/h68/8957804347422/men-clp-sec8col1img1/men-clp-sec8col1img1.jpg',
@@ -671,7 +672,7 @@ const MenCatagory = props => {
         landingPage:
           ':creationtime-desc:allCategories:men-products:Craft:Ajrakh',
         sortorder: 11,
-        title: `Men's Clothing and Accessories `,
+        title: `Ajrakh`,
         updatedAt: '2023-01-03T05:59:51.680Z',
       },
       {
@@ -679,14 +680,15 @@ const MenCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Chikankari',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Chikankari',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2022-12-28T13:24:01.900Z',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/ha4/h6b/8957804412958/men-clp-sec8col1img2/men-clp-sec8col1img2.jpg',
@@ -696,7 +698,7 @@ const MenCatagory = props => {
         landingPage:
           ':creationtime-desc:allCategories:men-products:Craft:Chikankari',
         sortorder: 5,
-        title: `Men's Clothing and Accessories `,
+        title: `Chikankari`,
 
         updatedAt: '2023-01-03T05:59:51.682Z',
       },
@@ -705,14 +707,15 @@ const MenCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Hand Woven',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Hand Woven',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2022-12-30T04:06:59.301Z',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/hc5/hcd/8958720868382/men-clp-sec8col1img3-rep/men-clp-sec8col1img3-rep.jpg',
@@ -721,7 +724,7 @@ const MenCatagory = props => {
         landingPage:
           ':creationtime-desc:allCategories:men-products:Craft:Hand Woven',
         sortorder: 9,
-        title: `Men's Clothing and Accessories `,
+        title: `Hand Woven`,
         updatedAt: '2023-01-03T05:59:51.682Z',
       },
       {
@@ -729,14 +732,15 @@ const MenCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Kalamkari',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Kalamkari',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h64/h6f/8957804544030/men-clp-sec8col2img1/men-clp-sec8col2img1.jpg',
@@ -745,7 +749,7 @@ const MenCatagory = props => {
         landingPage:
           ':creationtime-desc:allCategories:men-products:Craft:Kalamkari',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
+        title: `Kalamkari`,
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
       {
@@ -753,14 +757,15 @@ const MenCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Dabu',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Dabu',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h62/h72/8957804609566/men-clp-sec8col2img2/men-clp-sec8col2img2.jpg',
@@ -768,7 +773,7 @@ const MenCatagory = props => {
         is_slider: true,
         landingPage: ':creationtime-desc:allCategories:men-products:Craft:Dabu',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
+        title: `Dabu`,
 
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
@@ -777,14 +782,15 @@ const MenCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Ajrakh',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Ajrakh',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h06/hca/8958720999454/men-clp-sec8col2img3-rep/men-clp-sec8col2img3-rep.jpg',
@@ -793,7 +799,7 @@ const MenCatagory = props => {
         landingPage:
           ':creationtime-desc:allCategories:men-products:Craft:Ajrakh',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
+        title: `Ajrakh`,
 
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
@@ -802,14 +808,15 @@ const MenCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Ikat',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Ikat',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h34/h76/8957804740638/men-clp-sec8col3img1/men-clp-sec8col3img1.jpg',
@@ -817,7 +824,7 @@ const MenCatagory = props => {
         is_slider: true,
         landingPage: ':creationtime-desc:allCategories:men-products:Craft:Ikat',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
+        title: `Ikat`,
 
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
@@ -826,14 +833,15 @@ const MenCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Bagru',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Bagru',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h38/h7c/8958721130526/men-clp-sec8col3img2-rep/men-clp-sec8col3img2-rep.jpg',
@@ -842,7 +850,7 @@ const MenCatagory = props => {
         landingPage:
           ':creationtime-desc:allCategories:men-products:Craft:Bagru',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
+        title: `Bagru`,
 
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
@@ -851,14 +859,15 @@ const MenCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Bagh',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Bagh',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h79/h78/8958721261598/men-clp-sec8col3img3-rep/men-clp-sec8col3img3-rep.jpg',
@@ -866,7 +875,7 @@ const MenCatagory = props => {
         is_slider: true,
         landingPage: ':creationtime-desc:allCategories:men-products:Craft:Bagh',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
+        title: `Bagh`,
 
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
@@ -875,14 +884,15 @@ const MenCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Batik',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Batik',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/hab/h6e/8958721523742/men-clp-sec8col4img1-rep/men-clp-sec8col4img1-rep.jpg',
@@ -891,7 +901,7 @@ const MenCatagory = props => {
         landingPage:
           ':creationtime-desc:allCategories:men-products:Craft:Batik',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
+        title: `Batik`,
 
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
@@ -900,14 +910,15 @@ const MenCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Block Print',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Block Print',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/hf1/h7c/8957804937246/men-clp-sec8col4img3/men-clp-sec8col4img3.jpg',
@@ -916,7 +927,7 @@ const MenCatagory = props => {
         landingPage:
           ':creationtime-desc:allCategories:men-products:Craft:Hand Block Print',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
+        title: `Hand Block Print`,
 
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
@@ -925,14 +936,15 @@ const MenCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Jamdani',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Jamdani',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/hba/h74/8958721392670/men-clp-sec8col4img2-rep/men-clp-sec8col4img2-rep.jpg',
@@ -941,7 +953,7 @@ const MenCatagory = props => {
         landingPage:
           ':creationtime-desc:allCategories:men-products:Craft:Jamdani',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
+        title: `Jamdani`,
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
     ],

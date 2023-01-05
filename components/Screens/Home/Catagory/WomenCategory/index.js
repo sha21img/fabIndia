@@ -736,14 +736,15 @@ const WomenCategory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Ajrakh',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Ajrakh',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2022-12-27T12:44:49.616Z',
         image:
           'https://apisap.fabindiahome.com/medias/sys_master/root/hcd/h69/9091103391774/wmn-lpsec8-19oct22-1/wmn-lpsec8-19oct22-1.jpg',
@@ -752,7 +753,7 @@ const WomenCategory = props => {
         landingPage:
           ':creationtime-desc:allCategories:women-products:Craft:Ajrakh',
         sortorder: 11,
-        title: `Women's Clothing and Accessories `,
+        title: `Ajrakh`,
         updatedAt: '2023-01-03T05:59:51.680Z',
       },
       {
@@ -760,14 +761,15 @@ const WomenCategory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Dabu',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Dabu',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2022-12-28T13:24:01.900Z',
         image:
           'https://apisap.fabindiahome.com/medias/sys_master/root/hdc/h6f/9091103522846/wmn-lpsec8-19oct22-2/wmn-lpsec8-19oct22-2.jpg',
@@ -776,8 +778,7 @@ const WomenCategory = props => {
         landingPage:
           ':creationtime-desc:allCategories:women-products:Craft:Dabu',
         sortorder: 5,
-        title: `Women's Clothing and Accessories `,
-
+        title: `Dabu`,
         updatedAt: '2023-01-03T05:59:51.682Z',
       },
       {
@@ -785,14 +786,15 @@ const WomenCategory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Banarsi',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Banarsi',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2022-12-30T04:06:59.301Z',
         image:
           'https://apisap.fabindiahome.com/medias/sys_master/root/h9b/h73/9091103653918/wmn-lpsec8-19oct22-3/wmn-lpsec8-19oct22-3.jpg',
@@ -801,7 +803,7 @@ const WomenCategory = props => {
         landingPage:
           ':creationtime-desc:allCategories:women-products:Craft:Banarsi',
         sortorder: 9,
-        title: `Women's Clothing and Accessories `,
+        title: `Banarsi`,
         updatedAt: '2023-01-03T05:59:51.682Z',
       },
       {
@@ -809,14 +811,15 @@ const WomenCategory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Block Print',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Block Print',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://apisap.fabindiahome.com/medias/sys_master/root/ha5/hcf/9091104243742/wmn-lpsec8-19oct22-7/wmn-lpsec8-19oct22-7.jpg',
@@ -825,7 +828,7 @@ const WomenCategory = props => {
         landingPage:
           ':creationtime-desc:allCategories:women-products:Craft:Hand Block Print',
         sortorder: 3,
-        title: `Women's Clothing & Accessories`,
+        title: `Hand Block Print`,
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
       {
@@ -833,14 +836,15 @@ const WomenCategory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Chanderi',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Chanderi',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://apisap.fabindiahome.com/medias/sys_master/root/h5b/h77/9091103784990/wmn-lpsec8-19oct22-4/wmn-lpsec8-19oct22-4.jpg',
@@ -849,7 +853,7 @@ const WomenCategory = props => {
         landingPage:
           ':creationtime-desc:allCategories:women-products:Craft:Chanderi',
         sortorder: 3,
-        title: `Women's Clothing & Accessories`,
+        title: `Chanderi`,
 
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
@@ -858,14 +862,15 @@ const WomenCategory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Chikankari',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Chikankari',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://apisap.fabindiahome.com/medias/sys_master/root/h6a/h7d/9091103916062/wmn-lpsec8-19oct22-5/wmn-lpsec8-19oct22-5.jpg',
@@ -874,7 +879,7 @@ const WomenCategory = props => {
         landingPage:
           ':creationtime-desc:allCategories:women-products:Craft:Chikankari',
         sortorder: 3,
-        title: `Women's Clothing & Accessories`,
+        title: `Chikankari`,
 
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
@@ -883,14 +888,15 @@ const WomenCategory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Jamdani',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Jamdani',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://apisap.fabindiahome.com/medias/sys_master/root/h75/hd6/9091104440350/wmn-lpsec8-19oct22-9/wmn-lpsec8-19oct22-9.jpg',
@@ -899,7 +905,7 @@ const WomenCategory = props => {
         landingPage:
           ':creationtime-desc:allCategories:women-products:Craft:Jamdani',
         sortorder: 3,
-        title: `Women's Clothing & Accessories`,
+        title: `Jamdani`,
 
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
@@ -908,14 +914,15 @@ const WomenCategory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Ikat',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Ikat',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://apisap.fabindiahome.com/medias/sys_master/root/ha3/hd2/9091104309278/wmn-lpsec8-19oct22-8/wmn-lpsec8-19oct22-8.jpg',
@@ -924,8 +931,7 @@ const WomenCategory = props => {
         landingPage:
           ':creationtime-desc:allCategories:women-products:Craft:Ikat',
         sortorder: 3,
-        title: `Women's Clothing & Accessories`,
-
+        title: `Ikat`,
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
       {
@@ -933,14 +939,15 @@ const WomenCategory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Embroidery',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Embroidery',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://apisap.fabindiahome.com/medias/sys_master/root/hd5/hc8/9091104047134/wmn-lpsec8-19oct22-6/wmn-lpsec8-19oct22-6.jpg',
@@ -949,8 +956,7 @@ const WomenCategory = props => {
         landingPage:
           ':creationtime-desc:allCategories:women-products:Craft:Metallic Embroideries:Craft:Hand Embroidery:Craft:Desert Embroidery',
         sortorder: 3,
-        title: `Women's Clothing & Accessories`,
-
+        title: `Desert Embroidery`,
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
       {
@@ -958,14 +964,15 @@ const WomenCategory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Hand Woven',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Hand Woven',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://apisap.fabindiahome.com/medias/sys_master/root/h44/he0/9091104702494/wmn-lpsec8-19oct22-11/wmn-lpsec8-19oct22-11.jpg',
@@ -974,7 +981,7 @@ const WomenCategory = props => {
         landingPage:
           ':creationtime-desc:allCategories:women-products:Craft:Hand Woven',
         sortorder: 3,
-        title: `Women's Clothing & Accessories`,
+        title: `Hand Woven`,
 
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
@@ -983,14 +990,15 @@ const WomenCategory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Kalamkari',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Kalamkari',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://apisap.fabindiahome.com/medias/sys_master/root/h32/hdd/9091104636958/wmn-lpsec8-19oct22-10/wmn-lpsec8-19oct22-10.jpg',
@@ -999,7 +1007,7 @@ const WomenCategory = props => {
         landingPage:
           ':creationtime-desc:allCategories:women-products:Craft:Kalamkari',
         sortorder: 3,
-        title: `Women's Clothing & Accessories`,
+        title: `Kalamkari`,
 
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
@@ -1008,14 +1016,15 @@ const WomenCategory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Maheshwari',
+          Name: 'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Maheshwari',
+        categoryName:
+          'Take a Tour of india/Explore the various crafts of India and dress in sustainable, handcrafted style',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
           'https://apisap.fabindiahome.com/medias/sys_master/root/h03/he4/9091104833566/wmn-lpsec8-19oct22-12/wmn-lpsec8-19oct22-12.jpg',
@@ -1024,7 +1033,7 @@ const WomenCategory = props => {
         landingPage:
           ':creationtime-desc:allCategories:women-products:Craft:Maheshwari',
         sortorder: 3,
-        title: `Women's Clothing & Accessories`,
+        title: `Maheshwari`,
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
     ],

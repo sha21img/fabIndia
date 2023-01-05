@@ -131,9 +131,6 @@ export default function Dashbord(props) {
     console.log('oiuytrfghj', response.data.data);
     setDashboardData(response.data.data);
     setLoading(false);
-    // console.log('this is a eresponse of pageXOffset', response.data.data);
-
-    // console.log('homeSections==>', JSON.stringify(response.data.data));
   };
 
   const getSections = data => {
@@ -144,7 +141,6 @@ export default function Dashbord(props) {
       });
       dataa.push(filter?.components?.component[0]);
     });
-    // console.log('filterComp==>', JSON.stringify(dataa))
     setFilteredComp(dataa);
   };
 

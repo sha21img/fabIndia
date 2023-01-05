@@ -5,14 +5,14 @@ import {SliderBox} from 'react-native-image-slider-box';
 import FastImage from 'react-native-fast-image';
 
 export default function CommonCarousel(props) {
-  const {data, width, height, customStyle = {}} = props;
+  const {data, width, height, customStyle = {}, isSap = false} = props;
   const [carouselData, setCarouselData] = React.useState([]);
 
   const getCarauselImages = async () => {
     let images = [];
     for (let i = 0; i < data.length; i++) {
       const item = data[i];
-      images.push(item?.image?.split('?')[0]);
+      images.push(isSap ? item.image : item?.image?.split('?')[0]);
     }
     setCarouselData(images);
   };

@@ -11,6 +11,7 @@ import React from 'react';
 import {image} from '../../../assets/images';
 import {Styles} from './style';
 import Fonts from '../../../assets/fonts';
+import {hasSpaces} from '../../../constant';
 const width = Dimensions.get('window').width;
 export default function CommonImageGrid(props) {
   const {
@@ -20,8 +21,8 @@ export default function CommonImageGrid(props) {
     data = [],
     isAdmin2 = '',
   } = props;
+  const check = hasSpaces(data[0]?.categoryName);
   const ImageGrid = item => {
-    console.log('item', item.item.landingPage);
     return (
       <TouchableOpacity
         activeOpacity={0.8}
@@ -72,11 +73,8 @@ export default function CommonImageGrid(props) {
   // ];
   return (
     <View style={Styles.mainView}>
-      <Text style={Styles.txt1}>Take a Tour of india</Text>
-      <Text style={Styles.txt2}>
-        Explore the various crafts of India and dress in sustainable,
-        handcrafted style
-      </Text>
+      <Text style={Styles.txt1}>{check ? check[0] : null}</Text>
+      <Text style={Styles.txt2}>{check ? check[1] : null}</Text>
 
       <FlatList
         columnWrapperStyle={{justifyContent: 'space-between'}}

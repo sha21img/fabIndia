@@ -150,7 +150,7 @@ const KidsCatagory = props => {
     }
   };
   const data = {
-    '63aab8dc15519f83a59729df': [
+    topSwiper: [
       {
         _id: '63aae8c115519f83a5972b4a',
         category: '63aab8b715519f83a59729d7',
@@ -245,7 +245,7 @@ const KidsCatagory = props => {
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
     ],
-    '63aad98915519f83a5972aa6': [
+    NewInInfants: [
       {
         _id: '63aaef8e15519f83a5972b76',
         image:
@@ -260,7 +260,7 @@ const KidsCatagory = props => {
         updatedAt: '2022-12-30T13:20:32.173Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: `Long kurtas`,
+          Name: `/Infants`,
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
@@ -283,13 +283,13 @@ const KidsCatagory = props => {
         updatedAt: '2022-12-30T13:20:41.484Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: `Men's Nehru Jackets`,
+          Name: `/Infants`,
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: `/Men's kurtas`,
+        categoryName: `/Infants`,
         categoryId: '63aad98915519f83a5972aa6',
       },
       {
@@ -306,13 +306,13 @@ const KidsCatagory = props => {
         updatedAt: '2022-12-30T13:20:53.919Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: 'New In/Women',
+          Name: '/Infants',
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: 'New In/Women',
+        categoryName: '/Infants',
         categoryId: '63aad98915519f83a5972aa6',
       },
       {
@@ -329,13 +329,13 @@ const KidsCatagory = props => {
         updatedAt: '2022-12-30T13:21:02.098Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: 'Pathani Kurtas',
+          Name: '/Infants',
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: 'Pathani Kurtas',
+        categoryName: '/Infants',
         categoryId: '63aad98915519f83a5972aa6',
       },
       {
@@ -352,303 +352,445 @@ const KidsCatagory = props => {
         updatedAt: '2022-12-30T13:21:02.098Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: 'Pathani Kurtas',
+          Name: '/Infants',
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: 'Pathani Kurtas',
+        categoryName: '/Infants',
         categoryId: '63aad98915519f83a5972aa6',
       },
     ],
-    '63aab8b715519f83a59729d7': [
+    NewInGirls: [
       {
         _id: '63aaef8e15519f83a5972b76',
         image:
-          'https://apisap.fabindiahome.com/medias/sys_master/root/h34/h4c/9087466471454/men-sec3-10oct22-1/men-sec3-10oct22-1.jpg',
-        landingPage: ':relevance:allCategories:men-shirts',
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec3-10oct22-1.jpg?context=bWFzdGVyfHJvb3R8MTgxNTB8aW1hZ2UvanBlZ3xoY2IvaGI1LzkwODc0Njc0NTQ0OTQva2lkcy1scC1zZWMzLTEwb2N0MjItMS5qcGd8NzExNDJlNDZmMGNhNzdiYTIwZDg2Y2RkNGE4YWRkZjVlYjdhMjAyYTU4ZDU3ZGFjOTBjNGRhODJhYTVjNTE1OA',
+        landingPage: ':relevance:allCategories:girls-ethnic-sets',
         category: '63aad98915519f83a5972aa6',
         sortorder: 16,
-        title: 'Shirts',
+        title: 'Ethnic Sets',
         is_slider: true,
         is_enable: true,
         createdAt: '2022-12-27T13:13:50.117Z',
         updatedAt: '2022-12-30T13:20:32.173Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: '/Western Wear',
+          Name: '/Girls',
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: '/Western Wear',
+        categoryName: '/Girls',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec3-10oct22-2.jpg?context=bWFzdGVyfHJvb3R8MTU2NzN8aW1hZ2UvanBlZ3xoZGQvaGI4LzkwODc0Njc1MjAwMzAva2lkcy1scC1zZWMzLTEwb2N0MjItMi5qcGd8NGRlMGQ4OTJhN2E5ZGFmMmNmOTk2MTgwZTM3NmYzYjQwYWJkM2NlMjVlYTZmZDkyYzM2N2VmMTcyZWFhYzM0MA',
+        landingPage: ':relevance:allCategories:girls-dresses-jumpsuits',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: 'Dress & Jumpsuits',
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: '/Girls',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName: '/Girls',
         categoryId: '63aad98915519f83a5972aa6',
       },
       {
         _id: '63aaf1d415519f83a5972ba7',
         image:
-          'https://apisap.fabindiahome.com/medias/sys_master/root/h32/h4f/9087466536990/men-sec3-10oct22-2/men-sec3-10oct22-2.jpg',
-        landingPage: ':relevance:allCategories:men-pants',
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec3-10oct22-3.jpg?context=bWFzdGVyfHJvb3R8MjEyOTh8aW1hZ2UvanBlZ3xoOGEvaGI5LzkwODc0Njc1ODU1NjYva2lkcy1scC1zZWMzLTEwb2N0MjItMy5qcGd8NGU2ZTBmYjIxZmY0N2ZlNmU2YjU5M2RiYzlkNGY3NDI3NGEyMGMzMjdhNDgxYjQ3ZGY3MGRhMGVjZjUxZjAzNg',
+        landingPage: ':relevance:allCategories:girls-kurtas',
         category: '63aad98915519f83a5972aa6',
         sortorder: 17,
-        title: 'Trousers',
+        title: 'Kurtas',
         is_slider: true,
         is_enable: true,
         createdAt: '2022-12-27T13:23:32.461Z',
         updatedAt: '2022-12-30T13:20:41.484Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: '/Western Wear',
+          Name: '/Girls',
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: '/Western Wear',
+        categoryName: '/Girls',
         categoryId: '63aad98915519f83a5972aa6',
       },
       {
         _id: '63ae833abcb1a02702f7bde6',
         image:
-          'https://apisap.fabindiahome.com/medias/sys_master/root/h44/h52/9087466602526/men-sec3-10oct22-3/men-sec3-10oct22-3.jpg',
-        landingPage: ':relevance:allCategories:men-shorts',
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec3-10oct22-4.jpg?context=bWFzdGVyfHJvb3R8MTYwMzV8aW1hZ2UvanBlZ3xoOWMvaGJjLzkwODc0Njc2NTExMDIva2lkcy1scC1zZWMzLTEwb2N0MjItNC5qcGd8MGMyMjcwOTU5OTk1NzY5Y2M5MWI1MjEzZWVlOTNiZWFmM2Q1NjIxZGVkZWI5OTViOGU1NTJjZjUzMTg3NjJlYg',
+        landingPage: ':relevance:allCategories:girls-tops-t-shirts',
         category: '63aad98915519f83a5972aa6',
         sortorder: 105,
-        title: 'Shorts',
+        title: 'Tops & T-Shirts',
         is_slider: true,
         is_enable: true,
         createdAt: '2022-12-30T06:20:42.160Z',
         updatedAt: '2022-12-30T13:20:53.919Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: '/Western Wear',
+          Name: '/Girls',
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: '/Western Wear',
+        categoryName: '/Girls',
         categoryId: '63aad98915519f83a5972aa6',
       },
       {
         _id: '63ae8358bcb1a02702f7bdef',
         image:
-          'https://apisap.fabindiahome.com/medias/sys_master/root/hf2/h52/9087466668062/men-sec3-10oct22-4/men-sec3-10oct22-4.jpg',
-        landingPage: ':relevance:allCategories:men-jackets',
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec3-10oct22-5.jpg?context=bWFzdGVyfHJvb3R8MTk5MjR8aW1hZ2UvanBlZ3xoOWEvaGJmLzkwODc0Njc3MTY2Mzgva2lkcy1scC1zZWMzLTEwb2N0MjItNS5qcGd8NWMwYTU4NTgyMmUzMjM3YzEyMzM2YmI5ODgwZTdmNzBkM2RmMzYwNDM4NDY1NmYzM2I2ZDgxMjBhYzJjOTE4OA',
+        landingPage: ':relevance:allCategories:girls-shorts-skirts',
         category: '63aad98915519f83a5972aa6',
         sortorder: 106,
-        title: 'Jackets',
+        title: 'Shorts & Skirts',
         is_slider: true,
         is_enable: true,
         createdAt: '2022-12-30T06:21:12.899Z',
         updatedAt: '2022-12-30T13:21:02.098Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: '/Western Wear',
+          Name: '/Girls',
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: '/Western Wear',
+        categoryName: '/Girls',
         categoryId: '63aad98915519f83a5972aa6',
       },
     ],
-    '63aadb5815519f83a5972aba': [
+    NewInBoys: [
       {
         _id: '63aaef8e15519f83a5972b76',
         image:
-          'https://apisap.fabindiahome.com/medias/sys_master/root/hb1/h56/9087466799134/men-sec4-10oct22-1/men-sec4-10oct22-1.jpg',
-        landingPage: ':relevance:allCategories:men-chappals',
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec4-10oct22-1.jpg?context=bWFzdGVyfHJvb3R8MTM4Mzd8aW1hZ2UvanBlZ3xoNWIvaGMwLzkwODc0Njc3ODIxNzQva2lkcy1scC1zZWM0LTEwb2N0MjItMS5qcGd8YTI2NTczNDg0NWZhZDQwOGZiMjg2OGMyMmE3ZjUzNjdjYWFlMDhmYTNhNWZlNjM5YjQ0ODA2ZDc4YjU1MGM4YQ',
+        landingPage: ':relevance:allCategories:boys-kurtas',
         category: '63aad98915519f83a5972aa6',
         sortorder: 16,
-        title: 'Chappals',
+        title: 'Kurtas',
         is_slider: true,
         is_enable: true,
         createdAt: '2022-12-27T13:13:50.117Z',
         updatedAt: '2022-12-30T13:20:32.173Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: 'Apparel',
+          Name: '/Boys',
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: '/Footwear',
+        categoryName: '/Boys',
         categoryId: '63aad98915519f83a5972aa6',
       },
-      {
-        _id: '63aaf1d415519f83a5972ba7',
-        image:
-          'https://apisap.fabindiahome.com/medias/sys_master/root/hc2/h59/9087466864670/men-sec4-10oct22-2/men-sec4-10oct22-2.jpg',
-        landingPage: ':relevance:allCategories:men-sandals',
-        category: '63aad98915519f83a5972aa6',
-        sortorder: 17,
-        title: 'Sandals',
-        is_slider: true,
-        is_enable: true,
-        createdAt: '2022-12-27T13:23:32.461Z',
-        updatedAt: '2022-12-30T13:20:41.484Z',
-        categoryData: {
-          _id: '63aad98915519f83a5972aa6',
-          Name: 'New In/Women',
-          sortorder: '3',
-          Is_Active: true,
-          createdAt: '2022-12-27T11:39:53.388Z',
-          updatedAt: '2022-12-29T10:48:43.046Z',
-        },
-        categoryName: '/Footwear',
-        categoryId: '63aad98915519f83a5972aa6',
-      },
-      {
-        _id: '63ae833abcb1a02702f7bde6',
-        image:
-          'https://apisap.fabindiahome.com/medias/sys_master/root/h03/h56/9087466733598/men-sec4-10oct22-3/men-sec4-10oct22-3.jpg',
-        landingPage: ':relevance:allCategories:men-jutties',
-        category: '63aad98915519f83a5972aa6',
-        sortorder: 105,
-        title: 'Jutties',
-        is_slider: true,
-        is_enable: true,
-        createdAt: '2022-12-30T06:20:42.160Z',
-        updatedAt: '2022-12-30T13:20:53.919Z',
-        categoryData: {
-          _id: '63aad98915519f83a5972aa6',
-          Name: 'New In/Women',
-          sortorder: '3',
-          Is_Active: true,
-          createdAt: '2022-12-27T11:39:53.388Z',
-          updatedAt: '2022-12-29T10:48:43.046Z',
-        },
-        categoryName: '/Footwear',
-        categoryId: '63aad98915519f83a5972aa6',
-      },
-    ],
-    '63aadb1815519f83a5972ab4': [
       {
         _id: '63aaef8e15519f83a5972b76',
         image:
-          'https://apisap.fabindiahome.com/medias/sys_master/root/hd3/h5c/9087466930206/men-sec5-10oct22-1/men-sec5-10oct22-1.jpg',
-        landingPage: ':relevance:allCategories:men-kurtas',
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec4-10oct22-2.jpg?context=bWFzdGVyfHJvb3R8MTUwOTN8aW1hZ2UvanBlZ3xoNTkvaGMzLzkwODc0Njc4NDc3MTAva2lkcy1scC1zZWM0LTEwb2N0MjItMi5qcGd8ZTQ4ZjE5OWZkNTc3MWIxODFiZjRmM2NmZGVhNmI0OWUwMWM4ODA3MTJkMmJiMzQ5YmY3Yjc1NmNlYjFmYjBlZQ',
+        landingPage: ':relevance:allCategories:ethnic-boys-jackets',
         category: '63aad98915519f83a5972aa6',
         sortorder: 16,
-        title: `Men's Kurtas`,
+        title: 'Jackets',
         is_slider: true,
         is_enable: true,
         createdAt: '2022-12-27T13:13:50.117Z',
         updatedAt: '2022-12-30T13:20:32.173Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: 'Ethnic Wear/Discover a wardrobe that exudes elegance and comfort',
+          Name: '/Boys',
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName:
-          'Ethnic Wear/Discover a wardrobe that exudes elegance and comfort',
+        categoryName: '/Boys',
         categoryId: '63aad98915519f83a5972aa6',
       },
-      {
-        _id: '63aaf1d415519f83a5972ba7',
-        image:
-          'https://apisap.fabindiahome.com/medias/sys_master/root/h81/h5d/9087466995742/men-sec5-10oct22-2/men-sec5-10oct22-2.jpg',
-        landingPage: ':relevance:allCategories:men-nehru-jackets',
-        category: '63aad98915519f83a5972aa6',
-        sortorder: 17,
-        title: `Men's Nehru Jackets`,
-        is_slider: true,
-        is_enable: true,
-        createdAt: '2022-12-27T13:23:32.461Z',
-        updatedAt: '2022-12-30T13:20:41.484Z',
-        categoryData: {
-          _id: '63aad98915519f83a5972aa6',
-          Name: 'Ethnic Wear/Discover a wardrobe that exudes elegance and comfort',
-          sortorder: '3',
-          Is_Active: true,
-          createdAt: '2022-12-27T11:39:53.388Z',
-          updatedAt: '2022-12-29T10:48:43.046Z',
-        },
-        categoryName:
-          'Ethnic Wear/Discover a wardrobe that exudes elegance and comfort',
-        categoryId: '63aad98915519f83a5972aa6',
-      },
-      {
-        _id: '63ae833abcb1a02702f7bde6',
-        image:
-          'https://apisap.fabindiahome.com/medias/sys_master/root/h3e/ha8/9087467061278/men-sec5-10oct22-3/men-sec5-10oct22-3.jpg',
-        landingPage: ':relevance:allCategories:men-churidars-pyjamas',
-        category: '63aad98915519f83a5972aa6',
-        sortorder: 105,
-        title: `Men's Churidars Pyjamas`,
-        is_slider: true,
-        is_enable: true,
-        createdAt: '2022-12-30T06:20:42.160Z',
-        updatedAt: '2022-12-30T13:20:53.919Z',
-        categoryData: {
-          _id: '63aad98915519f83a5972aa6',
-          Name: 'Ethnic Wear/Discover a wardrobe that exudes elegance and comfort',
-          sortorder: '3',
-          Is_Active: true,
-          createdAt: '2022-12-27T11:39:53.388Z',
-          updatedAt: '2022-12-29T10:48:43.046Z',
-        },
-        categoryName:
-          'Ethnic Wear/Discover a wardrobe that exudes elegance and comfort',
-        categoryId: '63aad98915519f83a5972aa6',
-      },
-    ],
-    '63aadab915519f83a5972aad': [
       {
         _id: '63aaef8e15519f83a5972b76',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h0b/h98/9065286041630/mn-sec7-mob-22sep22-1/mn-sec7-mob-22sep22-1.jpg',
-        landingPage: ':relevance:allCategories:men-ethnic-wear',
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec4-10oct22-3.jpg?context=bWFzdGVyfHJvb3R8MTU0MjR8aW1hZ2UvanBlZ3xoNmEvaGM2LzkwODc0Njc5MTMyNDYva2lkcy1scC1zZWM0LTEwb2N0MjItMy5qcGd8MDQ0ZDkzMzczMWYwYjlhZDk5MDM3NmUxYzllZmQ3MThlNTRiYWVjYjE2M2QyMzlmMzIwNjUxZjhmMGJlNjQ4Mg',
+        landingPage: ':relevance:allCategories:ethnic-boys-sets',
         category: '63aad98915519f83a5972aa6',
         sortorder: 16,
-        title: `Men's Ethnic Wear`,
+        title: 'Ethnic Sets',
         is_slider: true,
         is_enable: true,
         createdAt: '2022-12-27T13:13:50.117Z',
         updatedAt: '2022-12-30T13:20:32.173Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: `Men's Ethnic Wear`,
+          Name: '/Boys',
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: `Men's Ethnic Wear`,
+        categoryName: '/Boys',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec4-10oct22-4.jpg?context=bWFzdGVyfHJvb3R8MjUyODd8aW1hZ2UvanBlZ3xoMTgvaGM3LzkwODc0Njc5Nzg3ODIva2lkcy1scC1zZWM0LTEwb2N0MjItNC5qcGd8Y2MzZTk0ZmZkMDkxZGY2ZmQwYTk5NGY1ZmMwZjgxYjk1NGIzMjExNDMzZGFhODYzMWM4Yzc3YTVlNzBjNDk5Mw',
+        landingPage: ':relevance:allCategories:boys-shirts-short-kurtas',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: 'Shirt & Short Kurta',
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: '/Boys',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName: '/Boys',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec4-10oct22-5.jpg?context=bWFzdGVyfHJvb3R8MTUwOTl8aW1hZ2UvanBlZ3xoMmEvaGVlLzkwODc0NjgwNDQzMTgva2lkcy1scC1zZWM0LTEwb2N0MjItNS5qcGd8YmE4YzFlYTc3YTNlMjk5M2YyZGRlZTY3MTk1NjkwMTljZGM2MjcxY2ZmNzk1YzM2MTlhNDQyMWRlNzRiYjcxMg',
+        landingPage: ':relevance:allCategories:boys-churidars-pyjamas-dhotis',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: 'Ethnic Bottomwear',
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: '/Boys',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName: '/Boys',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec4-10oct22-6.jpg?context=bWFzdGVyfHJvb3R8MTUzMjd8aW1hZ2UvanBlZ3xoZWYvaGFlLzkwODkxMDUxNjYzNjYva2lkcy1scC1zZWM0LTEwb2N0MjItNi5qcGd8YTVhOTM0MDM4NzY1MmI0MDZmM2VlYzgxNWIyNWQyZjQ4MjgxZmQ1YzUxMzI0ZTQ3N2FjYjBjZmE2OTNlZWI3ZA',
+        landingPage: ':relevance:allCategories:boys-pants-shorts',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: 'Western Bottomwear',
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: '/Boys',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName: '/Boys',
         categoryId: '63aad98915519f83a5972aa6',
       },
     ],
-    '63aadbd215519f83a5972ac1': [
+    ShopByCategory: [
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec5-10oct22-1.jpg?context=bWFzdGVyfHJvb3R8Nzg2MTB8aW1hZ2UvanBlZ3xoMmQvaGViLzkwODc0NjgxMDk4NTQva2lkcy1scC1zZWM1LTEwb2N0MjItMS5qcGd8NTAwZmJjMzA5NTg5OThlMGIwMDQ3ZWEyZjFiOWI5MzljZGQyNzU3Njg1NTkxZTFjNzhhZGZkNzFhMmI3ODY2Mg',
+        landingPage: ':relevance:allCategories:girls-ethnic-wear',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: `Girl Ethnic Wear`,
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: 'Shop by Category/Dress you young ones as their fashionable selves',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName:
+          'Shop by Category/Dress you young ones as their fashionable selves',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec5-10oct22-3.jpg?context=bWFzdGVyfHJvb3R8NjQ2ODd8aW1hZ2UvanBlZ3xoYmYvaDVhLzkwODc2MzAwNDkzMTAva2lkcy1scC1zZWM1LTEwb2N0MjItMy5qcGd8ZTFjOGUxZDMxNTcwOTYwMGFiY2YzOTU4NTBlZThkMWNiYjg4YWEzMmI1Mzk5Y2MyZjllYzc2MTVhMDMwZmQwYg',
+        landingPage: ':relevance:allCategories:infant-boys',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: `Infant Boys`,
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: 'Shop by Category/Dress you young ones as their fashionable selves',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName:
+          'Shop by Category/Dress you young ones as their fashionable selves',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec5-10oct22-4.jpg?context=bWFzdGVyfHJvb3R8NzExMzZ8aW1hZ2UvanBlZ3xoYWUvaDU3LzkwODc2MzAxMTQ4NDYva2lkcy1scC1zZWM1LTEwb2N0MjItNC5qcGd8NWMxNmIwZmNlODM0ODMyMjI1OTc5MDg1MDkxNzBjZDZmYjI1OWYxMTI1ZTQxZmY1MzlmYjUzNjQxZmZkNTQ4Yg',
+        landingPage: ':relevance:allCategories:infant-girls',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: `Infant Girls`,
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: 'Shop by Category/Dress you young ones as their fashionable selves',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName:
+          'Shop by Category/Dress you young ones as their fashionable selves',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec5-10oct22-5.jpg?context=bWFzdGVyfHJvb3R8NzY5NTl8aW1hZ2UvanBlZ3xoZWMvaDU2LzkwODc2MzAxODAzODIva2lkcy1scC1zZWM1LTEwb2N0MjItNS5qcGd8NDQ3ODQ5NjBhMWU1YTkzYzI5ZTQxZTM2Y2ZiOTRkOGM1MmFkNDM5ODFiNTc5ZGUxOTExN2U1MjMzNDRjODQyOQ',
+        landingPage: ':relevance:allCategories:boys-western-wear',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: `Boys Western Wear`,
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: 'Shop by Category/Dress you young ones as their fashionable selves',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName:
+          'Shop by Category/Dress you young ones as their fashionable selves',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://apisap.fabindiahome.com/medias/kids-lp-sec5-10oct22-6.jpg?context=bWFzdGVyfHJvb3R8MTAwMzI4fGltYWdlL2pwZWd8aGVmL2g1My85MDg3NjMwMjQ1OTE4L2tpZHMtbHAtc2VjNS0xMG9jdDIyLTYuanBnfDFiOGUzNTdiZTQzYTc4YTc1MDBmOTU3MmYzZDQxNGQ2ODg0ZmIxN2UzMTc3NzFmMDNjYjg4MDgxY2U3OTY2MTY',
+        landingPage: ':relevance:allCategories:girls-western-wear',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: `Girls Western Wear`,
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: 'Shop by Category/Dress you young ones as their fashionable selves',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName:
+          'Shop by Category/Dress you young ones as their fashionable selves',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+    ],
+    BrightBanner: [
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kd-lpsec7-mob-19oct22.jpg?context=bWFzdGVyfHJvb3R8ODY1OTR8aW1hZ2UvanBlZ3xoM2IvaDYzLzkwOTExMDYwNzg3NTAva2QtbHBzZWM3LW1vYi0xOW9jdDIyLmpwZ3xjMGEyZWFjMDZiYzI4MjNmZWI5OThlNzZiYWRkZDhhYTdiZjhmOGNkMzc3NGY5NzlmMzQ2ODFkMTA0NGNiY2Yx',
+        landingPage:
+          ':creationtime-desc:allCategories:kids-products:Craft:Hand Block Print',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: `Printed Collection`,
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: `Printed Collection`,
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName: `Printed Collection`,
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+    ],
+    ShopByAge: [
       {
         _id: '63aae8c115519f83a5972b4a',
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Ajrakh',
+          Name: 'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Ajrakh',
+        categoryName:
+          'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
         createdAt: '2022-12-27T12:44:49.616Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h94/h68/8957804347422/men-clp-sec8col1img1/men-clp-sec8col1img1.jpg',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-clp-sec8col1img1?context=bWFzdGVyfGltYWdlc3wyODQ1N3xpbWFnZS9qcGVnfGgzYS9oNGEvODkxMDg0OTM3NjI4Ni9raWRzLWNscC1zZWM4Y29sMWltZzF8YzUzMDgyMDMzYzNlYTlmMzNhNDZlNDkyNmZmNDkxMGJmY2I3YzYyZmRjMDIyMDNkOWJkMmE3ODUzNjFlY2E2Mw',
         is_enable: true,
         is_slider: true,
         landingPage:
-          ':creationtime-desc:allCategories:men-products:Craft:Ajrakh',
+          ':creationtime-desc:allCategories:kids-products:SIZE_F:3-6M',
         sortorder: 11,
-        title: `Men's Clothing and Accessories `,
+        title: `3 - 6 M`,
         updatedAt: '2023-01-03T05:59:51.680Z',
       },
       {
@@ -656,24 +798,24 @@ const KidsCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Chikankari',
+          Name: 'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Chikankari',
+        categoryName:
+          'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
         createdAt: '2022-12-28T13:24:01.900Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/ha4/h6b/8957804412958/men-clp-sec8col1img2/men-clp-sec8col1img2.jpg',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-clp-sec8col1img2?context=bWFzdGVyfGltYWdlc3wyNzE4MHxpbWFnZS9qcGVnfGg5My9oNDcvODkxMDg0OTQwOTA1NC9raWRzLWNscC1zZWM4Y29sMWltZzJ8NDM0N2Q5NjcxYzg1ZDE0ZDkwZWZiNTNjMGM2OGJlNGE5M2VjN2IzODEwNmRlMmFlZGY4NWVjNzYyYWMzMWZmZg',
         is_enable: true,
         is_slider: true,
-
         landingPage:
-          ':creationtime-desc:allCategories:men-products:Craft:Chikankari',
+          ':creationtime-desc:allCategories:kids-products:SIZE_F:6-12M',
         sortorder: 5,
-        title: `Men's Clothing and Accessories `,
+        title: `6 - 12 M`,
 
         updatedAt: '2023-01-03T05:59:51.682Z',
       },
@@ -682,23 +824,24 @@ const KidsCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Hand Woven',
+          Name: 'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Hand Woven',
+        categoryName:
+          'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
         createdAt: '2022-12-30T04:06:59.301Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/hc5/hcd/8958720868382/men-clp-sec8col1img3-rep/men-clp-sec8col1img3-rep.jpg',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-clp-sec8col1img3?context=bWFzdGVyfGltYWdlc3wxNzM3MnxpbWFnZS9qcGVnfGgyOS9oNDcvODkxMDg0OTQ0MTgyMi9raWRzLWNscC1zZWM4Y29sMWltZzN8NWVhNjI5OTAxZWI2ZjU2NmQ4MzkxM2I5MDZlZjg4NDAwYWRlYThkYmJhMmM5YjBjNGEyODVmZDc3NWYxMzllZQ',
         is_enable: true,
         is_slider: true,
         landingPage:
-          ':creationtime-desc:allCategories:men-products:Craft:Hand Woven',
+          ':creationtime-desc:allCategories:kids-products:SIZE_F:12-18M',
         sortorder: 9,
-        title: `Men's Clothing and Accessories `,
+        title: `12 - 18 M`,
         updatedAt: '2023-01-03T05:59:51.682Z',
       },
       {
@@ -706,23 +849,24 @@ const KidsCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Kalamkari',
+          Name: 'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Kalamkari',
+        categoryName:
+          'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h64/h6f/8957804544030/men-clp-sec8col2img1/men-clp-sec8col2img1.jpg',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-clp-sec8col2img2.jpg?context=bWFzdGVyfHJvb3R8MjEzMjV8aW1hZ2UvanBlZ3xoNzkvaGUwLzg5NTc4MDU3ODkyMTQva2lkcy1jbHAtc2VjOGNvbDJpbWcyLmpwZ3w5NGUxMzNhY2VmNThjODYzODIyZTQ0ZjNjZGM4Y2Y1NzM5YjYzZjdhMjEwMDM5M2M1NDhmYjhjZWUyMTI2NmVi',
         is_enable: true,
         is_slider: true,
         landingPage:
-          ':creationtime-desc:allCategories:men-products:Craft:Kalamkari',
+          ':creationtime-desc:allCategories:kids-products:SIZE_F:18-24M',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
+        title: `18 - 24 M`,
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
       {
@@ -730,48 +874,24 @@ const KidsCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Dabu',
+          Name: 'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Dabu',
+        categoryName:
+          'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h62/h72/8957804609566/men-clp-sec8col2img2/men-clp-sec8col2img2.jpg',
-        is_enable: true,
-        is_slider: true,
-        landingPage: ':creationtime-desc:allCategories:men-products:Craft:Dabu',
-        sortorder: 3,
-        title: `Men's Clothing & Accessories`,
-
-        updatedAt: '2023-01-03T05:59:51.683Z',
-      },
-      {
-        _id: '63b262ffbcb1a02702f7c407',
-        category: '63aab8b715519f83a59729d7',
-        categoryData: {
-          Is_Active: true,
-          Name: 'Ajrakh',
-          _id: '63aab8b715519f83a59729d7',
-          createdAt: '2022-12-27T09:19:51.037Z',
-          sortorder: '1',
-          updatedAt: '2022-12-29T07:08:39.709Z',
-        },
-        categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Ajrakh',
-        createdAt: '2023-01-02T04:52:15.102Z',
-        image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h06/hca/8958720999454/men-clp-sec8col2img3-rep/men-clp-sec8col2img3-rep.jpg',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-clp-sec8col2img3.jpg?context=bWFzdGVyfHJvb3R8MTg0NDl8aW1hZ2UvanBlZ3xoOGEvaGUzLzg5NTc4MDU4NTQ3NTAva2lkcy1jbHAtc2VjOGNvbDJpbWczLmpwZ3w5NjY1ZDQ5Y2UzZmNlZThkZDE2OGEwYzUyNzEwNDEyMjZjNzVjYmMwMGYxNDA3YTQ4MTRhNDkyNjk1NDUzOWMz',
         is_enable: true,
         is_slider: true,
         landingPage:
-          ':creationtime-desc:allCategories:men-products:Craft:Ajrakh',
+          ':creationtime-desc:allCategories:kids-products:SIZE_F:2-3Y',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
-
+        title: `2 - 3 Y`,
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
       {
@@ -779,48 +899,24 @@ const KidsCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Ikat',
+          Name: 'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Ikat',
+        categoryName:
+          'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h34/h76/8957804740638/men-clp-sec8col3img1/men-clp-sec8col3img1.jpg',
-        is_enable: true,
-        is_slider: true,
-        landingPage: ':creationtime-desc:allCategories:men-products:Craft:Ikat',
-        sortorder: 3,
-        title: `Men's Clothing & Accessories`,
-
-        updatedAt: '2023-01-03T05:59:51.683Z',
-      },
-      {
-        _id: '63b262ffbcb1a02702f7c407',
-        category: '63aab8b715519f83a59729d7',
-        categoryData: {
-          Is_Active: true,
-          Name: 'Bagru',
-          _id: '63aab8b715519f83a59729d7',
-          createdAt: '2022-12-27T09:19:51.037Z',
-          sortorder: '1',
-          updatedAt: '2022-12-29T07:08:39.709Z',
-        },
-        categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Bagru',
-        createdAt: '2023-01-02T04:52:15.102Z',
-        image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h38/h7c/8958721130526/men-clp-sec8col3img2-rep/men-clp-sec8col3img2-rep.jpg',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-clp-sec8col2img1?context=bWFzdGVyfGltYWdlc3wxMDYyNzd8aW1hZ2UvanBlZ3xoZDIvaDQ2Lzg5MTA4NDk0NzQ1OTAva2lkcy1jbHAtc2VjOGNvbDJpbWcxfDQxMjE2ODJhZWY0NDdlY2QxYzZmYzE0MGEzYWM0ZTg1OWMyYjNiYjZkMzEzMWE4NThiMTI5NWFmNzZkMjQwMmE',
         is_enable: true,
         is_slider: true,
         landingPage:
-          ':creationtime-desc:allCategories:men-products:Craft:Bagru',
+          ':creationtime-desc:allCategories:kids-products:SIZE_F:3-4Y',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
-
+        title: `3 - 4 Y`,
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
       {
@@ -828,48 +924,24 @@ const KidsCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Bagh',
+          Name: 'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Bagh',
+        categoryName:
+          'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h79/h78/8958721261598/men-clp-sec8col3img3-rep/men-clp-sec8col3img3-rep.jpg',
-        is_enable: true,
-        is_slider: true,
-        landingPage: ':creationtime-desc:allCategories:men-products:Craft:Bagh',
-        sortorder: 3,
-        title: `Men's Clothing & Accessories`,
-
-        updatedAt: '2023-01-03T05:59:51.683Z',
-      },
-      {
-        _id: '63b262ffbcb1a02702f7c407',
-        category: '63aab8b715519f83a59729d7',
-        categoryData: {
-          Is_Active: true,
-          Name: 'Batik',
-          _id: '63aab8b715519f83a59729d7',
-          createdAt: '2022-12-27T09:19:51.037Z',
-          sortorder: '1',
-          updatedAt: '2022-12-29T07:08:39.709Z',
-        },
-        categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Batik',
-        createdAt: '2023-01-02T04:52:15.102Z',
-        image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/hab/h6e/8958721523742/men-clp-sec8col4img1-rep/men-clp-sec8col4img1-rep.jpg',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-clp-sec8col3img1.jpg?context=bWFzdGVyfHJvb3R8MjY0Nzl8aW1hZ2UvanBlZ3xoOWIvaGU2Lzg5NTc4MDU5MjAyODYva2lkcy1jbHAtc2VjOGNvbDNpbWcxLmpwZ3xkNWI5NzI5YWVjYWI0YzYxMGExMThmM2YzYTFmNTMxYmRjMzhiNWQ5NWIzZWUxYjY4MTk5MmY2MDY1MjNjODAz',
         is_enable: true,
         is_slider: true,
         landingPage:
-          ':creationtime-desc:allCategories:men-products:Craft:Batik',
+          ':creationtime-desc:allCategories:kids-products:SIZE_F:4-6Y',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
-
+        title: `4 - 6 Y`,
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
       {
@@ -877,24 +949,24 @@ const KidsCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Block Print',
+          Name: 'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Block Print',
+        categoryName:
+          'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/hf1/h7c/8957804937246/men-clp-sec8col4img3/men-clp-sec8col4img3.jpg',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/6-8-years.jpg?context=bWFzdGVyfHJvb3R8ODcwNXxpbWFnZS9qcGVnfGgxNS9oMjIvOTAxNTU3NTI0ODkyNi82IC0gOCB5ZWFycy5qcGd8MjFmMWIxNmJkOGZiMmQyYjIzYmIxOTlkZmQ0Y2Q2MjRkMzczMTg2NWUyMjcyZjg0ZDQ0YWViMjk3ZmYzNzA0OA',
         is_enable: true,
         is_slider: true,
         landingPage:
-          ':creationtime-desc:allCategories:men-products:Craft:Hand Block Print',
+          ':creationtime-desc:allCategories:kids-products:SIZE_F:6-8Y',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
-
+        title: `6 - 8 Y`,
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
       {
@@ -902,149 +974,294 @@ const KidsCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Jamdani',
+          Name: 'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Jamdani',
+        categoryName:
+          'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/hba/h74/8958721392670/men-clp-sec8col4img2-rep/men-clp-sec8col4img2-rep.jpg',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-clp-sec8col3img2.jpg?context=bWFzdGVyfHJvb3R8MjY0NDF8aW1hZ2UvanBlZ3xoNDkvaGU3Lzg5NTc4MDU5ODU4MjIva2lkcy1jbHAtc2VjOGNvbDNpbWcyLmpwZ3w4ODdkNzU0NjIwMDVhZTNiOTBlOTJlYzZiOWRhNTljOTJhMWE3MmE0YjkyN2ZkNDZkMDU2NGJiYzY3YTQwOTZh',
         is_enable: true,
         is_slider: true,
         landingPage:
-          ':creationtime-desc:allCategories:men-products:Craft:Jamdani',
+          ':creationtime-desc:allCategories:kids-products:SIZE_F:8-10Y',
         sortorder: 3,
-        title: `Men's Clothing & Accessories`,
+        title: `8 - 10 Y`,
+        updatedAt: '2023-01-03T05:59:51.683Z',
+      },
+      {
+        _id: '63b262ffbcb1a02702f7c407',
+        category: '63aab8b715519f83a59729d7',
+        categoryData: {
+          Is_Active: true,
+          Name: 'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
+          _id: '63aab8b715519f83a59729d7',
+          createdAt: '2022-12-27T09:19:51.037Z',
+          sortorder: '1',
+          updatedAt: '2022-12-29T07:08:39.709Z',
+        },
+        categoryId: '63aab8b715519f83a59729d7',
+        categoryName:
+          'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
+        createdAt: '2023-01-02T04:52:15.102Z',
+        image:
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kids-clp-sec8col3img3.jpg?context=bWFzdGVyfHJvb3R8MTMwNDF8aW1hZ2UvanBlZ3xoZjkvaGNkLzg5NTc4MDYwNTEzNTgva2lkcy1jbHAtc2VjOGNvbDNpbWczLmpwZ3wzYTVmNDc1MDIxOGI4MmM4ZjlmODQyMTVjNGY1NzNiNTBiYjBjZjNiZWZiNzI2MzgwNDViZjhhMmJhZWRhM2Y2',
+        is_enable: true,
+        is_slider: true,
+        landingPage:
+          ':creationtime-desc:allCategories:kids-products:SIZE_F:10-12Y',
+        sortorder: 3,
+        title: `10 - 12 Y`,
+        updatedAt: '2023-01-03T05:59:51.683Z',
+      },
+      {
+        _id: '63b262ffbcb1a02702f7c407',
+        category: '63aab8b715519f83a59729d7',
+        categoryData: {
+          Is_Active: true,
+          Name: 'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
+          _id: '63aab8b715519f83a59729d7',
+          createdAt: '2022-12-27T09:19:51.037Z',
+          sortorder: '1',
+          updatedAt: '2022-12-29T07:08:39.709Z',
+        },
+        categoryId: '63aab8b715519f83a59729d7',
+        categoryName:
+          'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
+        createdAt: '2023-01-02T04:52:15.102Z',
+        image:
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/12-14-years.jpg?context=bWFzdGVyfHJvb3R8MTkwMDZ8aW1hZ2UvanBlZ3xoNTYvaDFlLzkwMTU1NzUzNzk5OTgvMTIgLSAxNCB5ZWFycy5qcGd8NDE5NzIxNTVmYjI0YzE3YzhjZGRiNDhhNWUwOWRiMmFjNDZkNDZiZDRlMTdlYzZhOTBmY2Y1M2QxNWJhMDE5ZA',
+        is_enable: true,
+        is_slider: true,
+        landingPage:
+          ':creationtime-desc:allCategories:kids-products:SIZE_F:12-14Y',
+        sortorder: 3,
+        title: `12 - 14 Y`,
+        updatedAt: '2023-01-03T05:59:51.683Z',
+      },
+      {
+        _id: '63b262ffbcb1a02702f7c407',
+        category: '63aab8b715519f83a59729d7',
+        categoryData: {
+          Is_Active: true,
+          Name: 'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
+          _id: '63aab8b715519f83a59729d7',
+          createdAt: '2022-12-27T09:19:51.037Z',
+          sortorder: '1',
+          updatedAt: '2022-12-29T07:08:39.709Z',
+        },
+        categoryId: '63aab8b715519f83a59729d7',
+        categoryName:
+          'Shop by Age/Made to give your kid the best fit; let their adorable selves shine at every age',
+        createdAt: '2023-01-02T04:52:15.102Z',
+        image:
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/Shop-all.jpg?context=bWFzdGVyfHJvb3R8NzgyMzF8aW1hZ2UvanBlZ3xoMzMvaDE4LzkwMTU1NzU1MTEwNzAvU2hvcCBhbGwuanBnfGZiMjQzNjMwYzNmNjRhZWYwYmUxY2U0Mzg4OGY0YTU0YTBkMDQ2ZjVkODFmNTM0MzhkOGI3N2M4ZGMzNDI0ODg',
+        is_enable: true,
+        is_slider: true,
+        landingPage: ':relevance:allCategories:kids-products',
+        sortorder: 3,
+        title: `All Age Group`,
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
     ],
-    '63ad7b23bcb1a02702f7bb0c': [
+    upto50: [
       {
         _id: '63aaef8e15519f83a5972b76',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h4e/h91/9065286238238/mn-sec10-mob-22sep22-1/mn-sec10-mob-22sep22-1.jpg',
-        landingPage:
-          ':creationtime-desc:allCategories:men-products:Craft:Ajrakh:Craft:Kalamkari:Craft:Bagru:Craft:Dabu:Craft:Bagh:Craft:Hand Block Print',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kd-lpsec9-mob-19oct22.jpg?context=bWFzdGVyfHJvb3R8NjYxMjN8aW1hZ2UvanBlZ3xoNmIvaDVjLzkwOTExMDYyNzUzNTgva2QtbHBzZWM5LW1vYi0xOW9jdDIyLmpwZ3xhOTNmNTZiYWNlNThlMzhjZDYyMzUxOTQyNjg4M2I1YjM4MjRjMzhlMTc3YjVmZjJjNzI0ZWY4ODZiMGJhYmNl',
+        landingPage: ':relevance:allCategories:sale-kids-products',
         category: '63aad98915519f83a5972aa6',
         sortorder: 16,
-        title: `Men's Clothing and Accessories`,
+        title: `Sale On Kids Clothing`,
         is_slider: true,
         is_enable: true,
         createdAt: '2022-12-27T13:13:50.117Z',
         updatedAt: '2022-12-30T13:20:32.173Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: `Men's Clothing and Accessories`,
+          Name: `Sale On Kids Clothing`,
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: `Men's Clothing and Accessories`,
+        categoryName: `Sale On Kids Clothing`,
         categoryId: '63aad98915519f83a5972aa6',
       },
     ],
-    '63ad9230bcb1a02702f7bb9f': [
+    TopSellers: [
       {
         _id: '63aaef8e15519f83a5972b76',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/hba/hfe/9088549584926/Shirts-rep/Shirts-rep.jpg',
-        landingPage: ':relevance:allCategories:men-shirt',
+          'https://apisap.fabindiahome.com/medias/kd-lpsec10-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MTM4OTE2fGltYWdlL2pwZWd8aDVhL2g1OS85MDkxMTA2MzQwODk0L2tkLWxwc2VjMTAtMTlvY3QyMi0xLmpwZ3xmNTEwMTc2ZTZiMWMwODlmOWMzMzk3MmM3NGFiYWMzYTA1YWY0NDhkMjgyMzQ4YTY4Mjk0N2FiYmVkMTM0YWFm',
+        landingPage: ':relevance:allCategories:boys-kurtas',
         category: '63aad98915519f83a5972aa6',
         sortorder: 16,
-        title: `Men's Shirts`,
+        title: `Boys Kurta`,
         is_slider: true,
         is_enable: true,
         createdAt: '2022-12-27T13:13:50.117Z',
         updatedAt: '2022-12-30T13:20:32.173Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: 'Western Wear/From office to easy days, dive into a selection of smart, crisp dressing',
+          Name: 'Top Sellers/Give your little one only the best of soft fabrics & cute prints for their wardrobe',
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
         categoryName:
-          'Western Wear/From office to easy days, dive into a selection of smart, crisp dressing',
+          'Top Sellers/Give your little one only the best of soft fabrics & cute prints for their wardrobe',
         categoryId: '63aad98915519f83a5972aa6',
       },
       {
-        _id: '63aaf1d415519f83a5972ba7',
+        _id: '63aaef8e15519f83a5972b76',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h72/h5c/9014563569694/Jackets/Jackets.jpg',
-        landingPage: ':relevance:allCategories:men-jackets',
+          'https://apisap.fabindiahome.com/medias/kd-lpsec10-19oct22-2.jpg?context=bWFzdGVyfHJvb3R8MTMzNzM4fGltYWdlL2pwZWd8aDVjL2g1Ni85MDkxMTA2NDA2NDMwL2tkLWxwc2VjMTAtMTlvY3QyMi0yLmpwZ3wxOThhM2NiMjM1OTFmYzUwYzhhZTczM2QyMjgyZGVjMjU1OGE4OTYxMTgwYzFkNDVlZGQxN2U4MDM5ODcyMzI3',
+        landingPage: ':relevance:allCategories:girls-ethnic-sets',
         category: '63aad98915519f83a5972aa6',
-        sortorder: 17,
-        title: `Men's Jackets`,
+        sortorder: 16,
+        title: `Girls Ethnic Sets`,
         is_slider: true,
         is_enable: true,
-        createdAt: '2022-12-27T13:23:32.461Z',
-        updatedAt: '2022-12-30T13:20:41.484Z',
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: 'Western Wear/From office to easy days, dive into a selection of smart, crisp dressing',
+          Name: 'Top Sellers/Give your little one only the best of soft fabrics & cute prints for their wardrobe',
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
         categoryName:
-          'Western Wear/From office to easy days, dive into a selection of smart, crisp dressing',
+          'Top Sellers/Give your little one only the best of soft fabrics & cute prints for their wardrobe',
         categoryId: '63aad98915519f83a5972aa6',
       },
       {
-        _id: '63ae833abcb1a02702f7bde6',
+        _id: '63aaef8e15519f83a5972b76',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h34/hfe/9088549650462/Trousers-rep/Trousers-rep.jpg',
-        landingPage: ':relevance:allCategories:men-pants',
+          'https://apisap.fabindiahome.com/medias/kd-lpsec10-19oct22-3.jpg?context=bWFzdGVyfHJvb3R8NjU2ODh8aW1hZ2UvanBlZ3xoOWIvaDU1LzkwOTExMDY0NzE5NjYva2QtbHBzZWMxMC0xOW9jdDIyLTMuanBnfGM1MTE1ZmVmN2U3ZTYwYjE0MjcwMTVmYzhjN2NiYmZkNmMxMTc2OWI5Y2UwMjFkMjQ0NmQ5NDI2NzRjMjc2ZjY',
+        landingPage: ':relevance:allCategories:infant-boys-sets',
         category: '63aad98915519f83a5972aa6',
-        sortorder: 105,
-        title: `Men's Pants`,
+        sortorder: 16,
+        title: `Infant Boys Sets`,
         is_slider: true,
         is_enable: true,
-        createdAt: '2022-12-30T06:20:42.160Z',
-        updatedAt: '2022-12-30T13:20:53.919Z',
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
         categoryData: {
           _id: '63aad98915519f83a5972aa6',
-          Name: 'Western Wear/From office to easy days, dive into a selection of smart, crisp dressing',
+          Name: 'Top Sellers/Give your little one only the best of soft fabrics & cute prints for their wardrobe',
           sortorder: '3',
           Is_Active: true,
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
         categoryName:
-          'Western Wear/From office to easy days, dive into a selection of smart, crisp dressing',
+          'Top Sellers/Give your little one only the best of soft fabrics & cute prints for their wardrobe',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://apisap.fabindiahome.com/medias/kd-lpsec10-19oct22-4-rep.jpg?context=bWFzdGVyfHJvb3R8NzkwNzZ8aW1hZ2UvanBlZ3xoOWUvaGQ2LzkwOTExMTI1OTk1ODIva2QtbHBzZWMxMC0xOW9jdDIyLTQtcmVwLmpwZ3wwYmNhOWU0YzBlM2RhMWM0NWEyMWFmNGY1NzY0ZDc4ZWIxZDlhNzgwODJmNDQ5MDlmNTM1NTM0ZTFhZjlkMDBi',
+        landingPage: ':relevance:allCategories:infant-girls-sets',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: `Infant Girls Sets`,
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: 'Top Sellers/Give your little one only the best of soft fabrics & cute prints for their wardrobe',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName:
+          'Top Sellers/Give your little one only the best of soft fabrics & cute prints for their wardrobe',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://apisap.fabindiahome.com/medias/kd-lpsec10-19oct22-5.jpg?context=bWFzdGVyfHJvb3R8NzE1MzR8aW1hZ2UvanBlZ3xoOGIvaDRmLzkwOTExMDY2MDMwMzgva2QtbHBzZWMxMC0xOW9jdDIyLTUuanBnfDAyNzkzYTgyMGU3YjFiZmE4YzZlZjI2N2I3NjJhMDM5NWZlNjdhZjRhZGRhN2ZmMGYxMzQ2MmM0MzQ4OTM5ZTQ',
+        landingPage: ':relevance:allCategories:boys-shirts-short-kurtas',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: `Boys Shirts`,
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: 'Top Sellers/Give your little one only the best of soft fabrics & cute prints for their wardrobe',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName:
+          'Top Sellers/Give your little one only the best of soft fabrics & cute prints for their wardrobe',
+        categoryId: '63aad98915519f83a5972aa6',
+      },
+      {
+        _id: '63aaef8e15519f83a5972b76',
+        image:
+          'https://apisap.fabindiahome.com/medias/kd-lpsec10-19oct22-6.jpg?context=bWFzdGVyfHJvb3R8MTEzMjY4fGltYWdlL2pwZWd8aGRlL2g0ZS85MDkxMTA2NjY4NTc0L2tkLWxwc2VjMTAtMTlvY3QyMi02LmpwZ3wxZTU2YjkwY2UwMTFiOTI5M2MzOWZhZDJiMDhmNTZkMzEyZTFhYjI4YzNlZmZmZjBmMjI1NTE2NDE5MDM5N2Q5',
+        landingPage: ':relevance:allCategories:girls-dresses-jumpsuits',
+        category: '63aad98915519f83a5972aa6',
+        sortorder: 16,
+        title: `Girls Dresses`,
+        is_slider: true,
+        is_enable: true,
+        createdAt: '2022-12-27T13:13:50.117Z',
+        updatedAt: '2022-12-30T13:20:32.173Z',
+        categoryData: {
+          _id: '63aad98915519f83a5972aa6',
+          Name: 'Top Sellers/Give your little one only the best of soft fabrics & cute prints for their wardrobe',
+          sortorder: '3',
+          Is_Active: true,
+          createdAt: '2022-12-27T11:39:53.388Z',
+          updatedAt: '2022-12-29T10:48:43.046Z',
+        },
+        categoryName:
+          'Top Sellers/Give your little one only the best of soft fabrics & cute prints for their wardrobe',
         categoryId: '63aad98915519f83a5972aa6',
       },
     ],
-    '63ad9067bcb1a02702f7bb87': [
+    BabyCarousel: [
       {
         _id: '63aae8c115519f83a5972b4a',
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: `Men's Clothing And Accessories`,
+          Name: `Indigo`,
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: `Men's Clothing And Accessories`,
+        categoryName: `Indigo`,
         createdAt: '2022-12-27T12:44:49.616Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h2c/h2f/9075280773150/mn-sec13-29sep22-1/mn-sec13-29sep22-1.jpg',
+          'https://apisap.fabindiahome.com/medias/kd-lpsec12-19oct22-2.jpg?context=bWFzdGVyfHJvb3R8MzMyNDM5fGltYWdlL2pwZWd8aDFlL2g0Yi85MDkxMTA2Nzk5NjQ2L2tkLWxwc2VjMTItMTlvY3QyMi0yLmpwZ3xlNjI2ODdkNWNjMTNmYjc1NjFmMDk2ZGQ2ODhiNTBlYTg0MjRjODZiZjNiMjM3MTcxNjRlZTM4ZTkzYmVmMzFi',
         is_enable: true,
         is_slider: true,
-        landingPage:
-          ':creationtime-desc:allCategories:men-products:Sleeves:Sleeveless',
+        landingPage: 'kids sleepwear:creationtime-desc:B2CL1:Kids',
         sortorder: 11,
-        title: `Men's Clothing And Accessories`,
+        title: `Indigo`,
         updatedAt: '2023-01-03T05:59:51.680Z',
       },
       {
@@ -1052,47 +1269,49 @@ const KidsCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: `Men's Footwears`,
+          Name: `Kids Sleepwear`,
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: `Men's Footwears`,
+        categoryName: `Kids Sleepwear`,
         createdAt: '2022-12-28T13:24:01.900Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h94/h62/9014563700766/Footwear/Footwear.jpg',
+          'https://apisap.fabindiahome.com/medias/kd-lpsec12-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MTY3MDA2fGltYWdlL2pwZWd8aGNjL2g0Yi85MDkxMTA2NzM0MTEwL2tkLWxwc2VjMTItMTlvY3QyMi0xLmpwZ3w5NDQwMmM2Mjg0Mzg5YTYwZWRiMmQwNjU1Njg0MWNkNjE3MjJkM2JhNWVhYzRkY2VhOTM1MzY5OGQ5ZDljOWRm',
         is_enable: true,
         is_slider: true,
-        landingPage: ':relevance:allCategories:men-footwear',
+        landingPage:
+          ':creationtime-desc:allCategories:kids-products:Color:NAVY:Color:INDIGO:Color:BLUE',
         sortorder: 5,
-        title: `Men's Footwears`,
+        title: `Kids Sleepwear`,
         updatedAt: '2023-01-03T05:59:51.682Z',
       },
     ],
-    '63ad923cbcb1a02702f7bba4': [
+    Collections: [
       {
         _id: '63aae8c115519f83a5972b4a',
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: `Men's Short Kurtas`,
+          Name: `All Infant Wear`,
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: `Men's Short Kurtas`,
+        categoryName: `All Infant Wear`,
         createdAt: '2022-12-27T12:44:49.616Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h8f/h8d/9065286369310/mn-cl-sec14-22sep22-img1/mn-cl-sec14-22sep22-img1.jpg',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kd-lpsec13-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MTAzODY4fGltYWdlL2pwZWd8aDBkL2g0OC85MDkxMTA2ODY1MTgyL2tkLWxwc2VjMTMtMTlvY3QyMi0xLmpwZ3w0ZTg5ZTMxMjk4MjM1NTY0Mjk4ZjE4MTQyYjhlNmFkN2MyOGI2ZDNlNjdjMTM1YzEyMzMyNDgxYzQxMWYzZTE3',
         is_enable: true,
         is_slider: true,
-        landingPage: ':relevance:allCategories:men-short-kurtas',
+        landingPage:
+          ':creationtime-desc:allCategories:kids-products:SIZE_F:3-6M:SIZE_F:18-24M:SIZE_F:6-12M:SIZE_F:12-18M',
         sortorder: 11,
-        title: `Men's Short Kurtas`,
+        title: `All Infant Wear`,
         updatedAt: '2023-01-03T05:59:51.680Z',
       },
       {
@@ -1100,22 +1319,23 @@ const KidsCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: `Everyday Living Men Clothing`,
+          Name: `All Boys and Girls`,
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: `Everyday Living Men Clothing`,
+        categoryName: `All Boys and Girls`,
         createdAt: '2022-12-28T13:24:01.900Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h6d/h87/9065286500382/mn-cl-sec14-22sep22-img3/mn-cl-sec14-22sep22-img3.jpg',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kd-lpsec13-19oct22-2.jpg?context=bWFzdGVyfHJvb3R8MTI1MTY0fGltYWdlL2pwZWd8aGZjL2g0NC85MDkxMTA2OTMwNzE4L2tkLWxwc2VjMTMtMTlvY3QyMi0yLmpwZ3xlZmNjOTRjMDEyNzg3NjU4ZmU0Y2QwMGYzNTViOTcxNzMyNmRlNDhmM2UzNDg2Yzc2ZDMxNzg5ZTFiZjViN2I2',
         is_enable: true,
         is_slider: true,
-        landingPage: ':relevance:allCategories:everyday-living-men',
+        landingPage:
+          ':creationtime-desc:allCategories:kids-products:SIZE_F:2-3Y:SIZE_F:3-4Y:SIZE_F:4-6Y:SIZE_F:6-8Y:SIZE_F:8-10Y:SIZE_F:10-12Y:SIZE_F:12-14Y:SIZE_F:11',
         sortorder: 5,
-        title: `Everyday Living Men Clothing`,
+        title: `All Boys and Girls`,
         updatedAt: '2023-01-03T05:59:51.682Z',
       },
       {
@@ -1123,22 +1343,23 @@ const KidsCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Wedding Men Clothing',
+          Name: 'Handcrafted Curartion - All Age Groups',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Wedding Men Clothing',
+        categoryName: 'Handcrafted Curartion - All Age Groups',
         createdAt: '2022-12-30T04:06:59.301Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/hbf/h86/9065286565918/mn-cl-sec14-22sep22-img4/mn-cl-sec14-22sep22-img4.jpg',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kd-lpsec13-19oct22-3.jpg?context=bWFzdGVyfHJvb3R8MTE2NjE0fGltYWdlL2pwZWd8aDZkL2gwNi85MDkxMTA3MDYxNzkwL2tkLWxwc2VjMTMtMTlvY3QyMi0zLmpwZ3w4ZjRkYzM2ZTE5ZTA0OTFmMDFlYzQ2MTA1MzcyYzk0OTZmY2RhNDJkMmVjYzQ2N2M1ODI3OTEzN2QyZDM4OGMw',
         is_enable: true,
         is_slider: true,
-        landingPage: ':relevance:allCategories:wedding-men',
+        landingPage:
+          ':creationtime-desc:allCategories:kids-products:Craft:Bandhani:Craft:Bagru:Craft:Ajrakh:Craft:Kalamkari:Craft:Dabu:Craft:Ikat:Craft:Chikankari:Craft:Hand Embroidery:Craft:Hand Block Print',
         sortorder: 9,
-        title: `Wedding Men Clothing`,
+        title: `Handcrafted Curartion`,
         updatedAt: '2023-01-03T05:59:51.682Z',
       },
       {
@@ -1146,48 +1367,38 @@ const KidsCatagory = props => {
         category: '63aab8b715519f83a59729d7',
         categoryData: {
           Is_Active: true,
-          Name: 'Indigo Men Clothing',
+          Name: 'Wedding Picks',
           _id: '63aab8b715519f83a59729d7',
           createdAt: '2022-12-27T09:19:51.037Z',
           sortorder: '1',
           updatedAt: '2022-12-29T07:08:39.709Z',
         },
         categoryId: '63aab8b715519f83a59729d7',
-        categoryName: 'Indigo Men Clothing',
+        categoryName: 'Wedding Picks',
         createdAt: '2023-01-02T04:52:15.102Z',
         image:
-          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/sys_master/root/h7e/h8a/9065286434846/mn-cl-sec14-22sep22-img2/mn-cl-sec14-22sep22-img2.jpg',
+          'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/medias/kd-lpsec13-19oct22-4.jpg?context=bWFzdGVyfHJvb3R8MTM0Mzk2fGltYWdlL2pwZWd8aDZjL2gwOS85MDkxMTA3MTI3MzI2L2tkLWxwc2VjMTMtMTlvY3QyMi00LmpwZ3wyYjA1NzZhNjU0OTZkMmVlYjI2YmZkYjVjOGZiYWVmMTIxMTE1ZjYxZDViM2ViNTI0MjFiMzAwODA3ZjFjOWNl',
         is_enable: true,
         is_slider: true,
-        landingPage:
-          ':creationtime-desc:allCategories:indigo-men:Color:BLUE:Color:INDIGO:Color:NAVY',
+        landingPage: ':relevance:allCategories:wedding-kids',
         sortorder: 3,
-        title: 'Indigo Men Clothing',
+        title: 'Wedding Picks',
         updatedAt: '2023-01-03T05:59:51.683Z',
       },
     ],
   };
   const HomPageSections = {
-    topSwiper: '63aab8dc15519f83a59729df',
-    NewInapparel: '63aad98915519f83a5972aa6',
-    NewIndupattas: '63aab8b715519f83a59729d7',
-    NewInjewellery: '63aadb5815519f83a5972aba',
-    LifeStyleethnicwear: '63aadb1815519f83a5972ab4',
-    TraditionBanner: '63aadab915519f83a5972aad',
-    TaketoorCard: '63aadbd215519f83a5972ac1',
-    Sophistication: '63ad7b23bcb1a02702f7bb0c',
-    LifeStylewesternwear: '63ad9230bcb1a02702f7bb9f',
-    carousel: '63ad9067bcb1a02702f7bb87',
-    Collections: '63ad923cbcb1a02702f7bba4',
-
-    // offer
-    // offerHome: '63ad9244bcb1a02702f7bba9',
-
-    // Interior: '63ad95f5bcb1a02702f7bbd8',
-    // NewInHome: '63ad96b4bcb1a02702f7bbe6',
-    // BannerHome: '63ad979cbcb1a02702f7bbfd',
-    // BannerLiving: '63ad983cbcb1a02702f7bc10',
-    // youtube: '63abc289c349c715bd92dadd',
+    topSwiper: 'topSwiper',
+    NewInInfants: 'NewInInfants',
+    NewInGirls: 'NewInGirls',
+    NewInBoys: 'NewInBoys',
+    ShopByCategory: 'ShopByCategory',
+    BrightBanner: 'BrightBanner',
+    ShopByAge: 'ShopByAge',
+    upto50: 'upto50',
+    TopSellers: 'TopSellers',
+    BabyCarousel: 'BabyCarousel',
+    Collections: 'Collections',
   };
   return (
     <>
@@ -1212,27 +1423,29 @@ const KidsCatagory = props => {
               isAdmin2={'isAdmin2'}
               customStyle={{marginVertical: 20}}
               bgColor={{backgroundColor: '#F3E0E0'}}
-              data={data?.[HomPageSections.NewInapparel]}
+              data={data?.[HomPageSections.NewInInfants]}
             />
             <NewHighlights
+              {...props}
+              isSap={true}
+              isAdmin2={'isAdmin2'}
+              customStyle={{marginVertical: 20}}
+              bgColor={{backgroundColor: '#F3E0E0'}}
+              data={data?.[HomPageSections.NewInGirls]}
+            />
+            <NewHighlights
+              isSap={true}
               {...props}
               isAdmin2={'isAdmin2'}
               customStyle={{marginVertical: 20}}
               bgColor={{backgroundColor: '#F3E0E0'}}
-              data={data?.[HomPageSections.NewIndupattas]}
-            />
-            <NewHighlights
-              {...props}
-              isAdmin2={'isAdmin2'}
-              customStyle={{marginVertical: 20}}
-              bgColor={{backgroundColor: '#F3E0E0'}}
-              data={data?.[HomPageSections.NewInjewellery]}
+              data={data?.[HomPageSections.NewInBoys]}
             />
             <LifeStyle
               isAdmin2={'isAdmin2'}
               {...props}
               customViewStyle={{marginVertical: 20}}
-              data={data?.[HomPageSections.LifeStyleethnicwear]}
+              data={data?.[HomPageSections.ShopByCategory]}
               // title={GetLifeStyleTitle}
               backgroundColor="#F8F2EF"
             />
@@ -1250,7 +1463,7 @@ const KidsCatagory = props => {
               <Image
                 resizeMode="stretch"
                 source={{
-                  uri: data?.[HomPageSections.TraditionBanner][0].image,
+                  uri: data?.[HomPageSections.BrightBanner][0].image,
                 }}
                 style={{height: 213, width: width}}
               />
@@ -1258,10 +1471,10 @@ const KidsCatagory = props => {
             <CommonImageGrid
               isAdmin2="isAdmin2"
               {...props}
-              data={data?.[HomPageSections.TaketoorCard]}
+              data={data?.[HomPageSections.ShopByAge]}
             />
             <SingleBanner
-              data={data?.[HomPageSections.Sophistication][0]}
+              data={data?.[HomPageSections.upto50][0]}
               {...props}
               isAdmin2="isAdmin2"
             />
@@ -1269,14 +1482,15 @@ const KidsCatagory = props => {
               isAdmin2={'isAdmin2'}
               {...props}
               customViewStyle={{marginVertical: 20}}
-              data={data?.[HomPageSections.LifeStylewesternwear]}
+              data={data?.[HomPageSections.TopSellers]}
               // title={GetLifeStyleTitle}
               backgroundColor="#F8F2EF"
             />
             <WomenTab data={filteredComp[1]} {...props} />
             <CommonCarousel
               {...props}
-              data={data?.[HomPageSections.carousel]}
+              isSap={true}
+              data={data?.[HomPageSections.BabyCarousel]}
               width={width / 1.07}
               isAdmin2={'isAdmin2'}
               height={200}
