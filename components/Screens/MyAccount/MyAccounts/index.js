@@ -78,7 +78,7 @@ const pages = [
 ];
 const MyAccounts = props => {
   const dispatch = useDispatch();
-  const focus = useIsFocused();
+  // const focus = useIsFocused();
   const [userProfileData, setUserProfileData] = useState();
 
   const getProfiledata = async () => {
@@ -107,7 +107,7 @@ const MyAccounts = props => {
   };
   useEffect(() => {
     getProfiledata();
-  }, [focus]);
+  }, []);
   const generatTokenWithout = async () => {
     await axios
       .post(

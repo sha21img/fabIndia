@@ -66,33 +66,33 @@ export default function CartList(props) {
   const [entrynum, setEntrynum] = useState(null);
   const [maxstock, setMaxstock] = useState(null);
   const [couponCode, setCouponCode] = useState('');
-  const [razorpaymethod,setRazorpaymethod] = useState(null)
-  const {cartdetails, getCartDetails, handleClick} = props;
+  const [razorpaymethod, setRazorpaymethod] = useState(null);
+  const {cartdetails, getCartDetails, handleClick, deleteCartDetail} = props;
   useEffect(() => {
     let newCurrpos = newCurrPosition || 0;
     setCurrentPosition(newCurrpos);
   }, []);
 
-useEffect(()=>{
-  asyncfunc();
-},[])
-const asyncfunc = async () => {
-  await RazorpayDetails();
-};
-const RazorpayDetails = async () => {
-  const response = await axios
-    .get(`https://api.razorpay.com/v1/methods?key_id=rzp_test_T70CWf6iJpuekL`)
-    .then(res => {
-      console.log(
-        'RazorpayDetailsRazorpayDetailsRazorpayDetailsRazorpayDetailsRazorpayDetails',
-        res.data,
-      );
-      setRazorpaymethod(res.data)
-    })
-    .catch(error => {
-      console.log('res.data', error);
-    });
-};
+  useEffect(() => {
+    asyncfunc();
+  }, []);
+  const asyncfunc = async () => {
+    await RazorpayDetails();
+  };
+  const RazorpayDetails = async () => {
+    const response = await axios
+      .get(`https://api.razorpay.com/v1/methods?key_id=rzp_test_T70CWf6iJpuekL`)
+      .then(res => {
+        console.log(
+          'RazorpayDetailsRazorpayDetailsRazorpayDetailsRazorpayDetailsRazorpayDetails',
+          res.data,
+        );
+        setRazorpaymethod(res.data);
+      })
+      .catch(error => {
+        console.log('res.data', error);
+      });
+  };
   const orderValueDetail = () => {
     setShowOrderDetail(true);
   };
@@ -310,6 +310,7 @@ const RazorpayDetails = async () => {
               EmiClick={EmiClick}
               CustomClick={CustomClick}
               handleClick={handleClick}
+              deleteCartDetail={deleteCartDetail}
             />
           </>
         ) : currentPosition == 1 ? (
@@ -321,7 +322,7 @@ const RazorpayDetails = async () => {
             setCurrentPosition={setCurrentPosition}
           />
         ) : currentPosition == 2 ? (
-          <Payment {...props} razorpaymethod={razorpaymethod}/>
+          <Payment {...props} razorpaymethod={razorpaymethod} />
         ) : null}
       </ScrollView>
       {currentPosition == 0 ? (
@@ -564,7 +565,7 @@ const RazorpayDetails = async () => {
                 <Ionicons name="close-circle-outline" size={24} />
               </TouchableOpacity>
             </View>
-            <Text style={styles.sizeText}>Select size</Text>
+            {/* <Text style={styles.sizeText}>Select size</Text>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -587,7 +588,7 @@ const RazorpayDetails = async () => {
               <View style={styles.chipInActive}>
                 <Text style={styles.chipTextInActive}>XXL</Text>
               </View>
-            </ScrollView>
+            </ScrollView> */}
             <Text style={styles.sizeText}>Select quantity</Text>
             <View style={styles.quantityContainer}>
               <TouchableOpacity
