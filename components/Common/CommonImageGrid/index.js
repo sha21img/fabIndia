@@ -11,17 +11,30 @@ import React from 'react';
 import {image} from '../../../assets/images';
 import {Styles} from './style';
 import Fonts from '../../../assets/fonts';
+import {hasSpaces} from '../../../constant';
 const width = Dimensions.get('window').width;
-export default function CommonImageGrid({
-  heading = null,
-  bgImage = '',
-  customViewStyle = {},
-}) {
+export default function CommonImageGrid(props) {
+  const {
+    heading = null,
+    bgImage = '',
+    customViewStyle = {},
+    data = [],
+    isAdmin2 = '',
+  } = props;
+  const check = hasSpaces(data[0]?.categoryName);
   const ImageGrid = item => {
     return (
-      <View>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() =>
+          props.navigation.navigate('LandingPageSaris_Blouses', {
+            code: item.item.landingPage,
+            title: item.item.title,
+            isAdmin2: 'isAdmin2',
+          })
+        }>
         <Image
-          source={{uri: item.item.imagess}}
+          source={{uri: item.item.image}}
           style={{
             height: 95,
             width: width / 3.4,
@@ -29,39 +42,39 @@ export default function CommonImageGrid({
           }}
           resizeMode="stretch"
         />
-      </View>
+      </TouchableOpacity>
     );
   };
-  const data = [
-    {
-      imagess:
-        'https://apisap.fabindia.com/medias/wmn-lpsec8-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MzcxMDh8aW1hZ2UvanBlZ3xoY2QvaDY5LzkwOTExMDMzOTE3NzQvd21uLWxwc2VjOC0xOW9jdDIyLTEuanBnfGVlNTc1NDJhOWQ5ZWY1ZDE2NGVhYzk3MWRkMGM4Y2ZlMzhiNjAwZmViNmQwYTJkNDNjY2U0MzIyYWRiYzJlODU',
-    },
-    {
-      imagess:
-        'https://apisap.fabindia.com/medias/wmn-lpsec8-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MzcxMDh8aW1hZ2UvanBlZ3xoY2QvaDY5LzkwOTExMDMzOTE3NzQvd21uLWxwc2VjOC0xOW9jdDIyLTEuanBnfGVlNTc1NDJhOWQ5ZWY1ZDE2NGVhYzk3MWRkMGM4Y2ZlMzhiNjAwZmViNmQwYTJkNDNjY2U0MzIyYWRiYzJlODU',
-    },
-    {
-      imagess:
-        'https://apisap.fabindia.com/medias/wmn-lpsec8-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MzcxMDh8aW1hZ2UvanBlZ3xoY2QvaDY5LzkwOTExMDMzOTE3NzQvd21uLWxwc2VjOC0xOW9jdDIyLTEuanBnfGVlNTc1NDJhOWQ5ZWY1ZDE2NGVhYzk3MWRkMGM4Y2ZlMzhiNjAwZmViNmQwYTJkNDNjY2U0MzIyYWRiYzJlODU',
-    },
-    {
-      imagess:
-        'https://apisap.fabindia.com/medias/wmn-lpsec8-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MzcxMDh8aW1hZ2UvanBlZ3xoY2QvaDY5LzkwOTExMDMzOTE3NzQvd21uLWxwc2VjOC0xOW9jdDIyLTEuanBnfGVlNTc1NDJhOWQ5ZWY1ZDE2NGVhYzk3MWRkMGM4Y2ZlMzhiNjAwZmViNmQwYTJkNDNjY2U0MzIyYWRiYzJlODU',
-    },
-    {
-      imagess:
-        'https://apisap.fabindia.com/medias/wmn-lpsec8-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MzcxMDh8aW1hZ2UvanBlZ3xoY2QvaDY5LzkwOTExMDMzOTE3NzQvd21uLWxwc2VjOC0xOW9jdDIyLTEuanBnfGVlNTc1NDJhOWQ5ZWY1ZDE2NGVhYzk3MWRkMGM4Y2ZlMzhiNjAwZmViNmQwYTJkNDNjY2U0MzIyYWRiYzJlODU',
-    },
-    {
-      imagess:
-        'https://apisap.fabindia.com/medias/wmn-lpsec8-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MzcxMDh8aW1hZ2UvanBlZ3xoY2QvaDY5LzkwOTExMDMzOTE3NzQvd21uLWxwc2VjOC0xOW9jdDIyLTEuanBnfGVlNTc1NDJhOWQ5ZWY1ZDE2NGVhYzk3MWRkMGM4Y2ZlMzhiNjAwZmViNmQwYTJkNDNjY2U0MzIyYWRiYzJlODU',
-    },
-  ];
+  // const data = [
+  //   {
+  //     imagess:
+  //       'https://apisap.fabindia.com/medias/wmn-lpsec8-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MzcxMDh8aW1hZ2UvanBlZ3xoY2QvaDY5LzkwOTExMDMzOTE3NzQvd21uLWxwc2VjOC0xOW9jdDIyLTEuanBnfGVlNTc1NDJhOWQ5ZWY1ZDE2NGVhYzk3MWRkMGM4Y2ZlMzhiNjAwZmViNmQwYTJkNDNjY2U0MzIyYWRiYzJlODU',
+  //   },
+  //   {
+  //     imagess:
+  //       'https://apisap.fabindia.com/medias/wmn-lpsec8-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MzcxMDh8aW1hZ2UvanBlZ3xoY2QvaDY5LzkwOTExMDMzOTE3NzQvd21uLWxwc2VjOC0xOW9jdDIyLTEuanBnfGVlNTc1NDJhOWQ5ZWY1ZDE2NGVhYzk3MWRkMGM4Y2ZlMzhiNjAwZmViNmQwYTJkNDNjY2U0MzIyYWRiYzJlODU',
+  //   },
+  //   {
+  //     imagess:
+  //       'https://apisap.fabindia.com/medias/wmn-lpsec8-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MzcxMDh8aW1hZ2UvanBlZ3xoY2QvaDY5LzkwOTExMDMzOTE3NzQvd21uLWxwc2VjOC0xOW9jdDIyLTEuanBnfGVlNTc1NDJhOWQ5ZWY1ZDE2NGVhYzk3MWRkMGM4Y2ZlMzhiNjAwZmViNmQwYTJkNDNjY2U0MzIyYWRiYzJlODU',
+  //   },
+  //   {
+  //     imagess:
+  //       'https://apisap.fabindia.com/medias/wmn-lpsec8-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MzcxMDh8aW1hZ2UvanBlZ3xoY2QvaDY5LzkwOTExMDMzOTE3NzQvd21uLWxwc2VjOC0xOW9jdDIyLTEuanBnfGVlNTc1NDJhOWQ5ZWY1ZDE2NGVhYzk3MWRkMGM4Y2ZlMzhiNjAwZmViNmQwYTJkNDNjY2U0MzIyYWRiYzJlODU',
+  //   },
+  //   {
+  //     imagess:
+  //       'https://apisap.fabindia.com/medias/wmn-lpsec8-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MzcxMDh8aW1hZ2UvanBlZ3xoY2QvaDY5LzkwOTExMDMzOTE3NzQvd21uLWxwc2VjOC0xOW9jdDIyLTEuanBnfGVlNTc1NDJhOWQ5ZWY1ZDE2NGVhYzk3MWRkMGM4Y2ZlMzhiNjAwZmViNmQwYTJkNDNjY2U0MzIyYWRiYzJlODU',
+  //   },
+  //   {
+  //     imagess:
+  //       'https://apisap.fabindia.com/medias/wmn-lpsec8-19oct22-1.jpg?context=bWFzdGVyfHJvb3R8MzcxMDh8aW1hZ2UvanBlZ3xoY2QvaDY5LzkwOTExMDMzOTE3NzQvd21uLWxwc2VjOC0xOW9jdDIyLTEuanBnfGVlNTc1NDJhOWQ5ZWY1ZDE2NGVhYzk3MWRkMGM4Y2ZlMzhiNjAwZmViNmQwYTJkNDNjY2U0MzIyYWRiYzJlODU',
+  //   },
+  // ];
   return (
     <View style={Styles.mainView}>
-      <Text style={Styles.txt1}>Take a Tour of india</Text>
-      <Text style={Styles.txt2}>Explore the various crafts of India and dress in sustainable, handcrafted style</Text>
+      <Text style={Styles.txt1}>{check ? check[0] : null}</Text>
+      <Text style={Styles.txt2}>{check ? check[1] : null}</Text>
 
       <FlatList
         columnWrapperStyle={{justifyContent: 'space-between'}}

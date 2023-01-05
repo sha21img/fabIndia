@@ -41,10 +41,10 @@ function ReferFriend(props, item) {
         last_name: parseData.user.last_name,
       },
       enrolling_sponsor: parseData.sponsor_id,
-      mobile: !!parseData.mobile || mobileNumber,
-      enrollment_referrer: refercode,
+      mobile: !!parseData.mobile || userDetail.contactNumber,
+      enrollment_referrer: referCode,
     };
-    console.log('paramsparams', params);
+    console.log('paramsparams', parseData.token);
     await axios
       .post(`https://api.apm20.gravty.io/v2/members`, params, {
         headers: {

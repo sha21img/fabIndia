@@ -5,8 +5,8 @@ import {hasSpaces} from '../../../constant';
 import FastImage from 'react-native-fast-image';
 
 export default function NewHighlights(props) {
-  const {data = {}, customStyle = ''} = props;
-  // console.log('da111111111111111111ta', data);
+  const {data = {}, customStyle = '', isSap = false} = props;
+  console.log('da111111111111111111ta', data);
 
   const imageCard = item => {
     const newCode = item.item.landingPage;
@@ -25,7 +25,7 @@ export default function NewHighlights(props) {
         <FastImage
           style={Styles.image}
           source={{
-            uri: item?.item?.image?.split('?')[0],
+            uri: isSap ? item.item.image : item?.item?.image?.split('?')[0],
             priority: FastImage.priority.normal,
           }}
           resizeMode={FastImage.resizeMode.contain}

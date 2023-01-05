@@ -1,16 +1,17 @@
-import { View, Text, TouchableOpacity, FlatList, ScrollView } from 'react-native';
-import React, { useEffect, useRef } from 'react';
+import {View, Text, TouchableOpacity, FlatList, ScrollView} from 'react-native';
+import React, {useEffect, useRef} from 'react';
 import Chip from '../../../Common/Chip';
-import { BaseURL2, getComponentData } from '../../../Common/Helper';
+import {BaseURL2, getComponentData} from '../../../Common/Helper';
 import CardProducts from './CardProducts';
 import axios from 'axios';
-import { Colors } from '../../../../assets/Colors';
+import {Colors} from '../../../../assets/Colors';
 import Card from '../../../Common/Card';
 import Fonts from '../../../../assets/fonts';
 
 export default function WomenTab(props) {
-  const { data = {} } = props;
-  const flatlistRef = useRef()
+  const {data = {}} = props;
+  console.log('pkoijhugyftdxhui', data);
+  const flatlistRef = useRef();
   const [active, setActive] = React.useState('');
   const [selectedTab, setSelectedTab] = React.useState('');
   const [chipData, setChipData] = React.useState([]);
@@ -23,7 +24,7 @@ export default function WomenTab(props) {
   };
 
   const getBannerCount = async bannerId => {
-    const splitBannerId = bannerId.split(' ').join(',');
+    const splitBannerId = bannerId?.split(' ').join(',');
     const response = await getComponentData(
       `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
@@ -35,15 +36,15 @@ export default function WomenTab(props) {
   const getTabData = async data => {
     setActive(data.title);
     // Scroll to first index
-    flatlistRef.current.scrollToOffset({ animated: true, offset: 0 });
+    flatlistRef.current.scrollToOffset({animated: true, offset: 0});
     const splitBannerId = data.components.split(' ').join(',');
     const response = await getComponentData(
       `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    // console.log('tabData==>', response.component);
-    setToptabLabelData(response.component);
-    setSelectedTab(response.component[0].title)
-    getproductData(response.component[0].productCodes.split(' '));
+    console.log('tabData==>', response.component);
+    setToptabLabelData(response?.component);
+    setSelectedTab(response?.component[0]?.title);
+    getproductData(response?.component[0]?.productCodes.split(' '));
   };
 
   const getproductData = async productCodes => {
@@ -120,14 +121,12 @@ export default function WomenTab(props) {
   };
 
   const productCard = item => {
-    return (
-      <Card {...props} items={item.item} />
-    );
-  }
+    return <Card {...props} items={item.item} />;
+  };
 
   return (
-    <View style={{ paddingLeft: 16 }}>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 8 }}>
+    <View style={{paddingLeft: 16}}>
+      <View style={{flexDirection: 'row', flexWrap: 'wrap', marginTop: 8}}>
         {chipData.map((item, index) => {
           return (
             <Chip
@@ -142,34 +141,55 @@ export default function WomenTab(props) {
 
       {/* Tabs */}
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={{ flexDirection: 'row', marginVertical: 8 }}>
-          {toptabLabelData.map((item) => {
+        <View style={{flexDirection: 'row', marginVertical: 8}}>
+          {toptabLabelData.map(item => {
             return (
               <TouchableOpacity
                 key={item.uuid}
                 activeOpacity={0.8}
                 onPress={() => {
-                  setSelectedTab(item.title)
+                  setSelectedTab(item.title);
                   getproductData(item?.productCodes?.split(' '));
                   // Scroll to first index
-                  flatlistRef.current.scrollToOffset({ animated: true, offset: 0 });
+                  flatlistRef.current.scrollToOffset({
+                    animated: true,
+                    offset: 0,
+                  });
                 }}
-                style={{ paddingVertical: 5, marginRight: 16, borderBottomWidth: 2, borderBottomColor: selectedTab == item.title ? Colors.primarycolor : 'transparent' }}>
-                <Text style={{ fontSize: 14, fontFamily: Fonts.Assistant300, color: selectedTab == item.title ? Colors.primarycolor : Colors.textcolor }}>{item.title}</Text>
+                style={{
+                  paddingVertical: 5,
+                  marginRight: 16,
+                  borderBottomWidth: 2,
+                  borderBottomColor:
+                    selectedTab == item.title
+                      ? Colors.primarycolor
+                      : 'transparent',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontFamily: Fonts.Assistant300,
+                    color:
+                      selectedTab == item.title
+                        ? Colors.primarycolor
+                        : Colors.textcolor,
+                  }}>
+                  {item.title}
+                </Text>
               </TouchableOpacity>
-            )
+            );
           })}
         </View>
       </ScrollView>
 
       {/* Cards */}
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{flexDirection: 'row'}}>
         <FlatList
           ref={flatlistRef}
           horizontal
           data={productsData}
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => item?.code}
+          keyExtractor={item => item?.code}
           renderItem={productCard}
         />
       </View>

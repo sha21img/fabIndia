@@ -4,22 +4,22 @@ import {getComponentData} from '../Helper';
 import {Styles} from './style';
 
 const CollectionCard = props => {
-  const {data = {}} = props;
-  const [collectionCardData, setCollectionCardData] = useState([]);
-  useEffect(() => {
-    getCollectionsIds();
-  }, []);
-  const getCollectionsIds = async () => {
-    const bannerId = data.banners;
-    getCarauselData(bannerId);
-  };
-  const getCarauselData = async bannerId => {
-    const splitBannerId = bannerId.split(' ').join(',');
-    const response = await getComponentData(
-      `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
-    );
-    setCollectionCardData(response.component);
-  };
+  const {data = {}, isAdmin2} = props;
+  // const [collectionCardData, setCollectionCardData] = useState([]);
+  // useEffect(() => {
+  //   getCollectionsIds();
+  // }, []);
+  // const getCollectionsIds = async () => {
+  //   const bannerId = data.banners;
+  //   getCarauselData(bannerId);
+  // };
+  // const getCarauselData = async bannerId => {
+  //   const splitBannerId = bannerId.split(' ').join(',');
+  //   const response = await getComponentData(
+  //     `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+  //   );
+  //   setCollectionCardData(response.component);
+  // };
   return (
     <>
       <ScrollView
@@ -28,9 +28,10 @@ const CollectionCard = props => {
           paddingHorizontal: 15,
           backgroundColor: 'white',
         }}>
-        {collectionCardData.map(item => {
-          console.log('collection card page link', item.urlLink);
-          const newCode = item.urlLink;
+        {data.map(item => {
+          console.log('collection card page link', item.landingPage);
+          {
+            /* const newCode = item.urlLink;
           let splitURL = newCode.split('/');
           splitURL = splitURL[splitURL.length - 1];
 
@@ -38,7 +39,8 @@ const CollectionCard = props => {
           console.log(
             'splitURLsplitURLsplitURLsplit...URLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURLsplitURL',
             title,
-          );
+          ); */
+          }
 
           return (
             <TouchableOpacity
@@ -47,15 +49,16 @@ const CollectionCard = props => {
                 () =>
                   props.navigation.navigate('LandingPageSaris_Blouses', {
                     // code: splitURL,
-                    code: splitURL.split('?')[0],
-                    title: title,
+                    code: item.landingPage,
+                    title: item.title,
+                    isAdmin2: isAdmin2,
                   })
               }
               activeOpacity={0.8}>
               <ImageBackground
                 style={Styles.container}
                 source={{
-                  uri: `https://apisap.fabindia.com/${item?.media?.url}`,
+                  uri: item.image,
                 }}
                 // source={item.image}
               >
