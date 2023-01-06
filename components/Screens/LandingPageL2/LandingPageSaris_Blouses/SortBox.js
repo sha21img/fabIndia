@@ -22,6 +22,9 @@ export default function SortBox({
         justifyContent: 'space-between',
         paddingVertical: 16,
         elevation: 6,
+        marginBottom: 2,
+        borderWidth: 0.5,
+        borderColor: 'grey',
       }}>
       {/* <View style={{flexDirection: 'row', paddingHorizontal: 15}}>
         <Text

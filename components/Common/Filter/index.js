@@ -44,6 +44,7 @@ const Filter = props => {
   const [isActiveCheckBox, setIsActiveCheckBox] = useState([]);
   const [activeOption, setActiveOption] = useState(colorOption);
   const [categoryOption, setCategoryOption] = useState(null);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     setCategoryOption(data[0].name);
@@ -110,8 +111,8 @@ const Filter = props => {
                       'jijijjijjijjiccccccccccccccccc',
                       item?.query.query.value,
                     );
-
                     handleClick(item?.query.query.value);
+                    // setQuery(item?.query.query.value);
                   }}
                   isChecked={item.selected}
                 />
@@ -166,7 +167,10 @@ const Filter = props => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.cancelButton}
-          onPress={() => setFilterModalVisible(false)}>
+          onPress={() => {
+            // handleClick(query)
+            setFilterModalVisible(false);
+          }}>
           <Text style={styles.cancleTxt}>Apply</Text>
         </TouchableOpacity>
       </View>
