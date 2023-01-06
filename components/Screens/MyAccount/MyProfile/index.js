@@ -58,18 +58,18 @@ const MyProfile = props => {
     'oiuytfdrtfyguioiuytrrty111111111111111111111111111111111',
     maskedValue,
   );
-  useEffect(() => {
-    if (isCheck == true) {
-      updateProfileHandler();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (isCheck == true) {
+  //     updateProfileHandler();
+  //   }
+  // }, []);
 
   const checkUpdateProfile = () => {
-    if (editUser.mobile != allProps.profiledata.contactNumber) {
-      props.navigation.navigate('ChangeMobileNumber');
-    } else {
+    // if (editUser.mobile != allProps.profiledata.contactNumber) {
+    //   props.navigation.navigate('ChangeMobileNumber');
+    // } else {
       updateProfileHandler();
-    }
+    // }
   };
 
   const updateProfileHandler = async () => {
@@ -487,8 +487,11 @@ const MyProfile = props => {
             borderBottomColor: 'gray',
           }}>
           {/*  <Text style={{ fontSize: 20 }}>{date?.toLocaleDateString()}</Text>*/}
-          {/* <MaskedTextInput
-            mask="99-99-9999"
+          <MaskedTextInput
+           type="date"
+           options={{
+            dateFormat: 'YYYY/DD/MM',
+          }}
             value={maskedValue}
             style={{fontSize: 22, width: 300}}
             onChangeText={(text, rawText) => {
@@ -496,7 +499,7 @@ const MyProfile = props => {
             }}
             // style={styles.input}
             keyboardType="numeric"
-          /> */}
+          />
           {/* <TouchableOpacity onPress={() => setOpen(true)}> */}
           <Feather
             name="calendar"

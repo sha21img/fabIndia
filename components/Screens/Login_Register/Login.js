@@ -721,7 +721,9 @@ export default function Login(props) {
                   <TouchableOpacity
                     style={styles.readText}
                     onPress={() => {
-                      Linking.openURL('https://www.fabindiahome.com/login/forgot-password')
+                      props.navigation.navigate('MyAccount', {
+                        screen: 'ResetPassword',
+                      });
                     }}>
                     <Text style={styles.forgetText}>Forgot password?</Text>
                   </TouchableOpacity>

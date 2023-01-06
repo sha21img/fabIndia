@@ -27,9 +27,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Toast from 'react-native-simple-toast';
 import moment from 'moment';
-import {
-  GoogleSignin,
-} from '@react-native-google-signin/google-signin';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useDispatch} from 'react-redux';
 import NumberCheck from '../../Common/NumberCheck';
 import {
@@ -72,6 +70,7 @@ const Register = props => {
   const [userGoogleInfo, setUserGoogleInfo] = useState({});
   const [userEmailToken, setUserEmailToken] = useState({});
   const [emailError, setemailError] = useState('');
+  const [isVerifyOtp, setIsVerifyOtp] = useState(false);
 
   const [fbDetails, setFbDetails] = useState();
   const [from, setFrom] = useState('');
@@ -104,7 +103,7 @@ const Register = props => {
   };
   const HandleRegister = async () => {
     let params = {
-      consents: '',
+      consents: [],
       contactNumberCode: `+${mobilePrefix}`,
       contactNumber: phoneNumber,
       countryIsoCode: '',
@@ -148,8 +147,7 @@ const Register = props => {
   };
   const handleConfirm = date => {
     // console.log('datePicked==>', date, moment(date).format('DD/MM/YYYY'));
-    if (date)
-      setDOB(moment(date).format('DD/MM/YYYY'));
+    if (date) setDOB(moment(date).format('DD/MM/YYYY'));
     hideDatePicker();
   };
   const GenerateOtp = async () => {
@@ -187,6 +185,7 @@ const Register = props => {
         Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
       } else {
         Toast.showWithGravity('Done', Toast.LONG, Toast.TOP);
+        setIsVerifyOtp(true);
         setgenerate(false);
       }
     });
@@ -436,14 +435,15 @@ const Register = props => {
                   value={text[faq.name]}
                   maxLength={40}
                   onChangeText={text => {
-           
-                      setText(prev => {
-                        return {...prev, [faq.name]: text.replace(
+                    setText(prev => {
+                      return {
+                        ...prev,
+                        [faq.name]: text.replace(
                           /[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
                           '',
-                        ),};
-                      });
-                    
+                        ),
+                      };
+                    });
                   }}
                 />
               ))}
@@ -509,9 +509,10 @@ const Register = props => {
                       style={Styles.textinput1}
                       value={phoneNumber}
                       placeholder="Your Mobile Number"
-                      onChangeText={value =>
-                        value.length <= 10 ? setPhoneNumber(value) : false
-                      }
+                      onChangeText={value => {
+                        setIsVerifyOtp(false);
+                        value.length <= 10 ? setPhoneNumber(value) : false;
+                      }}
                       placeholderTextColor="grey"
                       keyboardType={'number-pad'}
                       disableFullscreenUI={true}
@@ -615,7 +616,7 @@ const Register = props => {
                         backgroundColor:
                           gender == 'MALE' ? Colors.primarycolor : 'white',
                       }}></TouchableOpacity>
-                   <TouchableOpacity
+                    <TouchableOpacity
                       activeOpacity={0.8}
                       onPress={() => {
                         if (gender == 'MALE') {
@@ -651,7 +652,7 @@ const Register = props => {
                         backgroundColor:
                           gender == 'FEMALE' ? Colors.primarycolor : 'white',
                       }}></TouchableOpacity>
-                   <TouchableOpacity
+                    <TouchableOpacity
                       activeOpacity={0.8}
                       onPress={() => {
                         if (gender == 'FEMALE') {
@@ -772,28 +773,38 @@ const Register = props => {
               txt="Register"
               disable={
                 !(
-                  (!!text['First name'] && (text['First name'].length >= 3 && text['First name'].length <= 40)) &&
-                  (!!text['Last name'] && (text['Last name'].length >= 3 && text['Last name'].length <= 40)) &&
+                  !!text['First name'] &&
+                  text['First name'].length >= 3 &&
+                  text['First name'].length <= 40 &&
+                  !!text['Last name'] &&
+                  text['Last name'].length >= 3 &&
+                  text['Last name'].length <= 40 &&
                   !!text.confPass &&
                   !!text.newPass &&
                   !!text.email &&
                   !!mobilePrefix &&
                   !!gender &&
                   !!DOB &&
-                  !!phoneNumber
+                  !!phoneNumber &&
+                  !!isVerifyOtp
                 )
               }
               customViewStyle={{
                 backgroundColor:
-                (!!text['First name'] && (text['First name'].length >= 3 && text['First name'].length <= 40)) &&
-                (!!text['Last name'] && (text['Last name'].length >= 3 && text['Last name'].length <= 40)) &&
+                  !!text['First name'] &&
+                  text['First name'].length >= 3 &&
+                  text['First name'].length <= 40 &&
+                  !!text['Last name'] &&
+                  text['Last name'].length >= 3 &&
+                  text['Last name'].length <= 40 &&
                   !!text.confPass &&
                   !!text.newPass &&
                   !!text.email &&
                   !!mobilePrefix &&
                   !!gender &&
                   !!DOB &&
-                  !!phoneNumber
+                  !!phoneNumber &&
+                  !!isVerifyOtp
                     ? Colors.primarycolor
                     : 'grey',
               }}
