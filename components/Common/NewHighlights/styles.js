@@ -19,7 +19,7 @@ export const Styles = StyleSheet.create({
   },
   headingTitle: {
     color: '#4A4A4A',
-    fontSize: 24,
+    fontSize: 22,
     fontFamily: Fonts.PlayfairDisplay700,
   },
   imageContainer: {

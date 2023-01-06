@@ -57,7 +57,7 @@ export default function OfferTab(props) {
             // console.log('splitURL', splitURL);
             return (
               <TouchableOpacity
-                activeOpacity={0.8}
+                activeOpacity={0.9}
                 onPress={() =>
                   props.navigation.navigate('LandingPageSaris_Blouses', {
                     code: splitURL.split('?')[0],

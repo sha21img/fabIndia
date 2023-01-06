@@ -7,11 +7,8 @@ import {
   Dimensions,
 } from 'react-native';
 import React, {useEffect} from 'react';
-// import Carousel from 'react-native-reanimated-carousel';
 import Carousel from 'react-native-snap-carousel';
-import {Styles} from './styles';
 import {getComponentData, imageURL} from '../Helper';
-import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../../assets/Colors';
 
 export default function CommonCarousel1(props) {
@@ -54,7 +51,7 @@ export default function CommonCarousel1(props) {
         onPress={() => {
           props.navigation.navigate('InteriorCatagory');
         }}
-        activeOpacity={0.8}>
+        activeOpacity={0.9}>
         <ImageBackground
           resizeMode="contain"
           key={Math.random() * 1099900}

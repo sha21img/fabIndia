@@ -10,7 +10,7 @@ const NewArrivals = ({ props, menNewArrivals = [], womenNewArrivals = [] }) => {
                 <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#000' }}>New Arrivals in Women</Text>
 
                 <TouchableOpacity
-                    activeOpacity={0.8}
+                    activeOpacity={0.9}
                     onPress={() => {
                         props.navigation.navigate('LandingPageSaris_Blouses', {
                             title: 'new-women-products',
@@ -43,7 +43,7 @@ const NewArrivals = ({ props, menNewArrivals = [], womenNewArrivals = [] }) => {
                 <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#000' }}>New Arrivals in Men</Text>
 
                 <TouchableOpacity
-                    activeOpacity={0.8}
+                    activeOpacity={0.9}
                     onPress={() => {
                         props.navigation.navigate('LandingPageSaris_Blouses', {
                             title: 'new-men-products',

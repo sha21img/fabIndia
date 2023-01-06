@@ -470,7 +470,7 @@ export default function App(props) {
     return (
       <View style={{ marginTop: 250, alignItems: 'center', justifyContent: 'center', }}>
         <Text style={{ fontSize: 16, color: '#000' }}>No Coneected Network</Text>
-        <TouchableOpacity activeOpacity={0.8} onPress={() => getNetInfo()}>
+        <TouchableOpacity activeOpacity={0.9} onPress={() => getNetInfo()}>
           <Text style={{ fontSize: 16, color: Colors.primarycolor, fontWeight: '600' }}>Try to connect</Text>
         </TouchableOpacity>
       </View>

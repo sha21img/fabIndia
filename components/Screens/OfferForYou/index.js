@@ -40,7 +40,7 @@ export default function OfferForYou({
     return (
       <View key={item?.item?._id}>
         <TouchableOpacity
-          activeOpacity={0.8}
+          activeOpacity={0.9}
           style={{ marginRight: 10 }}
           onPress={() => {
             const newCode = item.item.landingPage;
@@ -71,7 +71,7 @@ export default function OfferForYou({
         {offerTabs.map((item) => {
           return (
             <TouchableOpacity
-              activeOpacity={0.8}
+              activeOpacity={0.9}
               onPress={() => {
                 setSelectedTab(item.title)
                 setSelectedCards(item.data)

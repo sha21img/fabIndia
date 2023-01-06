@@ -42,7 +42,7 @@ const Occasion = props => {
     return (
       <View style={{flexDirection: 'column', marginRight: 10}}>
         <TouchableOpacity
-          activeOpacity={0.8}
+          activeOpacity={0.9}
           onPress={() => {
             props.navigation.navigate('LandingPageSaris_Blouses', {
               code: splitURL,

@@ -15,8 +15,10 @@ import Fonts from '../../../assets/fonts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import Entypo from 'react-native-vector-icons/Entypo';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
+import {CommonActions} from '@react-navigation/native';
 import AccordianSubMenu from './AccordianSubMenu';
 import {useNavigation} from '@react-navigation/native';
 import {style} from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
@@ -58,11 +60,11 @@ export default function AccordianMenu(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     if (data.title == 'Gift Cards') {
-      if (getToken.isCheck == true) {
-        navigation.navigate('MyAccount', {screen: 'GiftCard', from: 'Menu'});
-      } else {
-        navigation.navigate('MyAccount', {screen: 'Login_Register'});
-      }
+      // if (getToken.isCheck == true) {
+      //   navigation.navigate('MyAccount', {screen: 'GiftCard', from: 'Menu'});
+      // } else {
+      //   navigation.navigate('MyAccount', {screen: 'Login_Register'});
+      // }
     } else if (data.title == 'FAQs') {
       navigation.navigate('MyAccount', {screen: 'FAQ'});
     } else if (data.title == 'Contact Us') {
@@ -109,7 +111,6 @@ export default function AccordianMenu(props) {
         );
       case 'Shop By Collection':
         return (
-          // <></>
           <MaterialIcons
             name="collections-bookmark"
             size={20}
@@ -124,6 +125,8 @@ export default function AccordianMenu(props) {
             color={Colors.primarycolor}
           />
         );
+      case 'New Arrivals':
+        return <Entypo name="new" size={20} color={Colors.primarycolor} />;
       case 'Sale':
         return (
           <Fontisto

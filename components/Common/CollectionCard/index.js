@@ -53,7 +53,7 @@ const CollectionCard = props => {
                     isAdmin2: isAdmin2,
                   })
               }
-              activeOpacity={0.8}>
+              activeOpacity={0.9}>
               <ImageBackground
                 style={Styles.container}
                 source={{

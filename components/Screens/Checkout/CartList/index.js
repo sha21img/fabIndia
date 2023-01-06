@@ -406,7 +406,7 @@ export default function CartList(props) {
                 </Text>
 
                 <TouchableOpacity
-                  activeOpacity={0.8}
+                  activeOpacity={0.9}
                   onPress={() =>
                     deleteCouponCode(
                       cartdetails?.appliedVouchers[0]?.voucherCode,

@@ -60,6 +60,7 @@ export default function CommonCarousel(props) {
           borderRadius: 5,
           marginHorizontal: -10,
         }}
+        activeOpacity={0.95}
         onCurrentImagePressed={curr => onImagePressed(curr)}
       />
     </View>
