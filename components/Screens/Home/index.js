@@ -125,12 +125,16 @@ export default function Dashbord(props) {
 
   const getNewHomeData = async () => {
     setLoading(true);
-    const response = await axios.get(
-      'http://159.89.164.11:3030/homepage/getForApp',
-    );
-    console.log('oiuytrfghj', response.data.data);
-    setDashboardData(response.data.data);
-    setLoading(false);
+    const response = await axios
+      .get('http://159.89.164.11:3030/homepage/getForApp')
+      .then(response => {
+        console.log('oiuytrfghj', response.data.data);
+        setDashboardData(response.data.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.log('eeeeeeeeeeeeeeee', err);
+      });
   };
 
   const getSections = data => {

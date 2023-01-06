@@ -53,7 +53,7 @@ export const Styles = StyleSheet.create({
   },
   imagestyle: {
     width: 90,
-    height: 40,
+    height: 30,
     marginLeft: 10,
     resizeMode: 'contain',
   },

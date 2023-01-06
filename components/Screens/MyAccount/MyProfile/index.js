@@ -44,6 +44,9 @@ const MyProfile = props => {
     DOB: true,
   });
   const [Otp, setOtp] = useState('');
+  const [date, setDate] = useState('');
+  const [valid, setValid] = useState(false);
+
   const [editUser, setEditUser] = useState({
     first: allProps?.profiledata?.firstName,
     last: allProps?.profiledata?.lastName,
@@ -57,7 +60,14 @@ const MyProfile = props => {
   );
   useEffect(() => {
     setMaskedValue(maskedValue);
-  }, []);
+    const regexddmmyyyy =
+      /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](18|19|20)\d\d$/;
+    if (regexddmmyyyy.test(date)) {
+      setValid(true);
+    } else {
+      setValid(false);
+    }
+  }, [date]);
   console.log(
     'oiuytfdrtfyguioiuytrrty111111111111111111111111111111111',
     moment(new Date()).format('DD-MM-YYYY'),
@@ -499,6 +509,7 @@ const MyProfile = props => {
             style={{fontSize: 16}}
             onChangeText={(text, rawText) => {
               setMaskedValue(text);
+              setDate(text);
               console.log('1234567890', text);
               if (text) {
                 console.log('giigigigigigiigigi');
@@ -541,7 +552,8 @@ const MyProfile = props => {
             allField.lname &&
             allField.email &&
             allField.phone_number &&
-            allField.DOB
+            allField.DOB &&
+            valid
               ? false
               : true
           }
@@ -553,7 +565,8 @@ const MyProfile = props => {
               allField.lname &&
               allField.email &&
               allField.phone_number &&
-              allField.DOB
+              allField.DOB &&
+              valid
                 ? Colors.primarycolor
                 : Colors.textcolor,
           }}
