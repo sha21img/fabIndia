@@ -220,7 +220,6 @@ export const HomeDecorTableData2 = [
 
 export const CollectionWomenData = ['Dupattas', 'Kurtas', 'Saris', 'Lehengas'];
 export const giftCardTabs = ['My Gift Card', 'Add Gift Card', 'Send Gift Card'];
-export const giftCardTabs1 = ['Send Gift Card'];
 
 export const HomePageSection = [
   // 'Section2', //category

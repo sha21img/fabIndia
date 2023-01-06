@@ -6,18 +6,10 @@ import SearchResult from '../Search/SearchResult';
 import Header from '../../Common/Header';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import WomenCategory from '../Home/Catagory/WomenCategory';
-import MenCatagory from '../Home/Catagory/MenCatagory';
-import KidsCatagory from '../Home/Catagory/KidsCatagory';
-import HomeCatagory from '../Home/Catagory/HomeCatagory';
 import HomeDecorCatagory from '../Home/Catagory/HomeDecorCatagory';
-import FurnitureCategory from '../Home/Catagory/FurnitureCategory';
-import FoodCatagory from '../Home/Catagory/FoodCatagory';
 import Collections from '../Collections';
 import CustomizeCatagory from '../Home/Catagory/CustomizeCatagory';
 import MonogramCatagory from '../Home/Catagory/MonogramCatagory';
-import BeautyCategory from '../Home/Catagory/BeautyCategory';
-import GiftingCatagory from '../Home/Catagory/GiftingCatagory';
 import Offers from '../Offers';
 import Fabulous from '../Fabulous';
 import NewArrivals from '../NewArrivals';
@@ -71,20 +63,7 @@ export default function HomeStack() {
         component={Home}
       />
 
-      <Stack.Screen
-        name="Women"
-        component={WomenCategory}
-        options={{
-          headerShown: false,
-
-          // header: props => (
-          //   <HomeHeader
-          //     customViewStyle={{backgroundColor: '#FFFFFF'}}
-          //     {...props}
-          //   />
-          // ),
-        }}
-      />
+      
       <Stack.Screen
         name="AboutUsMenu"
         component={AboutUsMenu}
@@ -103,13 +82,6 @@ export default function HomeStack() {
         }}
       />
 
-      <Stack.Screen
-        name="Furniture"
-        component={FurnitureCategory}
-        options={{
-          headerShown: false,
-        }}
-      />
       <Stack.Screen
         name="SearchResult"
         component={SearchResult}
@@ -161,35 +133,7 @@ export default function HomeStack() {
           ),
         }}
       />
-      <Stack.Screen
-        name="Men"
-        component={MenCatagory}
-        // component={() => <Text>lkjh</Text>}
-        options={{
-          headerShown: false,
 
-          // header: props => (
-          //   <HomeHeader
-          //     customViewStyle={{backgroundColor: '#FFFFFF'}}
-          //     {...props}
-          //   />
-          // ),
-        }}
-      />
-      <Stack.Screen
-        name="Kids"
-        component={KidsCatagory}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Home & Living"
-        component={HomeCatagory}
-        options={{
-          headerShown: false,
-        }}
-      />
       <Stack.Screen
         name="HomeDecorCatagory"
         component={HomeDecorCatagory}
@@ -199,20 +143,7 @@ export default function HomeStack() {
           ),
         }}
       />
-      <Stack.Screen
-        name="Gifting"
-        component={GiftingCatagory}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Food"
-        component={FoodCatagory}
-        options={{
-          headerShown: false,
-        }}
-      />
+
       <Stack.Screen
         name="CustomizeCatagory"
         component={CustomizeCatagory}
@@ -231,13 +162,7 @@ export default function HomeStack() {
           ),
         }}
       />
-      <Stack.Screen
-        name="Personal Care"
-        component={BeautyCategory}
-        options={{
-          headerShown: false,
-        }}
-      />
+      
 
       <Stack.Screen
         name="FestiveCollection"

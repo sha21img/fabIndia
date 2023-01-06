@@ -24,10 +24,12 @@ import {Colors} from '../../../../assets/Colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {BaseURL2, logout} from '../../../Common/Helper';
 import {useDispatch} from 'react-redux';
+import FabFamilyContent from './FabFamilyContent';
 export default function FabFamily(props) {
   const dispatch = useDispatch();
   const [referCode, setReferCode] = React.useState(null);
   const [userDetail, setuserDetail] = React.useState('');
+  const [loyalityPoints, setLoyalityPoints] = React.useState({});
   const screenObj = {
     'About FabFamily': AboutFabFamily,
     Benefits: Benefits,
@@ -68,15 +70,35 @@ export default function FabFamily(props) {
         },
       })
       .then(response => {
-        console.log('responskjhgfghjkl', response.data[0].member_id);
+        console.log('responskjhgfghjkl', response.data);
         setReferCode(response.data[0].member_id);
       })
       .catch(err => {
         console.log('errkoihugyf', err);
       });
   };
+
+  const getLoyalityPoints = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const response = await axios
+      .get(`${BaseURL2}users/current/userLoyaltyPoint?lang=en&curr=INR`, {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+        },
+      })
+      .then(response => {
+        console.log('response for loyality points', response.data);
+        setLoyalityPoints(response.data);
+      })
+      .catch(error => {
+        console.log('erro', error);
+      });
+  };
+  
   useEffect(() => {
     getUserDetail();
+    getLoyalityPoints();
   }, []);
   const dataMap = FabFamilyTabData.map(item => ({
     referCode: referCode,
@@ -111,13 +133,16 @@ export default function FabFamily(props) {
       <Header
         handleClick={handleClick}
         title="FabFamily"
+        right={false}
         customStyle={{
           backgroundColor: '#F8F6F5',
           marginBottom: 4,
         }}
       />
-      <TouchableOpacity>
-        <ImageBackground
+
+      <FabFamilyContent {...props} loyalityPoints={loyalityPoints} />
+
+        {/* <ImageBackground
           resizeMode="cover"
           source={image.fabfamily}
           style={{
@@ -136,8 +161,7 @@ export default function FabFamily(props) {
             style={{position: 'absolute', right: 0, bottom: 0}}
           />
         </ImageBackground>
-      </TouchableOpacity>
-      {!!referCode ? <CommonTopTab data={dataMap} /> : <Text>nhinhinhi</Text>}
+      {!!referCode ? <CommonTopTab data={dataMap} /> : null} */}
     </>
   );
 }

@@ -41,6 +41,14 @@ import LandingPageSaris_Blouses from './components/Screens/LandingPageL2/Landing
 import Tracking from './components/Screens/MyAccount/MyOrder/OrderInProgress/Tracking';
 import TrackingUrl from './components/Screens/MyAccount/MyOrder/OrderInProgress/Tracking';
 import AlreadyMember from './components/Screens/MyAccount/FabFamily/AlreadyMember';
+import WomenCategory from './components/Screens/Home/Catagory/WomenCategory';
+import MenCatagory from './components/Screens/Home/Catagory/MenCatagory';
+import KidsCatagory from './components/Screens/Home/Catagory/KidsCatagory';
+import HomeCatagory from './components/Screens/Home/Catagory/HomeCatagory';
+import FurnitureCategory from './components/Screens/Home/Catagory/FurnitureCategory';
+import GiftingCatagory from './components/Screens/Home/Catagory/GiftingCatagory';
+import BeautyCategory from './components/Screens/Home/Catagory/BeautyCategory';
+import FoodCatagory from './components/Screens/Home/Catagory/FoodCatagory';
 
 const Stack = createNativeStackNavigator();
 
@@ -465,6 +473,64 @@ export default function App(props) {
                 ),
               }}
             />
+
+            <Stack.Screen
+              name="Women"
+              component={WomenCategory}
+              options={{
+                headerShown: false,
+              }}
+            />
+
+            <Stack.Screen
+              name="Men"
+              component={MenCatagory}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Kids"
+              component={KidsCatagory}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Home & Living"
+              component={HomeCatagory}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Gifting"
+              component={GiftingCatagory}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Furniture"
+              component={FurnitureCategory}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Personal Care"
+              component={BeautyCategory}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Food"
+              component={FoodCatagory}
+              options={{
+                headerShown: false,
+              }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
@@ -478,7 +544,7 @@ export default function App(props) {
           justifyContent: 'center',
         }}>
         <Text style={{fontSize: 16, color: '#000'}}>No Coneected Network</Text>
-        <TouchableOpacity activeOpacity={0.8} onPress={() => getNetInfo()}>
+        <TouchableOpacity activeOpacity={0.9} onPress={() => getNetInfo()}>
           <Text
             style={{
               fontSize: 16,

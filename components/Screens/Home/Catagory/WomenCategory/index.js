@@ -89,7 +89,7 @@ const WomenCategory = props => {
           <>
             <TouchableOpacity
               style={{marginTop: 20}}
-              activeOpacity={0.8}
+              activeOpacity={0.9}
               onPress={() =>
                 props.navigation.navigate('LandingPageSaris_Blouses', {
                   code: splitURL.split('?')[0],
@@ -509,7 +509,7 @@ const WomenCategory = props => {
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: '/Dupattas',
+        categoryName: '/Jewellery',
         categoryId: '63aad98915519f83a5972aa6',
       },
       {
@@ -1374,7 +1374,7 @@ const WomenCategory = props => {
             <WomenTab data={filteredComp[0]} {...props} />
             <TouchableOpacity
               style={{marginTop: 20}}
-              activeOpacity={0.8}
+              activeOpacity={0.9}
               onPress={() =>
                 props.navigation.navigate('LandingPageSaris_Blouses', {
                   code: data?.[HomPageSections.TraditionBanner][0].landingPage,

@@ -111,8 +111,7 @@ const MyProfile = props => {
         },
       })
       .then(res => {
-        if (res.status == 200) {
-          console.log('this is a patch sata', res);
+        if (res?.status == 200) {
           Toast.showWithGravity(
             'Profile updated successfully',
             Toast.LONG,
@@ -122,9 +121,8 @@ const MyProfile = props => {
         }
       })
       .catch(errors => {
-        console.log('errors', errors.response.data);
-        Toast.show(errors.response.data.errors[0].message, Toast.LONG);
-        if (errors.response.status == 401) {
+        Toast.show(errors?.response?.data?.errors[0]?.message, Toast.LONG);
+        if (errors?.response?.status == 401) {
           logout(dispatch);
         }
       });
@@ -232,6 +230,7 @@ const MyProfile = props => {
   return (
     <>
       <ScrollView
+        keyboardShouldPersistTaps="handled"
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicato={false}>
         <InputText
@@ -423,7 +422,7 @@ const MyProfile = props => {
         <View style={styles.chooseContainer}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity
-              activeOpacity={0.8}
+              activeOpacity={0.9}
               onPress={() => {
                 if (gender == 'MALE') {
                   SetGender('');
@@ -447,7 +446,7 @@ const MyProfile = props => {
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity
-              activeOpacity={0.8}
+              activeOpacity={0.9}
               onPress={() => {
                 if (gender == 'FEMALE') {
                   SetGender('');
@@ -529,7 +528,7 @@ const MyProfile = props => {
           />
         </View>
         <TouchableOpacity
-          activeOpacity={0.8}
+          activeOpacity={0.9}
           style={{alignItems: 'center', paddingVertical: 20}}
           onPress={() => {
             props.navigation.navigate('ChangePassword');

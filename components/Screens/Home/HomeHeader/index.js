@@ -236,7 +236,7 @@ export default function HomeHeader(props) {
             <View></View>
           ) : (
             <TouchableOpacity
-              activeOpacity={0.8}
+              activeOpacity={0.9}
               style={Styles.locationContainer}
               onPress={() => {
                 shareAll();

@@ -27,9 +27,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Toast from 'react-native-simple-toast';
 import moment from 'moment';
-import {
-  GoogleSignin,
-} from '@react-native-google-signin/google-signin';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useDispatch} from 'react-redux';
 import NumberCheck from '../../Common/NumberCheck';
 import {
@@ -148,8 +146,7 @@ const Register = props => {
   };
   const handleConfirm = date => {
     // console.log('datePicked==>', date, moment(date).format('DD/MM/YYYY'));
-    if (date)
-      setDOB(moment(date).format('DD/MM/YYYY'));
+    if (date) setDOB(moment(date).format('DD/MM/YYYY'));
     hideDatePicker();
   };
   const GenerateOtp = async () => {
@@ -424,6 +421,7 @@ const Register = props => {
         <>
           <ScrollView
             contentContainerStyle={Styles.mainView}
+            keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}>
             <View style={Styles.secondDiv}>
               <Text style={Styles.contacttxt}>Welcome to FabIndia!</Text>
@@ -436,14 +434,15 @@ const Register = props => {
                   value={text[faq.name]}
                   maxLength={40}
                   onChangeText={text => {
-           
-                      setText(prev => {
-                        return {...prev, [faq.name]: text.replace(
+                    setText(prev => {
+                      return {
+                        ...prev,
+                        [faq.name]: text.replace(
                           /[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
                           '',
-                        ),};
-                      });
-                    
+                        ),
+                      };
+                    });
                   }}
                 />
               ))}
@@ -615,8 +614,8 @@ const Register = props => {
                         backgroundColor:
                           gender == 'MALE' ? Colors.primarycolor : 'white',
                       }}></TouchableOpacity>
-                   <TouchableOpacity
-                      activeOpacity={0.8}
+                    <TouchableOpacity
+                      activeOpacity={0.9}
                       onPress={() => {
                         if (gender == 'MALE') {
                           SetGender('');
@@ -651,8 +650,8 @@ const Register = props => {
                         backgroundColor:
                           gender == 'FEMALE' ? Colors.primarycolor : 'white',
                       }}></TouchableOpacity>
-                   <TouchableOpacity
-                      activeOpacity={0.8}
+                    <TouchableOpacity
+                      activeOpacity={0.9}
                       onPress={() => {
                         if (gender == 'FEMALE') {
                           SetGender('');
@@ -772,8 +771,12 @@ const Register = props => {
               txt="Register"
               disable={
                 !(
-                  (!!text['First name'] && (text['First name'].length >= 3 && text['First name'].length <= 40)) &&
-                  (!!text['Last name'] && (text['Last name'].length >= 3 && text['Last name'].length <= 40)) &&
+                  !!text['First name'] &&
+                  text['First name'].length >= 3 &&
+                  text['First name'].length <= 40 &&
+                  !!text['Last name'] &&
+                  text['Last name'].length >= 3 &&
+                  text['Last name'].length <= 40 &&
                   !!text.confPass &&
                   !!text.newPass &&
                   !!text.email &&
@@ -785,8 +788,12 @@ const Register = props => {
               }
               customViewStyle={{
                 backgroundColor:
-                (!!text['First name'] && (text['First name'].length >= 3 && text['First name'].length <= 40)) &&
-                (!!text['Last name'] && (text['Last name'].length >= 3 && text['Last name'].length <= 40)) &&
+                  !!text['First name'] &&
+                  text['First name'].length >= 3 &&
+                  text['First name'].length <= 40 &&
+                  !!text['Last name'] &&
+                  text['Last name'].length >= 3 &&
+                  text['Last name'].length <= 40 &&
                   !!text.confPass &&
                   !!text.newPass &&
                   !!text.email &&

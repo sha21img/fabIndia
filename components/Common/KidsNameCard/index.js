@@ -3,7 +3,7 @@ import React from 'react';
 import {image} from '../../../assets/images';
 import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
-import {imageURL, imageURL2} from '../Helper';
+import {imageURL} from '../Helper';
 
 export default function KidsNameCard(props) {
   const {item, height, width} = props;
@@ -12,7 +12,7 @@ export default function KidsNameCard(props) {
   console.log('newSplitIdaa', newSplitId);
   return (
     <TouchableOpacity
-      activeOpacity={0.8}
+      activeOpacity={0.9}
       onPress={() =>
         props.navigation.navigate('LandingPageSaris_Blouses', {
           status: false,
@@ -21,7 +21,7 @@ export default function KidsNameCard(props) {
         })
       }>
       <Image
-        source={{uri: imageURL2 + item.media.url}}
+        source={{uri: imageURL + item.media.url}}
         style={{
           width: height,
           height: width,
@@ -31,7 +31,7 @@ export default function KidsNameCard(props) {
     /* <ImageBackground
       key={Math.random() * 777266}
       resizeMode="cover"
-      source={{uri: imageURL2 + item.media.url}}
+      source={{uri: imageURL + item.media.url}}
       style={{
         width: height,
         height: width,
