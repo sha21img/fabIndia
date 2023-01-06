@@ -16,7 +16,7 @@ import InputText from '../../../../Common/InputText';
 import {Styles} from './styles';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {BaseURL2, imageURL2, logout} from '../../../../Common/Helper';
+import {BaseURL2, imageURL, logout} from '../../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 
 function SendGiftCard(props) {
@@ -203,7 +203,7 @@ function SendGiftCard(props) {
                     <Image
                       resizeMode="stretch"
                       source={{
-                        uri: `${imageURL2}${item?.images[0]?.url}`,
+                        uri: `${imageURL}${item?.images[0]?.url}`,
                       }}
                       style={{
                         width: 200,
