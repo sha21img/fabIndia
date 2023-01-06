@@ -26,7 +26,7 @@ export default function NewHighlights(props) {
             isAdmin2: 'isAdmin2',
           })
         }
-        activeOpacity={0.8}
+        activeOpacity={0.9}
         key={item?.item?._id}
         style={Styles.imageBox}>
         <FastImage

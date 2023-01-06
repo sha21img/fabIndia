@@ -193,7 +193,7 @@ function SendGiftCard(props) {
             {giftCardDesigns.map(item => {
               return (
                 <TouchableOpacity
-                  activeOpacity={0.8}
+                  activeOpacity={0.9}
                   onPress={() => setProductDesignCode(item.code)}>
                   <View style={{marginHorizontal: 8}}>
                     <Image
@@ -235,7 +235,7 @@ function SendGiftCard(props) {
                   <TouchableOpacity
                     disabled={userDetail?.amount > 0}
                     key={Math.random()}
-                    activeOpacity={0.8}
+                    activeOpacity={0.9}
                     onPress={() => {
                       setProductAmountCode(item.code);
                       setCardAmount(item.price.formattedValue);

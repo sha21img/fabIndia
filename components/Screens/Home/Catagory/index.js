@@ -17,7 +17,7 @@ export default function Catagory({ data }) {
     return (
       <View key={item?.item?._id} style={Styles.mainContainer}>
         <TouchableOpacity
-          activeOpacity={0.8}
+          activeOpacity={0.9}
           onPress={() =>
             navigation.navigate(item.item.title, { title: item.item.title })
           }>

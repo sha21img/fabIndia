@@ -52,25 +52,6 @@ const NewAccordian = props => {
     outputRange: ['0deg', '180deg'],
   });
 
-  const goToProductList = async () => {
-    console.log('23]4[]2349234092340]2394]0923]04923]923]][4[[]][[]][');
-    const fields =
-      'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
-
-    // https://apisap.fabindia.com/occ/v2/fabindiab2c/products/search?fields=products
-    // (code%2Cname%2Csummary%2CoptionId%2Cconfigurable%2CconfiguratorType%2Cmultidimensional%2Cprice(FULL)%2Cimages(DEFAULT)%2Cstock(FULL)%2CaverageRating%2CvariantOptions(FULL)%2CvariantMatrix%2CsizeChart%2Curl%2CtotalDiscount(formattedValue%2CDEFAULT)%2CpriceAfterDiscount(formattedValue%2CDEFAULT)%2CvariantProductOptions(FULL)%2CnewArrival%2Csale%2CtagName)%2Cfacets%2Cbreadcrumbs%2CbreadcrumbCategories(code%2Cname%2Curl)%2Cpagination(DEFAULT)%2Csorts(DEFAULT)%2CfreeTextSearch%2CcurrentQuery
-    // &query=%3Arelevance%3AallCategories%3Ainfant-boys-kurtas&pageSize=9&lang=en&curr=INR
-
-    response = await axios.get(
-      `${BaseURL2}/products/search?fields=${fields}
-      &query=:relevance:allCategories:infant-boys-kurtas
-      &pageSize=9&lang=en&curr=INR`,
-    );
-    console.log(
-      'response sad[]][][fds][dsf[]df][sdffsd][dfs[]dfs][fd][-=',
-      response.data,
-    );
-  };
   const navigations = name => {
     console.log('adsfasdfasdf start', name);
     let splitURL = name.split('/');
@@ -85,6 +66,7 @@ const NewAccordian = props => {
   return (
     <View key={Math.random() * 1099900} style={Styles.accordbox}>
       <TouchableOpacity
+        activeOpacity={0.9}
         onPress={() =>
           newData.children.length > 0
             ? toggleListItem()
@@ -116,6 +98,7 @@ const NewAccordian = props => {
             console.log('this is last list console454545', item);
             return (
               <TouchableOpacity
+                activeOpacity={0.9}
                 style={Styles.listBox}
                 onPress={() => navigations(item.landingPage)}>
                 <Text>{item.title}</Text>

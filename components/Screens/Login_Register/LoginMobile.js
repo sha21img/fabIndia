@@ -64,7 +64,9 @@ export default function LoginMobile(props) {
   }, []);
   return (
     <>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled">
         <Text style={styles.heading}>Log in with mobile number</Text>
         <View style={styles.pickerbox}>
           <CountryPicker

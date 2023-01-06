@@ -1376,7 +1376,7 @@ const DrawerContent = () => {
         {
           children: [],
           title: 'Wedding',
-          landingPage: 'Collections',
+          landingPage: '/wedding',
         },
         {
           children: [],
@@ -1386,7 +1386,7 @@ const DrawerContent = () => {
         {
           children: [],
           title: 'Festive',
-          landingPage: 'FestiveCollection',
+          landingPage: '/festive',
         },
         {
           children: [],
@@ -1436,6 +1436,53 @@ const DrawerContent = () => {
         {
           children: [],
           title: 'Women',
+          landingPage: '/shop/new-women-products',
+        },
+        {
+          children: [],
+          title: 'Men',
+          landingPage: '/shop/new-men-products',
+        },
+        {
+          children: [],
+          title: 'Kids',
+          landingPage: '/shop/new-kids-products',
+        },
+        {
+          children: [],
+          title: 'Home & Living',
+          landingPage: '/shop/new-home-living',
+        },
+        {
+          children: [],
+          title: 'Furniture',
+          landingPage: '/shop/new-furniture',
+        },
+        {
+          children: [],
+          title: 'Personal Care',
+          landingPage: '/shop/new-personal-care',
+        },
+        {
+          children: [],
+          title: 'Food',
+          landingPage: '/shop/new-food',
+        },
+      ],
+      title: 'New Arrivals',
+      image:
+        'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
+    },
+    {
+      children: [
+        {
+          children: [],
+          title: 'All in Sale',
+          landingPage: '/shop/sale',
+        },
+        {
+          children: [],
+          title: 'Women',
           landingPage: '/shop/sale-women-products',
         },
         {
@@ -1468,11 +1515,11 @@ const DrawerContent = () => {
     },
     {
       children: [
-        {
-          children: [],
-          title: 'Custom Kurtas',
-          landingPage: '/custom-kurta',
-        },
+        // {
+        //   children: [],
+        //   title: 'Custom Kurtas',
+        //   landingPage: '/custom-kurta',
+        // },
         {
           children: [],
           title: 'Interior Design Studio',

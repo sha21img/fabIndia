@@ -87,7 +87,7 @@ export default function HomeCatagory(props) {
         splitURL = splitURL[splitURL.length - 1];
         return (
           <TouchableOpacity
-            activeOpacity={0.8}
+            activeOpacity={0.9}
             style={{marginTop: 20}}
             onPress={() =>
               props.navigation.navigate('LandingPageSaris_Blouses', {
@@ -1019,7 +1019,7 @@ export default function HomeCatagory(props) {
             <WomenTab data={filteredComp[0]} {...props} />
             <TouchableOpacity
               style={{marginTop: 20}}
-              activeOpacity={0.8}
+              activeOpacity={0.9}
               onPress={() =>
                 props.navigation.navigate('LandingPageSaris_Blouses', {
                   code: data?.[HomPageSections.CelebrationBanner][0]
@@ -1038,7 +1038,7 @@ export default function HomeCatagory(props) {
             </TouchableOpacity>
             <TouchableOpacity
               style={{marginTop: 20}}
-              activeOpacity={0.8}
+              activeOpacity={0.9}
               onPress={() =>
                 props.navigation.navigate('LandingPageSaris_Blouses', {
                   code: data?.[HomPageSections.ComfortBanner][0].landingPage,

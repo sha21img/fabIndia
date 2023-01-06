@@ -48,7 +48,7 @@ export default function SingleBanner(props) {
   return (
     <>
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={0.9}
         style={[defaultStyle, customStyle]}
         onPress={() => {
           // const newCode = bannerData.urlLink;

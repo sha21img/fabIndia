@@ -89,7 +89,7 @@ const WomenCategory = props => {
           <>
             <TouchableOpacity
               style={{marginTop: 20}}
-              activeOpacity={0.8}
+              activeOpacity={0.9}
               onPress={() =>
                 props.navigation.navigate('LandingPageSaris_Blouses', {
                   code: splitURL.split('?')[0],
@@ -1374,7 +1374,7 @@ const WomenCategory = props => {
             <WomenTab data={filteredComp[0]} {...props} />
             <TouchableOpacity
               style={{marginTop: 20}}
-              activeOpacity={0.8}
+              activeOpacity={0.9}
               onPress={() =>
                 props.navigation.navigate('LandingPageSaris_Blouses', {
                   code: data?.[HomPageSections.TraditionBanner][0].landingPage,

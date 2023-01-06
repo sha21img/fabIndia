@@ -146,7 +146,7 @@ export default function WomenTab(props) {
             return (
               <TouchableOpacity
                 key={item.uuid}
-                activeOpacity={0.8}
+                activeOpacity={0.9}
                 onPress={() => {
                   setSelectedTab(item.title);
                   getproductData(item?.productCodes?.split(' '));

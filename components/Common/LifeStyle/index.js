@@ -35,7 +35,7 @@ export default function LifeStyle(props) {
     console.log('dfg', item.image);
     return (
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={0.9}
         onPress={() =>
           props.navigation.navigate('LandingPageSaris_Blouses', {
             code: newCode,

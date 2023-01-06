@@ -256,7 +256,7 @@ export default function ProductDetailed(props) {
             Toast.LONG,
             Toast.TOP,
           );
-          if (errors.response.status == 401) {
+          if (errors?.response?.status == 401) {
             logout(dispatch);
           }
         });
@@ -290,7 +290,7 @@ export default function ProductDetailed(props) {
       })
       .catch(errors => {
         console.log('111111111111111', errors);
-        if (errors.response.status == 401) {
+        if (errors?.response?.status == 401) {
           logout(dispatch);
         }
       });
@@ -342,7 +342,7 @@ export default function ProductDetailed(props) {
       })
       .catch(error => {
         console.log('error for get wihslist detail', error);
-        if (error.response.status == 401) {
+        if (error?.response?.status == 401) {
           logout(dispatch);
         }
       });
@@ -374,7 +374,7 @@ export default function ProductDetailed(props) {
           })
           .catch(error => {
             console.log('error for remove000 wishlist', error);
-            if (error.response.status == 401) {
+            if (error?.response?.status == 401) {
               logout(dispatch);
             }
           });
@@ -394,7 +394,7 @@ export default function ProductDetailed(props) {
           })
           .catch(error => {
             console.log('error for add wishlist', error);
-            if (error.response.status == 401) {
+            if (error?.response?.status == 401) {
               logout(dispatch);
             }
           });
@@ -465,7 +465,7 @@ export default function ProductDetailed(props) {
             {StoreDetails.map(item => {
               return (
                 <TouchableOpacity
-                  activeOpacity={0.8}
+                  activeOpacity={0.9}
                   onPress={() => setSelectedTab(item)}
                   style={{
                     marginLeft: 10,
@@ -524,12 +524,8 @@ export default function ProductDetailed(props) {
         </ScrollView>
       )}
 
-      <View style={{ position: 'absolute', top: 0, width: '100%' }}>
-        <HomeHeader
-          {...props}
-          searchVisible={false}
-          isTransparent={true}
-        />
+      <View style={{position: 'absolute', top: 0, width: '100%'}}>
+        <HomeHeader {...props} searchVisible={false} isTransparent={true} />
       </View>
 
       <Footer

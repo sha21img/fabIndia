@@ -38,7 +38,7 @@ export default function Card4(props) {
             imageUrlCheck: items,
           })
         }
-        activeOpacity={0.8}>
+        activeOpacity={0.9}>
         <Image
           source={{
             uri: `https://apisap.fabindia.com${items?.images[0]?.url}`,

@@ -5,12 +5,12 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
-  TextInput,
   ScrollView,
   Linking,
   TextInput as Tp,
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
+import {TextInput} from 'react-native-paper';
 import React, {useState, useEffect} from 'react';
 import CountryPicker from 'rn-country-picker';
 import InputText from '../../Common/InputText';
@@ -517,7 +517,9 @@ export default function Login(props) {
           checkFrom={from}
         />
       ) : (
-        <ScrollView style={styles.container}>
+        <ScrollView
+          style={styles.container}
+          keyboardShouldPersistTaps="handled">
           {generateOtp ? (
             <View style={{marginVertical: 10}}>
               <Text
@@ -704,16 +706,23 @@ export default function Login(props) {
                     right={
                       <TextInput.Icon
                         name={() => (
-                          <Feather
-                            name="eye-off"
-                            color={
-                              hideOldPass
-                                ? Colors.primarycolor
-                                : Colors.textcolor
-                            }
-                            size={20}
+                          <TouchableOpacity
                             onPress={toggleOldHide}
-                          />
+                            style={{
+                              padding: 10,
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                            }}>
+                            <Feather
+                              name="eye-off"
+                              color={
+                                hideOldPass
+                                  ? Colors.primarycolor
+                                  : Colors.textcolor
+                              }
+                              size={16}
+                            />
+                          </TouchableOpacity>
                         )}
                       />
                     }
@@ -721,7 +730,9 @@ export default function Login(props) {
                   <TouchableOpacity
                     style={styles.readText}
                     onPress={() => {
-                      Linking.openURL('https://www.fabindiahome.com/login/forgot-password')
+                      Linking.openURL(
+                        'https://www.fabindiahome.com/login/forgot-password',
+                      );
                     }}>
                     <Text style={styles.forgetText}>Forgot password?</Text>
                   </TouchableOpacity>

@@ -12,7 +12,6 @@ export default function TopSwiper(props) {
   const getCarauselIds = async () => {
     let images = [];
     for (let i = 0; i < data.length; i++) {
-      console.log('item?.image', data[0]);
       // console.log(
       //   'isSap ? item?.image : item?.i',
       //   isSap ? item?.image : item?.image.split('?')[0],
@@ -60,13 +59,14 @@ export default function TopSwiper(props) {
     <View style={{marginBottom: 20, height: 250}}>
       <SliderBox
         onCurrentImagePressed={curr => onCurrentImagePressed(curr)}
-        // circleLoop={true}
         sliderBoxHeight={250}
         images={carouselData}
+        activeOpacity={0.95}
         ImageComponent={FastImage}
+        autoplay={true}
+        circleLoop={true}
         inactiveDotColor="#90A4AE"
         dotColor={Colors.primarycolor}
-        // resizeMode={"contain"}
         ImageComponentStyle={{width: '100%', height: '100%'}}
         pagingEnabled={Platform.select({android: true})}
         dotStyle={{

@@ -16,8 +16,10 @@ import Fonts from '../../../assets/fonts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import Entypo from 'react-native-vector-icons/Entypo';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
+import {CommonActions} from '@react-navigation/native';
 import AccordianSubMenu from './AccordianSubMenu';
 import {useNavigation} from '@react-navigation/native';
 import {style} from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
@@ -115,7 +117,6 @@ export default function AccordianMenu(props) {
         );
       case 'Shop By Collection':
         return (
-          // <></>
           <MaterialIcons
             name="collections-bookmark"
             size={20}
@@ -130,6 +131,8 @@ export default function AccordianMenu(props) {
             color={Colors.primarycolor}
           />
         );
+      case 'New Arrivals':
+        return <Entypo name="new" size={20} color={Colors.primarycolor} />;
       case 'Sale':
         return (
           <Fontisto

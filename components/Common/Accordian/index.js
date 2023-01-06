@@ -52,6 +52,7 @@ const Accordian = props => {
     <>
       <View key={Math.random() * 1099900} style={Styles.accordbox}>
         <TouchableOpacity
+          activeOpacity={0.9}
           onPress={() => {
             data.children.length > 0 ? toggleListItem() : null;
           }}>
