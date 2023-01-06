@@ -29,6 +29,7 @@ export default function FabFamily(props) {
   const dispatch = useDispatch();
   const [referCode, setReferCode] = React.useState(null);
   const [userDetail, setuserDetail] = React.useState('');
+  const [loyalityPoints, setLoyalityPoints] = React.useState({});
   const screenObj = {
     'About FabFamily': AboutFabFamily,
     Benefits: Benefits,
@@ -76,8 +77,28 @@ export default function FabFamily(props) {
         console.log('errkoihugyf', err);
       });
   };
+
+  const getLoyalityPoints = async () => {
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    const response = await axios
+      .get(`${BaseURL2}users/current/userLoyaltyPoint?lang=en&curr=INR`, {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+        },
+      })
+      .then(response => {
+        console.log('response for loyality points', response.data);
+        setLoyalityPoints(response.data);
+      })
+      .catch(error => {
+        console.log('erro', error);
+      });
+  };
+  
   useEffect(() => {
     getUserDetail();
+    getLoyalityPoints();
   }, []);
   const dataMap = FabFamilyTabData.map(item => ({
     referCode: referCode,
@@ -119,7 +140,7 @@ export default function FabFamily(props) {
         }}
       />
 
-      <FabFamilyContent {...props} />
+      <FabFamilyContent {...props} loyalityPoints={loyalityPoints} />
 
         {/* <ImageBackground
           resizeMode="cover"

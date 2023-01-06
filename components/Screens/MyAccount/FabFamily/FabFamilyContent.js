@@ -11,6 +11,7 @@ import Fonts from '../../../../assets/fonts';
 import { Colors } from '../../../../assets/Colors';
 
 function FabFamilyContent(props) {
+    const { loyalityPoints } = props
     return (
         <ScrollView contentContainerStyle={Styles.container}>
             <View style={Styles.mainView}>
@@ -20,7 +21,7 @@ function FabFamilyContent(props) {
                 <Text style={Styles.textStyle}>You currently have{' '}
                     <Text style={Styles.linkText} onPress={() => {
                         Linking.openURL('https://fabfamilly.loyaltycloud1.com/')
-                    }}>0 Fabcoins</Text>
+                    }}>{loyalityPoints.availablePoints} Fabcoins</Text>
                     {'\n'}Redeem these points against your order value during checkout.
                 </Text>
 
