@@ -10,7 +10,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState,useRef } from 'react';
 import Fonts from '../../../assets/fonts';
 import Details from './Details';
 import CloseIcon from 'react-native-vector-icons/Ionicons';
@@ -30,6 +30,7 @@ import Card4 from '../../Common/Card4';
 import FastImage from 'react-native-fast-image';
 import RenderHtml from 'react-native-render-html';
 import HomeHeader from '../Home/HomeHeader';
+import LoadingComponent from '../../Common/LoadingComponent';
 
 export default function ProductDetailed(props) {
   const {productId, imageUrlCheck} = props?.route?.params;
@@ -47,14 +48,23 @@ export default function ProductDetailed(props) {
   const [commonproduct, setCommonproduct] = useState([]);
   const [stockcheck, Setstockcheck] = useState(null);
   const [wishlistproductCode, setWishlistproductCode] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
   const [selectedTab, setSelectedTab] = useState('Description');
-
+  const scrollRef = useRef();
   useEffect(() => {
     setProductID(productId);
   }, []);
 
+  const onPressTouch = () => {
+    // console.log("asdfghjk''''''''''''''''''''''''''''''''''''",scrollRef.current)
+    scrollRef.current?.scrollTo({
+      y: 500,
+      animated: true,
+    });
+  }
   const getproductDetailedData = async () => {
     const value = await AsyncStorage.getItem('cartID');
     setCartID(value);
@@ -91,6 +101,7 @@ export default function ProductDetailed(props) {
     }
     setProductImage(images);
     setZoomImage(zoomImage);
+    setIsLoading(false)
   };
 
   const bestSellers = async () => {
@@ -120,7 +131,7 @@ export default function ProductDetailed(props) {
                 style={{
                   paddingVertical: 10,
                   borderTopWidth: 1,
-                  borderTopColor: 'grey',
+                  borderTopColor: 'lightgrey',
                   flexDirection: 'row',
                   backgroundColor: '#FFFFFF',
                   // marginVertical: 10,
@@ -130,7 +141,7 @@ export default function ProductDetailed(props) {
                     ] == item
                       ? 1
                       : null,
-                  borderBottomColor: 'grey',
+                  borderBottomColor: 'lightgrey',
                 }}>
                 <Text style={{width: '40%'}}>{item.name}</Text>
                 <Text style={{width: '60%'}}>
@@ -218,7 +229,7 @@ export default function ProductDetailed(props) {
   };
   const AddtoCart = async () => {
     console.log(
-      'asdfasdfasdfasdfasdfasdfasdfthyhyyuuyuyuyuyyuyuyu',
+      'asdfa////////////////////////////////////////////////thyhyyuuyuyuyuyyuyuyu',
       productID,
       showAdd,
     );
@@ -261,9 +272,8 @@ export default function ProductDetailed(props) {
           }
         });
     } else {
-      Toast.showWithGravity('Please Select Your Size', Toast.LONG, Toast.TOP);
-
-      setSelectText(true);
+      onPressTouch()
+setSelectText(true);
     }
   };
   const getCartDetials1 = async () => {
@@ -400,7 +410,7 @@ export default function ProductDetailed(props) {
           });
       }
     } else {
-      Toast.showWithGravity('Please Select Your Size', Toast.LONG, Toast.TOP);
+      onPressTouch()
 
       setSelectText(true);
     }
@@ -418,6 +428,8 @@ export default function ProductDetailed(props) {
     <>
       {productdetail && (
         <ScrollView
+        keyboardShouldPersistTaps="handled"
+        ref={scrollRef}
           contentContainerStyle={{flexGrow: 1, backgroundColor: 'white'}}>
           <View
             style={{
@@ -456,8 +468,10 @@ export default function ProductDetailed(props) {
               getColorProductId={getColorProductId}
               getImageData={getImageData}
               sendCount={sendCount}
+              setShowAdd={setShowAdd}
               SelectText={SelectText}
               setSelectText={setSelectText}
+              setShowcartbutton={setShowcartbutton}
             />
           )}
 
@@ -495,7 +509,8 @@ export default function ProductDetailed(props) {
           ) : selectedTab == 'Specifications' ? (
             <SpecificationsData />
           ) : (
-            <AdditionalData />
+            null
+            // <AdditionalData />
           )}
 
           {/* <View style={{paddingHorizontal: 5}}>
@@ -505,7 +520,7 @@ export default function ProductDetailed(props) {
             <Text
               style={{
                 paddingBottom: 10,
-                fontFamily: Fonts.PlayfairDisplay900Italic,
+                fontFamily: Fonts.PlayfairDisplay700Italic,
                 fontSize: 20,
               }}>
               More in {commonproduct?.categoryData?.name}{' '}
@@ -542,6 +557,7 @@ export default function ProductDetailed(props) {
         showcartbutton={showcartbutton}
         setShowcartbutton={setShowcartbutton}
       />
+        {isLoading ? <LoadingComponent /> : null}
 
       <Modal
         animationType="slide"

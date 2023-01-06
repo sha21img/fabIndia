@@ -22,6 +22,7 @@ export default function Details({customStyle, productdetail}) {
   // console.log('discountPrice'.discountPrice);
   openCompare = () => setModalVisible(true);
 
+  console.log(" productdetail?.price?.value productdetail?.price?.value",  productdetail)
   return (
     <View style={[Styles.cardDetailContainer, customStyle]}>
       <Text style={Styles.singleproducttitle}>{productdetail.name}</Text>
@@ -60,10 +61,17 @@ export default function Details({customStyle, productdetail}) {
           }}>
           M.R.P{' '}
         </Text>
-        <Text style={Styles.priceofftxt}>
+        {
+         productdetail?.totalDiscount?.value?
+          <>
+          <Text style={Styles.priceofftxt}>
           {productdetail?.price?.formattedValue}
         </Text>
-        <Text style={Styles.offertxt}>{discountPrice?.toFixed(0)}% off</Text>
+        <Text style={Styles.offertxt}>{productdetail?.price?.value ? discountPrice?.toFixed(0) : 0}% off</Text>
+        </>
+        : null
+        }
+        
       </View>
       <Text style={{fontFamily:Fonts.Assistant400}}>(Incl. of all taxes) </Text>
       {

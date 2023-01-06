@@ -200,6 +200,9 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 15,
     paddingVertical: 12,
+    borderTopWidth:0.8,
+    borderTopColor:'lightgrey',
+
   },
   mainContainer: {
     width: '100%',
@@ -221,7 +224,7 @@ const Styles = StyleSheet.create({
     // padding: 7,
     // justifyContent: 'center',
     // alignItems: 'center',
-    padding: 12,
+    padding: 9,
     width: '48%',
     borderRadius: 50,
     justifyContent: 'center',
@@ -232,7 +235,7 @@ const Styles = StyleSheet.create({
     borderColor: Colors.primarycolor,
   },
   cartBox: {
-    padding: 12,
+    padding: 10,
     width: '48%',
     borderRadius: 50,
     justifyContent: 'center',

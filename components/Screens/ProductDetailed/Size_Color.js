@@ -27,6 +27,7 @@ export default function Size_Color({
   imageUrlCheck,
   SelectText,
   setSelectText,
+  setShowcartbutton,
   getColorProductId = null,
   getImageData = null,
 }) {
@@ -116,10 +117,10 @@ export default function Size_Color({
   };
 
   const StockSubmit = item => {
-    // console.log(
-    //   'itemmmmmmmashishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
-    //   item,
-    // );
+    console.log(
+      'itemmmmmmmashishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
+      item,
+    );
     let sum = 0;
     item.color.map(el => {
       sum = sum + el.stock;
@@ -133,16 +134,26 @@ export default function Size_Color({
     } else {
       setCount(1);
     }
-    let a = {
-      productCode: item?.productCode,
-      stock: item.color.filter(el => el.productCode == item.productCode)[0]
-        .stock,
-      color: item.color.filter(el => el.productCode == item.productCode)[0]
-        .colorCode,
-    };
-    setColor(a);
-    getColorProductId(item.productCode);
-    getImageData(item.productCode);
+    // let a = {
+    //   productCode: item?.productCode,
+      // stock: item.color.filter(el => el.productCode == item.productCode)[0]
+      //   .stock,
+    //   color: item.color.filter(el => el.productCode == item.productCode)[0]
+    //     .colorCode,
+    // };
+
+    
+    let code = ''
+    
+    item.color.map(el=>{
+      if(el.colorCode == color.color || el.colorCode == color.colorCode){
+        code = el.productCode
+      }
+    })
+    console.log()
+    setColor(prev => ({...prev, ['productCode']:code,['stock']:item.color.filter(el => el.productCode == item.productCode)[0].stock}));
+    getColorProductId(code);
+    getImageData(code);
     setSelectText(false);
     setfinalData(item);
   };
@@ -161,6 +172,7 @@ export default function Size_Color({
     }
     sendCount(countData);
     setCount(countData);
+    setShowcartbutton(false)
   };
   const checkPin = async () => {
     if (pinCode != null) {
@@ -175,26 +187,27 @@ export default function Size_Color({
       setPinStatus(response.data?.status);
     }
   };
-
+  console.log('.....................', color);
   return (
     <View style={[Styles.container, customStyle]}>
       <View style={Styles.ColorBox}>
-        <Text style={Styles.ColorTxt}>Colour</Text>
+        <Text style={Styles.ColorTxt}>COLOR</Text>
         <View style={Styles.colorContainer}>
           {finalData?.color?.map(item => {
-            // console.log(
-            //   'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck8--------------8888',
-            //   item,
-            // );
+            console.log(
+              'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck8--------------8888',
+              item,
+            );
             return (
               <TouchableOpacity
                 onPress={async () => {
                   setColor(item);
                   getColorProductId(item.productCode, item.stock);
                   getImageData(item.productCode);
+                  setShowcartbutton(false);
                 }}
                 style={
-                  item.productCode == color?.productCode ||
+                  item.colorCode == color?.colorCode ||
                   color.color == item.colorCode
                     ? Styles.colorOutlineActive
                     : Styles.colorOutlineInActive
@@ -214,7 +227,7 @@ export default function Size_Color({
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: 15,
+          marginBottom: 5,
           width: '70%',
         }}>
         <Text style={Styles.sizeTxt}>SELECT SIZE</Text>
@@ -259,27 +272,36 @@ export default function Size_Color({
         })}
       </ScrollView>
       {Stock < 6 ? (
-        <Text style={Styles.leftTxt}>
-          {Stock < 6
-            ? size.length || Object.keys(size).length
-              ? ` Only ${Stock}  Left`
-              : ''
-            : null}
+        size.length || Object.keys(size).length ? (
+          <Text style={{marginHorizontal: 15}}>{` Only ${Stock}  Left`}</Text>
+        ) : (
+          ''
+        )
+      ) : null}
+
+      {SelectText ? (
+        <Text
+          style={{
+            color: '#db0002',
+            fontFamily: Fonts.Assistant400,
+            fontSize: 16,
+            paddingHorizontal: 15,
+          }}>
+          Please select size
         </Text>
       ) : null}
 
-      <Text
-        style={{
-          color: '#db0002',
-          fontFamily: Fonts.Assistant400,
-          fontSize: 16,
-          paddingHorizontal: 15,
-        }}>
-        {SelectText ? 'Please select size' : null}
-      </Text>
-
-      <View style={{marginVertical: 15, marginHorizontal: 15}}>
-        <Text>QUANTITY</Text>
+      <View style={{marginVertical: 20, marginHorizontal: 15}}>
+        <Text
+          style={{
+            // paddingHorizontal: 15,
+            fontFamily: Fonts.Assistant400,
+            fontSize: 16,
+            lineHeight: 16,
+            color: '#4A4A4A',
+          }}>
+          QUANTITY
+        </Text>
       </View>
       <View style={{flexDirection: 'row', marginHorizontal: 15}}>
         <TouchableOpacity
@@ -333,7 +355,9 @@ export default function Size_Color({
 
       <View style={{marginTop: 20, marginHorizontal: 15}}>
         <View>
-          <Text>Check Delivery service availabilty</Text>
+          <Text style={{marginBottom: 8}}>
+            Check Delivery service availabilty
+          </Text>
         </View>
         <View style={{flexDirection: 'row', marginTop: 5}}>
           <TextInput
@@ -373,14 +397,7 @@ export default function Size_Color({
             : null}
         </Text>
       </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={Styles.mainContainer}>
           <View style={Styles.centeredView}>
             <View style={{paddingHorizontal: 20}}>
@@ -456,7 +473,7 @@ export default function Size_Color({
                           alignItems: 'center',
                           borderWidth: 0.3,
                           paddingVertical: 10,
-                          backgroundColor:'#F6F6F6'
+                          backgroundColor: '#F6F6F6',
                         }}>
                         <Text
                           style={{
@@ -495,7 +512,7 @@ export default function Size_Color({
                                     }}>
                                     <Text
                                       style={{
-                                        fontFamily: Fonts.Assistant700,
+                                        fontFamily: Fonts.Assistant500,
                                         fontSize: 16,
                                       }}>
                                       {elem.value}
@@ -574,7 +591,7 @@ const Styles = StyleSheet.create({
     fontFamily: Fonts.Assistant400,
     fontSize: 16,
     lineHeight: 16,
-    color: ' #717171',
+    color: '#4A4A4A',
   },
   leftTxt: {
     paddingHorizontal: 15,
@@ -627,11 +644,12 @@ const Styles = StyleSheet.create({
     // textDecorationColor:Colors.primarycolor
   },
   ColorTxt: {
-    color: '#717171',
+    color: '#4A4A4A',
     fontFamily: Fonts.Assistant400,
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 16,
     marginTop: 5,
+    marginBottom: 8,
   },
   ColorBox: {
     paddingHorizontal: 15,
