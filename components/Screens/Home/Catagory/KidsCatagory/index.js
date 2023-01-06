@@ -40,7 +40,7 @@ const KidsCatagory = props => {
   };
   const getSections = data => {
     var dataa = [];
-    LandingPageL1Women.map(sectionId => {
+    LandingPageL1Kids.map(sectionId => {
       const filter = data.find(item => {
         return item.position == sectionId;
       });

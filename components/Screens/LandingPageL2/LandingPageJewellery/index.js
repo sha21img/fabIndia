@@ -99,7 +99,7 @@ const LandingPageJewellery = () => {
       <View
         style={[
           {position: 'absolute', top: '37%', left: '4%', zIndex: 10},
-          hasSpaces(heading) ? {width: width / 3} : {width: null},
+          // hasSpaces(heading) ? {width: width / 3} : {width: null},
         ]}>
         <Text
           style={{
