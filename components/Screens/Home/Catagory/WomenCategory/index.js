@@ -509,7 +509,7 @@ const WomenCategory = props => {
           createdAt: '2022-12-27T11:39:53.388Z',
           updatedAt: '2022-12-29T10:48:43.046Z',
         },
-        categoryName: '/Dupattas',
+        categoryName: '/Jewellery',
         categoryId: '63aad98915519f83a5972aa6',
       },
       {

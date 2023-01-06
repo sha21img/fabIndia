@@ -83,14 +83,14 @@ export default function LifeStyle(props) {
           style={{
             fontFamily: Fonts.PlayfairDisplay600Italic,
             color: '#4A4A4A',
-            fontSize: 30,
+            fontSize: 20,
           }}>
           {check ? check[0] : null}
         </Text>
         <View>
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 16,
               color: '#4A4A4A',
               lineHeight: 23,
               fontFamily: Fonts.Assistant400,
