@@ -10,13 +10,12 @@ const BaseURL = 'https://apisap.fabindia.com/occ/v2/';
 // Prod
 // export const BaseURL2 = 'https://apisap.fabindia.com/occ/v2/fabindiab2c/';
 // export const AuthBaseUrl2 = 'https://apisap.fabindia.com/authorizationserver/';
-export const imageURL = 'https://apisap.fabindia.com/';
+// export const imageURL = 'https://apisap.fabindia.com/';
 
 // Testing
 export const BaseURL2 = 'https://apisap.fabindiahome.com/occ/v2/fabindiab2c/';
-export const AuthBaseUrl2 =
-  'https://apisap.fabindiahome.com/authorizationserver/';
-export const imageURL2 = 'https://apisap.fabindiaHome.com/';
+export const AuthBaseUrl2 ='https://apisap.fabindiahome.com/authorizationserver/';
+export const imageURL = 'https://apisap.fabindiahome.com/';
 
 const AuthAuthor = 'bearer nCVKPnrYg-ZgHMn0djWh1YSFCX0';
 

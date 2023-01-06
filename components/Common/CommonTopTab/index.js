@@ -4,7 +4,6 @@ import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
-import {numberOfLines} from 'deprecated-react-native-prop-types/DeprecatedTextInputPropTypes';
 
 const Tab = createMaterialTopTabNavigator();
 

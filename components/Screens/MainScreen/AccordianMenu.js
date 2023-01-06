@@ -8,6 +8,7 @@ import {
   ImageBackground,
   Dimensions,
   Image,
+  Linking,
 } from 'react-native';
 import React, {useState} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -59,9 +60,10 @@ export default function AccordianMenu(props) {
     const getToken = JSON.parse(get);
     if (data.title == 'Gift Cards') {
       if (getToken.isCheck == true) {
-        navigation.navigate('MyAccount', {screen: 'GiftCard', from: 'Menu'});
+        navigation.navigate('MyAccount', {screen: 'GiftCard' });
       } else {
         navigation.navigate('MyAccount', {screen: 'Login_Register'});
+        // navigation.navigate('MyAccount', { screen: 'GiftCard', from: 'Menu' });
       }
     } else if (data.title == 'FAQs') {
       navigation.navigate('MyAccount', {screen: 'FAQ'});
@@ -70,7 +72,11 @@ export default function AccordianMenu(props) {
     } else if (data.title == 'Shop By Categories') {
       navigation.navigate('CategorySection', data);
     } else if (data.title == 'FabFamily') {
-      navigation.navigate('MyAccount', {screen: 'FabFamily'});
+      if (getToken.isCheck == true) {
+        navigation.navigate('MyAccount', {screen: 'FabFamily'});
+      } else {
+        Linking.openURL('https://www.fabfamily.fabindia.com/abouttheprogram')
+      }
     } else if (data.title == 'Orders') {
       if (getToken.isCheck) {
         navigation.navigate('MyOrder');

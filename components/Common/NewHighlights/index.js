@@ -13,8 +13,8 @@ import FastImage from 'react-native-fast-image';
 
 export default function NewHighlights(props) {
   const {data = {}, customStyle = '', isSap = false} = props;
-  console.log('da111111111111111111ta', data);
   const width = Dimensions.get('window').width;
+
   const imageCard = item => {
     const newCode = item.item.landingPage;
     return (

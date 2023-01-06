@@ -1,18 +1,19 @@
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import MyGiftCard from './MyGiftCard';
 import SendGiftCard from './SendGiftCard';
 import AddGiftCard from './AddGiftCard';
-import CommonTopTab from '../../../Common/CommonTopTab';
 import axios from 'axios';
-import { giftCardTabs, giftCardTabs1 } from '../../../../constant';
+import { giftCardTabs } from '../../../../constant';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BaseURL2, logout } from '../../../Common/Helper';
 import { useDispatch } from 'react-redux';
+import { Colors } from '../../../../assets/Colors';
+import Fonts from '../../../../assets/fonts';
 
 export default function GiftCard(props) {
   const from = props?.route;
-
+  const [selectedTab, setSelectedTab] = useState('My Gift Card');
   const dispatch = useDispatch();
   const [walletInfo, setWalletInfo] = useState({
     totalBalance: '0.0',
@@ -47,37 +48,41 @@ export default function GiftCard(props) {
     getWallet();
   }, []);
 
-  const screenObj = {
-    'My Gift Card': () => <MyGiftCard walletInfo={walletInfo} {...props} />,
-    'Add Gift Card': () => <AddGiftCard walletInfo={walletInfo} {...props} />,
-    'Send Gift Card': () => <SendGiftCard walletInfo={walletInfo} {...props} />,
-  };
-
-  const dataMap = giftCardTabs.map(item => ({
-    title: item,
-    card: screenObj[item],
-  }));
-
-  const screenObj1 = {
-    'Send Gift Card': () => <SendGiftCard walletInfo={walletInfo} {...props} />,
-  };
-
-  const dataMap1 = giftCardTabs1.map(item => ({
-    title: item,
-    card: screenObj1[item],
-  }));
-
-  const checkData = () => {
-    if (from?.params?.from == 'Menu') {
-      return dataMap1;
-    } else {
-      return dataMap;
-    }
-  };
-
   return (
     <>
-      <CommonTopTab data={checkData()} />
+      {from?.params?.from != 'Menu' ?
+        <View style={{ paddingHorizontal: 5, flexDirection: 'row', backgroundColor: Colors.WHITE }}>
+          {giftCardTabs.map(item => {
+            return (
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setSelectedTab(item)}
+                style={{
+                  marginLeft: 10, borderBottomWidth: 2, paddingVertical: 3,
+                  borderBottomColor: selectedTab == item ? Colors.primarycolor : 'transparent'
+                }}>
+                <Text
+                  style={{
+                    fontSize: 16, fontFamily: Fonts.Assistant300,
+                    color: selectedTab == item ? Colors.primarycolor : Colors.textcolor
+                  }}>{item}</Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+        : null
+      }
+      {from?.params?.from != 'Menu' ?
+        selectedTab == 'My Gift Card' ? (
+          <MyGiftCard walletInfo={walletInfo} {...props} />
+        ) : selectedTab == 'Add Gift Card' ? (
+          <AddGiftCard walletInfo={walletInfo} {...props} />
+        ) : (
+          <SendGiftCard walletInfo={walletInfo} {...props} />
+        )
+        :
+        <SendGiftCard walletInfo={walletInfo} {...props} />
+      }
     </>
   );
 }
