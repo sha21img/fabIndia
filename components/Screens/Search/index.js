@@ -171,14 +171,17 @@ export default function Search(props) {
             })}
           </>
         )
-          : filterProduct.length == 0 && text == '' ?
+          : text == '' ?
             // <NoResultFound />
             <NewArrivals
               props={props}
               menNewArrivals={menNewArrivals}
               womenNewArrivals={womenNewArrivals}
             />
-            : null
+            :
+            <View style={{ height: 500, alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{ fontSize: 16, color: Colors.textcolor }}>No results found</Text>
+            </View>
         }
       </ScrollView>
     </>
