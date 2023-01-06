@@ -50,38 +50,38 @@ export default function GiftCard(props) {
 
   return (
     <>
-      {/* {from?.params?.from != 'Menu' ? */}
-      <View style={{ paddingHorizontal: 5, flexDirection: 'row', backgroundColor: Colors.WHITE }}>
-        {giftCardTabs.map(item => {
-          return (
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setSelectedTab(item)}
-              style={{
-                marginLeft: 10, borderBottomWidth: 2, paddingVertical: 3,
-                borderBottomColor: selectedTab == item ? Colors.primarycolor : 'transparent'
-              }}>
-              <Text
+      {from?.params?.from != 'Menu' ?
+        <View style={{ paddingHorizontal: 5, flexDirection: 'row', backgroundColor: Colors.WHITE }}>
+          {giftCardTabs.map(item => {
+            return (
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setSelectedTab(item)}
                 style={{
-                  fontSize: 16, fontFamily: Fonts.Assistant300,
-                  color: selectedTab == item ? Colors.primarycolor : Colors.textcolor
-                }}>{item}</Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-      {/* : null
-      } */}
-      {/* {from?.params?.from != 'Menu' ? */}
-      {selectedTab == 'My Gift Card' ? (
-        <MyGiftCard walletInfo={walletInfo} {...props} />
-      ) : selectedTab == 'Add Gift Card' ? (
-        <AddGiftCard walletInfo={walletInfo} {...props} />
-      ) : (
+                  marginLeft: 10, borderBottomWidth: 2, paddingVertical: 3,
+                  borderBottomColor: selectedTab == item ? Colors.primarycolor : 'transparent'
+                }}>
+                <Text
+                  style={{
+                    fontSize: 16, fontFamily: Fonts.Assistant300,
+                    color: selectedTab == item ? Colors.primarycolor : Colors.textcolor
+                  }}>{item}</Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+        : null
+      }
+      {from?.params?.from != 'Menu' ?
+        selectedTab == 'My Gift Card' ? (
+          <MyGiftCard walletInfo={walletInfo} {...props} />
+        ) : selectedTab == 'Add Gift Card' ? (
+          <AddGiftCard walletInfo={walletInfo} {...props} />
+        ) : (
+          <SendGiftCard walletInfo={walletInfo} {...props} />
+        )
+        :
         <SendGiftCard walletInfo={walletInfo} {...props} />
-      )
-        //   :
-        //   <SendGiftCard walletInfo={walletInfo} {...props} />
       }
     </>
   );
