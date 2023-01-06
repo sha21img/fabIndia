@@ -15,6 +15,7 @@ function YoutubeVideo(props) {
         // onChangeState={event => {
         //   console.log('event fired', event);
         // }}
+        play={false}
         videoId={splitId}
         controls={false}
       />

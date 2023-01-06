@@ -45,7 +45,7 @@ export default function ContactUs() {
   const reset = () => {
     setUser({email: '', name: '', subject: '', description: ''});
   };
-  cons;
+
   return (
     <>
       <ScrollView contentContainerStyle={Styles.container}>

@@ -117,10 +117,10 @@ export default function Size_Color({
   };
 
   const StockSubmit = item => {
-    console.log(
-      'itemmmmmmmashishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
-      item,
-    );
+    // console.log(
+    //   'itemmmmmmmashishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
+    //   item,
+    // );
     let sum = 0;
     item.color.map(el => {
       sum = sum + el.stock;
@@ -150,7 +150,6 @@ export default function Size_Color({
         code = el.productCode
       }
     })
-    console.log()
     setColor(prev => ({...prev, ['productCode']:code,['stock']:item.color.filter(el => el.productCode == item.productCode)[0].stock}));
     getColorProductId(code);
     getImageData(code);
@@ -187,17 +186,13 @@ export default function Size_Color({
       setPinStatus(response.data?.status);
     }
   };
-  console.log('.....................', color);
   return (
     <View style={[Styles.container, customStyle]}>
       <View style={Styles.ColorBox}>
         <Text style={Styles.ColorTxt}>COLOR</Text>
         <View style={Styles.colorContainer}>
+          
           {finalData?.color?.map(item => {
-            console.log(
-              'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemcheck8--------------8888',
-              item,
-            );
             return (
               <TouchableOpacity
                 onPress={async () => {
@@ -227,7 +222,7 @@ export default function Size_Color({
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: 5,
+          marginBottom: 8,
           width: '70%',
         }}>
         <Text style={Styles.sizeTxt}>SELECT SIZE</Text>
@@ -243,10 +238,6 @@ export default function Size_Color({
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={Styles.btnBox}>
         {filterData?.map((item, index) => {
-          console.log(
-            'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitem=-0==0',
-            item,
-          );
           return (
             <>
               <TouchableOpacity
@@ -291,7 +282,7 @@ export default function Size_Color({
         </Text>
       ) : null}
 
-      <View style={{marginVertical: 20, marginHorizontal: 15}}>
+      <View style={{marginTop: 16, marginBottom: 13, marginHorizontal: 15}}>
         <Text
           style={{
             // paddingHorizontal: 15,
@@ -402,7 +393,7 @@ export default function Size_Color({
           <View style={Styles.centeredView}>
             <View style={{paddingHorizontal: 20}}>
               <View style={Styles.headingBox}>
-                <Text style={Styles.heading}>Size chart</Text>
+                <Text style={Styles.heading}>To Fit Body Measurements</Text>
                 <TouchableOpacity
                   onPress={() => setModalVisible(!modalVisible)}>
                   <Entypo
@@ -499,7 +490,6 @@ export default function Size_Color({
                                 flexDirection: 'row',
                               }}>
                               {el.entries.map(elem => {
-                                console.log('elemmmmmmmmmmmmmmmmmmmm', elem);
                                 return (
                                   <View
                                     style={{
@@ -562,7 +552,7 @@ const Styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.6)',
   },
   centeredView: {
-    marginTop: 'auto',
+    // marginTop: 'auto',
     width: '100%',
     backgroundColor: 'white',
     borderTopRightRadius: 20,
