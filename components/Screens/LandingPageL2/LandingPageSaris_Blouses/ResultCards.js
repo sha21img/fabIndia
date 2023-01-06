@@ -7,7 +7,7 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Card1 from '../../../Common/Card1';
 import {
   BaseURL2,
@@ -19,18 +19,18 @@ import {
 import axios from 'axios';
 import SortBox from './SortBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useDispatch, useSelector } from 'react-redux';
-import { wishlistDetail } from '../../../Common/Helper/Redux/actions';
+import {useDispatch, useSelector} from 'react-redux';
+import {wishlistDetail} from '../../../Common/Helper/Redux/actions';
 import HomeHeader from '../../Home/HomeHeader';
 import Filter from '../../../Common/Filter';
 import Fonts from '../../../../assets/fonts';
-import { Colors } from '../../../../assets/Colors';
+import {Colors} from '../../../../assets/Colors';
 import Toast from 'react-native-simple-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
 import LoadingComponent from '../../../Common/LoadingComponent';
 
 export default function ResultCards(props) {
-  const { cartReducer } = useSelector(state => state);
+  const {cartReducer} = useSelector(state => state);
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [dataMain, setdataMain] = useState([]);
@@ -43,8 +43,8 @@ export default function ResultCards(props) {
   const [sortValue, setSortValue] = useState('');
   const [isCheck, setIsCheck] = useState([]);
   const [productCount, setProductCount] = useState(0);
-  const { code, status, title, isSearch, isAdmin2 } = props;
-  const { data = [] } = props;
+  const {code, status, title, isSearch, isAdmin2} = props;
+  const {data = []} = props;
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -53,13 +53,15 @@ export default function ResultCards(props) {
       'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
     var response;
     if (isAdmin2 == 'isAdmin2') {
-      console.log('ifififififififififififififififififififififiif', isAdmin2);
+      console.log(
+        'ifififififififififififififififififififififiif',
+        `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+      );
       if (data) {
         response = await axios.get(
           `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
         );
-      }
-      else {
+      } else {
         response = await axios.get(
           `${BaseURL2}/products/search?fields=${fields}&query=${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
         );
@@ -95,8 +97,8 @@ export default function ResultCards(props) {
     } else {
       setFilterProducts(response.data.products);
     }
-    setIsLoading(false)
-    setIsRefreshing(false)
+    setIsLoading(false);
+    setIsRefreshing(false);
   };
   const openSort = () => setModalVisible(true);
   const openFilter = () => setFilterModalVisible(true);
@@ -158,9 +160,9 @@ export default function ResultCards(props) {
   };
 
   const onRefresh = () => {
-    setIsRefreshing(true)
-    setPage(0)
-  }
+    setIsRefreshing(true);
+    setPage(0);
+  };
 
   const getCartDetails = async () => {
     const value = await AsyncStorage.getItem('cartID');
@@ -253,7 +255,7 @@ export default function ResultCards(props) {
         .post(
           `${BaseURL2}/users/current/carts/${getWishlistID}/entries?lang=en&curr=INR`,
           // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
-          { quantity: 1, product: { code: data.code } },
+          {quantity: 1, product: {code: data.code}},
           {
             headers: {
               Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -285,7 +287,7 @@ export default function ResultCards(props) {
         <Card1
           // wishlistproductCode={wishlistproductCode}
           handleClick={addWishlist}
-          customViewStyle={{ marginVertical: 7 }}
+          customViewStyle={{marginVertical: 7}}
           {...props}
           item={item.item}
         />
@@ -300,7 +302,7 @@ export default function ResultCards(props) {
   return (
     <>
       <HomeHeader {...props} headertext={title} totalCount={totalCount} />
-      <View style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+      <View style={{flex: 1, backgroundColor: Colors.WHITE}}>
         <FlatList
           numColumns={2}
           data={filterProducts}
@@ -312,34 +314,40 @@ export default function ResultCards(props) {
           refreshing={isRefreshing}
           onRefresh={onRefresh}
           ItemSeparatorComponent={() => {
-            return (
-              <View style={{ height: 10 }} />
-            )
+            return <View style={{height: 10}} />;
           }}
-          columnWrapperStyle={{ justifyContent: 'space-between' }}
-          contentContainerStyle={{ paddingBottom: 8, paddingHorizontal: 16, backgroundColor: Colors.WHITE }}
+          columnWrapperStyle={{justifyContent: 'space-between'}}
+          contentContainerStyle={{
+            paddingBottom: 8,
+            paddingHorizontal: 16,
+            backgroundColor: Colors.WHITE,
+          }}
           ListEmptyComponent={() => {
-            return (
-              !isLoading ?
-                <View style={{ height: 500, alignItems: 'center', justifyContent: 'center' }}>
-                  <Text style={{ fontSize: 16, color: Colors.textcolor }}>No results found</Text>
-                </View>
-                : null
-            )
+            return !isLoading ? (
+              <View
+                style={{
+                  height: 500,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text style={{fontSize: 16, color: Colors.textcolor}}>
+                  No results found
+                </Text>
+              </View>
+            ) : null;
           }}
         />
 
-        {filterProducts.length > 0 ?
+        {filterProducts.length > 0 ? (
           <SortBox
             openSort={openSort}
             dataMain={filterProducts}
             productCount={productCount}
             totalCount={totalCount}
             openFilter={openFilter}
-          //  openFilter={openFilter}
+            //  openFilter={openFilter}
           />
-          : null
-        }
+        ) : null}
 
         {isLoading ? <LoadingComponent /> : null}
 
@@ -373,13 +381,13 @@ export default function ResultCards(props) {
             <View style={styles.centeredView}>
               <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ flexGrow: 1 }}>
+                contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.headingBox}>
-                  <View style={{ width: '50%' }}>
+                  <View style={{width: '50%'}}>
                     <Text style={styles.heading}>SORT BY</Text>
                   </View>
                   <TouchableOpacity
-                    style={{ width: '50%' }}
+                    style={{width: '50%'}}
                     onPress={() => setModalVisible(!modalVisible)}>
                     {/* <Entypo
                     name="circle-with-cross"
@@ -391,10 +399,10 @@ export default function ResultCards(props) {
                 </View>
 
                 {[
-                  { title: `What's New`, value: 'creationtime-desc' },
-                  { title: `Price: Low to High`, value: 'price-asc' },
-                  { title: `Price: High to Low`, value: 'price-desc' },
-                  { title: `Bestseller`, value: 'productCountBestSeller-desc' },
+                  {title: `What's New`, value: 'creationtime-desc'},
+                  {title: `Price: Low to High`, value: 'price-asc'},
+                  {title: `Price: High to Low`, value: 'price-desc'},
+                  {title: `Bestseller`, value: 'productCountBestSeller-desc'},
                 ].map(item => {
                   return (
                     <>

@@ -16,7 +16,7 @@ import InputText from '../../../../Common/InputText';
 import {Styles} from './styles';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {BaseURL2, imageURL2, logout} from '../../../../Common/Helper';
+import {BaseURL2, imageURL, logout} from '../../../../Common/Helper';
 import {useDispatch} from 'react-redux';
 
 function SendGiftCard(props) {
@@ -96,8 +96,10 @@ function SendGiftCard(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    console.log('this us cart id', getCartID);
-    if (!regex.test(userDetail.email)) {
+    // console.log('this us cart id', getCartID);
+    if (userDetail.amount > 0 && (userDetail.amount < 500 || userDetail.amount > 50000)) {
+      Toast.show('Please Enter Valid Amount', Toast.LONG);
+    } else if (!regex.test(userDetail.email)) {
       Toast.show('Please enter valid Recipient email', Toast.LONG);
     } else if (userDetail.confirmemail == '') {
       Toast.show('Please enter Confirm Recipient email', Toast.LONG);
@@ -107,13 +109,7 @@ function SendGiftCard(props) {
       Toast.show('Please enter Recipient Name', Toast.LONG);
     } else if (userDetail.from == '') {
       Toast.show('Please enter From', Toast.LONG);
-    } else if (
-      userDetail.amount > 0 &&
-      (userDetail.amount < 500 || userDetail.amount > 50000)
-    ) {
-      Toast.show('Please Enter Valid Amount', Toast.LONG);
     } else {
-      console.log('ellllllllllllllllllllllllllllllllllllllllll');
       const response = await axios
         .post(
           `${BaseURL2}/users/current/carts/${getCartID}/entries/configurator/textfield?fields=FULL&lang=en&curr=INR`,
@@ -203,7 +199,7 @@ function SendGiftCard(props) {
                     <Image
                       resizeMode="stretch"
                       source={{
-                        uri: `${imageURL2}${item?.images[0]?.url}`,
+                        uri: `${imageURL}${item?.images[0]?.url}`,
                       }}
                       style={{
                         width: 200,
@@ -219,25 +215,6 @@ function SendGiftCard(props) {
             })}
           </ScrollView>
         </View>
-
-        <View style={Styles.enterDeatilsView}>
-          <Text style={Styles.enterDetailsTxt}>Enter Details</Text>
-        </View>
-
-        <InputText
-          label={'Recipient email'}
-          onChangeText={text => setUserDetail({...userDetail, email: text})}
-          value={userDetail.email}
-          customStyle={Styles.textinput}
-        />
-        <InputText
-          label={'Confirm recipient email'}
-          onChangeText={text =>
-            setUserDetail({...userDetail, confirmemail: text})
-          }
-          value={userDetail.confirmemail}
-          customStyle={Styles.textinput}
-        />
 
         <Text style={Styles.chooseAmtTxt}>Choose an amount</Text>
 
@@ -297,8 +274,28 @@ function SendGiftCard(props) {
               }
             }}
           />
-          {/* <Text style={[Styles.chooseAmtTxt1, { marginTop: 0 }]}>(min ₹500 - max ₹50,000)</Text> */}
+          <Text style={[Styles.chooseAmtTxt1, { marginTop: 0 }]}>(min ₹500 - max ₹50,000)</Text>
         </View>
+
+        <View style={Styles.enterDeatilsView}>
+          <Text style={Styles.enterDetailsTxt}>Enter Details</Text>
+        </View>
+
+        <InputText
+          label={'Recipient email'}
+          onChangeText={text => setUserDetail({...userDetail, email: text})}
+          value={userDetail.email}
+          customStyle={Styles.textinput}
+        />
+        <InputText
+          label={'Confirm recipient email'}
+          onChangeText={text =>
+            setUserDetail({...userDetail, confirmemail: text})
+          }
+          value={userDetail.confirmemail}
+          customStyle={Styles.textinput}
+        />
+
         <InputText
           label={'Recipient Name'}
           onChangeText={text => setUserDetail({...userDetail, to: text})}

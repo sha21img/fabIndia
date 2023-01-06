@@ -13,13 +13,13 @@ export const Styles = StyleSheet.create({
     zIndex: 10,
   },
   headingText: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#4A4A4A',
     fontFamily: Fonts.Assistant300,
   },
   headingTitle: {
     color: '#4A4A4A',
-    fontSize: 22,
+    fontSize: 20,
     fontFamily: Fonts.PlayfairDisplay700,
   },
   imageContainer: {
