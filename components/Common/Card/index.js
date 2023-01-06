@@ -21,7 +21,7 @@ export default function Card(props) {
             imageUrlCheck: items,
           })
         }
-        activeOpacity={0.8}>
+        activeOpacity={0.9}>
 
         <FastImage
           style={{ height: 243, width: 192 }}

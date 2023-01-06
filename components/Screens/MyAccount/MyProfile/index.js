@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  useWindowDimensions,
+  // useWindowDimensions,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
@@ -41,8 +41,12 @@ const MyProfile = props => {
     lname: true,
     phone_number: true,
     email: true,
+    DOB: true,
   });
   const [Otp, setOtp] = useState('');
+  const [date, setDate] = useState('');
+  const [valid, setValid] = useState(false);
+
   const [editUser, setEditUser] = useState({
     first: allProps?.profiledata?.firstName,
     last: allProps?.profiledata?.lastName,
@@ -50,13 +54,23 @@ const MyProfile = props => {
     email: allProps?.profiledata?.uid,
   });
   const [open, setOpen] = useState(false);
-  const win = useWindowDimensions();
+  // const win = useWindowDimensions();
   const [maskedValue, setMaskedValue] = useState(
     moment(new Date()).format('DD-MM-YYYY'),
   );
+  useEffect(() => {
+    setMaskedValue(maskedValue);
+    const regexddmmyyyy =
+      /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](18|19|20)\d\d$/;
+    if (regexddmmyyyy.test(date)) {
+      setValid(true);
+    } else {
+      setValid(false);
+    }
+  }, [date]);
   console.log(
     'oiuytfdrtfyguioiuytrrty111111111111111111111111111111111',
-    maskedValue,
+    moment(new Date()).format('DD-MM-YYYY'),
   );
   // useEffect(() => {
   //   if (isCheck == true) {
@@ -81,7 +95,7 @@ const MyProfile = props => {
       country: {
         isocode: allProps.profiledata?.defaultAddress?.country?.isocode,
       },
-      dateOfBirth: DOB,
+      dateOfBirth: maskedValue,
       firstName: editUser.first,
       gender: {code: gender},
       lastName: editUser.last,
@@ -97,8 +111,7 @@ const MyProfile = props => {
         },
       })
       .then(res => {
-        if (res.status == 200) {
-          console.log('this is a patch sata', res);
+        if (res?.status == 200) {
           Toast.showWithGravity(
             'Profile updated successfully',
             Toast.LONG,
@@ -108,9 +121,8 @@ const MyProfile = props => {
         }
       })
       .catch(errors => {
-        console.log('errors', errors.response.data);
-        Toast.show(errors.response.data.errors[0].message, Toast.LONG);
-        if (errors.response.status == 401) {
+        Toast.show(errors?.response?.data?.errors[0]?.message, Toast.LONG);
+        if (errors?.response?.status == 401) {
           logout(dispatch);
         }
       });
@@ -158,6 +170,7 @@ const MyProfile = props => {
         Toast.showWithGravity('Done', Toast.LONG, Toast.TOP);
         setgenerate(false);
         setIsVerifyOtp(true);
+        setAllField({...allField, phone_number: true});
       }
     });
   };
@@ -217,11 +230,12 @@ const MyProfile = props => {
   return (
     <>
       <ScrollView
+        keyboardShouldPersistTaps="handled"
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicato={false}>
         <InputText
-          // minLength={3}
-          // maxLength={40}
+          minLength={3}
+          maxLength={40}
           customStyle={[styles.textInput, {marginTop: 0}]}
           label="First Name"
           value={editUser.first}
@@ -249,6 +263,8 @@ const MyProfile = props => {
           label="Last Name"
           value={editUser.last}
           // maxLength={40}
+          minLength={3}
+          maxLength={40}
           onChangeText={text => {
             setEditUser({
               ...editUser,
@@ -348,9 +364,8 @@ const MyProfile = props => {
                     setIsVerifyOtp(false);
                     console.log(';oiuytfdxcghjkl;', value);
                     if (
-                      value.length == 10
-                      // &&
-                      // allProps.profiledata.contactNumber == value
+                      value.length == 10 &&
+                      allProps.profiledata.contactNumber == value
                     ) {
                       console.log('ojihugyfttyguhijokpl[poihugfghjk');
                       setAllField({...allField, phone_number: true});
@@ -407,7 +422,7 @@ const MyProfile = props => {
         <View style={styles.chooseContainer}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity
-              activeOpacity={0.8}
+              activeOpacity={0.9}
               onPress={() => {
                 if (gender == 'MALE') {
                   SetGender('');
@@ -431,7 +446,7 @@ const MyProfile = props => {
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity
-              activeOpacity={0.8}
+              activeOpacity={0.9}
               onPress={() => {
                 if (gender == 'FEMALE') {
                   SetGender('');
@@ -454,8 +469,8 @@ const MyProfile = props => {
             </Text>
           </View>
         </View>
-
-        {/* <View
+        {/* 
+        <View
           style={{
             paddingVertical: 10,
             borderBottomWidth: 1,
@@ -476,42 +491,44 @@ const MyProfile = props => {
             />
           </View>
         </View> */}
-
+        <Text style={{fontSize: 16, color: Colors.textcolor}}>
+          Date of birth
+        </Text>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginHorizontal: 16,
-            marginTop: 20,
             borderBottomWidth: 1,
             borderBottomColor: 'gray',
           }}>
-          {/*  <Text style={{ fontSize: 20 }}>{date?.toLocaleDateString()}</Text>*/}
           <MaskedTextInput
-           type="date"
-           options={{
-            dateFormat: 'YYYY/DD/MM',
-          }}
+            mask="99-99-9999"
             value={maskedValue}
-            style={{fontSize: 22, width: 300}}
+            style={{fontSize: 16}}
             onChangeText={(text, rawText) => {
               setMaskedValue(text);
+              setDate(text);
+              console.log('1234567890', text);
+              if (text) {
+                console.log('giigigigigigiigigi');
+                setAllField({...allField, DOB: true});
+              } else {
+                console.log('kjhugytfdrtfyguhijokpelelelele');
+                setAllField({...allField, DOB: false});
+              }
             }}
-            // style={styles.input}
             keyboardType="numeric"
           />
-          {/* <TouchableOpacity onPress={() => setOpen(true)}> */}
           <Feather
             name="calendar"
             color={Colors.primarycolor}
             size={20}
             onPress={showDatePicker}
           />
-          {/* </TouchableOpacity> */}
         </View>
         <TouchableOpacity
-          activeOpacity={0.8}
+          activeOpacity={0.9}
           style={{alignItems: 'center', paddingVertical: 20}}
           onPress={() => {
             props.navigation.navigate('ChangePassword');
@@ -533,7 +550,9 @@ const MyProfile = props => {
             allField.fname &&
             allField.lname &&
             allField.email &&
-            allField.phone_number
+            allField.phone_number &&
+            allField.DOB &&
+            valid
               ? false
               : true
           }
@@ -544,11 +563,13 @@ const MyProfile = props => {
               allField.fname &&
               allField.lname &&
               allField.email &&
-              allField.phone_number
+              allField.phone_number &&
+              allField.DOB &&
+              valid
                 ? Colors.primarycolor
                 : Colors.textcolor,
           }}
-          handleClick={checkUpdateProfile}
+          handleClick={updateProfileHandler}
         />
       </View>
 

@@ -443,6 +443,7 @@ const Register = props => {
         <>
           <ScrollView
             contentContainerStyle={Styles.mainView}
+            keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}>
             <View style={Styles.secondDiv}>
               <Text style={Styles.contacttxt}>Welcome to FabIndia!</Text>
@@ -637,7 +638,7 @@ const Register = props => {
                           gender == 'MALE' ? Colors.primarycolor : 'white',
                       }}></TouchableOpacity>
                     <TouchableOpacity
-                      activeOpacity={0.8}
+                      activeOpacity={0.9}
                       onPress={() => {
                         if (gender == 'MALE') {
                           SetGender('');
@@ -673,7 +674,7 @@ const Register = props => {
                           gender == 'FEMALE' ? Colors.primarycolor : 'white',
                       }}></TouchableOpacity>
                     <TouchableOpacity
-                      activeOpacity={0.8}
+                      activeOpacity={0.9}
                       onPress={() => {
                         if (gender == 'FEMALE') {
                           SetGender('');

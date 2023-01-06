@@ -53,11 +53,6 @@ export default function InteriorHomepage(props) {
     const response = await getData(
       'cms/pages?pageType=ContentPage&pageLabelOrId=%2Finterior-designpage&lang=en&curr=INR',
     );
-    // console.log('response.dataaa0000000000000000000', response);
-    // console.log(
-    //   'response?.contentSlots?.contentSlotresponse?.contentSlots?.contentSlotresponse?.contentSlots?.contentSlot',
-    //   response?.contentSlots?.contentSlot,
-    // );
     getSections(response.contentSlots.contentSlot);
   };
   const getSections = data => {

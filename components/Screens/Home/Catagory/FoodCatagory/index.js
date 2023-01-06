@@ -99,7 +99,7 @@ export default function FoodCatagory(props) {
           //     })
           //   }>
           <TouchableOpacity
-            activeOpacity={0.8}
+            activeOpacity={0.9}
             onPress={() =>
               props.navigation.navigate('LandingPageSaris_Blouses', newId)
             }>

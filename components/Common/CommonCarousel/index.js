@@ -29,7 +29,10 @@ export default function CommonCarousel(props) {
     });
 
     const newCode = filteredObj.landingPage;
+    const title = filteredObj.title;
     if (newCode.includes('giftcard')) {
+    } else if (title == 'IDS') {
+      props.navigation.navigate('InteriorCatagory');
     } else {
       props.navigation.navigate('LandingPageSaris_Blouses', {
         code: newCode,
@@ -38,7 +41,6 @@ export default function CommonCarousel(props) {
       });
     }
   };
-
   return (
     <View style={{marginBottom: 30, marginTop: 16}}>
       <SliderBox
@@ -58,6 +60,7 @@ export default function CommonCarousel(props) {
           borderRadius: 5,
           marginHorizontal: -10,
         }}
+        activeOpacity={0.95}
         onCurrentImagePressed={curr => onImagePressed(curr)}
       />
     </View>

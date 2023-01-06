@@ -8,6 +8,7 @@ import {
   ImageBackground,
   Dimensions,
   Image,
+  Linking,
 } from 'react-native';
 import React, {useState} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -15,8 +16,10 @@ import Fonts from '../../../assets/fonts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import Entypo from 'react-native-vector-icons/Entypo';
 import {Colors} from '../../../assets/Colors';
 import {image} from '../../../assets/images';
+import {CommonActions} from '@react-navigation/native';
 import AccordianSubMenu from './AccordianSubMenu';
 import {useNavigation} from '@react-navigation/native';
 import {style} from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
@@ -59,9 +62,10 @@ export default function AccordianMenu(props) {
     const getToken = JSON.parse(get);
     if (data.title == 'Gift Cards') {
       if (getToken.isCheck == true) {
-        navigation.navigate('MyAccount', {screen: 'GiftCard', from: 'Menu'});
+        navigation.navigate('MyAccount', {screen: 'GiftCard' });
       } else {
         navigation.navigate('MyAccount', {screen: 'Login_Register'});
+        // navigation.navigate('MyAccount', { screen: 'GiftCard', from: 'Menu' });
       }
     } else if (data.title == 'FAQs') {
       navigation.navigate('MyAccount', {screen: 'FAQ'});
@@ -70,7 +74,11 @@ export default function AccordianMenu(props) {
     } else if (data.title == 'Shop By Categories') {
       navigation.navigate('CategorySection', data);
     } else if (data.title == 'FabFamily') {
-      navigation.navigate('MyAccount', {screen: 'FabFamily'});
+      if (getToken.isCheck == true) {
+        navigation.navigate('MyAccount', {screen: 'FabFamily'});
+      } else {
+        Linking.openURL('https://www.fabfamily.fabindia.com/abouttheprogram')
+      }
     } else if (data.title == 'Orders') {
       if (getToken.isCheck) {
         navigation.navigate('MyOrder');
@@ -109,7 +117,6 @@ export default function AccordianMenu(props) {
         );
       case 'Shop By Collection':
         return (
-          // <></>
           <MaterialIcons
             name="collections-bookmark"
             size={20}
@@ -124,6 +131,8 @@ export default function AccordianMenu(props) {
             color={Colors.primarycolor}
           />
         );
+      case 'New Arrivals':
+        return <Entypo name="new" size={20} color={Colors.primarycolor} />;
       case 'Sale':
         return (
           <Fontisto

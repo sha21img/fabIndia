@@ -139,6 +139,11 @@ export default function Card3(props) {
         },
       )
       .then(response => {
+        Toast.showWithGravity(
+          'item removed from wishlist',
+          Toast.LONG,
+          Toast.TOP,
+        );
         getWishListDetail();
       })
       .catch(error => {
@@ -192,6 +197,11 @@ export default function Card3(props) {
         },
       )
       .then(async response => {
+        Toast.showWithGravity(
+          'item successfully added to cart',
+          Toast.LONG,
+          Toast.TOP,
+        );
         getCartDetails();
         const responsee = await axios
           .delete(
@@ -275,7 +285,7 @@ export default function Card3(props) {
           }}>
           {/* <Text style={Styles.actionstxt}>Remove</Text>
           <View style={Styles.dash}></View> */}
-          <Text style={Styles.actionstxt}>Add to cart</Text>
+          <Text style={Styles.actionstxt}>Move to cart</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -288,10 +298,19 @@ export default function Card3(props) {
           }}
           style={{
             position: 'absolute',
-            top: 20,
+            top: 10,
             right: 10,
+            height: 25,
+            width: 25,
+            borderRadius: 20,
+            backgroundColor: '#EDE4E3',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderWidth: 0.5,
           }}>
-          <AntDesign
+          <EvilIcons name="close" size={15} color="gray" />
+
+          {/* <AntDesign
             name="heart"
             size={20}
             color={Colors.primarycolor}
@@ -302,7 +321,7 @@ export default function Card3(props) {
             //     ? Colors.primarycolor
             //     : Colors.textcolor
             // }
-          />
+          /> */}
         </TouchableOpacity>
       </View>
     </>

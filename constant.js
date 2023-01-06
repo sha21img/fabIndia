@@ -150,6 +150,13 @@ export const hasSpaces = str => {
   let string = str?.split('/');
   return string;
 };
+export const hasWidth = str => {
+  if (str.indexOf(' ') !== -1) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
 export const HomeCatagoryTab4 = [
   'Meals at Home',
@@ -213,7 +220,6 @@ export const HomeDecorTableData2 = [
 
 export const CollectionWomenData = ['Dupattas', 'Kurtas', 'Saris', 'Lehengas'];
 export const giftCardTabs = ['My Gift Card', 'Add Gift Card', 'Send Gift Card'];
-export const giftCardTabs1 = ['Send Gift Card'];
 
 export const HomePageSection = [
   // 'Section2', //category
@@ -285,20 +291,20 @@ export const LandingPageL1Men = [
 ];
 
 export const LandingPageHomeLiving = [
-  'Section1', // Top Swipper
-  'Section2', //Apparel highlight
-  'Section3', //Duppatta highlight
-  'Section4', // jewellery highlight
-  'Section5', // Ethnic wear
+  // 'Section1', // Top Swipper
+  // 'Section2', //Apparel highlight
+  // 'Section3', //Duppatta highlight
+  // 'Section4', // jewellery highlight
+  // 'Section5', // Ethnic wear
   'Section6', // women toptab
-  'Section7', //Women Indian Banner
+  // 'Section7', //Women Indian Banner
   // 'Section8', //Gallery grid
   // 'Section9', //empty
-  'Section10', //Banner
-  'Section11', //Western Wears
+  // 'Section10', //Banner
+  // 'Section11', //Western Wears
   'Section12', //women tops toptab
-  'Section13', //carousel
-  'Section14', //Collections
+  // 'Section13', //carousel
+  // 'Section14', //Collections
   // 'Section15', //empty
   // 'Section16', //empty
   // 'Section17', //empty
@@ -340,20 +346,20 @@ export const LandingPagePersonalCare = [
 ];
 
 export const LandingPageL1Kids = [
-  'Section1', // Top Swipper
-  'Section2', // infants highlight
-  'Section3', // girls highlight
-  'Section4', // Boys highlight
-  'Section5', // Shop by category
+  // 'Section1', // Top Swipper
+  // 'Section2', // infants highlight
+  // 'Section3', // girls highlight
+  // 'Section4', // Boys highlight
+  // 'Section5', // Shop by category
   'Section6', // Kids toptab
-  'Section7', // Kids bright banner
-  'Section8', // Gallery grid
+  // 'Section7', // Kids bright banner
+  // 'Section8', // Gallery grid
   // 'Section9', // empty
-  'Section10', // Banner 50% off
-  'Section11', // Top sellers
+  // 'Section10', // Banner 50% off
+  // 'Section11', // Top sellers
   'Section12', // kids cloths toptab
-  'Section13', // carousel
-  'Section14', // Collections
+  // 'Section13', // carousel
+  // 'Section14', // Collections
   // 'Section15', // empty
   // 'Section16', // empty
   // 'Section17', // empty

@@ -4,7 +4,7 @@ import {getComponentData} from '../Helper';
 import {Styles} from './style';
 
 const CollectionCard = props => {
-  const {data = {}, isAdmin2} = props;
+  const {data = [], isAdmin2} = props;
   // const [collectionCardData, setCollectionCardData] = useState([]);
   // useEffect(() => {
   //   getCollectionsIds();
@@ -28,8 +28,7 @@ const CollectionCard = props => {
           paddingHorizontal: 15,
           backgroundColor: 'white',
         }}>
-        {data.map(item => {
-          console.log('collection card page link', item.landingPage);
+        {data?.map(item => {
           {
             /* const newCode = item.urlLink;
           let splitURL = newCode.split('/');
@@ -54,7 +53,7 @@ const CollectionCard = props => {
                     isAdmin2: isAdmin2,
                   })
               }
-              activeOpacity={0.8}>
+              activeOpacity={0.9}>
               <ImageBackground
                 style={Styles.container}
                 source={{

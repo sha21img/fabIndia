@@ -306,6 +306,7 @@ const EditAddress = props => {
     <SafeAreaView style={Styles.container}>
       <View style={Styles.bodyContainer}>
         <ScrollView
+          keyboardShouldPersistTaps="handled"
           contentContainerStyle={Styles.mainView}
           showsVerticalScrollIndicator={false}>
           <View style={Styles.secondDiv}>

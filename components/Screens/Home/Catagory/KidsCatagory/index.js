@@ -40,7 +40,7 @@ const KidsCatagory = props => {
   };
   const getSections = data => {
     var dataa = [];
-    LandingPageL1Women.map(sectionId => {
+    LandingPageL1Kids.map(sectionId => {
       const filter = data.find(item => {
         return item.position == sectionId;
       });
@@ -91,7 +91,7 @@ const KidsCatagory = props => {
         );
         return (
           <TouchableOpacity
-            activeOpacity={0.8}
+            activeOpacity={0.9}
             style={{marginTop: 20}}
             onPress={() =>
               props.navigation.navigate('LandingPageSaris_Blouses', {
@@ -1452,7 +1452,7 @@ const KidsCatagory = props => {
             <WomenTab data={filteredComp[0]} {...props} />
             <TouchableOpacity
               style={{marginTop: 20}}
-              activeOpacity={0.8}
+              activeOpacity={0.9}
               onPress={() =>
                 props.navigation.navigate('LandingPageSaris_Blouses', {
                   code: data?.[HomPageSections.TraditionBanner][0].landingPage,

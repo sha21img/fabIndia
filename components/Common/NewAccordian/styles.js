@@ -11,13 +11,13 @@ export const Styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 15,
     paddingTop: 10,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: '#e9e9e9',
   },
   activetxt: {
     fontSize: 14,
     fontFamily: Fonts.Assistant400,
     color: Colors.textcolor,
-    marginLeft: 20
+    marginLeft: 20,
   },
   listBox: {
     flexDirection: 'row',
@@ -25,7 +25,7 @@ export const Styles = StyleSheet.create({
     paddingHorizontal: 60,
     paddingVertical: 10,
     paddingTop: 10,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: '#f6f6f6',
     // marginLeft: 45
   },
 });

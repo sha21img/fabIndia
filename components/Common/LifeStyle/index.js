@@ -35,7 +35,7 @@ export default function LifeStyle(props) {
     console.log('dfg', item.image);
     return (
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={0.9}
         onPress={() =>
           props.navigation.navigate('LandingPageSaris_Blouses', {
             code: newCode,
@@ -83,14 +83,14 @@ export default function LifeStyle(props) {
           style={{
             fontFamily: Fonts.PlayfairDisplay600Italic,
             color: '#4A4A4A',
-            fontSize: 30,
+            fontSize: 20,
           }}>
           {check ? check[0] : null}
         </Text>
         <View>
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 16,
               color: '#4A4A4A',
               lineHeight: 23,
               fontFamily: Fonts.Assistant400,

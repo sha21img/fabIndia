@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import Styles from './styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {BaseURL2, imageURL, imageURL2} from '../Helper';
+import {BaseURL2, imageURL } from '../Helper';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
@@ -116,7 +116,7 @@ export default function CartCard(props) {
                 },
               ]}
               source={{
-                uri: `${imageURL2}/${item.item?.product?.images[0]?.url}`,
+                uri: `${imageURL}/${item.item?.product?.images[0]?.url}`,
               }}
             />
             <View style={Styles.detailContainer}>

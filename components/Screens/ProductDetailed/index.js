@@ -267,7 +267,7 @@ export default function ProductDetailed(props) {
             Toast.LONG,
             Toast.TOP,
           );
-          if (errors.response.status == 401) {
+          if (errors?.response?.status == 401) {
             logout(dispatch);
           }
         });
@@ -300,7 +300,7 @@ setSelectText(true);
       })
       .catch(errors => {
         console.log('111111111111111', errors);
-        if (errors.response.status == 401) {
+        if (errors?.response?.status == 401) {
           logout(dispatch);
         }
       });
@@ -352,7 +352,7 @@ setSelectText(true);
       })
       .catch(error => {
         console.log('error for get wihslist detail', error);
-        if (error.response.status == 401) {
+        if (error?.response?.status == 401) {
           logout(dispatch);
         }
       });
@@ -384,7 +384,7 @@ setSelectText(true);
           })
           .catch(error => {
             console.log('error for remove000 wishlist', error);
-            if (error.response.status == 401) {
+            if (error?.response?.status == 401) {
               logout(dispatch);
             }
           });
@@ -404,7 +404,7 @@ setSelectText(true);
           })
           .catch(error => {
             console.log('error for add wishlist', error);
-            if (error.response.status == 401) {
+            if (error?.response?.status == 401) {
               logout(dispatch);
             }
           });
@@ -479,7 +479,7 @@ setSelectText(true);
             {StoreDetails.map(item => {
               return (
                 <TouchableOpacity
-                  activeOpacity={0.8}
+                  activeOpacity={0.9}
                   onPress={() => setSelectedTab(item)}
                   style={{
                     marginLeft: 10,
@@ -539,12 +539,8 @@ setSelectText(true);
         </ScrollView>
       )}
 
-      <View style={{ position: 'absolute', top: 0, width: '100%' }}>
-        <HomeHeader
-          {...props}
-          searchVisible={false}
-          isTransparent={true}
-        />
+      <View style={{position: 'absolute', top: 0, width: '100%'}}>
+        <HomeHeader {...props} searchVisible={false} isTransparent={true} />
       </View>
 
       <Footer
