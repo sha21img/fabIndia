@@ -6,5 +6,6 @@ export const Colors = {
   backgroundColor: '#ffffff',
   TRANSPARENT: '#00000000',
   WHITE: '#FFF',
+  BLACK: '#000',
   BLACK_30: 'rgba(0, 0, 0, 0.30)',
 };
