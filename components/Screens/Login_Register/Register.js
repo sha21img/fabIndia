@@ -36,6 +36,7 @@ import {
   LoginManager,
   GraphRequestManager,
 } from 'react-native-fbsdk-next';
+import {MaskedTextInput} from 'react-native-mask-text';
 const faqs = [
   {
     id: '2',
@@ -56,6 +57,10 @@ const Register = props => {
     newPass: '',
     confPass: '',
   });
+  const [maskedValue, setMaskedValue] = useState(
+    moment(new Date()).format('DD-MM-YYYY'),
+  );
+  const [valid, setValid] = useState(false);
   const [mobilePrefix, setMobilePrefix] = useState('91');
   const [gender, SetGender] = useState('');
   const [generate, setgenerate] = useState(false);
@@ -64,12 +69,14 @@ const Register = props => {
   const [isCheckedSignup, setIsCheckedSignup] = useState(false);
   const [isAgree, setisAgree] = useState(false);
   const [DOB, setDOB] = useState('');
+  const [date, setDate] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   //
   const [numberRequire, setNumberRequire] = useState(false);
   const [userGoogleInfo, setUserGoogleInfo] = useState({});
   const [userEmailToken, setUserEmailToken] = useState({});
   const [emailError, setemailError] = useState('');
+  const [isVerifyOtp, setIsVerifyOtp] = useState(false);
 
   const [fbDetails, setFbDetails] = useState();
   const [from, setFrom] = useState('');
@@ -84,6 +91,16 @@ const Register = props => {
   const _selectedValue = index => {
     setMobilePrefix(index);
   };
+  useEffect(() => {
+    setMaskedValue(maskedValue);
+    const regexddmmyyyy =
+      /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](18|19|20)\d\d$/;
+    if (regexddmmyyyy.test(date)) {
+      setValid(true);
+    } else {
+      setValid(false);
+    }
+  }, [date]);
   const generatTokenWithout = async () => {
     await axios
       .post(
@@ -102,11 +119,11 @@ const Register = props => {
   };
   const HandleRegister = async () => {
     let params = {
-      consents: '',
+      consents: [],
       contactNumberCode: `+${mobilePrefix}`,
       contactNumber: phoneNumber,
       countryIsoCode: '',
-      dateOfBirth: DOB,
+      dateOfBirth: maskedValue,
       firstName: text['First name'],
       gender: {code: gender},
       lastName: text['Last name'],
@@ -146,7 +163,10 @@ const Register = props => {
   };
   const handleConfirm = date => {
     // console.log('datePicked==>', date, moment(date).format('DD/MM/YYYY'));
-    if (date) setDOB(moment(date).format('DD/MM/YYYY'));
+    if (date) {
+      setDOB(moment(date).format('DD/MM/YYYY')),
+        setMaskedValue(moment(date).format('DD/MM/YYYY'));
+    }
     hideDatePicker();
   };
   const GenerateOtp = async () => {
@@ -184,6 +204,7 @@ const Register = props => {
         Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
       } else {
         Toast.showWithGravity('Done', Toast.LONG, Toast.TOP);
+        setIsVerifyOtp(true);
         setgenerate(false);
       }
     });
@@ -407,6 +428,7 @@ const Register = props => {
       console.log(error.message);
     }
   };
+
   return (
     <>
       {numberRequire ? (
@@ -508,9 +530,10 @@ const Register = props => {
                       style={Styles.textinput1}
                       value={phoneNumber}
                       placeholder="Your Mobile Number"
-                      onChangeText={value =>
-                        value.length <= 10 ? setPhoneNumber(value) : false
-                      }
+                      onChangeText={value => {
+                        setIsVerifyOtp(false);
+                        value.length <= 10 ? setPhoneNumber(value) : false;
+                      }}
                       placeholderTextColor="grey"
                       keyboardType={'number-pad'}
                       disableFullscreenUI={true}
@@ -667,22 +690,28 @@ const Register = props => {
                   style={{
                     marginTop: 20,
                     paddingVertical: 10,
-                    borderBottomWidth: 1,
+                    // borderBottomWidth: 1,
                   }}>
                   <Text style={{fontsize: 12}}>Date of birth</Text>
                   <View
-                    style={[
-                      {
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      },
-                    ]}>
-                    <Text
-                      style={{
-                        fontSize: 18,
-                      }}>
-                      {!!DOB ? DOB : 'dd-mm-yyyy'}
-                    </Text>
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      borderBottomWidth: 1,
+                      borderBottomColor: 'gray',
+                    }}>
+                    <MaskedTextInput
+                      mask="99-99-9999"
+                      value={maskedValue}
+                      style={{fontSize: 16}}
+                      onChangeText={(text, rawText) => {
+                        setMaskedValue(text);
+                        setDate(text);
+                        console.log('1234567890', text);
+                      }}
+                      keyboardType="numeric"
+                    />
                     <Feather
                       name="calendar"
                       color={Colors.primarycolor}
@@ -690,6 +719,9 @@ const Register = props => {
                       onPress={showDatePicker}
                     />
                   </View>
+                  <Text style={{color: 'red'}}>
+                    {!valid ? 'Please Enter Valid Date' : null}
+                  </Text>
                 </View>
               </View>
               <View style={[Styles.defaultaddressbox]}>
@@ -783,7 +815,9 @@ const Register = props => {
                   !!mobilePrefix &&
                   !!gender &&
                   !!DOB &&
-                  !!phoneNumber
+                  !!phoneNumber &&
+                  !!isVerifyOtp &&
+                  !!valid
                 )
               }
               customViewStyle={{
@@ -800,7 +834,9 @@ const Register = props => {
                   !!mobilePrefix &&
                   !!gender &&
                   !!DOB &&
-                  !!phoneNumber
+                  !!phoneNumber &&
+                  !!isVerifyOtp &&
+                  !!valid
                     ? Colors.primarycolor
                     : 'grey',
               }}

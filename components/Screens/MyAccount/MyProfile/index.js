@@ -72,18 +72,18 @@ const MyProfile = props => {
     'oiuytfdrtfyguioiuytrrty111111111111111111111111111111111',
     moment(new Date()).format('DD-MM-YYYY'),
   );
-  useEffect(() => {
-    if (isCheck == true) {
-      updateProfileHandler();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (isCheck == true) {
+  //     updateProfileHandler();
+  //   }
+  // }, []);
 
   const checkUpdateProfile = () => {
-    if (editUser.mobile != allProps.profiledata.contactNumber) {
-      props.navigation.navigate('ChangeMobileNumber');
-    } else {
+    // if (editUser.mobile != allProps.profiledata.contactNumber) {
+    //   props.navigation.navigate('ChangeMobileNumber');
+    // } else {
       updateProfileHandler();
-    }
+    // }
   };
 
   const updateProfileHandler = async () => {
