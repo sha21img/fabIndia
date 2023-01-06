@@ -1,18 +1,21 @@
 import {StyleSheet} from 'react-native';
-import {Dimensions} from 'react-native';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
-const width = Dimensions.get('window').width;
 
 export const Styles = StyleSheet.create({
+  cardContainer: {
+    width: '48%',
+    elevation: 5,
+    backgroundColor: Colors.WHITE,
+  },
   imagedimension: {height: 212, width: '100%'},
   headingbox: {
-    paddingHorizontal: 10,
-    paddingTop: 10,
+    padding: 10,
+    backgroundColor: Colors.WHITE
   },
   headingtxt: {
-    fontSize: 12,
-    color: '#4A4A4A',
+    fontSize: 16,
+    color: Colors.textcolor,
     lineHeight: 21,
     fontFamily: Fonts.Assistant400,
   },
@@ -20,26 +23,24 @@ export const Styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    paddingVertical: 10,
+    marginTop: 5
   },
   mrptxt: {
     paddingRight: 5,
     fontSize: 14,
     fontFamily: Fonts.Assistant400,
-    color: '#4A4A4A',
+    color: Colors.textcolor,
   },
   amounttxt: {
     paddingRight: 5,
-    fontSize: 13,
-    color: '#4A4A4A',
-    fontFamily: Fonts.RupeeForadian,
+    fontSize: 14,
+    color: Colors.textcolor,
+    fontFamily: Fonts.Assistant400,
   },
   priceofftxt: {
-    paddingRight: 5,
-    textDecorationLine: 'line-through',
-    color: '#979797',
-    fontSize: 12,
-    fontFamily: Fonts.RupeeForadian,
+    fontSize: 13,
+    color: Colors.inactiveicon,
+    textDecorationLine: 'line-through'
   },
   offertxt: {
     paddingRight: 5,

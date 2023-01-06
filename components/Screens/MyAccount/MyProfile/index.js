@@ -348,8 +348,9 @@ const MyProfile = props => {
                     setIsVerifyOtp(false);
                     console.log(';oiuytfdxcghjkl;', value);
                     if (
-                      value.length == 10 &&
-                      allProps.profiledata.contactNumber == value
+                      value.length == 10
+                      // &&
+                      // allProps.profiledata.contactNumber == value
                     ) {
                       console.log('ojihugyfttyguhijokpl[poihugfghjk');
                       setAllField({...allField, phone_number: true});
