@@ -95,7 +95,7 @@ const MyProfile = props => {
       country: {
         isocode: allProps.profiledata?.defaultAddress?.country?.isocode,
       },
-      dateOfBirth: DOB,
+      dateOfBirth: maskedValue,
       firstName: editUser.first,
       gender: {code: gender},
       lastName: editUser.last,
