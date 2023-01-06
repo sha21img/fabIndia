@@ -65,84 +65,86 @@ const Filter = props => {
   }
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: 'white',
-      }}>
-      <ScrollView contentContainerStyle={styles.box}>
-        {data.map((el, i) => {
-          return (
-            <TouchableOpacity
-              style={
-                el.name.includes(categoryOption)
-                  ? styles.activeOption
-                  : styles.filterOption
-              }
-              key={i}
-              onPress={
-                () => setCategoryOption(el.name)
-                //  handleActiveOption(el.name)
-              }>
-              <Text style={styles.activeText}>{el.name}</Text>
+    <>
+      <ScrollView
+        contentContainerStyle={{
+          flex: 1,
+          flexDirection: 'row',
+          backgroundColor: 'white',
+        }}>
+        <ScrollView contentContainerStyle={styles.box}>
+          {data.map((el, i) => {
+            return (
+              <TouchableOpacity
+                style={
+                  el.name.includes(categoryOption)
+                    ? styles.activeOption
+                    : styles.filterOption
+                }
+                key={i}
+                onPress={
+                  () => setCategoryOption(el.name)
+                  //  handleActiveOption(el.name)
+                }>
+                <Text style={styles.activeText}>{el.name}</Text>
 
-              {/* {el.option.includes(isActive) ? (
+                {/* {el.option.includes(isActive) ? (
                 <Text style={styles.activeText}>{el.name}</Text>
               ) : (
                 <Text style={styles.inActiveText}>{el.name}</Text>
               )} */}
-            </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
-      <ScrollView contentContainerStyle={styles.box1}>
-        {data
-          ?.find(item => {
-            return item.name == categoryOption;
-          })
-          ?.values.map(item => {
-            return (
-              <View style={styles.checkboxContainer}>
-                <CheckBox
-                  checkBoxColor={Colors.primarycolor}
-                  onClick={() => {
-                    console.log(
-                      'jijijjijjijjiccccccccccccccccc',
-                      item?.query.query.value,
-                    );
-                    handleClick(item?.query.query.value);
-                    // setQuery(item?.query.query.value);
-                  }}
-                  isChecked={item.selected}
-                />
-
-                {categoryOption === 'Color' && (
-                  <View
-                    style={{
-                      backgroundColor: item.name.toLowerCase(),
-                      height: 20,
-                      width: 20,
-                      borderRadius: 50,
-                      marginHorizontal: 5,
-                      borderWidth: 1,
-                    }}></View>
-                )}
-
-                <Text
-                  style={{
-                    paddingLeft: 5,
-                    fontSize: 14,
-                    color: Colors.textcolor,
-                    fontFamily: Fonts.Assistant600,
-                    color: Colors.primarycolor,
-                  }}>
-                  {item.name} {`(${item.count})`}
-                </Text>
-              </View>
+              </TouchableOpacity>
             );
           })}
-        {/* {data.map((el, i) => {
+        </ScrollView>
+        <ScrollView contentContainerStyle={styles.box1}>
+          {data
+            ?.find(item => {
+              return item.name == categoryOption;
+            })
+            ?.values.map(item => {
+              return (
+                <View style={styles.checkboxContainer}>
+                  <CheckBox
+                    checkBoxColor={Colors.primarycolor}
+                    onClick={() => {
+                      console.log(
+                        'jijijjijjijjiccccccccccccccccc',
+                        item?.query.query.value,
+                      );
+                      handleClick(item?.query.query.value);
+
+                      // setQuery(item?.query.query.value);
+                    }}
+                    isChecked={item.selected}
+                  />
+
+                  {categoryOption === 'Color' && (
+                    <View
+                      style={{
+                        backgroundColor: item.name.toLowerCase(),
+                        height: 20,
+                        width: 20,
+                        borderRadius: 50,
+                        marginHorizontal: 5,
+                        borderWidth: 1,
+                      }}></View>
+                  )}
+
+                  <Text
+                    style={{
+                      paddingLeft: 5,
+                      fontSize: 14,
+                      color: Colors.textcolor,
+                      fontFamily: Fonts.Assistant600,
+                      color: Colors.primarycolor,
+                    }}>
+                    {item.name} {`(${item.count})`}
+                  </Text>
+                </View>
+              );
+            })}
+          {/* {data.map((el, i) => {
           return (
             <View key={i} style={styles.checkboxContainer}>
               <Text
@@ -157,24 +159,25 @@ const Filter = props => {
             </View>
           );
         })} */}
-      </ScrollView>
+        </ScrollView>
 
-      <View style={styles.bottomContent}>
-        <TouchableOpacity
-          style={styles.cancelButton}
-          onPress={() => setFilterModalVisible(false)}>
-          <Text style={styles.cancleTxt}>Cancel</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.cancelButton}
-          onPress={() => {
-            // handleClick(query)
-            setFilterModalVisible(false);
-          }}>
-          <Text style={styles.cancleTxt}>Apply</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+        <View style={styles.bottomContent}>
+          <TouchableOpacity
+            style={styles.cancelButton}
+            onPress={() => setFilterModalVisible(false)}>
+            <Text style={styles.cancleTxt}>Cancel</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.cancelButton}
+            onPress={() => {
+              // handleClick(query)
+              setFilterModalVisible(false);
+            }}>
+            <Text style={styles.cancleTxt}>Apply</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </>
   );
 };
 

@@ -161,62 +161,64 @@ export default function HomeHeader(props) {
           Styles.container,
           {backgroundColor: isTransparent ? Colors.TRANSPARENT : 'white'},
         ]}>
-        {homeheader ? (
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            <SimpleLineIcons
-              name="menu"
-              color={Colors.primarycolor}
-              size={20}
-              onPress={() => props.navigation.openDrawer()}
-            />
-            <Image source={image.color_logo} style={Styles.imagestyle} />
-          </View>
-        ) : (
-          <>
-            {backArrow ? (
-              <TouchableOpacity
-                style={{
-                  paddingHorizontal: 5,
-                  flexDirection: 'row',
-                }}
-                onPress={() => props.navigation.goBack()}>
-                <SimpleLineIcons
-                  name="arrow-left"
-                  color={Colors.primarycolor}
-                  size={20}
-                />
-              </TouchableOpacity>
-            ) : null}
-            {!!headertext ? (
-              <View style={{flexDirection: 'column', width: '50%'}}>
-                <Text
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          {homeheader ? (
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <SimpleLineIcons
+                name="menu"
+                color={Colors.primarycolor}
+                size={20}
+                onPress={() => props.navigation.openDrawer()}
+              />
+              <Image source={image.color_logo} style={Styles.imagestyle} />
+            </View>
+          ) : (
+            <>
+              {backArrow ? (
+                <TouchableOpacity
                   style={{
-                    fontSize: 15,
-                    color: Colors.textcolor,
-                    fontFamily: Fonts.Assistant500,
-                  }}>
-                  {headertext}
-                </Text>
-                {!!totalCount && (
-                  <Text style={{fontSize: 10}}>{totalCount} items</Text>
-                )}
-              </View>
-            ) : null}
-            {!!middleHeader && (
-              <Text
-                style={{
-                  color: Colors.primarycolor,
-                  fontSize: 18,
-                  fontFamily: Fonts.PlayfairDisplay500,
-                }}>
-                {middleHeader}
-              </Text>
-            )}
-          </>
+                    paddingHorizontal: 5,
+                    flexDirection: 'row',
+                  }}
+                  onPress={() => props.navigation.goBack()}>
+                  <SimpleLineIcons
+                    name="arrow-left"
+                    color={Colors.primarycolor}
+                    size={20}
+                  />
+                </TouchableOpacity>
+              ) : null}
+              {!!headertext ? (
+                <View style={{flexDirection: 'column', width: '50%'}}>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: Colors.textcolor,
+                      fontFamily: Fonts.Assistant500,
+                    }}>
+                    {headertext}
+                  </Text>
+                  {!!totalCount && (
+                    <Text style={{fontSize: 10}}>{totalCount} items</Text>
+                  )}
+                </View>
+              ) : null}
+            </>
+          )}
+        </View>
+        {!!middleHeader && (
+          <Text
+            style={{
+              color: Colors.primarycolor,
+              fontSize: 18,
+              fontFamily: Fonts.PlayfairDisplay500,
+            }}>
+            {middleHeader}
+          </Text>
         )}
 
         <View style={Styles.detailContainer}>

@@ -292,9 +292,12 @@ export default function App(props) {
               }}
             />
             <Stack.Screen
-              options={{
-                header: props => <HomeHeader {...props} />,
-              }}
+              options={{headerShown: false}}
+              // options={{
+              //   header: props => (
+              //     <HomeHeader {...props} headertext="Wishlist" />
+              //   ),
+              // }}
               name="YourWishlist"
               component={YourWishlist}
             />
@@ -534,10 +537,22 @@ export default function App(props) {
     );
   } else {
     return (
-      <View style={{ marginTop: 250, alignItems: 'center', justifyContent: 'center', }}>
-        <Text style={{ fontSize: 16, color: '#000' }}>No Coneected Network</Text>
+      <View
+        style={{
+          marginTop: 250,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Text style={{fontSize: 16, color: '#000'}}>No Coneected Network</Text>
         <TouchableOpacity activeOpacity={0.9} onPress={() => getNetInfo()}>
-          <Text style={{ fontSize: 16, color: Colors.primarycolor, fontWeight: '600' }}>Try to connect</Text>
+          <Text
+            style={{
+              fontSize: 16,
+              color: Colors.primarycolor,
+              fontWeight: '600',
+            }}>
+            Try to connect
+          </Text>
         </TouchableOpacity>
       </View>
     );

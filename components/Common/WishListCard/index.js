@@ -6,10 +6,18 @@ import {Styles} from './style';
 
 import {useSelector} from 'react-redux';
 import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
+import HomeHeader from '../../Screens/Home/HomeHeader';
 export default function WishListCard(props) {
   const {cartReducer} = useSelector(state => state);
   return (
     <>
+      <HomeHeader
+        {...props}
+        headertext="Wishlist"
+        searchVisible={null}
+        showWishlist={false}
+        totalCount={cartReducer?.WishListDetail.wishlistQuantity}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{

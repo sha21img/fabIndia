@@ -31,6 +31,7 @@ import LoadingComponent from '../../../Common/LoadingComponent';
 
 export default function ResultCards(props) {
   const {cartReducer} = useSelector(state => state);
+  const [isActive, setIsActive] = useState([]);
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [dataMain, setdataMain] = useState([]);
@@ -47,6 +48,8 @@ export default function ResultCards(props) {
   const {data = []} = props;
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  console.log('11111111111111111111111111111111111111111111111', code);
+  var isFilterVIsible;
 
   const getProductData = async data => {
     const fields =
@@ -86,7 +89,19 @@ export default function ResultCards(props) {
       }
     }
 
-    console.log('1234567890', response.data);
+    console.log('1234567890', response.data.facets);
+    const isFilterVIsible = response.data.facets.filter(item => {
+      return item.values.filter(it => {
+        return it.selected == true;
+      });
+      // return item.
+    });
+    setIsActive(isFilterVIsible);
+    console.log(
+      'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss',
+      isFilterVIsible,
+    );
+
     // fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}`);
     setdataMain(response.data);
     setProductCount(response.data.pagination.totalResults);
@@ -298,7 +313,20 @@ export default function ResultCards(props) {
   const handleClick = data => {
     getProductData(data);
   };
+  // useEffect(() => {
+  //   console.log('liuytresdfklkjytdfghjklkjhgv');
+  //   isFilterVIsible =
+  //     dataMain.length > 0 &&
+  //     dataMain.facets.filter(item => {
+  //       console.log('................................', item);
+  //       return item.values.map(it => {
+  //         return it.selected == true;
+  //       });
+  //       // return item.
+  //     });
+  // }, []);
 
+  console.log('isFilterVIsibleisFilterVIsible', isFilterVIsible);
   return (
     <>
       <HomeHeader {...props} headertext={title} totalCount={totalCount} />
@@ -358,14 +386,51 @@ export default function ResultCards(props) {
           onRequestClose={() => {
             setFilterModalVisible(!filterModalVisible);
           }}>
-          <Filter
-            setFilterModalVisible={setFilterModalVisible}
-            filterModalVisible={filterModalVisible}
-            data={dataMain.facets}
-            handleClick={handleClick}
-            setIsCheck={setIsCheck}
-            isCheck={isCheck}
-          />
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'white',
+              paddingHorizontal: 15,
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                paddingVertical: 20,
+              }}>
+              <Text
+                style={{
+                  color: Colors.textcolor,
+                  fontSize: 18,
+                  fontFamily: Fonts.Assistant600,
+                }}>
+                FILTERS
+              </Text>
+              {isActive.length > 0 && (
+                <TouchableOpacity
+                  onPress={() => {
+                    handleClick(code), setFilterModalVisible(false);
+                  }}>
+                  <Text
+                    style={{
+                      color: Colors.primarycolor,
+                      fontSize: 18,
+                      fontFamily: Fonts.Assistant600,
+                    }}>
+                    CLEAR ALL
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
+            <Filter
+              setFilterModalVisible={setFilterModalVisible}
+              filterModalVisible={filterModalVisible}
+              data={dataMain.facets}
+              handleClick={handleClick}
+              setIsCheck={setIsCheck}
+              isCheck={isCheck}
+            />
+          </View>
           {/* <View style={styles.mainContainer}>
           <Text>jihugy</Text>
         </View> */}
