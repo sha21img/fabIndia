@@ -365,9 +365,9 @@ export const LandingPageL1Kids = [
   // 'Section17', // empty
 ];
 export const LandingPageL1Gifting = [
-  'Section1',
-  'Section2',
-  'Section3',
+  // 'Section1',
+  // 'Section2',
+  // 'Section3',
   'Section4',
 ];
 
