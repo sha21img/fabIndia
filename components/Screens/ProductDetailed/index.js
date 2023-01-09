@@ -509,8 +509,8 @@ setSelectText(true);
           ) : selectedTab == 'Specifications' ? (
             <SpecificationsData />
           ) : (
-            null
-            // <AdditionalData />
+            
+            <AdditionalData />
           )}
 
           {/* <View style={{paddingHorizontal: 5}}>

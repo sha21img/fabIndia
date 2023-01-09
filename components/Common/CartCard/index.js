@@ -126,15 +126,15 @@ export default function CartCard(props) {
                 <View style={Styles.colorBox}>
                   <Text style={Styles.colorText}>
                     Color -{' '}
-                    {
+                    {/* {
                       item.item?.product?.baseOptions[0]?.selected
                         ?.variantOptionQualifiers[0]?.value
-                    }{' '}
+                    }{' '} */}
                   </Text>
                   <Image
                     style={{
-                      width: 20,
-                      height: 20,
+                      width: 18,
+                      height: 18,
                       borderRadius: 50,
                       marginHorizontal: 3,
                     }}
@@ -157,7 +157,7 @@ export default function CartCard(props) {
                       {item.item?.product?.baseOptions[0]?.selected
                         ?.variantOptionQualifiers[1]?.value == 'Free Size'
                         ? 'Free Size'
-                        : `Size ${item.item?.product?.baseOptions[0]?.selected?.variantOptionQualifiers[1]?.value}`}
+                        : `Size : ${item.item?.product?.baseOptions[0]?.selected?.variantOptionQualifiers[1]?.value}`}
                     </Text>
                     <MaterialIcons name="keyboard-arrow-down" size={20} />
                   </TouchableOpacity>
@@ -166,7 +166,7 @@ export default function CartCard(props) {
                   style={Styles.quantityContainer}
                   onPress={() => SizeQClick(item?.item)}>
                   <Text style={Styles.QuantityText}>
-                    Quantity {item?.item?.quantity}
+                    QTY: {item?.item?.quantity}
                   </Text>
                   <MaterialIcons name="keyboard-arrow-down" size={20} />
                 </TouchableOpacity>
@@ -213,7 +213,7 @@ export default function CartCard(props) {
                   }
                 }}>
                 <Text style={Styles.btnText}>
-                  {isActive ? 'Remove from wishlist' : 'Move to wishlist'}
+                  {isActive ? 'Remove from wishlist' : 'Move to Wishlist'}
                 </Text>
               </TouchableOpacity>
             ) : null}

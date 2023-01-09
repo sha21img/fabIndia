@@ -61,7 +61,7 @@ const Styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 5,
     flexDirection: 'row',
-    backgroundColor: 'lightgray',
+    backgroundColor: 'lightgrey',
     alignItems: 'center',
   },
   currencyContainer: {

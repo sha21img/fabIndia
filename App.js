@@ -401,8 +401,8 @@ export default function App(props) {
                   <HomeHeader
                     searchVisible={null}
                     {...props}
-                    showWishlist={false}
-                    middleHeader="Your Shopping cart"
+                    showCart = {false}
+                    middleHeader="Shopping Cart"
                   />
                 ),
               }}
