@@ -10,7 +10,6 @@ import Fonts from '../../../../assets/fonts';
 
 export default function WomenTab(props) {
   const {data = {}} = props;
-  console.log('pkoijhugyftdxhui', data);
   const flatlistRef = useRef();
   const [active, setActive] = React.useState('');
   const [selectedTab, setSelectedTab] = React.useState('');
@@ -64,61 +63,6 @@ export default function WomenTab(props) {
       getTabCount();
     }
   }, [props?.data]);
-
-  const cardsObj = {
-    Jewellery: CardProducts,
-    'Saris & Blouses': CardProducts,
-    'Stoles & Sarongs': CardProducts,
-    'Stoles & Scarves': CardProducts,
-    'Women Ethnic': CardProducts,
-    'Women Western': CardProducts,
-    'Men Ethnic': CardProducts,
-    'Men Western': CardProducts,
-    'Men Footwear': CardProducts,
-    Boys: CardProducts,
-    'Infant Girls': CardProducts,
-    Girls: CardProducts,
-    'Infant Boys': CardProducts,
-    'Home & Living': CardProducts,
-    Furniture: CardProducts,
-    Dupattas: CardProducts,
-    'Churidars & Salwars': CardProducts,
-    'Churidars & Pyjamas': CardProducts,
-    Kurtas: CardProducts,
-    'Tops, Shirts & Tunics': CardProducts,
-    'Nehru Jackets': CardProducts,
-    'Dresses & Jumpsuits': CardProducts,
-    'Pants & Palazzos': CardProducts,
-    Sleepwear: CardProducts,
-    Trousers: CardProducts,
-    Shirts: CardProducts,
-    'Girls Western Wear': CardProducts,
-    'Boys Ethnic Wear': CardProducts,
-    'Girls Ethnic Wear': CardProducts,
-    'Boys Western Wear': CardProducts,
-    'Boys Kurta': CardProducts,
-    'Girls Ethnic Sets': CardProducts,
-    'Girls Dresses & Jumpsuits': CardProducts,
-    'Boys Shirt & Short Kurta': CardProducts,
-    'Infant Girls Sets': CardProducts,
-    'Bed Linen': CardProducts,
-    Bath: CardProducts,
-    'Kids Linen': CardProducts,
-    Curtain: CardProducts,
-    'Kitchen & Dining': CardProducts,
-    'Home Decor': CardProducts,
-    'Wall Decor': CardProducts,
-    Cushion: CardProducts,
-    Cushions: CardProducts,
-    'Floor Convering': CardProducts,
-    'Floor Coverings': CardProducts,
-    Bedroom: CardProducts,
-    Living: CardProducts,
-    Dining: CardProducts,
-    'Bar Furniture': CardProducts,
-    'Lamp & Shades': CardProducts,
-    'Stationary & Tags': CardProducts,
-  };
 
   const productCard = item => {
     return <Card {...props} items={item.item} />;

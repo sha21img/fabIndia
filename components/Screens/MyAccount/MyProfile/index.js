@@ -503,7 +503,7 @@ const MyProfile = props => {
             borderBottomColor: 'gray',
           }}>
           <MaskedTextInput
-            mask="99-99-9999"
+            mask="99/99/9999"
             value={maskedValue}
             style={{fontSize: 16}}
             onChangeText={(text, rawText) => {
