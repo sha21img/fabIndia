@@ -1,8 +1,8 @@
-import {View, Text, FlatList, ScrollView} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import { View, Text, FlatList, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import Accordian from '../../Common/Accordian';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getComponentData} from '../../Common/Helper';
+import { getComponentData } from '../../Common/Helper';
 
 export default function CategorySection(props) {
   const [listData, setListData] = useState([]);
@@ -58,8 +58,7 @@ export default function CategorySection(props) {
             },
           ],
           title: 'New Arrivals',
-          image:
-            'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG',
+          image: 'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG'
         },
         {
           children: [
@@ -240,8 +239,7 @@ export default function CategorySection(props) {
             },
           ],
           title: 'Women',
-          image:
-            'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG',
+          image: 'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG'
         },
         {
           children: [
@@ -347,8 +345,7 @@ export default function CategorySection(props) {
             },
           ],
           title: 'Men',
-          image:
-            'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG',
+          image: 'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG'
         },
         {
           children: [
@@ -509,8 +506,7 @@ export default function CategorySection(props) {
             },
           ],
           title: 'Kids',
-          image:
-            'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG',
+          image: 'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG'
         },
         {
           children: [
@@ -806,8 +802,7 @@ export default function CategorySection(props) {
             },
           ],
           title: 'Home & Living',
-          image:
-            'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG',
+          image: 'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG'
         },
         {
           children: [
@@ -978,8 +973,7 @@ export default function CategorySection(props) {
             },
           ],
           title: 'Furniture',
-          image:
-            'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG',
+          image: 'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG'
         },
         {
           children: [
@@ -1170,8 +1164,7 @@ export default function CategorySection(props) {
             },
           ],
           title: 'Personal Care',
-          image:
-            'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG',
+          image: 'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG'
         },
         {
           children: [
@@ -1317,9 +1310,105 @@ export default function CategorySection(props) {
             },
           ],
           title: 'Food',
-          image:
-            'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG',
+          image: 'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG'
         },
+        {
+          children: [
+            {
+              children: [],
+              title: 'Winterwear',
+              landingPage: '/collection/winter-wear',
+            },
+            {
+              children: [],
+              title: 'Wedding',
+              landingPage: '/wedding',
+            },
+            {
+              children: [],
+              title: 'Gifting',
+              landingPage: 'collection/gifting-ideas',
+            },
+            {
+              children: [],
+              title: 'Festive',
+              landingPage: '/festive',
+            },
+            {
+              children: [],
+              title: 'Summer',
+              landingPage: '/summer',
+            },
+            {
+              children: [],
+              title: 'Indigo',
+              landingPage: '/indigo',
+            },
+            {
+              children: [],
+              title: 'Indian Spring',
+              landingPage: '/collection/indian-spring',
+            },
+            {
+              children: [],
+              title: 'Everyday Living',
+              landingPage: '/collection/everyday-living',
+            },
+            {
+              children: [],
+              title: 'NUIndian',
+              landingPage: '/collection/nuindian',
+            },
+            {
+              children: [],
+              title: 'FabNu',
+              landingPage: '/fabnu',
+            },
+          ],
+          title: 'Collection',
+          image: 'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG'
+        },
+        {
+          children: [
+            {
+              children: [],
+              title: 'All in Sale',
+              landingPage: '/shop/sale',
+            },
+            {
+              children: [],
+              title: 'Women',
+              landingPage: '/shop/sale-women-products',
+            },
+            {
+              children: [],
+              title: 'Men',
+              landingPage: '/shop/sale-men-products',
+            },
+            {
+              children: [],
+              title: 'Kids',
+              landingPage: '/shop/sale-kids-products',
+            },
+            {
+              children: [],
+              title: 'Home & Living',
+              landingPage: '/shop/sale-home-living',
+            },
+            {
+              children: [],
+              title: 'Furniture',
+              landingPage: '/shop/sale-furniture',
+            },
+            {
+              children: [],
+              title: 'Personal Care',
+              landingPage: '/shop/sale-personal-care',
+            },
+          ],
+          title: 'Sale',
+          image: 'https://fabindia-mobileapp-ansdigital-dev.s3.ap-south-1.amazonaws.com/Categories.PNG'
+        }
       ],
       children: [],
       title: 'Shop By Categories',
@@ -1424,8 +1513,7 @@ export default function CategorySection(props) {
         },
       ],
       title: 'New Arrivals',
-      image:
-        'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
+      image: 'https://apisap.fabindia.com//medias/hp-sec1-mob-9dec22-1-rep1.jpg?context=bWFzdGVyfHJvb3R8NjUzNzZ8aW1hZ2UvanBlZ3xoMWEvaDZiLzkxMjM2MDkzNzg4NDYvaHAtc2VjMS1tb2ItOWRlYzIyLTEtcmVwMS5qcGd8ZDkyMGMxZWFlZTIwNzU4N2I3MGJlZjk4MzQyZjliNjQ1YjU5YjdiZmI3NzNiMzgwZWUxZjU4M2YxZTllYWY2ZA',
     },
     {
       children: [
@@ -1518,8 +1606,8 @@ export default function CategorySection(props) {
   return (
     <FlatList
       data={newData}
-      keyExtractor={item => console.log('this is for key')}
-      renderItem={({item, index}) => <Accordian data={item} />}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={({ item, index }) => <Accordian data={item} />}
     />
   );
 }

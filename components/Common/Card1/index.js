@@ -156,13 +156,14 @@ export default function Card1(props) {
             {item.name}
           </Text>
           <View style={Styles.pricebox}>
-            <Text style={Styles.amounttxt}>
-              {item?.priceAfterDiscount?.formattedValue}
-            </Text>
             <Text style={Styles.mrptxt}>M.R.P.</Text>
-            <Text style={Styles.priceofftxt}>
-              {item?.price?.formattedValue}
-            </Text>
+            <Text style={Styles.amounttxt}>{item?.priceAfterDiscount?.formattedValue}</Text>
+            {item?.totalDiscount?.value ?
+              <Text style={Styles.priceofftxt}>
+                {item?.price?.formattedValue}
+              </Text>
+              : null
+            }
 
             {!!discountPrice && (
               <Text style={Styles.offertxt}>

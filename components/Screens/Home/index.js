@@ -4,34 +4,39 @@ import {
   BackHandler,
   Alert,
   View,
-  ActivityIndicator,
+  SafeAreaView,
+  Text,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Catagory from './Catagory';
 import NewHighlights from '../../Common/NewHighlights';
 import CommonCarousel from '../../Common/CommonCarousel/index';
-import {HomePageSection} from '../../../constant';
-import {Colors} from '../../../assets/Colors';
+import { HomePageSection } from '../../../constant';
 import Interior from './Interior';
 import TopSwiper from '../../Common/TopSwiper';
 import axios from 'axios';
-import {AuthBaseUrl2, getCartID, getData} from '../../Common/Helper';
+import { AuthBaseUrl2, getCartID, getData } from '../../Common/Helper';
 import WomenTab from './Tabs.js/WomenTab';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const width = Dimensions.get('window').width;
 import YoutubeVideo from '../YoutubeVideo';
 import OfferForYou from '../OfferForYou';
-import {withNavigationFocus} from 'react-navigation';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { ApiService } from '../../api/ApiService';
+import { Utility } from '../../util';
+import { Colors } from '../../values';
+import LoadingComponent from '../../Common/LoadingComponent';
+
+const width = Dimensions.get('window').width;
 
 export default function Dashbord(props) {
   const dispatch = useDispatch();
-  const [active, setActive] = React.useState('Bestsellers');
-  const [dashboardData, setDashboardData] = React.useState([]);
-  const [filteredComp, setFilteredComp] = React.useState([]);
-  const [loading, setLoading] = React.useState(false);
+  const [dashboardData, setDashboardData] = useState([]);
+  const [filteredComp, setFilteredComp] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
+    getPages();
+    getHomeData();
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
@@ -62,6 +67,51 @@ export default function Dashbord(props) {
     }
   };
 
+  // Form Pannel 2 
+  const getHomeData = () => {
+    let params = {}
+    ApiService.getHomeData(params).then((response) => {
+      if (response.data) {
+        // Utility.log('res==>', JSON.stringify(response.data))
+        setDashboardData(response.data)
+        setLoading(false)
+      }
+      else {
+        setLoading(false)
+      }
+    }).catch((error) => {
+      Utility.log('error==>', error)
+      setLoading(false)
+    })
+  }
+
+  const getSections = data => {
+    var dataa = [];
+    HomePageSection.map(sectionId => {
+      const filter = data.find(item => {
+        return item.position == sectionId;
+      });
+      dataa.push(filter?.components?.component[0]);
+    });
+    setFilteredComp(dataa);
+  };
+
+  const getPages = () => {
+    let params = {
+      'lang': 'en',
+      'curr': 'INR'
+    }
+    ApiService.getPagesData(params).then((response) => {
+      if (response) {
+        Utility.log('res==>', response)
+        getSections(response.contentSlots.contentSlot);
+      }
+    }).catch((error) => {
+      Utility.log('error==>', error)
+      setLoading(false)
+    })
+  }
+
   const getInitialCartID = async () => {
     const cartId = await AsyncStorage.getItem('cartID');
     cartId == null && getCartID(dispatch);
@@ -77,7 +127,7 @@ export default function Dashbord(props) {
           // console.log('response', response.data);
           AsyncStorage.setItem(
             'generatToken',
-            JSON.stringify({...response.data, isCheck: false}),
+            JSON.stringify({ ...response.data, isCheck: false }),
           );
         },
         error => {
@@ -96,7 +146,7 @@ export default function Dashbord(props) {
   };
 
   useEffect(
-    React.useCallback(() => {
+    useCallback(() => {
       checkToken();
     }, []),
   );
@@ -123,173 +173,146 @@ export default function Dashbord(props) {
     youtube: '63abc289c349c715bd92dadd',
   };
 
-  const getNewHomeData = async () => {
-    setLoading(true);
-    const response = await axios
-      .get('http://159.89.164.11:3030/homepage/getForApp')
-      .then(response => {
-        console.log('oiuytrfghj', response.data.data);
-        setDashboardData(response.data.data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.log('eeeeeeeeeeeeeeee', err);
-      });
-  };
-
-  const getSections = data => {
-    var dataa = [];
-    HomePageSection.map(sectionId => {
-      const filter = data.find(item => {
-        return item.position == sectionId;
-      });
-      dataa.push(filter?.components?.component[0]);
-    });
-    setFilteredComp(dataa);
-  };
-
-  const getInitialData = async () => {
-    const response = await getData('cms/pages?lang=en&curr=INR');
-    getSections(response.contentSlots.contentSlot);
-  };
-
-  React.useEffect(() => {
-    getInitialData();
-    getNewHomeData();
-  }, []);
-
   return (
-    <>
-      <ScrollView style={{backgroundColor: 'white'}}>
-        {dashboardData?.[HomPageSections.Categorymenu]?.length > 0 ? (
-          <Catagory
-            data={dashboardData?.[HomPageSections.Categorymenu]}
-            {...props}
-            isAdmin2={'isAdmin2'}
-            customStyle={{paddingVertical: 10}}
-          />
-        ) : null}
-        {dashboardData?.[HomPageSections.Mainslider]?.length > 0 ? (
-          <TopSwiper
-            isAdmin2={'isAdmin2'}
-            data={dashboardData?.[HomPageSections.Mainslider]}
-            {...props}
-          />
-        ) : null}
-        {dashboardData?.[HomPageSections.NewInWomen]?.length > 0 ? (
-          <NewHighlights
-            {...props}
-            isAdmin2={'isAdmin2'}
-            customStyle={{marginVertical: 20}}
-            bgColor={{backgroundColor: '#F3E0E0'}}
-            data={dashboardData?.[HomPageSections.NewInWomen]}
-          />
-        ) : null}
-        {dashboardData?.[HomPageSections.BannerWomen]?.length > 0 ? (
-          <CommonCarousel
-            {...props}
-            data={dashboardData?.[HomPageSections.BannerWomen]}
-            width={width / 1.07}
-            isAdmin2={'isAdmin2'}
-            height={200}
-            customStyle={{margin: 20}}
-          />
-        ) : null}
-        {filteredComp.length > 0 ? (
-          <WomenTab data={filteredComp[0]} {...props} />
-        ) : null}
-        {dashboardData?.[HomPageSections.NewInMen]?.length > 0 ? (
-          <NewHighlights
-            {...props}
-            isAdmin2={'isAdmin2'}
-            customStyle={{marginVertical: 20}}
-            bgColor={{backgroundColor: '#F3E0E0'}}
-            data={dashboardData?.[HomPageSections.NewInMen]}
-          />
-        ) : null}
-        {dashboardData?.[HomPageSections.BannerMen]?.length > 0 ? (
-          <CommonCarousel
-            {...props}
-            data={dashboardData?.[HomPageSections.BannerMen]}
-            width={width / 1.07}
-            isAdmin2={'isAdmin2'}
-            height={200}
-            customStyle={{margin: 20}}
-          />
-        ) : null}
-        {filteredComp.length > 0 ? (
-          <WomenTab data={filteredComp[1]} {...props} />
-        ) : null}
-        {dashboardData?.[HomPageSections.NewInKids]?.length > 0 ? (
-          <NewHighlights
-            {...props}
-            isAdmin2={'isAdmin2'}
-            customStyle={{marginVertical: 20}}
-            bgColor={{backgroundColor: '#F3E0E0'}}
-            data={dashboardData?.[HomPageSections.NewInKids]}
-          />
-        ) : null}
-        {dashboardData?.[HomPageSections.BannerKids]?.length > 0 ? (
-          <CommonCarousel
-            {...props}
-            data={dashboardData?.[HomPageSections.BannerKids]}
-            isAdmin2={'isAdmin2'}
-            width={width / 1.07}
-            height={200}
-            customStyle={{margin: 20}}
-          />
-        ) : null}
-        {filteredComp.length > 0 ? (
-          <WomenTab data={filteredComp[2]} {...props} />
-        ) : null}
-        <OfferForYou
-          isAdmin2={'isAdmin2'}
-          dataWomen={dashboardData[HomPageSections.offerWomen]}
-          dataMen={dashboardData[HomPageSections.offerMen]}
-          dataKids={dashboardData[HomPageSections.offerKids]}
-          dataHome={dashboardData[HomPageSections.offerHome]}
-        />
-        {dashboardData?.[HomPageSections.Interior]?.length > 0 ? (
-          <Interior
-            data={dashboardData?.[HomPageSections.Interior]}
-            isAdmin2={'isAdmin2'}
-            {...props}
-          />
-        ) : null}
-        {dashboardData?.[HomPageSections.NewInHome]?.length > 0 ? (
-          <NewHighlights
-            isAdmin2={'isAdmin2'}
-            {...props}
-            customStyle={{marginVertical: 20}}
-            bgColor={{backgroundColor: '#F3E0E0'}}
-            data={dashboardData?.[HomPageSections.NewInHome]}
-          />
-        ) : null}
-        {dashboardData?.[HomPageSections.BannerHome]?.length > 0 ? (
-          <CommonCarousel
-            {...props}
-            data={dashboardData?.[HomPageSections.BannerHome]}
-            isAdmin2={'isAdmin2'}
-            width={width / 1.07}
-            height={200}
-            customStyle={{margin: 20}}
-          />
-        ) : null}
-        {filteredComp.length > 0 ? (
-          <WomenTab data={filteredComp[3]} {...props} />
-        ) : null}
-        {dashboardData?.[HomPageSections.BannerLiving]?.length > 0 ? (
-          <CommonCarousel
-            {...props}
-            data={dashboardData?.[HomPageSections.BannerLiving]}
-            isAdmin2={'isAdmin2'}
-            width={width / 1.07}
-            height={200}
-            customStyle={{margin: 20}}
-          />
-        ) : null}
-        <YoutubeVideo data={dashboardData?.[HomPageSections.youtube]} />
-        {loading ? (
+    <SafeAreaView style={{ backgroundColor: Colors.WHITE, flex: 1 }}>
+      {dashboardData ?
+        <ScrollView>
+          {dashboardData?.[HomPageSections.Categorymenu]?.length > 0 ? (
+            <Catagory
+              data={dashboardData?.[HomPageSections.Categorymenu]}
+              {...props}
+              isAdmin2={'isAdmin2'}
+              customStyle={{ paddingVertical: 10 }}
+            />
+          ) : null}
+          {dashboardData?.[HomPageSections.Mainslider]?.length > 0 ? (
+            <TopSwiper
+              isAdmin2={'isAdmin2'}
+              data={dashboardData?.[HomPageSections.Mainslider]}
+              {...props}
+            />
+          ) : null}
+          {dashboardData?.[HomPageSections.NewInWomen]?.length > 0 ? (
+            <NewHighlights
+              {...props}
+              isAdmin2={'isAdmin2'}
+              customStyle={{ marginVertical: 20 }}
+              bgColor={{ backgroundColor: '#F3E0E0' }}
+              data={dashboardData?.[HomPageSections.NewInWomen]}
+            />
+          ) : null}
+          {dashboardData?.[HomPageSections.BannerWomen]?.length > 0 ? (
+            <CommonCarousel
+              {...props}
+              data={dashboardData?.[HomPageSections.BannerWomen]}
+              width={width / 1.07}
+              isAdmin2={'isAdmin2'}
+              height={200}
+              customStyle={{ margin: 20 }}
+            />
+          ) : null}
+          {filteredComp.length > 0 ? (
+            <WomenTab data={filteredComp[0]} {...props} />
+          ) : null}
+          {dashboardData?.[HomPageSections.NewInMen]?.length > 0 ? (
+            <NewHighlights
+              {...props}
+              isAdmin2={'isAdmin2'}
+              customStyle={{ marginVertical: 20 }}
+              bgColor={{ backgroundColor: '#F3E0E0' }}
+              data={dashboardData?.[HomPageSections.NewInMen]}
+            />
+          ) : null}
+          {dashboardData?.[HomPageSections.BannerMen]?.length > 0 ? (
+            <CommonCarousel
+              {...props}
+              data={dashboardData?.[HomPageSections.BannerMen]}
+              width={width / 1.07}
+              isAdmin2={'isAdmin2'}
+              height={200}
+              customStyle={{ margin: 20 }}
+            />
+          ) : null}
+          {filteredComp.length > 0 ? (
+            <WomenTab data={filteredComp[1]} {...props} />
+          ) : null}
+          {dashboardData?.[HomPageSections.NewInKids]?.length > 0 ? (
+            <NewHighlights
+              {...props}
+              isAdmin2={'isAdmin2'}
+              customStyle={{ marginVertical: 20 }}
+              bgColor={{ backgroundColor: '#F3E0E0' }}
+              data={dashboardData?.[HomPageSections.NewInKids]}
+            />
+          ) : null}
+          {dashboardData?.[HomPageSections.BannerKids]?.length > 0 ? (
+            <CommonCarousel
+              {...props}
+              data={dashboardData?.[HomPageSections.BannerKids]}
+              isAdmin2={'isAdmin2'}
+              width={width / 1.07}
+              height={200}
+              customStyle={{ margin: 20 }}
+            />
+          ) : null}
+          {filteredComp.length > 0 ? (
+            <WomenTab data={filteredComp[2]} {...props} />
+          ) : null}
+          {dashboardData?.[HomPageSections.offerWomen]?.length > 0 ? (
+            <OfferForYou
+              isAdmin2={'isAdmin2'}
+              dataWomen={dashboardData[HomPageSections.offerWomen]}
+              dataMen={dashboardData[HomPageSections.offerMen]}
+              dataKids={dashboardData[HomPageSections.offerKids]}
+              dataHome={dashboardData[HomPageSections.offerHome]}
+            />
+          ) : null
+          }
+          {dashboardData?.[HomPageSections.Interior]?.length > 0 ? (
+            <Interior
+              data={dashboardData?.[HomPageSections.Interior]}
+              isAdmin2={'isAdmin2'}
+              {...props}
+            />
+          ) : null}
+          {dashboardData?.[HomPageSections.NewInHome]?.length > 0 ? (
+            <NewHighlights
+              isAdmin2={'isAdmin2'}
+              {...props}
+              customStyle={{ marginVertical: 20 }}
+              bgColor={{ backgroundColor: '#F3E0E0' }}
+              data={dashboardData?.[HomPageSections.NewInHome]}
+            />
+          ) : null}
+          {dashboardData?.[HomPageSections.BannerHome]?.length > 0 ? (
+            <CommonCarousel
+              {...props}
+              data={dashboardData?.[HomPageSections.BannerHome]}
+              isAdmin2={'isAdmin2'}
+              width={width / 1.07}
+              height={200}
+              customStyle={{ margin: 20 }}
+            />
+          ) : null}
+          {filteredComp.length > 0 ? (
+            <WomenTab data={filteredComp[3]} {...props} />
+          ) : null}
+          {dashboardData?.[HomPageSections.BannerLiving]?.length > 0 ? (
+            <CommonCarousel
+              {...props}
+              data={dashboardData?.[HomPageSections.BannerLiving]}
+              isAdmin2={'isAdmin2'}
+              width={width / 1.07}
+              height={200}
+              customStyle={{ margin: 20 }}
+            />
+          ) : null}
+          {dashboardData?.[HomPageSections.youtube]?.length > 0 ? (
+            <YoutubeVideo data={dashboardData?.[HomPageSections.youtube]} />
+          ) : null
+          }
+
+          {/* {isLoading ? (
           <View
             style={{
               position: 'absolute',
@@ -302,10 +325,19 @@ export default function Dashbord(props) {
               left: 0,
               elevation: 0,
             }}>
-            <ActivityIndicator size="large" color={Colors.primarycolor} />
+            <ActivityIndicator size="large" color={Colors.PRIMARY} />
           </View>
-        ) : null}
-      </ScrollView>
-    </>
+        ) : null} */}
+        </ScrollView>
+        :
+        !isLoading ?
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{ fontSize: 16, color: Colors.textcolor, marginBottom: 50 }}>No results found</Text>
+          </View>
+          : null
+      }
+
+      {isLoading ? <LoadingComponent /> : null}
+    </SafeAreaView>
   );
 }

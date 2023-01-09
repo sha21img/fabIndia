@@ -197,8 +197,8 @@ export default function HomeHeader(props) {
                 </TouchableOpacity>
               ) : null}
               {!!headertext ? (
-                <View style={{flexDirection: 'column', width: '50%'}}>
-                  <Text
+                <View>
+                  <Text numberOfLines={1}
                     style={{
                       fontSize: 15,
                       color: Colors.textcolor,

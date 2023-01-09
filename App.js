@@ -1,8 +1,8 @@
 import SplashScreen from 'react-native-splash-screen';
-import {View, Text, TouchableOpacity, LogBox} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigationContainer} from '@react-navigation/native';
+import { View, Text, TouchableOpacity, LogBox } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
 import FabulousCardDetails from './components/Screens/FabulousCardDetails';
 import MainScreen from './components/Screens/MainScreen';
 import NetInfo from '@react-native-community/netinfo';
@@ -12,7 +12,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Filter from './components/Common/Filter';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fonts from './assets/fonts';
-import {Colors} from './assets/Colors';
+import { Colors } from './assets/Colors';
 import MyAddresses from './components/Screens/MyAccount/MyAddresses';
 import EditAddress from './components/Screens/MyAccount/MyAddresses/EditAddress';
 import CartPage from './components/Screens/Checkout/CartPage';
@@ -30,11 +30,11 @@ import OrderConfirmation from './components/Screens/OrderConfirmation';
 import HomeHeader from './components/Screens/Home/HomeHeader';
 import CheckAddress from './components/Screens/MyAccount/MyAddresses/CheckAddress';
 import axios from 'axios';
-import {Provider, useDispatch} from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CartList from './components/Screens/Checkout/CartList';
 import configureStore from './components/Common/Helper/Redux/store';
-import {AuthBaseUrl2, getCartID} from './components/Common/Helper';
+import { AuthBaseUrl2, getCartID } from './components/Common/Helper';
 import CategorySection from './components/Screens/CategorySection';
 import ViewPolicy from './components/Screens/ViewPolicy/ViewPolicy';
 import LandingPageSaris_Blouses from './components/Screens/LandingPageL2/LandingPageSaris_Blouses';
@@ -85,6 +85,8 @@ import FAQ from './components/Screens/MyAccount/FAQ';
 import ResetPassword from './components/Screens/Login_Register/ResetPassword';
 import Register from './components/Screens/Login_Register/Register';
 import RegisterSuccess from './components/Screens/Login_Register/RegisterSuccess';
+import FestiveCollection from './components/Screens/Collections/FestiveCollection';
+import Collections from './components/Screens/Collections';
 
 const Stack = createNativeStackNavigator();
 
@@ -138,7 +140,7 @@ export default function App(props) {
       )
       .then(
         response => {
-          const tokenGenerate = {...response.data, isCheck: false};
+          const tokenGenerate = { ...response.data, isCheck: false };
           console.log('response-=-=-=-=-=-generatTokenWithout', response.data);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
         },
@@ -250,18 +252,18 @@ export default function App(props) {
             <Stack.Screen
               name="MainScreen"
               component={MainScreen}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Tracking"
               component={TrackingUrl}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
 
             <Stack.Screen
               name="ViewPolicy"
               component={ViewPolicy}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
 
             <Stack.Screen
@@ -316,19 +318,19 @@ export default function App(props) {
                   <HomeHeader
                     {...props}
                     searchVisible={false}
-                    customViewStyle={{backgroundColor: '#FFFFFF'}}
-                    // leftIcon={leftIcon(props)}
-                    // title="Cotton Viscose Printed Short..."
-                    // rightIcon={rightIcon}
-                    // customStyle={{
-                    //   backgroundColor: '#F8F6F5',
-                    // }}
+                    customViewStyle={{ backgroundColor: '#FFFFFF' }}
+                  // leftIcon={leftIcon(props)}
+                  // title="Cotton Viscose Printed Short..."
+                  // rightIcon={rightIcon}
+                  // customStyle={{
+                  //   backgroundColor: '#F8F6F5',
+                  // }}
                   />
                 ),
               }}
             />
             <Stack.Screen
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
               // options={{
               //   header: props => (
               //     <HomeHeader {...props} headertext="Wishlist" />
@@ -437,7 +439,7 @@ export default function App(props) {
                   <HomeHeader
                     searchVisible={null}
                     {...props}
-                    showCart = {false}
+                    showCart={false}
                     middleHeader="Shopping Cart"
                   />
                 ),
@@ -888,27 +890,27 @@ export default function App(props) {
             <Stack.Screen
               name="FabFamily"
               component={FabFamily}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
 
-              // options={{
-              //   header: props => (
-              //     <Header
-              //       leftIcon={leftIcon}
-              //       title="FabFamily"
-              //       rightIcon={rightIcon}
-              //       customStyle={{
-              //         backgroundColor: '#F8F6F5',
-              //         marginBottom: 4,
-              //       }}
-              //     />
-              //     // <HomeHeader
-              //     //   searchVisible={null}
-              //     //   {...props}
-              //     //   showWishlist={false}
-              //     //   middleHeader="FabFamily"
-              //     // />
-              //   ),
-              // }}
+            // options={{
+            //   header: props => (
+            //     <Header
+            //       leftIcon={leftIcon}
+            //       title="FabFamily"
+            //       rightIcon={rightIcon}
+            //       customStyle={{
+            //         backgroundColor: '#F8F6F5',
+            //         marginBottom: 4,
+            //       }}
+            //     />
+            //     // <HomeHeader
+            //     //   searchVisible={null}
+            //     //   {...props}
+            //     //   showWishlist={false}
+            //     //   middleHeader="FabFamily"
+            //     // />
+            //   ),
+            // }}
             />
             <Stack.Screen
               name="FAQ"
@@ -1207,6 +1209,20 @@ export default function App(props) {
                 ),
               }}
             />
+            <Stack.Screen
+              name="FestiveCollection"
+              component={FestiveCollection}
+              options={{
+                header: props => <HomeHeader {...props} homeheader={false} headertext={'Festive'} />
+              }}
+            />
+            <Stack.Screen
+              name="Collections"
+              component={Collections}
+              options={{
+                header: props => <HomeHeader {...props} homeheader={false} headertext={'Wedding'} />
+              }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
@@ -1219,7 +1235,7 @@ export default function App(props) {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text style={{fontSize: 16, color: '#000'}}>No Coneected Network</Text>
+        <Text style={{ fontSize: 16, color: '#000' }}>No Coneected Network</Text>
         <TouchableOpacity activeOpacity={0.9} onPress={() => getNetInfo()}>
           <Text
             style={{
