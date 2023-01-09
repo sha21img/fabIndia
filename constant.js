@@ -331,13 +331,13 @@ export const LandingPageFurniture = [
 ];
 
 export const LandingPagePersonalCare = [
-  'Section1', // Top Swipper
-  'Section2', //Apparel highlight
-  'Section3', //Duppatta highlight
-  'Section4', // jewellery highlight
-  'Section5', // not present
+  // 'Section1', // Top Swipper
+  // 'Section2', //Apparel highlight
+  // 'Section3', //Duppatta highlight
+  // 'Section4', // jewellery highlight
+  // 'Section5', // not present
   'Section6', // personalcare toptab
-  'Section7', //single image
+  // 'Section7', //single image
   // 'Section8', //empty
   // 'Section9', //empty
   // 'Section10', //empty
