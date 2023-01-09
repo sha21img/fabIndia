@@ -40,7 +40,7 @@ export default function WomenTab(props) {
     const response = await getComponentData(
       `cms/components?fields=DEFAULT&currentPage=0&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
     );
-    console.log('tabData==>', response.component);
+    // console.log('tabData==>', response.component);
     setToptabLabelData(response?.component);
     setSelectedTab(response?.component[0]?.title);
     getproductData(response?.component[0]?.productCodes.split(' '));
