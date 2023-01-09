@@ -50,11 +50,13 @@ export default function WomenTab(props) {
     const params = {
       productCodes: productCodes,
     };
+    console.log(params, 'dfjffggfkjfgjklgfkjlfgklgfljk');
+
     const response = await axios.post(
       `${BaseURL2}/plpContent/searchProducts?fields=products(name,code,price(FULL),images(FULL),totalDiscount,priceAfterDiscount(FULL),newArrival,sale,stock)&lang=en&curr=INR`,
       params,
     );
-    // console.log('productData==>', JSON.stringify(response.data.products));
+    console.log('productData==>', JSON.stringify(response.data.products));
     setProductsData(response.data.products);
   };
 
