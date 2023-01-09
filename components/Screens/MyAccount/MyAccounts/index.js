@@ -129,17 +129,18 @@ const MyAccounts = props => {
     await AsyncStorage.removeItem('cartID');
     dispatch(
       wishlistDetail({
-        data: [],
-        quantity: 0,
+        wishListData: [],
+        wishlistQuantity: 0,
       }),
     );
     await generatTokenWithout();
-    props.navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{name: 'MyAccount'}],
-      }),
-    );
+    props.navigation.navigate('Login_Register');
+    // props.navigation.dispatch(
+    //   CommonActions.reset({
+    //     index: 0,
+    //     routes: [{name: 'Login_Register'}],
+    //   }),
+    // );
   };
 
   return (

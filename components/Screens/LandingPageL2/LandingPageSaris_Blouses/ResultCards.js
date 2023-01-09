@@ -28,9 +28,11 @@ import {Colors} from '../../../../assets/Colors';
 import Toast from 'react-native-simple-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
 import LoadingComponent from '../../../Common/LoadingComponent';
+import {useIsFocused} from '@react-navigation/native';
 
 export default function ResultCards(props) {
   const {cartReducer} = useSelector(state => state);
+  const focus = useIsFocused();
   const [isActive, setIsActive] = useState([]);
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
@@ -48,6 +50,8 @@ export default function ResultCards(props) {
   const {data = []} = props;
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(0);
+
   console.log('11111111111111111111111111111111111111111111111', code);
   var isFilterVIsible;
 
@@ -55,41 +59,44 @@ export default function ResultCards(props) {
     const fields =
       'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
     var response;
-    if (isAdmin2 == 'isAdmin2') {
-      console.log(
-        'ifififififififififififififififififififififiif',
+    // if (isAdmin2 == 'isAdmin2') {
+    //   console.log(
+    //     'ifififififififififififififififififififififiif',
+    //     `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+    //   );
+    if (data) {
+      response = await axios.get(
         `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
       );
-      if (data) {
-        response = await axios.get(
-          `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-        );
-      } else {
-        response = await axios.get(
-          `${BaseURL2}/products/search?fields=${fields}&query=${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-        );
-      }
     } else {
-      console.log('elseleslelesleelse');
-      if (!!isSearch) {
-        response = await axios.get(
-          `${BaseURL2}/products/search?fields=${fields}&query=${title}
-      &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-        );
-      } else if (data) {
-        response = await axios.get(
-          `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-        );
-      } else {
-        response = await axios.get(
-          `${BaseURL2}/products/search?fields=${fields}&${
-            status ? `${code}` : `query=:relevance:allCategories:${code}`
-          }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-        );
-      }
+      response = await axios.get(
+        `${BaseURL2}/products/search?fields=${fields}&query=${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+      );
     }
+    // } else {
+    //   console.log('elseleslelesleelse');
+    //   if (!!isSearch) {
+    //     response = await axios.get(
+    //       `${BaseURL2}/products/search?fields=${fields}&query=${title}
+    //   &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+    //     );
+    //   } else if (data) {
+    //     response = await axios.get(
+    //       `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+    //     );
+    //   } else {
+    //     response = await axios.get(
+    //       `${BaseURL2}/products/search?fields=${fields}&${
+    //         status ? `${code}` : `query=:relevance:allCategories:${code}`
+    //       }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+    //     );
+    //   }
+    // }
 
-    console.log('1234567890', response.data.facets);
+    console.log(
+      '1234567890+++++++++++++++++++++++++++++++++++++++++++++',
+      response.data.facets,
+    );
     const isFilterVIsible = response.data.facets.filter(item => {
       return item.values.filter(it => {
         return it.selected == true;
@@ -123,30 +130,30 @@ export default function ResultCards(props) {
       'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
 
     var response;
-    if (isAdmin2 == 'isAdmin2') {
-      console.log(
-        'ifififififififififififififififififififififiif-=-=-=- sort-=-=',
-        isAdmin2,
-      );
-      response = await axios.get(
-        `${BaseURL2}/products/search?fields=${fields}&query=${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-      );
-    } else {
-      console.log('elseleslelesleelse-=-=-=-sort-==-');
+    // if (isAdmin2 == 'isAdmin2') {
+    //   console.log(
+    //     'ifififififififififififififififififififififiif-=-=-=- sort-=-=',
+    //     isAdmin2,
+    //   );
+    response = await axios.get(
+      `${BaseURL2}/products/search?fields=${fields}&query=${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+    );
+    // } else {
+    //   console.log('elseleslelesleelse-=-=-=-sort-==-');
 
-      if (!!isSearch) {
-        response = await axios.get(
-          `${BaseURL2}/products/search?fields=${fields}&query=${title}
-        &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-        );
-      } else {
-        response = await axios.get(
-          `${BaseURL2}/products/search?fields=${fields}&${
-            status ? `${code}` : `query=:relevance:allCategories:${code}`
-          }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-        );
-      }
-    }
+    //   if (!!isSearch) {
+    //     response = await axios.get(
+    //       `${BaseURL2}/products/search?fields=${fields}&query=${title}
+    //     &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+    //     );
+    //   } else {
+    //     response = await axios.get(
+    //       `${BaseURL2}/products/search?fields=${fields}&${
+    //         status ? `${code}` : `query=:relevance:allCategories:${code}`
+    //       }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
+    //     );
+    //   }
+    // }
     // console.log('data===>', JSON.stringify(response.data))
     setdataMain(response.data);
 
@@ -158,7 +165,13 @@ export default function ResultCards(props) {
   const isWishlisted = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
+
+    console.log(
+      '111111111111111111111111111111111111111111111111111111112222222222222222',
+      getToken,
+    );
     if (getToken.isCheck) {
+      setIsUpdated(1);
       getCartDetails();
     }
   };
@@ -166,8 +179,7 @@ export default function ResultCards(props) {
   useEffect(() => {
     isWishlisted();
     getProductData();
-  }, [page]);
-
+  }, [page, focus]);
   const endReach = () => {
     if (dataMain?.pagination?.totalPages > page) {
       setPage(page + 1);
@@ -200,10 +212,10 @@ export default function ResultCards(props) {
         },
       )
       .then(response => {
-        // console.log(
-        //   'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
-        //   response.data.name,
-        // );
+        console.log(
+          'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
+          response.data.name,
+        );
         if (!!response?.data?.name) {
           if (response?.data?.name?.includes('wishlist')) {
             const filterProductId = response.data.entries.map(item => {
@@ -214,8 +226,8 @@ export default function ResultCards(props) {
             });
             dispatch(
               wishlistDetail({
-                data: filterProductId,
-                quantity: response.data.entries.length,
+                wishListData: filterProductId,
+                wishlistQuantity: response.data.entries.length,
               }),
             );
             // setWishlistproductCode(filterProductId);
@@ -230,6 +242,7 @@ export default function ResultCards(props) {
       });
   };
   const addWishlist = async data => {
+    // if (sizeCode.value != '') {
     const isAddWishlist = cartReducer.WishListDetail.wishListData.find(
       (item, index) => {
         return item.code == data.code;
@@ -252,10 +265,10 @@ export default function ResultCards(props) {
           },
         )
         .then(response => {
-          // console.log(
-          //   'response.data deletetetetetetettetetet to wishlist',
-          //   response.data,
-          // );
+          console.log(
+            'response.data deletetetetetetettetetet to wishlist',
+            response.data,
+          );
 
           getCartDetails();
         })
@@ -280,6 +293,7 @@ export default function ResultCards(props) {
         .then(response => {
           getCartDetails();
         })
+
         .catch(errors => {
           // console.log('woiuytfgh', errors.response.status);
           if (errors.response.status == 401) {
@@ -295,6 +309,9 @@ export default function ResultCards(props) {
           }
         });
     }
+    // } else {
+    //   Toast.showWithGravity('PLease SelectSize', Toast.LONG, Toast.TOP);
+    // }
   };
   const getCardData = item => {
     return (
@@ -305,6 +322,7 @@ export default function ResultCards(props) {
           customViewStyle={{marginVertical: 7}}
           {...props}
           item={item.item}
+          code={code}
         />
       </>
     );
@@ -334,6 +352,7 @@ export default function ResultCards(props) {
         <FlatList
           numColumns={2}
           data={filterProducts}
+          extraData={isUpdated}
           onEndReached={endReach}
           showsHorizontalScrollIndicator={false}
           onEndReachedThreshold={0.8}

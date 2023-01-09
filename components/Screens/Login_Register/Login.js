@@ -18,6 +18,7 @@ import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import axios from 'axios';
 import {
+  addWishlist,
   BaseURL2,
   getCartID,
   getWishID,
@@ -49,6 +50,17 @@ import {
 import LoadingComponent from '../../Common/LoadingComponent';
 
 export default function Login(props) {
+  const From = props?.route?.params?.From || '';
+  const productCode = props?.route?.params?.productCode || '';
+  const code = props?.route?.params?.code || '';
+  const sizeCode = props?.route?.params?.sizeCode || '';
+
+  console.log(
+    'FromFromFromFromFromFromFromFromFromFromFromFromFromFrom',
+    From,
+    productCode,
+    code,
+  );
   const dispatch = useDispatch();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -107,6 +119,23 @@ export default function Login(props) {
   //       console.log('errors for token generation', errors);
   //     });
   // };
+  const isAddWishlist = async from => {
+    if (sizeCode.value == 'Free Size') {
+      await addWishlist({code: productCode}, dispatch);
+    }
+    // props.navigation.goBack();
+    if (from == 'PLP') {
+      props.navigation.navigate('LandingPageSaris_Blouses', {
+        code: code,
+      });
+    } else {
+      props.navigation.navigate('ProductDetailed', {
+        productId: productCode,
+        imageUrlCheck: code,
+      });
+    }
+    // props.navigation.navigate('YourWishlist');
+  };
 
   const handleSubmit = async () => {
     if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(email)) {
@@ -138,8 +167,10 @@ export default function Login(props) {
         })
         .then(function (res1) {
           tokenGenerationFabFamily();
+
           const tokenGenerate = {...res1, isCheck: true};
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
+
           if (res1.error) {
             Toast.showWithGravity(
               'Enter correct Details',
@@ -149,17 +180,13 @@ export default function Login(props) {
             setIsLoading(false);
           } else {
             AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-            props.navigation.navigate('MyAccount', {
-              screen: 'MyAccounts',
-            });
-            // props.navigation.dispatch(
-            //   CommonActions.reset({
-            //     index: 0,
-            //     routes: [{name: 'MyAccounts'}],
-            //   }),
-            // );
             getCartID(dispatch);
             getWishID(dispatch);
+            if (From == 'PLP' || From == 'PDP') {
+              isAddWishlist(From);
+            } else {
+              props.navigation.navigate('MyAccounts');
+            }
             setIsLoading(false);
           }
         });
@@ -469,11 +496,15 @@ export default function Login(props) {
         } else {
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          props.navigation.navigate('MyAccount', {
-            screen: 'MyAccounts',
-          });
+          // props.navigation.navigate('MyAccounts');
           getCartID(dispatch);
           getWishID(dispatch);
+
+          if (From == 'PLP' || From == 'PDP') {
+            isAddWishlist(From);
+          } else {
+            props.navigation.navigate('MyAccounts');
+          }
         }
       });
   };
@@ -806,7 +837,13 @@ export default function Login(props) {
               Not a Registered user?
             </Text>
             <TouchableOpacity
-              onPress={() => props.navigation.navigate('Register')}>
+              onPress={() =>
+                props.navigation.navigate('Register', {
+                  From: From,
+                  productCode: productCode,
+                  code: code,
+                })
+              }>
               <Text
                 style={{
                   paddingVertical: 5,

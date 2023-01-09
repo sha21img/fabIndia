@@ -15,11 +15,19 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import {Colors} from '../../../../../assets/Colors';
 import {Styles} from './style';
-import {cartDetail, wishlistDetail} from '../../../../Common/Helper/Redux/actions';
+import {
+  cartDetail,
+  wishlistDetail,
+} from '../../../../Common/Helper/Redux/actions';
 
 import CommonButton from '../../../../Common/CommonButton';
 import Fonts from '../../../../../assets/fonts';
-import {AuthBaseUrl2, BaseURL2, logout, getCartID,} from '../../../../Common/Helper';
+import {
+  AuthBaseUrl2,
+  BaseURL2,
+  logout,
+  getCartID,
+} from '../../../../Common/Helper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 import {useDispatch} from 'react-redux';
@@ -101,8 +109,8 @@ export default function ChangePassword(props) {
     await AsyncStorage.removeItem('cartID');
     dispatch(
       wishlistDetail({
-        data: [],
-        quantity: 0,
+        wishListData: [],
+        wishlistQuantity: 0,
       }),
     );
     await generatTokenWithout();
@@ -112,10 +120,10 @@ export default function ChangePassword(props) {
         routes: [{name: 'MyAccount'}],
       }),
     );
-  }
+  };
 
   const handleChangePassword = async () => {
-    console.log("handleChangePasswordhandleChangePasswordhandleChangePassword")
+    console.log('handleChangePasswordhandleChangePasswordhandleChangePassword');
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     var details = {
@@ -129,7 +137,9 @@ export default function ChangePassword(props) {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     formBody = formBody.join('&');
-    console.log("handleChangePasswordhandleChangePasswordhandleChangePassword222222222222222222222")
+    console.log(
+      'handleChangePasswordhandleChangePasswordhandleChangePassword222222222222222222222',
+    );
 
     const response = await fetch(
       `${BaseURL2}/users/current/password?lang=en&curr=INR`,
@@ -141,7 +151,8 @@ export default function ChangePassword(props) {
         },
         body: formBody,
       },
-    ).then(res => {
+    )
+      .then(res => {
         if (res.ok) {
           console.log(res, 'resresresresresres');
 
@@ -150,7 +161,7 @@ export default function ChangePassword(props) {
             Toast.LONG,
             Toast.TOP,
           );
-          logoutt()
+          logoutt();
         }
         // return res.json();
       })
@@ -158,8 +169,7 @@ export default function ChangePassword(props) {
         console.log('errorserrorserrorserrors', errors);
         if (errors?.response?.status == 401) {
           logout(dispatch);
-        console.log('errorserrorserrorserrors', errors);
-
+          console.log('errorserrorserrorserrors', errors);
         }
       });
 
@@ -169,7 +179,6 @@ export default function ChangePassword(props) {
     //   Toast.TOP,
     // );
   };
-;
   return (
     <>
       <ScrollView

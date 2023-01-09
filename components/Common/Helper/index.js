@@ -2,6 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {wishlistDetail} from './Redux/actions';
+import Toast from 'react-native-simple-toast';
+import cartReducer from './Redux/reducer';
+
 // const BaseURL =
 //   'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/occ/v2/';
 const ComponentBaseURL = 'https://apisap.fabindia.com/occ/v2/';
@@ -14,12 +17,13 @@ const BaseURL = 'https://apisap.fabindia.com/occ/v2/';
 
 // Testing
 export const BaseURL2 = 'https://apisap.fabindiahome.com/occ/v2/fabindiab2c/';
-export const AuthBaseUrl2 ='https://apisap.fabindiahome.com/authorizationserver/';
+export const AuthBaseUrl2 =
+  'https://apisap.fabindiahome.com/authorizationserver/';
 export const imageURL = 'https://apisap.fabindiahome.com/';
 
 const AuthAuthor = 'bearer nCVKPnrYg-ZgHMn0djWh1YSFCX0';
 
-const generatTokenWithout = async () => {
+const generatTokenWithout = async dispatch => {
   await axios
     .post(
       `${AuthBaseUrl2}/oauth/token?grant_type=client_credentials&client_id=mobile_android&client_secret=secret`,
@@ -36,13 +40,80 @@ const generatTokenWithout = async () => {
       },
     );
 };
+
+const addWishlist = async (data, dispatch) => {
+  // const isAddWishlist = cartReducer.wishlistDetail.wishListData.find(
+  //   (item, index) => {
+  //     return item.code == data.code;
+  //   },
+  // );
+  console.log('codeeee', data);
+  const get = await AsyncStorage.getItem('generatToken');
+  const getToken = JSON.parse(get);
+  const getWishlistID = await AsyncStorage.getItem('WishlistID');
+  console.log('this us cart idfor add wi', getToken);
+  console.log('this usgetWishlistIDgetWishlistID', getWishlistID);
+
+  // if (isAddWishlist) {
+  //   const response = await axios
+  //     .delete(
+  //       `${BaseURL2}/users/current/carts/${getWishlistID}/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
+  //       // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
+  //       // {quantity: 0, product: {code: isAddWishlist.code}},
+  //       {
+  //         headers: {
+  //           Authorization: `${getToken.token_type} ${getToken.access_token}`,
+  //         },
+  //       },
+  //     )
+  //     .then(response => {
+  //       console.log('response.dataaaaaaaaaaaaaaaaa', response.data);
+  //       // getCartDetails();
+  //     })
+  //     .catch(error => {
+  //       console.log('error for remove000 wishlist', error);
+  //       if (error.response.status == 401) {
+  //         logout(dispatch);
+  //       }
+  //     });
+  // } else {
+  const response = await axios
+    .post(
+      `${BaseURL2}/users/current/carts/${getWishlistID}/entries?lang=en&curr=INR`,
+      // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
+      {quantity: 1, product: {code: data.code}},
+      {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
+        },
+      },
+    )
+    .then(response => {
+      console.log('wwwwwwwwwwwwwwwwwwwwww', response.data);
+      // getCartDetails();
+    })
+    .catch(errors => {
+      console.log('qqqqqqqqqqqqqqqqqqqqqq', errors);
+
+      Toast.showWithGravity(
+        errors?.response?.data?.errors[0]?.message,
+        Toast.LONG,
+        Toast.TOP,
+      );
+      if (errors.response.status == 401) {
+        logout(dispatch);
+      }
+    });
+  // }
+};
+
 const logout = async dispatch => {
   const res = await AsyncStorage.removeItem('generatToken');
   console.log('delete', res);
   dispatch(
     wishlistDetail({
-      data: [],
-      quantity: 0,
+      wishListData: [],
+      wishlistQuantity: 0,
     }),
   );
   // dispatch(cartDetail({data: [], quantity: 0}));
@@ -126,10 +197,10 @@ const getComponentData = async path => {
 //   }
 // };
 
-const UnAuthPostData = async (url, data) => {
+const UnAuthPostData = async (url, data, dispatch) => {
   const get = await AsyncStorage.getItem('generatToken');
   const getToken = JSON.parse(get);
-
+  console.log('getToken', getToken);
   const response = await fetch(`${BaseURL2}${url}`, {
     method: 'POST',
     headers: {
@@ -181,19 +252,24 @@ const getCartID = async dispatch => {
     });
 };
 const setWishID = async response => {
+  // console.log('setW``````````````````````````````````````````ishID', response);
   if (response.status == 200) {
     const data = response.data.carts;
     const filter = data.filter(item => {
       return item.name;
     });
+    console.log(
+      'setW```````````>>>>>>>>>>>>>>>>>>>>>>>>>>>``````````````````````````````ishID',
+      filter[0].code,
+    );
 
     await AsyncStorage.setItem('WishlistID', filter[0].code);
   }
 };
-const getWishID = async () => {
+const getWishID = async dispatch => {
   const get = await AsyncStorage.getItem('generatToken');
   const getToken = JSON.parse(get);
-  console.log('getToken-=as-fd=-asd=f-=sdaf-', getToken);
+  console.log('getToken-=as-fd=-asd=f-=sdaf-11111', getToken);
   const response = await axios
     .get(
       `${BaseURL2}/users/current/carts?fields=carts(DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,entries(totalPrice(formattedValue),product(images(FULL),stock(FULL),variantOptions(FULL),variantMatrix,priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,DEFAULT),user,saveTime,name,description)&lang=en&curr=INR`,
@@ -204,7 +280,6 @@ const getWishID = async () => {
       },
     )
     .then(response => {
-      console.log("dsfgsdfg")
       setWishID(response);
     })
     .catch(errors => {
@@ -279,4 +354,5 @@ export {
   refreshToken,
   logout,
   tokenGenerationFabFamily,
+  addWishlist,
 };

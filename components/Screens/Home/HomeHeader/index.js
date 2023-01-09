@@ -14,8 +14,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch, useSelector} from 'react-redux';
 import {cartDetail, wishlistDetail} from '../../../Common/Helper/Redux/actions';
 import {BaseURL2, logout} from '../../../Common/Helper';
+import {useIsFocused} from '@react-navigation/native';
 
 export default function HomeHeader(props) {
+  const focus = useIsFocused();
   const {cartReducer, shareData} = useSelector(state => state);
   const dispatch = useDispatch();
   const {
@@ -48,7 +50,7 @@ export default function HomeHeader(props) {
   useEffect(() => {
     getCartDetails();
     isInitialWishlised();
-  }, []);
+  }, [focus]);
 
   const getWishListDetail = async () => {
     const value = await AsyncStorage.getItem('cartID');
@@ -82,8 +84,8 @@ export default function HomeHeader(props) {
             });
             dispatch(
               wishlistDetail({
-                data: filterProductId,
-                quantity: response.data.entries.length,
+                wishListData: filterProductId,
+                wishlistQuantity: response.data.entries.length,
               }),
             );
             // setWishlistproductCode(filterProductId);
@@ -120,7 +122,9 @@ export default function HomeHeader(props) {
         console.log('vicky,carrrraaaaaaaarrrrrrrrrrrr', response.data);
 
         let finalvalue = response?.data?.deliveryItemsQuantity;
-        dispatch(cartDetail({data: response.data, quantity: finalvalue}));
+        dispatch(
+          cartDetail({cartData: response.data, cartQuantity: finalvalue}),
+        );
       })
       .catch(errors => {
         console.log('vicky,carrrrrrrrrrrrrrrr', errors);
@@ -151,7 +155,7 @@ export default function HomeHeader(props) {
     if (parseToken.isCheck) {
       props.navigation.navigate('YourWishlist');
     } else {
-      props.navigation.navigate('MyAccount', {screen: 'Login_Register'});
+      props.navigation.navigate('Login_Register');
     }
   };
   return (

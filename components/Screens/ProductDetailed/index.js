@@ -296,7 +296,9 @@ export default function ProductDetailed(props) {
         console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', response.data);
 
         let finalvalue = response?.data?.deliveryItemsQuantity;
-        dispatch(cartDetail({data: response.data, quantity: finalvalue}));
+        dispatch(
+          cartDetail({cartData: response.data, cartQuantity: finalvalue}),
+        );
       })
       .catch(errors => {
         console.log('111111111111111', errors);
@@ -344,8 +346,8 @@ export default function ProductDetailed(props) {
           });
           dispatch(
             wishlistDetail({
-              data: filterProductId,
-              quantity: response.data.entries.length,
+              wishListData: filterProductId,
+              wishlistQuantity: response.data.entries.length,
             }),
           );
         }
@@ -553,12 +555,15 @@ export default function ProductDetailed(props) {
             productdetail={productdetail}
             showcartbutton={showcartbutton}
             setShowcartbutton={setShowcartbutton}
+            productId={productId}
+            imageUrlCheck={imageUrlCheck}
           />
         </>
       )}
       <View style={{position: 'absolute', top: 0, width: '100%'}}>
         <HomeHeader {...props} searchVisible={false} isTransparent={true} />
       </View>
+
       <Modal
         animationType="slide"
         transparent={false}

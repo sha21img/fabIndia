@@ -40,8 +40,8 @@ export default function CartPage(props) {
         );
         dispatch(
           cartDetail({
-            data: response.data,
-            quantity: finalvalue,
+            cartData: response.data,
+            cartQuantity: finalvalue,
           }),
         );
       })
@@ -78,8 +78,8 @@ export default function CartPage(props) {
             });
             dispatch(
               wishlistDetail({
-                data: filterProductId,
-                quantity: response.data.entries.length,
+                wishListData: filterProductId,
+                wishlistQuantity: response.data.entries.length,
               }),
             );
           }

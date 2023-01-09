@@ -88,7 +88,7 @@ export default function Search(props) {
       setSuggestedProduct([]);
     }
   }, [text]);
-
+  console.log('hhhhhhhhhh', text);
   return (
     <>
       <View style={Styles.headercontainer}>
@@ -113,6 +113,7 @@ export default function Search(props) {
                 ...props,
                 isSearch: true,
                 title: text,
+                code: text,
               })
             }
           />
@@ -153,6 +154,7 @@ export default function Search(props) {
                           ...props,
                           isSearch: true,
                           title: obj.value,
+                          code: obj.value,
                         })
                       }>
                       <Text

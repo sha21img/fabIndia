@@ -39,6 +39,7 @@ import AccordianMenu from './AccordianMenu';
 import {useIsFocused} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {CommonActions} from '@react-navigation/native';
+import MyAccounts from '../MyAccount/MyAccounts';
 // import WomenCategory from '../Home/WomenCategory';
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -1559,13 +1560,9 @@ const DrawerContent = () => {
     const token = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(token);
     if (getToken.isCheck) {
-      navigation.navigate('MyAccount', {
-        screen: 'MyAccounts',
-      });
+      navigation.navigate('MyAccounts');
     } else {
-      navigation.navigate('MyAccount', {
-        screen: 'Login_Register',
-      });
+      navigation.navigate('Login_Register');
     }
   };
   const checkOrder = async () => {
@@ -1747,7 +1744,17 @@ const InitialSearch = () => {
 export default function MainScreen(props) {
   // console.log(props);
   const [auth, setAuth] = useState();
-
+  const isLogedIn = async () => {
+    console.log('hihih');
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+    console.log('getToken?.ischeck', getToken);
+    if (getToken.isCheck) {
+      props.navigation.navigate('MyAccounts');
+    } else {
+      props.navigation.navigate('Login_Register');
+    }
+  };
   return (
     <Tab.Navigator
       initialRouteName="DrawerComponent"
@@ -1838,8 +1845,8 @@ export default function MainScreen(props) {
         }}
       />
       <Tab.Screen
-        name="MyAccount"
-        component={MyAccount}
+        name="MyAccounts"
+        component={MyAccounts}
         options={{
           headerShown: false,
           tabBarLabel: 'Account',
@@ -1847,18 +1854,19 @@ export default function MainScreen(props) {
           tabBarIcon: ({focused}) => (
             <TouchableOpacity
               onPress={
-                () =>
-                  props.navigation.dispatch(
-                    CommonActions.reset({
-                      index: 0,
-                      routes: [
-                        {name: 'MyAccount'},
-                        // {
-                        //   name: 'MyAccounts',
-                        // },
-                      ],
-                    }),
-                  )
+                () => isLogedIn()
+
+                // props.navigation.dispatch(
+                //   CommonActions.reset({
+                //     index: 0,
+                //     routes: [
+                //       {name: 'MyAccount'},
+                //       // {
+                //       //   name: 'MyAccounts',
+                //       // },
+                //     ],
+                //   }),
+                // )
                 // props.navigation.navigate('MyAccount', {
                 //   screen: 'MyAccounts',
                 // })

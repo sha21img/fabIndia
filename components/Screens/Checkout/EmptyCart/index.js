@@ -19,7 +19,7 @@ export default function EmptyCart(props) {
     if (getToken.isCheck) {
       props.navigation.navigate('YourWishlist');
     } else {
-      props.navigation.navigate('MyAccount', {screen: 'Login_Register'});
+      props.navigation.navigate('Login_Register');
     }
     // if (getToken.isCheck) {
     //   props.navigation.navigate('');

@@ -27,17 +27,48 @@ export default function Card1(props) {
     item,
     handleClick = null,
     wishlistproductCode = [],
+    code = '',
   } = props;
+  const [sizeCode, setSizeCode] = React.useState({
+    value: '',
+    color: '',
+    code: '',
+  });
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
+  console.log(
+    'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
+    item,
+  );
 
-  const isAvtive = cartReducer.WishListDetail.wishListData.find(items => {
-    return items.code == item.code;
+  const filterSize = item.variantOptions.map(item => {
+    return {
+      value: item.variantOptionQualifiers[0].value,
+      color: item.variantOptionQualifiers[1].value,
+      code: item.code,
+    };
+  });
+  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', filterSize);
+  useEffect(() => {
+    if (filterSize[0].value == 'Free Size') {
+      setSizeCode({
+        value: filterSize[0].value,
+        color: filterSize[0].color,
+        code: filterSize[0].code,
+      });
+    }
+  }, []);
+  const isAvtive = cartReducer?.WishListDetail?.wishListData.find(items => {
+    if (filterSize[0].value == 'Free Size') {
+      return items.code == item.code;
+    } else {
+      return items.code == sizeCode.code;
+    }
   });
 
   const discountPrice =
     100 - (item.priceAfterDiscount?.value / item?.price?.value) * 100;
-  console.log('discountPrice'.discountPrice);
+  console.log('discountisAvtiveisAvtivePrice', isAvtive);
   // console.log(
   //   'item?????????????????????????????????????????????????????????????????',
   //   typeof discountPrice,
@@ -55,7 +86,8 @@ export default function Card1(props) {
   useEffect(() => {
     check();
   }, []);
-  const getAdd = async () => {
+  const getAdd = async data => {
+    console.log('11111111111111', data.code);
     const token = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(token);
     console.log('tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111', getToken.isCheck);
@@ -63,15 +95,18 @@ export default function Card1(props) {
     if (getToken?.isCheck) {
       console.log('shsihsihshsihhhh');
       // if (item.stock.stockLevelStatus == 'inStock') {
-      handleClick(item);
+      handleClick(sizeCode);
       // } else {
       //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
       // }
     } else {
       console.log('glglglglglltltlhhh');
       Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
-      props.navigation.navigate('MyAccount', {
-        screen: 'Login_Register',
+      props.navigation.navigate('Login_Register', {
+        From: 'PLP',
+        productCode: data.code,
+        code: code,
+        sizeCode: sizeCode,
       });
       // props.navigation.navigate('MyAccount', {
       //   screen: 'Login_Register',
@@ -88,6 +123,7 @@ export default function Card1(props) {
           props.navigation.navigate('ProductDetailed', {
             productId: item.code,
             imageUrlCheck: item,
+            code: code,
           });
         }}
         activeOpacity={0.9}>
@@ -113,9 +149,13 @@ export default function Card1(props) {
           </TouchableOpacity>
         </ImageBackground>
         <View style={Styles.headingbox}>
-          <Text numberOfLines={1} style={Styles.headingtxt}>{item.name}</Text>
+          <Text numberOfLines={1} style={Styles.headingtxt}>
+            {item.name}
+          </Text>
           <View style={Styles.pricebox}>
-            <Text style={Styles.amounttxt}>{item?.priceAfterDiscount?.formattedValue}</Text>
+            <Text style={Styles.amounttxt}>
+              {item?.priceAfterDiscount?.formattedValue}
+            </Text>
             <Text style={Styles.mrptxt}>M.R.P.</Text>
             <Text style={Styles.priceofftxt}>
               {item?.price?.formattedValue}
@@ -126,6 +166,36 @@ export default function Card1(props) {
                 {discountPrice?.toFixed(0)}% off
               </Text>
             )}
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}>
+            {filterSize.map(item => {
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    setSizeCode(item);
+                  }}
+                  style={{
+                    borderWidth: 1,
+                    marginRight: 3,
+                    padding: 2,
+                    minWidth: 20,
+                    alignItems: 'center',
+                    margin: 2,
+                    borderColor:
+                      sizeCode?.code == item?.code
+                        ? Colors.primarycolor
+                        : 'grey',
+                    // backgroundColor:
+                    //   sizeCode?.code == item?.code ? 'red' : '#fff',
+                  }}>
+                  <Text style={{fontSize: 12}}>{item.value}</Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
           {/* {!!freeSize && (
             <View
