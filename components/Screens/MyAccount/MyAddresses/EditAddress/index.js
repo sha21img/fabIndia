@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {
   View,
-  Image,
   SafeAreaView,
   ScrollView,
-  Text,
-  TouchableOpacity,
-  FlatList,
+  Text
 } from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {TextInput} from 'react-native-paper';
@@ -19,30 +16,13 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Styles from './styles';
 import Fonts from '../../../../../assets/fonts';
-import {cos} from 'react-native-reanimated';
-import {useNavigation} from '@react-navigation/native';
 import {BaseURL2, logout} from '../../../../Common/Helper';
 import {useDispatch} from 'react-redux';
-const faqs = [
-  {
-    id: '1',
-    name: 'Address nickname',
-  },
-  {
-    id: '2',
-    name: 'first name',
-  },
-  {
-    id: '3',
-    name: 'Last name',
-  },
-];
 
 const EditAddress = props => {
   const dispatch = useDispatch();
   let editflag = props?.route?.params?.editData;
   let checkFrom = props?.route?.params?.from;
-  const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState(
     !!editflag ? editflag?.phone : '',
   );
@@ -61,9 +41,7 @@ const EditAddress = props => {
   const [pincode, SetPinCode] = useState(
     !!editflag ? editflag?.postalCode : null,
   );
-  const [mobilePrefix, setMobilePrefix] = useState(
-    !!editflag ? editflag?.contactNumberCode : '91',
-  );
+  const [mobilePrefix, setMobilePrefix] = useState('91');
   const [isFocus, setIsFocus] = useState(false);
   const [State, setState] = useState(null);
   const [region, setRegion] = useState(null);
@@ -78,20 +56,17 @@ const EditAddress = props => {
     addressfirst: '',
     email: '',
   });
-  const [validerror, setValidError] = useState(false);
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
   const [countryData, setCountryData] = useState([]);
   const [stateData, setStateData] = useState([]);
   const [error, setError] = useState(false);
-
   const [addressfirst, setaddressfirst] = useState(
     !!editflag ? editflag?.line1 : null,
   );
   const [addresssecond, setaddresssecond] = useState(
     !!editflag ? editflag?.line2 : null,
   );
-  const navigation = useNavigation();
 
   useEffect(() => {
     getCountrydata();
@@ -299,9 +274,6 @@ const EditAddress = props => {
       });
   };
 
-  // const seterrorText = () =>{
-  //   if()
-  // }
   return (
     <SafeAreaView style={Styles.container}>
       <View style={Styles.bodyContainer}>

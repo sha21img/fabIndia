@@ -11,17 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {BaseURL2, logout} from '../../../Common/Helper';
 import {useDispatch} from 'react-redux';
-const faqs = [
-  {
-    id: '1',
-  },
-  {
-    id: '2',
-  },
-  {
-    id: '3',
-  },
-];
+
 const MyAddresses = props => {
   const {
     checkaddress,
@@ -83,10 +73,6 @@ const MyAddresses = props => {
       });
   };
 
-  console.log(
-    'cartdetailscartdetailscartdetailscartdetailscartdetails',
-    cartdetails,
-  );
   return (
     <>
       <ScrollView
@@ -339,6 +325,7 @@ const MyAddresses = props => {
                   borderColor: Colors.primarycolor,
                 }}
                 btntxtColor={Colors.primarycolor}
+                handleClick={() => setModalShow(false)}
               />
               <CommonButton
                 backgroundColor="#BDBDBD"
