@@ -46,6 +46,7 @@ import {
   LoginManager,
   GraphRequestManager,
 } from 'react-native-fbsdk-next';
+import LoadingComponent from '../../Common/LoadingComponent';
 
 export default function Login(props) {
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ export default function Login(props) {
   const [userEmailToken, setUserEmailToken] = useState({});
   const [fbDetails, setFbDetails] = useState();
   const [from, setFrom] = useState('');
-
+  const [isLoading, setIsLoading] = useState(false);
   //
 
   const googleIcon = {
@@ -109,6 +110,7 @@ export default function Login(props) {
 
   const handleSubmit = async () => {
     if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(email)) {
+      setIsLoading(true);
       var details = {
         grant_type: 'password',
         scope: '',
@@ -144,6 +146,7 @@ export default function Login(props) {
               Toast.LONG,
               Toast.TOP,
             );
+            setIsLoading(false);
           } else {
             AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
             props.navigation.navigate('MyAccount', {
@@ -157,6 +160,7 @@ export default function Login(props) {
             // );
             getCartID(dispatch);
             getWishID(dispatch);
+            setIsLoading(false);
           }
         });
     } else {
@@ -741,44 +745,50 @@ export default function Login(props) {
             </>
           )}
           <View style={{paddingVertical: 10}}>
-            {method == 'Mobile' ? (
-              generateOtp ? (
-                <CommonButton
-                  disable={Otp.length != 4}
-                  handleClick={VerifyOTP}
-                  txt="Confirm OTP"
-                  customViewStyle={{
-                    backgroundColor:
-                      Otp.length == 4 ? Colors.primarycolor : '#BDBDBD',
-                  }}
-                />
-              ) : (
-                <CommonButton
-                  disable={phoneNumber.length != 10}
-                  backgroundColor="#BDBDBD"
-                  txt="Send OTP"
-                  handleClick={handleOTP}
-                  customViewStyle={{
-                    backgroundColor:
-                      phoneNumber.length == 10
-                        ? Colors.primarycolor
-                        : '#BDBDBD',
-                  }}
-                />
-              )
+            {isLoading ? (
+              <LoadingComponent backgroundColor="white" />
             ) : (
-              <CommonButton
-                handleClick={handleSubmit}
-                backgroundColor="#BDBDBD"
-                txt="Login"
-                customViewStyle={{
-                  backgroundColor:
-                    !password || !email
-                      ? Colors.inAactivecolor
-                      : Colors.primarycolor,
-                }}
-                disable={!password || !email}
-              />
+              <>
+                {method == 'Mobile' ? (
+                  generateOtp ? (
+                    <CommonButton
+                      disable={Otp.length != 4}
+                      handleClick={VerifyOTP}
+                      txt="Confirm OTP"
+                      customViewStyle={{
+                        backgroundColor:
+                          Otp.length == 4 ? Colors.primarycolor : '#BDBDBD',
+                      }}
+                    />
+                  ) : (
+                    <CommonButton
+                      disable={phoneNumber.length != 10}
+                      backgroundColor="#BDBDBD"
+                      txt="Send OTP"
+                      handleClick={handleOTP}
+                      customViewStyle={{
+                        backgroundColor:
+                          phoneNumber.length == 10
+                            ? Colors.primarycolor
+                            : '#BDBDBD',
+                      }}
+                    />
+                  )
+                ) : (
+                  <CommonButton
+                    handleClick={handleSubmit}
+                    backgroundColor="#BDBDBD"
+                    txt="Login"
+                    customViewStyle={{
+                      backgroundColor:
+                        !password || !email
+                          ? Colors.inAactivecolor
+                          : Colors.primarycolor,
+                    }}
+                    disable={!password || !email}
+                  />
+                )}
+              </>
             )}
           </View>
           <View
