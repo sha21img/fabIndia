@@ -7,6 +7,7 @@ import {BaseURL2, imageURL } from '../Helper';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import Fonts from '../../../assets/fonts';
 
 export default function CartCard(props) {
   const {
@@ -146,20 +147,20 @@ export default function CartCard(props) {
               ) : null}
               <View
                 style={{
-                  flexDirection: 'row',
+                  // flexDirection: 'row',
                   paddingVertical: 5,
                 }}>
                 {item.item?.product?.baseOptions.length > 0 ? (
                   <TouchableOpacity
-                    style={Styles.sizeContainer}
+                    // style={Styles.sizeContainer}
                     onPress={() => SizeQClick(item?.item)}>
                     <Text style={Styles.sizeText}>
-                      {item.item?.product?.baseOptions[0]?.selected
+                      Size - 
+                      <Text style={{fontFamily:Fonts.Assistant700}}> {item.item?.product?.baseOptions[0]?.selected
                         ?.variantOptionQualifiers[1]?.value == 'Free Size'
                         ? 'Free Size'
-                        : `Size : ${item.item?.product?.baseOptions[0]?.selected?.variantOptionQualifiers[1]?.value}`}
+                        : `Size : ${item.item?.product?.baseOptions[0]?.selected?.variantOptionQualifiers[1]?.value}`}</Text>
                     </Text>
-                    <MaterialIcons name="keyboard-arrow-down" size={20} />
                   </TouchableOpacity>
                 ) : null}
                 <TouchableOpacity

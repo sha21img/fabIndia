@@ -10,7 +10,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import React, {useEffect, useState,useRef } from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import Fonts from '../../../assets/fonts';
 import Details from './Details';
 import CloseIcon from 'react-native-vector-icons/Ionicons';
@@ -64,7 +64,7 @@ export default function ProductDetailed(props) {
       y: 500,
       animated: true,
     });
-  }
+  };
   const getproductDetailedData = async () => {
     const value = await AsyncStorage.getItem('cartID');
     setCartID(value);
@@ -101,7 +101,7 @@ export default function ProductDetailed(props) {
     }
     setProductImage(images);
     setZoomImage(zoomImage);
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   const bestSellers = async () => {
@@ -272,8 +272,8 @@ export default function ProductDetailed(props) {
           }
         });
     } else {
-      onPressTouch()
-setSelectText(true);
+      onPressTouch();
+      setSelectText(true);
     }
   };
   const getCartDetials1 = async () => {
@@ -410,7 +410,7 @@ setSelectText(true);
           });
       }
     } else {
-      onPressTouch()
+      onPressTouch();
 
       setSelectText(true);
     }
@@ -426,135 +426,139 @@ setSelectText(true);
 
   return (
     <>
-      {productdetail && (
-        <ScrollView
-        keyboardShouldPersistTaps="handled"
-        ref={scrollRef}
-          contentContainerStyle={{flexGrow: 1, backgroundColor: 'white'}}>
-          <View
-            style={{
-              marginBottom: 20,
-              height: Dimensions.get('window').height * 0.7,
-            }}>
-            <SliderBox
-              // circleLoop={true}
-              images={productImage}
-              ImageComponent={FastImage}
-              inactiveDotColor="#90A4AE"
-              dotColor={Colors.primarycolor}
-              ImageComponentStyle={{width: '100%', height: '100%'}}
-              pagingEnabled={Platform.select({android: true})}
-              dotStyle={{
-                top: 25,
-                width: 8,
-                height: 8,
-                borderRadius: 5,
-                marginHorizontal: -10,
-              }}
-              onCurrentImagePressed={curr => {
-                setModalVisible(true);
-              }}
-            />
-          </View>
+      {isLoading ? (
+        <LoadingComponent />
+      ) : (
+        <>
+          {productdetail && (
+            <ScrollView
+              keyboardShouldPersistTaps="handled"
+              ref={scrollRef}
+              contentContainerStyle={{flexGrow: 1, backgroundColor: 'white'}}>
+              <View
+                style={{
+                  marginBottom: 20,
+                  height: Dimensions.get('window').height * 0.7,
+                }}>
+                <SliderBox
+                  // circleLoop={true}
+                  images={productImage}
+                  ImageComponent={FastImage}
+                  inactiveDotColor="#90A4AE"
+                  dotColor={Colors.primarycolor}
+                  ImageComponentStyle={{width: '100%', height: '100%'}}
+                  pagingEnabled={Platform.select({android: true})}
+                  dotStyle={{
+                    top: 25,
+                    width: 8,
+                    height: 8,
+                    borderRadius: 5,
+                    marginHorizontal: -10,
+                  }}
+                  onCurrentImagePressed={curr => {
+                    setModalVisible(true);
+                  }}
+                />
+              </View>
 
-          <Details productdetail={productdetail} productId={productId} />
+              <Details productdetail={productdetail} productId={productId} />
 
-          {productdetail?.baseOptions?.length > 0 && (
-            <Size_Color
-              customStyle={{marginTop: 20}}
-              productdetail={productdetail}
-              productId={productId}
-              imageUrlCheck={imageUrlCheck}
-              getColorProductId={getColorProductId}
-              getImageData={getImageData}
-              sendCount={sendCount}
-              setShowAdd={setShowAdd}
-              SelectText={SelectText}
-              setSelectText={setSelectText}
-              setShowcartbutton={setShowcartbutton}
-            />
-          )}
+              {productdetail?.baseOptions?.length > 0 && (
+                <Size_Color
+                  customStyle={{marginTop: 20}}
+                  productdetail={productdetail}
+                  productId={productId}
+                  imageUrlCheck={imageUrlCheck}
+                  getColorProductId={getColorProductId}
+                  getImageData={getImageData}
+                  sendCount={sendCount}
+                  setShowAdd={setShowAdd}
+                  SelectText={SelectText}
+                  setSelectText={setSelectText}
+                  setShowcartbutton={setShowcartbutton}
+                />
+              )}
 
-          <View style={{paddingHorizontal: 5, flexDirection: 'row'}}>
-            {StoreDetails.map(item => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  onPress={() => setSelectedTab(item)}
-                  style={{
-                    marginLeft: 10,
-                    borderBottomWidth: 2,
-                    borderBottomColor:
-                      selectedTab == item ? Colors.primarycolor : 'transparent',
-                    paddingVertical: 3,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontFamily: Fonts.Assistant300,
-                      color:
-                        selectedTab == item
-                          ? Colors.primarycolor
-                          : Colors.textcolor,
-                    }}>
-                    {item}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
+              <View style={{paddingHorizontal: 5, flexDirection: 'row'}}>
+                {StoreDetails.map(item => {
+                  return (
+                    <TouchableOpacity
+                      activeOpacity={0.9}
+                      onPress={() => setSelectedTab(item)}
+                      style={{
+                        marginLeft: 10,
+                        borderBottomWidth: 2,
+                        borderBottomColor:
+                          selectedTab == item
+                            ? Colors.primarycolor
+                            : 'transparent',
+                        paddingVertical: 3,
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontFamily: Fonts.Assistant300,
+                          color:
+                            selectedTab == item
+                              ? Colors.primarycolor
+                              : Colors.textcolor,
+                        }}>
+                        {item}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
 
-          {selectedTab == 'Description' ? (
-            <DetailsData />
-          ) : selectedTab == 'Specifications' ? (
-            <SpecificationsData />
-          ) : (
-            
-            <AdditionalData />
-          )}
+              {selectedTab == 'Description' ? (
+                <DetailsData />
+              ) : selectedTab == 'Specifications' ? (
+                <SpecificationsData />
+              ) : (
+                <AdditionalData />
+              )}
 
-          {/* <View style={{paddingHorizontal: 5}}>
+              {/* <View style={{paddingHorizontal: 5}}>
             <CommonTopTab data={dataMap} />
           </View> */}
-          <View style={{marginTop: 30, marginHorizontal: 15}}>
-            <Text
-              style={{
-                paddingBottom: 10,
-                fontFamily: Fonts.PlayfairDisplay700Italic,
-                fontSize: 20,
-              }}>
-              More in {commonproduct?.categoryData?.name}{' '}
-            </Text>
+              <View style={{marginTop: 30, marginHorizontal: 15}}>
+                <Text
+                  style={{
+                    paddingBottom: 10,
+                    fontFamily: Fonts.PlayfairDisplay700Italic,
+                    fontSize: 20,
+                  }}>
+                  More in {commonproduct?.categoryData?.name}{' '}
+                </Text>
 
-            <FlatList
-              data={commonproduct?.result?.products}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={(item, index) => index}
-              renderItem={({item}) => {
-                return <Card4 items={item} {...props} />;
-              }}
-            />
-          </View>
-        </ScrollView>
+                <FlatList
+                  data={commonproduct?.result?.products}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  keyExtractor={(item, index) => index}
+                  renderItem={({item}) => {
+                    return <Card4 items={item} {...props} />;
+                  }}
+                />
+              </View>
+            </ScrollView>
+          )}
+
+          <Footer
+            {...props}
+            oos={true}
+            handleClick={AddtoCart}
+            handleWishListAdd={addWishlist}
+            disabled={!!!showAdd && stockcheck != 0 ? false : true}
+            productdetail={productdetail}
+            showcartbutton={showcartbutton}
+            setShowcartbutton={setShowcartbutton}
+          />
+        </>
       )}
-
       <View style={{position: 'absolute', top: 0, width: '100%'}}>
         <HomeHeader {...props} searchVisible={false} isTransparent={true} />
       </View>
-
-      <Footer
-        {...props}
-        oos={true}
-        handleClick={AddtoCart}
-        handleWishListAdd={addWishlist}
-        disabled={!!!showAdd && stockcheck != 0 ? false : true}
-        productdetail={productdetail}
-        showcartbutton={showcartbutton}
-        setShowcartbutton={setShowcartbutton}
-      />
-        {isLoading ? <LoadingComponent /> : null}
-
       <Modal
         animationType="slide"
         transparent={false}

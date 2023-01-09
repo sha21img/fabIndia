@@ -63,6 +63,9 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'lightgrey',
     alignItems: 'center',
+    width:'58%',
+    justifyContent:'center',
+    marginTop:14
   },
   currencyContainer: {
     flexDirection: 'row',

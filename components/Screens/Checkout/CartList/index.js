@@ -68,6 +68,7 @@ export default function CartList(props) {
   const [couponCode, setCouponCode] = useState('');
   const [razorpaymethod, setRazorpaymethod] = useState(null);
   const {cartdetails, getCartDetails, handleClick, deleteCartDetail} = props;
+  console.log("cartdetailscartdetailscartdetailscartdetailscartdetails0000",cartdetails)
   useEffect(() => {
     let newCurrpos = newCurrPosition || 0;
     setCurrentPosition(newCurrpos);
