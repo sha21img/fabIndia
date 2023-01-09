@@ -280,12 +280,10 @@ const getWishID = async dispatch => {
       },
     )
     .then(response => {
-      console.log('wishislist  response+++++++++++++++++++++++++');
       setWishID(response);
     })
     .catch(errors => {
       console.log('2354345435', errors);
-
       if (errors.response.status == 401) {
         logout(dispatch);
       }

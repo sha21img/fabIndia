@@ -10,6 +10,7 @@ const width = Dimensions.get('window').width;
 
 export default function ClassicsCards(props) {
   const {data, customStyles} = props;
+  console.log('response.data]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]', data);
   const [carouselData, setCarouselData] = React.useState([]);
   const [productData, setproductData] = React.useState([]);
   const [dataArray, setDataArray] = useState([]);
@@ -28,11 +29,9 @@ export default function ClassicsCards(props) {
       `${BaseURL2}/plpContent/searchProducts?fields=products(name,code,price(FULL),images(FULL),totalDiscount,priceAfterDiscount(FULL),newArrival,sale,stock)&lang=en&curr=INR`,
       params,
     );
-    // console.log(
-    //   'response.data]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
-    //   response.data.products,
-    // );
-    setproductData(response.data.products);
+
+    setproductData(response?.data?.products);
+    console.log('this is sthe data', response.data);
 
     // const response = await getComponentData(
     //   `cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
@@ -56,7 +55,7 @@ export default function ClassicsCards(props) {
   };
   useEffect(() => {
     getCarauselIds();
-  }, []);
+  }, [props.data]);
   const endReach = () => {
     if (dataArray?.pagination?.totalPages > page) {
       getNewHighlightIds();
@@ -64,7 +63,7 @@ export default function ClassicsCards(props) {
   };
   return (
     <View style={customStyles}>
-      <Text style={Styles.heading}>{data.giftHeading}</Text>
+      <Text style={Styles.heading}>{data?.giftHeading}</Text>
       <View style={{paddingHorizontal: 15}}>
         <FlatList
           horizontal

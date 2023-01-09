@@ -5,39 +5,36 @@ import Fonts from '../../../../../assets/fonts';
 import {Colors} from '../../../../../assets/Colors';
 
 const Occasion = props => {
-  const {data} = props;
-  const [page, setPage] = useState(0);
-  const [cardData, setCardData] = useState([]);
-  const getOccasionData = async () => {
-    const splitBannerId = data.banners.split(' ');
-    console.log('newSplitId11', splitBannerId);
-    const response = await getComponentData(
-      `cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
-    );
-    console.log('response for ocassion card data', response);
-    if (cardData.length) {
-      setCardData(prev => [...cardData, ...response.component]);
-    } else {
-      setCardData(response.component);
-    }
-  };
-  useEffect(() => {
-    getOccasionData();
-  }, []);
-  const endReach = () => {
-    if (cardData?.pagination?.totalPages > page) {
-      setPage(page + 1);
+  const {data, isSap = false} = props;
+  console.log('this sis data', data);
+  // const [page, setPage] = useState(0);
+  // const [cardData, setCardData] = useState([]);
+  // const getOccasionData = async () => {
+  //   const splitBannerId = data.banners.split(' ');
+  //   console.log('newSplitId11', splitBannerId);
+  //   const response = await getComponentData(
+  //     `cms/components?fields=DEFAULT&currentPage=${page}&pageSize=5&componentIds=${splitBannerId}&lang=en&curr=INR`,
+  //   );
+  //   console.log('response for ocassion card data', response);
+  //   if (cardData.length) {
+  //     setCardData(prev => [...cardData, ...response.component]);
+  //   } else {
+  //     setCardData(response.component);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getOccasionData();
+  // }, []);
+  // const endReach = () => {
+  //   if (cardData?.pagination?.totalPages > page) {
+  //     setPage(page + 1);
 
-      // getBannerIds();
-    }
-  };
+  //     // getBannerIds();
+  //   }
+  // };
   const catagory = item => {
-    console.log('item for ocasssion card data', item.item.urlLink);
-    const image = 'https://apisap.fabindia.com/' + item.item.media.url;
-    const newCode = item.item.urlLink;
-    let splitURL = newCode.split('/');
-    splitURL = splitURL[splitURL.length - 1].split('?')[1];
-    // console.log('splitURL', splitURL);
+    console.log('item for ocasssion card data', item.item);
+    const newCode = item.item.landingPage;
 
     return (
       <View style={{flexDirection: 'column', marginRight: 10}}>
@@ -45,12 +42,17 @@ const Occasion = props => {
           activeOpacity={0.9}
           onPress={() => {
             props.navigation.navigate('LandingPageSaris_Blouses', {
-              code: splitURL,
-              title: 'Gift Sets',
-              status: true,
+              code: newCode,
+              title: item.item.title,
+              isAdmin2: 'isAdmin2',
             });
           }}>
-          <Image source={{uri: image}} style={{height: 282, width: 220}} />
+          <Image
+            source={{
+              uri: isSap ? item?.item?.image : item?.item?.image?.split('?')[0],
+            }}
+            style={{height: 282, width: 220}}
+          />
         </TouchableOpacity>
         <Text
           style={{
@@ -59,34 +61,21 @@ const Occasion = props => {
             color: Colors.textcolor,
             fontSize: 16,
           }}>
-          {item.item.name.toUpperCase()}
+          {item.item.title.toUpperCase()}
         </Text>
       </View>
     );
   };
   return (
     <>
-      <View>
-        <Text
-          style={{
-            paddingHorizontal: 15,
-            paddingVertical: 10,
-            fontFamily: Fonts.PlayfairDisplay600Italic,
-            fontSize: 30,
-          }}>
-          Gift by Ocassion
-        </Text>
-      </View>
-
       <FlatList
         contentContainerStyle={{
           flexGrow: 1,
           paddingHorizontal: 15,
           paddingVertical: 7,
         }}
-        data={cardData}
+        data={data}
         horizontal
-        onEndReached={endReach}
         showsHorizontalScrollIndicator={false}
         onEndReachedThreshold={0.1}
         keyExtractor={(item, index) => index}

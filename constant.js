@@ -311,33 +311,33 @@ export const LandingPageHomeLiving = [
 ];
 
 export const LandingPageFurniture = [
-  'Section1', // Top Swipper
-  'Section2', //Apparel highlight
-  'Section3', //Duppatta highlight
-  'Section4', // jewellery highlight
-  'Section5', // Ethnic wear
+  // 'Section1', // Top Swipper
+  // 'Section2', //Apparel highlight
+  // 'Section3', //Duppatta highlight
+  // 'Section4', // jewellery highlight
+  // 'Section5', // Ethnic wear
   'Section6', // women toptab
   // 'Section7', //empty
   // 'Section8', //empty
   // 'Section9', //empty
-  'Section10', //Banner
+  // 'Section10', //Banner
   // 'Section11', //Empty
   // 'Section12', //Empty
-  'Section13', //carousel
-  'Section14', //Collections
+  // 'Section13', //carousel
+  // 'Section14', //Collections
   // 'Section15', //empty
   // 'Section16', //empty
   // 'Section17', //empty
 ];
 
 export const LandingPagePersonalCare = [
-  'Section1', // Top Swipper
-  'Section2', //Apparel highlight
-  'Section3', //Duppatta highlight
-  'Section4', // jewellery highlight
-  'Section5', // not present
+  // 'Section1', // Top Swipper
+  // 'Section2', //Apparel highlight
+  // 'Section3', //Duppatta highlight
+  // 'Section4', // jewellery highlight
+  // 'Section5', // not present
   'Section6', // personalcare toptab
-  'Section7', //single image
+  // 'Section7', //single image
   // 'Section8', //empty
   // 'Section9', //empty
   // 'Section10', //empty
@@ -365,9 +365,9 @@ export const LandingPageL1Kids = [
   // 'Section17', // empty
 ];
 export const LandingPageL1Gifting = [
-  'Section1',
-  'Section2',
-  'Section3',
+  // 'Section1',
+  // 'Section2',
+  // 'Section3',
   'Section4',
 ];
 
