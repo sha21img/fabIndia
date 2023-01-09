@@ -109,11 +109,24 @@ export default function Size_Color({
         // arrayData.push({size:el[1].value, color:})
       });
     setfinalData(arrayData[0]);
-    setFilterData(arrayData.reverse());
+    let sortedData = handleSorting(arrayData);
+    setFilterData(sortedData);
     // console.log(
     //   arrayData,
     //   'arrayDataarrayDataooooooooooooo9999999999999999999',
     // );
+  };
+
+  const handleSorting = initial => {
+    // console.log(".../...//.//.",initial)
+    const sortingArr = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+    // const itemsArray = initial
+    let final = initial.sort(function (a, b) {
+      return sortingArr.indexOf(a.size) - sortingArr.indexOf(b.size);
+    });
+
+    return final
+    // console.log(itemsArray);
   };
 
   const StockSubmit = item => {
@@ -121,6 +134,7 @@ export default function Size_Color({
     //   'itemmmmmmmashishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
     //   item,
     // );
+    // setShowcartbutton(false);
     let sum = 0;
     item.color.map(el => {
       sum = sum + el.stock;
@@ -156,6 +170,7 @@ export default function Size_Color({
         .stock,
     }));
     getColorProductId(code);
+
     getImageData(code);
     setSelectText(false);
     setfinalData(item);
@@ -245,6 +260,7 @@ export default function Size_Color({
             <>
               <TouchableOpacity
                 onPress={() => {
+                  setShowcartbutton(false);
                   StockSubmit(item);
                 }}
                 style={
@@ -396,7 +412,7 @@ export default function Size_Color({
           <View style={Styles.centeredView}>
             <View style={{paddingHorizontal: 20}}>
               <View style={Styles.headingBox}>
-                <Text style={Styles.heading}>To Fit Body Measurements</Text>
+                <Text style={Styles.heading}>{productdetail?.sizeChart?.title}</Text>
                 <TouchableOpacity
                   onPress={() => setModalVisible(!modalVisible)}>
                   <Entypo
@@ -459,7 +475,7 @@ export default function Size_Color({
                     // flex: 1,
                     flexDirection: 'row',
                   }}>
-                  {SizeHeader.map(item => {
+                  {productdetail?.sizeChart?.headings?.map(item => {
                     return (
                       <View
                         style={{
@@ -551,8 +567,9 @@ const Styles = StyleSheet.create({
   },
   mainContainer: {
     width: '100%',
-    flex: 1,
+    height: '100%',
     backgroundColor: 'rgba(0,0,0,0.6)',
+    justifyContent: 'flex-end',
   },
   centeredView: {
     // marginTop: 'auto',

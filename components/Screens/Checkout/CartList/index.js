@@ -68,6 +68,7 @@ export default function CartList(props) {
   const [couponCode, setCouponCode] = useState('');
   const [razorpaymethod, setRazorpaymethod] = useState(null);
   const {cartdetails, getCartDetails, handleClick, deleteCartDetail} = props;
+  console.log("cartdetailscartdetailscartdetailscartdetailscartdetails0000",cartdetails)
   useEffect(() => {
     let newCurrpos = newCurrPosition || 0;
     setCurrentPosition(newCurrpos);
@@ -261,7 +262,7 @@ export default function CartList(props) {
         contentContainerStyle={styles.mainView}
         nestedScrollEnabled={true}
         showsVerticalScrollIndircator={false}>
-        {currentPosition == 0 ? (
+        {/* {currentPosition == 0 ? (
           <View style={styles.noticeBox}>
             <Image source={image.cartFlower} style={styles.flower} />
             <Image source={image.cartFlower1} style={styles.flower1} />
@@ -270,7 +271,7 @@ export default function CartList(props) {
               artisans, protect nature and celebrate our country and its crafts!
             </Text>
           </View>
-        ) : null}
+        ) : null} */}
         <View style={{paddingVertical: 15, backgroundColor: 'white'}}>
           <StepIndicator
             customStyles={customStyles}
@@ -281,7 +282,7 @@ export default function CartList(props) {
         </View>
         {currentPosition == 0 ? (
           <>
-            <View style={styles.cartDetailContainer}>
+            {/* <View style={styles.cartDetailContainer}>
               <View style={styles.cartDetail}>
                 <Text style={styles.itemtext}>
                   {cartdetails?.deliveryItemsQuantity} items
@@ -300,7 +301,7 @@ export default function CartList(props) {
                   You save {cartdetails?.productDiscounts?.formattedValue}
                 </Text>
               </View>
-            </View>
+            </View> */}
             <CartCard
               {...props}
               data={cartdetails}
@@ -312,6 +313,142 @@ export default function CartList(props) {
               handleClick={handleClick}
               deleteCartDetail={deleteCartDetail}
             />
+            <View style={{margin: 15, backgroundColor: 'white'}}>
+              {cartdetails?.appliedVouchers.length == 0 ? (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: 15,
+                    marginHorizontal: 10,
+                  }}>
+                  <InputText
+                    label={'Enter Coupon code'}
+                    value={couponCode}
+                    customStyle={{flex: 1, paddingHorizontal: 0}}
+                    onChangeText={text => setCouponCode(text)}
+                  />
+
+                  <TouchableOpacity
+                    disabled={couponCode == ''}
+                    onPress={() => checkCouponCode()}
+                    style={{
+                      paddingHorizontal: 20,
+                      paddingVertical: 8,
+                      borderRadius: 20,
+                      backgroundColor:
+                        couponCode == '' ? '#bdbdbd' : Colors.primarycolor,
+                    }}>
+                    <Text style={{fontSize: 16, color: '#fff'}}>Apply</Text>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginVertical: 15,
+                    padding: 8,
+                    backgroundColor: '#F4F4F4',
+                    borderRadius: 2,
+                  }}>
+                  <Text
+                    style={{
+                      flex: 1,
+                      fontSize: 14,
+                      color: '#4A4A4A',
+                      fontWeight: 'bold',
+                    }}>
+                    {cartdetails?.appliedVouchers[0]?.voucherCode}
+                  </Text>
+
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    onPress={() =>
+                      deleteCouponCode(
+                        cartdetails?.appliedVouchers[0]?.voucherCode,
+                      )
+                    }>
+                    <Image
+                      source={image.close}
+                      style={{
+                        width: 10,
+                        height: 10,
+                        marginLeft: 12,
+                        tintColor: '#4A4A4A',
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              )}
+
+              <Text style={styles.totalAmount}>
+                Price Detail ({cartdetails?.deliveryItemsQuantity} items)
+              </Text>
+              <View style={styles.divider} />
+
+              <View
+                style={[styles.cartDetailContainer, {backgroundColor: '#fff'}]}>
+                <View style={styles.cartDetail}>
+                  <Text style={styles.itemtext}>Total MRP</Text>
+                  <Text style={[styles.itemtext, {marginVertical: 8}]}>
+                    Discount on MRP
+                  </Text>
+                  {cartdetails?.totalDiscounts?.value > 0 ? (
+                    <Text style={[styles.itemtext, {marginBottom: 8}]}>
+                      You saved
+                    </Text>
+                  ) : null}
+                  <Text style={styles.itemtext}>Delivery Charges</Text>
+                </View>
+
+                <View style={styles.cartDetail1}>
+                  <Text style={styles.itemtext}>
+                    {cartdetails?.subTotalWithoutDiscount?.formattedValue}
+                  </Text>
+                  <Text style={[styles.saveAmount, {marginVertical: 8}]}>
+                    - {cartdetails?.productDiscounts?.formattedValue}
+                  </Text>
+                  {cartdetails?.totalDiscounts?.value > 0 ? (
+                    <Text style={[styles.saveAmount, {marginBottom: 8}]}>
+                      - {cartdetails?.totalDiscounts?.formattedValue}
+                    </Text>
+                  ) : null}
+                  <Text style={styles.itemtext}>
+                    {cartdetails?.deliveryCost?.formattedValue ? (
+                      cartdetails?.deliveryCost?.formattedValue
+                    ) : (
+                      <>
+                        <Text style={{textDecorationLine: 'line-through'}}>
+                          ₹99
+                        </Text>{' '}
+                        <Text style={{color: '#96AD66'}}>FREE</Text>
+                      </>
+                    )}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.divider} />
+
+              <View
+                style={[
+                  styles.cartDetailContainer,
+                  {backgroundColor: '#fff', marginVertical: 8},
+                ]}>
+                <View style={styles.cartDetail}>
+                  <Text style={styles.totalAmount}>Amount payable</Text>
+                </View>
+
+                <View style={styles.cartDetail1}>
+                  <Text style={styles.totalAmount}>
+                    {cartdetails?.totalAmountToPay?.formattedValue}
+                  </Text>
+                </View>
+              </View>
+            </View>
           </>
         ) : currentPosition == 1 ? (
           <CheckAddress
@@ -354,131 +491,6 @@ export default function CartList(props) {
               <TouchableOpacity onPress={() => setShowOrderDetail(false)}>
                 <Ionicons name="close-circle-outline" size={24} />
               </TouchableOpacity>
-            </View>
-
-            {cartdetails?.appliedVouchers.length == 0 ? (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: 15,
-                }}>
-                <InputText
-                  label={'Enter Coupon code'}
-                  value={couponCode}
-                  customStyle={{flex: 1, paddingHorizontal: 0}}
-                  onChangeText={text => setCouponCode(text)}
-                />
-
-                <TouchableOpacity
-                  disabled={couponCode == ''}
-                  onPress={() => checkCouponCode()}
-                  style={{
-                    paddingHorizontal: 20,
-                    paddingVertical: 8,
-                    borderRadius: 20,
-                    backgroundColor:
-                      couponCode == '' ? '#bdbdbd' : Colors.primarycolor,
-                  }}>
-                  <Text style={{fontSize: 16, color: '#fff'}}>Apply</Text>
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginVertical: 15,
-                  padding: 8,
-                  backgroundColor: '#F4F4F4',
-                  borderRadius: 2,
-                }}>
-                <Text
-                  style={{
-                    flex: 1,
-                    fontSize: 14,
-                    color: '#4A4A4A',
-                    fontWeight: 'bold',
-                  }}>
-                  {cartdetails?.appliedVouchers[0]?.voucherCode}
-                </Text>
-
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  onPress={() =>
-                    deleteCouponCode(
-                      cartdetails?.appliedVouchers[0]?.voucherCode,
-                    )
-                  }>
-                  <Image
-                    source={image.close}
-                    style={{
-                      width: 10,
-                      height: 10,
-                      marginLeft: 12,
-                      tintColor: '#4A4A4A',
-                    }}
-                  />
-                </TouchableOpacity>
-              </View>
-            )}
-
-            <Text style={styles.totalAmount}>
-              Price Detail ({cartdetails?.deliveryItemsQuantity} items)
-            </Text>
-            <View style={styles.divider} />
-
-            <View
-              style={[styles.cartDetailContainer, {backgroundColor: '#fff'}]}>
-              <View style={styles.cartDetail}>
-                <Text style={styles.itemtext}>Total MRP</Text>
-                <Text style={[styles.itemtext, {marginVertical: 8}]}>
-                  Discount on MRP
-                </Text>
-                {cartdetails?.totalDiscounts?.value > 0 ? (
-                  <Text style={[styles.itemtext, {marginBottom: 8}]}>
-                    You saved
-                  </Text>
-                ) : null}
-                <Text style={styles.itemtext}>Delivery Charges</Text>
-              </View>
-
-              <View style={styles.cartDetail1}>
-                <Text style={styles.itemtext}>
-                  {cartdetails?.subTotalWithoutDiscount?.formattedValue}
-                </Text>
-                <Text style={[styles.saveAmount, {marginVertical: 8}]}>
-                  - {cartdetails?.productDiscounts?.formattedValue}
-                </Text>
-                {cartdetails?.totalDiscounts?.value > 0 ? (
-                  <Text style={[styles.saveAmount, {marginBottom: 8}]}>
-                    - {cartdetails?.totalDiscounts?.formattedValue}
-                  </Text>
-                ) : null}
-                <Text style={styles.itemtext}>
-                  {cartdetails?.deliveryCost?.formattedValue}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.divider} />
-
-            <View
-              style={[
-                styles.cartDetailContainer,
-                {backgroundColor: '#fff', marginVertical: 8},
-              ]}>
-              <View style={styles.cartDetail}>
-                <Text style={styles.totalAmount}>Amount payable</Text>
-              </View>
-
-              <View style={styles.cartDetail1}>
-                <Text style={styles.totalAmount}>
-                  {cartdetails?.totalAmountToPay?.formattedValue}
-                </Text>
-              </View>
             </View>
           </View>
         </View>
@@ -589,26 +601,29 @@ export default function CartList(props) {
                 <Text style={styles.chipTextInActive}>XXL</Text>
               </View>
             </ScrollView> */}
-            <Text style={styles.sizeText}>Select quantity</Text>
-            <View style={styles.quantityContainer}>
-              <TouchableOpacity
-                onPress={() =>
-                  quantity > 1 ? setQuantity(quantity - 1) : null
-                }
-                style={styles.signBox}>
-                <Text style={styles.sign}>-</Text>
-              </TouchableOpacity>
-              <View style={styles.quantityBox}>
-                <Text style={styles.quantityText}>{quantity}</Text>
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={styles.sizeText}>Select quantity</Text>
+              <View style={styles.quantityContainer}>
+                <TouchableOpacity
+                  onPress={() =>
+                    quantity > 1 ? setQuantity(quantity - 1) : null
+                  }
+                  style={styles.signBox}>
+                  <Text style={styles.sign}>-</Text>
+                </TouchableOpacity>
+                <View style={styles.quantityBox}>
+                  <Text style={styles.quantityText}>{quantity}</Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() =>
+                    quantity < maxstock ? setQuantity(quantity + 1) : null
+                  }
+                  style={styles.signBox}>
+                  <Text style={styles.sign}>+</Text>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                onPress={() =>
-                  quantity < maxstock ? setQuantity(quantity + 1) : null
-                }
-                style={styles.signBox}>
-                <Text style={styles.sign}>+</Text>
-              </TouchableOpacity>
             </View>
+
             <CommonButton
               txt="Update"
               customViewStyle={{

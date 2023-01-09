@@ -50,6 +50,8 @@ export default Styles = StyleSheet.create({
   totalAmount: {
     fontFamily: Fonts.Assistant700,
     paddingVertical: 2,
+    paddingHorizontal: 5,
+
     fontSize: 16,
     color: Colors.textcolor,
   },
