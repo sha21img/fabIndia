@@ -30,19 +30,24 @@ export default function CommonCarousel(props) {
 
     const newCode = filteredObj.landingPage;
     const title = filteredObj.title;
-    if (newCode.includes('giftcard')) {
+    if (title == 'Gift Cards') {
+      console.log('adsfasdfsdafasdf');
+      // props.navigation.navigate('GiftCard');
+      props.navigation.navigate('MyAccount', {
+        screen: 'GiftCard',
+      });
     } else if (title == 'IDS') {
       props.navigation.navigate('InteriorCatagory');
     } else {
       props.navigation.navigate('LandingPageSaris_Blouses', {
         code: newCode,
-        title: filteredObj.title || 'Gift Sets',
+        title: filteredObj.title,
         isAdmin2: 'isAdmin2',
       });
     }
   };
   return (
-    <View style={{marginBottom: 30, marginTop: 16}}>
+    <View style={{marginBottom: 30, marginTop: 10}}>
       <SliderBox
         // circleLoop={true}
         sliderBoxHeight={height}
