@@ -25,16 +25,16 @@ export default function Footer(props) {
     showcartbutton,
     setShowcartbutton,
     wishlistproductCode = [],
+    productId,
+    imageUrlCheck,
   } = props;
   const {cartReducer} = useSelector(state => state);
   const dispatch = useDispatch();
 
-  // console.log(
-  //   'disabled',
-  //   cartReducer.WishListDetail.wishListData.find(items => {
-  //     return items.code == productdetail.code;
-  //   }),
-  // );
+  console.log(
+    'productdetailproductdetailproductdetailproductdetailproductdetailproductdetailproductdetail',
+    productdetail.code,
+  );
   const [modalVisible, setModalVisible] = useState(false);
   var isVisible = cartReducer.WishListDetail.wishListData.find(items => {
     return items.code == productdetail.code;
@@ -58,8 +58,11 @@ export default function Footer(props) {
       }
     } else {
       Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
-      props.navigation.navigate('MyAccount', {
-        screen: 'Login_Register',
+      props.navigation.navigate('Login_Register');
+      props.navigation.navigate('Login_Register', {
+        From: 'PDP',
+        productCode: productId,
+        code: imageUrlCheck,
       });
     }
   };
@@ -89,9 +92,9 @@ export default function Footer(props) {
               color: Colors.primarycolor,
               fontFamily: Fonts.Assistant400,
               fontSize: 16,
-              paddingHorizontal:4
+              paddingHorizontal: 4,
             }}>
-        {!!!isVisible?.code ? 'Add To Wishlist' : 'Added In Wishlist'}   
+            {!!!isVisible?.code ? 'Add To Wishlist' : 'Added In Wishlist'}
           </Text>
         </TouchableOpacity>
         {oos ? (
@@ -100,7 +103,7 @@ export default function Footer(props) {
               style={[
                 Styles.cartBox,
                 {
-                  backgroundColor:  Colors.primarycolor 
+                  backgroundColor: Colors.primarycolor,
                 },
               ]}
               // disabled={disabled}
@@ -111,11 +114,11 @@ export default function Footer(props) {
                 handleClick();
                 // }
               }}>
-                <MaterialCommunityIcons
-              name="cart-outline"
-              color={'white'}
-              size={22}
-            />
+              <MaterialCommunityIcons
+                name="cart-outline"
+                color={'white'}
+                size={22}
+              />
               <Text style={Styles.cartText}>Add to cart</Text>
             </TouchableOpacity>
           ) : (
@@ -136,11 +139,11 @@ export default function Footer(props) {
                 // setShowcartbutton(true);
                 // }
               }}>
-                   <MaterialCommunityIcons
-              name="cart-outline"
-              color={'white'}
-              size={22}
-            />
+              <MaterialCommunityIcons
+                name="cart-outline"
+                color={'white'}
+                size={22}
+              />
               <Text style={Styles.cartText}>Go to cart</Text>
             </TouchableOpacity>
           )
@@ -200,9 +203,8 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 15,
     paddingVertical: 12,
-    borderTopWidth:0.8,
-    borderTopColor:'lightgrey',
-
+    borderTopWidth: 0.8,
+    borderTopColor: 'lightgrey',
   },
   mainContainer: {
     width: '100%',
@@ -240,13 +242,13 @@ const Styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection:'row'
+    flexDirection: 'row',
   },
   cartText: {
     color: 'white',
     fontFamily: Fonts.Assistant400,
     fontSize: 16,
-    paddingHorizontal:5
+    paddingHorizontal: 5,
   },
   headingBox: {
     flexDirection: 'row',

@@ -10,7 +10,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import React, {useEffect, useState,useRef } from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import Fonts from '../../../assets/fonts';
 import Details from './Details';
 import CloseIcon from 'react-native-vector-icons/Ionicons';
@@ -64,7 +64,7 @@ export default function ProductDetailed(props) {
       y: 500,
       animated: true,
     });
-  }
+  };
   const getproductDetailedData = async () => {
     const value = await AsyncStorage.getItem('cartID');
     setCartID(value);
@@ -101,7 +101,7 @@ export default function ProductDetailed(props) {
     }
     setProductImage(images);
     setZoomImage(zoomImage);
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   const bestSellers = async () => {
@@ -272,8 +272,8 @@ export default function ProductDetailed(props) {
           }
         });
     } else {
-      onPressTouch()
-setSelectText(true);
+      onPressTouch();
+      setSelectText(true);
     }
   };
   const getCartDetials1 = async () => {
@@ -296,7 +296,9 @@ setSelectText(true);
         console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', response.data);
 
         let finalvalue = response?.data?.deliveryItemsQuantity;
-        dispatch(cartDetail({data: response.data, quantity: finalvalue}));
+        dispatch(
+          cartDetail({cartData: response.data, cartQuantity: finalvalue}),
+        );
       })
       .catch(errors => {
         console.log('111111111111111', errors);
@@ -344,8 +346,8 @@ setSelectText(true);
           });
           dispatch(
             wishlistDetail({
-              data: filterProductId,
-              quantity: response.data.entries.length,
+              wishListData: filterProductId,
+              wishlistQuantity: response.data.entries.length,
             }),
           );
         }
@@ -410,7 +412,7 @@ setSelectText(true);
           });
       }
     } else {
-      onPressTouch()
+      onPressTouch();
 
       setSelectText(true);
     }
@@ -428,8 +430,8 @@ setSelectText(true);
     <>
       {productdetail && (
         <ScrollView
-        keyboardShouldPersistTaps="handled"
-        ref={scrollRef}
+          keyboardShouldPersistTaps="handled"
+          ref={scrollRef}
           contentContainerStyle={{flexGrow: 1, backgroundColor: 'white'}}>
           <View
             style={{
@@ -504,14 +506,14 @@ setSelectText(true);
             })}
           </View>
 
-          {selectedTab == 'Description' ? (
-            <DetailsData />
-          ) : selectedTab == 'Specifications' ? (
-            <SpecificationsData />
-          ) : (
-            null
+          {
+            selectedTab == 'Description' ? (
+              <DetailsData />
+            ) : selectedTab == 'Specifications' ? (
+              <SpecificationsData />
+            ) : null
             // <AdditionalData />
-          )}
+          }
 
           {/* <View style={{paddingHorizontal: 5}}>
             <CommonTopTab data={dataMap} />
@@ -544,6 +546,8 @@ setSelectText(true);
       </View>
 
       <Footer
+        productId={productId}
+        imageUrlCheck={imageUrlCheck}
         {...props}
         oos={true}
         handleClick={AddtoCart}
@@ -553,7 +557,7 @@ setSelectText(true);
         showcartbutton={showcartbutton}
         setShowcartbutton={setShowcartbutton}
       />
-        {isLoading ? <LoadingComponent /> : null}
+      {isLoading ? <LoadingComponent /> : null}
 
       <Modal
         animationType="slide"

@@ -56,7 +56,7 @@ const MyProfile = props => {
   const [open, setOpen] = useState(false);
   // const win = useWindowDimensions();
   const [maskedValue, setMaskedValue] = useState(
-    moment(new Date()).format('DD-MM-YYYY'),
+    allProps.profiledata?.dateOfBirth || '',
   );
   useEffect(() => {
     setMaskedValue(maskedValue);
@@ -82,7 +82,7 @@ const MyProfile = props => {
     // if (editUser.mobile != allProps.profiledata.contactNumber) {
     //   props.navigation.navigate('ChangeMobileNumber');
     // } else {
-      updateProfileHandler();
+    updateProfileHandler();
     // }
   };
 
@@ -503,7 +503,7 @@ const MyProfile = props => {
             borderBottomColor: 'gray',
           }}>
           <MaskedTextInput
-            mask="99/99/9999"
+            mask="99-99-9999"
             value={maskedValue}
             style={{fontSize: 16}}
             onChangeText={(text, rawText) => {

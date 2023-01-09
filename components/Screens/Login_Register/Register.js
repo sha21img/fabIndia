@@ -20,7 +20,12 @@ import CheckBox from 'react-native-check-box';
 import InputText from '../../Common/InputText';
 import CommonButton from '../../Common/CommonButton';
 import Fonts from '../../../assets/fonts';
-import {UnAuthPostData, BaseURL2, AuthBaseUrl2} from '../../Common/Helper';
+import {
+  UnAuthPostData,
+  BaseURL2,
+  AuthBaseUrl2,
+  addWishlist,
+} from '../../Common/Helper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -48,6 +53,9 @@ const faqs = [
   },
 ];
 const Register = props => {
+  const From = props?.route?.params?.From || '';
+  const productCode = props?.route?.params?.productCode || '';
+  const code = props?.route?.params?.code || '';
   const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [text, setText] = React.useState({
@@ -118,6 +126,11 @@ const Register = props => {
       );
   };
   const HandleRegister = async () => {
+    // props.navigation.navigate('RegisterSuccess', {
+    //   From: From,
+    //   productCode: productCode,
+    //   code: code,
+    // });
     let params = {
       consents: [],
       contactNumberCode: `+${mobilePrefix}`,
@@ -133,16 +146,22 @@ const Register = props => {
       uid: text.email,
     };
     console.log(params, 'register all data==params');
-    const res = await UnAuthPostData('users?lang=en&curr=INR', params).then(
-      res => {
-        if (res?.errors) {
-          Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
-        } else {
-          props.navigation.navigate('RegisterSuccess');
-          console.log(res);
-        }
-      },
-    );
+    const res = await UnAuthPostData(
+      'users?lang=en&curr=INR',
+      params,
+      dispatch,
+    ).then(res => {
+      if (res?.errors) {
+        Toast.showWithGravity(res.errors[0].message, Toast.LONG, Toast.TOP);
+      } else {
+        props.navigation.navigate('RegisterSuccess', {
+          From: From,
+          productCode: productCode,
+          code: code,
+        });
+        console.log(res);
+      }
+    });
   };
   const checkToken = async () => {
     const get = await AsyncStorage.getItem('generatToken');

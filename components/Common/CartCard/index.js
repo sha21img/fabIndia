@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import Styles from './styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {BaseURL2, imageURL } from '../Helper';
+import {BaseURL2, imageURL} from '../Helper';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
@@ -44,9 +44,7 @@ export default function CartCard(props) {
     } else {
       Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
 
-      props.navigation.navigate('MyAccount', {
-        screen: 'Login_Register',
-      });
+      props.navigation.navigate('Login_Register');
     }
   };
   const MoveToWishList = async item => {

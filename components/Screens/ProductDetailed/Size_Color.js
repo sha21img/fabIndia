@@ -136,21 +136,25 @@ export default function Size_Color({
     }
     // let a = {
     //   productCode: item?.productCode,
-      // stock: item.color.filter(el => el.productCode == item.productCode)[0]
-      //   .stock,
+    // stock: item.color.filter(el => el.productCode == item.productCode)[0]
+    //   .stock,
     //   color: item.color.filter(el => el.productCode == item.productCode)[0]
     //     .colorCode,
     // };
 
-    
-    let code = ''
-    
-    item.color.map(el=>{
-      if(el.colorCode == color.color || el.colorCode == color.colorCode){
-        code = el.productCode
+    let code = '';
+
+    item.color.map(el => {
+      if (el.colorCode == color.color || el.colorCode == color.colorCode) {
+        code = el.productCode;
       }
-    })
-    setColor(prev => ({...prev, ['productCode']:code,['stock']:item.color.filter(el => el.productCode == item.productCode)[0].stock}));
+    });
+    setColor(prev => ({
+      ...prev,
+      ['productCode']: code,
+      ['stock']: item.color.filter(el => el.productCode == item.productCode)[0]
+        .stock,
+    }));
     getColorProductId(code);
     getImageData(code);
     setSelectText(false);
@@ -171,7 +175,7 @@ export default function Size_Color({
     }
     sendCount(countData);
     setCount(countData);
-    setShowcartbutton(false)
+    setShowcartbutton(false);
   };
   const checkPin = async () => {
     if (pinCode != null) {
@@ -191,7 +195,6 @@ export default function Size_Color({
       <View style={Styles.ColorBox}>
         <Text style={Styles.ColorTxt}>COLOR</Text>
         <View style={Styles.colorContainer}>
-          
           {finalData?.color?.map(item => {
             return (
               <TouchableOpacity

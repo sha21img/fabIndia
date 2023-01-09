@@ -27,6 +27,12 @@ import {
 import {BaseURL2, AuthBaseUrl2} from '../../Common/Helper';
 
 export default function Login_Register(props) {
+  const From = props?.route?.params?.From || '';
+  const productCode = props?.route?.params?.productCode || '';
+  const code = props?.route?.params?.code || '';
+  const sizeCode = props?.route?.params?.sizeCode || '';
+
+  console.log('FROM1111111111111111111', code);
   const [numberRequire, setNumberRequire] = useState(false);
   const [from, setFrom] = useState('');
   const [userGoogleInfo, setUserGoogleInfo] = useState({});
@@ -99,10 +105,20 @@ export default function Login_Register(props) {
     );
   };
   const resisterHandler = () => {
-    props.navigation.navigate('Register');
+    props.navigation.navigate('Register', {
+      From: From,
+      productCode: productCode,
+      code: code,
+      sizeCode: sizeCode,
+    });
   };
   const login = () => {
-    props.navigation.navigate('Login');
+    props.navigation.navigate('Login', {
+      From: From,
+      productCode: productCode,
+      code: code,
+      sizeCode: sizeCode,
+    });
   };
   const checkPhone = async (userInfo, code) => {
     let FbEmail = userInfo?.user?.email;

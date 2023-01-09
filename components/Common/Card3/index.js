@@ -69,8 +69,8 @@ export default function Card3(props) {
             });
             dispatch(
               wishlistDetail({
-                data: filterProductId,
-                quantity: response.data.entries.length,
+                wishListData: filterProductId,
+                wishlistQuantity: response.data.entries.length,
               }),
             );
             // setWishlistproductCode(filterProductId);
@@ -107,7 +107,9 @@ export default function Card3(props) {
           (n, {quantity}) => n + quantity,
           0,
         );
-        dispatch(cartDetail({data: response.data, quantity: finalvalue}));
+        dispatch(
+          cartDetail({cartData: response.data, cartQuantity: finalvalue}),
+        );
       })
       .catch(errors => {
         console.log('vicky,card3', errors);

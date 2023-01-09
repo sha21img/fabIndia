@@ -7,6 +7,9 @@ import Fonts from '../../../assets/fonts';
 import {image} from '../../../assets/images';
 
 export default function RegisterSuccess(props) {
+  const From = props?.route?.params?.From || '';
+  const productCode = props?.route?.params?.productCode || '';
+  const code = props?.route?.params?.code || '';
   return (
     <>
       <View style={Styles.mainContainer}>
@@ -29,7 +32,13 @@ export default function RegisterSuccess(props) {
         <CommonButton
           txt="Start shopping now!"
           customViewStyle={Styles.btn}
-          handleClick={() => props.navigation.navigate('Login_Register')}
+          handleClick={() => {
+            props.navigation.navigate('Login_Register', {
+              From: From,
+              productCode: productCode,
+              code: code,
+            });
+          }}
         />
       </View>
     </>

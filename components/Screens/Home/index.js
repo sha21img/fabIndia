@@ -91,8 +91,8 @@ export default function Dashbord(props) {
     const getToken = JSON.parse(get);
     if (getToken == null) {
       await generatTokenWithout();
-      await getInitialCartID();
     }
+    await getInitialCartID();
   };
 
   useEffect(

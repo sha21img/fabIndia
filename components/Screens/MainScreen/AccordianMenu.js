@@ -62,7 +62,7 @@ export default function AccordianMenu(props) {
     const getToken = JSON.parse(get);
     if (data.title == 'Gift Cards') {
       if (getToken.isCheck == true) {
-        navigation.navigate('MyAccount', {screen: 'GiftCard' });
+        navigation.navigate('MyAccount', {screen: 'GiftCard'});
       } else {
         navigation.navigate('MyAccount', {screen: 'Login_Register'});
         // navigation.navigate('MyAccount', { screen: 'GiftCard', from: 'Menu' });
@@ -77,15 +77,13 @@ export default function AccordianMenu(props) {
       if (getToken.isCheck == true) {
         navigation.navigate('MyAccount', {screen: 'FabFamily'});
       } else {
-        Linking.openURL('https://www.fabfamily.fabindia.com/abouttheprogram')
+        Linking.openURL('https://www.fabfamily.fabindia.com/abouttheprogram');
       }
     } else if (data.title == 'Orders') {
       if (getToken.isCheck) {
         navigation.navigate('MyOrder');
       } else {
-        navigation.navigate('MyAccount', {
-          screen: 'Login_Register',
-        });
+        navigation.navigate('Login_Register');
       }
     }
   };

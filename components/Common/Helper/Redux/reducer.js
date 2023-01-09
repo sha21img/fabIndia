@@ -4,7 +4,7 @@ const initialState = {
     cartData: [],
     cartQuantity: 0,
   },
-  shareData:null,
+  shareData: null,
   WishListDetail: {
     wishListData: [],
     wishlistQuantity: 0,
@@ -17,23 +17,26 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         CartDetail: {
-          cartData: action.payload.data,
-          cartQuantity: action.payload.quantity,
+          cartData: action.payload.cartData,
+          cartQuantity: action.payload.cartQuantity,
         },
       };
     case 'WISHLIST_DETAIL':
       return {
         ...state,
         WishListDetail: {
-          wishListData: action.payload.data,
-          wishlistQuantity: action.payload.quantity,
+          wishListData: action.payload.wishListData,
+          wishlistQuantity: action.payload.wishlistQuantity,
         },
       };
-      case 'SHARE_DETAIL':
-        console.log(".....................////...........................",action.payload)
+    case 'SHARE_DETAIL':
+      console.log(
+        '.....................////...........................',
+        action.payload,
+      );
       return {
         ...state,
-        shareData:action.payload
+        shareData: action.payload,
       };
     default:
       return state;

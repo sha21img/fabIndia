@@ -3,7 +3,7 @@ import React from 'react';
 import ResultCards from './ResultCards';
 
 export default function LandingPageSaris_Blouses(props) {
-  const {code, title, status, isSearch, isAdmin2} = props.route.params;
+  const {code, title, status, isSearch, isAdmin2} = props?.route?.params;
 
   return (
     <>
