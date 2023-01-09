@@ -22,7 +22,6 @@ const width = Dimensions.get('window').width;
 
 const FurnitureCategory = props => {
   const {title} = props.route.params;
-
   const [active, setActive] = React.useState();
   const [active1, setActive1] = React.useState();
   const [sectionData, setSectionData] = React.useState([]);
