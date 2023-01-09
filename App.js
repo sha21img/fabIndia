@@ -49,6 +49,8 @@ import FurnitureCategory from './components/Screens/Home/Catagory/FurnitureCateg
 import GiftingCatagory from './components/Screens/Home/Catagory/GiftingCatagory';
 import BeautyCategory from './components/Screens/Home/Catagory/BeautyCategory';
 import FoodCatagory from './components/Screens/Home/Catagory/FoodCatagory';
+import FestiveCollection from './components/Screens/Collections/FestiveCollection';
+import Collections from './components/Screens/Collections';
 
 const Stack = createNativeStackNavigator();
 
@@ -529,6 +531,20 @@ export default function App(props) {
               component={FoodCatagory}
               options={{
                 headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="FestiveCollection"
+              component={FestiveCollection}
+              options={{
+                header: props => <HomeHeader {...props} homeheader={false} headertext={'Festive'} />
+              }}
+            />
+            <Stack.Screen
+              name="Collections"
+              component={Collections}
+              options={{
+                header: props => <HomeHeader {...props} homeheader={false} headertext={'Wedding'} />
               }}
             />
           </Stack.Navigator>

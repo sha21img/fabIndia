@@ -7,7 +7,6 @@ import Header from '../../Common/Header';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import HomeDecorCatagory from '../Home/Catagory/HomeDecorCatagory';
-import Collections from '../Collections';
 import CustomizeCatagory from '../Home/Catagory/CustomizeCatagory';
 import MonogramCatagory from '../Home/Catagory/MonogramCatagory';
 import Offers from '../Offers';
@@ -32,7 +31,6 @@ import InteriorCatagory from '../../Common/InteriorCatagory';
 import HomeHeader from '../Home/HomeHeader';
 import WishListCard from '../../Common/WishListCard';
 import CategorySection from '../CategorySection';
-import FestiveCollection from '../Collections/FestiveCollection';
 import InteriorHomepage from '../InteriorHomepage';
 
 const Stack = createNativeStackNavigator();
@@ -163,21 +161,6 @@ export default function HomeStack() {
         }}
       />
       
-
-      <Stack.Screen
-        name="FestiveCollection"
-        component={FestiveCollection}
-        options={{
-          header: props => <HomeHeader {...props} homeheader={true} />,
-        }}
-      />
-      <Stack.Screen
-        name="Collections"
-        component={Collections}
-        options={{
-          header: props => <HomeHeader {...props} homeheader={true} />,
-        }}
-      />
       <Stack.Screen
         name="LandingPageSaris"
         component={LandingPageSaris}

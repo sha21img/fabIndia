@@ -48,21 +48,19 @@ export default function Details({customStyle, productdetail}) {
         </View>
       </View> */}
       <View style={Styles.txtbox}>
-      
-        <Text style={Styles.singleproductamount}>
-          {productdetail?.priceAfterDiscount?.formattedValue}
-        </Text>
         <Text
           style={{
             fontSize: 18,
             fontFamily: Fonts.Assistant600,
             color: Colors.textcolor,
-            marginLeft: 5,
+            marginRight: 5,
           }}>
-          M.R.P{' '}
+          M.R.P.
         </Text>
-        {
-         productdetail?.totalDiscount?.value?
+        <Text style={Styles.singleproductamount}>
+          {productdetail?.priceAfterDiscount?.formattedValue}
+        </Text>
+        {productdetail?.totalDiscount?.value?
           <>
           <Text style={Styles.priceofftxt}>
           {productdetail?.price?.formattedValue}

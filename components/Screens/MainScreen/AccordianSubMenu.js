@@ -24,7 +24,7 @@ const NewAccordian = props => {
       navigation.navigate('InteriorHomepage');
     } else {
       navigation.navigate('LandingPageSaris_Blouses', {
-        title: splitURL,
+        title: item.title,
         code: splitURL,
         status: false,
       });
