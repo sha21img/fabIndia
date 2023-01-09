@@ -555,26 +555,14 @@ export default function ProductDetailed(props) {
             productdetail={productdetail}
             showcartbutton={showcartbutton}
             setShowcartbutton={setShowcartbutton}
+            productId={productId}
+            imageUrlCheck={imageUrlCheck}
           />
         </>
       )}
       <View style={{position: 'absolute', top: 0, width: '100%'}}>
         <HomeHeader {...props} searchVisible={false} isTransparent={true} />
       </View>
-
-      <Footer
-        productId={productId}
-        imageUrlCheck={imageUrlCheck}
-        {...props}
-        oos={true}
-        handleClick={AddtoCart}
-        handleWishListAdd={addWishlist}
-        disabled={!!!showAdd && stockcheck != 0 ? false : true}
-        productdetail={productdetail}
-        showcartbutton={showcartbutton}
-        setShowcartbutton={setShowcartbutton}
-      />
-      {isLoading ? <LoadingComponent /> : null}
 
       <Modal
         animationType="slide"
