@@ -185,7 +185,7 @@ const Payment = props => {
     
     console.log("params an link--------------",params,url)
     const response = await axios
-      .post(url, params)
+      .post(`${url}?razorpay_order_id=${data.razorpay_order_id}&razorpay_payment_id=${data.razorpay_payment_id}&razorpay_signature=${data.razorpay_signature}&fabindia_application=app`)
       .then(response => {
         if (response.status == 200) {
           console.log(
@@ -201,7 +201,7 @@ const Payment = props => {
         }
       })
       .catch(err => {
-        console.log("errorrrrrrrrrrrrrrrrr in razorpay",err)
+        console.log("errorrrrrrrrrrrrrrrrr in razorpay",err.response.data.errors)
       });
   };
   const getDetails = async () => {
