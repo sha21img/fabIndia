@@ -33,6 +33,21 @@ const getProductList = (params) => {
     );
 }
 
+const getCartList = (params, isToken) => {
+    return API(
+        {
+            method: 'GET',
+            url: ApiConstants.BASE_SITE_ID + ApiConstants.GET_CART_LIST,
+            params,
+            isToken
+        }
+    );
+}
+
+
+
+
+
 const registerUser = (data) => {
     return API(
         {
@@ -87,7 +102,7 @@ export const ApiService = {
     getHomeData,
     getPagesData,
     getProductList,
-
+    getCartList,
 
     registerUser,
     loginUser,

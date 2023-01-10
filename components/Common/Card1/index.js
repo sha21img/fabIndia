@@ -51,25 +51,19 @@ export default function Card1(props) {
     'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
     filterSize,
   );
+  const a1 = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+  if (a1.includes(filterSize[0].value)) {
+    const sortArray = (a1, filterSize) => {
+      filterSize.sort((a, b) => {
+        const aKey = a.value;
+        const bKey = b.value;
+        return a1.indexOf(aKey) - a1.indexOf(bKey);
+      });
+    };
+    sortArray(a1, filterSize);
+  }
   // const a1 = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
-  // const aa = filterSize.filter(item => {
-  //   if (a1.includes(item.values).length > 0) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // });
-  // console.log('xxxxxxxxxxxxxxxxxxxxxx', aa);
-
-  // const sortArray = (a1, filterSize) => {
-  //   filterSize.sort((a, b) => {
-  //     const aKey = a.value;
-  //     const bKey = b.value;
-  //     return a1.indexOf(aKey) - a1.indexOf(bKey);
-  //   });
-  // };
-  // sortArray(a1, filterSize);
   useEffect(() => {
     if (!!filterSize) {
       if (filterSize.length == 1) {
@@ -108,8 +102,8 @@ export default function Card1(props) {
   const getAdd = async data => {
     const token = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(token);
-    if (sizeCode.code != '') {
-      if (getToken?.isCheck) {
+    if (getToken?.isCheck) {
+      if (sizeCode.code != '') {
         handleClick(sizeCode);
       } else {
         Toast.showWithGravity('Please Select Size', Toast.LONG, Toast.TOP);
