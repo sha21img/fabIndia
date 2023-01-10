@@ -6,9 +6,13 @@ import MyAddresses from '../index';
 import EditAddress from '../EditAddress';
 import {BaseURL2, logout} from '../../../../Common/Helper';
 import {useDispatch} from 'react-redux';
+import LoadingComponent from '../../../../Common/LoadingComponent';
+
 export default function CheckAddress(props) {
-  const {setCurrentPosition,cartdetails} = props;
+  const {setCurrentPosition, cartdetails} = props;
   const [checkaddress, setcheckAddress] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const dispatch = useDispatch();
   useEffect(() => {
     getCheckAddress();
@@ -30,26 +34,33 @@ export default function CheckAddress(props) {
       )
       .then(response => {
         setcheckAddress(response.data);
+        setIsLoading(false);
       })
       .catch(errors => {
         if (errors.response.status == 401) {
+          setIsLoading(false);
           logout(dispatch);
         }
       });
   };
 
-  return checkaddress?.addresses?.length ? (
-    <MyAddresses
-      {...props}
-      checkaddress={checkaddress}
-      getCheckAddress={getCheckAddress}
-      amount={props?.totalPrice}
-      totalquantity={props?.totalquantity}
-      cartdetails={cartdetails}
-      setCurrentPosition={setCurrentPosition}
-    />
-  ) : (
-    <EditAddress {...props} setCurrentPosition={setCurrentPosition} />
+  return (
+    <>
+      {checkaddress?.addresses?.length ? (
+        <MyAddresses
+          {...props}
+          checkaddress={checkaddress}
+          getCheckAddress={getCheckAddress}
+          amount={props?.totalPrice}
+          totalquantity={props?.totalquantity}
+          cartdetails={cartdetails}
+          setCurrentPosition={setCurrentPosition}
+        />
+      ) : (
+        <EditAddress {...props} setCurrentPosition={setCurrentPosition} />
+      )}
+    {isLoading ? <LoadingComponent /> : null}
+
+    </>
   );
-  // return true ? <CartList {...props} /> :<EmptyCart  />;
 }

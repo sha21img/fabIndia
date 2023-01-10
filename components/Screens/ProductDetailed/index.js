@@ -240,7 +240,7 @@ export default function ProductDetailed(props) {
       const getToken = JSON.parse(get);
       const getCartID = await AsyncStorage.getItem('cartID');
       const type = getToken.isCheck ? 'current' : 'anonymous';
-      // console.log('getTokengetTokengetTokengetToken', getToken, getCartID);
+      console.log('getgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDn', getToken, getCartID);
       await axios
         .post(
           `${BaseURL2}/users/${type}/carts/${getCartID}/entries?lang=en&curr=INR`,
