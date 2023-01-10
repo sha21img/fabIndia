@@ -36,10 +36,6 @@ export default function Card1(props) {
   });
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
-  // console.log(
-  //   'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
-  //   item,
-  // );
 
   const filterSize =
     item?.variantOptions &&
@@ -50,6 +46,29 @@ export default function Card1(props) {
         code: item.code,
       };
     });
+  console.log(
+    'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
+    filterSize,
+  );
+  // const a1 = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+
+  // const aa = filterSize.filter(item => {
+  //   if (a1.includes(item.values).length > 0) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // });
+  // console.log('xxxxxxxxxxxxxxxxxxxxxx', aa);
+
+  // const sortArray = (a1, filterSize) => {
+  //   filterSize.sort((a, b) => {
+  //     const aKey = a.value;
+  //     const bKey = b.value;
+  //     return a1.indexOf(aKey) - a1.indexOf(bKey);
+  //   });
+  // };
+  // sortArray(a1, filterSize);
   useEffect(() => {
     if (!!filterSize) {
       if (filterSize.length == 1) {
@@ -130,7 +149,7 @@ export default function Card1(props) {
         onPress={() => {
           dispatch(Sharedataadd(item));
           props.navigation.navigate('ProductDetailed', {
-            productId: sizeCode.code,
+            productId: !!sizeCode.code || item.code,
             imageUrlCheck: item,
             code: code,
           });
