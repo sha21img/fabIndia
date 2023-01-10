@@ -15,6 +15,7 @@ import Styles from './style';
 import WishListCard from '../../Common/WishListCard';
 import CommonButton from '../../Common/CommonButton';
 import {useSelector} from 'react-redux';
+import HomeHeader from '../Home/HomeHeader';
 export default function YourWishlist(props) {
   const {cartReducer} = useSelector(state => state);
 
@@ -26,6 +27,14 @@ export default function YourWishlist(props) {
         </>
       ) : (
         <>
+          <HomeHeader
+            {...props}
+            headertext="Wishlist"
+            searchVisible={null}
+            showWishlist={false}
+            totalCount={cartReducer?.WishListDetail.wishlistQuantity}
+          />
+
           <View style={Styles.secondDiv}>
             <View style={Styles.ImageView}>
               <Image

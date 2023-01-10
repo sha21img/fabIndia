@@ -20,6 +20,7 @@ export const API_KEY = ''
 export const GET_HOME_DATA = 'homepage/getForApp'
 export const GET_PAGES = 'cms/pages'
 export const GET_PRODUCT_LIST = 'products/search'
+export const GET_CART_LIST = 'users/current/carts'
 
 
 export const REGISTER_USER = '/user/registerUser'

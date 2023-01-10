@@ -85,8 +85,8 @@ export default function Card1(props) {
   const getAdd = async data => {
     const token = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(token);
-    if (sizeCode.code != '') {
-      if (getToken?.isCheck) {
+    if (getToken?.isCheck) {
+      if (sizeCode.code != '') {
         handleClick(sizeCode);
       } else {
         Toast.showWithGravity('Please Select Size', Toast.LONG, Toast.TOP);
