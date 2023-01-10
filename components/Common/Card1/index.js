@@ -38,35 +38,46 @@ export default function Card1(props) {
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
 
-  const filterSize = item.variantOptions.map(item => {
-    return {
-      value: item.variantOptionQualifiers[0].value,
-      color: item.variantOptionQualifiers[1].value,
-      code: item.code,
-    };
-  });
-
+  const filterSize =
+    item?.variantOptions &&
+    item.variantOptions.map(item => {
+      return {
+        value: item.variantOptionQualifiers[0].value,
+        color: item.variantOptionQualifiers[1].value,
+        code: item.code,
+      };
+    });
   useEffect(() => {
-    if (filterSize[0].value == 'Free Size') {
-      setSizeCode({
-        value: filterSize[0].value,
-        color: filterSize[0].color,
-        code: filterSize[0].code,
-      });
+    if (!!filterSize) {
+      if (filterSize.length == 1) {
+        setSizeCode({
+          value: filterSize[0].value,
+          color: filterSize[0].color,
+          code: filterSize[0].code,
+        });
+      }
+    } else {
+      setSizeCode({...sizeCode, code: item.code});
     }
   }, []);
 
   const isAvtive = cartReducer?.WishListDetail?.wishListData.find(items => {
-    if (filterSize[0].value == 'Free Size') {
-      return items.code == item.code;
-    } else {
-      return items.code == sizeCode.code;
-    }
+    // if (filterSize) {
+    // if (filterSize.length) {
+    // }
+    return items.code == sizeCode.code;
+    // } else {
+    //   return items.code == item.code;
+    // }
+    // if (filterSize[0].value == 'Free Size') {
+    //   return items.code == item.code;
+    // } else {
+    //   return items.code == sizeCode.code;
+    // }
   });
 
   const discountPrice =
     100 - (item.priceAfterDiscount?.value / item?.price?.value) * 100;
-
   const imageUrl = !!item?.variantOptions
     ? item?.variantOptions[0]?.images[0]?.url
     : item?.images[0].url;
@@ -78,20 +89,22 @@ export default function Card1(props) {
       if (getToken?.isCheck) {
         handleClick(sizeCode);
       } else {
-        console.log('glglglglglltltlhhh');
-        Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
-        props.navigation.navigate('Login_Register', {
-          From: 'PLP',
-          productCode: data.code,
-          code: code,
-          sizeCode: sizeCode,
-        });
-        // props.navigation.navigate('MyAccount', {
-        //   screen: 'Login_Register',
-        // });
+        Toast.showWithGravity('Please Select Size', Toast.LONG, Toast.TOP);
       }
+      // } else {
+      //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+      // }
     } else {
-      Toast.showWithGravity('Please Select Size', Toast.LONG, Toast.TOP);
+      Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
+      props.navigation.navigate('Login_Register', {
+        From: 'PLP',
+        productCode: sizeCode.code,
+        code: code,
+        sizeCode: sizeCode,
+      });
+      // props.navigation.navigate('MyAccount', {
+      //   screen: 'Login_Register',
+      // });
     }
   };
 
@@ -102,7 +115,7 @@ export default function Card1(props) {
         onPress={() => {
           dispatch(Sharedataadd(item));
           props.navigation.navigate('ProductDetailed', {
-            productId: item.code,
+            productId: sizeCode.code,
             imageUrlCheck: item,
             code: code,
           });
@@ -135,13 +148,14 @@ export default function Card1(props) {
           </Text>
           <View style={Styles.pricebox}>
             <Text style={Styles.mrptxt}>M.R.P.</Text>
-            <Text style={Styles.amounttxt}>{item?.priceAfterDiscount?.formattedValue}</Text>
-            {item?.totalDiscount?.value ?
+            <Text style={Styles.amounttxt}>
+              {item?.priceAfterDiscount?.formattedValue}
+            </Text>
+            {item?.totalDiscount?.value ? (
               <Text style={Styles.priceofftxt}>
                 {item?.price?.formattedValue}
               </Text>
-              : null
-            }
+            ) : null}
 
             {!!discountPrice && (
               <Text style={Styles.offertxt}>
@@ -153,31 +167,35 @@ export default function Card1(props) {
             style={{
               flexDirection: 'row',
               flexWrap: 'wrap',
+              marginVertical: 5,
             }}>
-            {filterSize.map(item => {
-              return (
-                <TouchableOpacity
-                  onPress={() => {
-                    setSizeCode(item);
-                  }}
-                  style={{
-                    borderWidth: 1,
-                    marginRight: 3,
-                    padding: 2,
-                    minWidth: 20,
-                    alignItems: 'center',
-                    margin: 2,
-                    borderColor:
-                      sizeCode?.code == item?.code
-                        ? Colors.primarycolor
-                        : 'grey',
-                    // backgroundColor:
-                    //   sizeCode?.code == item?.code ? 'red' : '#fff',
-                  }}>
-                  <Text style={{fontSize: 12}}>{item.value}</Text>
-                </TouchableOpacity>
-              );
-            })}
+            {filterSize &&
+              filterSize?.map(item => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      setSizeCode(item);
+                    }}
+                    style={{
+                      borderWidth: 0.5,
+                      marginRight: 3,
+                      padding: 3,
+                      minWidth: 20,
+                      alignItems: 'center',
+                      margin: 2,
+                      borderColor:
+                        sizeCode?.code == item?.code
+                          ? Colors.primarycolor
+                          : '#d8dadc',
+                      // backgroundColor:
+                      //   sizeCode?.code == item?.code ? 'red' : '#fff',
+                    }}>
+                    <Text style={{fontSize: 12, color: Colors.textcolor}}>
+                      {item.value}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
           {/* {!!freeSize && (
             <View

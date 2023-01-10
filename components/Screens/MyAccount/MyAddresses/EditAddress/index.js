@@ -3,7 +3,8 @@ import {
   View,
   SafeAreaView,
   ScrollView,
-  Text
+  Text,
+  TextInput as TextInputRN,
 } from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {TextInput} from 'react-native-paper';
@@ -18,7 +19,7 @@ import Styles from './styles';
 import Fonts from '../../../../../assets/fonts';
 import {BaseURL2, logout} from '../../../../Common/Helper';
 import {useDispatch} from 'react-redux';
-
+import Toast from 'react-native-simple-toast';
 const EditAddress = props => {
   const dispatch = useDispatch();
   let editflag = props?.route?.params?.editData;
@@ -194,6 +195,11 @@ const EditAddress = props => {
         })
         .catch(errors => {
           console.log('aa', errors.response.data);
+          Toast.showWithGravity(
+            errors.response.data.error.message,
+            Toast.LONG,
+            Toast.TOP,
+          );
           if (errors.response.status == 401) {
             logout(dispatch);
           }
@@ -344,10 +350,7 @@ const EditAddress = props => {
                 countryCode={mobilePrefix}
               />
               <View style={{flex: 1, paddingHorizontal: 15}}>
-                <TextInput
-                  activeOutlineColor="white"
-                  activeUnderlineColor="white"
-                  underlineColor="white"
+                <TextInputRN
                   style={Styles.textinput1}
                   value={phoneNumber}
                   placeholder="Your Mobile Number*"

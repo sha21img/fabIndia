@@ -171,15 +171,21 @@ export default function CartCard(props) {
                 </TouchableOpacity>
               </View>
               <View style={Styles.currencyContainer}>
-                <Text style={Styles.curr}>₹ {item?.item?.basePrice.value}</Text>
-                <Text
+                <Text style={Styles.curr}>M.R.P ₹ {item?.item?.basePrice.value}</Text>
+                {
+                  item?.item?.product?.totalDiscount?.value ? <Text
                   style={[Styles.curr1, {textDecorationLine: 'line-through'}]}>
                   ₹ {item?.item?.product?.price?.value}
-                </Text>
+                </Text> : null
+                }
+               
               </View>
-              <Text style={Styles.saveText}>
+              {
+                item?.item?.product?.totalDiscount?.value ? <Text style={Styles.saveText}>
                 You save ₹{item?.item?.product?.totalDiscount?.value}!
-              </Text>
+              </Text> : null
+              }
+              
               {/* <TouchableOpacity onPress={() => monogramClick()}>
                 <Text style={Styles.typeText}>Monogrammed</Text>
               </TouchableOpacity> */}

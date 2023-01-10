@@ -1,14 +1,11 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import { Styles } from './styles';
-import FastImage from 'react-native-fast-image'
-import { imageURL } from '../Helper';
+import {Styles} from './styles';
+import FastImage from 'react-native-fast-image';
+import {imageURL} from '../Helper';
 
 export default function Card(props) {
-  const {
-    customViewStyle = {},
-    items
-  } = props;
+  const {customViewStyle = {}, items} = props;
 
   return (
     <>
@@ -22,12 +19,11 @@ export default function Card(props) {
           })
         }
         activeOpacity={0.9}>
-
         <FastImage
-          style={{ height: 243, width: 192 }}
+          style={{height: 243, width: 192}}
           source={{
             uri: `${imageURL + items?.images[0]?.url}`,
-            priority: FastImage.priority.normal
+            priority: FastImage.priority.normal,
           }}
           resizeMode={FastImage.resizeMode.contain}
         />

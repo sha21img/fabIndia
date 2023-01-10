@@ -117,7 +117,7 @@ export default function ResultCards(props) {
   useEffect(() => {
     isWishlisted();
     getProductData();
-  }, [page, focus]);
+  }, [page]);
 
   const endReach = () => {
     if (dataMain?.pagination?.totalPages > page) {
@@ -135,10 +135,11 @@ export default function ResultCards(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
+    console.log('this is Result card', getWishlistID);
 
     const response = await axios
       .get(
-        `${BaseURL2}/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+        `${BaseURL2}users/current/carts?fields=carts(DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,entries(totalPrice(formattedValue),product(images(FULL),stock(FULL),variantOptions(FULL),variantMatrix,priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,DEFAULT),user,saveTime,name,description)&lang=en&curr=INR`,
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -150,22 +151,19 @@ export default function ResultCards(props) {
           'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
           response.data.name,
         );
-        if (!!response?.data?.name) {
-          if (response?.data?.name?.includes('wishlist')) {
-            const filterProductId = response.data.entries.map(item => {
-              return {
-                code: item.product.baseOptions[0].selected.code,
-                item: item,
-              };
-            });
-            dispatch(
-              wishlistDetail({
-                wishListData: filterProductId,
-                wishlistQuantity: response.data.entries.length,
-              }),
-            );
-          }
-        }
+        const filteredWishlistArray = response.data.carts.filter(item => {
+          return item.code == getWishlistID;
+        });
+        const newData = filteredWishlistArray[1].entries.map(item => {
+          // console.log('item.product.code', item.product.code);
+          return {code: item.product.code, item: item};
+        });
+        dispatch(
+          wishlistDetail({
+            wishListData: newData,
+            wishlistQuantity: newData.length,
+          }),
+        );
       })
       .catch(error => {
         console.log('error for get cqrt detail', error);
@@ -223,9 +221,6 @@ export default function ResultCards(props) {
         })
 
         .catch(errors => {
-          if (errors.response.status == 401) {
-            refreshToken();
-          }
           Toast.showWithGravity(
             errors?.response?.data?.errors[0]?.message,
             Toast.LONG,
@@ -338,7 +333,7 @@ export default function ResultCards(props) {
                 }}>
                 FILTERS
               </Text>
-              {isActive.length > 0 && (
+              {/* {isActive.length > 0 && (
                 <TouchableOpacity
                   onPress={() => {
                     handleClick(code), setFilterModalVisible(false);
@@ -352,7 +347,7 @@ export default function ResultCards(props) {
                     CLEAR ALL
                   </Text>
                 </TouchableOpacity>
-              )}
+              )} */}
             </View>
             <Filter
               setFilterModalVisible={setFilterModalVisible}

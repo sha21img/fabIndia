@@ -46,7 +46,7 @@ export default function HomeHeader(props) {
   useEffect(() => {
     getCartDetails();
     isInitialWishlised();
-  }, [focus]);
+  }, []);
 
   const getWishListDetail = async () => {
     const value = await AsyncStorage.getItem('cartID');
@@ -55,11 +55,12 @@ export default function HomeHeader(props) {
     const getCartID = await AsyncStorage.getItem('cartID');
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
 
+    console.log('this is gpome header', getWishlistID);
     const aa =
       'DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue, value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)';
     const response = await axios
       .get(
-        `${BaseURL2}/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+        `${BaseURL2}users/current/carts?fields=carts(DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,entries(totalPrice(formattedValue),product(images(FULL),stock(FULL),variantOptions(FULL),variantMatrix,priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,DEFAULT),user,saveTime,name,description)&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=${aa}&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/?fileds=${aa}?lang=en&curr=INR`,
         // {},
@@ -70,23 +71,40 @@ export default function HomeHeader(props) {
         },
       )
       .then(response => {
-        if (!!response?.data?.name) {
-          if (response?.data?.name?.includes('wishlist')) {
-            const filterProductId = response.data.entries.map(item => {
-              return {
-                code: item.product.baseOptions[0].selected.code,
-                item: item,
-              };
-            });
-            dispatch(
-              wishlistDetail({
-                wishListData: filterProductId,
-                wishlistQuantity: response.data.entries.length,
-              }),
-            );
-            // setWishlistproductCode(filterProductId);
-          }
-        }
+        const filteredWishlistArray = response.data.carts.filter(item => {
+          return item.code == getWishlistID;
+        });
+        const newData = filteredWishlistArray[1].entries.map(item => {
+          return {code: item.product.code, item: item};
+        });
+        dispatch(
+          wishlistDetail({
+            wishListData: newData,
+            wishlistQuantity: newData.length,
+          }),
+        );
+        // console.log('newDatanewData', newData);
+        // if (!!response?.data?.name) {
+        //   if (response?.data?.name?.includes('wishlist')) {
+        //     const filterProductId = response.data.entries.map(item => {
+        //       console.log(
+        //         'item.product.baseOptions[0].selected.code',
+        //         item.product.baseOptions,
+        //       );
+        //       return {
+        //         code: item.product.baseOptions[0].selected.code,
+        //         item: item,
+        //       };
+        //     });
+        //     dispatch(
+        //       wishlistDetail({
+        //         wishListData: filterProductId,
+        //         wishlistQuantity: response.data.entries.length,
+        //       }),
+        //     );
+        //     // setWishlistproductCode(filterProductId);
+        //   }
+        // }
       })
       .catch(error => {
         console.log('vicky,getWishlistDetila', error);
@@ -102,9 +120,9 @@ export default function HomeHeader(props) {
     const getCartID = await AsyncStorage.getItem('cartID');
     const type = getToken.isCheck ? 'current' : 'anonymous';
 
-    console.log('iuytrdfu', getToken);
-    console.log('typetype', type);
-    console.log('getCartIDgetCartID', getCartID);
+    // console.log('iuytrdfu', getToken);
+    // console.log('typetype', type);
+    // console.log('getCartIDgetCartID', getCartID);
     const response = await axios
       .get(
         `${BaseURL2}/users/${type}/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
@@ -115,7 +133,7 @@ export default function HomeHeader(props) {
         },
       )
       .then(response => {
-        console.log('vicky,carrrraaaaaaaarrrrrrrrrrrr', response.data);
+        // console.log('vicky,carrrraaaaaaaarrrrrrrrrrrr', response.data);
 
         let finalvalue = response?.data?.deliveryItemsQuantity;
         dispatch(
@@ -194,7 +212,8 @@ export default function HomeHeader(props) {
               ) : null}
               {!!headertext ? (
                 <View>
-                  <Text numberOfLines={1}
+                  <Text
+                    numberOfLines={1}
                     style={{
                       fontSize: 15,
                       color: Colors.textcolor,

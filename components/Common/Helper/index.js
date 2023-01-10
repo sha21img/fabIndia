@@ -16,7 +16,7 @@ const BaseURL = 'https://apisap.fabindia.com/occ/v2/';
 // export const imageURL = 'https://apisap.fabindia.com/';
 
 // Testing
-export const BaseURL2 = 'https://apisap.fabindiahome.com/occ/v2/fabindiab2c/';
+export const BaseURL2 = 'https://api.cq6bn590y3-fabindiao1-s1-public.model-t.cc.commerce.ondemand.com/occ/v2/fabindiab2c/';
 export const AuthBaseUrl2 =
   'https://apisap.fabindiahome.com/authorizationserver/';
 export const imageURL = 'https://apisap.fabindiahome.com/';

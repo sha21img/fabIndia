@@ -183,7 +183,7 @@ export default function CartList(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
-    console.log('this us cart id', getCartID);
+    console.log('this us cart igetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartID0000----------d', getCartID);
     const type = getToken.isCheck ? 'current' : 'anonymous';
     const response = await axios
       .delete(
