@@ -53,7 +53,6 @@ export default function HomeHeader(props) {
   }, []);
 
   const getWishListDetail = async () => {
-    console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
     const value = await AsyncStorage.getItem('cartID');
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
@@ -75,12 +74,10 @@ export default function HomeHeader(props) {
         },
       )
       .then(response => {
-        console.log('11111111111111111111111111111111111', response.data.carts);
         const filteredWishlistArray = response.data.carts.filter(item => {
           return item.code == getWishlistID;
         });
         const newData = filteredWishlistArray[1].entries.map(item => {
-          console.log('item.product.code', item.product.code);
           return {code: item.product.code, item: item};
         });
         dispatch(
@@ -126,9 +123,9 @@ export default function HomeHeader(props) {
     const getCartID = await AsyncStorage.getItem('cartID');
     const type = getToken.isCheck ? 'current' : 'anonymous';
 
-    console.log('iuytrdfu', getToken);
-    console.log('typetype', type);
-    console.log('getCartIDgetCartID', getCartID);
+    // console.log('iuytrdfu', getToken);
+    // console.log('typetype', type);
+    // console.log('getCartIDgetCartID', getCartID);
     const response = await axios
       .get(
         `${BaseURL2}/users/${type}/carts/${getCartID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
@@ -139,7 +136,7 @@ export default function HomeHeader(props) {
         },
       )
       .then(response => {
-        console.log('vicky,carrrraaaaaaaarrrrrrrrrrrr', response.data);
+        // console.log('vicky,carrrraaaaaaaarrrrrrrrrrrr', response.data);
 
         let finalvalue = response?.data?.deliveryItemsQuantity;
         dispatch(

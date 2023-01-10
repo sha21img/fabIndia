@@ -50,7 +50,6 @@ export default function Card1(props) {
         code: item.code,
       };
     });
-  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', item?.variantOptions);
   useEffect(() => {
     if (!!filterSize) {
       if (filterSize.length == 1) {
@@ -61,10 +60,6 @@ export default function Card1(props) {
         });
       }
     } else {
-      console.log(
-        'aaaaaaaaaaelllllllllllllllllllllllllllllllllllaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      );
-
       setSizeCode({...sizeCode, code: item.code});
     }
   }, []);
@@ -85,7 +80,6 @@ export default function Card1(props) {
 
   const discountPrice =
     100 - (item.priceAfterDiscount?.value / item?.price?.value) * 100;
-  console.log('discountisAvtiveisAvtivePrice', sizeCode);
   // console.log(
   //   'item?????????????????????????????????????????????????????????????????',
   //   typeof discountPrice,
@@ -98,19 +92,15 @@ export default function Card1(props) {
   // console.log('imageUrlimageUrlimageUrl', item?.images[0]?.url);
   const check = async () => {
     const token = await AsyncStorage.getItem('generatToken');
-    console.log('token 2348723489 token', token.isCheck);
   };
   useEffect(() => {
     check();
   }, []);
   const getAdd = async data => {
-    console.log('11111111111111', data.code);
     const token = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(token);
-    console.log('tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111', getToken.isCheck);
     if (getToken?.isCheck) {
       if (sizeCode.code != '') {
-        console.log('shsihsihshsihhhh', sizeCode);
         // if (item.stock.stockLevelStatus == 'inStock') {
         handleClick(sizeCode);
       } else {
@@ -120,7 +110,6 @@ export default function Card1(props) {
       //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
       // }
     } else {
-      console.log('glglglglglltltlhhh');
       Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
       props.navigation.navigate('Login_Register', {
         From: 'PLP',
@@ -193,6 +182,7 @@ export default function Card1(props) {
             style={{
               flexDirection: 'row',
               flexWrap: 'wrap',
+              marginVertical: 5,
             }}>
             {filterSize &&
               filterSize?.map(item => {
@@ -202,20 +192,22 @@ export default function Card1(props) {
                       setSizeCode(item);
                     }}
                     style={{
-                      borderWidth: 1,
+                      borderWidth: 0.5,
                       marginRight: 3,
-                      padding: 2,
+                      padding: 3,
                       minWidth: 20,
                       alignItems: 'center',
                       margin: 2,
                       borderColor:
                         sizeCode?.code == item?.code
                           ? Colors.primarycolor
-                          : 'grey',
+                          : '#d8dadc',
                       // backgroundColor:
                       //   sizeCode?.code == item?.code ? 'red' : '#fff',
                     }}>
-                    <Text style={{fontSize: 12}}>{item.value}</Text>
+                    <Text style={{fontSize: 12, color: Colors.textcolor}}>
+                      {item.value}
+                    </Text>
                   </TouchableOpacity>
                 );
               })}
