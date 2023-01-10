@@ -36,39 +36,56 @@ export default function Card1(props) {
   });
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
-  console.log(
-    'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
-    item,
-  );
+  // console.log(
+  //   'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
+  //   item,
+  // );
 
-  const filterSize = item.variantOptions.map(item => {
-    return {
-      value: item.variantOptionQualifiers[0].value,
-      color: item.variantOptionQualifiers[1].value,
-      code: item.code,
-    };
-  });
-  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', filterSize);
+  const filterSize =
+    item?.variantOptions &&
+    item.variantOptions.map(item => {
+      return {
+        value: item.variantOptionQualifiers[0].value,
+        color: item.variantOptionQualifiers[1].value,
+        code: item.code,
+      };
+    });
+  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', item?.variantOptions);
   useEffect(() => {
-    if (filterSize[0].value == 'Free Size') {
-      setSizeCode({
-        value: filterSize[0].value,
-        color: filterSize[0].color,
-        code: filterSize[0].code,
-      });
+    if (!!filterSize) {
+      if (filterSize.length == 1) {
+        setSizeCode({
+          value: filterSize[0].value,
+          color: filterSize[0].color,
+          code: filterSize[0].code,
+        });
+      }
+    } else {
+      console.log(
+        'aaaaaaaaaaelllllllllllllllllllllllllllllllllllaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+      );
+
+      setSizeCode({...sizeCode, code: item.code});
     }
   }, []);
   const isAvtive = cartReducer?.WishListDetail?.wishListData.find(items => {
-    if (filterSize[0].value == 'Free Size') {
-      return items.code == item.code;
-    } else {
-      return items.code == sizeCode.code;
-    }
+    // if (filterSize) {
+    // if (filterSize.length) {
+    // }
+    return items.code == sizeCode.code;
+    // } else {
+    //   return items.code == item.code;
+    // }
+    // if (filterSize[0].value == 'Free Size') {
+    //   return items.code == item.code;
+    // } else {
+    //   return items.code == sizeCode.code;
+    // }
   });
 
   const discountPrice =
     100 - (item.priceAfterDiscount?.value / item?.price?.value) * 100;
-  console.log('discountisAvtiveisAvtivePrice', isAvtive);
+  console.log('discountisAvtiveisAvtivePrice', sizeCode);
   // console.log(
   //   'item?????????????????????????????????????????????????????????????????',
   //   typeof discountPrice,
@@ -93,7 +110,7 @@ export default function Card1(props) {
     console.log('tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111', getToken.isCheck);
     if (getToken?.isCheck) {
       if (sizeCode.code != '') {
-        console.log('shsihsihshsihhhh');
+        console.log('shsihsihshsihhhh', sizeCode);
         // if (item.stock.stockLevelStatus == 'inStock') {
         handleClick(sizeCode);
       } else {
@@ -124,7 +141,7 @@ export default function Card1(props) {
         onPress={() => {
           dispatch(Sharedataadd(item));
           props.navigation.navigate('ProductDetailed', {
-            productId: item.code,
+            productId: sizeCode.code,
             imageUrlCheck: item,
             code: code,
           });
@@ -177,30 +194,31 @@ export default function Card1(props) {
               flexDirection: 'row',
               flexWrap: 'wrap',
             }}>
-            {filterSize.map(item => {
-              return (
-                <TouchableOpacity
-                  onPress={() => {
-                    setSizeCode(item);
-                  }}
-                  style={{
-                    borderWidth: 1,
-                    marginRight: 3,
-                    padding: 2,
-                    minWidth: 20,
-                    alignItems: 'center',
-                    margin: 2,
-                    borderColor:
-                      sizeCode?.code == item?.code
-                        ? Colors.primarycolor
-                        : 'grey',
-                    // backgroundColor:
-                    //   sizeCode?.code == item?.code ? 'red' : '#fff',
-                  }}>
-                  <Text style={{fontSize: 12}}>{item.value}</Text>
-                </TouchableOpacity>
-              );
-            })}
+            {filterSize &&
+              filterSize?.map(item => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      setSizeCode(item);
+                    }}
+                    style={{
+                      borderWidth: 1,
+                      marginRight: 3,
+                      padding: 2,
+                      minWidth: 20,
+                      alignItems: 'center',
+                      margin: 2,
+                      borderColor:
+                        sizeCode?.code == item?.code
+                          ? Colors.primarycolor
+                          : 'grey',
+                      // backgroundColor:
+                      //   sizeCode?.code == item?.code ? 'red' : '#fff',
+                    }}>
+                    <Text style={{fontSize: 12}}>{item.value}</Text>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
           {/* {!!freeSize && (
             <View
