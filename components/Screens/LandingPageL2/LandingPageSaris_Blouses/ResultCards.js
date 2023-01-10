@@ -177,8 +177,10 @@ export default function ResultCards(props) {
   };
 
   useEffect(() => {
-    isWishlisted();
-    getProductData();
+    if (focus) {
+      isWishlisted();
+      getProductData();
+    }
   }, [page, focus]);
   const endReach = () => {
     if (dataMain?.pagination?.totalPages > page) {

@@ -91,29 +91,29 @@ export default function Card1(props) {
     const token = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(token);
     console.log('tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111', getToken.isCheck);
-    if (sizeCode.code != '') {
-      if (getToken?.isCheck) {
+    if (getToken?.isCheck) {
+      if (sizeCode.code != '') {
         console.log('shsihsihshsihhhh');
         // if (item.stock.stockLevelStatus == 'inStock') {
         handleClick(sizeCode);
-        // } else {
-        //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
-        // }
       } else {
-        console.log('glglglglglltltlhhh');
-        Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
-        props.navigation.navigate('Login_Register', {
-          From: 'PLP',
-          productCode: data.code,
-          code: code,
-          sizeCode: sizeCode,
-        });
-        // props.navigation.navigate('MyAccount', {
-        //   screen: 'Login_Register',
-        // });
+        Toast.showWithGravity('Please Select Size', Toast.LONG, Toast.TOP);
       }
+      // } else {
+      //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
+      // }
     } else {
-      Toast.showWithGravity('Please Select Size', Toast.LONG, Toast.TOP);
+      console.log('glglglglglltltlhhh');
+      Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
+      props.navigation.navigate('Login_Register', {
+        From: 'PLP',
+        productCode: sizeCode.code,
+        code: code,
+        sizeCode: sizeCode,
+      });
+      // props.navigation.navigate('MyAccount', {
+      //   screen: 'Login_Register',
+      // });
     }
   };
 

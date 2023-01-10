@@ -120,7 +120,7 @@ export default function Login(props) {
   //     });
   // };
   const isAddWishlist = async from => {
-    if (sizeCode.value == 'Free Size') {
+    if (sizeCode.code !== '') {
       await addWishlist({code: productCode}, dispatch);
     }
     // props.navigation.goBack();
