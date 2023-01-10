@@ -31,8 +31,6 @@ export default function CommonCarousel(props) {
     const newCode = filteredObj.landingPage;
     const title = filteredObj.title;
     if (title == 'Gift Cards') {
-      console.log('adsfasdfsdafasdf');
-      // props.navigation.navigate('GiftCard');
       props.navigation.navigate('GiftCard');
     } else if (title == 'IDS') {
       props.navigation.navigate('InteriorCatagory');

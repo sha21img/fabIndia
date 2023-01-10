@@ -62,20 +62,19 @@ export default function AccordianMenu(props) {
     const getToken = JSON.parse(get);
     if (data.title == 'Gift Cards') {
       if (getToken.isCheck == true) {
-        navigation.navigate('MyAccount', {screen: 'GiftCard'});
+        navigation.navigate('GiftCard');
       } else {
-        navigation.navigate('MyAccount', {screen: 'Login_Register'});
-        // navigation.navigate('MyAccount', { screen: 'GiftCard', from: 'Menu' });
+        navigation.navigate('Login_Register');
       }
     } else if (data.title == 'FAQs') {
-      navigation.navigate('MyAccount', {screen: 'FAQ'});
+      navigation.navigate('FAQ');
     } else if (data.title == 'Contact Us') {
-      navigation.navigate('MyAccount', {screen: 'ContactUs'});
+      navigation.navigate('ContactUs');
     } else if (data.title == 'Shop By Categories') {
       navigation.navigate('CategorySection', data);
     } else if (data.title == 'FabFamily') {
       if (getToken.isCheck == true) {
-        navigation.navigate('MyAccount', {screen: 'FabFamily'});
+        navigation.navigate('FabFamily');
       } else {
         Linking.openURL('https://www.fabfamily.fabindia.com/abouttheprogram');
       }
