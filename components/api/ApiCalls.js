@@ -16,7 +16,7 @@ const axiosClient = axios.create({
  * Request Wrapper with default success/error actions
  */
 const Api = async (
-    config = { method: 'GET', data: {}, url: '' },
+    config = { method: 'GET', params: {}, url: '' },
     customHeader = {}
 ) => {
     // Success

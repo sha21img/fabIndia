@@ -21,6 +21,7 @@ import {
   Sharedataadd,
   wishlistDetail,
 } from '../../Common/Helper/Redux/actions';
+
 export default function Card1(props) {
   const {
     customViewStyle = {},
@@ -82,6 +83,7 @@ export default function Card1(props) {
       setSizeCode({...sizeCode, code: item.code});
     }
   }, []);
+
   const isAvtive = cartReducer?.WishListDetail?.wishListData.find(items => {
     // if (filterSize) {
     // if (filterSize.length) {
@@ -99,28 +101,15 @@ export default function Card1(props) {
 
   const discountPrice =
     100 - (item.priceAfterDiscount?.value / item?.price?.value) * 100;
-  // console.log(
-  //   'item?????????????????????????????????????????????????????????????????',
-  //   typeof discountPrice,
-  // );
-  // console.log('item', item.name);
   const imageUrl = !!item?.variantOptions
     ? item?.variantOptions[0]?.images[0]?.url
     : item?.images[0].url;
 
-  // console.log('imageUrlimageUrlimageUrl', item?.images[0]?.url);
-  const check = async () => {
-    const token = await AsyncStorage.getItem('generatToken');
-  };
-  useEffect(() => {
-    check();
-  }, []);
   const getAdd = async data => {
     const token = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(token);
-    if (getToken?.isCheck) {
-      if (sizeCode.code != '') {
-        // if (item.stock.stockLevelStatus == 'inStock') {
+    if (sizeCode.code != '') {
+      if (getToken?.isCheck) {
         handleClick(sizeCode);
       } else {
         Toast.showWithGravity('Please Select Size', Toast.LONG, Toast.TOP);

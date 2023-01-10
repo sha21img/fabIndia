@@ -93,7 +93,8 @@ const MyAddresses = props => {
                   Styles.txtbox,
                   {
                     marginBottom: faq.length - 1 == index ? 0 : 15,
-                    borderColor: selected.id == faq.id ? 'red' : '#ababab',
+                    borderColor:
+                      selected.id == faq.id ? Colors.primarycolor : '#ababab',
                     borderWidth: 1,
                   },
                 ]}>
@@ -152,7 +153,7 @@ const MyAddresses = props => {
             </>
           ))}
         </View>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={{flexDirection: 'row', alignItems: 'center'}}
           onPress={() => {
             props.navigation.navigate('Address', {from: 'Order'});
@@ -212,7 +213,17 @@ const MyAddresses = props => {
               marginBottom: 15,
             }}>
             <Text>Delivery Charges</Text>
-            <Text>{cartdetails?.deliveryCost?.formattedValue}</Text>
+            <Text>
+              {' '}
+              {cartdetails?.deliveryCost?.formattedValue ? (
+                cartdetails?.deliveryCost?.formattedValue
+              ) : (
+                <>
+                  <Text style={{textDecorationLine: 'line-through'}}>₹99</Text>{' '}
+                  <Text style={{color: '#96AD66'}}>FREE</Text>
+                </>
+              )}
+            </Text>
           </View>
           <View
             style={{

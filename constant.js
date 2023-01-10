@@ -372,20 +372,20 @@ export const LandingPageL1Gifting = [
 ];
 
 export const LandingPageL1Food = [
-  'Section1', // Top Swipper
-  'Section2', // Essentials highlight
-  'Section3', // Snacks highlight
-  'Section4', // condiments highlight
-  'Section5', // Shop by category
+  // 'Section1', // Top Swipper
+  // 'Section2', // Essentials highlight
+  // 'Section3', // Snacks highlight
+  // 'Section4', // condiments highlight
+  // 'Section5', // Shop by category
   'Section6', // FabTitleCMSTabContainer
-  'Section7', // Take a bite banner
+  // 'Section7', // Take a bite banner
   // // 'Section8', // Gallery grid
   // // 'Section9', // empty
-  'Section10', // Banner snaks
-  'Section11', // Condiments
-  'Section12', // empty
-  'Section13', // carousel
-  'Section14', // Collections
+  // 'Section10', // Banner snaks
+  // 'Section11', // Condiments
+  // 'Section12', // empty
+  // 'Section13', // carousel
+  // 'Section14', // Collections
   // 'Section15', // empty
   // 'Section16', // empty
   // 'Section17', // empty

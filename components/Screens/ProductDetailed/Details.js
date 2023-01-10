@@ -14,6 +14,7 @@ import {Colors} from '../../../assets/Colors';
 import PointDetailCard from '../../Common/PointDetailCard';
 
 export default function Details({customStyle, productdetail}) {
+  console.log('this sis productdetails', productdetail?.priceAfterDiscount);
   const [modalVisible, setModalVisible] = useState(false);
   const discountPrice =
     100 -
@@ -22,7 +23,6 @@ export default function Details({customStyle, productdetail}) {
   // console.log('discountPrice'.discountPrice);
   openCompare = () => setModalVisible(true);
 
-  console.log(" productdetail?.price?.value productdetail?.price?.value",  productdetail)
   return (
     <View style={[Styles.cardDetailContainer, customStyle]}>
       <Text style={Styles.singleproducttitle}>{productdetail.name}</Text>
@@ -60,35 +60,37 @@ export default function Details({customStyle, productdetail}) {
         <Text style={Styles.singleproductamount}>
           {productdetail?.priceAfterDiscount?.formattedValue}
         </Text>
-        {productdetail?.totalDiscount?.value?
+        {productdetail?.totalDiscount?.value ? (
           <>
-          <Text style={Styles.priceofftxt}>
-          {productdetail?.price?.formattedValue}
-        </Text>
-        <Text style={Styles.offertxt}>{productdetail?.price?.value ? discountPrice?.toFixed(0) : 0}% off</Text>
-        </>
-        : null
-        }
-        
+            <Text style={Styles.priceofftxt}>
+              {productdetail?.price?.formattedValue}
+            </Text>
+            <Text style={Styles.offertxt}>
+              {productdetail?.price?.value ? discountPrice?.toFixed(0) : 0}% off
+            </Text>
+          </>
+        ) : null}
       </View>
-      <Text style={{fontFamily:Fonts.Assistant400}}>(Incl. of all taxes) </Text>
-      {
-        productdetail?.stock?.stockLevelStatus == 'outOfStock' ? <Text
-        style={[
-          Styles.oos,
-          {
-            color:
-              productdetail?.stock?.stockLevelStatus == 'outOfStock'
-                ? '#DA5959'
-                : 'green',
-          },
-        ]}>
-        {productdetail?.stock?.stockLevelStatus == 'outOfStock'
-          ? 'Out of stock'
-          : null}
-      </Text>:null
-      }
-      
+      <Text style={{fontFamily: Fonts.Assistant400}}>
+        (Incl. of all taxes){' '}
+      </Text>
+      {productdetail?.stock?.stockLevelStatus == 'outOfStock' ? (
+        <Text
+          style={[
+            Styles.oos,
+            {
+              color:
+                productdetail?.stock?.stockLevelStatus == 'outOfStock'
+                  ? '#DA5959'
+                  : 'green',
+            },
+          ]}>
+          {productdetail?.stock?.stockLevelStatus == 'outOfStock'
+            ? 'Out of stock'
+            : null}
+        </Text>
+      ) : null}
+
       {/* <View style={Styles.btnBox}>
         <TouchableOpacity style={Styles.btn} onPress={() => openCompare()}>
           <Text style={Styles.btnText}>Compare</Text>

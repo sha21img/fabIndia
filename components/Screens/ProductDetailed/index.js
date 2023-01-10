@@ -72,13 +72,15 @@ export default function ProductDetailed(props) {
     const response = await axios.get(
       `${BaseURL2}/products/${productId}?fields=code,configurable,configuratorType,name,summary,optionId,stock(DEFAULT),price(formattedValue,value,DEFAULT),images(galleryIndex,FULL),baseProduct,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantMatrix(FULL),sizeChart,averageRating,description,canonicalUrl,availableForPickup,url,numberOfReviews,manufacturer,categories(FULL),priceRange,multidimensional,tags,baseOptions,additionalDetails,DEFAULT,classifications,variantOptions,variantType&lang=en&curr=INR`,
     );
-
-    setProductDetail(response.data);
+    console.log(
+      response?.data,
+      'iffffffffffffffffffffffffffffffff0000000000000000000000000000000---------------------------------------------------------------------------------',
+    );
+    setProductDetail(response?.data);
     if (
-      response.data?.baseOptions[0].options[0].variantOptionQualifiers[1]
-        .value == 'Free Size'
+      response.data?.baseOptions[0]?.options[0]?.variantOptionQualifiers[1]
+        ?.value == 'Free Size'
     ) {
-      // console.log("iffffffffffffffffffffffffffffffff0000000000000000000000000000000---------------------------------------------------------------------------------")
       setShowAdd(true);
     } else {
       setShowAdd(false);
@@ -238,7 +240,7 @@ export default function ProductDetailed(props) {
       const getToken = JSON.parse(get);
       const getCartID = await AsyncStorage.getItem('cartID');
       const type = getToken.isCheck ? 'current' : 'anonymous';
-      // console.log('getTokengetTokengetTokengetToken', getToken, getCartID);
+      console.log('getgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDgetCartIDn', getToken, getCartID);
       await axios
         .post(
           `${BaseURL2}/users/${type}/carts/${getCartID}/entries?lang=en&curr=INR`,

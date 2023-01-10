@@ -158,28 +158,14 @@ const Payment = props => {
     }
 
     console.log('optionsoptionsoptions00000', JSON.stringify(options));
-    // RazorpayCheckout.open(options)
-    //   .then(data => {
-    //     // handle success
-    //     console.log('Razorpay==>', JSON.stringify(data));
-    //     navigation.navigate('OrderConfirmation', {
-    //       amount: details?.totalPriceWithTax?.value,
-    //       addressData: details,
-    //       UDID: UDID,
-    //     });
-    //     // alert(`Success: ${data.razorpay_payment_id}`);
-    //   })
-    //   .catch(error => {
-    //     console.log('error==>', JSON.stringify(error));
-    //   });
     Razorpay.open(options)
       .then(data => {
-        console.log("data",data)
-        navigation.navigate('OrderConfirmation', {
-          amount: details?.totalPriceWithTax?.value,
-          addressData: details,
-          UDID: UDID,
-        });
+        console.log("RazorpayRazorpayRazorpayRazorpayRazorpayRazorpay",data,UDID)
+        // navigation.navigate('OrderConfirmation', {
+        //   amount: details?.totalPriceWithTax?.value,
+        //   addressData: details,
+        //   UDID: UDID,
+        // });
       })
       .catch(error => {
         console.log(`Error: ${error.code} | ${error.description}`);
@@ -252,7 +238,7 @@ const Payment = props => {
     );
     console.log(
       'getUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDID',
-      response.data,
+      response.data,getCartID
     );
     return response.data;
   };
