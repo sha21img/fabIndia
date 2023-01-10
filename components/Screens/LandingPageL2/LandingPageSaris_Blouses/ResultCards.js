@@ -212,6 +212,7 @@ export default function ResultCards(props) {
     const getCartID = await AsyncStorage.getItem('cartID');
     // console.log('this us cart iooooooooooooooood11', getCartID);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
+    console.log('this is Result card', getWishlistID);
 
     const response = await axios
       .get(

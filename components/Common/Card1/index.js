@@ -36,10 +36,6 @@ export default function Card1(props) {
   });
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
-  // console.log(
-  //   'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
-  //   item,
-  // );
 
   const filterSize =
     item?.variantOptions &&
