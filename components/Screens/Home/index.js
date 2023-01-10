@@ -103,7 +103,7 @@ export default function Dashbord(props) {
     }
     ApiService.getPagesData(params).then((response) => {
       if (response) {
-        Utility.log('res==>', response)
+        // Utility.log('res==>', response)
         getSections(response.contentSlots.contentSlot);
       }
     }).catch((error) => {

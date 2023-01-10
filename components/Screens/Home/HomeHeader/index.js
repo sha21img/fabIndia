@@ -36,10 +36,6 @@ export default function HomeHeader(props) {
   const [wishlistQuantity, setWishlistQuantity] = useState(0);
   const [wishlistproduct, setWishlistproduct] = useState([]);
 
-  console.log(
-    'cartReducer.WishListDetail.wishlistQuantitycartReducer.WishListDetail.wishlistQuantity1',
-    cartReducer.shareData,
-  );
   const isInitialWishlised = async () => {
     const token = await AsyncStorage.getItem('generatToken');
     const parseToken = JSON.parse(token);

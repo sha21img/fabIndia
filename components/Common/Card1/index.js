@@ -21,6 +21,7 @@ import {
   Sharedataadd,
   wishlistDetail,
 } from '../../Common/Helper/Redux/actions';
+
 export default function Card1(props) {
   const {
     customViewStyle = {},
@@ -36,10 +37,6 @@ export default function Card1(props) {
   });
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
-  console.log(
-    'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
-    item,
-  );
 
   const filterSize = item.variantOptions.map(item => {
     return {
@@ -48,7 +45,7 @@ export default function Card1(props) {
       code: item.code,
     };
   });
-  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', filterSize);
+
   useEffect(() => {
     if (filterSize[0].value == 'Free Size') {
       setSizeCode({
@@ -58,6 +55,7 @@ export default function Card1(props) {
       });
     }
   }, []);
+
   const isAvtive = cartReducer?.WishListDetail?.wishListData.find(items => {
     if (filterSize[0].value == 'Free Size') {
       return items.code == item.code;
@@ -68,37 +66,17 @@ export default function Card1(props) {
 
   const discountPrice =
     100 - (item.priceAfterDiscount?.value / item?.price?.value) * 100;
-  console.log('discountisAvtiveisAvtivePrice', isAvtive);
-  // console.log(
-  //   'item?????????????????????????????????????????????????????????????????',
-  //   typeof discountPrice,
-  // );
-  // console.log('item', item.name);
+
   const imageUrl = !!item?.variantOptions
     ? item?.variantOptions[0]?.images[0]?.url
     : item?.images[0].url;
 
-  // console.log('imageUrlimageUrlimageUrl', item?.images[0]?.url);
-  const check = async () => {
-    const token = await AsyncStorage.getItem('generatToken');
-    console.log('token 2348723489 token', token.isCheck);
-  };
-  useEffect(() => {
-    check();
-  }, []);
   const getAdd = async data => {
-    console.log('11111111111111', data.code);
     const token = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(token);
-    console.log('tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111', getToken.isCheck);
     if (sizeCode.code != '') {
       if (getToken?.isCheck) {
-        console.log('shsihsihshsihhhh');
-        // if (item.stock.stockLevelStatus == 'inStock') {
         handleClick(sizeCode);
-        // } else {
-        //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
-        // }
       } else {
         console.log('glglglglglltltlhhh');
         Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);

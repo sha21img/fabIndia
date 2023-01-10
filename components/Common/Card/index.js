@@ -9,7 +9,6 @@ export default function Card(props) {
     customViewStyle = {},
     items
   } = props;
-  console.log("this sis card data feom anyhere", items)
 
   return (
     <>
