@@ -45,7 +45,7 @@ export default function Card3(props) {
       'DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue, value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)';
     const response = await axios
       .get(
-        `${BaseURL2}/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+        `${BaseURL2}users/current/carts?fields=carts(DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,entries(totalPrice(formattedValue),product(images(FULL),stock(FULL),variantOptions(FULL),variantMatrix,priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,DEFAULT),user,saveTime,name,description)&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=${aa}&lang=en&curr=INR`,
         // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/?fileds=${aa}?lang=en&curr=INR`,
         // {},
@@ -58,24 +58,41 @@ export default function Card3(props) {
         },
       )
       .then(response => {
-        if (!!response?.data?.name) {
-          console.log('thsi sis reapobnse .data', response.data);
-          if (response?.data?.name?.includes('wishlist')) {
-            const filterProductId = response.data.entries.map(item => {
-              return {
-                code: item.product.baseOptions[0].selected.code,
-                item: item,
-              };
-            });
-            dispatch(
-              wishlistDetail({
-                wishListData: filterProductId,
-                wishlistQuantity: response.data.entries.length,
-              }),
-            );
-            // setWishlistproductCode(filterProductId);
-          }
-        }
+        console.log(
+          'getCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetailsgetCartDetails',
+          response.data.name,
+        );
+        const filteredWishlistArray = response.data.carts.filter(item => {
+          return item.code == getWishlistID;
+        });
+        const newData = filteredWishlistArray[1].entries.map(item => {
+          console.log('item.product.code', item.product.code);
+          return {code: item.product.code, item: item};
+        });
+        dispatch(
+          wishlistDetail({
+            wishListData: newData,
+            wishlistQuantity: newData.length,
+          }),
+        );
+        // if (!!response?.data?.name) {
+        //   console.log('thsi sis reapobnse .data', response.data);
+        //   if (response?.data?.name?.includes('wishlist')) {
+        //     const filterProductId = response.data.entries.map(item => {
+        //       return {
+        //         code: item.product.baseOptions[0].selected.code,
+        //         item: item,
+        //       };
+        //     });
+        //     dispatch(
+        //       wishlistDetail({
+        //         wishListData: filterProductId,
+        //         wishlistQuantity: response.data.entries.length,
+        //       }),
+        //     );
+        //     // setWishlistproductCode(filterProductId);
+        //   }
+        // }
       })
       .catch(error => {
         console.log('vicky,card3', error);

@@ -327,7 +327,7 @@ export default function ProductDetailed(props) {
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
     await axios
       .get(
-        `${BaseURL2}/users/current/carts/${getWishlistID}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,deliveryAddress(FULL),entries(totalPrice(formattedValue),product(images(FULL),price(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),stock(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),subTotalWithoutDiscount(formattedValue,DEFAULT),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,%20value),user,saveTime,name,description,paymentTransactions,totalAmountToPay(DEFAULT),totalAmountPaid(DEFAULT)&lang=en&curr=INR`,
+        `${BaseURL2}users/current/carts?fields=carts(DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,entries(totalPrice(formattedValue),product(images(FULL),stock(FULL),variantOptions(FULL),variantMatrix,priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,DEFAULT),user,saveTime,name,description)&lang=en&curr=INR`,
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -335,24 +335,38 @@ export default function ProductDetailed(props) {
         },
       )
       .then(response => {
-        if (response.data.name.includes('wishlist')) {
-          const res = response.data.entries.find((item, index) => {
-            return {code: item.product.baseOptions[0].selected.code};
-          });
+        console.log('11111111111111111111111111111111111', response.data.carts);
+        const filteredWishlistArray = response.data.carts.filter(item => {
+          return item.code == getWishlistID;
+        });
+        const newData = filteredWishlistArray[1].entries.map(item => {
+          console.log('item.product.code', item.product.code);
+          return {code: item.product.code, item: item};
+        });
+        dispatch(
+          wishlistDetail({
+            wishListData: newData,
+            wishlistQuantity: newData.length,
+          }),
+        );
+        // if (response.data.name.includes('wishlist')) {
+        //   const res = response.data.entries.find((item, index) => {
+        //     return {code: item.product.baseOptions[0].selected.code};
+        //   });
 
-          const filterProductId = response.data.entries.map(item => {
-            return {
-              code: item.product.baseOptions[0].selected.code,
-              item: item,
-            };
-          });
-          dispatch(
-            wishlistDetail({
-              wishListData: filterProductId,
-              wishlistQuantity: response.data.entries.length,
-            }),
-          );
-        }
+        //   const filterProductId = response.data.entries.map(item => {
+        //     return {
+        //       code: item.product.baseOptions[0].selected.code,
+        //       item: item,
+        //     };
+        //   });
+        //   dispatch(
+        //     wishlistDetail({
+        //       wishListData: filterProductId,
+        //       wishlistQuantity: response.data.entries.length,
+        //     }),
+        //   );
+        // }
       })
       .catch(error => {
         console.log('error for get wihslist detail', error);

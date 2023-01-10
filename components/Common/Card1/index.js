@@ -37,34 +37,45 @@ export default function Card1(props) {
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
 
-  const filterSize = item.variantOptions.map(item => {
-    return {
-      value: item.variantOptionQualifiers[0].value,
-      color: item.variantOptionQualifiers[1].value,
-      code: item.code,
-    };
-  });
-  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', filterSize);
+  const filterSize =
+    item?.variantOptions &&
+    item.variantOptions.map(item => {
+      return {
+        value: item.variantOptionQualifiers[0].value,
+        color: item.variantOptionQualifiers[1].value,
+        code: item.code,
+      };
+    });
   useEffect(() => {
-    if (filterSize[0].value == 'Free Size') {
-      setSizeCode({
-        value: filterSize[0].value,
-        color: filterSize[0].color,
-        code: filterSize[0].code,
-      });
+    if (!!filterSize) {
+      if (filterSize.length == 1) {
+        setSizeCode({
+          value: filterSize[0].value,
+          color: filterSize[0].color,
+          code: filterSize[0].code,
+        });
+      }
+    } else {
+      setSizeCode({...sizeCode, code: item.code});
     }
   }, []);
   const isAvtive = cartReducer?.WishListDetail?.wishListData.find(items => {
-    if (filterSize[0].value == 'Free Size') {
-      return items.code == item.code;
-    } else {
-      return items.code == sizeCode.code;
-    }
+    // if (filterSize) {
+    // if (filterSize.length) {
+    // }
+    return items.code == sizeCode.code;
+    // } else {
+    //   return items.code == item.code;
+    // }
+    // if (filterSize[0].value == 'Free Size') {
+    //   return items.code == item.code;
+    // } else {
+    //   return items.code == sizeCode.code;
+    // }
   });
 
   const discountPrice =
     100 - (item.priceAfterDiscount?.value / item?.price?.value) * 100;
-  console.log('discountisAvtiveisAvtivePrice', isAvtive);
   // console.log(
   //   'item?????????????????????????????????????????????????????????????????',
   //   typeof discountPrice,
@@ -77,19 +88,15 @@ export default function Card1(props) {
   // console.log('imageUrlimageUrlimageUrl', item?.images[0]?.url);
   const check = async () => {
     const token = await AsyncStorage.getItem('generatToken');
-    console.log('token 2348723489 token', token.isCheck);
   };
   useEffect(() => {
     check();
   }, []);
   const getAdd = async data => {
-    console.log('11111111111111', data.code);
     const token = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(token);
-    console.log('tokenqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq111', getToken.isCheck);
     if (getToken?.isCheck) {
       if (sizeCode.code != '') {
-        console.log('shsihsihshsihhhh');
         // if (item.stock.stockLevelStatus == 'inStock') {
         handleClick(sizeCode);
       } else {
@@ -99,7 +106,6 @@ export default function Card1(props) {
       //   Toast.showWithGravity('No item left !', Toast.LONG, Toast.TOP);
       // }
     } else {
-      console.log('glglglglglltltlhhh');
       Toast.showWithGravity('Please Login First', Toast.LONG, Toast.TOP);
       props.navigation.navigate('Login_Register', {
         From: 'PLP',
@@ -118,12 +124,12 @@ export default function Card1(props) {
       <TouchableOpacity
         style={Styles.cardContainer}
         onPress={() => {
-          // dispatch(Sharedataadd(item));
-          // props.navigation.navigate('ProductDetailed', {
-          //   productId: item.code,
-          //   imageUrlCheck: item,
-          //   code: code,
-          // });
+          dispatch(Sharedataadd(item));
+          props.navigation.navigate('ProductDetailed', {
+            productId: sizeCode.code,
+            imageUrlCheck: item,
+            code: code,
+          });
         }}
         activeOpacity={0.9}>
         <ImageBackground
@@ -172,31 +178,35 @@ export default function Card1(props) {
             style={{
               flexDirection: 'row',
               flexWrap: 'wrap',
+              marginVertical: 5,
             }}>
-            {filterSize.map(item => {
-              return (
-                <TouchableOpacity
-                  onPress={() => {
-                    setSizeCode(item);
-                  }}
-                  style={{
-                    borderWidth: 1,
-                    marginRight: 3,
-                    padding: 2,
-                    minWidth: 20,
-                    alignItems: 'center',
-                    margin: 2,
-                    borderColor:
-                      sizeCode?.code == item?.code
-                        ? Colors.primarycolor
-                        : 'grey',
-                    // backgroundColor:
-                    //   sizeCode?.code == item?.code ? 'red' : '#fff',
-                  }}>
-                  <Text style={{fontSize: 12}}>{item.value}</Text>
-                </TouchableOpacity>
-              );
-            })}
+            {filterSize &&
+              filterSize?.map(item => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      setSizeCode(item);
+                    }}
+                    style={{
+                      borderWidth: 0.5,
+                      marginRight: 3,
+                      padding: 3,
+                      minWidth: 20,
+                      alignItems: 'center',
+                      margin: 2,
+                      borderColor:
+                        sizeCode?.code == item?.code
+                          ? Colors.primarycolor
+                          : '#d8dadc',
+                      // backgroundColor:
+                      //   sizeCode?.code == item?.code ? 'red' : '#fff',
+                    }}>
+                    <Text style={{fontSize: 12, color: Colors.textcolor}}>
+                      {item.value}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
           {/* {!!freeSize && (
             <View
