@@ -271,9 +271,7 @@ export default function Login(props) {
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           setNumberRequire(false);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          props.navigation.navigate('MyAccount', {
-            screen: 'MyAccounts',
-          });
+          props.navigation.navigate('MyAccounts');
           getCartID(dispatch);
           getWishID(dispatch);
         }
@@ -390,9 +388,7 @@ export default function Login(props) {
         } else {
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          props.navigation.navigate('MyAccount', {
-            screen: 'MyAccounts',
-          });
+          props.navigation.navigate('MyAccounts');
           getCartID(dispatch);
           getWishID(dispatch);
         }
@@ -765,9 +761,7 @@ export default function Login(props) {
                   <TouchableOpacity
                     style={styles.readText}
                     onPress={() => {
-                      props.navigation.navigate('MyAccount', {
-                        screen: 'ResetPassword',
-                      });
+                      props.navigation.navigate('ResetPassword');
                     }}>
                     <Text style={styles.forgetText}>Forgot password?</Text>
                   </TouchableOpacity>

@@ -178,10 +178,7 @@ const SimpleAccordian = props => {
             return (
               <TouchableOpacity
                 onPress={
-                  () =>
-                    props.navigation.navigate('MyAccount', {
-                      screen: item.routes,
-                    })
+                  () => props.navigation.navigate(item.routes)
                   // ('AboutFabindia')
                 }
                 style={{

@@ -113,9 +113,7 @@ export default function Card1(props) {
         code: code,
         sizeCode: sizeCode,
       });
-      // props.navigation.navigate('MyAccount', {
-      //   screen: 'Login_Register',
-      // });
+      // props.navigation.navigate('Login_Register');
     }
   };
 

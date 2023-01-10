@@ -209,9 +209,7 @@ export default function ChangePassword(props) {
         <View style={{marginLeft: 8}}>
           <TouchableOpacity
             onPress={() => {
-              props.navigation.navigate('MyAccount', {
-                screen: 'ResetPassword',
-              });
+              props.navigation.navigate('ResetPassword');
             }}>
             <Text style={Styles.forgottxt}>Forgot password</Text>
           </TouchableOpacity>

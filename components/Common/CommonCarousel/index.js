@@ -33,9 +33,7 @@ export default function CommonCarousel(props) {
     if (title == 'Gift Cards') {
       console.log('adsfasdfsdafasdf');
       // props.navigation.navigate('GiftCard');
-      props.navigation.navigate('MyAccount', {
-        screen: 'GiftCard',
-      });
+      props.navigation.navigate('GiftCard');
     } else if (title == 'IDS') {
       props.navigation.navigate('InteriorCatagory');
     } else {

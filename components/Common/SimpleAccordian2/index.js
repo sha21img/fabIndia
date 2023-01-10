@@ -102,7 +102,7 @@ const SimpleAccordian2 = props => {
   const {title, description, navigation, bodyData, IconName, handleclick} =
     props;
   console.log(typeof props.subItem, 'asssssssssssssssssss');
-  console.log( props.subItem, '-----------------------------------');
+  console.log(props.subItem, '-----------------------------------');
 
   const toggleAnimation = {
     duration: 300,
@@ -187,9 +187,7 @@ const SimpleAccordian2 = props => {
               <TouchableOpacity
                 onPress={
                   () =>
-                    props.navigation.navigate('MyAccount', {
-                      screen: item.routes,
-                    })
+                    props.navigation.navigate(item.routes)
                   // ('AboutFabindia')
                 }
                 style={{

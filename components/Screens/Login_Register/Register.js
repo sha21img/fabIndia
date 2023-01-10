@@ -345,9 +345,7 @@ const Register = props => {
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           setNumberRequire(false);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          props.navigation.navigate('MyAccount', {
-            screen: 'MyAccounts',
-          });
+          props.navigation.navigate('MyAccounts');
           getCartID(dispatch);
           getWishID(dispatch);
         }
@@ -407,9 +405,7 @@ const Register = props => {
         } else {
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          props.navigation.navigate('MyAccount', {
-            screen: 'MyAccounts',
-          });
+          props.navigation.navigate('MyAccounts');
           getCartID(dispatch);
           getWishID(dispatch);
         }

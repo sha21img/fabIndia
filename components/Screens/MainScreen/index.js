@@ -1867,9 +1867,7 @@ export default function MainScreen(props) {
                 //     ],
                 //   }),
                 // )
-                // props.navigation.navigate('MyAccount', {
-                //   screen: 'MyAccounts',
-                // })
+                // props.navigation.navigate('MyAccounts')
               }>
               <MaterialCommunityIcons
                 name="account-outline"

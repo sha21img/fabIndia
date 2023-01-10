@@ -40,15 +40,11 @@ export default function Otp(props) {
       transactionId: transactionId,
     };
     let res = await axios
-      .post(
-        `${BaseURL2}/otp/validate?lang=en&curr=INR`,
-        data,
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
-          },
+      .post(`${BaseURL2}/otp/validate?lang=en&curr=INR`, data, {
+        headers: {
+          Authorization: `${getToken.token_type} ${getToken.access_token}`,
         },
-      )
+      })
       .then(response => {
         console.log('this sis res', response?.data);
         if (response?.status == 200) {
@@ -101,9 +97,7 @@ export default function Otp(props) {
         } else {
           console.log('tokenGeneratetokenGeneratetokenGenerate', tokenGenerate);
           AsyncStorage.setItem('generatToken', JSON.stringify(tokenGenerate));
-          // props.navigation.navigate('MyAccount', {
-          //   screen: 'MyAccounts',
-          // });
+          // props.navigation.navigate('MyAccounts');
           props.navigation.dispatch(
             CommonActions.reset({
               index: 0,
