@@ -54,13 +54,6 @@ export default function Login(props) {
   const productCode = props?.route?.params?.productCode || '';
   const code = props?.route?.params?.code || '';
   const sizeCode = props?.route?.params?.sizeCode || '';
-
-  console.log(
-    'FromFromFromFromFromFromFromFromFromFromFromFromFromFrom',
-    From,
-    productCode,
-    code,
-  );
   const dispatch = useDispatch();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');

@@ -131,28 +131,6 @@ export default function ResultCards(props) {
     setPage(0);
   };
 
-  // const getWishListProducts = (data) => {
-  //   const fields = 'carts(DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,entries(totalPrice(formattedValue),product(images(FULL),stock(FULL),variantOptions(FULL),variantMatrix,priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,DEFAULT),user,saveTime,name,description)';
-
-  //   let params = {
-  //     'fields': fields,
-  //     'lang': 'en',
-  //     'curr': 'INR'
-  //   }
-  //   ApiService.getCartList(params, true).then((response) => {
-  //     if (response) {
-  //       Utility.log('WishListRes==>', JSON.stringify(response))
-
-  //     }
-  //     setIsLoading(false);
-  //     setIsRefreshing(false);
-  //   }).catch((error) => {
-  //     Utility.log('WishListError==>', error)
-  //     setIsAppend(false);
-  //     setIsLoading(false);
-  //     setIsRefreshing(false);
-  //   })
-  // }
 
   const getCartDetails = async () => {
     const get = await AsyncStorage.getItem('generatToken');
@@ -179,7 +157,7 @@ export default function ResultCards(props) {
         });
         const newData = filteredWishlistArray[1].entries.map(item => {
           // console.log('item.product.code', item.product.code);
-          return {code: item.product.code, item: item};
+          return { code: item.product.code, item: item };
         });
         dispatch(
           wishlistDetail({

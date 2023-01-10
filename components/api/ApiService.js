@@ -44,7 +44,16 @@ const getCartList = (params, isToken) => {
     );
 }
 
-
+const getURLCall = (params, isToken, url) => {
+    return API(
+        {
+            method: 'POST',
+            url: url,
+            params,
+            isToken
+        }
+    );
+}
 
 
 
@@ -103,6 +112,8 @@ export const ApiService = {
     getPagesData,
     getProductList,
     getCartList,
+    getURLCall,
+
 
     registerUser,
     loginUser,

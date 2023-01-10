@@ -7,7 +7,7 @@ export default function Interior(props) {
 
   return (
     <TouchableOpacity
-      activeOpacity={0.8}
+      activeOpacity={0.9}
       style={{margin: 16, marginBottom: 0}}
       onPress={() => props.navigation.navigate('InteriorHomepage')}>
       <FastImage
