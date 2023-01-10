@@ -77,7 +77,7 @@ const Api = async (
         // 'Authorization': `${getToken.token_type} ${getToken.access_token}`,
         ...customHeader
     };
-    if (isToken)
+    if (config.isToken)
         headers['Authorization'] = `${getToken.token_type} ${getToken.access_token}`
     Utility.log('Axios Headers', headers);
     // Set headers

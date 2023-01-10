@@ -47,10 +47,6 @@ export default function Card1(props) {
         code: item.code,
       };
     });
-  console.log(
-    'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
-    filterSize,
-  );
   // const a1 = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
   // const aa = filterSize.filter(item => {
