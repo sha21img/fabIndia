@@ -77,8 +77,8 @@ const Styles = StyleSheet.create({
 
   },
   textinput1: {
-    height: 40,
-    letterSpacing: 2,
+    // height: 40,
+    // letterSpacing: 2,
     borderBottomColor: 'white',
     marginVertical: Platform.OS === 'android' ? 5 : 10,
     fontSize: 18,
