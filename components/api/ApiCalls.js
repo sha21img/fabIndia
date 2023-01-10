@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import * as ApiConstants from './ApiConstants'
 // import DeviceInfo from 'react-native-device-info';
 import * as Utility from "../util/Utility"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /**
  * Create an Axios Client with defaults
@@ -16,7 +17,7 @@ const axiosClient = axios.create({
  * Request Wrapper with default success/error actions
  */
 const Api = async (
-    config = { method: 'GET', params: {}, url: '' },
+    config = { method: 'GET', params: {}, url: '', isToken },
     customHeader = {}
 ) => {
     // Success
@@ -57,6 +58,9 @@ const Api = async (
         }
     };
 
+    const get = await AsyncStorage.getItem('generatToken');
+    const getToken = JSON.parse(get);
+
     // Append headers
     let headers = {
         'Content-Type': 'application/json',
@@ -70,8 +74,11 @@ const Api = async (
         // 'device-version': DeviceInfo.getSystemVersion(),
         // 'build-numver': DeviceInfo.getBuildNumber(),
         // 'app-version': Platform.OS == 'android' ? DeviceInfo.getVersion() : ApiConstants.IOS_VERSION,
+        // 'Authorization': `${getToken.token_type} ${getToken.access_token}`,
         ...customHeader
     };
+    if (config.isToken)
+        headers['Authorization'] = `${getToken.token_type} ${getToken.access_token}`
     Utility.log('Axios Headers', headers);
     // Set headers
     axiosClient.defaults.headers = headers;
