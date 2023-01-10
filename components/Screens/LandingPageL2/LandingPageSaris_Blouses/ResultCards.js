@@ -7,38 +7,37 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Card1 from '../../../Common/Card1';
 import {
   BaseURL2,
-  getComponentData,
   logout,
-  postData,
   refreshToken,
 } from '../../../Common/Helper';
 import axios from 'axios';
 import SortBox from './SortBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch, useSelector} from 'react-redux';
-import {wishlistDetail} from '../../../Common/Helper/Redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { wishlistDetail } from '../../../Common/Helper/Redux/actions';
 import HomeHeader from '../../Home/HomeHeader';
 import Filter from '../../../Common/Filter';
 import Fonts from '../../../../assets/fonts';
-import {Colors} from '../../../../assets/Colors';
+import { Colors } from '../../../../assets/Colors';
 import Toast from 'react-native-simple-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
 import LoadingComponent from '../../../Common/LoadingComponent';
-import {useIsFocused} from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
+import { ApiService } from '../../../api/ApiService';
+import { Utility } from '../../../util';
 
 export default function ResultCards(props) {
-  const {cartReducer} = useSelector(state => state);
+  const { cartReducer } = useSelector(state => state);
   const focus = useIsFocused();
   const [isActive, setIsActive] = useState([]);
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [dataMain, setdataMain] = useState([]);
   const [filterProducts, setFilterProducts] = useState([]);
-  const [wishlistproductCode, setWishlistproductCode] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [filterModalVisible, setFilterModalVisible] = useState(false);
@@ -46,142 +45,69 @@ export default function ResultCards(props) {
   const [sortValue, setSortValue] = useState('');
   const [isCheck, setIsCheck] = useState([]);
   const [productCount, setProductCount] = useState(0);
-  const {code, status, title, isSearch, isAdmin2} = props;
-  const {data = []} = props;
+  const { code, status, title, isSearch, isAdmin2 } = props;
+  const { data = [] } = props;
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isAppend, setIsAppend] = useState(false);
   const [isUpdated, setIsUpdated] = useState(0);
 
-  console.log('11111111111111111111111111111111111111111111111', code);
-  var isFilterVIsible;
+  const getProductData = (data) => {
+    const fields = 'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
 
-  const getProductData = async data => {
-    const fields =
-      'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
-    var response;
-    // if (isAdmin2 == 'isAdmin2') {
-    //   console.log(
-    //     'ifififififififififififififififififififififiif',
-    //     `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-    //   );
-    if (data) {
-      response = await axios.get(
-        `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-      );
-    } else {
-      response = await axios.get(
-        `${BaseURL2}/products/search?fields=${fields}&query=${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-      );
+    let params = {
+      'fields': fields,
+      'query': data ? data : code,
+      'sort': sortValue,
+      'currentPage': page,
+      'pageSize': 10,
+      'lang': 'en',
+      'curr': 'INR'
     }
-    // } else {
-    //   console.log('elseleslelesleelse');
-    //   if (!!isSearch) {
-    //     response = await axios.get(
-    //       `${BaseURL2}/products/search?fields=${fields}&query=${title}
-    //   &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-    //     );
-    //   } else if (data) {
-    //     response = await axios.get(
-    //       `${BaseURL2}/products/search?fields=${fields}&query=${data}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-    //     );
-    //   } else {
-    //     response = await axios.get(
-    //       `${BaseURL2}/products/search?fields=${fields}&${
-    //         status ? `${code}` : `query=:relevance:allCategories:${code}`
-    //       }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-    //     );
-    //   }
-    // }
+    ApiService.getProductList(params).then((response) => {
+      if (response) {
+        // Utility.log('ProductListRes==>', JSON.stringify(response))
+        const isFilterVIsible = response?.facets.filter(item => {
+          return item.values.filter(it => {
+            return it.selected == true;
+          });
+        });
+        setIsActive(isFilterVIsible);
 
-    console.log(
-      '1234567890+++++++++++++++++++++++++++++++++++++++++++++',
-      response.data.facets,
-    );
-    // const isFilterVIsible = response.data.facets.map(item => {
-    //   const array = [];
-    //   const aa = item.values.filter(it => {
-    //     return it.selected == true;
-    //   });
-    //   if (aa.length > 0) {
-    //     array.push(...aa);
-    //     return array;
-    //   } else {
-    //     return null;
-    //   }
-    // });
-    // const isFilterVIsible = response.data.facets.filter(item => {
-    //   return item.values.filter(it => {
-    //     return it.selected == true;
-    //   });
-    //   // return item.
-    // });
-    // setIsActive(isFilterVIsible);
-    console.log(
-      'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss',
-      isFilterVIsible,
-    );
+        setdataMain(response);
+        setProductCount(response?.pagination?.totalResults);
+        setTotalCount(response?.pagination?.totalResults);
+        if (isAppend) {
+          setFilterProducts([...filterProducts, ...response?.products]);
+        } else {
+          setFilterProducts(response?.products);
+        }
+      }
+      setIsAppend(false);
+      setIsLoading(false);
+      setIsRefreshing(false);
+    }).catch((error) => {
+      Utility.log('ProductListError==>', error)
+      setIsAppend(false);
+      setIsLoading(false);
+      setIsRefreshing(false);
+    })
+  }
 
-    // fabindiab2c/products/search?query=:relevance:allCategories:${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}`);
-    setdataMain(response.data);
-    setProductCount(response.data.pagination.totalResults);
-    setTotalCount(response.data.pagination.totalResults);
-    setFilterProducts(response.data.products);
-    if (filterProducts.length > 0 && !data && !isRefreshing) {
-      setFilterProducts([...filterProducts, ...response.data.products]);
-    } else {
-      setFilterProducts(response.data.products);
-    }
-    setIsLoading(false);
-    setIsRefreshing(false);
-  };
   const openSort = () => setModalVisible(true);
   const openFilter = () => setFilterModalVisible(true);
 
-  const getSortProductData = async () => {
-    const fields =
-      'products(code,name,summary,optionId,configurable,configuratorType,multidimensional,price(FULL),images(DEFAULT),stock(FULL),averageRating,variantOptions(FULL),variantMatrix,sizeChart,url,totalDiscount(formattedValue,DEFAULT),priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),newArrival,sale,tagName),facets,breadcrumbs,breadcrumbCategories(code,name,url),pagination(DEFAULT),sorts(DEFAULT),freeTextSearch,currentQuery';
-
-    var response;
-    // if (isAdmin2 == 'isAdmin2') {
-    //   console.log(
-    //     'ifififififififififififififififififififififiif-=-=-=- sort-=-=',
-    //     isAdmin2,
-    //   );
-    response = await axios.get(
-      `${BaseURL2}/products/search?fields=${fields}&query=${code}&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-    );
-    // } else {
-    //   console.log('elseleslelesleelse-=-=-=-sort-==-');
-
-    //   if (!!isSearch) {
-    //     response = await axios.get(
-    //       `${BaseURL2}/products/search?fields=${fields}&query=${title}
-    //     &pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-    //     );
-    //   } else {
-    //     response = await axios.get(
-    //       `${BaseURL2}/products/search?fields=${fields}&${
-    //         status ? `${code}` : `query=:relevance:allCategories:${code}`
-    //       }&pageSize=10&lang=en&curr=INR&currentPage=${page}&sort=${sortValue}`,
-    //     );
-    //   }
-    // }
-    // console.log('data===>', JSON.stringify(response.data))
-    setdataMain(response.data);
-
-    setFilterProducts(response.data.products);
-  };
   useEffect(() => {
-    !!sortValue && getSortProductData();
+    if (sortValue) {
+      setPage(0)
+      setIsLoading(true);
+      getProductData();
+    }
   }, [sortValue]);
+
   const isWishlisted = async () => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-
-    console.log(
-      '111111111111111111111111111111111111111111111111111111112222222222222222',
-      getToken,
-    );
     if (getToken.isCheck) {
       setIsUpdated(1);
       getCartDetails();
@@ -189,13 +115,13 @@ export default function ResultCards(props) {
   };
 
   useEffect(() => {
-    // if (focus) {
     isWishlisted();
     getProductData();
-    // }
   }, [page]);
+
   const endReach = () => {
     if (dataMain?.pagination?.totalPages > page) {
+      setIsAppend(true);
       setPage(page + 1);
     }
   };
@@ -206,20 +132,14 @@ export default function ResultCards(props) {
   };
 
   const getCartDetails = async () => {
-    const value = await AsyncStorage.getItem('cartID');
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
-    const getCartID = await AsyncStorage.getItem('cartID');
-    // console.log('this us cart iooooooooooooooood11', getCartID);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
     console.log('this is Result card', getWishlistID);
 
     const response = await axios
       .get(
         `${BaseURL2}users/current/carts?fields=carts(DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,entries(totalPrice(formattedValue),product(images(FULL),stock(FULL),variantOptions(FULL),variantMatrix,priceAfterDiscount(formattedValue,DEFAULT),variantProductOptions(FULL),totalDiscount(formattedValue,DEFAULT)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue,%20value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue,DEFAULT),user,saveTime,name,description)&lang=en&curr=INR`,
-        // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832?fields=${aa}&lang=en&curr=INR`,
-        // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/?fileds=${aa}?lang=en&curr=INR`,
-        // {},
         {
           headers: {
             Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -235,7 +155,7 @@ export default function ResultCards(props) {
           return item.code == getWishlistID;
         });
         const newData = filteredWishlistArray[1].entries.map(item => {
-          console.log('item.product.code', item.product.code);
+          // console.log('item.product.code', item.product.code);
           return {code: item.product.code, item: item};
         });
         dispatch(
@@ -244,23 +164,6 @@ export default function ResultCards(props) {
             wishlistQuantity: newData.length,
           }),
         );
-        // if (!!response?.data?.name) {
-        //   if (response?.data?.name?.includes('wishlist')) {
-        //     const filterProductId = response.data.entries.map(item => {
-        //       return {
-        //         code: item.product.baseOptions[0].selected.code,
-        //         item: item,
-        //       };
-        //     });
-        //     dispatch(
-        //       wishlistDetail({
-        //         wishListData: filterProductId,
-        //         wishlistQuantity: response.data.entries.length,
-        //       }),
-        //     );
-        //     // setWishlistproductCode(filterProductId);
-        //   }
-        // }
       })
       .catch(error => {
         console.log('error for get cqrt detail', error);
@@ -270,7 +173,6 @@ export default function ResultCards(props) {
       });
   };
   const addWishlist = async data => {
-    // if (sizeCode.value != '') {
     const isAddWishlist = cartReducer.WishListDetail.wishListData.find(
       (item, index) => {
         return item.code == data.code;
@@ -279,13 +181,10 @@ export default function ResultCards(props) {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getWishlistID = await AsyncStorage.getItem('WishlistID');
-    // console.log('this us cart idfor add wi', getToken);
     if (isAddWishlist) {
       const response = await axios
         .delete(
           `${BaseURL2}/users/current/carts/${getWishlistID}/entries/${isAddWishlist.item.entryNumber}?lang=en&curr=INR`,
-          // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
-          // {quantity: 0, product: {code: isAddWishlist.code}},
           {
             headers: {
               Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -310,8 +209,7 @@ export default function ResultCards(props) {
       const response = await axios
         .post(
           `${BaseURL2}/users/current/carts/${getWishlistID}/entries?lang=en&curr=INR`,
-          // `https://apisap.fabindia.com/occ/v2/fabindiab2c/users/current/carts/08248832/entries?lang=en&curr=INR`,
-          {quantity: 1, product: {code: data.code}},
+          { quantity: 1, product: { code: data.code } },
           {
             headers: {
               Authorization: `${getToken.token_type} ${getToken.access_token}`,
@@ -323,10 +221,6 @@ export default function ResultCards(props) {
         })
 
         .catch(errors => {
-          // console.log('woiuytfgh', errors.response.status);
-          // if (errors.response.status == 401) {
-          //   refreshToken();
-          // }
           Toast.showWithGravity(
             errors?.response?.data?.errors[0]?.message,
             Toast.LONG,
@@ -345,9 +239,8 @@ export default function ResultCards(props) {
     return (
       <>
         <Card1
-          // wishlistproductCode={wishlistproductCode}
           handleClick={addWishlist}
-          customViewStyle={{marginVertical: 7}}
+          customViewStyle={{ marginVertical: 7 }}
           {...props}
           item={item.item}
           code={code}
@@ -359,24 +252,11 @@ export default function ResultCards(props) {
   const handleClick = data => {
     getProductData(data);
   };
-  // useEffect(() => {
-  //   console.log('liuytresdfklkjytdfghjklkjhgv');
-  //   isFilterVIsible =
-  //     dataMain.length > 0 &&
-  //     dataMain.facets.filter(item => {
-  //       console.log('................................', item);
-  //       return item.values.map(it => {
-  //         return it.selected == true;
-  //       });
-  //       // return item.
-  //     });
-  // }, []);
 
-  console.log('isFilterVIsibleisFilterVIsible', isFilterVIsible);
   return (
     <>
       <HomeHeader {...props} headertext={title} totalCount={totalCount} />
-      <View style={{flex: 1, backgroundColor: Colors.WHITE}}>
+      <View style={{ flex: 1, backgroundColor: Colors.WHITE }}>
         <FlatList
           numColumns={2}
           data={filterProducts}
@@ -389,9 +269,9 @@ export default function ResultCards(props) {
           refreshing={isRefreshing}
           onRefresh={onRefresh}
           ItemSeparatorComponent={() => {
-            return <View style={{height: 10}} />;
+            return <View style={{ height: 10 }} />;
           }}
-          columnWrapperStyle={{justifyContent: 'space-between'}}
+          columnWrapperStyle={{ justifyContent: 'space-between' }}
           contentContainerStyle={{
             paddingBottom: 8,
             paddingHorizontal: 16,
@@ -405,7 +285,7 @@ export default function ResultCards(props) {
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
-                <Text style={{fontSize: 16, color: Colors.textcolor}}>
+                <Text style={{ fontSize: 16, color: Colors.textcolor }}>
                   No results found
                 </Text>
               </View>
@@ -420,7 +300,7 @@ export default function ResultCards(props) {
             productCount={productCount}
             totalCount={totalCount}
             openFilter={openFilter}
-            //  openFilter={openFilter}
+          //  openFilter={openFilter}
           />
         ) : null}
 
@@ -493,13 +373,13 @@ export default function ResultCards(props) {
             <View style={styles.centeredView}>
               <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{flexGrow: 1}}>
+                contentContainerStyle={{ flexGrow: 1 }}>
                 <View style={styles.headingBox}>
-                  <View style={{width: '50%'}}>
+                  <View style={{ width: '50%' }}>
                     <Text style={styles.heading}>SORT BY</Text>
                   </View>
                   <TouchableOpacity
-                    style={{width: '50%'}}
+                    style={{ width: '50%' }}
                     onPress={() => setModalVisible(!modalVisible)}>
                     {/* <Entypo
                     name="circle-with-cross"
@@ -511,10 +391,10 @@ export default function ResultCards(props) {
                 </View>
 
                 {[
-                  {title: `What's New`, value: 'creationtime-desc'},
-                  {title: `Price: Low to High`, value: 'price-asc'},
-                  {title: `Price: High to Low`, value: 'price-desc'},
-                  {title: `Bestseller`, value: 'productCountBestSeller-desc'},
+                  { title: `What's New`, value: 'creationtime-desc' },
+                  { title: `Price: Low to High`, value: 'price-asc' },
+                  { title: `Price: High to Low`, value: 'price-desc' },
+                  { title: `Bestseller`, value: 'productCountBestSeller-desc' },
                 ].map(item => {
                   return (
                     <>

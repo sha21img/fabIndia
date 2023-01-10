@@ -23,10 +23,6 @@ export default function Details({customStyle, productdetail}) {
   // console.log('discountPrice'.discountPrice);
   openCompare = () => setModalVisible(true);
 
-  console.log(
-    ' productdetail?.price?.value productdetail?.price?.value',
-    productdetail,
-  );
   return (
     <View style={[Styles.cardDetailContainer, customStyle]}>
       <Text style={Styles.singleproducttitle}>{productdetail.name}</Text>

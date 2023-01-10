@@ -23,6 +23,16 @@ const getPagesData = (data) => {
     );
 }
 
+const getProductList = (params) => {
+    return API(
+        {
+            method: 'GET',
+            url: ApiConstants.BASE_SITE_ID + ApiConstants.GET_PRODUCT_LIST,
+            params
+        }
+    );
+}
+
 const registerUser = (data) => {
     return API(
         {
@@ -76,7 +86,7 @@ const getUserDetail = (data) => {
 export const ApiService = {
     getHomeData,
     getPagesData,
-
+    getProductList,
 
 
     registerUser,
