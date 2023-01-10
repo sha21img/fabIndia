@@ -36,10 +36,6 @@ export default function Card1(props) {
   });
   const dispatch = useDispatch();
   const {cartReducer} = useSelector(state => state);
-  console.log(
-    'itemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitemitem',
-    item,
-  );
 
   const filterSize = item.variantOptions.map(item => {
     return {
@@ -122,12 +118,12 @@ export default function Card1(props) {
       <TouchableOpacity
         style={Styles.cardContainer}
         onPress={() => {
-          dispatch(Sharedataadd(item));
-          props.navigation.navigate('ProductDetailed', {
-            productId: item.code,
-            imageUrlCheck: item,
-            code: code,
-          });
+          // dispatch(Sharedataadd(item));
+          // props.navigation.navigate('ProductDetailed', {
+          //   productId: item.code,
+          //   imageUrlCheck: item,
+          //   code: code,
+          // });
         }}
         activeOpacity={0.9}>
         <ImageBackground
