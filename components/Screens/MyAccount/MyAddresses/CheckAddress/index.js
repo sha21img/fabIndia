@@ -37,6 +37,7 @@ export default function CheckAddress(props) {
         setIsLoading(false);
       })
       .catch(errors => {
+        console.log("errorsss",errors)
         if (errors.response.status == 401) {
           setIsLoading(false);
           logout(dispatch);

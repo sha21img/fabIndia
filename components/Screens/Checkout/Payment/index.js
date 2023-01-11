@@ -74,7 +74,7 @@ const Payment = props => {
   const [showlist, setshowlist] = useState([]);
   const [cartDetails, setcartDetails] = useState(null);
   const navigation = useNavigation();
-  const openCheckout = (id, UDID, method, data, details,emid) => {
+  const openCheckout = (id, UDID, method, data, details, emid) => {
     // console.log('dataa6666666a', data.expiry.split('/')[0]);
     let options;
 
@@ -109,7 +109,7 @@ const Payment = props => {
         method: method,
         bank: data.code,
       };
-    } else if (method == 'emi'){
+    } else if (method == 'emi') {
       let card = {
         number: data.number,
         name: details?.user.name,
@@ -129,9 +129,7 @@ const Payment = props => {
         emi_duration: emid.duration,
         card: card,
       };
-    }
-    
-    else if (method == 'wallet') {
+    } else if (method == 'wallet') {
       options = {
         description: 'Payment for Fab india',
         currency: details?.totalPriceWithTax?.currencyIso,
@@ -160,7 +158,12 @@ const Payment = props => {
     console.log('optionsoptionsoptions00000', JSON.stringify(options));
     Razorpay.open(options)
       .then(data => {
-        console.log("RazorpayRazorpayRazorpayRazorpayRazorpayRazorpay",data,UDID)
+        console.log(
+          'RazorpayRazorpayRazorpayRazorpayRazorpayRazorpay',
+          data,
+          UDID,
+        );
+        UrlCallback(UDID, data);
         // navigation.navigate('OrderConfirmation', {
         //   amount: details?.totalPriceWithTax?.value,
         //   addressData: details,
@@ -170,6 +173,35 @@ const Payment = props => {
       .catch(error => {
         console.log(`Error: ${error.code} | ${error.description}`);
         alert(`Error: ${error.code} | ${error.description}`);
+      });
+  };
+  const UrlCallback = async (url, data) => {
+    let params = {
+      razorpay_order_id: data.razorpay_order_id,
+      razorpay_payment_id: data.razorpay_payment_id,
+      razorpay_signature: data.razorpay_signature,
+      fabindia_application: 'app',
+    };
+    
+    console.log("params an link--------------",params,url)
+    const response = await axios
+      .post(`${url}?razorpay_order_id=${data.razorpay_order_id}&razorpay_payment_id=${data.razorpay_payment_id}&razorpay_signature=${data.razorpay_signature}&fabindia_application=app`)
+      .then(response => {
+        if (response.status == 200) {
+          console.log(
+            'response.datresponse.dataresponse.dataresponse.dataagetDetailsgetDetailsgetDetailsgetDetailsgetDetailsgetDetailsgetDetailsgetDetailsgetDetails----------------------------------------',
+          JSON.stringify(response.data),
+          );
+          console.log("response.statusresponse.status",response.status)
+          // navigation.navigate('OrderConfirmation', {
+          //   amount: details?.totalPriceWithTax?.value,
+          //   addressData: details,
+          //   UDID: url,
+          // });
+        }
+      })
+      .catch(err => {
+        console.log("errorrrrrrrrrrrrrrrrr in razorpay",err.response.data.errors)
       });
   };
   const getDetails = async () => {
@@ -195,7 +227,7 @@ const Payment = props => {
       return response.data;
     }
   };
-  const getOrderID = async (method, data,circlepoint) => {
+  const getOrderID = async (method, data, circlepoint) => {
     const get = await AsyncStorage.getItem('generatToken');
     const getToken = JSON.parse(get);
     const getCartID = await AsyncStorage.getItem('cartID');
@@ -218,7 +250,7 @@ const Payment = props => {
     const UDID = await getUDID();
     const details = await getDetails();
     console.log('detailsdetailsdetailsdetailsdetailsdetailsdetails', details);
-    openCheckout(response.data, UDID, method, data, details,circlepoint);
+    openCheckout(response.data, UDID, method, data, details, circlepoint);
   };
   const getUDID = async () => {
     console.log('udiddddddd');
@@ -238,7 +270,8 @@ const Payment = props => {
     );
     console.log(
       'getUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDIDgetUDID',
-      response.data,getCartID
+      response.data,
+      getCartID,
     );
     return response.data;
   };
@@ -806,41 +839,44 @@ const Payment = props => {
       const getToken = JSON.parse(get);
       const getCartID = await AsyncStorage.getItem('cartID');
       console.log('this us cart idverifyOTPverifyOTPverifyOTP', getCartID);
-      const response = await axios.post(
-        `${BaseURL2}/users/current/carts/${getCartID}/payment/loyalitypoints/otp/verify/request?fields=DEFAULT&lang=en&curr=INR`,
-        {
-          otp: otp,
-          transactionId: trID,
-          amount: balance, //(cod => cart amount, baki dono me wallet amount)
-          // "walletBal": "5000.0" only for gift card (giftcard) (loyalitypoints)
-        },
-        {
-          headers: {
-            Authorization: `${getToken.token_type} ${getToken.access_token}`,
+      const response = await axios
+        .post(
+          `${BaseURL2}/users/current/carts/${getCartID}/payment/loyalitypoints/otp/verify/request?fields=DEFAULT&lang=en&curr=INR`,
+          {
+            otp: otp,
+            transactionId: trID,
+            amount: balance, //(cod => cart amount, baki dono me wallet amount)
+            // "walletBal": "5000.0" only for gift card (giftcard) (loyalitypoints)
           },
-        },
-      ).then((response)=>{
-        console.log("errr99999r",response.data)
+          {
+            headers: {
+              Authorization: `${getToken.token_type} ${getToken.access_token}`,
+            },
+          },
+        )
+        .then(response => {
+          console.log('errr99999r', response.data);
 
-        if (response.data?.success) {
-          orderPlace();
-        } else {
+          if (response.data?.success) {
+            orderPlace();
+          } else {
+            Toast.showWithGravity(
+              ' Sorry Insufficient balance',
+              Toast.LONG,
+              Toast.TOP,
+            );
+            setShowotp(false);
+          }
+        })
+        .catch(err => {
+          console.log('errrr', err.response.data.errors[0]);
           Toast.showWithGravity(
-            ' Sorry Insufficient balance',
+            err.response.data.errors[0].message,
             Toast.LONG,
             Toast.TOP,
           );
           setShowotp(false);
-        }
-      }).catch((err)=>{
-        console.log("errrr",err.response.data.errors[0])
-        Toast.showWithGravity(
-          err.response.data.errors[0].message,
-          Toast.LONG,
-          Toast.TOP,
-        );
-        setShowotp(false);
-      })
+        });
     };
     const orderPlace = async () => {
       const get = await AsyncStorage.getItem('generatToken');
@@ -1354,7 +1390,7 @@ const Payment = props => {
     const [isFocus, setIsFocus] = useState(false);
     const [data, setData] = useState([]);
     const [selected, setSelected] = useState([]);
-    const [circlepoint,setCirclepoint] = useState(null)
+    const [circlepoint, setCirclepoint] = useState(null);
 
     useEffect(() => {
       let formatedData = Object.entries(razorpaymethod.emi_options);
@@ -1422,7 +1458,7 @@ const Payment = props => {
           />
         </View>
         {selected.length ? (
-          <View style={{marginVertical:15}}>
+          <View style={{marginVertical: 15}}>
             <View
               style={{
                 flexDirection: 'row',
@@ -1456,42 +1492,41 @@ const Payment = props => {
                     flexDirection: 'row',
                     backgroundColor: index % 2 == 0 ? '#f6f6f6' : '#fff',
                   }}>
-                  
                   <View
                     style={{
                       width: '50%',
                       justifyContent: 'center',
                       alignItems: 'center',
-                      flexDirection:'row',
+                      flexDirection: 'row',
                       paddingVertical: 20,
                       borderBottomWidth: 0.8,
                       borderLeftWidth: 0.8,
                     }}>
-                      <TouchableOpacity
-                       onPress={()=>{
-                        setCirclepoint(item)
-                       }}
-                    style={{
-                      borderWidth: 1,
-                      borderColor: Colors.primarycolor,
-                      width: 20,
-                      height: 20,
-                      marginRight:15,
-                      borderRadius: 10,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    {circlepoint?.duration == item?.duration ? (
-                      <View
-                        style={{
-                          backgroundColor: Colors.primarycolor,
-                          width: 14,
-                          height: 14,
-                          borderRadius: 10,
-                        }}
-                      />
-                    ) : null}
-                  </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setCirclepoint(item);
+                      }}
+                      style={{
+                        borderWidth: 1,
+                        borderColor: Colors.primarycolor,
+                        width: 20,
+                        height: 20,
+                        marginRight: 15,
+                        borderRadius: 10,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      {circlepoint?.duration == item?.duration ? (
+                        <View
+                          style={{
+                            backgroundColor: Colors.primarycolor,
+                            width: 14,
+                            height: 14,
+                            borderRadius: 10,
+                          }}
+                        />
+                      ) : null}
+                    </TouchableOpacity>
                     <Text>{item.duration}</Text>
                   </View>
                   <View
@@ -1523,7 +1558,7 @@ const Payment = props => {
         />
         <TouchableOpacity
           onPress={() => {
-            getOrderID('emi', card,circlepoint);
+            getOrderID('emi', card, circlepoint);
           }}
           style={{
             backgroundColor: Colors.primarycolor,

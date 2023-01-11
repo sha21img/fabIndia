@@ -132,7 +132,7 @@ export default function Card1(props) {
         onPress={() => {
           dispatch(Sharedataadd(item));
           props.navigation.navigate('ProductDetailed', {
-            productId: !!sizeCode.code || item.code,
+            productId: sizeCode.code || item.code,
             imageUrlCheck: item,
             code: code,
           });
